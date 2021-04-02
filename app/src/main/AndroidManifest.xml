@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TheMovieShow">
         <activity
-            android:name=".main.MainActivity"
+            android:name=".main.activity.MainActivity"
             android:theme="@style/TheMovieShowDarkActivityTheme"/>
         <activity
             android:name=".detail.DetailActivity"

@@ -6,7 +6,7 @@ import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import com.taufik.themovieshow.databinding.ActivitySplashscreenBinding
-import com.taufik.themovieshow.main.MainActivity
+import com.taufik.themovieshow.main.activity.MainActivity
 
 class SplashscreenActivity : AppCompatActivity() {
 
