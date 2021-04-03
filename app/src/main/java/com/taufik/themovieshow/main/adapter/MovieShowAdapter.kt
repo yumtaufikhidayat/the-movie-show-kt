@@ -1,4 +1,4 @@
-package com.taufik.themovieshow.movie.adapter
+package com.taufik.themovieshow.main.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,39 +7,40 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.taufik.themovieshow.R
-import com.taufik.themovieshow.data.Movie
-import com.taufik.themovieshow.databinding.ItemsMovieBinding
+import com.taufik.themovieshow.data.MovieShow
+import com.taufik.themovieshow.databinding.ItemsMovieShowBinding
+import com.taufik.themovieshow.utils.Utils
 
-class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>(){
+class MovieShowAdapter : RecyclerView.Adapter<MovieShowAdapter.MovieViewHolder>(){
 
-    private var listMovies = ArrayList<Movie>()
+    private var listMovies = ArrayList<MovieShow>()
 
-    fun setMovie(movies: List<Movie>) {
+    fun setMovie(movieShows: List<MovieShow>) {
         this.listMovies.clear()
-        this.listMovies.addAll(movies)
+        this.listMovies.addAll(movieShows)
         notifyDataSetChanged()
     }
 
-    inner class MovieViewHolder (private val binding: ItemsMovieBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(movie: Movie) {
+    inner class MovieViewHolder (private val binding: ItemsMovieShowBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(movieShow: MovieShow) {
             with(binding) {
                 Glide.with(itemView.context)
-                    .load("https://image.tmdb.org/t/p/w780/" + movie.imagePoster)
+                    .load(Utils.IMAGE_URL + movieShow.imagePoster)
                     .apply(
                         RequestOptions.placeholderOf(R.drawable.ic_loading)
                             .error(R.drawable.ic_error)
                     )
                     .into(imgPoster)
 
-                tvTitle.text = movie.title
-                tvReleaseDate.text = movie.releaseDate
-                tvRating.text = movie.rate.toString()
+                tvTitle.text = movieShow.title
+                tvReleaseDate.text = movieShow.releaseDate
+                tvRating.text = movieShow.rate.toString()
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val itemsMovieBinding = ItemsMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val itemsMovieBinding = ItemsMovieShowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MovieViewHolder(itemsMovieBinding)
     }
 

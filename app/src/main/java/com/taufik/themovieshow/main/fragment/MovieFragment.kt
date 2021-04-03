@@ -1,4 +1,4 @@
-package com.taufik.themovieshow.movie.fragment
+package com.taufik.themovieshow.main.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,8 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.taufik.themovieshow.databinding.FragmentMovieBinding
-import com.taufik.themovieshow.movie.adapter.MovieAdapter
-import com.taufik.themovieshow.movie.viewmodel.MovieViewModel
+import com.taufik.themovieshow.main.adapter.MovieShowAdapter
+import com.taufik.themovieshow.main.viewmodel.MovieShowViewModel
 
 class MovieFragment : Fragment() {
 
@@ -31,10 +31,10 @@ class MovieFragment : Fragment() {
     }
 
     private fun setData() {
-        val viewModel = ViewModelProvider(requireActivity(), ViewModelProvider.NewInstanceFactory())[MovieViewModel::class.java]
+        val viewModel = ViewModelProvider(requireActivity(), ViewModelProvider.NewInstanceFactory())[MovieShowViewModel::class.java]
         val movies = viewModel.getMovies()
 
-        val movieAdapter = MovieAdapter()
+        val movieAdapter = MovieShowAdapter()
         movieAdapter.setMovie(movies)
 
         with(movieFragmentMovieBinding.rvMovie) {

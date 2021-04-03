@@ -1,15 +1,14 @@
 package com.taufik.themovieshow.utils
 
-import com.taufik.themovieshow.data.Movie
-import com.taufik.themovieshow.data.TvShow
+import com.taufik.themovieshow.data.MovieShow
 
 object DataDummy {
 
-    fun generateMovies(): List<Movie> {
+    fun generateMovies(): List<MovieShow> {
 
-        val movies = ArrayList<Movie>()
+        val movies = ArrayList<MovieShow>()
 
-        movies.add(Movie(
+        movies.add(MovieShow(
             399566,
             "pgqgaUx1cJb5oZQQ5v0tNARCeBp.jpg",
             "Godzilla vs Kong",
@@ -17,7 +16,7 @@ object DataDummy {
             8.7
         ))
 
-        movies.add(Movie(
+        movies.add(MovieShow(
             527774,
             "lPsD10PP4rgUGiGR4CCXA6iY0QQ.jpg",
             "Raya and the Last Dragon",
@@ -25,7 +24,7 @@ object DataDummy {
             8.7
         ))
 
-        movies.add(Movie(
+        movies.add(MovieShow(
             587807,
             "6KErczPBROQty7QoIsaa6wJYXZi.jpg",
             "Tom & Jerry",
@@ -33,7 +32,7 @@ object DataDummy {
             7.4
         ))
 
-        movies.add(Movie(
+        movies.add(MovieShow(
             464052,
             "8UlWHLMpgZm9bx6QYh0NFoq67TZ.jpg",
             "Wonder Woman 1984",
@@ -41,7 +40,7 @@ object DataDummy {
             6.8
         ))
 
-        movies.add(Movie(
+        movies.add(MovieShow(
             458576,
             "1UCOF11QCw8kcqvce8LKOO6pimh.jpg",
             "Monster Hunter",
@@ -49,7 +48,7 @@ object DataDummy {
             7.1
         ))
 
-        movies.add(Movie(
+        movies.add(MovieShow(
             544401,
             "pwDvkDyaHEU9V7cApQhbcSJMG1w.jpg",
             "Cherry",
@@ -57,7 +56,7 @@ object DataDummy {
             7.6
         ))
 
-        movies.add(Movie(
+        movies.add(MovieShow(
             602269,
             "c7VlGCCgM9GZivKSzBgzuOVxQn7.jpg",
             "The Little Things",
@@ -65,7 +64,7 @@ object DataDummy {
             6.4
         ))
 
-        movies.add(Movie(
+        movies.add(MovieShow(
             560144,
             "2W4ZvACURDyhiNnSIaFPHfNbny3.jpg",
             "Skylines",
@@ -73,7 +72,7 @@ object DataDummy {
             5.9
         ))
 
-        movies.add(Movie(
+        movies.add(MovieShow(
             651571,
             "13B6onhL6FzSN2KaNeQeMML05pS.jpg",
             "Breach",
@@ -81,7 +80,7 @@ object DataDummy {
             4.6
         ))
 
-        movies.add(Movie(
+        movies.add(MovieShow(
             529203,
             "tbVZ3Sq88dZaCANlUcewQuHQOaE.jpg",
             "The Croods: A New Age",
@@ -92,98 +91,88 @@ object DataDummy {
         return movies
     }
 
-    fun generateTvShow(): List<TvShow> {
+    fun generateTvShow(): List<MovieShow> {
 
-        val tvShow = ArrayList<TvShow>()
+        val tvShow = ArrayList<MovieShow>()
 
-        tvShow.add(TvShow(
-            35624,
-            "https://static.episodate.com/images/tv-show/thumbnail/35624.jpg",
-        "The Flash",
-            "The CW (US)",
-        "2014-10-07",
-            "Running"
+        tvShow.add(MovieShow(
+            88396,
+            "6kbAMLteGO8yyewYau6bJ683sw7.jpg",
+            "The Falcon and the Winter Soldier",
+            "2021-03-19",
+            7.8
         ))
 
-        tvShow.add(TvShow(
-            23455,
-            "https://static.episodate.com/images/tv-show/thumbnail/23455.jpg",
-        "Game of Thrones",
-            "HBO (US)",
-        "2011-04-17",
-            "Ended"
+        tvShow.add(MovieShow(
+            60735,
+            "lJA2RCMfsWoskqlQhXPSLFQGXEJ.jpg",
+            "The Flash",
+            "2014-10-07",
+            7.7
         ))
 
-        tvShow.add(TvShow(
-            29560,
-            "https://static.episodate.com/images/tv-show/thumbnail/29560.jpg",
-        "Arrow",
-            "The CW (US)",
-        "2012-10-10",
-            "Ended"
+        tvShow.add(MovieShow(
+            69050,
+            "wRbjVBdDo5qHAEOVYoMWpM58FSA.jpg",
+            "Riverdale",
+            "2017-01-26",
+            8.6
         ))
 
-        tvShow.add(TvShow(
-            43467,
-            "https://static.episodate.com/images/tv-show/thumbnail/43467.com",
-        "Lucifer",
-            "Netflix (US)",
-        "2016-01-25",
-            "Running"
+        tvShow.add(MovieShow(
+            71712,
+            "6tfT03sGp9k4c0J3dypjrI8TSAI.jpg",
+            "The Good Doctor",
+            "2017-09-25",
+            8.6
         ))
 
-        tvShow.add(TvShow(
-            43234,
-            "https://static.episodate.com/images/tv-show/thumbnail/43234.jpg",
-        "Supergirl",
-            "The CW (US)",
-            "2015-10-26",
-            "Running"
+        tvShow.add(MovieShow(
+            95057,
+            "6SJppowm7cdQgLkvoTlnTUSbjr9.jpg",
+            "Superman & Lois",
+            "2021-02-23",
+            8.3
         ))
 
-        tvShow.add(TvShow(
-            46692,
-            "https://static.episodate.com/images/tv-show/thumbnail/46692.jpg",
-        "DC's Legends of Tomorrow",
-            "The CW (US)",
-        "2016-01-21",
-            "Running"
+        tvShow.add(MovieShow(
+            1416,
+            "clnyhPqj1SNgpAdeSS6a6fwE6Bo.jpg",
+            "Grey's Anatomy",
+            "2005-03-27",
+            8.2
         ))
 
-        tvShow.add(TvShow(
-            24010,
-            "https://static.episodate.com/images/tv-show/thumbnail/24010.jpg",
-        "The Walking Dead",
-            "AMC (US)",
-        "2010-10-31",
-        "Running"
+        tvShow.add(MovieShow(
+            1402,
+            "rqeYMLryjcawh2JeRpCVUDXYM5b.jpg",
+            "The Walking Dead",
+            "2010-10-31",
+            8.0
         ))
 
-        tvShow.add(TvShow(
-            47145,
-            "https://static.episodate.com/images/tv-show/thumbnail/47145.jpg",
-        "Dragon Ball Super",
-            "Fuji TV (JP)",
-        "2015-07-05",
-            "Ended"
+        tvShow.add(MovieShow(
+            85271,
+            "glKDfE6btIRcVB5zrjspRIs4r52.jpg",
+            "WandaVision",
+            "2021-01-15",
+            8.5
         ))
 
-        tvShow.add(TvShow(
-            46778,
-            "https://static.episodate.com/images/tv-show/thumbnail/46778.jpg",
-        "Stranger Things",
-            "Netflix (US)",
-        "2016-07-15",
-            "Running"
+        tvShow.add(MovieShow(
+            63174,
+            "4EYPN5mVIhKLfxGruy7Dy41dTVn.jpg",
+            "Lucifer",
+            "2014-03-19",
+            8.5
         ))
 
-        tvShow.add(TvShow(
-            33514,
-            "https://static.episodate.com/images/tv-show/thumbnail/33514.jpg",
-        "The 100",
-            "The CW (US)",
-        "2014-03-19",
-            "Ended"
+        tvShow.add(MovieShow(
+            117023,
+            "uTFX9V2dct1nKjG6zhNiThPm8Tp.jpg",
+            "Sky Rojo",
+            "2021-03-19",
+            7.9
         ))
 
         return tvShow

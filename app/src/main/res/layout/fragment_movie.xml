@@ -5,14 +5,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".movie.fragment.MovieFragment">
+    tools:context=".main.fragment.MovieFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvMovie"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical"
-        tools:listitem="@layout/items_movie"
+        tools:listitem="@layout/items_movie_show"
         app:layout_constraintTop_toTopOf="parent"/>
 
     <ProgressBar
