@@ -2,6 +2,11 @@
     <string name="app_name">The Movie Show</string>
     <string name="tvMovie">Movie</string>
     <string name="tvShows">TV Shows</string>
+    <string name="tvTitle">Title</string>
+    <string name="tvRating">Rating</string>
+    <string name="tvNetwork">Network</string>
+    <string name="tvReleaseDate">Release Date</string>
+    <string name="tvStatus">Status</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

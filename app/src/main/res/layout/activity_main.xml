@@ -14,8 +14,8 @@
         android:background="@color/purple_700"
         app:tabGravity="fill"
         app:tabInlineLabel="true"
-        app:tabIndicatorColor="@color/purple_500"
-        app:tabIndicatorHeight="2dp"
+        app:tabIndicatorColor="@color/purple_200"
+        app:tabIndicatorHeight="3dp"
         app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
         app:tabSelectedTextColor="@color/white"
         app:layout_constraintTop_toTopOf="parent"/>
