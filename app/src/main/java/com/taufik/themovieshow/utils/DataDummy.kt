@@ -1,6 +1,7 @@
 package com.taufik.themovieshow.utils
 
 import com.taufik.themovieshow.data.MovieShow
+import com.taufik.themovieshow.data.MovieShowDetail
 
 object DataDummy {
 
@@ -89,6 +90,28 @@ object DataDummy {
         ))
 
         return movies
+    }
+
+    fun generateMoviesDetail(id: Int): List<MovieShowDetail> {
+
+        val movieDetail = ArrayList<MovieShowDetail>()
+
+        movieDetail.add(MovieShowDetail(
+            399566,
+            "pgqgaUx1cJb5oZQQ5v0tNARCeBp.jpg",
+            "jMWkd0fuwbG39eJpzycJzPWMCww.jpg",
+            "Godzilla vs Kong",
+            "Warner Bros. Pictures",
+            "2021-03-24",
+            "Released",
+            "In a time when monsters walk the Earth, humanity’s fight for its future sets Godzilla and Kong on a collision course that will see the " +
+                    "two most powerful forces of nature on the planet collide in a spectacular battle for the ages.",
+            8.6,
+            "Action",
+            "113",
+        ))
+
+        return movieDetail
     }
 
     fun generateTvShow(): List<MovieShow> {

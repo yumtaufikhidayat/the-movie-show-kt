@@ -16,7 +16,7 @@
             android:name=".main.activity.MainActivity"
             android:theme="@style/TheMovieShowDarkActivityTheme"/>
         <activity
-            android:name=".detail.DetailActivity"
+            android:name=".detail.activity.DetailActivity"
             android:theme="@style/TheMovieShowDarkActivityTheme"/>
         <activity android:name=".splashscreen.SplashscreenActivity">
             <intent-filter>
