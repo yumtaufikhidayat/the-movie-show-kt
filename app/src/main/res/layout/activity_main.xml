@@ -5,17 +5,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     tools:context=".main.activity.MainActivity">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayoutMain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/purple_700"
+        android:background="@color/colorPrimaryDark"
         app:tabGravity="fill"
         app:tabInlineLabel="true"
-        app:tabIndicatorColor="@color/purple_200"
-        app:tabIndicatorHeight="3dp"
+        app:tabIndicatorColor="@color/white"
+        app:tabIndicatorHeight="2dp"
         app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
         app:tabSelectedTextColor="@color/white"
         app:layout_constraintTop_toTopOf="parent"/>

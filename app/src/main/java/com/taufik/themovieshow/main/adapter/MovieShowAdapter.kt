@@ -1,14 +1,15 @@
 package com.taufik.themovieshow.main.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.MovieShow
 import com.taufik.themovieshow.databinding.ItemsMovieShowBinding
+import com.taufik.themovieshow.detail.DetailActivity
 import com.taufik.themovieshow.utils.Utils
 
 class MovieShowAdapter : RecyclerView.Adapter<MovieShowAdapter.MovieViewHolder>(){
@@ -35,6 +36,13 @@ class MovieShowAdapter : RecyclerView.Adapter<MovieShowAdapter.MovieViewHolder>(
                 tvTitle.text = movieShow.title
                 tvReleaseDate.text = movieShow.releaseDate
                 tvRating.text = movieShow.rate.toString()
+
+                itemView.setOnClickListener {
+                    val intent = Intent(itemView.context, DetailActivity::class.java).apply {
+                        putExtra(DetailActivity.EXTRA_DETAIL, movieShow)
+                    }
+                    it.context.startActivity(intent)
+                }
             }
         }
     }
@@ -47,10 +55,6 @@ class MovieShowAdapter : RecyclerView.Adapter<MovieShowAdapter.MovieViewHolder>(
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val pos = listMovies[position]
         holder.bind(pos)
-
-        holder.itemView.setOnClickListener {
-            Toast.makeText(holder.itemView.context, " ${pos.title} diklik", Toast.LENGTH_SHORT).show()
-        }
     }
 
     override fun getItemCount(): Int = listMovies.size
