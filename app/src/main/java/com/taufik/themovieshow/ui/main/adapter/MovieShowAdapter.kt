@@ -1,4 +1,4 @@
-package com.taufik.themovieshow.main.adapter
+package com.taufik.themovieshow.ui.main.adapter
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.MovieShow
 import com.taufik.themovieshow.databinding.ItemsMovieShowBinding
-import com.taufik.themovieshow.detail.activity.DetailActivity
+import com.taufik.themovieshow.ui.detail.activity.DetailActivity
 import com.taufik.themovieshow.utils.Utils
 
 class MovieShowAdapter : RecyclerView.Adapter<MovieShowAdapter.MovieViewHolder>(){

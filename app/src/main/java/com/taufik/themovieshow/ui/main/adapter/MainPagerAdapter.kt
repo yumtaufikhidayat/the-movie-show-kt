@@ -1,4 +1,4 @@
-package com.taufik.themovieshow.main.adapter
+package com.taufik.themovieshow.ui.main.adapter
 
 import android.content.Context
 import androidx.annotation.StringRes
@@ -6,8 +6,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.taufik.themovieshow.R
-import com.taufik.themovieshow.main.fragment.MovieFragment
-import com.taufik.themovieshow.main.fragment.TVShowsFragment
+import com.taufik.themovieshow.ui.main.fragment.MovieFragment
+import com.taufik.themovieshow.ui.main.fragment.TVShowsFragment
 
 class MainPagerAdapter(private val context: Context, fragmentManager: FragmentManager)
     : FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {

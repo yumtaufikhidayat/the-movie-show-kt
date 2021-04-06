@@ -1,4 +1,4 @@
-package com.taufik.themovieshow.detail.activity
+package com.taufik.themovieshow.ui.detail.activity
 
 import android.os.Bundle
 import android.view.MenuItem
@@ -10,14 +10,14 @@ import com.bumptech.glide.request.RequestOptions
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.MovieShowDetail
 import com.taufik.themovieshow.databinding.ActivityDetailBinding
-import com.taufik.themovieshow.detail.viewmodel.DetailViewModel
+import com.taufik.themovieshow.ui.detail.viewmodel.DetailViewModel
 import kotlin.properties.Delegates
 
 class DetailActivity : AppCompatActivity() {
 
     companion object {
-        const val EXTRA_DETAIL_ID = "com.taufik.themovieshow.detail.activity.EXTRA_DETAIL_ID"
-        const val EXTRA_DETAIL_TITLE = "com.taufik.themovieshow.detail.activity.EXTRA_DETAIL_TITLE"
+        const val EXTRA_DETAIL_ID = "com.taufik.themovieshow.ui.detail.activity.EXTRA_DETAIL_ID"
+        const val EXTRA_DETAIL_TITLE = "com.taufik.themovieshow.ui.detail.activity.EXTRA_DETAIL_TITLE"
     }
 
     private lateinit var binding: ActivityDetailBinding

@@ -1,9 +1,9 @@
-package com.taufik.themovieshow.main.activity
+package com.taufik.themovieshow.ui.main.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.taufik.themovieshow.databinding.ActivityMainBinding
-import com.taufik.themovieshow.main.adapter.MainPagerAdapter
+import com.taufik.themovieshow.ui.main.adapter.MainPagerAdapter
 
 class MainActivity : AppCompatActivity() {
 

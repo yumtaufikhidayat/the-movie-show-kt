@@ -1,4 +1,4 @@
-package com.taufik.themovieshow.main.fragment
+package com.taufik.themovieshow.ui.main.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,8 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.taufik.themovieshow.databinding.FragmentTvShowsBinding
-import com.taufik.themovieshow.main.adapter.MovieShowAdapter
-import com.taufik.themovieshow.main.viewmodel.MovieShowViewModel
+import com.taufik.themovieshow.ui.main.adapter.MovieShowAdapter
+import com.taufik.themovieshow.ui.main.viewmodel.MovieShowViewModel
 
 class TVShowsFragment : Fragment() {
 

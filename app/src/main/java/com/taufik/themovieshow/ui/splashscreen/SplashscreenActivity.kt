@@ -1,4 +1,4 @@
-package com.taufik.themovieshow.splashscreen
+package com.taufik.themovieshow.ui.splashscreen
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,7 +6,7 @@ import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import com.taufik.themovieshow.databinding.ActivitySplashscreenBinding
-import com.taufik.themovieshow.main.activity.MainActivity
+import com.taufik.themovieshow.ui.main.activity.MainActivity
 
 class SplashscreenActivity : AppCompatActivity() {
 

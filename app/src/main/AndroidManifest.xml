@@ -13,12 +13,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TheMovieShow">
         <activity
-            android:name=".main.activity.MainActivity"
+            android:name="com.taufik.themovieshow.ui.main.activity.MainActivity"
             android:theme="@style/TheMovieShowDarkActivityTheme"/>
         <activity
-            android:name=".detail.activity.DetailActivity"
+            android:name="com.taufik.themovieshow.ui.detail.activity.DetailActivity"
             android:theme="@style/TheMovieShowDarkActivityTheme"/>
-        <activity android:name=".splashscreen.SplashscreenActivity">
+        <activity android:name="com.taufik.themovieshow.ui.splashscreen.SplashscreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
