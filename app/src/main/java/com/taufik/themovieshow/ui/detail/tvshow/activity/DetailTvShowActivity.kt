@@ -1,4 +1,4 @@
-package com.taufik.themovieshow.ui.detail.activity
+package com.taufik.themovieshow.ui.detail.tvshow.activity
 
 import android.os.Bundle
 import android.view.MenuItem
@@ -9,24 +9,24 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.MovieShowDetail
-import com.taufik.themovieshow.databinding.ActivityDetailBinding
-import com.taufik.themovieshow.ui.detail.viewmodel.DetailViewModel
+import com.taufik.themovieshow.databinding.ActivityDetailTvShowBinding
+import com.taufik.themovieshow.ui.detail.movie.viewmodel.DetailViewModel
 import kotlin.properties.Delegates
 
-class DetailActivity : AppCompatActivity() {
+class DetailTvShowActivity : AppCompatActivity() {
 
     companion object {
-        const val EXTRA_DETAIL_ID = "com.taufik.themovieshow.ui.detail.activity.EXTRA_DETAIL_ID"
-        const val EXTRA_DETAIL_TITLE = "com.taufik.themovieshow.ui.detail.activity.EXTRA_DETAIL_TITLE"
+        const val EXTRA_DETAIL_ID = "com.taufik.themovieshow.ui.main.movie.ui.activity.EXTRA_DETAIL_ID"
+        const val EXTRA_DETAIL_TITLE = "com.taufik.themovieshow.ui.main.movie.ui.activity.EXTRA_DETAIL_TITLE"
     }
 
-    private lateinit var binding: ActivityDetailBinding
+    private lateinit var binding: ActivityDetailTvShowBinding
     private var id by Delegates.notNull<Int>()
     private lateinit var title: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityDetailBinding.inflate(layoutInflater)
+        binding = ActivityDetailTvShowBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setParcelableData()
@@ -63,13 +63,13 @@ class DetailActivity : AppCompatActivity() {
 
     private fun populateDetailData(movieShowDetail: MovieShowDetail) {
         binding.apply {
-            Glide.with(this@DetailActivity)
+            Glide.with(this@DetailTvShowActivity)
                 .load(movieShowDetail.imageBackdrop)
                 .transform(RoundedCorners(20))
                 .placeholder(R.color.colorPrimaryDark)
                 .into(imgBackdrop)
 
-            Glide.with(this@DetailActivity)
+            Glide.with(this@DetailTvShowActivity)
                 .load(movieShowDetail.imagePoster)
                 .transform(RoundedCorners(20))
                 .apply(RequestOptions.placeholderOf(R.drawable.ic_loading)

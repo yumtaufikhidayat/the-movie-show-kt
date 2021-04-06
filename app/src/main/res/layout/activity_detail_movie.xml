@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context=".ui.detail.activity.DetailActivity">
+    tools:context=".ui.main.movie.ui.activity.DetailMovieActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -49,23 +49,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:text="@string/tvTitle"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:textSize="20sp"
             app:layout_constraintTop_toBottomOf="@id/imgBackdrop"
-            app:layout_constraintStart_toEndOf="@id/cardPoster"/>
-
-        <TextView
-            android:id="@+id/tvCompanyProduction"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:text="@string/tvCompanyProduction"
-            android:textColor="@color/colorOrange"
-            app:layout_constraintStart_toStartOf="@id/tvTitle"
-            app:layout_constraintTop_toBottomOf="@id/tvTitle"/>
+            app:layout_constraintStart_toEndOf="@id/cardPoster"
+            tools:text="@string/tvTitle"/>
 
         <TextView
             android:id="@+id/tvReleaseDate"
@@ -73,10 +62,10 @@
             android:layout_height="wrap_content"
             android:maxLines="1"
             android:ellipsize="end"
-            android:text="@string/tvReleaseDate"
             android:textColor="@color/colorGrey"
             app:layout_constraintStart_toStartOf="@id/tvTitle"
-            app:layout_constraintTop_toBottomOf="@id/tvCompanyProduction"/>
+            app:layout_constraintTop_toBottomOf="@id/tvTitle"
+            tools:text="@string/tvReleaseDate"/>
 
         <TextView
             android:id="@+id/tvStatus"
@@ -84,20 +73,20 @@
             android:layout_height="wrap_content"
             android:maxLines="1"
             android:ellipsize="end"
-            android:text="@string/tvStatus"
             android:textColor="@android:color/holo_green_light"
             app:layout_constraintStart_toStartOf="@id/tvTitle"
-            app:layout_constraintTop_toBottomOf="@id/tvReleaseDate"/>
+            app:layout_constraintTop_toBottomOf="@id/tvReleaseDate"
+            tools:text="@string/tvStatus"/>
 
         <com.codesgood.views.JustifiedTextView
             android:id="@+id/tvOverview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:text="@string/tvLoremIpsum"
             android:textColor="@color/white"
             app:layout_constraintTop_toBottomOf="@id/cardPoster"
-            app:layout_constraintStart_toStartOf="@id/cardPoster"/>
+            app:layout_constraintStart_toStartOf="@id/cardPoster"
+            tools:text="@string/tvLoremIpsum"/>
 
         <View
             android:id="@+id/viewHelper1"
@@ -133,9 +122,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:includeFontPadding="false"
-                android:text="@string/tvRating"
                 android:textColor="@color/colorTextIcons"
-                android:textSize="12sp"/>
+                android:textSize="12sp"
+                tools:text="@string/tvRating"/>
 
             <ImageView
                 android:layout_width="10dp"
@@ -149,7 +138,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="@string/tvGenre"
                 android:textColor="@color/colorTextIcons"
                 android:textSize="12sp"/>
 
@@ -158,16 +146,26 @@
                 android:layout_height="10dp"
                 android:layout_marginStart="8dp"
                 android:contentDescription="@null"
-                android:src="@drawable/ic_circle"/>
+                android:src="@drawable/ic_circle"
+                tools:text="@string/tvGenre"/>
 
             <TextView
                 android:id="@+id/tvRuntime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="@string/tvRuntime"
                 android:textColor="@color/colorTextIcons"
-                android:textSize="12sp"/>
+                android:textSize="12sp"
+                tools:text="@string/tvRuntime"/>
+
+            <TextView
+                android:id="@+id/tvMins"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:textColor="@color/colorTextIcons"
+                android:textSize="12sp"
+                android:text="@string/tvMins"/>
 
         </LinearLayout>
 

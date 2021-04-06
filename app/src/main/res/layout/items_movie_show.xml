@@ -76,7 +76,7 @@
         android:textColor="@color/colorGrey"
         app:layout_constraintStart_toStartOf="@id/tvTitle"
         app:layout_constraintTop_toBottomOf="@id/tvTitle"
-        android:text="@string/tvReleaseDate"/>
+        tools:text="@string/tvReleaseDate"/>
 
     <ImageView
         android:id="@+id/imgRate"
@@ -95,9 +95,9 @@
         android:gravity="start"
         android:textSize="14sp"
         android:textColor="@color/white"
-        android:text="@string/tvRating"
         app:layout_constraintStart_toEndOf="@id/imgRate"
         app:layout_constraintTop_toTopOf="@id/imgRate"
-        app:layout_constraintBottom_toBottomOf="@id/imgRate"/>
+        app:layout_constraintBottom_toBottomOf="@id/imgRate"
+        tools:text="@string/tvRating"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

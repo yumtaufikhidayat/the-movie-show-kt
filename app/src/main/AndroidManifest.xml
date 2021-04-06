@@ -16,7 +16,7 @@
             android:name="com.taufik.themovieshow.ui.main.activity.MainActivity"
             android:theme="@style/TheMovieShowDarkActivityTheme"/>
         <activity
-            android:name="com.taufik.themovieshow.ui.detail.activity.DetailActivity"
+            android:name="com.taufik.themovieshow.ui.main.movie.ui.activity.DetailMovieActivity"
             android:theme="@style/TheMovieShowDarkActivityTheme"/>
         <activity android:name="com.taufik.themovieshow.ui.splashscreen.SplashscreenActivity">
             <intent-filter>

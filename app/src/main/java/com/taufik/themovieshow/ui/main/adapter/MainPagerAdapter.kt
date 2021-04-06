@@ -6,8 +6,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.taufik.themovieshow.R
-import com.taufik.themovieshow.ui.main.fragment.MovieFragment
-import com.taufik.themovieshow.ui.main.fragment.TVShowsFragment
+import com.taufik.themovieshow.ui.main.movie.ui.fragment.MovieFragment
+import com.taufik.themovieshow.ui.main.tvshow.fragment.TVShowsFragment
 
 class MainPagerAdapter(private val context: Context, fragmentManager: FragmentManager)
     : FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {

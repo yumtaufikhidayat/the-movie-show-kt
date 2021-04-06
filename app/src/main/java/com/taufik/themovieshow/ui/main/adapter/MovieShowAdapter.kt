@@ -9,7 +9,8 @@ import com.bumptech.glide.request.RequestOptions
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.MovieShow
 import com.taufik.themovieshow.databinding.ItemsMovieShowBinding
-import com.taufik.themovieshow.ui.detail.activity.DetailActivity
+import com.taufik.themovieshow.ui.detail.tvshow.activity.DetailTvShowActivity
+import com.taufik.themovieshow.ui.main.movie.ui.activity.DetailMovieActivity
 import com.taufik.themovieshow.utils.Utils
 
 class MovieShowAdapter : RecyclerView.Adapter<MovieShowAdapter.MovieViewHolder>(){
@@ -43,8 +44,8 @@ class MovieShowAdapter : RecyclerView.Adapter<MovieShowAdapter.MovieViewHolder>(
 //                        putExtra(DetailActivity.EXTRA_DETAIL_TITLE, movieShow.title)
 //                    }
 //                    it.context.startActivity(intent)
-                    val intent = Intent(itemView.context, DetailActivity::class.java).apply {
-                        putExtra(DetailActivity.EXTRA_DETAIL_TITLE, movieShow.title)
+                    val intent = Intent(itemView.context, DetailTvShowActivity::class.java).apply {
+                        putExtra(DetailMovieActivity.EXTRA_DETAIL_TITLE, movieShow.title)
                     }
                     it.context.startActivity(intent)
                 }

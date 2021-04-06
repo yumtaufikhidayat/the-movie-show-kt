@@ -16,4 +16,5 @@
     <string name="tvBullet">\u2022</string>
     <string name="tvRuntime">Runtime</string>
     <string name="tvGenre">Genre</string>
+    <string name="tvMins">mins</string>
 </resources>

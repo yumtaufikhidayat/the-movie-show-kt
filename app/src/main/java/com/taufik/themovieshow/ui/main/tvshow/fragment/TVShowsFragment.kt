@@ -1,4 +1,4 @@
-package com.taufik.themovieshow.ui.main.fragment
+package com.taufik.themovieshow.ui.main.tvshow.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
