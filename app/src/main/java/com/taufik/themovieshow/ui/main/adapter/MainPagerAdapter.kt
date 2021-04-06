@@ -6,8 +6,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.taufik.themovieshow.R
-import com.taufik.themovieshow.ui.main.movie.ui.fragment.MovieFragment
-import com.taufik.themovieshow.ui.main.tvshow.fragment.TVShowsFragment
+import com.taufik.themovieshow.ui.main.movie.ui.fragment.MovieNowPlayingFragment
+import com.taufik.themovieshow.ui.main.tvshow.ui.fragment.TVShowsPopularFragment
 
 class MainPagerAdapter(private val context: Context, fragmentManager: FragmentManager)
     : FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
@@ -20,8 +20,8 @@ class MainPagerAdapter(private val context: Context, fragmentManager: FragmentMa
     override fun getItem(position: Int): Fragment {
         var fragment: Fragment? = null
         when (position) {
-            0 -> fragment = MovieFragment()
-            1 -> fragment = TVShowsFragment()
+            0 -> fragment = MovieNowPlayingFragment()
+            1 -> fragment = TVShowsPopularFragment()
         }
 
         return fragment as Fragment

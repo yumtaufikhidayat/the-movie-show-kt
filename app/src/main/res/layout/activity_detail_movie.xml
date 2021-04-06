@@ -52,6 +52,8 @@
             android:textColor="@color/white"
             android:textStyle="bold"
             android:textSize="20sp"
+            android:maxLines="1"
+            android:ellipsize="end"
             app:layout_constraintTop_toBottomOf="@id/imgBackdrop"
             app:layout_constraintStart_toEndOf="@id/cardPoster"
             tools:text="@string/tvTitle"/>

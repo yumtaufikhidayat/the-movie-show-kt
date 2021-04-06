@@ -18,5 +18,5 @@ interface Api {
     fun getDetailMovieNowPlaying(
         @Path("movie_id") movieId: Int,
         @Query("api_key") apiKey: String
-    ):Call<MovieDetailResponse>
+    ): Call<MovieDetailResponse>
 }

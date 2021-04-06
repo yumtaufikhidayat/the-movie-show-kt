@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import com.taufik.themovieshow.api.ApiClient
 import com.taufik.themovieshow.ui.main.movie.data.movie.MovieResponse
 import com.taufik.themovieshow.ui.main.movie.data.movie.MovieResult
-import com.taufik.themovieshow.ui.main.movie.data.moviedetail.MovieDetailResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
