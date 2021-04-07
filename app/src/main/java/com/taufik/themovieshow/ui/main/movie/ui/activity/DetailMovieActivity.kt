@@ -76,7 +76,13 @@ class DetailMovieActivity : AppCompatActivity() {
                     tvStatus.text = it.status
                     tvOverview.text = it.overview
                     tvRating.text = it.voteAverage.toString()
-                    tvGenre.text = it.genres[0].name
+
+                    if (it.genres.isEmpty()) {
+                        tvGenre.text = "N/A"
+                    } else {
+                        tvGenre.text = it.genres[0].name
+                    }
+
                     tvRuntime.text = it.runtime.toString()
                     tvLanguage.text = it.originalLanguage
 

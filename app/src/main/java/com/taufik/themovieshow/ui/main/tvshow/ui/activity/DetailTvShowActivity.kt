@@ -73,18 +73,35 @@ class DetailTvShowActivity : AppCompatActivity() {
                     imgBackdrop.loadImage(it.backdropPath)
                     tvTitle.text = it.name
 
-                    if (it.networks[0].originCountry.isEmpty()) {
-                        tvNetwork.text = String.format("${it.networks[0].name} (N/A)")
-                    } else{
-                        tvNetwork.text = String.format("${it.networks[0].name} (${it.networks[0].originCountry})")
+                    when {
+                        it.networks.isEmpty() -> {
+                            tvNetwork.text = "(N/A)"
+                        }
+                        it.networks[0].originCountry == "" -> {
+                            tvNetwork.text = String.format("${it.networks[0].name} (N/A)")
+                        }
+                        else -> {
+                            tvNetwork.text = String.format("${it.networks[0].name} (${it.networks[0].originCountry})")
+                        }
                     }
 
                     tvReleaseDate.text = it.firstAirDate
                     tvStatus.text = it.status
                     tvOverview.text = it.overview
                     tvRating.text = it.voteAverage.toString()
-                    tvGenre.text = it.genres[0].name
-                    tvEpisodes.text = it.episodeRunTime[0].toString()
+
+                    if (it.genres.isEmpty()) {
+                        tvGenre.text = "N/A"
+                    } else {
+                        tvGenre.text = it.genres[0].name
+                    }
+
+                    if (it.episodeRunTime.isEmpty()) {
+                        tvEpisodes.text = "N/A"
+                    } else {
+                        tvEpisodes.text = it.episodeRunTime[0].toString()
+                    }
+
                     tvLanguage.text = it.originalLanguage
 
                     val websiteLink = it.homepage
@@ -100,7 +117,7 @@ class DetailTvShowActivity : AppCompatActivity() {
                                 Toast.LENGTH_SHORT, true
                             ).show()
 
-                            Log.e("errorLink", "setViewModel: ${e.localizedMessage}" )
+                            Log.e("errorLink", "setViewModel: ${e.localizedMessage}")
                         }
                     }
                 }
