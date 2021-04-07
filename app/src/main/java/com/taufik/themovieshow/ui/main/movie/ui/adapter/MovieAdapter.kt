@@ -7,26 +7,26 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.taufik.themovieshow.R
+import com.taufik.themovieshow.api.UrlEndpoint
 import com.taufik.themovieshow.databinding.ItemsMovieShowBinding
-import com.taufik.themovieshow.ui.main.movie.data.movie.MovieResult
+import com.taufik.themovieshow.ui.main.movie.data.nowplaying.MovieNowPlayingResult
 import com.taufik.themovieshow.ui.main.movie.ui.activity.DetailMovieActivity
-import com.taufik.themovieshow.utils.Utils
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>(){
 
-    private var listMovies = ArrayList<MovieResult>()
+    private var listMovies = ArrayList<MovieNowPlayingResult>()
 
-    fun setMovies(movieResult: List<MovieResult>) {
+    fun setMovies(movieResult: List<MovieNowPlayingResult>) {
         this.listMovies.clear()
         this.listMovies.addAll(movieResult)
         notifyDataSetChanged()
     }
 
     inner class MovieViewHolder (private val binding: ItemsMovieShowBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(movieResult: MovieResult) {
+        fun bind(movieResult: MovieNowPlayingResult) {
             with(binding) {
                 Glide.with(itemView.context)
-                    .load(Utils.IMAGE_URL + movieResult.posterPath)
+                    .load(UrlEndpoint.IMAGE_URL + movieResult.posterPath)
                     .apply(
                         RequestOptions.placeholderOf(R.drawable.ic_loading)
                             .error(R.drawable.ic_error)

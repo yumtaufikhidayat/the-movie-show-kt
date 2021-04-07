@@ -16,7 +16,7 @@
             android:id="@+id/imgBackdrop"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:src="@color/colorPrimaryDark"
+            android:src="@color/colorPrimary"
             android:contentDescription="@null"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +45,7 @@
 
         <TextView
             android:id="@+id/tvTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
@@ -59,22 +59,31 @@
             tools:text="@string/tvTitle"/>
 
         <TextView
+            android:id="@+id/tvReleasedOn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorGrey"
+            android:text="@string/tvReleasedOn"
+            app:layout_constraintStart_toStartOf="@id/tvTitle"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle"/>
+
+        <TextView
             android:id="@+id/tvReleaseDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
             android:maxLines="1"
             android:ellipsize="end"
             android:textColor="@color/colorGrey"
-            app:layout_constraintStart_toStartOf="@id/tvTitle"
-            app:layout_constraintTop_toBottomOf="@id/tvTitle"
+            app:layout_constraintStart_toEndOf="@id/tvReleasedOn"
+            app:layout_constraintTop_toTopOf="@id/tvReleasedOn"
+            app:layout_constraintBottom_toBottomOf="@+id/tvReleasedOn"
             tools:text="@string/tvReleaseDate"/>
 
         <TextView
             android:id="@+id/tvStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:ellipsize="end"
             android:textColor="@android:color/holo_green_light"
             app:layout_constraintStart_toStartOf="@id/tvTitle"
             app:layout_constraintTop_toBottomOf="@id/tvReleaseDate"
@@ -161,7 +170,6 @@
                 tools:text="@string/tvRuntime"/>
 
             <TextView
-                android:id="@+id/tvMins"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="3dp"

@@ -57,6 +57,7 @@ class MovieNowPlayingFragment : Fragment() {
     }
 
     private fun setData() {
+
         showLoading(true)
 
         viewModel.setMovieNowPlaying(BuildConfig.API_KEY)

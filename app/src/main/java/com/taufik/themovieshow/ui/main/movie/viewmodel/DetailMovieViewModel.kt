@@ -5,22 +5,22 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.taufik.themovieshow.api.ApiClient
-import com.taufik.themovieshow.ui.main.movie.data.moviedetail.MovieDetailResponse
+import com.taufik.themovieshow.ui.main.movie.data.nowplayingdetail.MovieNowPlayingDetailResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class DetailMovieViewModel : ViewModel() {
 
-    val listDetailMoviesNowPlaying = MutableLiveData<MovieDetailResponse>()
+    val listDetailMoviesNowPlaying = MutableLiveData<MovieNowPlayingDetailResponse>()
 
     fun setDetailMovieNowPlaying(id: Int, apiKey: String) {
         ApiClient.apiInstance
             .getDetailMovieNowPlaying(id, apiKey)
-            .enqueue(object : Callback<MovieDetailResponse> {
+            .enqueue(object : Callback<MovieNowPlayingDetailResponse> {
                 override fun onResponse(
-                    call: Call<MovieDetailResponse>,
-                    response: Response<MovieDetailResponse>
+                        call: Call<MovieNowPlayingDetailResponse>,
+                        response: Response<MovieNowPlayingDetailResponse>
                 ) {
                     if (response.isSuccessful) {
                         listDetailMoviesNowPlaying.postValue(response.body())
@@ -28,14 +28,14 @@ class DetailMovieViewModel : ViewModel() {
                     }
                 }
 
-                override fun onFailure(call: Call<MovieDetailResponse>, t: Throwable) {
+                override fun onFailure(call: Call<MovieNowPlayingDetailResponse>, t: Throwable) {
                     Log.e("errorRetrofit", "onFailure: ${t.localizedMessage}")
                 }
 
             })
     }
 
-    fun getDetailMovieNowPlaying(): LiveData<MovieDetailResponse> {
+    fun getDetailMovieNowPlaying(): LiveData<MovieNowPlayingDetailResponse> {
         return listDetailMoviesNowPlaying
     }
 }

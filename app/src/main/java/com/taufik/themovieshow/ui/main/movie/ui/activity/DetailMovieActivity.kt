@@ -9,9 +9,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.taufik.themovieshow.BuildConfig
 import com.taufik.themovieshow.R
+import com.taufik.themovieshow.api.UrlEndpoint
 import com.taufik.themovieshow.databinding.ActivityDetailMovieBinding
 import com.taufik.themovieshow.ui.main.movie.viewmodel.DetailMovieViewModel
-import com.taufik.themovieshow.utils.Utils
 import kotlin.properties.Delegates
 
 class DetailMovieActivity : AppCompatActivity() {
@@ -79,9 +79,8 @@ class DetailMovieActivity : AppCompatActivity() {
 
     private fun ImageView.loadImage(url: String) {
         Glide.with(this.context)
-            .load(Utils.IMAGE_URL + url)
-            .apply(
-                RequestOptions.placeholderOf(R.drawable.ic_loading)
+            .load(UrlEndpoint.IMAGE_URL + url)
+            .apply(RequestOptions.placeholderOf(R.drawable.ic_loading)
                     .error(R.drawable.ic_error)
             )
             .into(this)
