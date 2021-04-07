@@ -5,6 +5,8 @@ object UrlEndpoint {
     const val IMAGE_URL = "https://image.tmdb.org/t/p/w780/"
     const val MOVIE_NOW_PLAYING = "movie/now_playing"
     const val MOVIE_NOW_PLAYING_DETAIL = "movie/{movie_id}"
+    const val MOVIE_UPCOMING = "movie/upcoming"
     const val TV_SHOWS_POPULAR = "tv/popular"
+    const val TV_SHOWS_AIRING_TODAY = "tv/airing_today"
     const val TV_SHOWS_POPULAR_DETAIL = "tv/{tv_id}"
 }

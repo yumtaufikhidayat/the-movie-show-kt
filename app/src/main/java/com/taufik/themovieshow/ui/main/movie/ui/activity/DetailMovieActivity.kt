@@ -18,7 +18,7 @@ import com.taufik.themovieshow.BuildConfig
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.api.UrlEndpoint
 import com.taufik.themovieshow.databinding.ActivityDetailMovieBinding
-import com.taufik.themovieshow.ui.main.movie.data.nowplayingdetail.MovieNowPlayingDetailResponse
+import com.taufik.themovieshow.ui.main.movie.data.detail.MovieDetailResponse
 import com.taufik.themovieshow.ui.main.movie.viewmodel.DetailMovieViewModel
 import es.dmoral.toasty.Toasty
 import kotlin.properties.Delegates
@@ -34,7 +34,7 @@ class DetailMovieActivity : AppCompatActivity() {
     private lateinit var viewModel: DetailMovieViewModel
     private var id by Delegates.notNull<Int>()
     private lateinit var title: String
-    private lateinit var data: MovieNowPlayingDetailResponse
+    private lateinit var data: MovieDetailResponse
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

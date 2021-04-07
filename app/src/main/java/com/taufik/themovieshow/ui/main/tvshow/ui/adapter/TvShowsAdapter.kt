@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.api.UrlEndpoint
-import com.taufik.themovieshow.databinding.ItemsMovieShowBinding
+import com.taufik.themovieshow.databinding.ItemsTvShowsBinding
 import com.taufik.themovieshow.ui.main.tvshow.data.popular.TvShowPopularResult
 import com.taufik.themovieshow.ui.main.tvshow.ui.activity.DetailTvShowActivity
 
@@ -22,7 +22,7 @@ class TvShowsAdapter : RecyclerView.Adapter<TvShowsAdapter.TvShowsViewHolder>() 
         notifyDataSetChanged()
     }
 
-    inner class TvShowsViewHolder(private val binding: ItemsMovieShowBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class TvShowsViewHolder(private val binding: ItemsTvShowsBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(tvShowPopularResult: TvShowPopularResult) {
             with(binding) {
                 Glide.with(itemView.context)
@@ -49,7 +49,7 @@ class TvShowsAdapter : RecyclerView.Adapter<TvShowsAdapter.TvShowsViewHolder>() 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TvShowsViewHolder {
-        val itemsMovieShowBinding = ItemsMovieShowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val itemsMovieShowBinding = ItemsTvShowsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return TvShowsViewHolder(itemsMovieShowBinding)
     }
 

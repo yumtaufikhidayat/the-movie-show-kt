@@ -13,7 +13,7 @@
     <fragment
         android:id="@+id/nav_tv_show"
         android:name="com.taufik.themovieshow.ui.main.tvshow.ui.fragment.TvShowFragment"
-        android:label="TV Show"
+        android:label="TV Shows"
         tools:layout="@layout/fragment_tv_show" />
 
 </navigation>

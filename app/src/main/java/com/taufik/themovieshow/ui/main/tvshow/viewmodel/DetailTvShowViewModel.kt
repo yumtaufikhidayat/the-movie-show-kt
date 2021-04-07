@@ -16,7 +16,7 @@ class DetailTvShowViewModel : ViewModel() {
 
     fun setDetailTvShowPopular(id: Int, apiKey: String) {
         ApiClient.apiInstance
-                .getDetailTvShowsPopular(id, apiKey)
+                .getDetailTvShows(id, apiKey)
                 .enqueue(object : Callback<TvShowsPopularDetailResponse> {
                     override fun onResponse(call: Call<TvShowsPopularDetailResponse>, response: Response<TvShowsPopularDetailResponse>) {
                         if (response.isSuccessful) {

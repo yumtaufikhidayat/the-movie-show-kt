@@ -8,22 +8,22 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.api.UrlEndpoint
-import com.taufik.themovieshow.databinding.ItemsMovieShowBinding
-import com.taufik.themovieshow.ui.main.movie.data.nowplaying.MovieNowPlayingResult
+import com.taufik.themovieshow.databinding.ItemsMoviesBinding
+import com.taufik.themovieshow.ui.main.movie.data.main.MovieResult
 import com.taufik.themovieshow.ui.main.movie.ui.activity.DetailMovieActivity
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>(){
 
-    private var listMovies = ArrayList<MovieNowPlayingResult>()
+    private var listMovies = ArrayList<MovieResult>()
 
-    fun setMovies(movieResult: List<MovieNowPlayingResult>) {
+    fun setMovies(movieResult: List<MovieResult>) {
         this.listMovies.clear()
         this.listMovies.addAll(movieResult)
         notifyDataSetChanged()
     }
 
-    inner class MovieViewHolder (private val binding: ItemsMovieShowBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(movieResult: MovieNowPlayingResult) {
+    inner class MovieViewHolder (private val binding: ItemsMoviesBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(movieResult: MovieResult) {
             with(binding) {
                 Glide.with(itemView.context)
                     .load(UrlEndpoint.IMAGE_URL + movieResult.posterPath)
@@ -49,7 +49,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>(){
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val itemsMovieBinding = ItemsMovieShowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val itemsMovieBinding = ItemsMoviesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MovieViewHolder(itemsMovieBinding)
     }
 

@@ -13,7 +13,8 @@ import retrofit2.Response
 
 class TvShowViewModel : ViewModel() {
 
-    val listTvShowsPopular = MutableLiveData<ArrayList<TvShowPopularResult>>()
+    private val listTvShowsPopular = MutableLiveData<ArrayList<TvShowPopularResult>>()
+    private val listTvShowsAiringToday = MutableLiveData<ArrayList<TvShowPopularResult>>()
 
     fun setTvShowsPopular(apiKey: String) {
         ApiClient.apiInstance
@@ -34,5 +35,26 @@ class TvShowViewModel : ViewModel() {
 
     fun getTvShowsPopular(): LiveData<ArrayList<TvShowPopularResult>> {
         return listTvShowsPopular
+    }
+
+    fun setTvShowsAiringToday(apiKey: String) {
+        ApiClient.apiInstance
+            .getTvShowsAiringToday(apiKey)
+            .enqueue(object : Callback<TvShowPopularResponse> {
+                override fun onResponse(call: Call<TvShowPopularResponse>, response: Response<TvShowPopularResponse>) {
+                    if (response.isSuccessful) {
+                        listTvShowsAiringToday.postValue(response.body()?.results as ArrayList<TvShowPopularResult>)
+                        Log.e("listTvShowsPopular", "onResponse: ${response.body()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<TvShowPopularResponse>, t: Throwable) {
+                    Log.e("errorRetrofit", "onFailure: ${t.localizedMessage}")
+                }
+            })
+    }
+
+    fun getTvShowsAiringToday(): LiveData<ArrayList<TvShowPopularResult>> {
+        return listTvShowsAiringToday
     }
 }

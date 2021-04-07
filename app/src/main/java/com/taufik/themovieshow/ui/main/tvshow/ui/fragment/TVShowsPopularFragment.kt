@@ -14,7 +14,7 @@ import com.taufik.themovieshow.ui.main.tvshow.viewmodel.TvShowViewModel
 
 class TVShowsPopularFragment : Fragment() {
 
-    private lateinit var tvShowFragmentBinding: FragmentTvShowsPopularBinding
+    private lateinit var tvShowsPopularBinding: FragmentTvShowsPopularBinding
     private lateinit var viewModel: TvShowViewModel
     private lateinit var tvShowsAdapter: TvShowsAdapter
 
@@ -23,8 +23,8 @@ class TVShowsPopularFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        tvShowFragmentBinding = FragmentTvShowsPopularBinding.inflate(inflater, container, false)
-        return tvShowFragmentBinding.root
+        tvShowsPopularBinding = FragmentTvShowsPopularBinding.inflate(inflater, container, false)
+        return tvShowsPopularBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,7 +49,7 @@ class TVShowsPopularFragment : Fragment() {
     }
 
     private fun setRecyclerView() {
-        with(tvShowFragmentBinding.rvTvShow) {
+        with(tvShowsPopularBinding.rvTvShow) {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
             adapter = tvShowsAdapter
@@ -71,7 +71,7 @@ class TVShowsPopularFragment : Fragment() {
 
     private fun showLoading(state: Boolean) {
 
-        tvShowFragmentBinding.apply {
+        tvShowsPopularBinding.apply {
             if (state) {
                 progressBar.visibility = View.VISIBLE
             } else {
