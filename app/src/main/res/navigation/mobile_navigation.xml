@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/nav_movie">
+
+    <fragment
+        android:id="@+id/nav_movie"
+        android:name="com.taufik.themovieshow.ui.main.movie.ui.fragment.MovieFragment"
+        android:label="Movie"
+        tools:layout="@layout/fragment_movie" />
+    <fragment
+        android:id="@+id/nav_tv_show"
+        android:name="com.taufik.themovieshow.ui.main.tvshow.ui.fragment.TvShowFragment"
+        android:label="TV Show"
+        tools:layout="@layout/fragment_tv_show" />
+
+</navigation>
