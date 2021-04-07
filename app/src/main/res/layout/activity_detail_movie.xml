@@ -56,6 +56,7 @@
             android:ellipsize="end"
             app:layout_constraintTop_toBottomOf="@id/imgBackdrop"
             app:layout_constraintStart_toEndOf="@id/cardPoster"
+            app:layout_constraintEnd_toEndOf="@id/tvOverview"
             tools:text="@string/tvTitle"/>
 
         <TextView
