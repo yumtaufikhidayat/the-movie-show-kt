@@ -2,8 +2,8 @@ package com.taufik.themovieshow.api
 
 import com.taufik.themovieshow.ui.main.movie.data.nowplaying.MovieNowPlayingResponse
 import com.taufik.themovieshow.ui.main.movie.data.nowplayingdetail.MovieNowPlayingDetailResponse
-import com.taufik.themovieshow.ui.main.tvshow.data.tvshow.TvShowPopularResponse
-import com.taufik.themovieshow.ui.main.tvshow.data.tvshowdetail.TvShowsPopularDetailResponse
+import com.taufik.themovieshow.ui.main.tvshow.data.popular.TvShowPopularResponse
+import com.taufik.themovieshow.ui.main.tvshow.data.populardetail.TvShowsPopularDetailResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

@@ -66,7 +66,7 @@ class DetailTvShowActivity : AppCompatActivity() {
                     imgPoster.loadImage(it.posterPath)
                     imgBackdrop.loadImage(it.backdropPath)
                     tvTitle.text = it.name
-                    tvNetwork.text = "${it.networks[0].name} (${it.networks[0].originCountry})"
+                    tvNetwork.text = String.format("${it.networks[0].name} (${it.networks[0].originCountry})")
                     tvReleaseDate.text = it.firstAirDate
                     tvStatus.text = it.status
                     tvOverview.text = it.overview

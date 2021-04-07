@@ -5,8 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.taufik.themovieshow.api.ApiClient
-import com.taufik.themovieshow.ui.main.tvshow.data.tvshow.TvShowPopularResponse
-import com.taufik.themovieshow.ui.main.tvshow.data.tvshow.TvShowPopularResult
+import com.taufik.themovieshow.ui.main.tvshow.data.popular.TvShowPopularResponse
+import com.taufik.themovieshow.ui.main.tvshow.data.popular.TvShowPopularResult
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

@@ -1,4 +1,4 @@
-package com.taufik.themovieshow.ui.main.tvshow.data.tvshow
+package com.taufik.themovieshow.ui.main.tvshow.data.popular
 
 
 import com.google.gson.annotations.SerializedName

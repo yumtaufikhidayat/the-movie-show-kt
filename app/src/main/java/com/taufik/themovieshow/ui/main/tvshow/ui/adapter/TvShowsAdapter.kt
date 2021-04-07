@@ -9,7 +9,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.api.UrlEndpoint
 import com.taufik.themovieshow.databinding.ItemsMovieShowBinding
-import com.taufik.themovieshow.ui.main.tvshow.data.tvshow.TvShowPopularResult
+import com.taufik.themovieshow.ui.main.tvshow.data.popular.TvShowPopularResult
 import com.taufik.themovieshow.ui.main.tvshow.ui.activity.DetailTvShowActivity
 
 class TvShowsAdapter : RecyclerView.Adapter<TvShowsAdapter.TvShowsViewHolder>() {
