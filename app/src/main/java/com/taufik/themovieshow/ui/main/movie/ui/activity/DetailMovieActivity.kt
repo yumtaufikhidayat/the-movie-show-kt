@@ -71,14 +71,14 @@ class DetailMovieActivity : AppCompatActivity() {
                 binding.apply {
                     imgPoster.loadImage(it.posterPath)
                     imgBackdrop.loadImage(it.backdropPath)
-                    tvTitle.text = it.originalTitle
+                    tvTitle.text = it.title
                     tvReleaseDate.text = it.releaseDate
                     tvStatus.text = it.status
                     tvOverview.text = it.overview
                     tvRating.text = it.voteAverage.toString()
                     tvGenre.text = it.genres[0].name
                     tvRuntime.text = it.runtime.toString()
-                    tvLanguage.text = it.spokenLanguages[0].name
+                    tvLanguage.text = it.originalLanguage
 
                     val websiteLink = it.homepage
 

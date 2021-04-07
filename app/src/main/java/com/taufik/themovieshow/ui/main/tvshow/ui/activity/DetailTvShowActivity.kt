@@ -85,7 +85,7 @@ class DetailTvShowActivity : AppCompatActivity() {
                     tvRating.text = it.voteAverage.toString()
                     tvGenre.text = it.genres[0].name
                     tvEpisodes.text = it.episodeRunTime[0].toString()
-                    tvLanguage.text = it.spokenLanguages[0].name
+                    tvLanguage.text = it.originalLanguage
 
                     val websiteLink = it.homepage
 
