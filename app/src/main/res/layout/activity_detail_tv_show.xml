@@ -16,7 +16,7 @@
             android:id="@+id/imgBackdrop"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:src="@color/colorPrimary"
+            android:src="@color/colorPrimaryDark"
             android:contentDescription="@null"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -107,9 +107,23 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:textColor="@color/white"
+            android:ellipsize="end"
+            android:maxLines="4"
             app:layout_constraintTop_toBottomOf="@id/cardPoster"
             app:layout_constraintStart_toStartOf="@id/cardPoster"
             tools:text="@string/tvLoremIpsum"/>
+
+        <TextView
+            android:id="@+id/tvReadMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:includeFontPadding="false"
+            android:visibility="gone"
+            android:text="@string/tvReadMore"
+            android:textColor="@color/colorPrimaryAccent"
+            app:layout_constraintStart_toStartOf="@id/cardPoster"
+            app:layout_constraintTop_toBottomOf="@id/tvOverview"/>
 
         <View
             android:id="@+id/viewHelper1"
@@ -119,7 +133,7 @@
             android:layout_margin="16dp"
             app:layout_constraintStart_toStartOf="@id/tvOverview"
             app:layout_constraintEnd_toEndOf="@+id/tvOverview"
-            app:layout_constraintTop_toBottomOf="@+id/tvOverview"/>
+            app:layout_constraintTop_toBottomOf="@+id/tvReadMore"/>
 
         <LinearLayout
             android:id="@+id/llLayoutMisc"

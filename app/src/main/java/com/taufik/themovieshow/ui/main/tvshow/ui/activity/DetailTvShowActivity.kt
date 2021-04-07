@@ -3,9 +3,11 @@ package com.taufik.themovieshow.ui.main.tvshow.ui.activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -44,6 +46,8 @@ class DetailTvShowActivity : AppCompatActivity() {
         initActionBar()
 
         setData()
+
+        setReadMore()
     }
 
     private fun setParcelableData() {
@@ -102,6 +106,23 @@ class DetailTvShowActivity : AppCompatActivity() {
                 }
             }
         })
+    }
+
+    private fun setReadMore() {
+        binding.apply {
+            tvReadMore.visibility = View.VISIBLE
+            tvReadMore.setOnClickListener {
+                if (tvReadMore.text.toString() == "Read More") {
+                    tvOverview.maxLines = Integer.MAX_VALUE
+                    tvOverview.ellipsize = null
+                    tvReadMore.text = getString(R.string.tvReadLess)
+                } else {
+                    tvOverview.maxLines = 4
+                    tvOverview.ellipsize = TextUtils.TruncateAt.END
+                    tvReadMore.text = getString(R.string.tvReadMore)
+                }
+            }
+        }
     }
 
     private fun ImageView.loadImage(url: String) {
