@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.Toast
@@ -15,6 +16,7 @@ import com.taufik.themovieshow.BuildConfig
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.api.UrlEndpoint
 import com.taufik.themovieshow.databinding.ActivityDetailTvShowBinding
+import com.taufik.themovieshow.ui.main.tvshow.data.populardetail.TvShowsPopularDetailResponse
 import com.taufik.themovieshow.ui.main.tvshow.viewmodel.DetailTvShowViewModel
 import es.dmoral.toasty.Toasty
 import kotlin.properties.Delegates
@@ -30,6 +32,7 @@ class DetailTvShowActivity : AppCompatActivity() {
     private lateinit var viewModel: DetailTvShowViewModel
     private var id by Delegates.notNull<Int>()
     private lateinit var title: String
+    private lateinit var data: TvShowsPopularDetailResponse
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,17 +58,11 @@ class DetailTvShowActivity : AppCompatActivity() {
         supportActionBar?.elevation = 0F
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
-            android.R.id.home -> onBackPressed()
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
     private fun setData() {
         viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[DetailTvShowViewModel::class.java]
         viewModel.setDetailTvShowPopular(id, BuildConfig.API_KEY)
         viewModel.getDetailTvShowsPopular().observe(this, {
+            data = it
             if (it != null) {
                 binding.apply {
                     imgPoster.loadImage(it.posterPath)
@@ -114,5 +111,32 @@ class DetailTvShowActivity : AppCompatActivity() {
                                 .error(R.drawable.ic_error)
                 )
                 .into(this)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.detail_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            android.R.id.home -> onBackPressed()
+
+            R.id.nav_open_in_browser -> {
+                try {
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(data.homepage))
+                    startActivity(Intent.createChooser(intent, "Open with:"))
+                } catch (e: Exception) {
+                    Toasty.warning(
+                        this,
+                        "Silakan install browser terlebih dulu.",
+                        Toast.LENGTH_SHORT, true
+                    ).show()
+
+                    Log.e("errorLink", "setViewModel: ${e.localizedMessage}" )
+                }
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

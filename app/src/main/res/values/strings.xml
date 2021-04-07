@@ -20,6 +20,8 @@
     <string name="tvGenre">Genre</string>
     <string name="tvMins">mins</string>
     <string name="tvEpisodes">episodes</string>
+    <string name="tvOtherMenus">Menu lainnya</string>
+    <string name="tvOpenInBrowser">Buka di peramban</string>
 
     <string name="btnWebsites">Website</string>
 </resources>
