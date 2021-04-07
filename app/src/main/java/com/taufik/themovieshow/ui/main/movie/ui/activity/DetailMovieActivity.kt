@@ -1,8 +1,12 @@
 package com.taufik.themovieshow.ui.main.movie.ui.activity
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -12,6 +16,7 @@ import com.taufik.themovieshow.R
 import com.taufik.themovieshow.api.UrlEndpoint
 import com.taufik.themovieshow.databinding.ActivityDetailMovieBinding
 import com.taufik.themovieshow.ui.main.movie.viewmodel.DetailMovieViewModel
+import es.dmoral.toasty.Toasty
 import kotlin.properties.Delegates
 
 class DetailMovieActivity : AppCompatActivity() {
@@ -72,6 +77,24 @@ class DetailMovieActivity : AppCompatActivity() {
                     tvRating.text = it.voteAverage.toString()
                     tvGenre.text = it.genres[0].name
                     tvRuntime.text = it.runtime.toString()
+                    tvLanguage.text = it.spokenLanguages[0].name
+
+                    val websiteLink = it.homepage
+
+                    btnWebsite.setOnClickListener {
+                        try {
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(websiteLink))
+                            startActivity(Intent.createChooser(intent, "Open with:"))
+                        } catch (e: Exception) {
+                            Toasty.warning(
+                                    this@DetailMovieActivity,
+                                    "Silakan install browser terlebih dulu.",
+                                    Toast.LENGTH_SHORT, true
+                            ).show()
+
+                            Log.e("errorLink", "setViewModel: ${e.localizedMessage}" )
+                        }
+                    }
                 }
             }
         })

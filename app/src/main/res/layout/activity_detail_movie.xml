@@ -177,6 +177,25 @@
                 android:textSize="12sp"
                 android:text="@string/tvMins"/>
 
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="8dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_language"
+                app:tint="@color/colorTextOther"/>
+
+            <TextView
+                android:id="@+id/tvLanguage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:includeFontPadding="false"
+                android:textColor="@color/colorTextIcons"
+                android:textSize="12sp"
+                tools:text="@string/tvLanguage"/>
+
+
         </LinearLayout>
 
         <View
@@ -189,6 +208,25 @@
             app:layout_constraintStart_toStartOf="@id/tvOverview"
             app:layout_constraintEnd_toEndOf="@+id/tvOverview"
             app:layout_constraintTop_toBottomOf="@+id/llLayoutMisc"/>
+
+        <Button
+            android:id="@+id/btnWebsite"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:includeFontPadding="false"
+            android:text="@string/btnWebsites"
+            android:textColor="@color/colorTextIcons"
+            android:textSize="12sp"
+            android:backgroundTint="@color/colorOrange"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            app:cornerRadius="6dp"
+            app:layout_constraintStart_toStartOf="@id/imgBackdrop"
+            app:layout_constraintEnd_toEndOf="@id/imgBackdrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/viewHelper2"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
