@@ -26,4 +26,13 @@
     <string name="tvReadLess">Read Less</string>
 
     <string name="btnWebsites">Website</string>
+
+    <!--Bottom menu-->
+    <string name="tvMovieNowPlaying">Now Playing</string>
+    <string name="tvMovieUpcoming">Upcoming</string>
+    <string name="tvTvShowPopular">Popular</string>
+    <string name="tvTvShowAiringToday">Airing Today</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

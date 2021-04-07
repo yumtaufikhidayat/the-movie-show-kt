@@ -3,7 +3,6 @@ package com.taufik.themovieshow.ui.main.activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.taufik.themovieshow.databinding.ActivityMainBinding
-import com.taufik.themovieshow.ui.main.adapter.MainPagerAdapter
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,18 +15,12 @@ class MainActivity : AppCompatActivity() {
 
         initActionBar()
 
-        setViewPager()
+
     }
 
     private fun initActionBar() {
         supportActionBar?.elevation = 0F
     }
 
-    private fun setViewPager() {
-        val mainPagerAdapter = MainPagerAdapter(this, supportFragmentManager)
-        binding.apply {
-            viewPagerMain.adapter = mainPagerAdapter
-            tabLayoutMain.setupWithViewPager(viewPagerMain)
-        }
-    }
+
 }
