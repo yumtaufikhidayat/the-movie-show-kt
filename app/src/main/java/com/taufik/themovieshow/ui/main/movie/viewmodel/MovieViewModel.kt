@@ -14,6 +14,7 @@ import retrofit2.Response
 class MovieViewModel : ViewModel() {
 
     private val listNowPlaying = MutableLiveData<ArrayList<MovieMainResult>>()
+    private val listUpcoming = MutableLiveData<ArrayList<MovieMainResult>>()
 
     fun setMovieNowPlaying(apiKey: String){
         ApiClient.apiInstance
@@ -37,5 +38,29 @@ class MovieViewModel : ViewModel() {
 
     fun getMovieNowPlaying(): LiveData<ArrayList<MovieMainResult>> {
         return listNowPlaying
+    }
+
+    fun setMovieUpcoming(apiKey: String){
+        ApiClient.apiInstance
+                .getMovieUpcoming(apiKey)
+                .enqueue(object : Callback<MovieMainResponse> {
+                    override fun onResponse(
+                            call: Call<MovieMainResponse>,
+                            response: Response<MovieMainResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            listUpcoming.postValue(response.body()?.results as ArrayList<MovieMainResult>)
+                            Log.e("mainSuccess", "onResponse: ${response.body()}")
+                        }
+                    }
+
+                    override fun onFailure(call: Call<MovieMainResponse>, t: Throwable) {
+                        Log.e("mainFailed", "onFailure: ${t.localizedMessage}")
+                    }
+                })
+    }
+
+    fun getMovieUpcoming(): LiveData<ArrayList<MovieMainResult>> {
+        return listUpcoming
     }
 }

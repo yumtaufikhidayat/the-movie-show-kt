@@ -15,7 +15,12 @@ interface Api {
             @Query("api_key") apiKey: String
     ): Call<MovieMainResponse>
 
-    @GET(UrlEndpoint.MOVIE_NOW_PLAYING_DETAIL)
+    @GET(UrlEndpoint.MOVIE_UPCOMING)
+    fun getMovieUpcoming(
+            @Query("api_key") apiKey: String
+    ): Call<MovieMainResponse>
+
+    @GET(UrlEndpoint.MOVIE_DETAIL)
     fun getDetailMovie(
         @Path("movie_id") movieId: Int,
         @Query("api_key") apiKey: String
