@@ -7,14 +7,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.taufik.themovieshow.BuildConfig
 import com.taufik.themovieshow.databinding.FragmentTvShowsPopularBinding
 import com.taufik.themovieshow.ui.main.tvshow.ui.adapter.TvShowsAdapter
-import com.taufik.themovieshow.ui.main.tvshow.viewmodel.DummyTvShowsViewModel
+import com.taufik.themovieshow.ui.main.tvshow.viewmodel.TvShowsViewModel
 
 class TVShowsPopularFragment : Fragment() {
 
     private lateinit var tvShowsPopularBinding: FragmentTvShowsPopularBinding
-    private lateinit var viewModel: DummyTvShowsViewModel
+    private lateinit var viewModel: TvShowsViewModel
     private lateinit var tvShowsAdapter: TvShowsAdapter
 
     override fun onCreateView(
@@ -44,7 +45,7 @@ class TVShowsPopularFragment : Fragment() {
     }
 
     private fun setViewModel() {
-        viewModel = ViewModelProvider(requireActivity(), ViewModelProvider.NewInstanceFactory())[DummyTvShowsViewModel::class.java]
+        viewModel = ViewModelProvider(requireActivity(), ViewModelProvider.NewInstanceFactory())[TvShowsViewModel::class.java]
     }
 
     private fun setRecyclerView() {
@@ -58,8 +59,15 @@ class TVShowsPopularFragment : Fragment() {
     private fun setData() {
 
         showLoading(true)
-        val listPopular = viewModel.getTvShowsPopular()
-        tvShowsAdapter.setTvShows(listPopular)
+
+        viewModel.setTvShowsPopular(BuildConfig.API_KEY)
+        viewModel.getTvShowsPopular().observe(viewLifecycleOwner, {
+            if (it != null) {
+                tvShowsAdapter.setTvShows(it)
+                showLoading(false)
+            }
+        })
+
         showLoading(false)
     }
 

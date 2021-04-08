@@ -13,15 +13,15 @@ class TvShowPagerAdapter(private val context: Context, fragmentManager: Fragment
     : FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     @StringRes
-    private val tabsTitle = intArrayOf(R.string.tvTvShowPopular, R.string.tvTvShowAiringToday)
+    private val tabsTitle = intArrayOf(R.string.tvTvShowAiringToday, R.string.tvTvShowPopular)
 
     override fun getCount(): Int = 2
 
     override fun getItem(position: Int): Fragment {
         var fragment: Fragment? = null
         when (position) {
-            0 -> fragment = TVShowsPopularFragment()
-            1 -> fragment = TvShowAiringTodayFragment()
+            0 -> fragment = TvShowAiringTodayFragment()
+            1 -> fragment = TVShowsPopularFragment()
         }
 
         return fragment as Fragment

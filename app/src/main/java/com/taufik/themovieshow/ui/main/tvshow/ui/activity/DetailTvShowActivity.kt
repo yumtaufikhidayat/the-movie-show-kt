@@ -99,7 +99,7 @@ class DetailTvShowActivity : AppCompatActivity() {
                     if (it.episodeRunTime.isEmpty()) {
                         tvEpisodes.text = "N/A"
                     } else {
-                        tvEpisodes.text = it.episodeRunTime[0].toString()
+                        tvEpisodes.text = String.format("${it.episodeRunTime[0]} episodes")
                     }
 
                     tvLanguage.text = it.originalLanguage

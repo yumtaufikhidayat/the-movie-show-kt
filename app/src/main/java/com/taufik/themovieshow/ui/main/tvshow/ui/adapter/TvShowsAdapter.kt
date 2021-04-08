@@ -9,38 +9,38 @@ import com.bumptech.glide.request.RequestOptions
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.api.UrlEndpoint
 import com.taufik.themovieshow.databinding.ItemsTvShowsBinding
-import com.taufik.themovieshow.ui.main.tvshow.data.dummymain.DummyTvShowsMain
+import com.taufik.themovieshow.ui.main.tvshow.data.main.TvShowsMainResult
 import com.taufik.themovieshow.ui.main.tvshow.ui.activity.DetailTvShowActivity
 
 class TvShowsAdapter : RecyclerView.Adapter<TvShowsAdapter.TvShowsViewHolder>() {
 
-    private var listTvShows = ArrayList<DummyTvShowsMain>()
+    private var listTvShows = ArrayList<TvShowsMainResult>()
 
-    fun setTvShows(tvShowPopularResult: List<DummyTvShowsMain>) {
+    fun setTvShows(tvShowPopularResult: List<TvShowsMainResult>) {
         this.listTvShows.clear()
         this.listTvShows.addAll(tvShowPopularResult)
         notifyDataSetChanged()
     }
 
     inner class TvShowsViewHolder(private val binding: ItemsTvShowsBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(tvShowPopularResult: DummyTvShowsMain) {
+        fun bind(tvShowPopularResult: TvShowsMainResult) {
             with(binding) {
                 Glide.with(itemView.context)
-                        .load(UrlEndpoint.IMAGE_URL + tvShowPopularResult.imagePoster)
+                        .load(UrlEndpoint.IMAGE_URL + tvShowPopularResult.posterPath)
                         .apply(
                                 RequestOptions.placeholderOf(R.drawable.ic_loading)
                                         .error(R.drawable.ic_error)
                         )
                         .into(imgPoster)
 
-                tvTitle.text = tvShowPopularResult.title
+                tvTitle.text = tvShowPopularResult.name
                 tvReleaseDate.text = tvShowPopularResult.firstAirDate
-                tvRating.text = tvShowPopularResult.rating.toString()
+                tvRating.text = tvShowPopularResult.voteAverage.toString()
 
                 itemView.setOnClickListener {
                     val intent = Intent(itemView.context, DetailTvShowActivity::class.java).apply {
                         putExtra(DetailTvShowActivity.EXTRA_DETAIL_ID, tvShowPopularResult.id)
-                        putExtra(DetailTvShowActivity.EXTRA_DETAIL_TITLE, tvShowPopularResult.title)
+                        putExtra(DetailTvShowActivity.EXTRA_DETAIL_TITLE, tvShowPopularResult.name)
                     }
                     it.context.startActivity(intent)
                 }
