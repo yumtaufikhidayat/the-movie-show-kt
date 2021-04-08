@@ -61,8 +61,8 @@ class MovieUpcomingFragment : Fragment() {
     private fun setData() {
 
         showLoading(true)
-        val listUpcoming = viewModel.getMovieUpcoming()
-        movieAdapter.setMovies(listUpcoming)
+//        val listUpcoming = viewModel.getMovieUpcoming()
+//        movieAdapter.setMovies(listUpcoming)
         showLoading(false)
     }
 
