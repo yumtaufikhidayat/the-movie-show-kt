@@ -7,15 +7,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.taufik.themovieshow.BuildConfig
 import com.taufik.themovieshow.databinding.FragmentMovieUpcomingBinding
 import com.taufik.themovieshow.ui.main.movie.ui.adapter.MovieAdapter
-import com.taufik.themovieshow.ui.main.movie.viewmodel.MovieViewModel
+import com.taufik.themovieshow.ui.main.movie.viewmodel.DummyMovieViewModel
 
 class MovieUpcomingFragment : Fragment() {
 
     private lateinit var movieUpcomingBinding: FragmentMovieUpcomingBinding
-    private lateinit var viewModel: MovieViewModel
+    private lateinit var viewModel: DummyMovieViewModel
     private lateinit var movieAdapter: MovieAdapter
 
     override fun onCreateView(
@@ -45,7 +44,10 @@ class MovieUpcomingFragment : Fragment() {
     }
 
     private fun setViewModel() {
-        viewModel = ViewModelProvider(requireActivity(), ViewModelProvider.NewInstanceFactory())[MovieViewModel::class.java]
+//        viewModel = ViewModelProvider(requireActivity(), ViewModelProvider.NewInstanceFactory())[MovieViewModel::class.java]
+        if (activity != null) {
+            viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[DummyMovieViewModel::class.java]
+        }
     }
 
     private fun setRecyclerView() {
@@ -59,14 +61,9 @@ class MovieUpcomingFragment : Fragment() {
     private fun setData() {
 
         showLoading(true)
-
-        viewModel.setMovieUpcoming(BuildConfig.API_KEY)
-        viewModel.getMovieUpcoming().observe(requireActivity(), {
-            if (it != null) {
-                movieAdapter.setMovies(it)
-                showLoading(false)
-            }
-        })
+        val listUpcoming = viewModel.getMovieUpcoming()
+        movieAdapter.setMovies(listUpcoming)
+        showLoading(false)
     }
 
     private fun showLoading(state: Boolean) {

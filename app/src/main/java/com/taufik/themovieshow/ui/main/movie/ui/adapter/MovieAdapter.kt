@@ -9,24 +9,24 @@ import com.bumptech.glide.request.RequestOptions
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.api.UrlEndpoint
 import com.taufik.themovieshow.databinding.ItemsMoviesBinding
-import com.taufik.themovieshow.ui.main.movie.data.main.MovieResult
+import com.taufik.themovieshow.ui.main.movie.data.dummymain.DummyMovieMain
 import com.taufik.themovieshow.ui.main.movie.ui.activity.DetailMovieActivity
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>(){
 
-    private var listMovies = ArrayList<MovieResult>()
+    private var listMovies = ArrayList<DummyMovieMain>()
 
-    fun setMovies(movieResult: List<MovieResult>) {
+    fun setMovies(movieResult: List<DummyMovieMain>) {
         this.listMovies.clear()
         this.listMovies.addAll(movieResult)
         notifyDataSetChanged()
     }
 
     inner class MovieViewHolder (private val binding: ItemsMoviesBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(movieResult: MovieResult) {
+        fun bind(movieResult: DummyMovieMain) {
             with(binding) {
                 Glide.with(itemView.context)
-                    .load(UrlEndpoint.IMAGE_URL + movieResult.posterPath)
+                    .load(UrlEndpoint.IMAGE_URL + movieResult.imagePoster)
                     .apply(
                         RequestOptions.placeholderOf(R.drawable.ic_loading)
                             .error(R.drawable.ic_error)
@@ -35,7 +35,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>(){
 
                 tvTitle.text = movieResult.title
                 tvReleaseDate.text = movieResult.releaseDate
-                tvRating.text = movieResult.voteAverage.toString()
+                tvRating.text = movieResult.rating.toString()
 
                 itemView.setOnClickListener {
                     val intent = Intent(itemView.context, DetailMovieActivity::class.java).apply {
