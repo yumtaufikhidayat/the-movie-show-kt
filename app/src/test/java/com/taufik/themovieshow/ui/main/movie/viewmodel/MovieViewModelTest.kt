@@ -11,6 +11,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
 import org.mockito.Mock
+import org.mockito.MockitoAnnotations
 
 class MovieViewModelTest {
 
@@ -25,6 +26,7 @@ class MovieViewModelTest {
 
     @Before
     fun setUp() {
+        MockitoAnnotations.initMocks(this)
         viewModel = MovieViewModel()
         viewModel.getMovieNowPlaying().observeForever(observer)
     }
