@@ -81,6 +81,17 @@
             app:layout_constraintBottom_toBottomOf="@+id/tvReleasedOn"
             tools:text="@string/tvReleaseDate"/>
 
+        <TextView
+            android:id="@+id/tvStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="@android:color/holo_green_light"
+            app:layout_constraintStart_toStartOf="@id/tvReleasedOn"
+            app:layout_constraintTop_toBottomOf="@+id/tvReleasedOn"
+            tools:text="@string/tvReleaseDate"/>
+
         <com.codesgood.views.JustifiedTextView
             android:id="@+id/tvOverview"
             android:layout_width="match_parent"
@@ -143,6 +154,44 @@
                 android:textSize="12sp"
                 tools:text="@string/tvRating"/>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:includeFontPadding="false"
+                android:text="@string/tvBullet"
+                android:textColor="@color/colorPrimaryAccent"
+                android:textSize="13sp"/>
+
+            <TextView
+                android:id="@+id/tvGenre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:includeFontPadding="false"
+                android:textColor="@color/colorTextIcons"
+                android:textSize="12sp"
+                tools:text="@string/tvGenre"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:includeFontPadding="false"
+                android:text="@string/tvBullet"
+                android:textColor="@color/colorPrimaryAccent"
+                android:textSize="13sp"/>
+
+            <TextView
+                android:id="@+id/tvRuntime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:includeFontPadding="false"
+                android:textColor="@color/colorTextIcons"
+                android:textSize="12sp"
+                tools:text="@string/tvRuntime"/>
+
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
@@ -174,6 +223,19 @@
             app:layout_constraintStart_toStartOf="@id/tvOverview"
             app:layout_constraintEnd_toEndOf="@+id/tvOverview"
             app:layout_constraintTop_toBottomOf="@+id/llLayoutMisc"/>
+
+        <Button
+            android:id="@+id/btnWebsite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:text="@string/btnWebsites"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:background="@color/colorOrange"
+            app:layout_constraintTop_toBottomOf="@id/viewHelper2"
+            app:layout_constraintStart_toStartOf="@id/tvOverview"
+            app:layout_constraintEnd_toEndOf="@id/tvOverview"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

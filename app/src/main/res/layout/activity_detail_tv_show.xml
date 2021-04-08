@@ -164,12 +164,14 @@
                 android:textSize="12sp"
                 tools:text="@string/tvRating"/>
 
-            <ImageView
-                android:layout_width="10dp"
-                android:layout_height="10dp"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:contentDescription="@null"
-                android:src="@drawable/ic_circle"/>
+                android:includeFontPadding="false"
+                android:text="@string/tvBullet"
+                android:textColor="@color/colorPrimaryAccent"
+                android:textSize="13sp"/>
 
             <TextView
                 android:id="@+id/tvGenre"
@@ -180,12 +182,14 @@
                 android:textSize="12sp"
                 tools:text="@string/tvGenre"/>
 
-            <ImageView
-                android:layout_width="10dp"
-                android:layout_height="10dp"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:contentDescription="@null"
-                android:src="@drawable/ic_circle"/>
+                android:includeFontPadding="false"
+                android:text="@string/tvBullet"
+                android:textColor="@color/colorPrimaryAccent"
+                android:textSize="13sp"/>
 
             <TextView
                 android:id="@+id/tvEpisodes"
@@ -194,7 +198,7 @@
                 android:layout_marginStart="8dp"
                 android:textColor="@color/colorTextIcons"
                 android:textSize="12sp"
-                tools:text="@string/tvRuntime"/>
+                tools:text="@string/tvEpisodes"/>
 
             <TextView
                 android:layout_width="wrap_content"
