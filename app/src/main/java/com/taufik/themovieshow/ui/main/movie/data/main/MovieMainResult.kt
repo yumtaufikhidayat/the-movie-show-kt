@@ -1,11 +1,8 @@
 package com.taufik.themovieshow.ui.main.movie.data.main
 
 
-import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import kotlinx.parcelize.Parcelize
 
-@Parcelize
 data class MovieMainResult(
     @SerializedName("adult")
     val adult: Boolean,
@@ -35,4 +32,4 @@ data class MovieMainResult(
     val voteAverage: Double,
     @SerializedName("vote_count")
     val voteCount: Int
-) : Parcelable
+)
