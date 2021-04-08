@@ -1,6 +1,7 @@
 package com.taufik.themovieshow.utils
 
 import com.taufik.themovieshow.ui.main.movie.data.dummymain.DummyMovieMain
+import com.taufik.themovieshow.ui.main.tvshow.data.dummymain.DummyTvShowsMain
 
 object DataDummy {
 
@@ -311,4 +312,293 @@ object DataDummy {
         )
     }
 
+    fun generateTvShowsPopular(): List<DummyTvShowsMain>{
+        return mutableListOf(
+            DummyTvShowsMain(
+                firstAirDate = "2021-03-19",
+                id = 88396,
+                title = "The Falcon and the Winter Soldier",
+                imagePoster = "/6kbAMLteGO8yyewYau6bJ683sw7.jpg",
+                rating = 7.8,
+            ),
+            DummyTvShowsMain(
+                firstAirDate = "2014-10-07",
+                id = 60735,
+                title = "The Flash",
+                imagePoster = "/lJA2RCMfsWoskqlQhXPSLFQGXEJ.jpg",
+                rating = 7.7,
+            ),
+            DummyTvShowsMain(
+                firstAirDate = "2017-09-25",
+                id = 71712,
+                title = "The Good Doctor",
+                imagePoster = "/6tfT03sGp9k4c0J3dypjrI8TSAI.jpg",
+                rating = 8.6,
+            ),
+            DummyTvShowsMain(
+                firstAirDate = "2017-01-26",
+                id = 69050,
+                title = "Riverdale",
+                imagePoster = "/wRbjVBdDo5qHAEOVYoMWpM58FSA.jpg",
+                rating = 8.6,
+            ),
+            DummyTvShowsMain(
+                firstAirDate = "2021-03-24",
+                id = 120168,
+                title = "Who Killed Sara?",
+                imagePoster = "/o7uk5ChRt3quPIv8PcvPfzyXdMw.jpg",
+                rating = 7.9,
+            ),
+            DummyTvShowsMain(
+                firstAirDate = "2010-10-31",
+                id = 1402,
+                title = "The Walking Dead",
+                imagePoster = "/rqeYMLryjcawh2JeRpCVUDXYM5b.jpg",
+                rating = 8.1,
+            ),
+            DummyTvShowsMain(
+                firstAirDate = "2005-03-27",
+                id = 1416,
+                title = "Grey's Anatomy",
+                imagePoster = "/clnyhPqj1SNgpAdeSS6a6fwE6Bo.jpg",
+                rating = 8.2,
+            ),
+            DummyTvShowsMain(
+                firstAirDate = "2021-03-26",
+                id = 95557,
+                title = "Invincible",
+                imagePoster = "/yDWJYRAwMNKbIYT8ZB33qy84uzO.jpg",
+                rating = 8.9,
+            ),
+            DummyTvShowsMain(
+                firstAirDate = "2021-02-23",
+                id = 95057,
+                title = "Superman & Lois",
+                imagePoster = "/6SJppowm7cdQgLkvoTlnTUSbjr9.jpg",
+                rating = 8.3,
+            ),
+            DummyTvShowsMain(
+                firstAirDate = "2021-01-15",
+                id = 85271,
+                title = "WandaVision",
+                imagePoster = "/glKDfE6btIRcVB5zrjspRIs4r52.jpg",
+                rating = 8.5,
+            ),
+            DummyTvShowsMain(
+                firstAirDate = "2016-01-25",
+                id = 63174,
+                title = "Lucifer",
+                imagePoster = "/4EYPN5mVIhKLfxGruy7Dy41dTVn.jpg",
+                rating = 8.5,
+            ),
+            DummyTvShowsMain(
+                firstAirDate = "2020-10-03",
+                id = 100049,
+                title = "TONIKAWA: Over the Moon for You",
+                imagePoster = "/jJKTrIfZKoFV66HGMzSa4tkObK0.jpg",
+                rating = 8.8,
+            ),
+            DummyTvShowsMain(
+                firstAirDate = "2021-03-19",
+                id = 117023,
+                title = "Sky Rojo",
+                imagePoster = "/uTFX9V2dct1nKjG6zhNiThPm8Tp.jpg",
+                rating = 7.8,
+            ),
+            DummyTvShowsMain(
+                firstAirDate = "2018-10-25",
+                id = 79460,
+                title = "Legacies",
+                imagePoster = "/qTZIgXrBKURBK1KrsT7fe3qwtl9.jpg",
+                rating = 8.6,
+            ),
+            DummyTvShowsMain(
+                firstAirDate = "2018-09-04",
+                id = 76231,
+                title = "Mayans M.C.",
+                imagePoster = "/gaKhfksFK24N19bjlFpJxamYZ02.jpg",
+                rating = 7.8,
+            ),
+            DummyTvShowsMain(
+                firstAirDate = "2015-10-19",
+                id = 65334,
+                title = "Miraculous: Tales of Ladybug & Cat Noir",
+                imagePoster = "/qxbW47zmgFyBVmZSIqD9NA1DEjT.jpg",
+                rating = 7.8,
+            ),
+            DummyTvShowsMain(
+                firstAirDate = "2018-05-02",
+                id = 77169,
+                title = "Cobra Kai",
+                imagePoster = "/obLBdhLxheKg8Li1qO11r2SwmYO.jpg",
+                rating = 8.1,
+            ),
+            DummyTvShowsMain(
+                firstAirDate = "2011-04-17",
+                id = 1399,
+                title = "Game of Thrones",
+                imagePoster = "/u3bZgnGQ9T01sWNhyveQz0wH0Hl.jpg",
+                rating = 8.4,
+            ),
+            DummyTvShowsMain(
+                firstAirDate = "2009-09-10",
+                id = 18165,
+                title = "The Vampire Diaries",
+                imagePoster = "/aBkVgChtyyJaHyZh1gfd8DbzQon.jpg",
+                rating = 8.3,
+            ),
+            DummyTvShowsMain(
+                firstAirDate = "2013-03-03",
+                id = 44217,
+                title = "Vikings",
+                imagePoster = "/bQLrHIRNEkE3PdIWQrZHynQZazu.jpg",
+                rating = 8.0,
+            )
+        )
+    }
+    
+    fun generateTvShowsAiringToday(): List<DummyTvShowsMain>{
+        return mutableListOf(
+            DummyTvShowsMain(
+                firstAirDate= "2005-03-27",
+                id= 1416,
+                title= "Grey's Anatomy",
+                imagePoster= "/clnyhPqj1SNgpAdeSS6a6fwE6Bo.jpg",
+                rating= 8.2,
+            ),
+            DummyTvShowsMain(
+                firstAirDate= "2018-10-25",
+                id= 79460,
+                title= "Legacies",
+                imagePoster= "/qTZIgXrBKURBK1KrsT7fe3qwtl9.jpg",
+                rating= 8.6,
+            ),
+            DummyTvShowsMain(
+                firstAirDate= "2018-03-22",
+                id= 76773,
+                title= "Station 19",
+                imagePoster= "/lcuCED5Ky2uM5VE6wILOwt5FEb0.jpg",
+                rating= 8.2,
+            ),
+            DummyTvShowsMain(
+                firstAirDate= "2012-10-10",
+                id= 44006,
+                title= "Chicago Fire",
+                imagePoster= "/6AccYL0eb7uzHn98IKaNjvJbyuA.jpg",
+                rating= 8.4,
+            ),
+            DummyTvShowsMain(
+                firstAirDate= "2021-01-21",
+                id= 99121,
+                title= "Walker",
+                imagePoster= "/y4VHQbbY1UcAjHN7UTGu0MGyVl2.jpg",
+                rating= 6.9,
+            ),
+            DummyTvShowsMain(
+                firstAirDate= "1999-09-20",
+                id= 2734,
+                title= "Law & Order: Special Victims Unit",
+                imagePoster= "/jDCgWVlejIo8sQYxw3Yf1cVQUIL.jpg",
+                rating= 7.8,
+            ),
+            DummyTvShowsMain(
+                firstAirDate= "2014-01-08",
+                id= 58841,
+                title= "Chicago P.D.",
+                imagePoster= "/OlPR1kctwXzSUJQkZINDDhNlHV.jpg",
+                rating= 8.4,
+            ),
+            DummyTvShowsMain(
+                firstAirDate= "2020-04-28",
+                id= 102966,
+                title= "100 días para enamorarnos",
+                imagePoster= "/r13t1ohRQAlZpsjxgTKY7ypkWPc.jpg",
+                rating= 7.7,
+            ),
+            DummyTvShowsMain(
+                firstAirDate= "2017-09-25",
+                id= 71728,
+                title= "Young Sheldon",
+                imagePoster= "/aESxB2HblKlDzma39xVefa20pbW.jpg",
+                rating= 8.0,
+            ),
+            DummyTvShowsMain(
+                firstAirDate= "2017-09-27",
+                id= 71789,
+                title= "SEAL Team",
+                imagePoster= "/uTSLeQTeHevt4fplegmQ6bOnE0Z.jpg",
+                rating= 7.8,
+            ),
+            DummyTvShowsMain(
+                firstAirDate= "2017-11-02",
+                id= 71790,
+                title= "S.W.A.T.",
+                imagePoster= "/ushSkKB8aeLsyyW2c7S7CCmEmRA.jpg",
+                rating= 7.7,
+            ),
+            DummyTvShowsMain(
+                firstAirDate= "2019-01-08",
+                id= 80006,
+                title= "Good Trouble",
+                imagePoster= "/b9OwPQZr4dVv7K8SrUbAYJ35uLg.jpg",
+                rating= 7.9,
+            ),
+            DummyTvShowsMain(
+                firstAirDate= "2015-11-17",
+                id= 62650,
+                title= "Chicago Med",
+                imagePoster= "/8mFhW6fJlapqq3cmQjxcG5h4KFa.jpg",
+                rating= 8.2,
+            ),
+            DummyTvShowsMain(
+                firstAirDate= "2021-04-01",
+                id= 104699,
+                title= "Shaman King",
+                imagePoster= "/rFFsdLlwyclyM83ALobrfMhr28A.jpg",
+                rating= 8.3,
+            ),
+            DummyTvShowsMain(
+                firstAirDate= "2021-04-07",
+                id= 95631,
+                title= "Super Cub",
+                imagePoster= "/h36KQWhJEZuVptk0WBuSVXhuiD8.jpg",
+                rating= 0.0,
+            ),
+            DummyTvShowsMain(
+                firstAirDate= "2018-10-04",
+                id= 82822,
+                title= "Zombie Land Saga",
+                imagePoster= "/c62Myh7wxmAUabqmCje8u9mbVIO.jpg",
+                rating= 8.4,
+            ),
+            DummyTvShowsMain(
+                firstAirDate= "2021-04-07",
+                id= 114198,
+                title= "Full Dive: This Ultimate Next-Gen Full Dive RPG is Even Shittier than Real Life!",
+                imagePoster= "/6pRbPIGuBAZDjblqhDl6U4CUQxI.jpg",
+                rating= 0.0,
+            ),
+            DummyTvShowsMain(
+                firstAirDate= "2018-09-24",
+                id= 79696,
+                title= "Manifest",
+                imagePoster= "/1xeiUxShzNn8TNdMqy3Hvo9o2R.jpg",
+                rating= 7.7,
+            ),
+            DummyTvShowsMain(
+                firstAirDate= "2007-10-14",
+                id= 14814,
+                title= "Keeping Up with the Kardashians",
+                imagePoster= "/nddXOC8wYpIDv7giLzjjqIg8WDA.jpg",
+                rating= 5.0,
+            ),
+            DummyTvShowsMain(
+                firstAirDate= "2010-11-08",
+                id= 32415,
+                title= "Conan",
+                imagePoster= "/e0QI3XHKO0n70U3mxBdHf8uoxie.jpg",
+                rating= 7.3,
+            )
+        )
+    }
 }

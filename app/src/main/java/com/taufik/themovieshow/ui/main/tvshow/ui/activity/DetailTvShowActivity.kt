@@ -18,7 +18,7 @@ import com.taufik.themovieshow.BuildConfig
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.api.UrlEndpoint
 import com.taufik.themovieshow.databinding.ActivityDetailTvShowBinding
-import com.taufik.themovieshow.ui.main.tvshow.data.populardetail.TvShowsPopularDetailResponse
+import com.taufik.themovieshow.ui.main.tvshow.data.detail.TvShowsPopularDetailResponse
 import com.taufik.themovieshow.ui.main.tvshow.viewmodel.DetailTvShowViewModel
 import es.dmoral.toasty.Toasty
 import kotlin.properties.Delegates

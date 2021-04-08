@@ -7,15 +7,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.taufik.themovieshow.BuildConfig
 import com.taufik.themovieshow.databinding.FragmentTvShowAiringTodayBinding
 import com.taufik.themovieshow.ui.main.tvshow.ui.adapter.TvShowsAdapter
-import com.taufik.themovieshow.ui.main.tvshow.viewmodel.TvShowViewModel
+import com.taufik.themovieshow.ui.main.tvshow.viewmodel.DummyTvShowsViewModel
 
 class TvShowAiringTodayFragment : Fragment() {
 
     private lateinit var tvShowsAiringTodayBinding: FragmentTvShowAiringTodayBinding
-    private lateinit var viewModel: TvShowViewModel
+    private lateinit var viewModel: DummyTvShowsViewModel
     private lateinit var tvShowsAdapter: TvShowsAdapter
 
     override fun onCreateView(
@@ -45,7 +44,7 @@ class TvShowAiringTodayFragment : Fragment() {
     }
 
     private fun setViewModel() {
-        viewModel = ViewModelProvider(requireActivity(), ViewModelProvider.NewInstanceFactory())[TvShowViewModel::class.java]
+        viewModel = ViewModelProvider(requireActivity(), ViewModelProvider.NewInstanceFactory())[DummyTvShowsViewModel::class.java]
     }
 
     private fun setRecyclerView() {
@@ -59,14 +58,9 @@ class TvShowAiringTodayFragment : Fragment() {
     private fun setData() {
 
         showLoading(true)
-
-        viewModel.setTvShowsAiringToday(BuildConfig.API_KEY)
-        viewModel.getTvShowsAiringToday().observe(requireActivity(), {
-            if (it != null) {
-                tvShowsAdapter.setTvShows(it)
-                showLoading(false)
-            }
-        })
+        val listPopular = viewModel.getTvShowsPopular()
+        tvShowsAdapter.setTvShows(listPopular)
+        showLoading(false)
     }
 
     private fun showLoading(state: Boolean) {
