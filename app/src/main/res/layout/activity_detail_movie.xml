@@ -81,15 +81,6 @@
             app:layout_constraintBottom_toBottomOf="@+id/tvReleasedOn"
             tools:text="@string/tvReleaseDate"/>
 
-        <TextView
-            android:id="@+id/tvStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/holo_green_light"
-            app:layout_constraintStart_toStartOf="@id/tvTitle"
-            app:layout_constraintTop_toBottomOf="@id/tvReleaseDate"
-            tools:text="@string/tvStatus"/>
-
         <com.codesgood.views.JustifiedTextView
             android:id="@+id/tvOverview"
             android:layout_width="match_parent"
@@ -153,46 +144,6 @@
                 tools:text="@string/tvRating"/>
 
             <ImageView
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                android:layout_marginStart="8dp"
-                android:contentDescription="@null"
-                android:src="@drawable/ic_circle"/>
-
-            <TextView
-                android:id="@+id/tvGenre"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:textColor="@color/colorTextIcons"
-                android:textSize="12sp"/>
-
-            <ImageView
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                android:layout_marginStart="8dp"
-                android:contentDescription="@null"
-                android:src="@drawable/ic_circle"
-                tools:text="@string/tvGenre"/>
-
-            <TextView
-                android:id="@+id/tvRuntime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:textColor="@color/colorTextIcons"
-                android:textSize="12sp"
-                tools:text="@string/tvRuntime"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="3dp"
-                android:textColor="@color/colorTextIcons"
-                android:textSize="12sp"
-                android:text="@string/tvMins"/>
-
-            <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginStart="8dp"
@@ -223,25 +174,6 @@
             app:layout_constraintStart_toStartOf="@id/tvOverview"
             app:layout_constraintEnd_toEndOf="@+id/tvOverview"
             app:layout_constraintTop_toBottomOf="@+id/llLayoutMisc"/>
-
-        <Button
-            android:id="@+id/btnWebsite"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="12dp"
-            android:includeFontPadding="false"
-            android:text="@string/btnWebsites"
-            android:textColor="@color/colorTextIcons"
-            android:textSize="12sp"
-            android:backgroundTint="@color/colorOrange"
-            android:clickable="true"
-            android:focusable="true"
-            android:foreground="?attr/selectableItemBackground"
-            app:cornerRadius="6dp"
-            app:layout_constraintStart_toStartOf="@id/imgBackdrop"
-            app:layout_constraintEnd_toEndOf="@id/imgBackdrop"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/viewHelper2"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

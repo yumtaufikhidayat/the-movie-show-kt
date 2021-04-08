@@ -58,7 +58,7 @@ class TvShowAiringTodayFragment : Fragment() {
     private fun setData() {
 
         showLoading(true)
-        val listPopular = viewModel.getTvShowsPopular()
+        val listPopular = viewModel.getTvShowsAiringToday()
         tvShowsAdapter.setTvShows(listPopular)
         showLoading(false)
     }

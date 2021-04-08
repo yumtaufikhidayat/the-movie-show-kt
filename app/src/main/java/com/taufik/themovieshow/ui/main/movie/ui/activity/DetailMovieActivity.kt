@@ -20,6 +20,7 @@ import com.taufik.themovieshow.api.UrlEndpoint
 import com.taufik.themovieshow.databinding.ActivityDetailMovieBinding
 import com.taufik.themovieshow.ui.main.movie.data.detail.MovieDetailResponse
 import com.taufik.themovieshow.ui.main.movie.viewmodel.DetailMovieViewModel
+import com.taufik.themovieshow.utils.DataDummy
 import es.dmoral.toasty.Toasty
 import kotlin.properties.Delegates
 
@@ -63,48 +64,48 @@ class DetailMovieActivity : AppCompatActivity() {
     }
 
     private fun setData() {
-        viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[DetailMovieViewModel::class.java]
-        viewModel.setDetailMovieNowPlaying(id, BuildConfig.API_KEY)
-        viewModel.getDetailMovieNowPlaying().observe(this, {
-            data = it
-            if (it != null) {
-                binding.apply {
-                    imgPoster.loadImage(it.posterPath)
-                    imgBackdrop.loadImage(it.backdropPath)
-                    tvTitle.text = it.title
-                    tvReleaseDate.text = it.releaseDate
-                    tvStatus.text = it.status
-                    tvOverview.text = it.overview
-                    tvRating.text = it.voteAverage.toString()
-
-                    if (it.genres.isEmpty()) {
-                        tvGenre.text = "N/A"
-                    } else {
-                        tvGenre.text = it.genres[0].name
-                    }
-
-                    tvRuntime.text = it.runtime.toString()
-                    tvLanguage.text = it.originalLanguage
-
-                    val websiteLink = it.homepage
-
-                    btnWebsite.setOnClickListener {
-                        try {
-                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(websiteLink))
-                            startActivity(Intent.createChooser(intent, "Open with:"))
-                        } catch (e: Exception) {
-                            Toasty.warning(
-                                    this@DetailMovieActivity,
-                                    "Silakan install browser terlebih dulu.",
-                                    Toast.LENGTH_SHORT, true
-                            ).show()
-
-                            Log.e("errorLink", "setViewModel: ${e.localizedMessage}" )
-                        }
-                    }
-                }
-            }
-        })
+//        viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[DetailMovieViewModel::class.java]
+//        viewModel.setDetailMovieNowPlaying(id, BuildConfig.API_KEY)
+//        viewModel.getDetailMovieNowPlaying().observe(this, {
+//            data = it
+//            if (it != null) {
+//                binding.apply {
+//                    imgPoster.loadImage(it.posterPath)
+//                    imgBackdrop.loadImage(it.backdropPath)
+//                    tvTitle.text = it.title
+//                    tvReleaseDate.text = it.releaseDate
+//                    tvStatus.text = it.status
+//                    tvOverview.text = it.overview
+//                    tvRating.text = it.voteAverage.toString()
+//
+//                    if (it.genres.isEmpty()) {
+//                        tvGenre.text = "N/A"
+//                    } else {
+//                        tvGenre.text = it.genres[0].name
+//                    }
+//
+//                    tvRuntime.text = it.runtime.toString()
+//                    tvLanguage.text = it.originalLanguage
+//
+//                    val websiteLink = it.homepage
+//
+//                    btnWebsite.setOnClickListener {
+//                        try {
+//                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(websiteLink))
+//                            startActivity(Intent.createChooser(intent, "Open with:"))
+//                        } catch (e: Exception) {
+//                            Toasty.warning(
+//                                    this@DetailMovieActivity,
+//                                    "Silakan install browser terlebih dulu.",
+//                                    Toast.LENGTH_SHORT, true
+//                            ).show()
+//
+//                            Log.e("errorLink", "setViewModel: ${e.localizedMessage}" )
+//                        }
+//                    }
+//                }
+//            }
+//        })
     }
 
     private fun setReadMore() {
