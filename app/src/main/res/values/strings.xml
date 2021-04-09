@@ -18,10 +18,10 @@
     <string name="tvBullet">\u2022</string>
     <string name="tvRuntime">Runtime</string>
     <string name="tvGenre">Genre</string>
-    <string name="tvMins">mins</string>
-    <string name="tvEpisodes">episodes</string>
-    <string name="tvOtherMenus">Menu lainnya</string>
-    <string name="tvOpenInBrowser">Buka di peramban</string>
+    <string name="tvEpisodes">Episodes</string>
+    <string name="tvOtherMenus">Menu Lainnya</string>
+    <string name="tvShare">Share</string>
+    <string name="tvOpenInBrowser">Open in browser</string>
     <string name="tvReadMore">Read More</string>
     <string name="tvReadLess">Read Less</string>
 

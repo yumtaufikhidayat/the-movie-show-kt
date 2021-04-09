@@ -140,7 +140,22 @@ class DetailMovieActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
+
             android.R.id.home -> onBackPressed()
+
+            R.id.nav_share -> {
+                try {
+
+                    val body = "Visit this awesome movie \n${data.homepage}"
+
+                    val shareIntent = Intent(Intent.ACTION_SEND)
+                    shareIntent.type = "text/plain"
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, body)
+                    startActivity(Intent.createChooser(shareIntent, "Share with:"))
+                } catch (e: Exception) {
+                    Log.e("shareFailed", "onOptionsItemSelected: ${e.localizedMessage}")
+                }
+            }
 
             R.id.nav_open_in_browser -> {
                 try {
