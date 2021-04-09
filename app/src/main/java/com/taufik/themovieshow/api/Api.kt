@@ -1,9 +1,10 @@
 package com.taufik.themovieshow.api
 
-import com.taufik.themovieshow.ui.main.movie.data.detail.MovieDetailResponse
-import com.taufik.themovieshow.ui.main.movie.data.main.MovieMainResponse
-import com.taufik.themovieshow.ui.main.tvshow.data.detail.TvShowsPopularDetailResponse
-import com.taufik.themovieshow.ui.main.tvshow.data.main.TvShowsMainResponse
+import com.taufik.themovieshow.ui.feature.movie.data.detail.MovieDetailResponse
+import com.taufik.themovieshow.ui.feature.movie.data.nowplayingupcoming.MovieMainResponse
+import com.taufik.themovieshow.ui.feature.movie.data.trending.MovieTrendingResponse
+import com.taufik.themovieshow.ui.feature.tvshow.data.detail.TvShowsPopularDetailResponse
+import com.taufik.themovieshow.ui.feature.tvshow.data.main.TvShowsMainResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -20,6 +21,11 @@ interface Api {
     fun getMovieUpcoming(
             @Query("api_key") apiKey: String
     ): Call<MovieMainResponse>
+
+    @GET(UrlEndpoint.MOVIE_TRENDING_DAY)
+    fun getMovieTrendingDay(
+            @Query("api_key") apiKey: String
+    ): Call<MovieTrendingResponse>
 
     @GET(UrlEndpoint.MOVIE_DETAIL)
     fun getDetailMovie(

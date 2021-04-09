@@ -13,15 +13,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TheMovieShow">
         <activity
-            android:name="com.taufik.themovieshow.ui.main.activity.MainActivity"
+            android:name="com.taufik.themovieshow.ui.activity.MainActivity"
             android:theme="@style/TheMovieShowDarkActivityTheme"/>
         <activity
-            android:name="com.taufik.themovieshow.ui.main.tvshow.ui.activity.DetailTvShowActivity"
+            android:name="com.taufik.themovieshow.ui.feature.tvshow.ui.activity.DetailTvShowActivity"
             android:theme="@style/TheMovieShowDarkActivityTheme"/>
         <activity
-            android:name="com.taufik.themovieshow.ui.main.movie.ui.activity.DetailMovieActivity"
+            android:name="com.taufik.themovieshow.ui.feature.movie.ui.activity.DetailMovieActivity"
             android:theme="@style/TheMovieShowDarkActivityTheme"/>
-        <activity android:name="com.taufik.themovieshow.ui.splashscreen.SplashscreenActivity">
+        <activity android:name="com.taufik.themovieshow.ui.feature.splashscreen.SplashscreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

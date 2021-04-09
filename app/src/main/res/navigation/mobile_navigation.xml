@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/nav_movie"
-        android:name="com.taufik.themovieshow.ui.main.movie.ui.fragment.MovieFragment"
+        android:name="com.taufik.themovieshow.ui.feature.movie.ui.fragment.MovieFragment"
         android:label="Movies"
         tools:layout="@layout/fragment_movie" />
     <fragment
         android:id="@+id/nav_tv_show"
-        android:name="com.taufik.themovieshow.ui.main.tvshow.ui.fragment.TvShowFragment"
+        android:name="com.taufik.themovieshow.ui.feature.tvshow.ui.fragment.TvShowFragment"
         android:label="TV Shows"
         tools:layout="@layout/fragment_tv_show" />
 
