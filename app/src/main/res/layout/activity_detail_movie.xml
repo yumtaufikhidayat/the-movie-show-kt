@@ -226,16 +226,22 @@
 
         <Button
             android:id="@+id/btnWebsite"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="12dp"
+            android:includeFontPadding="false"
             android:text="@string/btnWebsites"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:background="@color/colorOrange"
-            app:layout_constraintTop_toBottomOf="@id/viewHelper2"
-            app:layout_constraintStart_toStartOf="@id/tvOverview"
-            app:layout_constraintEnd_toEndOf="@id/tvOverview"/>
+            android:textColor="@color/colorTextIcons"
+            android:textSize="12sp"
+            android:backgroundTint="@color/colorOrange"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            app:cornerRadius="6dp"
+            app:layout_constraintStart_toStartOf="@id/imgBackdrop"
+            app:layout_constraintEnd_toEndOf="@id/imgBackdrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/viewHelper2"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
