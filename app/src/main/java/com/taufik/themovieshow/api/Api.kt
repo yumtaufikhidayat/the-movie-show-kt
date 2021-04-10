@@ -4,7 +4,8 @@ import com.taufik.themovieshow.ui.feature.movie.data.detail.MovieDetailResponse
 import com.taufik.themovieshow.ui.feature.movie.data.nowplayingupcoming.MovieMainResponse
 import com.taufik.themovieshow.ui.feature.movie.data.trending.MovieTrendingResponse
 import com.taufik.themovieshow.ui.feature.tvshow.data.detail.TvShowsPopularDetailResponse
-import com.taufik.themovieshow.ui.feature.tvshow.data.main.TvShowsMainResponse
+import com.taufik.themovieshow.ui.feature.tvshow.data.popularairingtoday.TvShowsMainResponse
+import com.taufik.themovieshow.ui.feature.tvshow.data.trending.TvShowsTrendingReponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -42,6 +43,11 @@ interface Api {
     fun getTvShowsPopular(
             @Query("api_key") apiKey: String
     ): Call<TvShowsMainResponse>
+
+    @GET(UrlEndpoint.TV_SHOWS_TRENDING_DAY)
+    fun getTvShowsTrending(
+        @Query("api_key") apiKey: String
+    ): Call<TvShowsTrendingReponse>
 
     @GET(UrlEndpoint.TV_SHOWS_DETAIL)
     fun getDetailTvShows(

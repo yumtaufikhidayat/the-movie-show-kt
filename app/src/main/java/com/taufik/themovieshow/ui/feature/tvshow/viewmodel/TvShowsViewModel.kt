@@ -5,8 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.taufik.themovieshow.api.ApiClient
-import com.taufik.themovieshow.ui.feature.tvshow.data.main.TvShowsMainResponse
-import com.taufik.themovieshow.ui.feature.tvshow.data.main.TvShowsMainResult
+import com.taufik.themovieshow.ui.feature.tvshow.data.popularairingtoday.TvShowsMainResponse
+import com.taufik.themovieshow.ui.feature.tvshow.data.popularairingtoday.TvShowsMainResult
+import com.taufik.themovieshow.ui.feature.tvshow.data.trending.TvShowsTrendingReponse
+import com.taufik.themovieshow.ui.feature.tvshow.data.trending.TvShowsTrendingResult
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -15,6 +17,7 @@ class TvShowsViewModel : ViewModel() {
 
     private val listAiringToday = MutableLiveData<ArrayList<TvShowsMainResult>>()
     private val listPopular = MutableLiveData<ArrayList<TvShowsMainResult>>()
+    private val listTrending = MutableLiveData<ArrayList<TvShowsTrendingResult>>()
 
     fun setTvShowsAiringToday(apiKey: String) {
         ApiClient.apiInstance
@@ -56,5 +59,30 @@ class TvShowsViewModel : ViewModel() {
 
     fun getTvShowsPopular(): LiveData<ArrayList<TvShowsMainResult>> {
         return listPopular
+    }
+
+    fun setTvShowsTrending(apiKey: String) {
+        ApiClient.apiInstance
+            .getTvShowsTrending(apiKey)
+            .enqueue(object : Callback<TvShowsTrendingReponse> {
+                override fun onResponse(
+                    call: Call<TvShowsTrendingReponse>,
+                    response: Response<TvShowsTrendingReponse>
+                ) {
+                    if (response.body() != null) {
+                        listTrending.postValue(response.body()?.results as ArrayList<TvShowsTrendingResult>)
+                        Log.e("mainSuccess", "onResponse: ${response.body()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<TvShowsTrendingReponse>, t: Throwable) {
+                    Log.e("mainFailed", "onFailure: ${t.localizedMessage}")
+                }
+
+            })
+    }
+
+    fun getTvShowsTrending(): LiveData<ArrayList<TvShowsTrendingResult>> {
+        return listTrending
     }
 }
