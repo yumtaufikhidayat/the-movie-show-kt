@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.taufik.themovieshow.databinding.FragmentMovieBinding
-import com.taufik.themovieshow.ui.feature.movie.adapter.MoviePagerAdapter
+import com.taufik.themovieshow.ui.adapter.movie.MoviePagerAdapter
 
 class MovieFragment : Fragment() {
 

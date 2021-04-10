@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.taufik.themovieshow.databinding.FragmentTvShowBinding
-import com.taufik.themovieshow.ui.feature.tvshow.adapter.TvShowPagerAdapter
+import com.taufik.themovieshow.ui.adapter.tvshow.TvShowPagerAdapter
 
 class TvShowFragment : Fragment() {
 
