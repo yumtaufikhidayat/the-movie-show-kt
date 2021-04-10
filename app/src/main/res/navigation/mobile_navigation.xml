@@ -3,8 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/nav_movie">
+    app:startDestination="@id/nav_trending">
 
+    <fragment
+        android:id="@+id/nav_trending"
+        android:name="com.taufik.themovieshow.ui.fragment.TrendingFragment"
+        android:label="Trending"
+        tools:layout="@layout/fragment_trending" />
     <fragment
         android:id="@+id/nav_movie"
         android:name="com.taufik.themovieshow.ui.feature.movie.ui.fragment.MovieFragment"

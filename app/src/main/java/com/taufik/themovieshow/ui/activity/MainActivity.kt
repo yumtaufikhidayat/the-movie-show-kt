@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.findNavController()
 
         val appBarConfiguration = AppBarConfiguration.Builder(
+            R.id.nav_trending,
             R.id.nav_movie,
             R.id.nav_tv_show
         ).build()

@@ -308,7 +308,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:$USER_HOME$/Android/Sdk/icons/material/materialiconsoutlined/share/outline_share_24.xml" />
+                                      <entry key="url" value="file:$USER_HOME$/Android/Sdk/icons/material/materialicons/local_fire_department/baseline_local_fire_department_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -319,7 +319,7 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="ffa500" />
-                            <entry key="outputName" value="ic_share" />
+                            <entry key="outputName" value="ic_outline_trending" />
                           </map>
                         </option>
                       </PersistentState>
