@@ -26,14 +26,20 @@
     <string name="tvReadMore">Read More</string>
     <string name="tvReadLess">Read Less</string>
 
+    <!--Button-->
     <string name="btnWebsites">Website</string>
-
-    <!--Bottom menu-->
 
     <string name="tvMovieNowPlaying">Now Playing</string>
     <string name="tvMovieUpcoming">Upcoming</string>
     <string name="tvTvShowPopular">Popular</string>
     <string name="tvTvShowAiringToday">Airing Today</string>
+
+    <!--Bottom nav menu-->
+    <string name="icTrending">Trending</string>
+    <string name="icMovies">Movies</string>
+    <string name="icTVShows">TV Shows</string>
+    <string name="icDiscover">Discover</string>
+    <string name="icAbout">About</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

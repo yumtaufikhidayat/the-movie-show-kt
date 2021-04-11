@@ -38,7 +38,9 @@ class MainActivity : AppCompatActivity() {
         val appBarConfiguration = AppBarConfiguration.Builder(
             R.id.nav_trending,
             R.id.nav_movie,
-            R.id.nav_tv_show
+            R.id.nav_tv_show,
+            R.id.nav_discover,
+            R.id.nav_about
         ).build()
 
         setupActionBarWithNavController(navController, appBarConfiguration)

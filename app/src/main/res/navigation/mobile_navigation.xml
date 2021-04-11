@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_trending"
-        android:name="com.taufik.themovieshow.ui.fragment.TrendingFragment"
+        android:name="com.taufik.themovieshow.ui.feature.trending.TrendingFragment"
         android:label="Trending"
         tools:layout="@layout/fragment_trending" />
     <fragment
@@ -20,5 +20,15 @@
         android:name="com.taufik.themovieshow.ui.feature.tvshow.ui.fragment.TvShowFragment"
         android:label="TV Shows"
         tools:layout="@layout/fragment_tv_show" />
+    <fragment
+        android:id="@+id/nav_discover"
+        android:name="com.taufik.themovieshow.ui.feature.discover.DiscoverFragment"
+        android:label="Discover"
+        tools:layout="@layout/fragment_discover" />
+    <fragment
+        android:id="@+id/nav_about"
+        android:name="com.taufik.themovieshow.ui.feature.about.AboutFragment"
+        android:label="About"
+        tools:layout="@layout/fragment_about" />
 
 </navigation>

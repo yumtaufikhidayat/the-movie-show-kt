@@ -21,7 +21,7 @@
         <activity
             android:name="com.taufik.themovieshow.ui.feature.movie.ui.activity.DetailMovieActivity"
             android:theme="@style/TheMovieShowDarkActivityTheme"/>
-        <activity android:name="com.taufik.themovieshow.ui.feature.splashscreen.SplashscreenActivity">
+        <activity android:name="com.taufik.themovieshow.ui.activity.SplashscreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
