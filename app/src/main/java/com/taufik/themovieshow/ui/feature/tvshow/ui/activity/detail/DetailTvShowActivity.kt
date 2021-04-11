@@ -25,6 +25,7 @@ import com.taufik.themovieshow.ui.feature.tvshow.data.detail.TvShowsPopularDetai
 import com.taufik.themovieshow.ui.feature.tvshow.ui.adapter.TvShowsCastAdapter
 import com.taufik.themovieshow.ui.feature.tvshow.viewmodel.DetailTvShowViewModel
 import es.dmoral.toasty.Toasty
+import java.util.*
 import kotlin.properties.Delegates
 
 class DetailTvShowActivity : AppCompatActivity() {
@@ -103,16 +104,24 @@ class DetailTvShowActivity : AppCompatActivity() {
                     tvOverview.text = it.overview
                     tvRating.text = it.voteAverage.toString()
 
-                    if (it.genres.isEmpty()) {
-                        tvGenre.text = "N/A"
-                    } else {
-                        tvGenre.text = it.genres[0].name
+                    when {
+                        it.genres.isEmpty() -> {
+                            tvGenre.text = "N/A"
+                        }
+
+                        else -> {
+                            tvGenre.text = it.genres[0].name
+                        }
                     }
 
-                    if (it.episodeRunTime.isEmpty()) {
-                        tvEpisodes.text = "N/A"
-                    } else {
-                        tvEpisodes.text = String.format("${it.episodeRunTime[0]} episodes")
+                    when {
+                        it.episodeRunTime.isEmpty() -> {
+                            tvEpisodes.text = "N/A"
+                        }
+
+                        else -> {
+                            tvEpisodes.text = String.format("${it.episodeRunTime[0]} episodes")
+                        }
                     }
 
                     tvLanguage.text = it.originalLanguage
@@ -124,12 +133,12 @@ class DetailTvShowActivity : AppCompatActivity() {
                             startActivity(Intent.createChooser(intent, "Open with:"))
                         } catch (e: Exception) {
                             Toasty.warning(
-                                this@DetailTvShowActivity,
-                                "Please install browser.",
-                                Toast.LENGTH_SHORT, true
+                                    this@DetailTvShowActivity,
+                                    "Please install browser.",
+                                    Toast.LENGTH_SHORT, true
                             ).show()
 
-                            Log.e("errorLink", "setViewModel: ${e.localizedMessage}" )
+                            Log.e("errorLink", "setViewModel: ${e.localizedMessage}")
                         }
                     }
                 }
@@ -143,13 +152,27 @@ class DetailTvShowActivity : AppCompatActivity() {
             if (it != null) {
                 binding.apply {
 
-                    tvTrailer.text = it.results[0].name
+                    if (it.results.isEmpty()) {
+                        tvTrailer.text = String.format(Locale.getDefault(), "Trailer Video")
+                    } else {
+                        tvTrailer.text = it.results[0].name
+                    }
 
                     lifecycle.addObserver(videoTrailer)
-                    videoTrailer.addYouTubePlayerListener(object : AbstractYouTubePlayerListener(){
+                    videoTrailer.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
                         override fun onReady(youTubePlayer: YouTubePlayer) {
-                            val videoId = it.results[0].key
-                            youTubePlayer.loadVideo(videoId, 0F)
+
+                            when {
+
+                                it.results.isEmpty() -> {
+                                    Log.e("videoFailed", "onReady: ")
+                                }
+
+                                else -> {
+                                    val videoId = it.results[0].key
+                                    youTubePlayer.loadVideo(videoId, 0F)
+                                }
+                            }
                         }
                     })
                 }
