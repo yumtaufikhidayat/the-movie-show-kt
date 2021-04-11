@@ -5,18 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.taufik.themovieshow.databinding.FragmentDiscoverTvShowsBinding
+import com.taufik.themovieshow.databinding.FragmentFavoriteTvShowsBinding
 
 class DiscoverTvShowsFragment : Fragment() {
 
-    private lateinit var discoverTvShowsBinding: FragmentDiscoverTvShowsBinding
+    private lateinit var favoriteTvShowBinding: FragmentFavoriteTvShowsBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        discoverTvShowsBinding = FragmentDiscoverTvShowsBinding.inflate(inflater, container, false)
-        return discoverTvShowsBinding.root
+        favoriteTvShowBinding = FragmentFavoriteTvShowsBinding.inflate(inflater, container, false)
+        return favoriteTvShowBinding.root
     }
 }

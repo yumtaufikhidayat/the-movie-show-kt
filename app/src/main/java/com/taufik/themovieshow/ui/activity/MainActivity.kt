@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
             R.id.nav_trending,
             R.id.nav_movie,
             R.id.nav_tv_show,
-            R.id.nav_discover,
+            R.id.nav_favorite,
             R.id.nav_about
         ).build()
 

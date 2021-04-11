@@ -4,20 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.taufik.themovieshow.BuildConfig
-import com.taufik.themovieshow.databinding.FragmentDiscoverMovieBinding
+import com.taufik.themovieshow.databinding.FragmentFavoriteMovieBinding
 import com.taufik.themovieshow.ui.feature.movie.ui.adapter.SearchMovieAdapter
 import com.taufik.themovieshow.ui.feature.movie.viewmodel.MovieViewModel
 import es.dmoral.toasty.Toasty
 
 class DiscoverMovieFragment : Fragment() {
 
-    private lateinit var discoverMovieBinding: FragmentDiscoverMovieBinding
+    private lateinit var favoriteMovieBinding: FragmentFavoriteMovieBinding
     private lateinit var viewModel: MovieViewModel
     private lateinit var movieAdapter: SearchMovieAdapter
 
@@ -26,8 +25,8 @@ class DiscoverMovieFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        discoverMovieBinding = FragmentDiscoverMovieBinding.inflate(inflater, container, false)
-        return discoverMovieBinding.root
+        favoriteMovieBinding = FragmentFavoriteMovieBinding.inflate(inflater, container, false)
+        return favoriteMovieBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -53,7 +52,7 @@ class DiscoverMovieFragment : Fragment() {
     }
 
     private fun setData() {
-        with(discoverMovieBinding.rvDiscoverMovies) {
+        with(favoriteMovieBinding.rvDiscoverMovies) {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
             adapter = movieAdapter
@@ -63,30 +62,18 @@ class DiscoverMovieFragment : Fragment() {
     private fun showLoading(state: Boolean) {
 
         if (state) {
-            discoverMovieBinding.progressBar.visibility = View.VISIBLE
+            favoriteMovieBinding.progressBar.visibility = View.VISIBLE
         } else {
-            discoverMovieBinding.progressBar.visibility = View.GONE
+            favoriteMovieBinding.progressBar.visibility = View.GONE
         }
     }
 
     private fun searchMovies() {
-        discoverMovieBinding.apply {
+        favoriteMovieBinding.apply {
 
-            showLoading(true)
+//            showLoading(true)
 
-            searchMovies.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
-                    androidx.appcompat.widget.SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String): Boolean {
-                    if (query.isNotEmpty()) {
-                        setDiscoverMovies(query)
-                    } else {
-                        setDiscoverMovies("")
-                    }
-                    return true
-                }
 
-                override fun onQueryTextChange(newText: String): Boolean = false
-            })
         }
     }
 

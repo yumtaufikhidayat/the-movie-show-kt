@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context=".ui.feature.discover.DiscoverTvShowsFragment">
+
+    <LinearLayout
+        android:id="@+id/llDiscoverTvShows"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/edit_text_white_bg_round_less"
+        android:gravity="start"
+        android:orientation="horizontal"
+        android:padding="1dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:src="@drawable/ic_search"
+            android:contentDescription="@string/app_name"
+            android:textColor="@color/white" />
+
+        <EditText
+            android:id="@+id/etDiscoverTvShows"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:backgroundTint="@android:color/transparent"
+            android:hint="@string/tvDiscoverTvShows"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:imeOptions="actionSearch"
+            android:textColor="@color/white"
+            android:textColorHint="@color/colorSemiBlack"
+            android:textSize="16sp"
+            android:fontFamily="sans-serif-medium" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

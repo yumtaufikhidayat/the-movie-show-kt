@@ -13,9 +13,9 @@
         android:icon="@drawable/nav_tv_show_selector"
         android:title="@string/icTVShows"/>
 
-    <item android:id="@+id/nav_discover"
-        android:icon="@drawable/nav_discover_selector"
-        android:title="@string/icDiscover"/>
+    <item android:id="@+id/nav_favorite"
+        android:icon="@drawable/nav_favorite_selector"
+        android:title="@string/icFavorite"/>
 
     <item android:id="@+id/nav_about"
         android:icon="@drawable/nav_about_selector"

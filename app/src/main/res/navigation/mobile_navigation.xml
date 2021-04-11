@@ -21,10 +21,10 @@
         android:label="TV Shows"
         tools:layout="@layout/fragment_tv_show" />
     <fragment
-        android:id="@+id/nav_discover"
+        android:id="@+id/nav_favorite"
         android:name="com.taufik.themovieshow.ui.feature.discover.DiscoverFragment"
-        android:label="Discover"
-        tools:layout="@layout/fragment_discover" />
+        android:label="Favorite"
+        tools:layout="@layout/fragment_favorite" />
     <fragment
         android:id="@+id/nav_about"
         android:name="com.taufik.themovieshow.ui.feature.about.AboutFragment"

@@ -5,20 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.taufik.themovieshow.databinding.FragmentDiscoverBinding
+import com.taufik.themovieshow.databinding.FragmentFavoriteBinding
 import com.taufik.themovieshow.ui.adapter.discover.DiscoverPagerAdapter
 
 class DiscoverFragment : Fragment() {
 
-    private lateinit var discoverFragmentBinding: FragmentDiscoverBinding
+    private lateinit var favoriteFragmentBinding: FragmentFavoriteBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        discoverFragmentBinding = FragmentDiscoverBinding.inflate(inflater, container, false)
-        return discoverFragmentBinding.root
+        favoriteFragmentBinding = FragmentFavoriteBinding.inflate(inflater, container, false)
+        return favoriteFragmentBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -29,7 +29,7 @@ class DiscoverFragment : Fragment() {
 
     private fun setViewPager() {
         val discoverPagerAdapter = DiscoverPagerAdapter(requireContext(), childFragmentManager)
-        discoverFragmentBinding.apply {
+        favoriteFragmentBinding.apply {
             viewPagerDiscover.adapter = discoverPagerAdapter
             tabLayoutDiscover.setupWithViewPager(viewPagerDiscover)
         }

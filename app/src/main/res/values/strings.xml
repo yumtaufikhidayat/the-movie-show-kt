@@ -27,6 +27,7 @@
     <string name="tvReadLess">Read Less</string>
     <string name="tvDiscoverMovie">Discover Movies…</string>
     <string name="tvDiscoverTvShows">Discover TV Shows…</string>
+    <string name="tvDiscover">Discover</string>
 
     <!--Button-->
     <string name="btnWebsites">Website</string>
@@ -40,7 +41,7 @@
     <string name="icTrending">Trending</string>
     <string name="icMovies">Movies</string>
     <string name="icTVShows">TV Shows</string>
-    <string name="icDiscover">Discover</string>
+    <string name="icFavorite">Favorite</string>
     <string name="icAbout">About</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
