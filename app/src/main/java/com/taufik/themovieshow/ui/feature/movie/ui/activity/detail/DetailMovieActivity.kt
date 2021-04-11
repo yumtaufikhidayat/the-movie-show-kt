@@ -25,6 +25,7 @@ import com.taufik.themovieshow.ui.feature.movie.data.detail.MovieDetailResponse
 import com.taufik.themovieshow.ui.feature.movie.ui.adapter.MovieCastAdapter
 import com.taufik.themovieshow.ui.feature.movie.viewmodel.DetailMovieViewModel
 import es.dmoral.toasty.Toasty
+import java.util.*
 import kotlin.properties.Delegates
 
 class DetailMovieActivity : AppCompatActivity() {
@@ -90,10 +91,14 @@ class DetailMovieActivity : AppCompatActivity() {
                     tvOverview.text = it.overview
                     tvRating.text = it.voteAverage.toString()
 
-                    if (it.genres.isEmpty()) {
-                        tvGenre.text = "N/A"
-                    } else {
-                        tvGenre.text = it.genres[0].name
+                    when {
+                        it.genres.isEmpty() -> {
+                            tvGenre.text = "N/A"
+                        }
+
+                        else -> {
+                            tvGenre.text = it.genres[0].name
+                        }
                     }
 
                     tvRuntime.text = String.format("${it.runtime} min")
@@ -125,13 +130,29 @@ class DetailMovieActivity : AppCompatActivity() {
             if (it != null) {
                 binding.apply {
 
-                    tvTrailer.text = it.results[0].name
+                    when {
+                        it.results.isEmpty() -> {
+                            tvTrailer.text = String.format(Locale.getDefault(), "Trailer Video Not Available")
+                        }
+
+                        else -> {
+                            tvTrailer.text = it.results[0].name
+                        }
+                    }
 
                     lifecycle.addObserver(videoTrailer)
                     videoTrailer.addYouTubePlayerListener(object : AbstractYouTubePlayerListener(){
                         override fun onReady(youTubePlayer: YouTubePlayer) {
-                            val videoId = it.results[0].key
-                            youTubePlayer.loadVideo(videoId, 0F)
+                            when {
+                                it.results.isEmpty() -> {
+                                    Log.e("videoFailed", "onReady: ")
+                                }
+
+                                else -> {
+                                    val videoId = it.results[0].key
+                                    youTubePlayer.loadVideo(videoId, 0F)
+                                }
+                            }
                         }
                     })
                 }

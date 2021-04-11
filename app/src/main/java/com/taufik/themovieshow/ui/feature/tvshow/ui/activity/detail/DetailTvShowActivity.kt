@@ -152,10 +152,14 @@ class DetailTvShowActivity : AppCompatActivity() {
             if (it != null) {
                 binding.apply {
 
-                    if (it.results.isEmpty()) {
-                        tvTrailer.text = String.format(Locale.getDefault(), "Trailer Video")
-                    } else {
-                        tvTrailer.text = it.results[0].name
+                    when {
+                        it.results.isEmpty() -> {
+                            tvTrailer.text = String.format(Locale.getDefault(), "Trailer Video Not Available")
+                        }
+
+                        else -> {
+                            tvTrailer.text = it.results[0].name
+                        }
                     }
 
                     lifecycle.addObserver(videoTrailer)
@@ -163,7 +167,6 @@ class DetailTvShowActivity : AppCompatActivity() {
                         override fun onReady(youTubePlayer: YouTubePlayer) {
 
                             when {
-
                                 it.results.isEmpty() -> {
                                     Log.e("videoFailed", "onReady: ")
                                 }
