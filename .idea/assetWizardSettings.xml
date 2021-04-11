@@ -308,7 +308,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:$USER_HOME$/Android/Sdk/icons/material/materialiconsoutlined/motion_photos_on/outline_motion_photos_on_24.xml" />
+                                      <entry key="url" value="file:$USER_HOME$/Android/Sdk/icons/material/materialicons/search/baseline_search_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -318,8 +318,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="ffa500" />
-                            <entry key="outputName" value="ic_outline_about" />
+                            <entry key="color" value="ffffff" />
+                            <entry key="outputName" value="ic_search" />
                           </map>
                         </option>
                       </PersistentState>

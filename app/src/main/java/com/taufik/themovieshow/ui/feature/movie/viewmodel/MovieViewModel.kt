@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModel
 import com.taufik.themovieshow.api.ApiClient
 import com.taufik.themovieshow.ui.feature.movie.data.nowplayingupcoming.MovieMainResponse
 import com.taufik.themovieshow.ui.feature.movie.data.nowplayingupcoming.MovieMainResult
+import com.taufik.themovieshow.ui.feature.movie.data.search.SearchMovieResponse
+import com.taufik.themovieshow.ui.feature.movie.data.search.SearchMovieResult
 import com.taufik.themovieshow.ui.feature.movie.data.trending.MovieTrendingResponse
 import com.taufik.themovieshow.ui.feature.movie.data.trending.MovieTrendingResult
 import retrofit2.Call
@@ -18,6 +20,7 @@ class MovieViewModel : ViewModel() {
     private val listNowPlaying = MutableLiveData<ArrayList<MovieMainResult>>()
     private val listUpcoming = MutableLiveData<ArrayList<MovieMainResult>>()
     private val listTrendingDay  = MutableLiveData<ArrayList<MovieTrendingResult>>()
+    private val listDiscover = MutableLiveData<ArrayList<SearchMovieResult>>()
 
     fun setMovieNowPlaying(apiKey: String){
         ApiClient.apiInstance
@@ -86,5 +89,26 @@ class MovieViewModel : ViewModel() {
 
     fun getMovieTrendingDay(): LiveData<ArrayList<MovieTrendingResult>> {
         return listTrendingDay
+    }
+
+    fun setDiscoverMovie(apiKey: String, query: String){
+        ApiClient.apiInstance
+            .getDiscoverMovie(apiKey, query)
+                .enqueue(object : Callback<SearchMovieResponse> {
+                    override fun onResponse(call: Call<SearchMovieResponse>, response: Response<SearchMovieResponse>) {
+                        if (response.isSuccessful) {
+                            listDiscover.postValue(response.body()?.results as ArrayList<SearchMovieResult>)
+                            Log.e("mainSuccess", "onResponse: ${response.body()}")
+                        }
+                    }
+
+                    override fun onFailure(call: Call<SearchMovieResponse>, t: Throwable) {
+                        Log.e("mainFailed", "onFailure: ${t.localizedMessage}")
+                    }
+                })
+    }
+
+    fun getDiscoverMovie(): LiveData<ArrayList<SearchMovieResult>> {
+        return listDiscover
     }
 }

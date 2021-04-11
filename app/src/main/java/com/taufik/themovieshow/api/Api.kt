@@ -2,6 +2,7 @@ package com.taufik.themovieshow.api
 
 import com.taufik.themovieshow.ui.feature.movie.data.detail.MovieDetailResponse
 import com.taufik.themovieshow.ui.feature.movie.data.nowplayingupcoming.MovieMainResponse
+import com.taufik.themovieshow.ui.feature.movie.data.search.SearchMovieResponse
 import com.taufik.themovieshow.ui.feature.movie.data.trending.MovieTrendingResponse
 import com.taufik.themovieshow.ui.feature.tvshow.data.detail.TvShowsPopularDetailResponse
 import com.taufik.themovieshow.ui.feature.tvshow.data.popularairingtoday.TvShowsMainResponse
@@ -28,6 +29,12 @@ interface Api {
             @Query("api_key") apiKey: String
     ): Call<MovieTrendingResponse>
 
+    @GET(UrlEndpoint.DISCOVER_MOVIES)
+    fun getDiscoverMovie(
+        @Query("api_key") apiKey: String,
+        @Query("query") query: String
+    ): Call<SearchMovieResponse>
+
     @GET(UrlEndpoint.MOVIE_DETAIL)
     fun getDetailMovie(
         @Path("movie_id") movieId: Int,
@@ -48,6 +55,12 @@ interface Api {
     fun getTvShowsTrending(
         @Query("api_key") apiKey: String
     ): Call<TvShowsTrendingReponse>
+
+    @GET(UrlEndpoint.DISCOVER_TV_SHOWS)
+    fun getDiscoverTvShows(
+        @Query("api_key") apiKey: String,
+        @Query("query") query: String
+    ): Call<TvShowsMainResponse>
 
     @GET(UrlEndpoint.TV_SHOWS_DETAIL)
     fun getDetailTvShows(

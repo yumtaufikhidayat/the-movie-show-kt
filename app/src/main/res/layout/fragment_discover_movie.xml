@@ -8,10 +8,74 @@
     android:background="@color/colorPrimary"
     tools:context=".ui.feature.discover.DiscoverMovieFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+<!--    <LinearLayout-->
+<!--        android:id="@+id/llSearch"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="45dp"-->
+<!--        android:layout_margin="10dp"-->
+<!--        android:background="@drawable/edit_text_white_bg_round_less"-->
+<!--        android:gravity="start"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:padding="1dp"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent">-->
+
+<!--        <ImageView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="8dp"-->
+<!--            android:layout_marginEnd="10dp"-->
+<!--            android:background="@drawable/ic_search"-->
+<!--            android:contentDescription="@string/app_name"-->
+<!--            android:textColor="@color/white" />-->
+
+<!--        <EditText-->
+<!--            android:id="@+id/etDiscoverMovies"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center_vertical"-->
+<!--            android:backgroundTint="@android:color/transparent"-->
+<!--            android:hint="@string/tvDiscoverMovie"-->
+<!--            android:importantForAutofill="no"-->
+<!--            android:inputType="text"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textColorHint="@color/colorSemiBlack"-->
+<!--            android:textSize="16sp"-->
+<!--            android:imeOptions="actionSearch"-->
+<!--            android:fontFamily="sans-serif-medium"/>-->
+
+<!--    </LinearLayout>-->
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchMovies"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/edit_text_white_bg_round_less"
+        app:searchIcon="@drawable/ic_search"
+        app:defaultQueryHint="@string/tvDiscoverMovie"
+        app:iconifiedByDefault="false"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvDiscoverMovies"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="5dp"
+        android:overScrollMode="never"
+        tools:listitem="@layout/items_movies"
+        app:layout_constraintTop_toBottomOf="@id/searchMovies"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        style="?android:attr/progressBarStyle"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
