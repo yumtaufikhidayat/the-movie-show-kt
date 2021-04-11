@@ -5,6 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.taufik.themovieshow.api.ApiClient
+import com.taufik.themovieshow.ui.feature.tvshow.data.discover.DiscoverTvShowsResponse
+import com.taufik.themovieshow.ui.feature.tvshow.data.discover.DiscoverTvShowsResult
 import com.taufik.themovieshow.ui.feature.tvshow.data.popularairingtoday.TvShowsMainResponse
 import com.taufik.themovieshow.ui.feature.tvshow.data.popularairingtoday.TvShowsMainResult
 import com.taufik.themovieshow.ui.feature.tvshow.data.trending.TvShowsTrendingReponse
@@ -18,6 +20,7 @@ class TvShowsViewModel : ViewModel() {
     private val listAiringToday = MutableLiveData<ArrayList<TvShowsMainResult>>()
     private val listPopular = MutableLiveData<ArrayList<TvShowsMainResult>>()
     private val listTrending = MutableLiveData<ArrayList<TvShowsTrendingResult>>()
+    private val listDiscover = MutableLiveData<ArrayList<DiscoverTvShowsResult>>()
 
     fun setTvShowsAiringToday(apiKey: String) {
         ApiClient.apiInstance
@@ -84,5 +87,29 @@ class TvShowsViewModel : ViewModel() {
 
     fun getTvShowsTrending(): LiveData<ArrayList<TvShowsTrendingResult>> {
         return listTrending
+    }
+
+    fun setDiscoverTvShows(apiKey: String, query: String) {
+        ApiClient.apiInstance
+            .getDiscoverTvShows(apiKey, query)
+            .enqueue(object : Callback<DiscoverTvShowsResponse> {
+                override fun onResponse(
+                    call: Call<DiscoverTvShowsResponse>,
+                    response: Response<DiscoverTvShowsResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        listDiscover.postValue(response.body()?.results as ArrayList<DiscoverTvShowsResult>)
+                        Log.e("mainSuccess", "onResponse: ${response.body()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<DiscoverTvShowsResponse>, t: Throwable) {
+                    Log.e("mainFailed", "onFailure: ${t.localizedMessage}")
+                }
+            })
+    }
+
+    fun getDiscoverTvShows(): LiveData<ArrayList<DiscoverTvShowsResult>>{
+        return listDiscover
     }
 }

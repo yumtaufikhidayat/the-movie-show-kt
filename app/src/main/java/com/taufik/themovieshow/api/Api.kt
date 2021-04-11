@@ -1,10 +1,11 @@
 package com.taufik.themovieshow.api
 
 import com.taufik.themovieshow.ui.feature.movie.data.detail.MovieDetailResponse
+import com.taufik.themovieshow.ui.feature.movie.data.discover.DiscoverMovieResponse
 import com.taufik.themovieshow.ui.feature.movie.data.nowplayingupcoming.MovieMainResponse
-import com.taufik.themovieshow.ui.feature.movie.data.search.SearchMovieResponse
 import com.taufik.themovieshow.ui.feature.movie.data.trending.MovieTrendingResponse
 import com.taufik.themovieshow.ui.feature.tvshow.data.detail.TvShowsPopularDetailResponse
+import com.taufik.themovieshow.ui.feature.tvshow.data.discover.DiscoverTvShowsResponse
 import com.taufik.themovieshow.ui.feature.tvshow.data.popularairingtoday.TvShowsMainResponse
 import com.taufik.themovieshow.ui.feature.tvshow.data.trending.TvShowsTrendingReponse
 import retrofit2.Call
@@ -33,7 +34,7 @@ interface Api {
     fun getDiscoverMovie(
         @Query("api_key") apiKey: String,
         @Query("query") query: String
-    ): Call<SearchMovieResponse>
+    ): Call<DiscoverMovieResponse>
 
     @GET(UrlEndpoint.MOVIE_DETAIL)
     fun getDetailMovie(
@@ -60,7 +61,7 @@ interface Api {
     fun getDiscoverTvShows(
         @Query("api_key") apiKey: String,
         @Query("query") query: String
-    ): Call<TvShowsMainResponse>
+    ): Call<DiscoverTvShowsResponse>
 
     @GET(UrlEndpoint.TV_SHOWS_DETAIL)
     fun getDetailTvShows(

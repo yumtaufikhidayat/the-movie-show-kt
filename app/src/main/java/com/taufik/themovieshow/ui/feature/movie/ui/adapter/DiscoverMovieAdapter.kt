@@ -9,21 +9,21 @@ import com.bumptech.glide.request.RequestOptions
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.api.UrlEndpoint
 import com.taufik.themovieshow.databinding.ItemsMoviesBinding
-import com.taufik.themovieshow.ui.feature.movie.data.search.SearchMovieResult
+import com.taufik.themovieshow.ui.feature.movie.data.discover.DiscoverMovieResult
 import com.taufik.themovieshow.ui.feature.movie.ui.activity.detail.DetailMovieActivity
 
 class DiscoverMovieAdapter : RecyclerView.Adapter<DiscoverMovieAdapter.MovieViewHolder>(){
 
-    private var listMovies = ArrayList<SearchMovieResult>()
+    private var listMovies = ArrayList<DiscoverMovieResult>()
 
-    fun setMovies(movieResult: ArrayList<SearchMovieResult>) {
+    fun setMovies(movieResult: ArrayList<DiscoverMovieResult>) {
         this.listMovies.clear()
         this.listMovies.addAll(movieResult)
         notifyDataSetChanged()
     }
 
     inner class MovieViewHolder (private val binding: ItemsMoviesBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(movieResult: SearchMovieResult) {
+        fun bind(movieResult: DiscoverMovieResult) {
             with(binding) {
                 Glide.with(itemView.context)
                     .load(UrlEndpoint.IMAGE_URL + movieResult.posterPath)

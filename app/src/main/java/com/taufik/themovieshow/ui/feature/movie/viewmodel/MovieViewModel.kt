@@ -5,10 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.taufik.themovieshow.api.ApiClient
+import com.taufik.themovieshow.ui.feature.movie.data.discover.DiscoverMovieResponse
+import com.taufik.themovieshow.ui.feature.movie.data.discover.DiscoverMovieResult
 import com.taufik.themovieshow.ui.feature.movie.data.nowplayingupcoming.MovieMainResponse
 import com.taufik.themovieshow.ui.feature.movie.data.nowplayingupcoming.MovieMainResult
-import com.taufik.themovieshow.ui.feature.movie.data.search.SearchMovieResponse
-import com.taufik.themovieshow.ui.feature.movie.data.search.SearchMovieResult
 import com.taufik.themovieshow.ui.feature.movie.data.trending.MovieTrendingResponse
 import com.taufik.themovieshow.ui.feature.movie.data.trending.MovieTrendingResult
 import retrofit2.Call
@@ -20,7 +20,7 @@ class MovieViewModel : ViewModel() {
     private val listNowPlaying = MutableLiveData<ArrayList<MovieMainResult>>()
     private val listUpcoming = MutableLiveData<ArrayList<MovieMainResult>>()
     private val listTrendingDay  = MutableLiveData<ArrayList<MovieTrendingResult>>()
-    private val listDiscover = MutableLiveData<ArrayList<SearchMovieResult>>()
+    private val listDiscover = MutableLiveData<ArrayList<DiscoverMovieResult>>()
 
     fun setMovieNowPlaying(apiKey: String){
         ApiClient.apiInstance
@@ -94,24 +94,24 @@ class MovieViewModel : ViewModel() {
     fun setDiscoverMovie(apiKey: String, query: String){
         ApiClient.apiInstance
             .getDiscoverMovie(apiKey, query)
-            .enqueue(object : Callback<SearchMovieResponse> {
+            .enqueue(object : Callback<DiscoverMovieResponse> {
                 override fun onResponse(
-                    call: Call<SearchMovieResponse>,
-                    response: Response<SearchMovieResponse>
+                    call: Call<DiscoverMovieResponse>,
+                    response: Response<DiscoverMovieResponse>
                 ) {
                     if (response.isSuccessful) {
-                        listDiscover.postValue(response.body()?.results as ArrayList<SearchMovieResult>)
+                        listDiscover.postValue(response.body()?.results as ArrayList<DiscoverMovieResult>)
                         Log.e("mainSuccess", "onResponse: ${response.body()}")
                     }
                 }
 
-                override fun onFailure(call: Call<SearchMovieResponse>, t: Throwable) {
+                override fun onFailure(call: Call<DiscoverMovieResponse>, t: Throwable) {
                     Log.e("mainFailed", "onFailure: ${t.localizedMessage}")
                 }
             })
     }
 
-    fun getDiscoverMovie(): LiveData<ArrayList<SearchMovieResult>> {
+    fun getDiscoverMovie(): LiveData<ArrayList<DiscoverMovieResult>> {
         return listDiscover
     }
 }
