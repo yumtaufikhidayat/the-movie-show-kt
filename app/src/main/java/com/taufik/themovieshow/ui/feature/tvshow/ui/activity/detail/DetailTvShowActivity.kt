@@ -14,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.taufik.themovieshow.BuildConfig
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.api.UrlEndpoint
@@ -46,6 +48,8 @@ class DetailTvShowActivity : AppCompatActivity() {
         initActionBar()
 
         setData()
+
+        setVideo()
 
         setReadMore()
     }
@@ -103,23 +107,26 @@ class DetailTvShowActivity : AppCompatActivity() {
                     }
 
                     tvLanguage.text = it.originalLanguage
+                }
+            }
+        })
+    }
 
-                    val websiteLink = it.homepage
+    private fun setVideo() {
+        viewModel.setDetailTvShowVideo(id, BuildConfig.API_KEY)
+        viewModel.getDetailTvShowsVideo().observe(this, {
+            if (it != null) {
+                binding.apply {
 
-                    btnWebsite.setOnClickListener {
-                        try {
-                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(websiteLink))
-                            startActivity(Intent.createChooser(intent, "Open with:"))
-                        } catch (e: Exception) {
-                            Toasty.warning(
-                                this@DetailTvShowActivity,
-                                "Silakan install browser terlebih dulu.",
-                                Toast.LENGTH_SHORT, true
-                            ).show()
+                    tvTrailer.text = it.results[0].name
 
-                            Log.e("errorLink", "setViewModel: ${e.localizedMessage}")
+                    lifecycle.addObserver(videoTrailer)
+                    videoTrailer.addYouTubePlayerListener(object : AbstractYouTubePlayerListener(){
+                        override fun onReady(youTubePlayer: YouTubePlayer) {
+                            val videoId = it.results[0].key
+                            youTubePlayer.loadVideo(videoId, 0F)
                         }
-                    }
+                    })
                 }
             }
         })

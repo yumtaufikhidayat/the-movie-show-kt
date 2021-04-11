@@ -4,10 +4,12 @@ import com.taufik.themovieshow.ui.feature.movie.data.detail.MovieDetailResponse
 import com.taufik.themovieshow.ui.feature.movie.data.discover.DiscoverMovieResponse
 import com.taufik.themovieshow.ui.feature.movie.data.nowplayingupcoming.MovieMainResponse
 import com.taufik.themovieshow.ui.feature.movie.data.trending.MovieTrendingResponse
+import com.taufik.themovieshow.ui.feature.movie.data.video.MovieVideoResponse
 import com.taufik.themovieshow.ui.feature.tvshow.data.detail.TvShowsPopularDetailResponse
 import com.taufik.themovieshow.ui.feature.tvshow.data.discover.DiscoverTvShowsResponse
 import com.taufik.themovieshow.ui.feature.tvshow.data.popularairingtoday.TvShowsMainResponse
 import com.taufik.themovieshow.ui.feature.tvshow.data.trending.TvShowsTrendingReponse
+import com.taufik.themovieshow.ui.feature.tvshow.data.video.TvShowsVideoResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -36,6 +38,12 @@ interface Api {
         @Query("query") query: String
     ): Call<DiscoverMovieResponse>
 
+    @GET(UrlEndpoint.MOVIE_VIDEO)
+    fun getMovieVideo(
+        @Path("movie_id") movieId: Int,
+        @Query("api_key") apiKey: String
+    ): Call<MovieVideoResponse>
+
     @GET(UrlEndpoint.MOVIE_DETAIL)
     fun getDetailMovie(
         @Path("movie_id") movieId: Int,
@@ -62,6 +70,12 @@ interface Api {
         @Query("api_key") apiKey: String,
         @Query("query") query: String
     ): Call<DiscoverTvShowsResponse>
+
+    @GET(UrlEndpoint.TV_SHOWS_VIDEO)
+    fun getTvShowsVideo(
+        @Path("tv_id") tvId: Int,
+        @Query("api_key") apiKey: String
+    ): Call<TvShowsVideoResponse>
 
     @GET(UrlEndpoint.TV_SHOWS_DETAIL)
     fun getDetailTvShows(

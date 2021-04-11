@@ -30,8 +30,11 @@
     <string name="tvDiscover">Discover</string>
     <string name="tvDiscoverFavoriteMovie">Discover Favorite Movies…</string>
     <string name="tvDiscoverFavoriteTvShows">Discover Favorite TV Shows…</string>
+    <string name="tvTrailer">Trailer Video</string>
+    <string name="tvOverview">Overview</string>
 
     <!--Button-->
+    <string name="btnReviews">Reviews</string>
     <string name="btnWebsites">Website</string>
 
     <string name="tvMovieNowPlaying">Now Playing</string>

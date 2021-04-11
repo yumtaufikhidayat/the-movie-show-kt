@@ -94,7 +94,16 @@ class DiscoverTvShowsActivity : AppCompatActivity() {
         searchView.queryHint = resources.getString(R.string.tvDiscoverTvShows)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String): Boolean {
-                setDiscoverMovies(query)
+                when {
+                    query.isNotEmpty() -> {
+                        setDiscoverMovies(query)
+                        searchView.clearFocus()
+                    }
+
+                    query.isEmpty() -> {
+                        Toasty.warning(this@DiscoverTvShowsActivity, "Please fill discover form", Toast.LENGTH_SHORT, true).show()
+                    }
+                }
                 return true
             }
 
@@ -105,10 +114,6 @@ class DiscoverTvShowsActivity : AppCompatActivity() {
     }
 
     private fun setDiscoverMovies(query: String) {
-
-        if (query.isEmpty()) {
-            Toasty.warning(this, "Please fill discover form", Toast.LENGTH_SHORT, true).show()
-        }
 
         viewModel.setDiscoverTvShows(BuildConfig.API_KEY, query)
         viewModel.getDiscoverTvShows().observe(this, {
