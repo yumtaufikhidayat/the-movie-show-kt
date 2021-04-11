@@ -10,7 +10,7 @@ import com.taufik.themovieshow.R
 import com.taufik.themovieshow.api.UrlEndpoint
 import com.taufik.themovieshow.databinding.ItemsMoviesBinding
 import com.taufik.themovieshow.ui.feature.movie.data.trending.MovieTrendingResult
-import com.taufik.themovieshow.ui.feature.movie.ui.activity.DetailMovieActivity
+import com.taufik.themovieshow.ui.feature.movie.ui.activity.detail.DetailMovieActivity
 
 class MovieTrendingAdapter : RecyclerView.Adapter<MovieTrendingAdapter.MovieViewHolder>(){
 

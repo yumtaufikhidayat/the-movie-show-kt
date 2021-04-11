@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context=".ui.feature.discover.DiscoverFragment">
+    tools:context=".ui.feature.favorite.FavoriteFragment">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayoutDiscover"

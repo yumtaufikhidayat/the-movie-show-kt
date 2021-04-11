@@ -94,18 +94,21 @@ class MovieViewModel : ViewModel() {
     fun setDiscoverMovie(apiKey: String, query: String){
         ApiClient.apiInstance
             .getDiscoverMovie(apiKey, query)
-                .enqueue(object : Callback<SearchMovieResponse> {
-                    override fun onResponse(call: Call<SearchMovieResponse>, response: Response<SearchMovieResponse>) {
-                        if (response.isSuccessful) {
-                            listDiscover.postValue(response.body()?.results as ArrayList<SearchMovieResult>)
-                            Log.e("mainSuccess", "onResponse: ${response.body()}")
-                        }
+            .enqueue(object : Callback<SearchMovieResponse> {
+                override fun onResponse(
+                    call: Call<SearchMovieResponse>,
+                    response: Response<SearchMovieResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        listDiscover.postValue(response.body()?.results as ArrayList<SearchMovieResult>)
+                        Log.e("mainSuccess", "onResponse: ${response.body()}")
                     }
+                }
 
-                    override fun onFailure(call: Call<SearchMovieResponse>, t: Throwable) {
-                        Log.e("mainFailed", "onFailure: ${t.localizedMessage}")
-                    }
-                })
+                override fun onFailure(call: Call<SearchMovieResponse>, t: Throwable) {
+                    Log.e("mainFailed", "onFailure: ${t.localizedMessage}")
+                }
+            })
     }
 
     fun getDiscoverMovie(): LiveData<ArrayList<SearchMovieResult>> {

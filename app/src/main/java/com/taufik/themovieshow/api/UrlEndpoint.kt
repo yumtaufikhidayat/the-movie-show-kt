@@ -11,6 +11,6 @@ object UrlEndpoint {
     const val TV_SHOWS_AIRING_TODAY = "tv/airing_today"
     const val TV_SHOWS_TRENDING_DAY = "trending/tv/day"
     const val TV_SHOWS_DETAIL = "tv/{tv_id}"
-    const val DISCOVER_MOVIES = "/search/movie"
-    const val DISCOVER_TV_SHOWS = "/search/tv"
+    const val DISCOVER_MOVIES = "search/movie"
+    const val DISCOVER_TV_SHOWS = "search/tv"
 }

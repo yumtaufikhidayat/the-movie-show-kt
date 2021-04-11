@@ -10,7 +10,7 @@ import com.taufik.themovieshow.R
 import com.taufik.themovieshow.api.UrlEndpoint
 import com.taufik.themovieshow.databinding.ItemsTvShowsBinding
 import com.taufik.themovieshow.ui.feature.tvshow.data.popularairingtoday.TvShowsMainResult
-import com.taufik.themovieshow.ui.feature.tvshow.ui.activity.DetailTvShowActivity
+import com.taufik.themovieshow.ui.feature.tvshow.ui.activity.detail.DetailTvShowActivity
 
 class TvShowsAdapter : RecyclerView.Adapter<TvShowsAdapter.TvShowsViewHolder>() {
 

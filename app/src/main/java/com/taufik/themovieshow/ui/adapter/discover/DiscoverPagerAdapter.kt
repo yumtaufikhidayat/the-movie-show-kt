@@ -6,10 +6,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.taufik.themovieshow.R
-import com.taufik.themovieshow.ui.feature.discover.DiscoverMovieFragment
-import com.taufik.themovieshow.ui.feature.discover.DiscoverTvShowsFragment
-import com.taufik.themovieshow.ui.feature.movie.ui.fragment.MovieNowPlayingFragment
-import com.taufik.themovieshow.ui.feature.movie.ui.fragment.MovieUpcomingFragment
+import com.taufik.themovieshow.ui.feature.favorite.FavoriteMovieFragment
+import com.taufik.themovieshow.ui.feature.favorite.FavoriteTvShowsFragment
 
 class DiscoverPagerAdapter(private val context: Context, fragmentManager: FragmentManager)
     : FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
@@ -22,8 +20,8 @@ class DiscoverPagerAdapter(private val context: Context, fragmentManager: Fragme
     override fun getItem(position: Int): Fragment {
         var fragment: Fragment? = null
         when (position) {
-            0 -> fragment = DiscoverMovieFragment()
-            1 -> fragment = DiscoverTvShowsFragment()
+            0 -> fragment = FavoriteMovieFragment()
+            1 -> fragment = FavoriteTvShowsFragment()
         }
 
         return fragment as Fragment

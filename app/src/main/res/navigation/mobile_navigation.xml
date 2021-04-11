@@ -22,7 +22,7 @@
         tools:layout="@layout/fragment_tv_show" />
     <fragment
         android:id="@+id/nav_favorite"
-        android:name="com.taufik.themovieshow.ui.feature.discover.DiscoverFragment"
+        android:name="com.taufik.themovieshow.ui.feature.favorite.FavoriteFragment"
         android:label="Favorite"
         tools:layout="@layout/fragment_favorite" />
     <fragment

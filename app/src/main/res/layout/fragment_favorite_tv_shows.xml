@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context=".ui.feature.discover.DiscoverTvShowsFragment">
+    tools:context=".ui.feature.favorite.FavoriteTvShowsFragment">
 
     <LinearLayout
         android:id="@+id/llDiscoverTvShows"
@@ -33,7 +33,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:backgroundTint="@android:color/transparent"
-            android:hint="@string/tvDiscoverTvShows"
+            android:hint="@string/tvDiscoverFavoriteTvShows"
             android:importantForAutofill="no"
             android:inputType="text"
             android:imeOptions="actionSearch"

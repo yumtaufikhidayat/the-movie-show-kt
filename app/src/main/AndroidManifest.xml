@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.taufik.themovieshow">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -13,15 +12,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TheMovieShow">
         <activity
-            android:name="com.taufik.themovieshow.ui.activity.MainActivity"
+            android:name=".ui.feature.tvshow.ui.activity.discover.DiscoverTvShowsActivity"
             android:theme="@style/TheMovieShowDarkActivityTheme"/>
         <activity
-            android:name="com.taufik.themovieshow.ui.feature.tvshow.ui.activity.DetailTvShowActivity"
-            android:theme="@style/TheMovieShowDarkActivityTheme"/>
+            android:name=".ui.feature.movie.ui.activity.discover.DiscoverMovieActivity"
+            android:theme="@style/TheMovieShowDarkActivityTheme" />
         <activity
-            android:name="com.taufik.themovieshow.ui.feature.movie.ui.activity.DetailMovieActivity"
-            android:theme="@style/TheMovieShowDarkActivityTheme"/>
-        <activity android:name="com.taufik.themovieshow.ui.activity.SplashscreenActivity">
+            android:name=".ui.activity.MainActivity"
+            android:theme="@style/TheMovieShowDarkActivityTheme" />
+        <activity
+            android:name=".ui.feature.tvshow.ui.activity.detail.DetailTvShowActivity"
+            android:theme="@style/TheMovieShowDarkActivityTheme" />
+        <activity
+            android:name=".ui.feature.movie.ui.activity.detail.DetailMovieActivity"
+            android:theme="@style/TheMovieShowDarkActivityTheme" />
+        <activity android:name=".ui.activity.SplashscreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,12 +1,13 @@
 package com.taufik.themovieshow.ui.feature.tvshow.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.databinding.FragmentTvShowBinding
 import com.taufik.themovieshow.ui.adapter.tvshow.TvShowPagerAdapter
+import com.taufik.themovieshow.ui.feature.tvshow.ui.activity.discover.DiscoverTvShowsActivity
 
 class TvShowFragment : Fragment() {
 
@@ -43,7 +44,7 @@ class TvShowFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
 
-        inflater.inflate(R.menu.discover_menu, menu)
+        inflater.inflate(R.menu.main_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -51,7 +52,8 @@ class TvShowFragment : Fragment() {
 
         when (item.itemId) {
             R.id.nav_discover -> {
-                Toast.makeText(requireActivity(), "Discover TV Shows", Toast.LENGTH_SHORT).show()
+                val intent = Intent(requireActivity(), DiscoverTvShowsActivity::class.java)
+                startActivity(intent)
             }
         }
         return super.onOptionsItemSelected(item)
