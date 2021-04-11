@@ -12,6 +12,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
@@ -21,6 +22,7 @@ import com.taufik.themovieshow.R
 import com.taufik.themovieshow.api.UrlEndpoint
 import com.taufik.themovieshow.databinding.ActivityDetailTvShowBinding
 import com.taufik.themovieshow.ui.feature.tvshow.data.detail.TvShowsPopularDetailResponse
+import com.taufik.themovieshow.ui.feature.tvshow.ui.adapter.TvShowsCastAdapter
 import com.taufik.themovieshow.ui.feature.tvshow.viewmodel.DetailTvShowViewModel
 import es.dmoral.toasty.Toasty
 import kotlin.properties.Delegates
@@ -37,6 +39,7 @@ class DetailTvShowActivity : AppCompatActivity() {
     private var id by Delegates.notNull<Int>()
     private lateinit var title: String
     private lateinit var data: TvShowsPopularDetailResponse
+    private lateinit var castAdapter: TvShowsCastAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +53,12 @@ class DetailTvShowActivity : AppCompatActivity() {
         setData()
 
         setVideo()
+
+        setCastAdapter()
+
+        setRecyclerView()
+
+        setCast()
 
         setReadMore()
     }
@@ -107,6 +116,22 @@ class DetailTvShowActivity : AppCompatActivity() {
                     }
 
                     tvLanguage.text = it.originalLanguage
+
+                    val webLink = it.homepage
+                    btnWebsite.setOnClickListener {
+                        try {
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(webLink))
+                            startActivity(Intent.createChooser(intent, "Open with:"))
+                        } catch (e: Exception) {
+                            Toasty.warning(
+                                this@DetailTvShowActivity,
+                                "Please install browser.",
+                                Toast.LENGTH_SHORT, true
+                            ).show()
+
+                            Log.e("errorLink", "setViewModel: ${e.localizedMessage}" )
+                        }
+                    }
                 }
             }
         })
@@ -128,6 +153,28 @@ class DetailTvShowActivity : AppCompatActivity() {
                         }
                     })
                 }
+            }
+        })
+    }
+
+    private fun setCastAdapter() {
+        castAdapter = TvShowsCastAdapter()
+        castAdapter.notifyDataSetChanged()
+    }
+
+    private fun setRecyclerView() {
+        with(binding.rvTvShowCast) {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            setHasFixedSize(true)
+            adapter = castAdapter
+        }
+    }
+
+    private fun setCast() {
+        viewModel.setDetailTvShowsCast(id, BuildConfig.API_KEY)
+        viewModel.getDetailTvShowsCast().observe(this, {
+            if (it != null) {
+                castAdapter.setTvShowsCasts(it)
             }
         })
     }

@@ -8,6 +8,7 @@ object UrlEndpoint {
     const val MOVIE_TRENDING_DAY = "trending/movie/day"
     const val MOVIE_DETAIL = "movie/{movie_id}"
     const val MOVIE_VIDEO = "movie/{movie_id}/videos"
+    const val MOVIE_CAST = "movie/{movie_id}/credits"
     const val TV_SHOWS_POPULAR = "tv/popular"
     const val TV_SHOWS_AIRING_TODAY = "tv/airing_today"
     const val TV_SHOWS_TRENDING_DAY = "trending/tv/day"
@@ -15,4 +16,5 @@ object UrlEndpoint {
     const val DISCOVER_MOVIES = "search/movie"
     const val DISCOVER_TV_SHOWS = "search/tv"
     const val TV_SHOWS_VIDEO = "tv/{tv_id}/videos"
+    const val TV_SHOWS_CAST = "tv/{tv_id}/credits"
 }

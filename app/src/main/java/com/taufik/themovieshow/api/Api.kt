@@ -1,10 +1,12 @@
 package com.taufik.themovieshow.api
 
+import com.taufik.themovieshow.ui.feature.movie.data.cast.MovieCastResponse
 import com.taufik.themovieshow.ui.feature.movie.data.detail.MovieDetailResponse
 import com.taufik.themovieshow.ui.feature.movie.data.discover.DiscoverMovieResponse
 import com.taufik.themovieshow.ui.feature.movie.data.nowplayingupcoming.MovieMainResponse
 import com.taufik.themovieshow.ui.feature.movie.data.trending.MovieTrendingResponse
 import com.taufik.themovieshow.ui.feature.movie.data.video.MovieVideoResponse
+import com.taufik.themovieshow.ui.feature.tvshow.data.cast.TvShowsCastResponse
 import com.taufik.themovieshow.ui.feature.tvshow.data.detail.TvShowsPopularDetailResponse
 import com.taufik.themovieshow.ui.feature.tvshow.data.discover.DiscoverTvShowsResponse
 import com.taufik.themovieshow.ui.feature.tvshow.data.popularairingtoday.TvShowsMainResponse
@@ -44,6 +46,12 @@ interface Api {
         @Query("api_key") apiKey: String
     ): Call<MovieVideoResponse>
 
+    @GET(UrlEndpoint.MOVIE_CAST)
+    fun getMovieCast(
+        @Path("movie_id") movieId: Int,
+        @Query("api_key") apiKey: String
+    ): Call<MovieCastResponse>
+
     @GET(UrlEndpoint.MOVIE_DETAIL)
     fun getDetailMovie(
         @Path("movie_id") movieId: Int,
@@ -76,6 +84,12 @@ interface Api {
         @Path("tv_id") tvId: Int,
         @Query("api_key") apiKey: String
     ): Call<TvShowsVideoResponse>
+
+    @GET(UrlEndpoint.TV_SHOWS_CAST)
+    fun getTvShowsCast(
+        @Path("tv_id") tvId: Int,
+        @Query("api_key") apiKey: String
+    ): Call<TvShowsCastResponse>
 
     @GET(UrlEndpoint.TV_SHOWS_DETAIL)
     fun getDetailTvShows(

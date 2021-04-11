@@ -12,6 +12,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
@@ -21,6 +22,7 @@ import com.taufik.themovieshow.R
 import com.taufik.themovieshow.api.UrlEndpoint
 import com.taufik.themovieshow.databinding.ActivityDetailMovieBinding
 import com.taufik.themovieshow.ui.feature.movie.data.detail.MovieDetailResponse
+import com.taufik.themovieshow.ui.feature.movie.ui.adapter.MovieCastAdapter
 import com.taufik.themovieshow.ui.feature.movie.viewmodel.DetailMovieViewModel
 import es.dmoral.toasty.Toasty
 import kotlin.properties.Delegates
@@ -37,6 +39,7 @@ class DetailMovieActivity : AppCompatActivity() {
     private var id by Delegates.notNull<Int>()
     private lateinit var title: String
     private lateinit var data: MovieDetailResponse
+    private lateinit var castAdapter: MovieCastAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +53,12 @@ class DetailMovieActivity : AppCompatActivity() {
         setData()
 
         setVideo()
+
+        setCastAdapter()
+
+        setRecyclerView()
+
+        setCast()
 
         setReadMore()
     }
@@ -89,6 +98,22 @@ class DetailMovieActivity : AppCompatActivity() {
 
                     tvRuntime.text = String.format("${it.runtime} min")
                     tvLanguage.text = it.originalLanguage
+
+                    val webLink = it.homepage
+                    btnWebsite.setOnClickListener {
+                        try {
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(webLink))
+                            startActivity(Intent.createChooser(intent, "Open with:"))
+                        } catch (e: Exception) {
+                            Toasty.warning(
+                                this@DetailMovieActivity,
+                                "Please install browser.",
+                                Toast.LENGTH_SHORT, true
+                            ).show()
+
+                            Log.e("errorLink", "setViewModel: ${e.localizedMessage}" )
+                        }
+                    }
                 }
             }
         })
@@ -110,6 +135,28 @@ class DetailMovieActivity : AppCompatActivity() {
                         }
                     })
                 }
+            }
+        })
+    }
+
+    private fun setCastAdapter() {
+        castAdapter = MovieCastAdapter()
+        castAdapter.notifyDataSetChanged()
+    }
+
+    private fun setRecyclerView() {
+        with(binding.rvMovieCast) {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            setHasFixedSize(true)
+            adapter = castAdapter
+        }
+    }
+
+    private fun setCast() {
+        viewModel.setDetailMovieCast(id, BuildConfig.API_KEY)
+        viewModel.getDetailMovieCast().observe(this, {
+            if (it != null) {
+                castAdapter.setMovieCasts(it)
             }
         })
     }
@@ -171,7 +218,7 @@ class DetailMovieActivity : AppCompatActivity() {
                 } catch (e: Exception) {
                     Toasty.warning(
                         this@DetailMovieActivity,
-                        "Silakan install browser terlebih dulu.",
+                        "Please install browser.",
                         Toast.LENGTH_SHORT, true
                     ).show()
 
