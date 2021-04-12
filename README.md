@@ -11,20 +11,20 @@ The Movie Show is an Android application as catalogue movies and tv shows. It ha
 - On airing today tv shows and popular tv shows
 - Search movies and tv shows
 - Detail movies and tv shows:
-        - Banner and poster
-        - Overview
-        - Release data/first air date
-        - Cast
-        - Network
-        - Country origin
-        - Video trailer/video teaser
-        - Rating
-        - Genre
-        - Runtime
-        - Episodes
-        - Spoken language
-        - Share
-        - Open in browser
-        - Website
+    - Banner and poster
+    - Overview
+    - Release data/first air date
+    - Cast
+    - Network
+    - Country origin
+    - Video trailer/video teaser
+    - Rating
+    - Genre
+    - Runtime
+    - Episodes
+    - Spoken language
+    - Share
+    - Open in browser
+    - Website
 - Favorite
 - About author and about application
