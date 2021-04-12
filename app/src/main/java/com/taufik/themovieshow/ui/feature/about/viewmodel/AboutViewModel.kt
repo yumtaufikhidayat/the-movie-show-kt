@@ -6,5 +6,7 @@ import com.taufik.themovieshow.utils.UtilsData
 
 class AboutViewModel : ViewModel() {
 
-    fun getAbouts(): List<About> = UtilsData.generateAboutData()
+    fun getAboutAuthor(): List<About> = UtilsData.generateAboutAuthorData()
+
+    fun getAboutApplication(): List<About> = UtilsData.generateAboutApplicationData()
 }

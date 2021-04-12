@@ -8,12 +8,16 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.taufik.themovieshow.databinding.FragmentAboutBinding
-import com.taufik.themovieshow.ui.feature.about.adapter.AboutAdapter
+import com.taufik.themovieshow.ui.feature.about.adapter.AboutApplicationAdapter
+import com.taufik.themovieshow.ui.feature.about.adapter.AboutAuthorAdapter
 import com.taufik.themovieshow.ui.feature.about.viewmodel.AboutViewModel
 
 class AboutFragment : Fragment() {
 
     private lateinit var aboutBinding: FragmentAboutBinding
+    private lateinit var viewModel: AboutViewModel
+    private lateinit var authorAdapter: AboutAuthorAdapter
+    private lateinit var applicationAdapter: AboutApplicationAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -25,21 +29,38 @@ class AboutFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setData()
+        setViewModel()
+
+        setAuthorData()
+
+        setApplicationData()
     }
 
-    private fun setData() {
+    private fun setViewModel() {
+        viewModel = ViewModelProvider(requireActivity(), ViewModelProvider.NewInstanceFactory())[AboutViewModel::class.java]
+    }
 
-        val viewModel = ViewModelProvider(requireActivity(), ViewModelProvider.NewInstanceFactory())[AboutViewModel::class.java]
-        val about = viewModel.getAbouts()
+    private fun setAuthorData() {
 
-        val aboutAdapter = AboutAdapter()
-        aboutAdapter.setAbout(about)
+        authorAdapter = AboutAuthorAdapter()
+        authorAdapter.setAbout(viewModel.getAboutAuthor())
 
-        with(aboutBinding.rvAbout) {
+        with(aboutBinding.rvAuthorAbout) {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
-            adapter = aboutAdapter
+            adapter = authorAdapter
+        }
+    }
+
+    private fun setApplicationData() {
+
+        applicationAdapter = AboutApplicationAdapter()
+        applicationAdapter.setAbout(viewModel.getAboutApplication())
+
+        with(aboutBinding.rvApplicationAbout) {
+            layoutManager = LinearLayoutManager(context)
+            setHasFixedSize(true)
+            adapter = applicationAdapter
         }
     }
 }

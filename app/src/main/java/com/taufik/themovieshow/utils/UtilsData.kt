@@ -5,7 +5,7 @@ import com.taufik.themovieshow.ui.feature.about.data.About
 
 object UtilsData {
 
-    fun generateAboutData(): List<About>{
+    fun generateAboutAuthorData(): List<About>{
         return mutableListOf(
                 About(
                         R.drawable.ic_outline_profile,
@@ -21,22 +21,27 @@ object UtilsData {
                         R.drawable.ic_outline_email,
                         "Send an email",
                         "taufik.hidayat@merahputih.id"
-                ),
-                About(
-                        R.drawable.ic_update,
-                        "Version",
-                        "1.0"
-                ),
-                About(
-                        R.drawable.ic_outline_rate,
-                        "Rate this app",
-                        "Like this app? Give 5 stars"
-                ),
-                About(
-                        R.drawable.ic_outline_bug,
-                        "Report an issue",
-                        "Having an issue? Report in here"
                 )
         )
     }
+
+        fun generateAboutApplicationData(): List<About>{
+                return mutableListOf(
+                        About(
+                                R.drawable.ic_update,
+                                "Version",
+                                "1.0"
+                        ),
+                        About(
+                                R.drawable.ic_outline_rate,
+                                "Rate this app",
+                                "Like this app? Give 5 stars"
+                        ),
+                        About(
+                                R.drawable.ic_outline_bug,
+                                "Report an issue",
+                                "Having an issue? Report in here"
+                        )
+                )
+        }
 }
