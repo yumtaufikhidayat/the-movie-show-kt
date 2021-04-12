@@ -35,7 +35,7 @@ object UtilsData {
                         About(
                                 R.drawable.ic_outline_rate,
                                 "Rate this app",
-                                "Like this app? Give 5 stars"
+                                "Like this app? Rate 5 stars"
                         ),
                         About(
                                 R.drawable.ic_outline_bug,
