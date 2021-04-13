@@ -67,9 +67,6 @@ dependencies {
     testImplementation 'org.mockito:mockito-core:3.6.0'
     testImplementation 'org.mockito:mockito-inline:3.6.0'
 
-    // Rounded image view
-    implementation 'com.makeramen:roundedimageview:2.3.0'
-
     // Justified text view
     implementation 'com.codesgood:justifiedtextview:1.1.0'
 
