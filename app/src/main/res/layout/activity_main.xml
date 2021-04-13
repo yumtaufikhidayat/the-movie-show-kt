@@ -12,7 +12,7 @@
         android:id="@+id/nav_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
+        android:background="@android:color/transparent"
         app:itemHorizontalTranslationEnabled="false"
         app:elevation="0dp"
         app:labelVisibilityMode="labeled"
