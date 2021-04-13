@@ -48,6 +48,20 @@ class AboutApplicationAdapter: RecyclerView.Adapter<AboutApplicationAdapter.Abou
                 0 -> {
                     // do in app update
                     // see https://developer.android.com/guide/playcore/in-app-updates
+
+//                    val appUpdateManager = AppUpdateManagerFactory.create(holder.itemView.context)
+//                    val appUpdateInfoTask = appUpdateManager.appUpdateInfo.addOnSuccessListener { appUpdateInfo ->
+//                        if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+//                            && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)
+//                        ) {
+//                            appUpdateManager.startUpdateFlowForResult(
+//                                appUpdateInfo,
+//                                AppUpdateType.FLEXIBLE,
+//                                this,
+//                                APP_UPDATE_CODE
+//                            )
+//                        }
+//                    }
                 }
 
                 1 -> {
