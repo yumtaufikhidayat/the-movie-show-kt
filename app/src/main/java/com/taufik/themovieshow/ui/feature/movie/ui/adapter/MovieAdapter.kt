@@ -41,9 +41,6 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>(){
                     val intent = Intent(itemView.context, DetailMovieActivity::class.java).apply {
                         putExtra(DetailMovieActivity.EXTRA_DETAIL_ID, movieResult.id)
                         putExtra(DetailMovieActivity.EXTRA_DETAIL_TITLE, movieResult.title)
-                        putExtra(DetailMovieActivity.EXTRA_POSTER, movieResult.posterPath)
-                        putExtra(DetailMovieActivity.EXTRA_RELEASE_DATE, movieResult.releaseDate)
-                        putExtra(DetailMovieActivity.EXTRA_RATING, movieResult.voteAverage)
                     }
                     it.context.startActivity(intent)
                 }

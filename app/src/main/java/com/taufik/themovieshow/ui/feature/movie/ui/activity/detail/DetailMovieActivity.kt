@@ -37,9 +37,6 @@ class DetailMovieActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_DETAIL_ID = "com.taufik.themovieshow.ui.feature.movie.ui.activity.EXTRA_DETAIL_ID"
         const val EXTRA_DETAIL_TITLE = "com.taufik.themovieshow.ui.feature.movie.ui.activity.EXTRA_DETAIL_TITLE"
-        const val EXTRA_POSTER = "com.taufik.themovieshow.ui.feature.movie.ui.activity.detail.EXTRA_POSTER"
-        const val EXTRA_RELEASE_DATE = "com.taufik.themovieshow.ui.feature.movie.ui.activity.detail.EXTRA_RELEASE_DATE"
-        const val EXTRA_RATING = "com.taufik.themovieshow.ui.feature.movie.ui.activity.detail.EXTRA_RATING"
     }
 
     private lateinit var binding: ActivityDetailMovieBinding
@@ -48,9 +45,6 @@ class DetailMovieActivity : AppCompatActivity() {
     private var id by Delegates.notNull<Int>()
     private lateinit var title: String
     private lateinit var data: MovieDetailResponse
-    private lateinit var moviePoster: String
-    private lateinit var movieReleaseDate: String
-    private var movieRating by Delegates.notNull<Double>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,9 +71,6 @@ class DetailMovieActivity : AppCompatActivity() {
     private fun setParcelableData() {
         id = intent.getIntExtra(EXTRA_DETAIL_ID, 0)
         title = intent.getStringExtra(EXTRA_DETAIL_TITLE).toString()
-        moviePoster = intent.getStringExtra(EXTRA_POSTER).toString()
-        movieReleaseDate = intent.getStringExtra(EXTRA_RELEASE_DATE).toString()
-        movieRating = intent.getDoubleExtra(EXTRA_RATING, 0.0)
     }
 
     private fun initActionBar() {
