@@ -104,19 +104,40 @@
             app:layout_constraintTop_toBottomOf="@id/tvReleaseDate"
             tools:text="@string/tvStatus"/>
 
-        <ToggleButton
-            android:id="@+id/toggleFavorite"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="2dp"
             android:layout_marginEnd="20dp"
-            android:textOn=""
-            android:textOff=""
-            android:background="@drawable/favorite_toggle"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
+            android:background="@drawable/background_grey"
+            android:gravity="center"
             app:layout_constraintTop_toBottomOf="@id/tvStatus"
             app:layout_constraintBottom_toBottomOf="@id/tvOverviewTitle"
-            app:layout_constraintEnd_toEndOf="@id/tvOverview"/>
+            app:layout_constraintEnd_toEndOf="@id/tvOverview">
+
+            <ToggleButton
+                android:id="@+id/toggleFavorite"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginEnd="5dp"
+                android:padding="5dp"
+                android:textOn=""
+                android:textOff=""
+                android:background="@drawable/favorite_toggle"
+                android:focusable="false"
+                android:focusableInTouchMode="false"/>
+
+            <TextView
+                android:id="@+id/tvFavorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:includeFontPadding="false"
+                android:text="@string/icFavorite"
+                android:textColor="@color/colorThemeExtra"/>
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tvOverviewTitle"
