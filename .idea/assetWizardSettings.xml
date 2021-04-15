@@ -308,7 +308,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:$USER_HOME$/Android/Sdk/icons/material/materialiconsoutlined/bug_report/outline_bug_report_24.xml" />
+                                      <entry key="url" value="file:$USER_HOME$/Android/Sdk/icons/material/materialicons/favorite/baseline_favorite_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -318,8 +318,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="ffa500" />
-                            <entry key="outputName" value="ic_outline_bug" />
+                            <entry key="color" value="8a8a8a" />
+                            <entry key="outputName" value="ic_favorite_grey" />
                           </map>
                         </option>
                       </PersistentState>

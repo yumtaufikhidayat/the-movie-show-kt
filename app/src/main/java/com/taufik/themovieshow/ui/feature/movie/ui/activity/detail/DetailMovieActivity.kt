@@ -25,6 +25,10 @@ import com.taufik.themovieshow.ui.feature.movie.data.detail.MovieDetailResponse
 import com.taufik.themovieshow.ui.feature.movie.ui.adapter.MovieCastAdapter
 import com.taufik.themovieshow.ui.feature.movie.viewmodel.DetailMovieViewModel
 import es.dmoral.toasty.Toasty
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.*
 import kotlin.properties.Delegates
 
@@ -33,14 +37,20 @@ class DetailMovieActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_DETAIL_ID = "com.taufik.themovieshow.ui.feature.movie.ui.activity.EXTRA_DETAIL_ID"
         const val EXTRA_DETAIL_TITLE = "com.taufik.themovieshow.ui.feature.movie.ui.activity.EXTRA_DETAIL_TITLE"
+        const val EXTRA_POSTER = "com.taufik.themovieshow.ui.feature.movie.ui.activity.detail.EXTRA_POSTER"
+        const val EXTRA_RELEASE_DATE = "com.taufik.themovieshow.ui.feature.movie.ui.activity.detail.EXTRA_RELEASE_DATE"
+        const val EXTRA_RATING = "com.taufik.themovieshow.ui.feature.movie.ui.activity.detail.EXTRA_RATING"
     }
 
     private lateinit var binding: ActivityDetailMovieBinding
     private lateinit var viewModel: DetailMovieViewModel
+    private lateinit var castAdapter: MovieCastAdapter
     private var id by Delegates.notNull<Int>()
     private lateinit var title: String
     private lateinit var data: MovieDetailResponse
-    private lateinit var castAdapter: MovieCastAdapter
+    private lateinit var moviePoster: String
+    private lateinit var movieReleaseDate: String
+    private var movieRating by Delegates.notNull<Double>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,6 +77,9 @@ class DetailMovieActivity : AppCompatActivity() {
     private fun setParcelableData() {
         id = intent.getIntExtra(EXTRA_DETAIL_ID, 0)
         title = intent.getStringExtra(EXTRA_DETAIL_TITLE).toString()
+        moviePoster = intent.getStringExtra(EXTRA_POSTER).toString()
+        movieReleaseDate = intent.getStringExtra(EXTRA_RELEASE_DATE).toString()
+        movieRating = intent.getDoubleExtra(EXTRA_RATING, 0.0)
     }
 
     private fun initActionBar() {
@@ -77,9 +90,9 @@ class DetailMovieActivity : AppCompatActivity() {
     }
 
     private fun setData() {
-        viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[DetailMovieViewModel::class.java]
-        viewModel.setDetailMovieNowPlaying(id, BuildConfig.API_KEY)
-        viewModel.getDetailMovieNowPlaying().observe(this, {
+        viewModel = ViewModelProvider(this)[DetailMovieViewModel::class.java]
+        viewModel.setDetailMovies(id, BuildConfig.API_KEY)
+        viewModel.getDetailMovies().observe(this, {
             data = it
             if (it != null) {
                 binding.apply {
@@ -122,6 +135,37 @@ class DetailMovieActivity : AppCompatActivity() {
                 }
             }
         })
+
+        var isChecked = false
+        binding.apply {
+            CoroutineScope(Dispatchers.IO).launch {
+                val count = viewModel.checkFavorite(id)
+                withContext(Dispatchers.Main){
+                    if (count != null) {
+                        if (count > 0) {
+                            toggleFavorite.isChecked = true
+                            isChecked = true
+                        } else {
+                            toggleFavorite.isChecked = false
+                            isChecked = false
+                        }
+                    }
+                }
+            }
+        }
+
+        binding.toggleFavorite.setOnClickListener{
+            isChecked = !isChecked
+            if (isChecked) {
+                viewModel.addToFavorite(id, data.posterPath, title, data.releaseDate, data.voteAverage)
+                Toasty.success(this, "Ditambahkan ke favorit", Toast.LENGTH_SHORT, true).show()
+            } else {
+                viewModel.removeFromFavorite(id)
+                Toasty.success(this, "Dihapus dari favorit", Toast.LENGTH_SHORT, true).show()
+            }
+
+            binding.toggleFavorite.isChecked = isChecked
+        }
     }
 
     private fun setVideo() {

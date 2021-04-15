@@ -1,25 +1,39 @@
 package com.taufik.themovieshow.ui.feature.movie.viewmodel
 
+import android.app.Application
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.taufik.themovieshow.api.ApiClient
 import com.taufik.themovieshow.ui.feature.movie.data.cast.MovieCast
 import com.taufik.themovieshow.ui.feature.movie.data.cast.MovieCastResponse
 import com.taufik.themovieshow.ui.feature.movie.data.detail.MovieDetailResponse
+import com.taufik.themovieshow.ui.feature.movie.data.local.FavoriteMovie
+import com.taufik.themovieshow.ui.feature.movie.data.local.FavoriteMovieDao
+import com.taufik.themovieshow.ui.feature.movie.data.local.MovieDatabase
 import com.taufik.themovieshow.ui.feature.movie.data.video.MovieVideoResponse
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DetailMovieViewModel : ViewModel() {
+class DetailMovieViewModel(application: Application) : AndroidViewModel(application) {
 
     val listDetailMovies = MutableLiveData<MovieDetailResponse>()
     val listDetailVideo = MutableLiveData<MovieVideoResponse>()
     val listDetailCast = MutableLiveData<ArrayList<MovieCast>>()
 
-    fun setDetailMovieNowPlaying(id: Int, apiKey: String) {
+    private var movieDao: FavoriteMovieDao?
+    private var movieDb: MovieDatabase? = MovieDatabase.getDatabase(context = application)
+
+    init {
+        movieDao = movieDb?.favoriteMovieDao()
+    }
+
+    fun setDetailMovies(id: Int, apiKey: String) {
         ApiClient.apiInstance
             .getDetailMovie(id, apiKey)
             .enqueue(object : Callback<MovieDetailResponse> {
@@ -40,7 +54,7 @@ class DetailMovieViewModel : ViewModel() {
             })
     }
 
-    fun getDetailMovieNowPlaying(): LiveData<MovieDetailResponse> {
+    fun getDetailMovies(): LiveData<MovieDetailResponse> {
         return listDetailMovies
     }
 
@@ -90,5 +104,29 @@ class DetailMovieViewModel : ViewModel() {
 
     fun getDetailMovieCast(): LiveData<ArrayList<MovieCast>> {
         return listDetailCast
+    }
+
+    // Favorite
+    fun addToFavorite(
+        movieId: Int,
+        posterPath: String,
+        title: String,
+        releaseData: String,
+        rating: Double
+    ) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val movie = FavoriteMovie(
+                movieId, posterPath, title, releaseData, rating
+            )
+            movieDao?.addToFavorite(movie)
+        }
+    }
+
+    suspend fun checkFavorite(movieId: Int) = movieDao?.checkFavorite(movieId)
+
+    fun removeFromFavorite(movieId: Int){
+        CoroutineScope(Dispatchers.IO).launch {
+            movieDao?.removeFromFavorite(movieId)
+        }
     }
 }

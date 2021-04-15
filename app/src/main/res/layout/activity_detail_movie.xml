@@ -93,8 +93,21 @@
             android:textColor="@android:color/holo_green_light"
             app:layout_constraintStart_toStartOf="@id/tvReleasedOn"
             app:layout_constraintTop_toBottomOf="@+id/tvReleasedOn"
-            tools:text="@string/tvReleaseDate"/>
+            tools:text="@string/tvStatus"/>
 
+        <ToggleButton
+            android:id="@+id/toggleFavorite"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="20dp"
+            android:textOn=""
+            android:textOff=""
+            android:background="@drawable/favorite_toggle"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            app:layout_constraintTop_toBottomOf="@id/tvStatus"
+            app:layout_constraintBottom_toBottomOf="@id/tvOverviewTitle"
+            app:layout_constraintEnd_toEndOf="@id/tvOverview"/>
 
         <TextView
             android:id="@+id/tvOverviewTitle"
