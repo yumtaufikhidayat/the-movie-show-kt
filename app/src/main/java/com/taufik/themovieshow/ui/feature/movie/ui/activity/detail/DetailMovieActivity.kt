@@ -149,10 +149,10 @@ class DetailMovieActivity : AppCompatActivity() {
             isChecked = !isChecked
             if (isChecked) {
                 viewModel.addToFavorite(id, data.posterPath, title, data.releaseDate, data.voteAverage)
-                Toasty.success(this, "Ditambahkan ke favorit", Toast.LENGTH_SHORT, true).show()
+                Toasty.success(this, "Added to favorite", Toast.LENGTH_SHORT, true).show()
             } else {
                 viewModel.removeFromFavorite(id)
-                Toasty.success(this, "Dihapus dari favorit", Toast.LENGTH_SHORT, true).show()
+                Toasty.success(this, "Removed from favorite", Toast.LENGTH_SHORT, true).show()
             }
 
             binding.toggleFavorite.isChecked = isChecked

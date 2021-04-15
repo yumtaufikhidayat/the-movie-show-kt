@@ -19,4 +19,6 @@ interface FavoriteMovieDao {
 
     @Query("DELETE FROM favorite_movie WHERE favorite_movie.movieId = :movieId")
     suspend fun removeFromFavorite(movieId: Int): Int
+
+
 }
