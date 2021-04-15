@@ -11,7 +11,6 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -159,20 +158,8 @@ class DetailMovieActivity : AppCompatActivity() {
                         data.voteAverage
                     )
                     Toasty.success(this@DetailMovieActivity, "Added to favorite", Toast.LENGTH_SHORT, true).show()
-                    tvFavorite.setTextColor(
-                        ContextCompat.getColorStateList(
-                            this@DetailMovieActivity,
-                            R.color.colorThemeExtra
-                        )
-                    )
                 } else {
                     viewModel.removeFromFavorite(id)
-                    tvFavorite.setTextColor(
-                        ContextCompat.getColorStateList(
-                            this@DetailMovieActivity,
-                            R.color.colorGrey
-                        )
-                    )
                     Toasty.success(this@DetailMovieActivity, "Removed from favorite", Toast.LENGTH_SHORT, true).show()
                 }
 
