@@ -134,8 +134,9 @@
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:includeFontPadding="false"
+                android:visibility="gone"
                 android:text="@string/icFavorite"
-                android:textColor="@color/colorThemeExtra"/>
+                android:textColor="@color/colorGrey"/>
 
         </LinearLayout>
 

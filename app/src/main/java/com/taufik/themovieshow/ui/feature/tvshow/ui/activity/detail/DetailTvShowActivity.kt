@@ -169,6 +169,7 @@ class DetailTvShowActivity : AppCompatActivity() {
         }
 
         binding.apply {
+            tvFavorite.visibility = View.VISIBLE
             toggleFavorite.setOnClickListener {
                 isChecked = !isChecked
                 if (isChecked) {
