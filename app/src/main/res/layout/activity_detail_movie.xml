@@ -124,7 +124,7 @@
                 android:padding="5dp"
                 android:includeFontPadding="false"
                 android:text="@string/icFavorite"
-                android:textColor="@color/colorGrey"/>
+                android:textColor="@color/colorThemeExtra"/>
 
         </LinearLayout>
 
