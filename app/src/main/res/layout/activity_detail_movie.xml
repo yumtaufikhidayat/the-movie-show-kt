@@ -124,7 +124,7 @@
                 android:padding="5dp"
                 android:includeFontPadding="false"
                 android:text="@string/icFavorite"
-                android:textColor="@color/colorThemeExtra"/>
+                android:textColor="@color/colorGrey"/>
 
         </LinearLayout>
 
@@ -340,7 +340,7 @@
             android:id="@+id/btnWebsite"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_margin="12dp"
             android:includeFontPadding="false"
             android:text="@string/btnWebsites"
             android:textColor="@color/colorTextIcons"
