@@ -18,7 +18,7 @@
             <item
                 android:id="@+id/nav_open_in_browser"
                 android:title="@string/tvOpenInBrowser"
-                android:icon="@drawable/ic_language"
+                android:icon="@drawable/ic_language_white"
                 app:showAsAction="never"/>
 
         </menu>
