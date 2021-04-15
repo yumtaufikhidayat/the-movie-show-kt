@@ -111,12 +111,12 @@ class DetailMovieViewModel(application: Application) : AndroidViewModel(applicat
         movieId: Int,
         posterPath: String,
         title: String,
-        releaseData: String,
+        releaseDate: String,
         rating: Double
     ) {
         CoroutineScope(Dispatchers.IO).launch {
             val movie = FavoriteMovie(
-                movieId, posterPath, title, releaseData, rating
+                movieId, posterPath, title, releaseDate, rating
             )
             movieDao?.addToFavorite(movie)
         }
@@ -124,7 +124,7 @@ class DetailMovieViewModel(application: Application) : AndroidViewModel(applicat
 
     suspend fun checkFavorite(movieId: Int) = movieDao?.checkFavorite(movieId)
 
-    fun removeFromFavorite(movieId: Int){
+    fun removeFromFavorite(movieId: Int) {
         CoroutineScope(Dispatchers.IO).launch {
             movieDao?.removeFromFavorite(movieId)
         }

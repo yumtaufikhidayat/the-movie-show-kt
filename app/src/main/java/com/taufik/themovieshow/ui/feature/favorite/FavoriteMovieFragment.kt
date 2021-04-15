@@ -37,7 +37,7 @@ class FavoriteMovieFragment : Fragment() {
 
         setData()
 
-        getFavoriteUser()
+        getFavoriteMovie()
     }
 
     private fun setAdapter() {
@@ -57,10 +57,9 @@ class FavoriteMovieFragment : Fragment() {
         }
     }
 
-    private fun getFavoriteUser() {
+    private fun getFavoriteMovie() {
         viewModel.getFavoriteMovies()?.observe(viewLifecycleOwner, {
             if (it != null) {
-
                 val list = mapList(it)
                 movieAdapter.setMovies(list)
             }

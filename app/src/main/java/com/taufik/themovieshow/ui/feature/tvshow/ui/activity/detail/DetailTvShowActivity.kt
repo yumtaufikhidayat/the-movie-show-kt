@@ -25,6 +25,10 @@ import com.taufik.themovieshow.ui.feature.tvshow.data.detail.TvShowsPopularDetai
 import com.taufik.themovieshow.ui.feature.tvshow.ui.adapter.TvShowsCastAdapter
 import com.taufik.themovieshow.ui.feature.tvshow.viewmodel.DetailTvShowViewModel
 import es.dmoral.toasty.Toasty
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.*
 import kotlin.properties.Delegates
 
@@ -77,7 +81,7 @@ class DetailTvShowActivity : AppCompatActivity() {
     }
 
     private fun setData() {
-        viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[DetailTvShowViewModel::class.java]
+        viewModel = ViewModelProvider(this)[DetailTvShowViewModel::class.java]
         viewModel.setDetailTvShowPopular(id, BuildConfig.API_KEY)
         viewModel.getDetailTvShowsPopular().observe(this, {
             data = it
@@ -144,6 +148,37 @@ class DetailTvShowActivity : AppCompatActivity() {
                 }
             }
         })
+
+        var isChecked = false
+        binding.apply {
+            CoroutineScope(Dispatchers.IO).launch {
+                val count = viewModel.checkFavorite(id)
+                withContext(Dispatchers.Main){
+                    if (count != null) {
+                        if (count > 0) {
+                            toggleFavorite.isChecked = true
+                            isChecked = true
+                        } else {
+                            toggleFavorite.isChecked = false
+                            isChecked = false
+                        }
+                    }
+                }
+            }
+        }
+
+        binding.toggleFavorite.setOnClickListener{
+            isChecked = !isChecked
+            if (isChecked) {
+                viewModel.addToFavorite(id, data.posterPath, title, data.firstAirDate, data.voteAverage)
+                Toasty.success(this, "Added to favorite", Toast.LENGTH_SHORT, true).show()
+            } else {
+                viewModel.removeFromFavorite(id)
+                Toasty.success(this, "Removed from favorite", Toast.LENGTH_SHORT, true).show()
+            }
+
+            binding.toggleFavorite.isChecked = isChecked
+        }
     }
 
     private fun setVideo() {

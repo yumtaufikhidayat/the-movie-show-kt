@@ -1,23 +1,37 @@
 package com.taufik.themovieshow.ui.feature.tvshow.viewmodel
 
+import android.app.Application
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.taufik.themovieshow.api.ApiClient
 import com.taufik.themovieshow.ui.feature.tvshow.data.cast.TvShowsCast
 import com.taufik.themovieshow.ui.feature.tvshow.data.cast.TvShowsCastResponse
 import com.taufik.themovieshow.ui.feature.tvshow.data.detail.TvShowsPopularDetailResponse
+import com.taufik.themovieshow.ui.feature.tvshow.data.local.FavoriteTvShow
+import com.taufik.themovieshow.ui.feature.tvshow.data.local.FavoriteTvShowDao
+import com.taufik.themovieshow.ui.feature.tvshow.data.local.TvShowDatabase
 import com.taufik.themovieshow.ui.feature.tvshow.data.video.TvShowsVideoResponse
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DetailTvShowViewModel : ViewModel() {
+class DetailTvShowViewModel(application: Application) : AndroidViewModel(application) {
 
     val listDetailTvShows = MutableLiveData<TvShowsPopularDetailResponse>()
     val listDetailVideo = MutableLiveData<TvShowsVideoResponse>()
     val listDetailCast = MutableLiveData<ArrayList<TvShowsCast>>()
+
+    private var tvShowDao: FavoriteTvShowDao?
+    private var tvShowDb: TvShowDatabase? = TvShowDatabase.getDatabase(context = application)
+
+    init {
+        tvShowDao = tvShowDb?.favoriteTvShowDao()
+    }
 
     fun setDetailTvShowPopular(id: Int, apiKey: String) {
         ApiClient.apiInstance
@@ -86,5 +100,29 @@ class DetailTvShowViewModel : ViewModel() {
 
     fun getDetailTvShowsCast(): LiveData<ArrayList<TvShowsCast>> {
         return listDetailCast
+    }
+
+    // Favorite
+    fun addToFavorite(
+        tvShowId: Int,
+        posterPath: String,
+        title: String,
+        firstAirDate: String,
+        rating: Double
+    ) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val tvShow = FavoriteTvShow(
+                tvShowId, posterPath, title, firstAirDate, rating
+            )
+            tvShowDao?.addToFavorite(tvShow)
+        }
+    }
+
+    suspend fun checkFavorite(tvShowId: Int) = tvShowDao?.checkFavorite(tvShowId)
+
+    fun removeFromFavorite(tvShowId: Int) {
+        CoroutineScope(Dispatchers.IO).launch {
+            tvShowDao?.removeFromFavorite(tvShowId)
+        }
     }
 }

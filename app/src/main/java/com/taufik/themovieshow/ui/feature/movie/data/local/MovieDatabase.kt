@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase
 abstract class MovieDatabase: RoomDatabase() {
     companion object {
 
-        var INSTANCE : MovieDatabase? = null
+        private var INSTANCE : MovieDatabase? = null
 
         fun getDatabase(context: Context): MovieDatabase? {
             if (INSTANCE == null) {
