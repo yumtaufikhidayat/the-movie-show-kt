@@ -28,10 +28,6 @@
     <string name="tvDiscoverMovie">Discover Movies</string>
     <string name="tvDiscoverTvShows">Discover TV Shows</string>
     <string name="tvDiscover">Discover</string>
-    <string name="tvDiscoverFavoriteMovie">Discover favorite Movies…</string>
-    <string name="tvDiscoverFavoriteTvShows">Discover favorite TV Shows…</string>
-    <string name="tvDiscoverFavoriteMovieTitle">Search favorite movie title</string>
-    <string name="tvDiscoverFavoriteTvShowsTitle">Search favorite tv shows title</string>
     <string name="tvTrailer">Trailer Video</string>
     <string name="tvOverview">Overview</string>
     <string name="tvCast">Cast</string>
