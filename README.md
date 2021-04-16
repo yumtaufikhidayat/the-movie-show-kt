@@ -28,3 +28,11 @@ The Movie Show is an Android application as catalogue movies and tv shows. It ha
     - Website
 - Favorite
 - About author and about application
+
+|<img src=trending.png align="center" height="400" width="180" ></a> |<img src=movies.png  align="center" height="400" width="180" ></a>|<img src=tvshows.png  align="center" height="400" width="180" ></a>|<img src=detail.png  align="center" height="400" width="180" ></a>
+|:-----------:|:--------:|:--------:|:--------:|
+| *trending* | *movies* | *tv shows* | *detail* |
+
+|<img src=search.png align="center" height="400" width="180" ></a> |<img src=favorite.png  align="center" height="400" width="180" ></a>|<img src=share.png  align="center" height="400" width="180" ></a>|<img src=profile.png  align="center" height="400" width="180" ></a>
+|:-----------:|:--------:|:--------:|:--------:|
+| *search* | *favorite* | *share* | *profile* |
