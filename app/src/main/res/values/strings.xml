@@ -33,6 +33,7 @@
     <string name="tvCast">Cast</string>
     <string name="tvAuthor">Author</string>
     <string name="tvApplication">Application</string>
+    <string name="tvUpdate">Update</string>
 
     <!--Button-->
     <string name="btnReviews">Reviews</string>

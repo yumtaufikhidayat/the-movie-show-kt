@@ -46,12 +46,39 @@ class AboutApplicationAdapter: RecyclerView.Adapter<AboutApplicationAdapter.Abou
             when(position) {
 
                 0 -> {
-                    // do in app update
-                    // see https://developer.android.com/guide/playcore/in-app-updates
+
+                    val versionLink = "https://play.google.com/store/apps/details?id=com.taufik.themovieshow"
+
+                    try {
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(versionLink))
+                        holder.itemView.context.startActivity(Intent.createChooser(intent, "Open with:"))
+                    } catch (e: Exception) {
+                        Toasty.warning(
+                            holder.itemView.context,
+                            "Please install browser.",
+                            Toast.LENGTH_SHORT, true
+                        ).show()
+
+                        Log.e("errorLink", "setViewModel: ${e.localizedMessage}")
+                    }
                 }
 
                 1 -> {
-                    // do rate by intent to play store
+
+                    val versionLink = "https://play.google.com/store/apps/details?id=com.taufik.themovieshow"
+
+                    try {
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(versionLink))
+                        holder.itemView.context.startActivity(Intent.createChooser(intent, "Open with:"))
+                    } catch (e: Exception) {
+                        Toasty.warning(
+                            holder.itemView.context,
+                            "Please install browser.",
+                            Toast.LENGTH_SHORT, true
+                        ).show()
+
+                        Log.e("errorLink", "setViewModel: ${e.localizedMessage}")
+                    }
                 }
 
                 2 -> {
