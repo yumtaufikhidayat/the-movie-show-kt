@@ -31,7 +31,7 @@ object UtilsData {
                         About(
                                 R.drawable.ic_update,
                                 "Version",
-                                "1.1"
+                                "1.2"
                         ),
                         About(
                                 R.drawable.ic_outline_rate,
