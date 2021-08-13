@@ -170,21 +170,22 @@ class DetailTvShowActivity : AppCompatActivity() {
         binding.apply {
             tvFavorite.visibility = View.VISIBLE
             toggleFavorite.setOnClickListener {
-                isChecked = !isChecked
-                if (isChecked) {
-                    viewModel.addToFavorite(
-                        id,
-                        data.posterPath,
-                        title,
-                        data.firstAirDate,
-                        data.voteAverage
-                    )
-                    Toasty.success(this@DetailTvShowActivity, "Added to favorite", Toast.LENGTH_SHORT, true).show()
-                } else {
-                    viewModel.removeFromFavorite(id)
-                    Toasty.success(this@DetailTvShowActivity, "Removed from favorite", Toast.LENGTH_SHORT, true).show()
+                if(this@DetailTvShowActivity::data.isInitialized){
+                    isChecked = !isChecked
+                    if (isChecked) {
+                        viewModel.addToFavorite(
+                            id,
+                            data.posterPath,
+                            title,
+                            data.firstAirDate,
+                            data.voteAverage
+                        )
+                        Toasty.success(this@DetailTvShowActivity, "Added to favorite", Toast.LENGTH_SHORT, true).show()
+                    } else {
+                        viewModel.removeFromFavorite(id)
+                        Toasty.success(this@DetailTvShowActivity, "Removed from favorite", Toast.LENGTH_SHORT, true).show()
+                    }
                 }
-
                 binding.toggleFavorite.isChecked = isChecked
             }
         }

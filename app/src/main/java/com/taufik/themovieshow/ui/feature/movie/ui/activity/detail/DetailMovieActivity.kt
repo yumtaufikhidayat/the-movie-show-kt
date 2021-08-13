@@ -148,21 +148,22 @@ class DetailMovieActivity : AppCompatActivity() {
         binding.apply {
             tvFavorite.visibility = View.VISIBLE
             toggleFavorite.setOnClickListener {
-                isChecked = !isChecked
-                if (isChecked) {
-                    viewModel.addToFavorite(
-                        id,
-                        data.posterPath,
-                        title,
-                        data.releaseDate,
-                        data.voteAverage
-                    )
-                    Toasty.success(this@DetailMovieActivity, "Added to favorite", Toast.LENGTH_SHORT, true).show()
-                } else {
-                    viewModel.removeFromFavorite(id)
-                    Toasty.success(this@DetailMovieActivity, "Removed from favorite", Toast.LENGTH_SHORT, true).show()
+                if (this@DetailMovieActivity::data.isInitialized){
+                    isChecked = !isChecked
+                    if (isChecked) {
+                        viewModel.addToFavorite(
+                            id,
+                            data.posterPath,
+                            title,
+                            data.releaseDate,
+                            data.voteAverage
+                        )
+                        Toasty.success(this@DetailMovieActivity, "Added to favorite", Toast.LENGTH_SHORT, true).show()
+                    } else {
+                        viewModel.removeFromFavorite(id)
+                        Toasty.success(this@DetailMovieActivity, "Removed from favorite", Toast.LENGTH_SHORT, true).show()
+                    }
                 }
-
                 binding.toggleFavorite.isChecked = isChecked
             }
         }
