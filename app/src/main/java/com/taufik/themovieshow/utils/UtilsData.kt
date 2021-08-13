@@ -1,5 +1,6 @@
 package com.taufik.themovieshow.utils
 
+import com.taufik.themovieshow.BuildConfig
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.ui.feature.about.data.About
 
@@ -31,7 +32,7 @@ object UtilsData {
                         About(
                                 R.drawable.ic_update,
                                 "Version",
-                                "1.3"
+                                BuildConfig.VERSION_NAME
                         ),
                         About(
                                 R.drawable.ic_outline_rate,

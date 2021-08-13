@@ -1,6 +1,8 @@
 package com.taufik.themovieshow.ui.activity
 
 import android.content.Intent
+import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -18,6 +20,8 @@ class SplashscreenActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSplashscreen()
+
+        setAppVersion()
     }
 
     private fun setSplashscreen() {
@@ -27,5 +31,17 @@ class SplashscreenActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }, 1000)
+    }
+
+    private fun setAppVersion() {
+        binding.apply {
+            try {
+                val pInfo: PackageInfo = packageManager.getPackageInfo(packageName, 0)
+                val appVersion = pInfo.versionName
+                tvAppVersion.text = appVersion
+            } catch (e: PackageManager.NameNotFoundException) {
+                e.printStackTrace()
+            }
+        }
     }
 }
