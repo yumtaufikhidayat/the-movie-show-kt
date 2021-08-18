@@ -5,6 +5,7 @@
       <map>
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.159375" />
         <entry key="app/src/main/res/layout/activity_splashscreen.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/fragment_trending.xml" value="0.159375" />
       </map>
     </option>
   </component>
