@@ -6,6 +6,8 @@ import com.taufik.themovieshow.ui.feature.about.data.About
 
 object UtilsData {
 
+        const val API_KEY ="c5d387e24584756e5a37eb08021e1840"
+
         fun generateAboutAuthorData(): List<About> {
 
                 return mutableListOf(

@@ -17,13 +17,13 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
-import com.taufik.themovieshow.BuildConfig
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.api.UrlEndpoint
 import com.taufik.themovieshow.databinding.ActivityDetailMovieBinding
 import com.taufik.themovieshow.ui.feature.movie.data.detail.MovieDetailResponse
 import com.taufik.themovieshow.ui.feature.movie.ui.adapter.MovieCastAdapter
 import com.taufik.themovieshow.ui.feature.movie.viewmodel.DetailMovieViewModel
+import com.taufik.themovieshow.utils.UtilsData
 import es.dmoral.toasty.Toasty
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -82,7 +82,7 @@ class DetailMovieActivity : AppCompatActivity() {
 
     private fun setData() {
         viewModel = ViewModelProvider(this)[DetailMovieViewModel::class.java]
-        viewModel.setDetailMovies(id, BuildConfig.API_KEY)
+        viewModel.setDetailMovies(id, UtilsData.API_KEY)
         viewModel.getDetailMovies().observe(this, {
             data = it
             if (it != null) {
@@ -170,7 +170,7 @@ class DetailMovieActivity : AppCompatActivity() {
     }
 
     private fun setVideo() {
-        viewModel.setDetailMovieVideo(id, BuildConfig.API_KEY)
+        viewModel.setDetailMovieVideo(id, UtilsData.API_KEY)
         viewModel.getDetailMovieVideo().observe(this, {
             if (it != null) {
                 binding.apply {
@@ -207,7 +207,6 @@ class DetailMovieActivity : AppCompatActivity() {
 
     private fun setCastAdapter() {
         castAdapter = MovieCastAdapter()
-        castAdapter.notifyDataSetChanged()
     }
 
     private fun setRecyclerView() {
@@ -219,7 +218,7 @@ class DetailMovieActivity : AppCompatActivity() {
     }
 
     private fun setCast() {
-        viewModel.setDetailMovieCast(id, BuildConfig.API_KEY)
+        viewModel.setDetailMovieCast(id, UtilsData.API_KEY)
         viewModel.getDetailMovieCast().observe(this, {
             if (it != null) {
                 castAdapter.setMovieCasts(it)
