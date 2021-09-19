@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context=".ui.feature.tvshow.ui.activity.discover.DiscoverTvShowsActivity">
+    tools:context=".ui.discover.tvshow.DiscoverTvShowsActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvDiscoverTvShows"

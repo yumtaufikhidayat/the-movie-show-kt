@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context=".ui.feature.trending.TrendingFragment">
+    tools:context=".ui.trending.fragment.TrendingFragment">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayoutTrending"

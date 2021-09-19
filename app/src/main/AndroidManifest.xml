@@ -12,19 +12,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TheMovieShow">
         <activity
-            android:name=".ui.feature.tvshow.ui.activity.discover.DiscoverTvShowsActivity"
+            android:name="com.taufik.themovieshow.ui.discover.tvshow.DiscoverTvShowsActivity"
             android:theme="@style/TheMovieShowDarkActivityTheme"/>
         <activity
-            android:name=".ui.feature.movie.ui.activity.discover.DiscoverMovieActivity"
+            android:name="com.taufik.themovieshow.ui.discover.movie.DiscoverMovieActivity"
             android:theme="@style/TheMovieShowDarkActivityTheme" />
         <activity
             android:name=".ui.activity.MainActivity"
             android:theme="@style/TheMovieShowDarkActivityTheme" />
         <activity
-            android:name=".ui.feature.tvshow.ui.activity.detail.DetailTvShowActivity"
+            android:name="com.taufik.themovieshow.ui.tvshow.activity.DetailTvShowActivity"
             android:theme="@style/TheMovieShowDarkActivityTheme" />
         <activity
-            android:name=".ui.feature.movie.ui.activity.detail.DetailMovieActivity"
+            android:name="com.taufik.themovieshow.ui.movie.activity.DetailMovieActivity"
             android:theme="@style/TheMovieShowDarkActivityTheme" />
         <activity android:name=".ui.activity.SplashscreenActivity">
             <intent-filter>

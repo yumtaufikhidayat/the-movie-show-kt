@@ -7,27 +7,27 @@
 
     <fragment
         android:id="@+id/nav_trending"
-        android:name="com.taufik.themovieshow.ui.feature.trending.TrendingFragment"
+        android:name="com.taufik.themovieshow.ui.trending.fragment.TrendingFragment"
         android:label="Trending"
         tools:layout="@layout/fragment_trending" />
     <fragment
         android:id="@+id/nav_movie"
-        android:name="com.taufik.themovieshow.ui.feature.movie.ui.fragment.MovieFragment"
+        android:name="com.taufik.themovieshow.ui.movie.fragment.MovieFragment"
         android:label="Movies"
         tools:layout="@layout/fragment_movie" />
     <fragment
         android:id="@+id/nav_tv_show"
-        android:name="com.taufik.themovieshow.ui.feature.tvshow.ui.fragment.TvShowFragment"
+        android:name="com.taufik.themovieshow.ui.tvshow.fragment.TvShowFragment"
         android:label="TV Shows"
         tools:layout="@layout/fragment_tv_show" />
     <fragment
         android:id="@+id/nav_favorite"
-        android:name="com.taufik.themovieshow.ui.feature.favorite.FavoriteFragment"
+        android:name="com.taufik.themovieshow.ui.favorite.fragment.FavoriteFragment"
         android:label="Favorite"
         tools:layout="@layout/fragment_favorite" />
     <fragment
         android:id="@+id/nav_about"
-        android:name="com.taufik.themovieshow.ui.feature.about.fragment.AboutFragment"
+        android:name="com.taufik.themovieshow.ui.about.fragment.AboutFragment"
         android:label="About"
         tools:layout="@layout/fragment_about" />
 

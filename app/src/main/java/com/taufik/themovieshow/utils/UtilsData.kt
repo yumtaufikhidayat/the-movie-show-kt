@@ -2,7 +2,7 @@ package com.taufik.themovieshow.utils
 
 import com.taufik.themovieshow.BuildConfig
 import com.taufik.themovieshow.R
-import com.taufik.themovieshow.ui.feature.about.data.About
+import com.taufik.themovieshow.ui.about.model.About
 
 object UtilsData {
 

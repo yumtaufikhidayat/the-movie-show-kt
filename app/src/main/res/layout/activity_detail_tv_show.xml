@@ -8,7 +8,7 @@
     android:background="@color/colorPrimary"
     android:scrollbars="none"
     android:overScrollMode="never"
-    tools:context=".ui.feature.tvshow.ui.activity.detail.DetailTvShowActivity">
+    tools:context=".ui.tvshow.activity.DetailTvShowActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
