@@ -129,22 +129,6 @@ class DetailTvShowActivity : AppCompatActivity() {
                     }
 
                     tvLanguage.text = it.originalLanguage
-
-                    val webLink = it.homepage
-                    btnWebsite.setOnClickListener {
-                        try {
-                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(webLink))
-                            startActivity(Intent.createChooser(intent, "Open with:"))
-                        } catch (e: Exception) {
-                            Toasty.warning(
-                                    this@DetailTvShowActivity,
-                                    "Please install browser.",
-                                    Toast.LENGTH_SHORT, true
-                            ).show()
-
-                            Log.e("errorLink", "setViewModel: ${e.localizedMessage}")
-                        }
-                    }
                 }
             }
         })
@@ -230,7 +214,6 @@ class DetailTvShowActivity : AppCompatActivity() {
 
     private fun setCastAdapter() {
         castAdapter = TvShowsCastAdapter()
-        castAdapter.notifyDataSetChanged()
     }
 
     private fun setRecyclerView() {

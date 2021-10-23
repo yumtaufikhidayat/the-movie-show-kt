@@ -50,11 +50,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginTop="10dp"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:textSize="20sp"
-            android:maxLines="1"
+            android:maxLines="2"
             android:ellipsize="end"
             app:layout_constraintTop_toBottomOf="@id/imgBackdrop"
             app:layout_constraintStart_toEndOf="@id/cardPoster"
@@ -78,7 +79,6 @@
             android:layout_height="wrap_content"
             android:textColor="@color/colorGrey"
             android:text="@string/tvStartedOn"
-
             app:layout_constraintStart_toStartOf="@id/tvNetwork"
             app:layout_constraintTop_toBottomOf="@id/tvNetwork"/>
 
@@ -105,6 +105,7 @@
             tools:text="@string/tvStatus"/>
 
         <LinearLayout
+            android:id="@+id/llFavorite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -113,7 +114,6 @@
             android:background="@drawable/background_grey"
             android:gravity="center"
             app:layout_constraintTop_toBottomOf="@id/tvStatus"
-            app:layout_constraintBottom_toBottomOf="@id/tvOverviewTitle"
             app:layout_constraintEnd_toEndOf="@id/tvOverview">
 
             <ToggleButton
@@ -140,6 +140,127 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/llLayoutMisc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="4"
+            app:layout_constraintTop_toBottomOf="@id/llFavorite"
+            android:baselineAligned="false">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/tvRatingTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorTextOther"
+                    android:textStyle="bold"
+                    android:text="@string/tvRating"/>
+
+                <TextView
+                    android:id="@+id/tvRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/colorTextIcons"
+                    tools:text="@string/tvRating"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/tvGenreTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorTextOther"
+                    android:textStyle="bold"
+                    android:text="@string/tvGenre"/>
+
+                <TextView
+                    android:id="@+id/tvGenre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/colorTextIcons"
+                    tools:text="@string/tvGenre"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/tvLanguageTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorTextOther"
+                    android:textStyle="bold"
+                    android:text="@string/tvLanguage"/>
+
+                <TextView
+                    android:id="@+id/tvLanguage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/colorTextIcons"
+                    tools:text="@string/tvLanguage"
+                    app:layout_constraintTop_toBottomOf="@id/tvLanguageTitle"
+                    app:layout_constraintStart_toStartOf="@id/tvLanguageTitle"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/tvEpisodesTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorTextOther"
+                    android:textStyle="bold"
+                    android:text="@string/tvEpisodes"/>
+
+                <TextView
+                    android:id="@+id/tvEpisodes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/colorTextIcons"
+                    tools:text="@string/tvEpisodes"
+                    app:layout_constraintTop_toBottomOf="@id/tvLanguageTitle"
+                    app:layout_constraintStart_toStartOf="@id/tvLanguageTitle"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
         <TextView
             android:id="@+id/tvOverviewTitle"
             android:layout_width="wrap_content"
@@ -151,13 +272,14 @@
             android:textStyle="bold"
             android:textColor="@color/colorOrange"
             app:layout_constraintStart_toStartOf="@id/cardPoster"
-            app:layout_constraintTop_toBottomOf="@id/cardPoster"/>
+            app:layout_constraintTop_toBottomOf="@id/llLayoutMisc"/>
 
         <com.codesgood.views.JustifiedTextView
             android:id="@+id/tvOverview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginHorizontal="16dp"
             android:textColor="@color/white"
             android:ellipsize="end"
             android:maxLines="4"
@@ -200,7 +322,7 @@
             android:layout_margin="16dp"
             android:scrollbars="none"
             tools:listitem="@layout/item_cast"
-            tools:itemCount="2"
+            tools:itemCount="1"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@id/tvCast"/>
 
@@ -226,6 +348,7 @@
             android:layout_width="match_parent"
             android:layout_height="230dp"
             android:orientation="vertical"
+            android:paddingBottom="10dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="10dp"
             android:layout_marginHorizontal="16dp"
@@ -239,127 +362,6 @@
                 app:showFullScreenButton="false"/>
 
         </LinearLayout>
-
-        <View
-            android:id="@+id/viewHelper1"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@color/white"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintStart_toStartOf="@id/tvOverview"
-            app:layout_constraintEnd_toEndOf="@+id/tvOverview"
-            app:layout_constraintTop_toBottomOf="@+id/llTrailer"/>
-
-        <LinearLayout
-            android:id="@+id/llLayoutMisc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginHorizontal="16dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/viewHelper1">
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:contentDescription="@null"
-                android:src="@drawable/ic_rate"
-                app:tint="@color/colorTextOther"/>
-
-            <TextView
-                android:id="@+id/tvRating"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:includeFontPadding="false"
-                android:textColor="@color/colorTextIcons"
-                android:textSize="12sp"
-                tools:text="@string/tvRating"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:includeFontPadding="false"
-                android:text="@string/tvBullet"
-                android:textColor="@color/colorPrimaryAccent"
-                android:textSize="13sp"/>
-
-            <TextView
-                android:id="@+id/tvGenre"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:textColor="@color/colorTextIcons"
-                android:textSize="12sp"
-                tools:text="@string/tvGenre"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:includeFontPadding="false"
-                android:text="@string/tvBullet"
-                android:textColor="@color/colorPrimaryAccent"
-                android:textSize="13sp"/>
-
-            <TextView
-                android:id="@+id/tvEpisodes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:textColor="@color/colorTextIcons"
-                android:textSize="12sp"
-                tools:text="@string/tvEpisodes"/>
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="8dp"
-                android:contentDescription="@null"
-                android:src="@drawable/ic_language"
-                app:tint="@color/colorTextOther"/>
-
-            <TextView
-                android:id="@+id/tvLanguage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:includeFontPadding="false"
-                android:textColor="@color/colorTextIcons"
-                android:textSize="12sp"
-                tools:text="@string/tvLanguage"/>
-
-        </LinearLayout>
-
-        <View
-            android:id="@+id/viewHelper2"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@color/white"
-            android:layout_marginTop="5dp"
-            android:layout_marginHorizontal="16dp"
-            app:layout_constraintStart_toStartOf="@id/tvOverview"
-            app:layout_constraintEnd_toEndOf="@+id/tvOverview"
-            app:layout_constraintTop_toBottomOf="@+id/llLayoutMisc"/>
-
-        <Button
-            android:id="@+id/btnWebsite"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="12dp"
-            android:includeFontPadding="false"
-            android:text="@string/btnWebsites"
-            android:textColor="@color/colorTextIcons"
-            android:textSize="12sp"
-            android:textAllCaps="false"
-            android:backgroundTint="@color/colorOrange"
-            app:cornerRadius="6dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/viewHelper2"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

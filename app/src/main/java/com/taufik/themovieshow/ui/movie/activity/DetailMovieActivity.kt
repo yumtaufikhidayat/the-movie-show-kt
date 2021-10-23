@@ -107,22 +107,6 @@ class DetailMovieActivity : AppCompatActivity() {
 
                     tvRuntime.text = String.format("${it.runtime} min")
                     tvLanguage.text = it.originalLanguage
-
-                    val webLink = it.homepage
-                    btnWebsite.setOnClickListener {
-                        try {
-                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(webLink))
-                            startActivity(Intent.createChooser(intent, "Open with:"))
-                        } catch (e: Exception) {
-                            Toasty.warning(
-                                this@DetailMovieActivity,
-                                "Please install browser.",
-                                Toast.LENGTH_SHORT, true
-                            ).show()
-
-                            Log.e("errorLink", "setViewModel: ${e.localizedMessage}" )
-                        }
-                    }
                 }
             }
         })
