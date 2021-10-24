@@ -14,7 +14,11 @@ abstract class MovieDatabase: RoomDatabase() {
         fun getDatabase(context: Context): MovieDatabase? {
             if (INSTANCE == null) {
                 synchronized(MovieDatabase::class){
-                    INSTANCE = Room.databaseBuilder(context.applicationContext, MovieDatabase::class.java, "movie_database").build()
+                    INSTANCE = Room.databaseBuilder(
+                        context.applicationContext,
+                        MovieDatabase::class.java,
+                        "movie_database"
+                    ).fallbackToDestructiveMigration().build()
                 }
             }
 

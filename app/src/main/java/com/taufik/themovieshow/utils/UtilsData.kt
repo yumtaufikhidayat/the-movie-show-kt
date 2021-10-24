@@ -24,7 +24,7 @@ object UtilsData {
                         About(
                                 R.drawable.ic_outline_email,
                                 "Send an email",
-                                "taufik.hidayat@merahputih.id"
+                                "yumtaufikhidayat@gmail.com"
                         )
                 )
         }

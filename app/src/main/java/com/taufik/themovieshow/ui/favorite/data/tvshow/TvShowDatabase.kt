@@ -14,7 +14,11 @@ abstract class TvShowDatabase: RoomDatabase() {
         fun getDatabase(context: Context): TvShowDatabase? {
             if (INSTANCE == null) {
                 synchronized(TvShowDatabase::class){
-                    INSTANCE = Room.databaseBuilder(context.applicationContext, TvShowDatabase::class.java, "tv_show_database").build()
+                    INSTANCE = Room.databaseBuilder(
+                        context.applicationContext,
+                        TvShowDatabase::class.java,
+                        "tv_show_database"
+                    ).fallbackToDestructiveMigration().build()
                 }
             }
 

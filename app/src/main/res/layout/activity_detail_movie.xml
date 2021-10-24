@@ -99,10 +99,11 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:padding="2dp"
+            android:layout_marginTop="12dp"
             android:layout_marginEnd="20dp"
             android:background="@drawable/background_grey"
             android:gravity="center"
-            app:layout_constraintTop_toBottomOf="@id/tvStatus"
+            app:layout_constraintTop_toBottomOf="@id/cardPoster"
             app:layout_constraintEnd_toEndOf="@id/tvOverview">
 
             <ToggleButton
@@ -162,6 +163,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:includeFontPadding="false"
+                    android:gravity="center"
                     android:textColor="@color/colorTextIcons"
                     tools:text="@string/tvRating"/>
 
@@ -187,6 +189,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:includeFontPadding="false"
+                    android:gravity="center"
                     android:textColor="@color/colorTextIcons"
                     tools:text="@string/tvGenre"/>
 
@@ -308,7 +311,9 @@
             android:id="@+id/rvMovieCast"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="8dp"
             android:scrollbars="none"
             tools:listitem="@layout/item_cast"
             tools:itemCount="1"
