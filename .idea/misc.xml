@@ -8,14 +8,21 @@
         <entry key="app/src/main/res/drawable/ic_discover.xml" value="0.19895833333333332" />
         <entry key="app/src/main/res/drawable/ic_language_white.xml" value="0.19895833333333332" />
         <entry key="app/src/main/res/drawable/ic_more.xml" value="0.19895833333333332" />
+        <entry key="app/src/main/res/drawable/ic_outline_bug.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_outline_email.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_outline_profile.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_outline_rate.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_share.xml" value="0.19895833333333332" />
+        <entry key="app/src/main/res/drawable/nav_trending_selector.xml" value="0.10092592592592593" />
         <entry key="app/src/main/res/layout/activity_detail_movie.xml" value="0.2" />
         <entry key="app/src/main/res/layout/activity_detail_tv_show.xml" value="0.18" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.159375" />
         <entry key="app/src/main/res/layout/activity_splashscreen.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/fragment_about.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_movie.xml" value="0.1828125" />
         <entry key="app/src/main/res/layout/fragment_movie_now_playing.xml" value="0.1828125" />
         <entry key="app/src/main/res/layout/fragment_trending.xml" value="0.159375" />
+        <entry key="app/src/main/res/layout/item_about.xml" value="0.1828125" />
         <entry key="app/src/main/res/layout/items_movies.xml" value="0.1828125" />
         <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.16111111111111112" />
         <entry key="app/src/main/res/menu/detail_menu.xml" value="0.1828125" />

@@ -4,6 +4,9 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/The_Movie_Show.iml" filepath="$PROJECT_DIR$/.idea/modules/The_Movie_Show.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/The_Movie_Show.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/The_Movie_Show.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/The_Movie_Show.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/The_Movie_Show.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/The_Movie_Show.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/The_Movie_Show.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/The_Movie_Show.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/The_Movie_Show.app.unitTest.iml" />
     </modules>
   </component>
 </project>
