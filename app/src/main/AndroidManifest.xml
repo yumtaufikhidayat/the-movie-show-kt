@@ -13,20 +13,27 @@
         android:theme="@style/Theme.TheMovieShow">
         <activity
             android:name="com.taufik.themovieshow.ui.discover.tvshow.DiscoverTvShowsActivity"
+            android:exported="true"
             android:theme="@style/TheMovieShowDarkActivityTheme"/>
         <activity
             android:name="com.taufik.themovieshow.ui.discover.movie.DiscoverMovieActivity"
-            android:theme="@style/TheMovieShowDarkActivityTheme" />
-        <activity
-            android:name=".ui.activity.MainActivity"
+            android:exported="true"
             android:theme="@style/TheMovieShowDarkActivityTheme" />
         <activity
             android:name="com.taufik.themovieshow.ui.tvshow.activity.DetailTvShowActivity"
+            android:exported="true"
             android:theme="@style/TheMovieShowDarkActivityTheme" />
         <activity
             android:name="com.taufik.themovieshow.ui.movie.activity.DetailMovieActivity"
+            android:exported="true"
             android:theme="@style/TheMovieShowDarkActivityTheme" />
-        <activity android:name=".ui.activity.SplashscreenActivity">
+        <activity
+            android:name=".ui.activity.MainActivity"
+            android:exported="true"
+            android:theme="@style/TheMovieShowDarkActivityTheme" />
+        <activity
+            android:name=".ui.activity.SplashscreenActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
