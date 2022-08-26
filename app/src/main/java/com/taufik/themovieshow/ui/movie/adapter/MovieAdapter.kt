@@ -11,7 +11,6 @@ import com.taufik.themovieshow.api.UrlEndpoint
 import com.taufik.themovieshow.databinding.ItemsMoviesBinding
 import com.taufik.themovieshow.ui.movie.activity.DetailMovieActivity
 import com.taufik.themovieshow.ui.movie.model.nowplayingupcoming.MovieMainResult
-import java.util.*
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>(){
 
