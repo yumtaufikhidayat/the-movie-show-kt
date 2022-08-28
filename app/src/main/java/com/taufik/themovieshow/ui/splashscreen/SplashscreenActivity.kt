@@ -12,12 +12,14 @@ import com.taufik.themovieshow.ui.MainActivity
 
 class SplashscreenActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivitySplashscreenBinding
+    private val binding by lazy {
+        ActivitySplashscreenBinding.inflate(layoutInflater)
+    }
+
     private lateinit var handler: Handler
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivitySplashscreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setSplashscreen()
