@@ -8,6 +8,10 @@
     android:background="@color/colorPrimary"
     tools:context=".ui.movie.fragment.MovieFragment">
 
+    <include
+        android:id="@+id/toolbarMovie"
+        layout="@layout/toolbar_general"/>
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayoutMovie"
         android:layout_width="match_parent"
@@ -19,13 +23,25 @@
         app:tabIndicatorHeight="2dp"
         app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
         app:tabSelectedTextColor="@color/white"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/toolbarMovie"/>
 
-    <androidx.viewpager.widget.ViewPager
+    <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPagerMovie"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@id/tabLayoutMovie"
         app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabMovie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:contentDescription="@string/icMovies"
+        android:backgroundTint="@color/colorOrange"
+        android:src="@drawable/ic_search"
+        app:tint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

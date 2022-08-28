@@ -4,8 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.taufik.themovieshow.BuildConfig
 import com.taufik.themovieshow.databinding.FragmentMovieTrendingBinding
@@ -14,8 +15,10 @@ import com.taufik.themovieshow.ui.movie.viewmodel.MovieViewModel
 
 class MovieTrendingFragment : Fragment() {
 
-    private lateinit var movieTrendingBinding: FragmentMovieTrendingBinding
-    private lateinit var viewModel: MovieViewModel
+    private var _binding: FragmentMovieTrendingBinding? = null
+    private val binding get() = _binding!!
+
+    private val viewModel: MovieViewModel by viewModels()
     private lateinit var movieTrendingAdapter: MovieTrendingAdapter
 
     override fun onCreateView(
@@ -23,60 +26,43 @@ class MovieTrendingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        movieTrendingBinding = FragmentMovieTrendingBinding.inflate(inflater, container, false)
-        return movieTrendingBinding.root
+        _binding = FragmentMovieTrendingBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setAdapter()
-
-        setViewModel()
-
-        setRecyclerView()
-
         setData()
     }
 
-    private fun setAdapter() {
+    private fun setAdapter() = with(binding) {
         movieTrendingAdapter = MovieTrendingAdapter()
-        movieTrendingAdapter.notifyDataSetChanged()
-    }
-
-    private fun setViewModel() {
-        viewModel = ViewModelProvider(requireActivity(), ViewModelProvider.NewInstanceFactory())[MovieViewModel::class.java]
-    }
-
-    private fun setRecyclerView() {
-        with(movieTrendingBinding.rvTrendingMovie) {
-            layoutManager = LinearLayoutManager(context)
+        rvTrendingMovie.apply {
+            layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
             adapter = movieTrendingAdapter
         }
     }
 
     private fun setData() {
-
         showLoading(true)
-
         viewModel.setMovieTrendingDay(BuildConfig.API_KEY)
-        viewModel.getMovieTrendingDay().observe(viewLifecycleOwner, {
+        viewModel.getMovieTrendingDay().observe(viewLifecycleOwner) {
             if (it != null) {
-                movieTrendingAdapter.setMovies(it)
+                movieTrendingAdapter.submitList(it)
                 showLoading(false)
             }
-        })
+        }
     }
 
-    private fun showLoading(state: Boolean) {
+    private fun showLoading(isShow: Boolean) = with(binding){
+        progressBar.isVisible = isShow
+    }
 
-        movieTrendingBinding.apply {
-            if (state) {
-                progressBar.visibility = View.VISIBLE
-            } else {
-                progressBar.visibility = View.GONE
-            }
-        }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

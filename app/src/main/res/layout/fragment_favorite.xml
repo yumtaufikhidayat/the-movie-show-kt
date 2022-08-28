@@ -8,8 +8,12 @@
     android:background="@color/colorPrimary"
     tools:context=".ui.favorite.fragment.FavoriteFragment">
 
+    <include
+        android:id="@+id/toolbarFavorite"
+        layout="@layout/toolbar_general"/>
+
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabLayoutDiscover"
+        android:id="@+id/tabLayoutFavorite"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimaryDark"
@@ -19,13 +23,13 @@
         app:tabIndicatorHeight="2dp"
         app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
         app:tabSelectedTextColor="@color/white"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/toolbarFavorite"/>
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewPagerDiscover"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPagerFavorite"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/tabLayoutDiscover"
+        app:layout_constraintTop_toBottomOf="@id/tabLayoutFavorite"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

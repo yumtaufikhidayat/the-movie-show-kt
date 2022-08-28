@@ -103,4 +103,8 @@ dependencies {
     def coroutineVersion = "1.6.1"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutineVersion"
+
+    // Android KTX
+    def androidKtxVersion = '1.5.2'
+    implementation "androidx.fragment:fragment-ktx:$androidKtxVersion"
 }

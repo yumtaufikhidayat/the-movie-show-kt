@@ -2,6 +2,8 @@ package com.taufik.themovieshow.ui.movie.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -10,14 +12,15 @@ import com.taufik.themovieshow.api.UrlEndpoint
 import com.taufik.themovieshow.databinding.ItemCastBinding
 import com.taufik.themovieshow.ui.movie.model.cast.MovieCast
 
-class MovieCastAdapter : RecyclerView.Adapter<MovieCastAdapter.MovieViewHolder>(){
+class MovieCastAdapter : ListAdapter<MovieCast, MovieCastAdapter.MovieViewHolder>(MovieCastDiffCallback){
 
-    private var listMovieCast = ArrayList<MovieCast>()
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
+        val itemsCastBinding = ItemCastBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return MovieViewHolder(itemsCastBinding)
+    }
 
-    fun setMovieCasts(movieCast: ArrayList<MovieCast>) {
-        this.listMovieCast.clear()
-        this.listMovieCast.addAll(movieCast)
-        notifyDataSetChanged()
+    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
+        holder.bind(getItem(position))
     }
 
     inner class MovieViewHolder (private val binding: ItemCastBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -36,15 +39,8 @@ class MovieCastAdapter : RecyclerView.Adapter<MovieCastAdapter.MovieViewHolder>(
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val itemsCastBinding = ItemCastBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MovieViewHolder(itemsCastBinding)
+    object MovieCastDiffCallback: DiffUtil.ItemCallback<MovieCast>() {
+        override fun areItemsTheSame(oldItem: MovieCast, newItem: MovieCast): Boolean = oldItem.id == newItem.id
+        override fun areContentsTheSame(oldItem: MovieCast, newItem: MovieCast): Boolean = oldItem == newItem
     }
-
-    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        val pos = listMovieCast[position]
-        holder.bind(pos)
-    }
-
-    override fun getItemCount(): Int = listMovieCast.size
 }

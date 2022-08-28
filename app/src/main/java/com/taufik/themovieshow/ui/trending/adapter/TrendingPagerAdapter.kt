@@ -1,23 +1,13 @@
 package com.taufik.themovieshow.ui.trending.adapter
 
-import android.content.Context
-import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentStatePagerAdapter
-import com.taufik.themovieshow.R
+import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.taufik.themovieshow.ui.movie.fragment.MovieTrendingFragment
 import com.taufik.themovieshow.ui.tvshow.fragment.TvShowTrendingFragment
 
-class TrendingPagerAdapter(private val context: Context, fragmentManager: FragmentManager)
-    : FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+class TrendingPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
 
-    @StringRes
-    private val tabsTitle = intArrayOf(R.string.tvMovies, R.string.tvShows)
-
-    override fun getCount(): Int = 2
-
-    override fun getItem(position: Int): Fragment {
+    override fun createFragment(position: Int): Fragment {
         var fragment: Fragment? = null
         when (position) {
             0 -> fragment = MovieTrendingFragment()
@@ -27,7 +17,5 @@ class TrendingPagerAdapter(private val context: Context, fragmentManager: Fragme
         return fragment as Fragment
     }
 
-    override fun getPageTitle(position: Int): CharSequence {
-        return context.resources.getString(tabsTitle[position])
-    }
+    override fun getItemCount(): Int = 2
 }

@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none"
-        tools:listitem="@layout/items_movies"
+        tools:listitem="@layout/items_movies_tv_show"
         app:layout_constraintTop_toTopOf="parent"/>
 
     <ProgressBar

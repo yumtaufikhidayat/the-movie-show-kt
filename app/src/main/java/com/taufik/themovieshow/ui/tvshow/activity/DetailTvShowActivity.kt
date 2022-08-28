@@ -23,6 +23,7 @@ import com.taufik.themovieshow.api.UrlEndpoint
 import com.taufik.themovieshow.databinding.ActivityDetailTvShowBinding
 import com.taufik.themovieshow.ui.tvshow.adapter.TvShowsCastAdapter
 import com.taufik.themovieshow.ui.tvshow.model.detail.TvShowsPopularDetailResponse
+import com.taufik.themovieshow.ui.tvshow.model.discover.DiscoverTvShowsResult
 import com.taufik.themovieshow.ui.tvshow.viewmodel.DetailTvShowViewModel
 import es.dmoral.toasty.Toasty
 import kotlinx.coroutines.CoroutineScope
@@ -34,16 +35,12 @@ import kotlin.properties.Delegates
 
 class DetailTvShowActivity : AppCompatActivity() {
 
-    companion object {
-        const val EXTRA_DETAIL_ID = "com.taufik.themovieshow.ui.movie.activity.EXTRA_DETAIL_ID"
-        const val EXTRA_DETAIL_TITLE = "com.taufik.themovieshow.ui.movie.activity.EXTRA_DETAIL_TITLE"
-    }
-
     private lateinit var binding: ActivityDetailTvShowBinding
-    private lateinit var viewModel: DetailTvShowViewModel
+    private lateinit var detailTvShowViewModel: DetailTvShowViewModel
     private var id by Delegates.notNull<Int>()
     private lateinit var title: String
     private lateinit var data: TvShowsPopularDetailResponse
+    private lateinit var tvShowResult: DiscoverTvShowsResult
     private lateinit var castAdapter: TvShowsCastAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,21 +66,22 @@ class DetailTvShowActivity : AppCompatActivity() {
     }
 
     private fun setParcelableData() {
-        id = intent.getIntExtra(EXTRA_DETAIL_ID, 0)
-        title = intent.getStringExtra(EXTRA_DETAIL_TITLE).toString()
+        tvShowResult = intent.getParcelableExtra<DiscoverTvShowsResult>(EXTRA_DETAIL_TV) as DiscoverTvShowsResult
     }
 
     private fun initActionBar() {
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setIcon(R.drawable.ic_arrow_back)
-        supportActionBar?.title = title
-        supportActionBar?.elevation = 0F
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setIcon(R.drawable.ic_arrow_back)
+            title = tvShowResult.name
+            elevation = 0F
+        }
     }
 
     private fun setData() {
-        viewModel = ViewModelProvider(this)[DetailTvShowViewModel::class.java]
-        viewModel.setDetailTvShowPopular(id, BuildConfig.API_KEY)
-        viewModel.getDetailTvShowsPopular().observe(this, {
+        detailTvShowViewModel = ViewModelProvider(this)[DetailTvShowViewModel::class.java]
+        detailTvShowViewModel.setDetailTvShowPopular(id, BuildConfig.API_KEY)
+        detailTvShowViewModel.getDetailTvShowsPopular().observe(this) {
             data = it
             if (it != null) {
                 binding.apply {
@@ -99,7 +97,8 @@ class DetailTvShowActivity : AppCompatActivity() {
                             tvNetwork.text = String.format("${it.networks[0].name} (N/A)")
                         }
                         else -> {
-                            tvNetwork.text = String.format("${it.networks[0].name} (${it.networks[0].originCountry})")
+                            tvNetwork.text =
+                                String.format("${it.networks[0].name} (${it.networks[0].originCountry})")
                         }
                     }
 
@@ -131,12 +130,12 @@ class DetailTvShowActivity : AppCompatActivity() {
                     tvLanguage.text = it.originalLanguage
                 }
             }
-        })
+        }
 
         var isChecked = false
         binding.apply {
             CoroutineScope(Dispatchers.IO).launch {
-                val count = viewModel.checkFavorite(id)
+                val count = detailTvShowViewModel.checkFavorite(id)
                 withContext(Dispatchers.Main){
                     if (count != null) {
                         if (count > 0) {
@@ -157,7 +156,7 @@ class DetailTvShowActivity : AppCompatActivity() {
                 if(this@DetailTvShowActivity::data.isInitialized){
                     isChecked = !isChecked
                     if (isChecked) {
-                        viewModel.addToFavorite(
+                        detailTvShowViewModel.addToFavorite(
                             id,
                             data.posterPath,
                             title,
@@ -166,7 +165,7 @@ class DetailTvShowActivity : AppCompatActivity() {
                         )
                         Toasty.success(this@DetailTvShowActivity, "Added to favorite", Toast.LENGTH_SHORT, true).show()
                     } else {
-                        viewModel.removeFromFavorite(id)
+                        detailTvShowViewModel.removeFromFavorite(id)
                         Toasty.success(this@DetailTvShowActivity, "Removed from favorite", Toast.LENGTH_SHORT, true).show()
                     }
                 }
@@ -176,14 +175,15 @@ class DetailTvShowActivity : AppCompatActivity() {
     }
 
     private fun setVideo() {
-        viewModel.setDetailTvShowVideo(id, BuildConfig.API_KEY)
-        viewModel.getDetailTvShowsVideo().observe(this, {
+        detailTvShowViewModel.setDetailTvShowVideo(id, BuildConfig.API_KEY)
+        detailTvShowViewModel.getDetailTvShowsVideo().observe(this) {
             if (it != null) {
                 binding.apply {
 
                     when {
                         it.results.isEmpty() -> {
-                            tvTrailer.text = String.format(Locale.getDefault(), "Trailer Video Not Available")
+                            tvTrailer.text =
+                                String.format(Locale.getDefault(), "Trailer Video Not Available")
                         }
 
                         else -> {
@@ -209,7 +209,7 @@ class DetailTvShowActivity : AppCompatActivity() {
                     })
                 }
             }
-        })
+        }
     }
 
     private fun setCastAdapter() {
@@ -225,12 +225,12 @@ class DetailTvShowActivity : AppCompatActivity() {
     }
 
     private fun setCast() {
-        viewModel.setDetailTvShowsCast(id, BuildConfig.API_KEY)
-        viewModel.getDetailTvShowsCast().observe(this, {
+        detailTvShowViewModel.setDetailTvShowsCast(id, BuildConfig.API_KEY)
+        detailTvShowViewModel.getDetailTvShowsCast().observe(this) {
             if (it != null) {
                 castAdapter.setTvShowsCasts(it)
             }
-        })
+        }
     }
 
     private fun setReadMore() {
@@ -294,10 +294,14 @@ class DetailTvShowActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT, true
                     ).show()
 
-                    Log.e("errorLink", "setViewModel: ${e.localizedMessage}" )
+                    Log.e("errorLink", "setdetailTvShowViewModel: ${e.localizedMessage}" )
                 }
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    companion object {
+        const val EXTRA_DETAIL_TV = "com.taufik.themovieshow.ui.tvshow.activity.EXTRA_DETAIL_TV"
     }
 }

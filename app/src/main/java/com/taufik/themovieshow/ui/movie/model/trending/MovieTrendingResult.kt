@@ -1,6 +1,5 @@
 package com.taufik.themovieshow.ui.movie.model.trending
 
-
 import com.google.gson.annotations.SerializedName
 
 data class MovieTrendingResult(

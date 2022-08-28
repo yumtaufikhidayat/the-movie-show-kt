@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.api.UrlEndpoint
-import com.taufik.themovieshow.databinding.ItemsMoviesBinding
+import com.taufik.themovieshow.databinding.ItemsMoviesTvShowBinding
 import com.taufik.themovieshow.ui.movie.activity.DetailMovieActivity
 import com.taufik.themovieshow.ui.movie.model.discover.DiscoverMovieResult
 
@@ -22,7 +22,7 @@ class DiscoverMovieAdapter : RecyclerView.Adapter<DiscoverMovieAdapter.MovieView
         notifyDataSetChanged()
     }
 
-    inner class MovieViewHolder (private val binding: ItemsMoviesBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class MovieViewHolder (private val binding: ItemsMoviesTvShowBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(movieResult: DiscoverMovieResult) {
             with(binding) {
                 Glide.with(itemView.context)
@@ -49,7 +49,7 @@ class DiscoverMovieAdapter : RecyclerView.Adapter<DiscoverMovieAdapter.MovieView
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val itemsMovieBinding = ItemsMoviesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val itemsMovieBinding = ItemsMoviesTvShowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MovieViewHolder(itemsMovieBinding)
     }
 

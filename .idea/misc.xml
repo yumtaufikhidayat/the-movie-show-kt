@@ -14,16 +14,27 @@
         <entry key="app/src/main/res/drawable/ic_outline_rate.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_share.xml" value="0.19895833333333332" />
         <entry key="app/src/main/res/drawable/nav_trending_selector.xml" value="0.10092592592592593" />
-        <entry key="app/src/main/res/layout/activity_detail_movie.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/activity_detail_movie.xml" value="0.12560386473429952" />
         <entry key="app/src/main/res/layout/activity_detail_tv_show.xml" value="0.18" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.159375" />
         <entry key="app/src/main/res/layout/activity_splashscreen.xml" value="0.2" />
-        <entry key="app/src/main/res/layout/fragment_about.xml" value="0.2" />
-        <entry key="app/src/main/res/layout/fragment_movie.xml" value="0.1828125" />
+        <entry key="app/src/main/res/layout/fragment_about.xml" value="0.16" />
+        <entry key="app/src/main/res/layout/fragment_detail_tv_show.xml" value="0.1796875" />
+        <entry key="app/src/main/res/layout/fragment_favorite.xml" value="0.1796875" />
+        <entry key="app/src/main/res/layout/fragment_favorite_movie.xml" value="0.1796875" />
+        <entry key="app/src/main/res/layout/fragment_favorite_tv_shows.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_movie.xml" value="0.16" />
         <entry key="app/src/main/res/layout/fragment_movie_now_playing.xml" value="0.1828125" />
-        <entry key="app/src/main/res/layout/fragment_trending.xml" value="0.159375" />
-        <entry key="app/src/main/res/layout/item_about.xml" value="0.1828125" />
+        <entry key="app/src/main/res/layout/fragment_movie_trending.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_trending.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/fragment_tv_show.xml" value="0.1796875" />
+        <entry key="app/src/main/res/layout/fragment_tv_show_airing_today.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_tv_shows_popular.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/item_about.xml" value="0.2126865671641791" />
+        <entry key="app/src/main/res/layout/item_cast.xml" value="0.1" />
         <entry key="app/src/main/res/layout/items_movies.xml" value="0.1828125" />
+        <entry key="app/src/main/res/layout/items_tv_shows.xml" value="0.1796875" />
+        <entry key="app/src/main/res/layout/toolbar_general.xml" value="0.1" />
         <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.16111111111111112" />
         <entry key="app/src/main/res/menu/detail_menu.xml" value="0.1828125" />
         <entry key="app/src/main/res/menu/discover_menu.xml" value="0.1828125" />

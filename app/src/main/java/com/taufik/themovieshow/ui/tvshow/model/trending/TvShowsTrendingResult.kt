@@ -1,8 +1,10 @@
 package com.taufik.themovieshow.ui.tvshow.model.trending
 
-
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class TvShowsTrendingResult(
     @SerializedName("backdrop_path")
     val backdropPath: String,
@@ -32,4 +34,4 @@ data class TvShowsTrendingResult(
     val voteAverage: Double,
     @SerializedName("vote_count")
     val voteCount: Int
-)
+): Parcelable

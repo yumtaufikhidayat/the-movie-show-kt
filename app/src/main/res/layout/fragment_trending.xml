@@ -8,6 +8,10 @@
     android:background="@color/colorPrimary"
     tools:context=".ui.trending.fragment.TrendingFragment">
 
+    <include
+        android:id="@+id/toolbarTrending"
+        layout="@layout/toolbar_general"/>
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayoutTrending"
         android:layout_width="match_parent"
@@ -19,9 +23,9 @@
         app:tabIndicatorHeight="2dp"
         app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
         app:tabSelectedTextColor="@color/white"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/toolbarTrending"/>
 
-    <androidx.viewpager.widget.ViewPager
+    <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPagerTrending"
         android:layout_width="match_parent"
         android:layout_height="0dp"

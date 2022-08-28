@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:scrollbars="none"
+    android:overScrollMode="never"
+    tools:context=".ui.tvshow.fragment.DetailTvShowFragment">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarDetailTvShow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        app:titleTextColor="@color/colorOrange"
+        android:elevation="2dp"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_arrow_back"
+        tools:title="@string/app_name"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+            <ImageView
+                android:id="@+id/imgBackdrop"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:src="@color/colorPrimaryDark"
+                android:contentDescription="@null"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardPoster"
+                android:layout_width="100dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="140dp"
+                android:layout_marginStart="16dp"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="0dp"
+                app:layout_constraintTop_toTopOf="@id/imgBackdrop"
+                app:layout_constraintStart_toStartOf="@id/imgBackdrop">
+
+                <ImageView
+                    android:id="@+id/imgPoster"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    tools:ignore="ContentDescription"
+                    android:src="@drawable/ic_loading"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:maxLines="2"
+                android:ellipsize="end"
+                app:layout_constraintTop_toBottomOf="@id/imgBackdrop"
+                app:layout_constraintStart_toEndOf="@id/cardPoster"
+                app:layout_constraintEnd_toEndOf="@id/tvOverview"
+                tools:text="@string/tvTitle"/>
+
+            <TextView
+                android:id="@+id/tvNetwork"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textColor="@color/colorOrange"
+                app:layout_constraintStart_toStartOf="@id/tvTitle"
+                app:layout_constraintTop_toBottomOf="@id/tvTitle"
+                tools:text="@string/tvNetwork"/>
+
+            <TextView
+                android:id="@+id/tvReleasedOn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorGrey"
+                android:text="@string/tvStartedOn"
+                app:layout_constraintStart_toStartOf="@id/tvNetwork"
+                app:layout_constraintTop_toBottomOf="@id/tvNetwork"/>
+
+            <TextView
+                android:id="@+id/tvReleaseDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textColor="@color/colorGrey"
+                app:layout_constraintStart_toEndOf="@id/tvReleasedOn"
+                app:layout_constraintTop_toTopOf="@id/tvReleasedOn"
+                app:layout_constraintBottom_toBottomOf="@+id/tvReleasedOn"
+                tools:text="@string/tvReleaseDate"/>
+
+            <TextView
+                android:id="@+id/tvStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/holo_green_light"
+                app:layout_constraintStart_toStartOf="@id/tvTitle"
+                app:layout_constraintTop_toBottomOf="@id/tvReleaseDate"
+                tools:text="@string/tvStatus"/>
+
+            <LinearLayout
+                android:id="@+id/llFavorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="2dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/background_grey"
+                android:gravity="center"
+                app:layout_constraintTop_toBottomOf="@id/cardPoster"
+                app:layout_constraintEnd_toEndOf="@id/tvOverview">
+
+                <ToggleButton
+                    android:id="@+id/toggleFavorite"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginEnd="5dp"
+                    android:padding="5dp"
+                    android:textOn=""
+                    android:textOff=""
+                    android:background="@drawable/favorite_toggle"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"/>
+
+                <TextView
+                    android:id="@+id/tvFavorite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:includeFontPadding="false"
+                    android:visibility="gone"
+                    android:text="@string/icFavorite"
+                    android:textColor="@color/colorGrey"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llLayoutMisc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="4"
+                app:layout_constraintTop_toBottomOf="@id/llFavorite"
+                android:baselineAligned="false">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/tvRatingTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorTextOther"
+                        android:textStyle="bold"
+                        android:text="@string/tvRating"/>
+
+                    <TextView
+                        android:id="@+id/tvRating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:includeFontPadding="false"
+                        android:gravity="center"
+                        android:textColor="@color/colorTextIcons"
+                        tools:text="@string/tvRating"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/tvGenreTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorTextOther"
+                        android:textStyle="bold"
+                        android:text="@string/tvGenre"/>
+
+                    <TextView
+                        android:id="@+id/tvGenre"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:includeFontPadding="false"
+                        android:gravity="center"
+                        android:textColor="@color/colorTextIcons"
+                        tools:text="@string/tvGenre"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/tvLanguageTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorTextOther"
+                        android:textStyle="bold"
+                        android:text="@string/tvLanguage"/>
+
+                    <TextView
+                        android:id="@+id/tvLanguage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:includeFontPadding="false"
+                        android:textColor="@color/colorTextIcons"
+                        tools:text="@string/tvLanguage"
+                        app:layout_constraintTop_toBottomOf="@id/tvLanguageTitle"
+                        app:layout_constraintStart_toStartOf="@id/tvLanguageTitle"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/tvEpisodesTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorTextOther"
+                        android:textStyle="bold"
+                        android:text="@string/tvEpisodes"/>
+
+                    <TextView
+                        android:id="@+id/tvEpisodes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:includeFontPadding="false"
+                        android:textColor="@color/colorTextIcons"
+                        tools:text="@string/tvEpisodes"
+                        app:layout_constraintTop_toBottomOf="@id/tvLanguageTitle"
+                        app:layout_constraintStart_toStartOf="@id/tvLanguageTitle"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvOverviewTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:includeFontPadding="false"
+                android:text="@string/tvOverview"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorOrange"
+                app:layout_constraintStart_toStartOf="@id/cardPoster"
+                app:layout_constraintTop_toBottomOf="@id/llLayoutMisc"/>
+
+            <com.codesgood.views.JustifiedTextView
+                android:id="@+id/tvOverview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginHorizontal="16dp"
+                android:textColor="@color/white"
+                android:ellipsize="end"
+                android:maxLines="4"
+                app:layout_constraintTop_toBottomOf="@id/tvOverviewTitle"
+                app:layout_constraintStart_toStartOf="@id/cardPoster"
+                tools:text="@string/tvLoremIpsum"/>
+
+            <TextView
+                android:id="@+id/tvReadMore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:includeFontPadding="false"
+                android:visibility="gone"
+                android:text="@string/tvReadMore"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimaryAccent"
+                app:layout_constraintStart_toStartOf="@id/cardPoster"
+                app:layout_constraintTop_toBottomOf="@id/tvOverview"/>
+
+            <TextView
+                android:id="@+id/tvCast"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginHorizontal="16dp"
+                android:includeFontPadding="false"
+                android:text="@string/tvCast"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorOrange"
+                app:layout_constraintStart_toStartOf="@id/cardPoster"
+                app:layout_constraintEnd_toEndOf="@id/tvOverview"
+                app:layout_constraintTop_toBottomOf="@id/tvReadMore"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvTvShowCast"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="8dp"
+                android:scrollbars="none"
+                tools:listitem="@layout/item_cast"
+                tools:itemCount="1"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@id/tvCast"/>
+
+            <TextView
+                android:id="@+id/tvTrailer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:includeFontPadding="false"
+                android:textColor="@color/colorOrange"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:maxLines="4"
+                android:ellipsize="end"
+                app:layout_constraintStart_toStartOf="@id/cardPoster"
+                app:layout_constraintEnd_toEndOf="@id/tvOverview"
+                app:layout_constraintTop_toBottomOf="@id/rvTvShowCast"
+                tools:text="@string/tvTrailer"/>
+
+            <LinearLayout
+                android:id="@+id/llTrailer"
+                android:layout_width="match_parent"
+                android:layout_height="230dp"
+                android:orientation="vertical"
+                android:paddingBottom="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginHorizontal="16dp"
+                app:layout_constraintTop_toBottomOf="@id/tvTrailer">
+
+                <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+                    android:id="@+id/videoTrailer"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:autoPlay="false"
+                    app:showFullScreenButton="false"/>
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

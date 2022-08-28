@@ -5,8 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.taufik.themovieshow.R
 import com.taufik.themovieshow.databinding.FragmentAboutBinding
 import com.taufik.themovieshow.ui.about.adapter.AboutApplicationAdapter
 import com.taufik.themovieshow.ui.about.adapter.AboutAuthorAdapter
@@ -14,50 +15,46 @@ import com.taufik.themovieshow.ui.about.viewmodel.AboutViewModel
 
 class AboutFragment : Fragment() {
 
-    private lateinit var aboutBinding: FragmentAboutBinding
-    private lateinit var viewModel: AboutViewModel
+    private var _binding: FragmentAboutBinding? = null
+    private val binding get() = _binding!!
+
+    private val viewModel: AboutViewModel by viewModels()
     private lateinit var authorAdapter: AboutAuthorAdapter
     private lateinit var applicationAdapter: AboutApplicationAdapter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
-        aboutBinding = FragmentAboutBinding.inflate(inflater, container, false)
-        return aboutBinding.root
+        _binding = FragmentAboutBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        setViewModel()
-
+        setToolbar()
         setAuthorData()
-
         setApplicationData()
     }
 
-    private fun setViewModel() {
-        viewModel = ViewModelProvider(requireActivity(), ViewModelProvider.NewInstanceFactory())[AboutViewModel::class.java]
+    private fun setToolbar() = with(binding) {
+        toolbarAbout.tvToolbar.text = getString(R.string.icAbout)
     }
 
-    private fun setAuthorData() {
-
+    private fun setAuthorData() = with(binding) {
         authorAdapter = AboutAuthorAdapter()
         authorAdapter.setAbout(viewModel.getAboutAuthor())
 
-        with(aboutBinding.rvAuthorAbout) {
+        rvAuthorAbout.apply {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
             adapter = authorAdapter
         }
     }
 
-    private fun setApplicationData() {
-
+    private fun setApplicationData() = with(binding){
         applicationAdapter = AboutApplicationAdapter()
         applicationAdapter.setAbout(viewModel.getAboutApplication())
 
-        with(aboutBinding.rvApplicationAbout) {
+        rvApplicationAbout.apply {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
             adapter = applicationAdapter

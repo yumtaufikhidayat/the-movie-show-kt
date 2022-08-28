@@ -3,26 +3,28 @@ package com.taufik.themovieshow.ui.movie.adapter
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.api.UrlEndpoint
-import com.taufik.themovieshow.databinding.ItemsMoviesBinding
+import com.taufik.themovieshow.databinding.ItemsMoviesTvShowBinding
 import com.taufik.themovieshow.ui.movie.activity.DetailMovieActivity
 import com.taufik.themovieshow.ui.movie.model.nowplayingupcoming.MovieMainResult
 
-class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>(){
+class MovieAdapter : ListAdapter<MovieMainResult, MovieAdapter.MovieViewHolder>(MovieDiffCallback){
 
-    private var listMovies = ArrayList<MovieMainResult>()
-
-    fun setMovies(movieResult: ArrayList<MovieMainResult>) {
-        this.listMovies.clear()
-        this.listMovies.addAll(movieResult)
-        notifyDataSetChanged()
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
+        return MovieViewHolder(ItemsMoviesTvShowBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
-    inner class MovieViewHolder (private val binding: ItemsMoviesBinding) : RecyclerView.ViewHolder(binding.root) {
+    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
+        holder.bind(getItem(position))
+    }
+
+    inner class MovieViewHolder (private val binding: ItemsMoviesTvShowBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(movieResult: MovieMainResult) {
             with(binding) {
                 Glide.with(itemView.context)
@@ -48,15 +50,8 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>(){
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val itemsMovieBinding = ItemsMoviesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MovieViewHolder(itemsMovieBinding)
+    object MovieDiffCallback : DiffUtil.ItemCallback<MovieMainResult>(){
+        override fun areItemsTheSame(oldItem: MovieMainResult, newItem: MovieMainResult): Boolean = oldItem.id == newItem.id
+        override fun areContentsTheSame(oldItem: MovieMainResult, newItem: MovieMainResult): Boolean = oldItem == newItem
     }
-
-    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        val pos = listMovies[position]
-        holder.bind(pos)
-    }
-
-    override fun getItemCount(): Int = listMovies.size
 }

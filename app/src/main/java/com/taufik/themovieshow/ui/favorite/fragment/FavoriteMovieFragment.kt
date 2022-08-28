@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.taufik.themovieshow.databinding.FragmentFavoriteMovieBinding
 import com.taufik.themovieshow.ui.favorite.data.movie.FavoriteMovie
@@ -15,55 +15,43 @@ import com.taufik.themovieshow.ui.movie.viewmodel.FavoriteMovieViewModel
 
 class FavoriteMovieFragment : Fragment() {
 
-    private lateinit var favoriteMovieBinding: FragmentFavoriteMovieBinding
+    private var _binding: FragmentFavoriteMovieBinding? = null
+    private val binding get() = _binding!!
+
     private lateinit var movieAdapter: MovieAdapter
-    private lateinit var viewModel: FavoriteMovieViewModel
+    private val viewModel: FavoriteMovieViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        favoriteMovieBinding = FragmentFavoriteMovieBinding.inflate(inflater, container, false)
-        return favoriteMovieBinding.root
+        _binding = FragmentFavoriteMovieBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setAdapter()
-
-        setViewModel()
-
-        setData()
-
         getFavoriteMovie()
     }
 
-    private fun setAdapter() {
+    private fun setAdapter() = with(binding) {
         movieAdapter = MovieAdapter()
-        movieAdapter.notifyDataSetChanged()
-    }
-
-    private fun setViewModel() {
-        viewModel = ViewModelProvider(requireActivity())[FavoriteMovieViewModel::class.java]
-    }
-
-    private fun setData() {
-        with(favoriteMovieBinding.rvDiscoverFavoriteMovies) {
-            layoutManager = LinearLayoutManager(context)
+        rvDiscoverFavoriteMovies.apply {
+            layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
             adapter = movieAdapter
         }
     }
 
     private fun getFavoriteMovie() {
-        viewModel.getFavoriteMovies()?.observe(viewLifecycleOwner, {
+        viewModel.getFavoriteMovies()?.observe(viewLifecycleOwner) {
             if (it != null) {
                 val list = mapList(it)
-                movieAdapter.setMovies(list)
+                movieAdapter.submitList(list)
             }
-        })
+        }
     }
 
     private fun mapList(movies: List<FavoriteMovie>):  ArrayList<MovieMainResult> {
@@ -82,5 +70,10 @@ class FavoriteMovieFragment : Fragment() {
         }
 
         return listMovies
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

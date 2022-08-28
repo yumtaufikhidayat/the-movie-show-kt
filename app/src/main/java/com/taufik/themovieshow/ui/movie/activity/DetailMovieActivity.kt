@@ -52,19 +52,11 @@ class DetailMovieActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setParcelableData()
-
         initActionBar()
-
         setData()
-
         setVideo()
-
         setCastAdapter()
-
-        setRecyclerView()
-
         setCast()
-
         setReadMore()
     }
 
@@ -83,7 +75,7 @@ class DetailMovieActivity : AppCompatActivity() {
     private fun setData() {
         viewModel = ViewModelProvider(this)[DetailMovieViewModel::class.java]
         viewModel.setDetailMovies(id, UtilsData.API_KEY)
-        viewModel.getDetailMovies().observe(this, {
+        viewModel.getDetailMovies().observe(this) {
             data = it
             if (it != null) {
                 binding.apply {
@@ -109,7 +101,7 @@ class DetailMovieActivity : AppCompatActivity() {
                     tvLanguage.text = it.originalLanguage
                 }
             }
-        })
+        }
 
         var isChecked = false
         binding.apply {
@@ -155,13 +147,14 @@ class DetailMovieActivity : AppCompatActivity() {
 
     private fun setVideo() {
         viewModel.setDetailMovieVideo(id, UtilsData.API_KEY)
-        viewModel.getDetailMovieVideo().observe(this, {
+        viewModel.getDetailMovieVideo().observe(this) {
             if (it != null) {
                 binding.apply {
 
                     when {
                         it.results.isEmpty() -> {
-                            tvTrailer.text = String.format(Locale.getDefault(), "Trailer Video Not Available")
+                            tvTrailer.text =
+                                String.format(Locale.getDefault(), "Trailer Video Not Available")
                         }
 
                         else -> {
@@ -170,7 +163,7 @@ class DetailMovieActivity : AppCompatActivity() {
                     }
 
                     lifecycle.addObserver(videoTrailer)
-                    videoTrailer.addYouTubePlayerListener(object : AbstractYouTubePlayerListener(){
+                    videoTrailer.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
                         override fun onReady(youTubePlayer: YouTubePlayer) {
                             when {
                                 it.results.isEmpty() -> {
@@ -186,14 +179,11 @@ class DetailMovieActivity : AppCompatActivity() {
                     })
                 }
             }
-        })
+        }
     }
 
     private fun setCastAdapter() {
         castAdapter = MovieCastAdapter()
-    }
-
-    private fun setRecyclerView() {
         with(binding.rvMovieCast) {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             setHasFixedSize(true)
@@ -203,11 +193,11 @@ class DetailMovieActivity : AppCompatActivity() {
 
     private fun setCast() {
         viewModel.setDetailMovieCast(id, UtilsData.API_KEY)
-        viewModel.getDetailMovieCast().observe(this, {
+        viewModel.getDetailMovieCast().observe(this) {
             if (it != null) {
-                castAdapter.setMovieCasts(it)
+                castAdapter.submitList(it)
             }
-        })
+        }
     }
 
     private fun setReadMore() {

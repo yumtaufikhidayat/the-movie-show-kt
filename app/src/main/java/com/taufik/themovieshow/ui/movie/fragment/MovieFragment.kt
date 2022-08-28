@@ -2,8 +2,12 @@ package com.taufik.themovieshow.ui.movie.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
+import com.google.android.material.tabs.TabLayoutMediator
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.databinding.FragmentMovieBinding
 import com.taufik.themovieshow.ui.discover.movie.DiscoverMovieActivity
@@ -11,51 +15,45 @@ import com.taufik.themovieshow.ui.movie.adapter.MoviePagerAdapter
 
 class MovieFragment : Fragment() {
 
-    private lateinit var movieFragmentBinding: FragmentMovieBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        setHasOptionsMenu(true)
-    }
+    private var _binding: FragmentMovieBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        movieFragmentBinding = FragmentMovieBinding.inflate(inflater, container, false)
-        return movieFragmentBinding.root
+        _binding = FragmentMovieBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        setViewPager()
+        setToolbar()
+        setTabLayout()
+        setActionClick()
     }
 
-    private fun setViewPager() {
-        val mainPagerAdapter = MoviePagerAdapter(requireContext(), childFragmentManager)
-        movieFragmentBinding.apply {
-            viewPagerMovie.adapter = mainPagerAdapter
-            tabLayoutMovie.setupWithViewPager(viewPagerMovie)
+    private fun setToolbar() = with(binding) {
+        toolbarMovie.tvToolbar.text = getString(R.string.icMovies)
+    }
+
+    private fun setTabLayout() = with(binding){
+        val mainPagerAdapter = MoviePagerAdapter(this@MovieFragment)
+        viewPagerMovie.adapter = mainPagerAdapter
+        TabLayoutMediator(tabLayoutMovie, viewPagerMovie) { tabs, position ->
+            tabs.text = getString(tabsTitle[position])
+        }.attach()
+    }
+
+    private fun setActionClick() = with(binding) {
+        fabMovie.setOnClickListener {
+            startActivity(Intent(requireActivity(), DiscoverMovieActivity::class.java))
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-
-        inflater.inflate(R.menu.main_menu, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
-        when (item.itemId) {
-            R.id.nav_discover -> {
-                val intent = Intent(requireActivity(), DiscoverMovieActivity::class.java)
-                startActivity(intent)
-            }
-        }
-        return super.onOptionsItemSelected(item)
+    companion object {
+        @StringRes
+        private val tabsTitle = intArrayOf(R.string.tvMovieNowPlaying, R.string.tvMovieUpcoming)
     }
 }
