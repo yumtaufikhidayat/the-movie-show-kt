@@ -6,7 +6,7 @@ import com.taufik.themovieshow.ui.about.model.About
 
 object UtilsData {
 
-        const val API_KEY ="c5d387e24584756e5a37eb08021e1840"
+        const val API_KEY = "c5d387e24584756e5a37eb08021e1840"
 
         fun generateAboutAuthorData(): List<About> {
 

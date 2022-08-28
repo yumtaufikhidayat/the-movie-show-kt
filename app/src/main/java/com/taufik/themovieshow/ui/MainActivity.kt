@@ -1,4 +1,4 @@
-package com.taufik.themovieshow.ui.activity
+package com.taufik.themovieshow.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
