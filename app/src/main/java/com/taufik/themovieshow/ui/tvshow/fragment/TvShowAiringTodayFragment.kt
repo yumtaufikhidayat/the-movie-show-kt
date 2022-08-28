@@ -19,7 +19,7 @@ class TvShowAiringTodayFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: TvShowsViewModel by viewModels()
-    private var tvShowsAdapter: TvShowsAdapter? = null
+    private lateinit var tvShowsAdapter: TvShowsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,7 +37,8 @@ class TvShowAiringTodayFragment : Fragment() {
         setData()
     }
 
-    private fun setAdapter() = with(binding){
+    private fun setAdapter() = with(binding) {
+        tvShowsAdapter = TvShowsAdapter()
         rvTvShow.apply {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
@@ -50,7 +51,7 @@ class TvShowAiringTodayFragment : Fragment() {
         viewModel.setTvShowsAiringToday(BuildConfig.API_KEY)
         viewModel.getTvShowsAiringToday().observe(viewLifecycleOwner) {
             if (it != null) {
-                tvShowsAdapter?.submitList(it)
+                tvShowsAdapter.submitList(it)
                 showLoading(false)
             }
         }
@@ -63,6 +64,5 @@ class TvShowAiringTodayFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        tvShowsAdapter = null
     }
 }

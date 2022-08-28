@@ -4,8 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.taufik.themovieshow.BuildConfig
 import com.taufik.themovieshow.databinding.FragmentTvShowTrendingBinding
@@ -14,8 +15,11 @@ import com.taufik.themovieshow.ui.tvshow.viewmodel.TvShowsViewModel
 
 class TvShowTrendingFragment : Fragment() {
 
-    private lateinit var tvShowsTrendingBinding: FragmentTvShowTrendingBinding
-    private lateinit var viewModel: TvShowsViewModel
+    private var _binding: FragmentTvShowTrendingBinding? = null
+    private val binding get() = _binding!!
+
+    private val viewModel: TvShowsViewModel by viewModels()
+
     private lateinit var tvShowsTrendingAdapter: TvShowsTrendingAdapter
 
     override fun onCreateView(
@@ -23,33 +27,20 @@ class TvShowTrendingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        tvShowsTrendingBinding = FragmentTvShowTrendingBinding.inflate(inflater, container, false)
-        return tvShowsTrendingBinding.root
+        _binding = FragmentTvShowTrendingBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setAdapter()
-
-        setViewModel()
-
-        setRecyclerView()
-
         setData()
     }
 
-    private fun setAdapter() {
+    private fun setAdapter() = with(binding) {
         tvShowsTrendingAdapter = TvShowsTrendingAdapter()
-        tvShowsTrendingAdapter.notifyDataSetChanged()
-    }
-
-    private fun setViewModel() {
-        viewModel = ViewModelProvider(requireActivity(), ViewModelProvider.NewInstanceFactory())[TvShowsViewModel::class.java]
-    }
-
-    private fun setRecyclerView() {
-        with(tvShowsTrendingBinding.rvTrendingMovie) {
+        rvTrendingMovie.apply {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
             adapter = tvShowsTrendingAdapter
@@ -57,26 +48,22 @@ class TvShowTrendingFragment : Fragment() {
     }
 
     private fun setData() {
-
         showLoading(true)
-
         viewModel.setTvShowsTrending(BuildConfig.API_KEY)
-        viewModel.getTvShowsTrending().observe(viewLifecycleOwner, {
+        viewModel.getTvShowsTrending().observe(viewLifecycleOwner) {
             if (it != null) {
-                tvShowsTrendingAdapter.setTvShows(it)
+                tvShowsTrendingAdapter.submitList(it)
                 showLoading(false)
             }
-        })
+        }
     }
 
-    private fun showLoading(state: Boolean) {
+    private fun showLoading(isShow: Boolean) = with(binding) {
+        progressBar.isVisible = isShow
+    }
 
-        tvShowsTrendingBinding.apply {
-            if (state) {
-                progressBar.visibility = View.VISIBLE
-            } else {
-                progressBar.visibility = View.GONE
-            }
-        }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

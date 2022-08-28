@@ -19,7 +19,7 @@ class TVShowsPopularFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: TvShowsViewModel by viewModels()
-    private var tvShowsAdapter: TvShowsAdapter? = null
+    private lateinit var tvShowsAdapter: TvShowsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,7 +37,8 @@ class TVShowsPopularFragment : Fragment() {
         setData()
     }
 
-    private fun setAdapter() = with(binding){
+    private fun setAdapter() = with(binding) {
+        tvShowsAdapter = TvShowsAdapter()
         rvTvShow.apply {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
@@ -50,7 +51,7 @@ class TVShowsPopularFragment : Fragment() {
         viewModel.setTvShowsPopular(BuildConfig.API_KEY)
         viewModel.getTvShowsPopular().observe(viewLifecycleOwner) {
             if (it != null) {
-                tvShowsAdapter?.submitList(it)
+                tvShowsAdapter.submitList(it)
                 showLoading(false)
             }
         }
@@ -63,6 +64,5 @@ class TVShowsPopularFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        tvShowsAdapter = null
     }
 }

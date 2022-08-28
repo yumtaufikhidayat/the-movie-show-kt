@@ -18,7 +18,7 @@ class FavoriteTvShowsFragment : Fragment() {
     private var _binding: FragmentFavoriteTvShowsBinding? = null
     private val binding get() = _binding!!
 
-    private var tvShowsAdapter: TvShowsAdapter? = null
+    private lateinit var tvShowsAdapter: TvShowsAdapter
     private val viewModel: FavoriteTvShowViewModel by viewModels()
 
     override fun onCreateView(
@@ -38,6 +38,7 @@ class FavoriteTvShowsFragment : Fragment() {
     }
 
     private fun setAdapter() = with(binding) {
+        tvShowsAdapter = TvShowsAdapter()
         rvDiscoverFavoriteTvShow.apply {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
@@ -49,7 +50,7 @@ class FavoriteTvShowsFragment : Fragment() {
         viewModel.getFavoriteTvShow()?.observe(viewLifecycleOwner) {
             if (it != null) {
                 val list = mapList(it)
-                tvShowsAdapter?.submitList(list)
+                tvShowsAdapter.submitList(list)
             }
         }
     }
@@ -75,6 +76,5 @@ class FavoriteTvShowsFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        tvShowsAdapter = null
     }
 }
