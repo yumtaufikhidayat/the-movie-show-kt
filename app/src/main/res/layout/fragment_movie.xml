@@ -10,7 +10,7 @@
 
     <include
         android:id="@+id/toolbarMovie"
-        layout="@layout/toolbar_general"/>
+        layout="@layout/toolbar_main_general"/>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayoutMovie"

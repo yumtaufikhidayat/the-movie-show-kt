@@ -1,18 +1,18 @@
 package com.taufik.themovieshow.ui.tvshow.adapter
 
-import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.api.UrlEndpoint
 import com.taufik.themovieshow.databinding.ItemsMoviesTvShowBinding
-import com.taufik.themovieshow.ui.tvshow.activity.DetailTvShowActivity
+import com.taufik.themovieshow.ui.tvshow.fragment.DetailTvShowFavoriteFragment
 import com.taufik.themovieshow.ui.tvshow.model.popularairingtoday.TvShowsMainResult
+import com.taufik.themovieshow.utils.LoadImage.loadImage
 
 class TvShowsAdapter : ListAdapter<TvShowsMainResult, TvShowsAdapter.TvShowsViewHolder>(TvShowsCallback) {
 
@@ -26,25 +26,17 @@ class TvShowsAdapter : ListAdapter<TvShowsMainResult, TvShowsAdapter.TvShowsView
     }
 
     inner class TvShowsViewHolder(private val binding: ItemsMoviesTvShowBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(tvShowPopularResult: TvShowsMainResult) {
+        fun bind(data: TvShowsMainResult) {
             with(binding) {
-                Glide.with(itemView.context)
-                    .load(UrlEndpoint.IMAGE_URL + tvShowPopularResult.posterPath)
-                    .apply(
-                        RequestOptions.placeholderOf(R.drawable.ic_loading)
-                            .error(R.drawable.ic_error)
-                    )
-                    .into(imgPoster)
-
-                tvTitle.text = tvShowPopularResult.name
-                tvReleaseDate.text = tvShowPopularResult.firstAirDate
-                tvRating.text = tvShowPopularResult.voteAverage.toString()
+                imgPoster.loadImage(UrlEndpoint.IMAGE_URL + data.posterPath)
+                tvTitle.text = data.name
+                tvReleaseDate.text = data.firstAirDate
+                tvRating.text = data.voteAverage.toString()
 
                 itemView.setOnClickListener {
-                    val intent = Intent(itemView.context, DetailTvShowActivity::class.java).apply {
-                        putExtra(DetailTvShowActivity.EXTRA_DETAIL_TV, tvShowPopularResult)
-                    }
-                    it.context.startActivity(intent)
+                    val bundle = Bundle()
+                    bundle.putParcelable(DetailTvShowFavoriteFragment.EXTRA_DATA, data)
+                    it.findNavController().navigate(R.id.detailTvShowFavoriteFragment, bundle)
                 }
             }
         }

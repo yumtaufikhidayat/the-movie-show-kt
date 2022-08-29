@@ -38,15 +38,6 @@ class TvShowTrendingFragment : Fragment() {
         setData()
     }
 
-    private fun setAdapter() = with(binding) {
-        tvShowsTrendingAdapter = TvShowsTrendingAdapter()
-        rvTrendingMovie.apply {
-            layoutManager = LinearLayoutManager(context)
-            setHasFixedSize(true)
-            adapter = tvShowsTrendingAdapter
-        }
-    }
-
     private fun setData() {
         showLoading(true)
         viewModel.setTvShowsTrending(BuildConfig.API_KEY)
@@ -55,6 +46,15 @@ class TvShowTrendingFragment : Fragment() {
                 tvShowsTrendingAdapter.submitList(it)
                 showLoading(false)
             }
+        }
+    }
+
+    private fun setAdapter() = with(binding) {
+        tvShowsTrendingAdapter = TvShowsTrendingAdapter()
+        rvTrendingMovie.apply {
+            layoutManager = LinearLayoutManager(context)
+            setHasFixedSize(true)
+            adapter = tvShowsTrendingAdapter
         }
     }
 

@@ -17,7 +17,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
-import com.taufik.themovieshow.BuildConfig
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.api.UrlEndpoint
 import com.taufik.themovieshow.databinding.ActivityDetailTvShowBinding
@@ -80,7 +79,7 @@ class DetailTvShowActivity : AppCompatActivity() {
 
     private fun setData() {
         detailTvShowViewModel = ViewModelProvider(this)[DetailTvShowViewModel::class.java]
-        detailTvShowViewModel.setDetailTvShowPopular(id, BuildConfig.API_KEY)
+//        detailTvShowViewModel.setDetailTvShowPopular(id, BuildConfig.API_KEY)
         detailTvShowViewModel.getDetailTvShowsPopular().observe(this) {
             data = it
             if (it != null) {
@@ -175,7 +174,7 @@ class DetailTvShowActivity : AppCompatActivity() {
     }
 
     private fun setVideo() {
-        detailTvShowViewModel.setDetailTvShowVideo(id, BuildConfig.API_KEY)
+//        detailTvShowViewModel.setDetailTvShowVideo(id, BuildConfig.API_KEY)
         detailTvShowViewModel.getDetailTvShowsVideo().observe(this) {
             if (it != null) {
                 binding.apply {
@@ -225,10 +224,10 @@ class DetailTvShowActivity : AppCompatActivity() {
     }
 
     private fun setCast() {
-        detailTvShowViewModel.setDetailTvShowsCast(id, BuildConfig.API_KEY)
+//        detailTvShowViewModel.setDetailTvShowsCast(id, BuildConfig.API_KEY)
         detailTvShowViewModel.getDetailTvShowsCast().observe(this) {
             if (it != null) {
-                castAdapter.setTvShowsCasts(it)
+//                castAdapter.setTvShowsCasts(it)
             }
         }
     }

@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.taufik.themovieshow.BuildConfig
 import com.taufik.themovieshow.api.ApiClient
 import com.taufik.themovieshow.ui.favorite.data.tvshow.FavoriteTvShow
 import com.taufik.themovieshow.ui.favorite.data.tvshow.FavoriteTvShowDao
@@ -22,6 +23,8 @@ import retrofit2.Response
 
 class DetailTvShowViewModel(application: Application) : AndroidViewModel(application) {
 
+    val apiKey = BuildConfig.API_KEY
+
     val listDetailTvShows = MutableLiveData<TvShowsPopularDetailResponse>()
     val listDetailVideo = MutableLiveData<TvShowsVideoResponse>()
     val listDetailCast = MutableLiveData<ArrayList<TvShowsCast>>()
@@ -33,7 +36,7 @@ class DetailTvShowViewModel(application: Application) : AndroidViewModel(applica
         tvShowDao = tvShowDb?.favoriteTvShowDao()
     }
 
-    fun setDetailTvShowPopular(id: Int, apiKey: String) {
+    fun setDetailTvShowPopular(id: Int) {
         ApiClient.apiInstance
                 .getDetailTvShows(id, apiKey)
                 .enqueue(object : Callback<TvShowsPopularDetailResponse> {
@@ -54,7 +57,7 @@ class DetailTvShowViewModel(application: Application) : AndroidViewModel(applica
         return listDetailTvShows
     }
 
-    fun setDetailTvShowVideo(id: Int, apiKey: String) {
+    fun setDetailTvShowVideo(id: Int) {
         ApiClient.apiInstance
             .getTvShowsVideo(id, apiKey)
             .enqueue(object : Callback<TvShowsVideoResponse> {
@@ -78,7 +81,7 @@ class DetailTvShowViewModel(application: Application) : AndroidViewModel(applica
         return listDetailVideo
     }
 
-    fun setDetailTvShowsCast(id: Int, apiKey: String) {
+    fun setDetailTvShowsCast(id: Int) {
         ApiClient.apiInstance
             .getTvShowsCast(id, apiKey)
             .enqueue(object : Callback<TvShowsCastResponse> {

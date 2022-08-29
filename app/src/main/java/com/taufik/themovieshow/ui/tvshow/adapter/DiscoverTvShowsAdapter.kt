@@ -1,17 +1,15 @@
 package com.taufik.themovieshow.ui.tvshow.adapter
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.taufik.themovieshow.R
-import com.taufik.themovieshow.api.UrlEndpoint
 import com.taufik.themovieshow.databinding.ItemsMoviesTvShowBinding
 import com.taufik.themovieshow.ui.tvshow.fragment.DetailTvShowFragment
 import com.taufik.themovieshow.ui.tvshow.model.discover.DiscoverTvShowsResult
+import com.taufik.themovieshow.utils.LoadImage.loadImage
 
 class DiscoverTvShowsAdapter : RecyclerView.Adapter<DiscoverTvShowsAdapter.TvShowsViewHolder>() {
 
@@ -24,25 +22,16 @@ class DiscoverTvShowsAdapter : RecyclerView.Adapter<DiscoverTvShowsAdapter.TvSho
     }
 
     inner class TvShowsViewHolder(private val binding: ItemsMoviesTvShowBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(tvShowPopularResult: DiscoverTvShowsResult) {
+        fun bind(data: DiscoverTvShowsResult) {
             with(binding) {
-                Glide.with(itemView.context)
-                        .load(UrlEndpoint.IMAGE_URL + tvShowPopularResult.posterPath)
-                        .apply(
-                                RequestOptions.placeholderOf(R.drawable.ic_loading)
-                                        .error(R.drawable.ic_error)
-                        )
-                        .into(imgPoster)
-
-                tvTitle.text = tvShowPopularResult.name
-                tvReleaseDate.text = tvShowPopularResult.firstAirDate
-                tvRating.text = tvShowPopularResult.voteAverage.toString()
+                imgPoster.loadImage(data.posterPath)
+                tvTitle.text = data.name
+                tvReleaseDate.text = data.firstAirDate
+                tvRating.text = data.voteAverage.toString()
 
                 itemView.setOnClickListener {
-                    val bundle = bundleOf(
-                        DetailTvShowFragment.EXTRA_DETAIL_TV_ID to tvShowPopularResult.id,
-                        DetailTvShowFragment.EXTRA_DETAIL_TV_TITLE to tvShowPopularResult.name
-                    )
+                    val bundle = Bundle()
+                    bundle.putParcelable(DetailTvShowFragment.EXTRA_DATA, data)
                     it.findNavController().navigate(R.id.detailTvShowFragment, bundle)
                 }
             }
