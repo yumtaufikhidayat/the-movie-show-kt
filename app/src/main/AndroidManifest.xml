@@ -20,20 +20,22 @@
             android:exported="true"
             android:theme="@style/TheMovieShowDarkActivityTheme" />
         <activity
-            android:name="com.taufik.themovieshow.ui.tvshow.activity.DetailTvShowActivity"
+            android:name="com.taufik.themovieshow.ui.main.tvshow.activity.DetailTvShowActivity"
             android:exported="true"
             android:theme="@style/TheMovieShowDarkActivityTheme" />
         <activity
-            android:name="com.taufik.themovieshow.ui.movie.activity.DetailMovieActivity"
+            android:name="com.taufik.themovieshow.ui.main.movie.activity.DetailMovieActivity"
             android:exported="true"
             android:theme="@style/TheMovieShowDarkActivityTheme" />
         <activity
             android:name=".ui.MainActivity"
-            android:exported="true"
+            android:exported="false"
+            android:screenOrientation="portrait"
             android:theme="@style/TheMovieShowDarkActivityTheme" />
         <activity
             android:name=".ui.splashscreen.SplashscreenActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

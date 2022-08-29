@@ -8,7 +8,7 @@
     android:background="@color/colorPrimary"
     android:scrollbars="none"
     android:overScrollMode="never"
-    tools:context=".ui.movie.activity.DetailMovieActivity">
+    tools:context=".ui.main.movie.activity.DetailMovieActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

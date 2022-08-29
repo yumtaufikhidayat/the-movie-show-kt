@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.taufik.themovieshow.BuildConfig
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.databinding.ActivityDiscoverMovieBinding
-import com.taufik.themovieshow.ui.movie.adapter.DiscoverMovieAdapter
-import com.taufik.themovieshow.ui.movie.viewmodel.MovieViewModel
+import com.taufik.themovieshow.ui.main.movie.adapter.DiscoverMovieAdapter
+import com.taufik.themovieshow.data.viewmodel.movie.MovieViewModel
 import es.dmoral.toasty.Toasty
 
 class DiscoverMovieActivity : AppCompatActivity() {

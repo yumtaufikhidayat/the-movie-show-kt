@@ -8,7 +8,7 @@
     android:background="@color/colorPrimary"
     android:scrollbars="none"
     android:overScrollMode="never"
-    tools:context=".ui.tvshow.fragment.DetailTvShowFragment">
+    tools:context=".ui.detail.tvshow.fragment.DetailTvShowFragment">
 
     <include
         android:id="@+id/toolbarDetailTvShow"
