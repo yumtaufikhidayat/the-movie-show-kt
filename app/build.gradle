@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-parcelize'
     id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs'
 }
 
 android {
@@ -107,4 +108,9 @@ dependencies {
     // Android KTX
     def androidKtxVersion = '1.5.2'
     implementation "androidx.fragment:fragment-ktx:$androidKtxVersion"
+
+    // Safe Args
+    def safeArgsVersion = '2.5.1'
+    implementation "androidx.navigation:navigation-fragment-ktx:$safeArgsVersion"
+    implementation "androidx.navigation:navigation-ui-ktx:$safeArgsVersion"
 }
