@@ -103,113 +103,102 @@
                 app:layout_constraintTop_toBottomOf="@id/tvReleaseDateFavorite"
                 tools:text="@string/tvStatus"/>
 
-            <LinearLayout
-                android:id="@+id/llLayoutMiscFavorite"
-                android:layout_width="match_parent"
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent=".35"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent=".7"/>
+
+            <TextView
+                android:id="@+id/tvRatingTitle"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:weightSum="4"
+                android:textColor="@color/colorTextOther"
+                android:textStyle="bold"
+                android:text="@string/tvRating"
                 app:layout_constraintTop_toBottomOf="@id/cardPosterFavorite"
-                android:baselineAligned="false">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/guideline1"/>
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:layout_weight="1">
+            <TextView
+                android:id="@+id/tvRatingFavorite"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:textColor="@color/colorTextIcons"
+                android:gravity="center"
+                tools:text="@string/tvRating"
+                app:layout_constraintTop_toBottomOf="@id/tvRatingTitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/guideline1"/>
 
-                    <TextView
-                        android:id="@+id/tvRatingTitleFavorite"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/colorTextOther"
-                        android:textStyle="bold"
-                        android:text="@string/tvRating"/>
+            <TextView
+                android:id="@+id/tvGenreTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorTextOther"
+                android:textStyle="bold"
+                android:text="@string/tvGenre"
+                app:layout_constraintTop_toTopOf="@id/tvRatingTitle"
+                app:layout_constraintStart_toStartOf="@id/guideline1"
+                app:layout_constraintEnd_toEndOf="@id/guideline2"/>
 
-                    <TextView
-                        android:id="@+id/tvRatingFavorite"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:includeFontPadding="false"
-                        android:gravity="center"
-                        android:textColor="@color/colorTextIcons"
-                        tools:text="@string/tvRating"/>
+            <TextView
+                android:id="@+id/tvGenreFavorite"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:gravity="center"
+                android:textColor="@color/colorTextIcons"
+                tools:text="@string/tvGenre"
+                app:layout_constraintTop_toBottomOf="@id/tvGenreTitle"
+                app:layout_constraintStart_toStartOf="@id/guideline1"
+                app:layout_constraintEnd_toEndOf="@id/guideline2" />
 
-                </LinearLayout>
+            <TextView
+                android:id="@+id/tvRuntimeTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorTextOther"
+                android:textStyle="bold"
+                android:text="@string/tvRuntime"
+                app:layout_constraintTop_toTopOf="@id/tvRatingTitle"
+                app:layout_constraintStart_toStartOf="@id/guideline2"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:layout_weight="1">
-
-                    <TextView
-                        android:id="@+id/tvGenreTitleFavorite"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/colorTextOther"
-                        android:textStyle="bold"
-                        android:text="@string/tvGenre"/>
-
-                    <TextView
-                        android:id="@+id/tvGenreFavorite"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:includeFontPadding="false"
-                        android:gravity="center"
-                        android:textColor="@color/colorTextIcons"
-                        tools:text="@string/tvGenre"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:layout_weight="1">
-
-                    <TextView
-                        android:id="@+id/tvRuntimeTitleFavorite"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/colorTextOther"
-                        android:textStyle="bold"
-                        android:text="@string/tvRuntime"/>
-
-                    <TextView
-                        android:id="@+id/tvRuntimeFavorite"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:includeFontPadding="false"
-                        android:textColor="@color/colorTextIcons"
-                        tools:text="@string/tvRuntime"
-                        app:layout_constraintTop_toBottomOf="@id/tvRuntimeTitleFavorite"
-                        app:layout_constraintStart_toStartOf="@id/tvRuntimeTitleFavorite"
-                        app:layout_constraintEnd_toEndOf="@id/tvRuntimeTitleFavorite"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
+            <TextView
+                android:id="@+id/tvRuntimeFavorite"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:gravity="center"
+                android:textColor="@color/colorTextIcons"
+                tools:text="@string/tvRuntime"
+                app:layout_constraintTop_toBottomOf="@id/tvRuntimeTitle"
+                app:layout_constraintStart_toStartOf="@id/guideline2"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
             <TextView
                 android:id="@+id/tvOverviewTitleFavorite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 android:includeFontPadding="false"
                 android:text="@string/tvOverview"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:textColor="@color/colorOrange"
                 app:layout_constraintStart_toStartOf="@id/cardPosterFavorite"
-                app:layout_constraintTop_toBottomOf="@id/llLayoutMiscFavorite"/>
+                app:layout_constraintTop_toBottomOf="@id/tvRuntimeFavorite"/>
 
             <com.codesgood.views.JustifiedTextView
                 android:id="@+id/tvOverviewFavorite"
