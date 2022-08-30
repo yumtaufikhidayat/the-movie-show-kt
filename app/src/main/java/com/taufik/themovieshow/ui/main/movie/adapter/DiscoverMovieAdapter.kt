@@ -1,16 +1,15 @@
 package com.taufik.themovieshow.ui.main.movie.adapter
 
-import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.taufik.themovieshow.R
-import com.taufik.themovieshow.api.UrlEndpoint
-import com.taufik.themovieshow.databinding.ItemsMoviesTvShowBinding
-import com.taufik.themovieshow.ui.main.movie.activity.DetailMovieActivity
 import com.taufik.themovieshow.data.main.movie.discover.DiscoverMovieResult
+import com.taufik.themovieshow.databinding.ItemsMoviesTvShowBinding
+import com.taufik.themovieshow.ui.detail.movie.fragment.DetailMovieFragment
+import com.taufik.themovieshow.utils.LoadImage.loadImage
 
 class DiscoverMovieAdapter : RecyclerView.Adapter<DiscoverMovieAdapter.MovieViewHolder>(){
 
@@ -23,26 +22,17 @@ class DiscoverMovieAdapter : RecyclerView.Adapter<DiscoverMovieAdapter.MovieView
     }
 
     inner class MovieViewHolder (private val binding: ItemsMoviesTvShowBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(movieResult: DiscoverMovieResult) {
+        fun bind(data: DiscoverMovieResult) {
             with(binding) {
-                Glide.with(itemView.context)
-                    .load(UrlEndpoint.IMAGE_URL + movieResult.posterPath)
-                    .apply(
-                        RequestOptions.placeholderOf(R.drawable.ic_loading)
-                            .error(R.drawable.ic_error)
-                    )
-                    .into(imgPoster)
-
-                tvTitle.text = movieResult.title
-                tvReleaseDate.text = movieResult.releaseDate
-                tvRating.text = movieResult.voteAverage.toString()
+               imgPoster.loadImage(data.posterPath)
+                tvTitle.text = data.title
+                tvReleaseDate.text = data.releaseDate
+                tvRating.text = data.voteAverage.toString()
 
                 itemView.setOnClickListener {
-                    val intent = Intent(itemView.context, DetailMovieActivity::class.java).apply {
-                        putExtra(DetailMovieActivity.EXTRA_DETAIL_ID, movieResult.id)
-                        putExtra(DetailMovieActivity.EXTRA_DETAIL_TITLE, movieResult.title)
-                    }
-                    it.context.startActivity(intent)
+                    val bundle = Bundle()
+                    bundle.putParcelable(DetailMovieFragment.EXTRA_DATA, data)
+                    it.findNavController().navigate(R.id.detailMovieFragment, bundle)
                 }
             }
         }

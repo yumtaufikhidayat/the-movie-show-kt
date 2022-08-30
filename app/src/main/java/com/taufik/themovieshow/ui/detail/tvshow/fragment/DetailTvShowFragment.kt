@@ -61,13 +61,13 @@ class DetailTvShowFragment : Fragment() {
     }
 
     private fun getBundleData() {
-        val tvShowsTrendingResult = arguments?.getParcelable<TvShowsTrendingResult>(EXTRA_DATA) as TvShowsTrendingResult
-        idTvShow = tvShowsTrendingResult.id
-        title = tvShowsTrendingResult.name
+        val data = arguments?.getParcelable<TvShowsTrendingResult>(EXTRA_DATA) as TvShowsTrendingResult
+        idTvShow = data.id
+        title = data.name
     }
 
     private fun showToolbarData() = with(binding) {
-        toolbarDetailTvShow.toolbarDetailTvShow.setOnClickListener {
+        toolbarDetailTvShow.imgBack.setOnClickListener {
             findNavController().popBackStack()
         }
         toolbarDetailTvShow.tvToolbar.text = title
@@ -149,7 +149,7 @@ class DetailTvShowFragment : Fragment() {
                 showToasty("Added to favorite")
             } else {
                 viewModel.removeFromFavorite(id)
-                showToasty("Removed from favrite")
+                showToasty("Removed from favorite")
             }
         }
     }

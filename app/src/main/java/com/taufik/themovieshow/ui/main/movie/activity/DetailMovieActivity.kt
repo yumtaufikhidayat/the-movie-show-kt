@@ -19,11 +19,10 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.api.UrlEndpoint
-import com.taufik.themovieshow.databinding.ActivityDetailMovieBinding
-import com.taufik.themovieshow.ui.main.movie.adapter.MovieCastAdapter
 import com.taufik.themovieshow.data.main.movie.detail.MovieDetailResponse
 import com.taufik.themovieshow.data.viewmodel.movie.DetailMovieViewModel
-import com.taufik.themovieshow.utils.UtilsData
+import com.taufik.themovieshow.databinding.ActivityDetailMovieBinding
+import com.taufik.themovieshow.ui.main.movie.adapter.MovieCastAdapter
 import es.dmoral.toasty.Toasty
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -74,7 +73,7 @@ class DetailMovieActivity : AppCompatActivity() {
 
     private fun setData() {
         viewModel = ViewModelProvider(this)[DetailMovieViewModel::class.java]
-        viewModel.setDetailMovies(id, UtilsData.API_KEY)
+        viewModel.setDetailMovies(id)
         viewModel.getDetailMovies().observe(this) {
             data = it
             if (it != null) {
@@ -146,7 +145,7 @@ class DetailMovieActivity : AppCompatActivity() {
     }
 
     private fun setVideo() {
-        viewModel.setDetailMovieVideo(id, UtilsData.API_KEY)
+        viewModel.setDetailMovieVideo(id)
         viewModel.getDetailMovieVideo().observe(this) {
             if (it != null) {
                 binding.apply {
@@ -192,7 +191,7 @@ class DetailMovieActivity : AppCompatActivity() {
     }
 
     private fun setCast() {
-        viewModel.setDetailMovieCast(id, UtilsData.API_KEY)
+        viewModel.setDetailMovieCast(id)
         viewModel.getDetailMovieCast().observe(this) {
             if (it != null) {
                 castAdapter.submitList(it)

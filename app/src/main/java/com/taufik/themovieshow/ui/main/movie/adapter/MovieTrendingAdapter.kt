@@ -1,14 +1,16 @@
 package com.taufik.themovieshow.ui.main.movie.adapter
 
-import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.taufik.themovieshow.databinding.ItemsMoviesTvShowBinding
-import com.taufik.themovieshow.ui.main.movie.activity.DetailMovieActivity
+import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.main.movie.trending.MovieTrendingResult
+import com.taufik.themovieshow.databinding.ItemsMoviesTvShowBinding
+import com.taufik.themovieshow.ui.detail.movie.fragment.DetailMovieFragment
 import com.taufik.themovieshow.utils.LoadImage.loadImage
 
 class MovieTrendingAdapter : ListAdapter<MovieTrendingResult, MovieTrendingAdapter.MovieViewHolder>(MovieTrendingDiffCallback){
@@ -29,11 +31,9 @@ class MovieTrendingAdapter : ListAdapter<MovieTrendingResult, MovieTrendingAdapt
             tvRating.text = data.voteAverage.toString()
 
             itemView.setOnClickListener {
-                val intent = Intent(itemView.context, DetailMovieActivity::class.java).apply {
-                    putExtra(DetailMovieActivity.EXTRA_DETAIL_ID, data.id)
-                    putExtra(DetailMovieActivity.EXTRA_DETAIL_TITLE, data.title)
-                }
-                it.context.startActivity(intent)
+                val bundle = Bundle()
+                bundle.putParcelable(DetailMovieFragment.EXTRA_DATA, data)
+                it.findNavController().navigate(R.id.detailMovieFragment, bundle)
             }
         }
     }

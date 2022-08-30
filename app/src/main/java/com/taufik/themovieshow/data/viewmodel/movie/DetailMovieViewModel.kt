@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.taufik.themovieshow.BuildConfig
 import com.taufik.themovieshow.api.ApiClient
 import com.taufik.themovieshow.data.local.entity.FavoriteMovie
 import com.taufik.themovieshow.data.local.dao.FavoriteMovieDao
@@ -22,6 +23,7 @@ import retrofit2.Response
 
 class DetailMovieViewModel(application: Application) : AndroidViewModel(application) {
 
+    private val apiKey = BuildConfig.API_KEY
     val listDetailMovies = MutableLiveData<MovieDetailResponse>()
     val listDetailVideo = MutableLiveData<MovieVideoResponse>()
     val listDetailCast = MutableLiveData<ArrayList<MovieCast>>()
@@ -33,7 +35,7 @@ class DetailMovieViewModel(application: Application) : AndroidViewModel(applicat
         movieDao = movieDb?.favoriteMovieDao()
     }
 
-    fun setDetailMovies(id: Int, apiKey: String) {
+    fun setDetailMovies(id: Int) {
         ApiClient.apiInstance
             .getDetailMovie(id, apiKey)
             .enqueue(object : Callback<MovieDetailResponse> {
@@ -58,7 +60,7 @@ class DetailMovieViewModel(application: Application) : AndroidViewModel(applicat
         return listDetailMovies
     }
 
-    fun setDetailMovieVideo(id: Int, apiKey: String) {
+    fun setDetailMovieVideo(id: Int) {
         ApiClient.apiInstance
             .getMovieVideo(id, apiKey)
             .enqueue(object : Callback<MovieVideoResponse> {
@@ -82,7 +84,7 @@ class DetailMovieViewModel(application: Application) : AndroidViewModel(applicat
         return listDetailVideo
     }
 
-    fun setDetailMovieCast(id: Int, apiKey: String) {
+    fun setDetailMovieCast(id: Int) {
         ApiClient.apiInstance
             .getMovieCast(id, apiKey)
             .enqueue(object : Callback<MovieCastResponse> {

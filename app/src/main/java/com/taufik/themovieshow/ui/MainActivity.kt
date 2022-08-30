@@ -34,14 +34,15 @@ class MainActivity : AppCompatActivity() {
     private fun setUpNavigationDestination() {
         navController.addOnDestinationChangedListener {_, destination, _ ->
             when (destination.id) {
-                R.id.detailTvShowFragment -> showHideFragment(false)
-                R.id.detailTvShowFavoriteFragment -> showHideFragment(false)
-                else -> showHideFragment(true)
+                R.id.detailTvShowFragment -> showHideBottomNavigation(false)
+                R.id.detailTvShowFavoriteFragment -> showHideBottomNavigation(false)
+                R.id.detailMovieFragment -> showHideBottomNavigation(false)
+                else -> showHideBottomNavigation(true)
             }
         }
     }
 
-    private fun showHideFragment(isShow: Boolean) = with(binding) {
+    private fun showHideBottomNavigation(isShow: Boolean) = with(binding) {
         navBottom.isVisible = isShow
     }
 }

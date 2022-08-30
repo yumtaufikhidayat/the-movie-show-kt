@@ -67,7 +67,7 @@ class DetailTvShowFavoriteFragment : Fragment() {
     }
 
     private fun showToolbarData() = with(binding) {
-        toolbarDetailTvShowFavorite.toolbarDetailTvShow.setOnClickListener {
+        toolbarDetailTvShowFavorite.imgBack.setOnClickListener {
             findNavController().popBackStack()
         }
         toolbarDetailTvShowFavorite.tvToolbar.text = title

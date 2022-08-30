@@ -6,8 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    android:scrollbars="none"
-    android:overScrollMode="never"
     tools:context=".ui.detail.tvshow.fragment.DetailTvShowFragment">
 
     <include
@@ -17,6 +15,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:scrollbars="none"
+        android:overScrollMode="never"
         app:layout_constraintTop_toBottomOf="@id/toolbarDetailTvShow"
         app:layout_constraintBottom_toBottomOf="parent">
 

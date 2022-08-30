@@ -39,5 +39,10 @@
         android:name="com.taufik.themovieshow.ui.detail.tvshow.fragment.DetailTvShowFavoriteFragment"
         android:label="fragment_detail_tv_show_favorite"
         tools:layout="@layout/fragment_detail_tv_show_favorite" />
+    <fragment
+        android:id="@+id/detailMovieFragment"
+        android:name="com.taufik.themovieshow.ui.detail.movie.fragment.DetailMovieFragment"
+        android:label="fragment_detail_movie"
+        tools:layout="@layout/fragment_detail_movie" />
 
 </navigation>
