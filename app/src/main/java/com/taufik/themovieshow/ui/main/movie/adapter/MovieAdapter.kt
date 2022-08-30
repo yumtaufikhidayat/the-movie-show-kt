@@ -34,7 +34,7 @@ class MovieAdapter : ListAdapter<MovieMainResult, MovieAdapter.MovieViewHolder>(
                 itemView.setOnClickListener {
                     val bundle = Bundle()
                     bundle.putParcelable(DetailMovieFragment.EXTRA_DATA, data)
-                    it.findNavController().navigate(R.id.detailMovieFragment, bundle)
+                    it.findNavController().navigate(R.id.detailMovieFavoriteFragment, bundle)
                 }
             }
         }

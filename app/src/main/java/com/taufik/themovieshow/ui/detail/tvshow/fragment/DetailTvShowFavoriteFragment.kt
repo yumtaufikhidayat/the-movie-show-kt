@@ -91,16 +91,16 @@ class DetailTvShowFavoriteFragment : Fragment() {
                     tvReleaseDateFavorite.text = it.firstAirDate
                     tvStatusFavorite.text = it.status
                     tvOverviewFavorite.text = it.overview
-                    tvRating.text = it.voteAverage.toString()
+                    tvRatingFavorite.text = it.voteAverage.toString()
 
                     when {
-                        it.genres.isEmpty() -> tvGenre.text = "N/A"
-                        else -> tvGenre.text = it.genres[0].name
+                        it.genres.isEmpty() -> tvGenreFavorite.text = "N/A"
+                        else -> tvGenreFavorite.text = it.genres[0].name
                     }
 
                     when {
-                        it.episodeRunTime.isEmpty() -> tvEpisodes.text = "N/A"
-                        else -> tvEpisodes.text = String.format("${it.episodeRunTime[0]} episodes")
+                        it.episodeRunTime.isEmpty() -> tvEpisodesFavorite.text = "N/A"
+                        else -> tvEpisodesFavorite.text = String.format("${it.episodeRunTime[0]} episodes")
                     }
 
                     checkFavoriteData(idTvShow)

@@ -107,11 +107,13 @@ class DetailMovieFragment : Fragment() {
             val count = viewModel.checkFavorite(id)
             withContext(Dispatchers.Main) {
                 if (count != null) {
-                    toolbarDetailMovie.toggleFavorite.isChecked = true
-                    isChecked = true
-                } else {
-                    toolbarDetailMovie.toggleFavorite.isChecked = false
-                    isChecked = false
+                    if (count > 0) {
+                        toolbarDetailMovie.toggleFavorite.isChecked = true
+                        isChecked = true
+                    } else {
+                        toolbarDetailMovie.toggleFavorite.isChecked = false
+                        isChecked = false
+                    }
                 }
             }
         }

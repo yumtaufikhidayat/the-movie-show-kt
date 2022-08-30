@@ -135,7 +135,7 @@
                     android:layout_weight="1">
 
                     <TextView
-                        android:id="@+id/tvRatingTitle"
+                        android:id="@+id/tvRatingTitleFavorite"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorTextOther"
@@ -143,7 +143,7 @@
                         android:text="@string/tvRating"/>
 
                     <TextView
-                        android:id="@+id/tvRating"
+                        android:id="@+id/tvRatingFavorite"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:includeFontPadding="false"
@@ -161,7 +161,7 @@
                     android:layout_weight="1">
 
                     <TextView
-                        android:id="@+id/tvGenreTitle"
+                        android:id="@+id/tvGenreTitleFavorite"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorTextOther"
@@ -169,7 +169,7 @@
                         android:text="@string/tvGenre"/>
 
                     <TextView
-                        android:id="@+id/tvGenre"
+                        android:id="@+id/tvGenreFavorite"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:includeFontPadding="false"
@@ -187,7 +187,7 @@
                     android:layout_weight="1">
 
                     <TextView
-                        android:id="@+id/tvEpisodesTitle"
+                        android:id="@+id/tvEpisodesTitleFavorite"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorTextOther"
@@ -195,7 +195,7 @@
                         android:text="@string/tvEpisodes"/>
 
                     <TextView
-                        android:id="@+id/tvEpisodes"
+                        android:id="@+id/tvEpisodesFavorite"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:includeFontPadding="false"

@@ -8,19 +8,7 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
-                  <entry key="detailMovieFragment">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="256" />
-                            <option name="y" value="724" />
-                          </Point>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="detailTvShowFavoriteFragment">
+                  <entry key="detailMovieFavoriteFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
@@ -32,7 +20,19 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="detailTvShowFragment">
+                  <entry key="detailMovieFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="744" />
+                            <option name="y" value="368" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="detailTvShowFavoriteFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
@@ -44,7 +44,7 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="nav_about">
+                  <entry key="detailTvShowFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
@@ -56,13 +56,25 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="nav_favorite">
+                  <entry key="nav_about">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
                             <option name="x" value="12" />
                             <option name="y" value="368" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="nav_favorite">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="744" />
+                            <option name="y" value="12" />
                           </Point>
                         </option>
                       </LayoutPositions>
