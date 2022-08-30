@@ -16,35 +16,33 @@ class SplashscreenActivity : AppCompatActivity() {
         ActivitySplashscreenBinding.inflate(layoutInflater)
     }
 
-    private lateinit var handler: Handler
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
         setSplashscreen()
-
         setAppVersion()
     }
 
     private fun setSplashscreen() {
-        handler = Handler(Looper.getMainLooper())
+        val handler = Handler(Looper.getMainLooper())
         handler.postDelayed({
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
-        }, 1000)
+        }, DELAY_TIME)
     }
 
-    private fun setAppVersion() {
-        binding.apply {
-            try {
-                val pInfo: PackageInfo = packageManager.getPackageInfo(packageName, 0)
-                val appVersion = pInfo.versionName
-                tvAppVersion.text = appVersion
-            } catch (e: PackageManager.NameNotFoundException) {
-                e.printStackTrace()
-            }
+    private fun setAppVersion() = with(binding) {
+        try {
+            val pInfo: PackageInfo = packageManager.getPackageInfo(packageName, 0)
+            val appVersion = pInfo.versionName
+            tvAppVersion.text = appVersion
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
         }
+    }
+
+    companion object {
+        const val DELAY_TIME = 1000L
     }
 }

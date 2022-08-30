@@ -55,7 +55,6 @@ class DetailMovieFavoriteFragment : Fragment() {
         getBundleData()
         showToolbarData()
         setData()
-        showVideo()
         setCastAdapter()
         setReadMore()
     }
@@ -97,6 +96,7 @@ class DetailMovieFavoriteFragment : Fragment() {
                     setActionFavorite(idMovie, it.posterPath, title, it.releaseDate, it.voteAverage)
                     shareMovie(it.homepage)
                     setCast(idMovie)
+                    showVideo(idMovie)
                 }
             }
         }
@@ -160,7 +160,7 @@ class DetailMovieFavoriteFragment : Fragment() {
         }
     }
 
-    private fun showVideo() = with(binding) {
+    private fun showVideo(id: Int) = with(binding) {
         viewModel.apply {
             setDetailMovieVideo(id)
             getDetailMovieVideo().observe(viewLifecycleOwner) {

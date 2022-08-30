@@ -55,7 +55,6 @@ class DetailTvShowFavoriteFragment : Fragment() {
         getBundleData()
         showToolbarData()
         showData()
-        showVideo()
         setCastAdapter()
         setReadMore()
     }
@@ -107,6 +106,7 @@ class DetailTvShowFavoriteFragment : Fragment() {
                     setActionFavorite(idTvShow, it.posterPath, title, it.firstAirDate, it.voteAverage)
                     shareTvShow(it.homepage)
                     setCast(idTvShow)
+                    showVideo(id)
                 }
             }
         }
@@ -170,7 +170,7 @@ class DetailTvShowFavoriteFragment : Fragment() {
         }
     }
 
-    private fun showVideo() = with(binding) {
+    private fun showVideo(id: Int) = with(binding) {
         viewModel.apply {
             setDetailTvShowVideo(id)
             getDetailTvShowsVideo().observe(viewLifecycleOwner) {

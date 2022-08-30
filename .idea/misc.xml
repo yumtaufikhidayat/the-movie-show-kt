@@ -22,7 +22,7 @@
         <entry key="app/src/main/res/layout/fragment_detail_movie.xml" value="0.16" />
         <entry key="app/src/main/res/layout/fragment_detail_movie_favorite.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_detail_tv_show.xml" value="0.1638888888888889" />
-        <entry key="app/src/main/res/layout/fragment_detail_tv_show_favorite.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_detail_tv_show_favorite.xml" value="0.1753846153846154" />
         <entry key="app/src/main/res/layout/fragment_favorite.xml" value="0.1796875" />
         <entry key="app/src/main/res/layout/fragment_favorite_movie.xml" value="0.1796875" />
         <entry key="app/src/main/res/layout/fragment_favorite_tv_shows.xml" value="0.1" />
