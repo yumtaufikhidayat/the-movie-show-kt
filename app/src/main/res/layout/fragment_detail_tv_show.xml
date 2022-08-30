@@ -201,9 +201,9 @@
                         android:includeFontPadding="false"
                         android:textColor="@color/colorTextIcons"
                         tools:text="@string/tvEpisodes"
-                        app:layout_constraintTop_toBottomOf="@id/tvLanguageTitle"
-                        app:layout_constraintStart_toStartOf="@id/tvLanguageTitle"
-                        app:layout_constraintEnd_toEndOf="parent"/>
+                        app:layout_constraintTop_toBottomOf="@id/tvEpisodesTitle"
+                        app:layout_constraintStart_toStartOf="@id/tvEpisodesTitle"
+                        app:layout_constraintEnd_toEndOf="@id/tvEpisodesTitle"/>
 
                 </LinearLayout>
 

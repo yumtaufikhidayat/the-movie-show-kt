@@ -20,8 +20,8 @@
         <entry key="app/src/main/res/layout/activity_splashscreen.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_about.xml" value="0.16" />
         <entry key="app/src/main/res/layout/fragment_detail_movie.xml" value="0.178125" />
-        <entry key="app/src/main/res/layout/fragment_detail_movie_favorite.xml" value="0.11510791366906475" />
-        <entry key="app/src/main/res/layout/fragment_detail_tv_show.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_detail_movie_favorite.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_detail_tv_show.xml" value="0.1638888888888889" />
         <entry key="app/src/main/res/layout/fragment_detail_tv_show_favorite.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_favorite.xml" value="0.1796875" />
         <entry key="app/src/main/res/layout/fragment_favorite_movie.xml" value="0.1796875" />

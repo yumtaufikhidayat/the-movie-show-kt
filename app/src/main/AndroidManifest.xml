@@ -20,14 +20,6 @@
             android:exported="true"
             android:theme="@style/TheMovieShowDarkActivityTheme" />
         <activity
-            android:name="com.taufik.themovieshow.ui.main.tvshow.activity.DetailTvShowActivity"
-            android:exported="true"
-            android:theme="@style/TheMovieShowDarkActivityTheme" />
-        <activity
-            android:name="com.taufik.themovieshow.ui.main.movie.activity.DetailMovieActivity"
-            android:exported="true"
-            android:theme="@style/TheMovieShowDarkActivityTheme" />
-        <activity
             android:name=".ui.MainActivity"
             android:exported="false"
             android:screenOrientation="portrait"
