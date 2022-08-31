@@ -1,4 +1,4 @@
-package com.taufik.themovieshow.api
+package com.taufik.themovieshow.data.api
 
 object UrlEndpoint {
     const val BASE_URL = "https://api.themoviedb.org/3/"

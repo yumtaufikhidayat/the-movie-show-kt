@@ -4,7 +4,7 @@ import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.taufik.themovieshow.R
-import com.taufik.themovieshow.api.UrlEndpoint
+import com.taufik.themovieshow.data.api.UrlEndpoint
 import kotlin.math.roundToInt
 
 fun ImageView.loadImage(url: String?) {

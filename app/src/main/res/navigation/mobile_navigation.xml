@@ -49,5 +49,10 @@
         android:name="com.taufik.themovieshow.ui.detail.movie.fragment.DetailMovieFavoriteFragment"
         android:label="fragment_detail_movie_favorite"
         tools:layout="@layout/fragment_detail_movie_favorite" />
+    <fragment
+        android:id="@+id/discoverMovieFragment"
+        android:name="com.taufik.themovieshow.ui.discover.movie.DiscoverMovieFragment"
+        android:label="fragment_discover_movie"
+        tools:layout="@layout/fragment_discover_movie" />
 
 </navigation>

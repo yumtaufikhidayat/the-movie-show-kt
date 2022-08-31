@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.main.movie.discover.DiscoverMovieResult
@@ -12,20 +14,21 @@ import com.taufik.themovieshow.ui.detail.movie.fragment.DetailMovieFragment
 import com.taufik.themovieshow.utils.loadImage
 import com.taufik.themovieshow.utils.toRating
 
-class DiscoverMovieAdapter : RecyclerView.Adapter<DiscoverMovieAdapter.MovieViewHolder>(){
+class DiscoverMovieAdapter : ListAdapter<DiscoverMovieResult, DiscoverMovieAdapter.MovieViewHolder>(DiscoverMovieDiffCallback){
 
-    private var listMovies = ArrayList<DiscoverMovieResult>()
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
+        val itemsMovieBinding = ItemsMoviesTvShowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return MovieViewHolder(itemsMovieBinding)
+    }
 
-    fun setMovies(movieResult: ArrayList<DiscoverMovieResult>) {
-        this.listMovies.clear()
-        this.listMovies.addAll(movieResult)
-        notifyDataSetChanged()
+    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
+        holder.bind(getItem(position))
     }
 
     inner class MovieViewHolder (private val binding: ItemsMoviesTvShowBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(data: DiscoverMovieResult) {
             with(binding) {
-               imgPoster.loadImage(data.posterPath)
+                imgPoster.loadImage(data.posterPath)
                 tvTitle.text = data.title
                 tvReleaseDate.text = data.releaseDate
                 tvRating.text = toRating(data.voteAverage)
@@ -39,15 +42,15 @@ class DiscoverMovieAdapter : RecyclerView.Adapter<DiscoverMovieAdapter.MovieView
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val itemsMovieBinding = ItemsMoviesTvShowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MovieViewHolder(itemsMovieBinding)
-    }
+    object DiscoverMovieDiffCallback: DiffUtil.ItemCallback<DiscoverMovieResult>() {
+        override fun areItemsTheSame(
+            oldItem: DiscoverMovieResult,
+            newItem: DiscoverMovieResult
+        ): Boolean = oldItem.id == newItem.id
 
-    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        val pos = listMovies[position]
-        holder.bind(pos)
+        override fun areContentsTheSame(
+            oldItem: DiscoverMovieResult,
+            newItem: DiscoverMovieResult
+        ): Boolean = oldItem == newItem
     }
-
-    override fun getItemCount(): Int = listMovies.size
 }

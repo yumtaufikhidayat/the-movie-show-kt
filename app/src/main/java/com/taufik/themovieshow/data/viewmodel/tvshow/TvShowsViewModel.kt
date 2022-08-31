@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.taufik.themovieshow.api.ApiClient
+import com.taufik.themovieshow.data.api.ApiClient
 import com.taufik.themovieshow.data.main.tvshow.discover.DiscoverTvShowsResponse
 import com.taufik.themovieshow.data.main.tvshow.discover.DiscoverTvShowsResult
 import com.taufik.themovieshow.data.main.tvshow.popularairingtoday.TvShowsMainResponse

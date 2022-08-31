@@ -1,16 +1,15 @@
 package com.taufik.themovieshow.ui.main.movie.fragment
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.databinding.FragmentMovieBinding
-import com.taufik.themovieshow.ui.discover.movie.DiscoverMovieActivity
 import com.taufik.themovieshow.ui.main.movie.adapter.MoviePagerAdapter
 
 class MovieFragment : Fragment() {
@@ -48,7 +47,7 @@ class MovieFragment : Fragment() {
 
     private fun setActionClick() = with(binding) {
         fabMovie.setOnClickListener {
-            startActivity(Intent(requireActivity(), DiscoverMovieActivity::class.java))
+            findNavController().navigate(R.id.discoverMovieFragment)
         }
     }
 

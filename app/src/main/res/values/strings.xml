@@ -35,6 +35,7 @@
     <string name="tvAuthor">Author</string>
     <string name="tvApplication">Application</string>
     <string name="tvUpdate">Update</string>
+    <string name="tvSearch">Cari…</string>
 
     <!--Button-->
     <string name="btnReviews">Reviews</string>

@@ -4,7 +4,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.taufik.themovieshow.api.ApiClient
+import com.taufik.themovieshow.BuildConfig
+import com.taufik.themovieshow.data.api.ApiClient
 import com.taufik.themovieshow.data.main.movie.discover.DiscoverMovieResponse
 import com.taufik.themovieshow.data.main.movie.discover.DiscoverMovieResult
 import com.taufik.themovieshow.data.main.movie.nowplayingupcoming.MovieMainResponse
@@ -17,12 +18,13 @@ import retrofit2.Response
 
 class MovieViewModel : ViewModel() {
 
+    private val apiKey = BuildConfig.API_KEY
     private val listNowPlaying = MutableLiveData<ArrayList<MovieMainResult>>()
     private val listUpcoming = MutableLiveData<ArrayList<MovieMainResult>>()
     private val listTrendingDay  = MutableLiveData<ArrayList<MovieTrendingResult>>()
     private val listDiscover = MutableLiveData<ArrayList<DiscoverMovieResult>>()
 
-    fun setMovieNowPlaying(apiKey: String){
+    fun setMovieNowPlaying(){
         ApiClient.apiInstance
                 .getMovieNowPlaying(apiKey)
                 .enqueue(object : Callback<MovieMainResponse> {
@@ -46,7 +48,7 @@ class MovieViewModel : ViewModel() {
         return listNowPlaying
     }
 
-    fun setMovieUpcoming(apiKey: String){
+    fun setMovieUpcoming(){
         ApiClient.apiInstance
                 .getMovieUpcoming(apiKey)
                 .enqueue(object : Callback<MovieMainResponse> {
@@ -70,7 +72,7 @@ class MovieViewModel : ViewModel() {
         return listUpcoming
     }
 
-    fun setMovieTrendingDay(apiKey: String){
+    fun setMovieTrendingDay(){
         ApiClient.apiInstance
                 .getMovieTrendingDay(apiKey)
                 .enqueue(object : Callback<MovieTrendingResponse> {
@@ -91,7 +93,7 @@ class MovieViewModel : ViewModel() {
         return listTrendingDay
     }
 
-    fun setDiscoverMovie(apiKey: String, query: String){
+    fun setDiscoverMovie(query: String){
         ApiClient.apiInstance
             .getDiscoverMovie(apiKey, query)
             .enqueue(object : Callback<DiscoverMovieResponse> {

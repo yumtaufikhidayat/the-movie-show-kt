@@ -115,10 +115,10 @@ class DiscoverMovieActivity : AppCompatActivity() {
 
     private fun setDiscoverMovies(query: String) {
 
-        viewModel.setDiscoverMovie(BuildConfig.API_KEY, query)
+//        viewModel.setDiscoverMovie(BuildConfig.API_KEY, query)
         viewModel.getDiscoverMovie().observe(this, {
             if (it != null) {
-                discoverMovieAdapter.setMovies(it)
+//                discoverMovieAdapter.setMovies(it)
                 showLoading(false)
             }
         })

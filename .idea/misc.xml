@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable/background_movie_show.xml" value="0.19895833333333332" />
+        <entry key="app/src/main/res/drawable/bg_search.xml" value="0.1115" />
         <entry key="app/src/main/res/drawable/bottom_navigation_selector.xml" value="0.19589743589743588" />
         <entry key="app/src/main/res/drawable/ic_discover.xml" value="0.19895833333333332" />
         <entry key="app/src/main/res/drawable/ic_language_white.xml" value="0.19895833333333332" />
@@ -23,6 +24,7 @@
         <entry key="app/src/main/res/layout/fragment_detail_movie_favorite.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_detail_tv_show.xml" value="0.1638888888888889" />
         <entry key="app/src/main/res/layout/fragment_detail_tv_show_favorite.xml" value="0.1753846153846154" />
+        <entry key="app/src/main/res/layout/fragment_discover_movie.xml" value="0.1796875" />
         <entry key="app/src/main/res/layout/fragment_favorite.xml" value="0.1796875" />
         <entry key="app/src/main/res/layout/fragment_favorite_movie.xml" value="0.1796875" />
         <entry key="app/src/main/res/layout/fragment_favorite_tv_shows.xml" value="0.1" />
@@ -40,6 +42,7 @@
         <entry key="app/src/main/res/layout/toolbar_detail_general.xml" value="0.1796875" />
         <entry key="app/src/main/res/layout/toolbar_general.xml" value="0.1" />
         <entry key="app/src/main/res/layout/toolbar_main_general.xml" value="0.17692307692307693" />
+        <entry key="app/src/main/res/layout/toolbar_search_general.xml" value="0.2" />
         <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.16111111111111112" />
         <entry key="app/src/main/res/menu/detail_menu.xml" value="0.1828125" />
         <entry key="app/src/main/res/menu/discover_menu.xml" value="0.1828125" />

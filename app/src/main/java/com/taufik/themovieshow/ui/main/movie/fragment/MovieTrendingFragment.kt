@@ -48,7 +48,7 @@ class MovieTrendingFragment : Fragment() {
 
     private fun setData() {
         showLoading(true)
-        viewModel.setMovieTrendingDay(BuildConfig.API_KEY)
+        viewModel.setMovieTrendingDay()
         viewModel.getMovieTrendingDay().observe(viewLifecycleOwner) {
             if (it != null) {
                 movieTrendingAdapter.submitList(it)

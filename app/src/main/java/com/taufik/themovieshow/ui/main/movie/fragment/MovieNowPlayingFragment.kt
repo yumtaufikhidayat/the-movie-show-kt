@@ -48,7 +48,7 @@ class MovieNowPlayingFragment : Fragment() {
 
     private fun setData() {
         showLoading(true)
-        viewModel.setMovieNowPlaying(BuildConfig.API_KEY)
+        viewModel.setMovieNowPlaying()
         viewModel.getMovieNowPlaying().observe(viewLifecycleOwner) {
             if (it != null) {
                 movieAdapter.submitList(it)

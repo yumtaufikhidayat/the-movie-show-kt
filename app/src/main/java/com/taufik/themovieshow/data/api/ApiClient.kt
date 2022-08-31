@@ -1,4 +1,4 @@
-package com.taufik.themovieshow.api
+package com.taufik.themovieshow.data.api
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

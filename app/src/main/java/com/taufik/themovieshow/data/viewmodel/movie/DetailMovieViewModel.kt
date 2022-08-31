@@ -6,7 +6,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.taufik.themovieshow.BuildConfig
-import com.taufik.themovieshow.api.ApiClient
+import com.taufik.themovieshow.data.api.ApiClient
 import com.taufik.themovieshow.data.local.dao.FavoriteMovieDao
 import com.taufik.themovieshow.data.local.entity.FavoriteMovie
 import com.taufik.themovieshow.data.local.room.MovieDatabase

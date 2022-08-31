@@ -1,4 +1,4 @@
-package com.taufik.themovieshow.api
+package com.taufik.themovieshow.data.api
 
 import com.taufik.themovieshow.data.main.movie.cast.MovieCastResponse
 import com.taufik.themovieshow.data.main.movie.detail.MovieDetailResponse

@@ -48,7 +48,7 @@ class MovieUpcomingFragment : Fragment() {
 
     private fun setData() {
         showLoading(true)
-        viewModel.setMovieUpcoming(BuildConfig.API_KEY)
+        viewModel.setMovieUpcoming()
         viewModel.getMovieUpcoming().observe(viewLifecycleOwner) {
             if (it != null) {
                 movieAdapter.submitList(it)
