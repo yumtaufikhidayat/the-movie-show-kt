@@ -36,6 +36,7 @@
             android:textColor="@color/colorOrange"
             android:textSize="18sp"
             android:ellipsize="end"
+            android:maxLines="1"
             tools:text="@string/icTrending"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
