@@ -11,8 +11,8 @@ import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.main.movie.nowplayingupcoming.MovieMainResult
 import com.taufik.themovieshow.databinding.ItemsMoviesTvShowBinding
 import com.taufik.themovieshow.ui.detail.movie.fragment.DetailMovieFragment
-import com.taufik.themovieshow.utils.LoadImage.loadImage
-import kotlin.math.roundToInt
+import com.taufik.themovieshow.utils.loadImage
+import com.taufik.themovieshow.utils.toRating
 
 class MovieAdapter : ListAdapter<MovieMainResult, MovieAdapter.MovieViewHolder>(MovieDiffCallback){
 
@@ -30,10 +30,7 @@ class MovieAdapter : ListAdapter<MovieMainResult, MovieAdapter.MovieViewHolder>(
                 imgPoster.loadImage(data.posterPath)
                 tvTitle.text = data.title
                 tvReleaseDate.text = data.releaseDate
-
-                val ratingOld = data.voteAverage
-                val ratingNew = (ratingOld * 10.0).roundToInt() / 10.0
-                tvRating.text = ratingNew.toString()
+                tvRating.text = toRating(data.voteAverage)
 
                 itemView.setOnClickListener {
                     val bundle = Bundle()

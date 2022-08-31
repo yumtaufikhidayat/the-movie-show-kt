@@ -16,18 +16,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.taufik.themovieshow.R
-import com.taufik.themovieshow.databinding.FragmentDetailTvShowBinding
-import com.taufik.themovieshow.ui.main.tvshow.adapter.TvShowsCastAdapter
 import com.taufik.themovieshow.data.main.tvshow.trending.TvShowsTrendingResult
 import com.taufik.themovieshow.data.viewmodel.tvshow.DetailTvShowViewModel
-import com.taufik.themovieshow.utils.LoadImage.loadImage
+import com.taufik.themovieshow.databinding.FragmentDetailTvShowBinding
+import com.taufik.themovieshow.ui.main.tvshow.adapter.TvShowsCastAdapter
+import com.taufik.themovieshow.utils.loadImage
+import com.taufik.themovieshow.utils.toRating
 import es.dmoral.toasty.Toasty
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.*
-import kotlin.math.roundToInt
 
 class DetailTvShowFragment : Fragment() {
 
@@ -91,10 +91,7 @@ class DetailTvShowFragment : Fragment() {
                     tvReleaseDate.text = it.firstAirDate
                     tvStatus.text = it.status
                     tvOverview.text = it.overview
-
-                    val ratingOld = it.voteAverage
-                    val ratingNew = (ratingOld * 10.0).roundToInt() / 10.0
-                    tvRating.text = ratingNew.toString()
+                    tvRating.text = toRating(it.voteAverage)
 
                     when {
                         it.genres.isEmpty() -> tvGenre.text = "N/A"

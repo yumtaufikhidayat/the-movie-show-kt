@@ -6,10 +6,11 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.taufik.themovieshow.R
+import com.taufik.themovieshow.data.main.tvshow.discover.DiscoverTvShowsResult
 import com.taufik.themovieshow.databinding.ItemsMoviesTvShowBinding
 import com.taufik.themovieshow.ui.detail.tvshow.fragment.DetailTvShowFragment
-import com.taufik.themovieshow.data.main.tvshow.discover.DiscoverTvShowsResult
-import com.taufik.themovieshow.utils.LoadImage.loadImage
+import com.taufik.themovieshow.utils.loadImage
+import com.taufik.themovieshow.utils.toRating
 
 class DiscoverTvShowsAdapter : RecyclerView.Adapter<DiscoverTvShowsAdapter.TvShowsViewHolder>() {
 
@@ -27,7 +28,7 @@ class DiscoverTvShowsAdapter : RecyclerView.Adapter<DiscoverTvShowsAdapter.TvSho
                 imgPoster.loadImage(data.posterPath)
                 tvTitle.text = data.name
                 tvReleaseDate.text = data.firstAirDate
-                tvRating.text = data.voteAverage.toString()
+                tvRating.text = toRating(data.voteAverage)
 
                 itemView.setOnClickListener {
                     val bundle = Bundle()

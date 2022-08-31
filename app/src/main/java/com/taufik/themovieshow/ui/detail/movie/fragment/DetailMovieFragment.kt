@@ -20,14 +20,14 @@ import com.taufik.themovieshow.data.main.movie.trending.MovieTrendingResult
 import com.taufik.themovieshow.data.viewmodel.movie.DetailMovieViewModel
 import com.taufik.themovieshow.databinding.FragmentDetailMovieBinding
 import com.taufik.themovieshow.ui.main.movie.adapter.MovieCastAdapter
-import com.taufik.themovieshow.utils.LoadImage.loadImage
+import com.taufik.themovieshow.utils.loadImage
+import com.taufik.themovieshow.utils.toRating
 import es.dmoral.toasty.Toasty
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.*
-import kotlin.math.roundToInt
 
 class DetailMovieFragment : Fragment() {
 
@@ -84,10 +84,7 @@ class DetailMovieFragment : Fragment() {
                     tvReleaseDate.text = it.releaseDate
                     tvStatus.text = it.status
                     tvOverview.text = it.overview
-
-                    val ratingOld = it.voteAverage
-                    val ratingNew = (ratingOld * 10.0).roundToInt() / 10.0
-                    tvRating.text = ratingNew.toString()
+                    tvRating.text = toRating(it.voteAverage)
 
                     when {
                         it.genres.isEmpty() -> tvGenre.text = "N/A"

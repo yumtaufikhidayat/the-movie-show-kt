@@ -9,11 +9,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.api.UrlEndpoint
+import com.taufik.themovieshow.data.main.tvshow.trending.TvShowsTrendingResult
 import com.taufik.themovieshow.databinding.ItemsMoviesTvShowBinding
 import com.taufik.themovieshow.ui.detail.tvshow.fragment.DetailTvShowFragment
-import com.taufik.themovieshow.data.main.tvshow.trending.TvShowsTrendingResult
-import com.taufik.themovieshow.utils.LoadImage.loadImage
-import kotlin.math.roundToInt
+import com.taufik.themovieshow.utils.loadImage
+import com.taufik.themovieshow.utils.toRating
 
 class TvShowsTrendingAdapter : ListAdapter<TvShowsTrendingResult, TvShowsTrendingAdapter.TvShowsViewHolder>(TvShowTrendingDiffCallback) {
 
@@ -30,10 +30,7 @@ class TvShowsTrendingAdapter : ListAdapter<TvShowsTrendingResult, TvShowsTrendin
             imgPoster.loadImage(UrlEndpoint.IMAGE_URL + data.posterPath)
             tvTitle.text = data.name
             tvReleaseDate.text = data.firstAirDate
-
-            val ratingOld = data.voteAverage
-            val ratingNew = (ratingOld * 10.0).roundToInt() / 10.0
-            tvRating.text = ratingNew.toString()
+            tvRating.text = toRating(data.voteAverage)
 
             itemView.setOnClickListener {
                 val bundle = Bundle()

@@ -16,18 +16,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.taufik.themovieshow.R
-import com.taufik.themovieshow.databinding.FragmentDetailTvShowFavoriteBinding
-import com.taufik.themovieshow.ui.main.tvshow.adapter.TvShowsCastAdapter
 import com.taufik.themovieshow.data.main.tvshow.popularairingtoday.TvShowsMainResult
 import com.taufik.themovieshow.data.viewmodel.tvshow.DetailTvShowViewModel
-import com.taufik.themovieshow.utils.LoadImage.loadImage
+import com.taufik.themovieshow.databinding.FragmentDetailTvShowFavoriteBinding
+import com.taufik.themovieshow.ui.main.tvshow.adapter.TvShowsCastAdapter
+import com.taufik.themovieshow.utils.loadImage
+import com.taufik.themovieshow.utils.toRating
 import es.dmoral.toasty.Toasty
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.*
-import kotlin.math.roundToInt
 
 class DetailTvShowFavoriteFragment : Fragment() {
 
@@ -91,10 +91,7 @@ class DetailTvShowFavoriteFragment : Fragment() {
                     tvReleaseDateFavorite.text = it.firstAirDate
                     tvStatusFavorite.text = it.status
                     tvOverviewFavorite.text = it.overview
-
-                    val ratingOld = it.voteAverage
-                    val ratingNew = (ratingOld * 10.0).roundToInt() / 10.0
-                    tvRatingFavorite.text = ratingNew.toString()
+                    tvRatingFavorite.text = toRating(it.voteAverage)
 
                     when {
                         it.genres.isEmpty() -> tvGenreFavorite.text = "N/A"

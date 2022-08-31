@@ -9,7 +9,8 @@ import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.main.movie.discover.DiscoverMovieResult
 import com.taufik.themovieshow.databinding.ItemsMoviesTvShowBinding
 import com.taufik.themovieshow.ui.detail.movie.fragment.DetailMovieFragment
-import com.taufik.themovieshow.utils.LoadImage.loadImage
+import com.taufik.themovieshow.utils.loadImage
+import com.taufik.themovieshow.utils.toRating
 
 class DiscoverMovieAdapter : RecyclerView.Adapter<DiscoverMovieAdapter.MovieViewHolder>(){
 
@@ -27,7 +28,7 @@ class DiscoverMovieAdapter : RecyclerView.Adapter<DiscoverMovieAdapter.MovieView
                imgPoster.loadImage(data.posterPath)
                 tvTitle.text = data.title
                 tvReleaseDate.text = data.releaseDate
-                tvRating.text = data.voteAverage.toString()
+                tvRating.text = toRating(data.voteAverage)
 
                 itemView.setOnClickListener {
                     val bundle = Bundle()

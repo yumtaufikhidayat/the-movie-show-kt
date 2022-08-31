@@ -7,14 +7,12 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.taufik.themovieshow.data.main.movie.cast.MovieCast
 import com.taufik.themovieshow.databinding.ItemCastBinding
-import com.taufik.themovieshow.utils.LoadImage.loadImage
+import com.taufik.themovieshow.utils.loadImage
 
-class MovieCastAdapter :
-    ListAdapter<MovieCast, MovieCastAdapter.MovieViewHolder>(MovieCastDiffCallback) {
+class MovieCastAdapter : ListAdapter<MovieCast, MovieCastAdapter.MovieViewHolder>(MovieCastDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val itemsCastBinding =
-            ItemCastBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val itemsCastBinding = ItemCastBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MovieViewHolder(itemsCastBinding)
     }
 
