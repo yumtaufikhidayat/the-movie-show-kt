@@ -15,5 +15,6 @@ fun ImageView.loadImage(url: String?) {
 }
 
 fun toRating(data: Double): String {
-    return ((data * 10.0).roundToInt() / 10.0).toString()
+    val tenDouble = 10.0
+    return ((data * tenDouble).roundToInt() / tenDouble).toString()
 }
