@@ -7,8 +7,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.taufik.themovieshow.databinding.ItemAboutBinding
 import com.taufik.themovieshow.data.main.about.About
+import com.taufik.themovieshow.databinding.ItemAboutBinding
 import es.dmoral.toasty.Toasty
 
 class AboutAuthorAdapter: RecyclerView.Adapter<AboutAuthorAdapter.AboutViewHolder>() {

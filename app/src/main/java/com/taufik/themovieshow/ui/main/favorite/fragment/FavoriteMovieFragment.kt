@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.taufik.themovieshow.databinding.FragmentFavoriteMovieBinding
 import com.taufik.themovieshow.data.local.entity.FavoriteMovie
-import com.taufik.themovieshow.ui.main.movie.adapter.MovieAdapter
 import com.taufik.themovieshow.data.main.movie.nowplayingupcoming.MovieMainResult
 import com.taufik.themovieshow.data.viewmodel.movie.FavoriteMovieViewModel
+import com.taufik.themovieshow.databinding.FragmentFavoriteMovieBinding
+import com.taufik.themovieshow.ui.main.movie.adapter.MovieAdapter
 
 class FavoriteMovieFragment : Fragment() {
 

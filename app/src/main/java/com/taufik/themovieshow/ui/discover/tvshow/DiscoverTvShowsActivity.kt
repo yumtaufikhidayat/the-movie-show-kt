@@ -13,9 +13,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.taufik.themovieshow.BuildConfig
 import com.taufik.themovieshow.R
+import com.taufik.themovieshow.data.viewmodel.tvshow.TvShowsViewModel
 import com.taufik.themovieshow.databinding.ActivityDiscoverTvShowsBinding
 import com.taufik.themovieshow.ui.main.tvshow.adapter.DiscoverTvShowsAdapter
-import com.taufik.themovieshow.data.viewmodel.tvshow.TvShowsViewModel
 import es.dmoral.toasty.Toasty
 
 class DiscoverTvShowsActivity : AppCompatActivity() {

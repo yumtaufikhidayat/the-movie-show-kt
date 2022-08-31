@@ -9,9 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.taufik.themovieshow.BuildConfig
+import com.taufik.themovieshow.data.viewmodel.tvshow.TvShowsViewModel
 import com.taufik.themovieshow.databinding.FragmentTvShowAiringTodayBinding
 import com.taufik.themovieshow.ui.main.tvshow.adapter.TvShowsAdapter
-import com.taufik.themovieshow.data.viewmodel.tvshow.TvShowsViewModel
 
 class TvShowAiringTodayFragment : Fragment() {
 

@@ -8,10 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.taufik.themovieshow.R
+import com.taufik.themovieshow.data.viewmodel.about.AboutViewModel
 import com.taufik.themovieshow.databinding.FragmentAboutBinding
 import com.taufik.themovieshow.ui.main.about.adapter.AboutApplicationAdapter
 import com.taufik.themovieshow.ui.main.about.adapter.AboutAuthorAdapter
-import com.taufik.themovieshow.data.viewmodel.about.AboutViewModel
 
 class AboutFragment : Fragment() {
 

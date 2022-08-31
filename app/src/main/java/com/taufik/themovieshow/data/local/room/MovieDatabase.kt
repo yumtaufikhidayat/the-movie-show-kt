@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.taufik.themovieshow.data.local.entity.FavoriteMovie
 import com.taufik.themovieshow.data.local.dao.FavoriteMovieDao
+import com.taufik.themovieshow.data.local.entity.FavoriteMovie
 
 @Database(entities = [FavoriteMovie::class], version = 1, exportSchema = false)
 abstract class MovieDatabase: RoomDatabase() {

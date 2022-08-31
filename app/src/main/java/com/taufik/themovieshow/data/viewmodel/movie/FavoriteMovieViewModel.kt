@@ -3,8 +3,8 @@ package com.taufik.themovieshow.data.viewmodel.movie
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import com.taufik.themovieshow.data.local.entity.FavoriteMovie
 import com.taufik.themovieshow.data.local.dao.FavoriteMovieDao
+import com.taufik.themovieshow.data.local.entity.FavoriteMovie
 import com.taufik.themovieshow.data.local.room.MovieDatabase
 
 class FavoriteMovieViewModel(application: Application) : AndroidViewModel(application) {
