@@ -114,20 +114,6 @@
                 app:layout_constraintTop_toBottomOf="@id/tvReleaseDate"
                 tools:text="@string/tvStatus"/>
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent=".35"/>
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent=".7"/>
-
             <TextView
                 android:id="@+id/tvRatingTitle"
                 android:layout_width="wrap_content"
@@ -138,19 +124,28 @@
                 android:text="@string/tvRating"
                 app:layout_constraintTop_toBottomOf="@id/cardPoster"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/guideline1"/>
+                app:layout_constraintEnd_toStartOf="@id/viewDivider1"/>
 
             <TextView
                 android:id="@+id/tvRating"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginHorizontal="16dp"
                 android:textColor="@color/colorTextIcons"
                 android:gravity="center"
                 tools:text="@string/tvRating"
                 app:layout_constraintTop_toBottomOf="@id/tvRatingTitle"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="@id/guideline1"/>
+                app:layout_constraintEnd_toStartOf="@id/viewDivider1"/>
+
+            <View
+                android:id="@+id/viewDivider1"
+                android:layout_width="2dp"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toTopOf="@id/tvRatingTitle"
+                app:layout_constraintBottom_toBottomOf="@id/tvRating"
+                app:layout_constraintStart_toEndOf="@id/tvRatingTitle"
+                app:layout_constraintEnd_toStartOf="@id/tvGenreTitle"/>
 
             <TextView
                 android:id="@+id/tvGenreTitle"
@@ -160,20 +155,29 @@
                 android:textStyle="bold"
                 android:text="@string/tvGenre"
                 app:layout_constraintTop_toTopOf="@id/tvRatingTitle"
-                app:layout_constraintStart_toStartOf="@id/guideline1"
-                app:layout_constraintEnd_toEndOf="@id/guideline2"/>
+                app:layout_constraintStart_toStartOf="@id/viewDivider1"
+                app:layout_constraintEnd_toStartOf="@id/viewDivider2"/>
 
             <TextView
                 android:id="@+id/tvGenre"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginHorizontal="16dp"
                 android:gravity="center"
                 android:textColor="@color/colorTextIcons"
                 tools:text="@string/tvGenre"
                 app:layout_constraintTop_toBottomOf="@id/tvGenreTitle"
-                app:layout_constraintStart_toStartOf="@id/guideline1"
-                app:layout_constraintEnd_toEndOf="@id/guideline2" />
+                app:layout_constraintStart_toEndOf="@id/viewDivider1"
+                app:layout_constraintEnd_toStartOf="@id/viewDivider2"/>
+
+            <View
+                android:id="@+id/viewDivider2"
+                android:layout_width="2dp"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toTopOf="@id/tvRatingTitle"
+                app:layout_constraintBottom_toBottomOf="@id/tvRating"
+                app:layout_constraintStart_toEndOf="@id/tvGenreTitle"
+                app:layout_constraintEnd_toStartOf="@id/tvEpisodesTitle"/>
 
             <TextView
                 android:id="@+id/tvEpisodesTitle"
@@ -181,21 +185,21 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorTextOther"
                 android:textStyle="bold"
-                android:text="@string/tvEpisodes"
+                android:text="@string/tvRuntime"
                 app:layout_constraintTop_toTopOf="@id/tvRatingTitle"
-                app:layout_constraintStart_toStartOf="@id/guideline2"
+                app:layout_constraintStart_toEndOf="@id/viewDivider2"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
             <TextView
                 android:id="@+id/tvEpisodes"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginHorizontal="16dp"
                 android:gravity="center"
                 android:textColor="@color/colorTextIcons"
-                tools:text="@string/tvEpisodes"
+                tools:text="@string/tvRuntime"
                 app:layout_constraintTop_toBottomOf="@id/tvEpisodesTitle"
-                app:layout_constraintStart_toStartOf="@id/guideline2"
+                app:layout_constraintStart_toEndOf="@id/viewDivider2"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
             <TextView
