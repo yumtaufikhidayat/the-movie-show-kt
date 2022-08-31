@@ -27,6 +27,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.*
+import kotlin.math.roundToInt
 
 class DetailMovieFavoriteFragment : Fragment() {
 
@@ -83,7 +84,10 @@ class DetailMovieFavoriteFragment : Fragment() {
                     tvReleaseDateFavorite.text = it.releaseDate
                     tvStatusFavorite.text = it.status
                     tvOverviewFavorite.text = it.overview
-                    tvRatingFavorite.text = it.voteAverage.toString()
+
+                    val ratingOld = it.voteAverage
+                    val ratingNew = (ratingOld * 10.0).roundToInt() / 10.0
+                    tvRatingFavorite.text = ratingNew.toString()
 
                     when {
                         it.genres.isEmpty() -> tvGenreFavorite.text = "N/A"

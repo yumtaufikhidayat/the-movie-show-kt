@@ -13,6 +13,7 @@ import com.taufik.themovieshow.databinding.ItemsMoviesTvShowBinding
 import com.taufik.themovieshow.ui.detail.tvshow.fragment.DetailTvShowFragment
 import com.taufik.themovieshow.data.main.tvshow.trending.TvShowsTrendingResult
 import com.taufik.themovieshow.utils.LoadImage.loadImage
+import kotlin.math.roundToInt
 
 class TvShowsTrendingAdapter : ListAdapter<TvShowsTrendingResult, TvShowsTrendingAdapter.TvShowsViewHolder>(TvShowTrendingDiffCallback) {
 
@@ -29,7 +30,10 @@ class TvShowsTrendingAdapter : ListAdapter<TvShowsTrendingResult, TvShowsTrendin
             imgPoster.loadImage(UrlEndpoint.IMAGE_URL + data.posterPath)
             tvTitle.text = data.name
             tvReleaseDate.text = data.firstAirDate
-            tvRating.text = data.voteAverage.toString()
+
+            val ratingOld = data.voteAverage
+            val ratingNew = (ratingOld * 10.0).roundToInt() / 10.0
+            tvRating.text = ratingNew.toString()
 
             itemView.setOnClickListener {
                 val bundle = Bundle()
