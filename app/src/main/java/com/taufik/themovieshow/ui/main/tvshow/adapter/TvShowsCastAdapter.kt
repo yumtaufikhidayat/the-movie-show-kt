@@ -5,15 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
-import com.taufik.themovieshow.R
-import com.taufik.themovieshow.api.UrlEndpoint
-import com.taufik.themovieshow.databinding.ItemCastBinding
 import com.taufik.themovieshow.data.main.tvshow.cast.TvShowsCast
+import com.taufik.themovieshow.databinding.ItemCastBinding
+import com.taufik.themovieshow.utils.LoadImage.loadImage
 
-class TvShowsCastAdapter :
-    ListAdapter<TvShowsCast, TvShowsCastAdapter.MovieViewHolder>(TvShowCastDiffCallback) {
+class TvShowsCastAdapter : ListAdapter<TvShowsCast, TvShowsCastAdapter.MovieViewHolder>(TvShowCastDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val itemsCastBinding =
@@ -27,16 +23,9 @@ class TvShowsCastAdapter :
 
     inner class MovieViewHolder(private val binding: ItemCastBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(movieCast: TvShowsCast) = with(binding) {
-            Glide.with(itemView.context)
-                .load(UrlEndpoint.IMAGE_URL + movieCast.profilePath)
-                .apply(
-                    RequestOptions.placeholderOf(R.drawable.ic_loading)
-                        .error(R.drawable.ic_error)
-                )
-                .into(imgPoster)
-
-            tvCastName.text = movieCast.name
+        fun bind(data: TvShowsCast) = with(binding) {
+            imgPoster.loadImage(data.profilePath)
+            tvCastName.text = data.name
         }
     }
 

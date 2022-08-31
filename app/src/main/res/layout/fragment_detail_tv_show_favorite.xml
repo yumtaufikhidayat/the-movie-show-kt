@@ -118,11 +118,11 @@
                 android:id="@+id/tvRatingTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="36dp"
                 android:textColor="@color/colorTextOther"
                 android:textStyle="bold"
                 android:text="@string/tvRating"
-                app:layout_constraintTop_toBottomOf="@id/cardPosterFavorite"
+                app:layout_constraintTop_toBottomOf="@id/tvStatusFavorite"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/viewDivider1"/>
 
@@ -185,7 +185,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorTextOther"
                 android:textStyle="bold"
-                android:text="@string/tvRuntime"
+                android:text="@string/tvEpisodes"
                 app:layout_constraintTop_toTopOf="@id/tvRatingTitle"
                 app:layout_constraintStart_toEndOf="@id/viewDivider2"
                 app:layout_constraintEnd_toEndOf="parent"/>
@@ -197,7 +197,7 @@
                 android:layout_marginHorizontal="16dp"
                 android:gravity="center"
                 android:textColor="@color/colorTextIcons"
-                tools:text="@string/tvRuntime"
+                tools:text="@string/tvEpisodes"
                 app:layout_constraintTop_toBottomOf="@id/tvEpisodesTitle"
                 app:layout_constraintStart_toEndOf="@id/viewDivider2"
                 app:layout_constraintEnd_toEndOf="parent"/>

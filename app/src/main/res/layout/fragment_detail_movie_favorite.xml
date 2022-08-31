@@ -107,11 +107,11 @@
                 android:id="@+id/tvRatingTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="36dp"
                 android:textColor="@color/colorTextOther"
                 android:textStyle="bold"
                 android:text="@string/tvRating"
-                app:layout_constraintTop_toBottomOf="@id/cardPosterFavorite"
+                app:layout_constraintTop_toBottomOf="@id/tvStatusFavorite"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/viewDivider1"/>
 

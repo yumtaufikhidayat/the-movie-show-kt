@@ -106,7 +106,7 @@ class DetailTvShowFavoriteFragment : Fragment() {
                     setActionFavorite(idTvShow, it.posterPath, title, it.firstAirDate, it.voteAverage)
                     shareTvShow(it.homepage)
                     setCast(idTvShow)
-                    showVideo(id)
+                    showVideo(idTvShow)
                 }
             }
         }
