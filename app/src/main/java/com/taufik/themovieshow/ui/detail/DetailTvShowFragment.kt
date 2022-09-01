@@ -1,4 +1,4 @@
-package com.taufik.themovieshow.ui.detail.tvshow.fragment
+package com.taufik.themovieshow.ui.detail
 
 import android.content.Intent
 import android.os.Bundle
@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.taufik.themovieshow.R
-import com.taufik.themovieshow.data.main.tvshow.trending.TvShowsTrendingResult
 import com.taufik.themovieshow.data.viewmodel.tvshow.DetailTvShowViewModel
 import com.taufik.themovieshow.databinding.FragmentDetailTvShowBinding
 import com.taufik.themovieshow.ui.main.tvshow.adapter.TvShowsCastAdapter
@@ -61,9 +60,11 @@ class DetailTvShowFragment : Fragment() {
     }
 
     private fun getBundleData() {
-        val data = arguments?.getParcelable<TvShowsTrendingResult>(EXTRA_DATA) as TvShowsTrendingResult
-        idTvShow = data.id
-        title = data.name
+        val bundle = this.arguments
+        if (bundle != null) {
+            idTvShow = bundle.getInt(DetailMovieFragment.EXTRA_ID, 0)
+            title = bundle.getString(DetailMovieFragment.EXTRA_TITLE, "")
+        }
     }
 
     private fun showToolbarData() = with(binding) {
@@ -243,6 +244,7 @@ class DetailTvShowFragment : Fragment() {
     }
 
     companion object {
-        const val EXTRA_DATA = "com.taufik.themovieshow.ui.main.tvshow.fragment.EXTRA_DATA"
+        const val EXTRA_ID = "EXTRA_ID"
+        const val EXTRA_TITLE = "EXTRA_TITLE"
     }
 }

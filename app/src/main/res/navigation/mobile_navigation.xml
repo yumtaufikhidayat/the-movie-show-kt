@@ -32,23 +32,13 @@
         tools:layout="@layout/fragment_about" />
     <fragment
         android:id="@+id/detailTvShowFragment"
-        android:name="com.taufik.themovieshow.ui.detail.tvshow.fragment.DetailTvShowFragment"
+        android:name="com.taufik.themovieshow.ui.detail.DetailTvShowFragment"
         tools:layout="@layout/fragment_detail_tv_show" />
     <fragment
-        android:id="@+id/detailTvShowFavoriteFragment"
-        android:name="com.taufik.themovieshow.ui.detail.tvshow.fragment.DetailTvShowFavoriteFragment"
-        android:label="fragment_detail_tv_show_favorite"
-        tools:layout="@layout/fragment_detail_tv_show_favorite" />
-    <fragment
         android:id="@+id/detailMovieFragment"
-        android:name="com.taufik.themovieshow.ui.detail.movie.fragment.DetailMovieFragment"
+        android:name="com.taufik.themovieshow.ui.detail.DetailMovieFragment"
         android:label="fragment_detail_movie"
         tools:layout="@layout/fragment_detail_movie" />
-    <fragment
-        android:id="@+id/detailMovieFavoriteFragment"
-        android:name="com.taufik.themovieshow.ui.detail.movie.fragment.DetailMovieFavoriteFragment"
-        android:label="fragment_detail_movie_favorite"
-        tools:layout="@layout/fragment_detail_movie_favorite" />
     <fragment
         android:id="@+id/discoverMovieFragment"
         android:name="com.taufik.themovieshow.ui.discover.movie.DiscoverMovieFragment"

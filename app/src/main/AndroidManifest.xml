@@ -12,16 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TheMovieShow">
         <activity
-            android:name="com.taufik.themovieshow.ui.discover.tvshow.DiscoverTvShowsActivity"
-            android:exported="true"
-            android:theme="@style/TheMovieShowDarkActivityTheme"/>
-        <activity
-            android:name="com.taufik.themovieshow.ui.discover.movie.DiscoverMovieActivity"
-            android:exported="true"
-            android:theme="@style/TheMovieShowDarkActivityTheme" />
-        <activity
             android:name=".ui.MainActivity"
-            android:exported="false"
+            android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/TheMovieShowDarkActivityTheme" />
         <activity

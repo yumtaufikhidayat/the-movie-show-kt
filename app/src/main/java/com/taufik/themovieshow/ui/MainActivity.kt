@@ -35,9 +35,7 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener {_, destination, _ ->
             when (destination.id) {
                 R.id.detailTvShowFragment -> showHideBottomNavigation(false)
-                R.id.detailTvShowFavoriteFragment -> showHideBottomNavigation(false)
                 R.id.detailMovieFragment -> showHideBottomNavigation(false)
-                R.id.detailMovieFavoriteFragment -> showHideBottomNavigation(false)
                 R.id.discoverMovieFragment -> showHideBottomNavigation(false)
                 else -> showHideBottomNavigation(true)
             }

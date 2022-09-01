@@ -1,4 +1,4 @@
-package com.taufik.themovieshow.ui.detail.movie.fragment
+package com.taufik.themovieshow.ui.detail
 
 import android.content.Intent
 import android.os.Bundle
@@ -16,9 +16,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.taufik.themovieshow.R
-import com.taufik.themovieshow.data.main.movie.nowplayingupcoming.MovieMainResult
 import com.taufik.themovieshow.data.viewmodel.movie.DetailMovieViewModel
-import com.taufik.themovieshow.databinding.FragmentDetailMovieFavoriteBinding
+import com.taufik.themovieshow.databinding.FragmentDetailMovieBinding
 import com.taufik.themovieshow.ui.main.movie.adapter.MovieCastAdapter
 import com.taufik.themovieshow.utils.loadImage
 import com.taufik.themovieshow.utils.toRating
@@ -29,9 +28,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.*
 
-class DetailMovieFavoriteFragment : Fragment() {
+class DetailMovieFragment : Fragment() {
 
-    private var _binding: FragmentDetailMovieFavoriteBinding? = null
+    private var _binding: FragmentDetailMovieBinding? = null
     private val binding get() = _binding!!
 
     private val viewModel: DetailMovieViewModel by viewModels()
@@ -47,7 +46,7 @@ class DetailMovieFavoriteFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        _binding = FragmentDetailMovieFavoriteBinding.inflate(inflater, container, false)
+        _binding = FragmentDetailMovieBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -61,16 +60,18 @@ class DetailMovieFavoriteFragment : Fragment() {
     }
 
     private fun getBundleData() {
-        val data = arguments?.getParcelable<MovieMainResult>(EXTRA_DATA) as MovieMainResult
-        idMovie = data.id
-        title = data.title
+        val bundle = this.arguments
+        if (bundle != null) {
+            idMovie = bundle.getInt(EXTRA_ID, 0)
+            title = bundle.getString(EXTRA_TITLE, "")
+        }
     }
 
     private fun showToolbarData() = with(binding) {
-        toolbarDetailMovieFavorite.imgBack.setOnClickListener {
+        toolbarDetailMovie.imgBack.setOnClickListener {
             findNavController().popBackStack()
         }
-        toolbarDetailMovieFavorite.tvToolbar.text = title
+        toolbarDetailMovie.tvToolbar.text = title
     }
 
     private fun setData() = with(binding) {
@@ -78,20 +79,20 @@ class DetailMovieFavoriteFragment : Fragment() {
             setDetailMovies(idMovie)
             getDetailMovies().observe(viewLifecycleOwner) {
                 if (it != null) {
-                    imgPosterFavorite.loadImage(it.posterPath)
-                    imgBackdropFavorite.loadImage(it.backdropPath)
-                    tvTitleFavorite.text = it.title
-                    tvReleaseDateFavorite.text = it.releaseDate
-                    tvStatusFavorite.text = it.status
-                    tvOverviewFavorite.text = it.overview
-                    tvRatingFavorite.text = toRating(it.voteAverage)
+                    imgPoster.loadImage(it.posterPath)
+                    imgBackdrop.loadImage(it.backdropPath)
+                    tvTitle.text = it.title
+                    tvReleaseDate.text = it.releaseDate
+                    tvStatus.text = it.status
+                    tvOverview.text = it.overview
+                    tvRating.text = toRating(it.voteAverage)
 
                     when {
-                        it.genres.isEmpty() -> tvGenreFavorite.text = "N/A"
-                        else -> tvGenreFavorite.text = it.genres[0].name
+                        it.genres.isEmpty() -> tvGenre.text = "N/A"
+                        else -> tvGenre.text = it.genres[0].name
                     }
 
-                    tvRuntimeFavorite.text = String.format("${it.runtime} min")
+                    tvRuntime.text = String.format("${it.runtime} min")
 
                     checkFavoriteData(idMovie)
                     setActionFavorite(idMovie, it.posterPath, title, it.releaseDate, it.voteAverage)
@@ -109,10 +110,10 @@ class DetailMovieFavoriteFragment : Fragment() {
             withContext(Dispatchers.Main) {
                 if (count != null) {
                     if (count > 0) {
-                        toolbarDetailMovieFavorite.toggleFavorite.isChecked = true
+                        toolbarDetailMovie.toggleFavorite.isChecked = true
                         isChecked = true
                     } else {
-                        toolbarDetailMovieFavorite.toggleFavorite.isChecked = false
+                        toolbarDetailMovie.toggleFavorite.isChecked = false
                         isChecked = false
                     }
                 }
@@ -127,7 +128,7 @@ class DetailMovieFavoriteFragment : Fragment() {
         releaseDate: String,
         voteAverage: Double
     ) = with(binding) {
-        toolbarDetailMovieFavorite.toggleFavorite.setOnClickListener {
+        toolbarDetailMovie.toggleFavorite.setOnClickListener {
             isChecked = !isChecked
             if (isChecked) {
                 viewModel.addToFavorite(
@@ -146,7 +147,7 @@ class DetailMovieFavoriteFragment : Fragment() {
     }
 
     private fun shareMovie(link: String) = with(binding) {
-        toolbarDetailMovieFavorite.imgShare.setOnClickListener {
+        toolbarDetailMovie.imgShare.setOnClickListener {
             try {
                 val body = "Visit this awesome movie \n${link}"
                 val shareIntent = Intent(Intent.ACTION_SEND)
@@ -167,8 +168,8 @@ class DetailMovieFavoriteFragment : Fragment() {
             getDetailMovieVideo().observe(viewLifecycleOwner) {
                 if (it != null) {
                     when {
-                        it.results.isEmpty() -> tvTrailerFavorite.text = String.format(Locale.getDefault(), "Trailer Video Not Available")
-                        else -> tvTrailerFavorite.text = it.results[0].name
+                        it.results.isEmpty() -> tvTrailer.text = String.format(Locale.getDefault(), "Trailer Video Not Available")
+                        else -> tvTrailer.text = it.results[0].name
                     }
 
                     lifecycle.addObserver(videoTrailer)
@@ -190,7 +191,7 @@ class DetailMovieFavoriteFragment : Fragment() {
 
     private fun setCastAdapter() = with(binding) {
         castAdapter = MovieCastAdapter()
-        rvMovieCastFavorite.apply {
+        rvMovieCast.apply {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             setHasFixedSize(true)
             adapter = castAdapter
@@ -209,16 +210,16 @@ class DetailMovieFavoriteFragment : Fragment() {
     }
 
     private fun setReadMore() = with(binding) {
-        tvReadMoreFavorite.isVisible = true
-        tvReadMoreFavorite.setOnClickListener {
-            if (tvReadMoreFavorite.text.toString() == "Read More") {
-                tvOverviewFavorite.maxLines = Integer.MAX_VALUE
-                tvOverviewFavorite.ellipsize = null
-                tvReadMoreFavorite.text = getString(R.string.tvReadLess)
+        tvReadMore.isVisible = true
+        tvReadMore.setOnClickListener {
+            if (tvReadMore.text.toString() == "Read More") {
+                tvOverview.maxLines = Integer.MAX_VALUE
+                tvOverview.ellipsize = null
+                tvReadMore.text = getString(R.string.tvReadLess)
             } else {
-                tvOverviewFavorite.maxLines = 4
-                tvOverviewFavorite.ellipsize = TextUtils.TruncateAt.END
-                tvReadMoreFavorite.text = getString(R.string.tvReadMore)
+                tvOverview.maxLines = 4
+                tvOverview.ellipsize = TextUtils.TruncateAt.END
+                tvReadMore.text = getString(R.string.tvReadMore)
             }
         }
     }
@@ -233,6 +234,7 @@ class DetailMovieFavoriteFragment : Fragment() {
     }
 
     companion object {
-        const val EXTRA_DATA = "com.taufik.themovieshow.ui.detail.movie.fragment.EXTRA_DATA"
+        const val EXTRA_ID = "EXTRA_ID"
+        const val EXTRA_TITLE = "EXTRA_TITLE"
     }
 }

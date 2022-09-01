@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.main.movie.trending.MovieTrendingResult
 import com.taufik.themovieshow.databinding.ItemsMoviesTvShowBinding
-import com.taufik.themovieshow.ui.detail.movie.fragment.DetailMovieFragment
+import com.taufik.themovieshow.ui.detail.DetailMovieFragment
 import com.taufik.themovieshow.utils.loadImage
 import com.taufik.themovieshow.utils.toRating
 
@@ -33,7 +33,8 @@ class MovieTrendingAdapter : ListAdapter<MovieTrendingResult, MovieTrendingAdapt
 
             itemView.setOnClickListener {
                 val bundle = Bundle()
-                bundle.putParcelable(DetailMovieFragment.EXTRA_DATA, data)
+                bundle.putInt(DetailMovieFragment.EXTRA_ID, data.id)
+                bundle.putString(DetailMovieFragment.EXTRA_TITLE, data.title)
                 it.findNavController().navigate(R.id.detailMovieFragment, bundle)
             }
         }

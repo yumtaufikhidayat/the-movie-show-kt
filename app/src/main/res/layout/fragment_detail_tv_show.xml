@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context=".ui.detail.tvshow.fragment.DetailTvShowFragment">
+    tools:context=".ui.detail.DetailTvShowFragment">
 
     <include
         android:id="@+id/toolbarDetailTvShow"

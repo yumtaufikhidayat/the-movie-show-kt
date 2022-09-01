@@ -11,7 +11,7 @@ import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.api.UrlEndpoint
 import com.taufik.themovieshow.data.main.tvshow.popularairingtoday.TvShowsMainResult
 import com.taufik.themovieshow.databinding.ItemsMoviesTvShowBinding
-import com.taufik.themovieshow.ui.detail.tvshow.fragment.DetailTvShowFavoriteFragment
+import com.taufik.themovieshow.ui.detail.DetailTvShowFragment
 import com.taufik.themovieshow.utils.loadImage
 import com.taufik.themovieshow.utils.toRating
 
@@ -36,8 +36,9 @@ class TvShowsAdapter : ListAdapter<TvShowsMainResult, TvShowsAdapter.TvShowsView
 
                 itemView.setOnClickListener {
                     val bundle = Bundle()
-                    bundle.putParcelable(DetailTvShowFavoriteFragment.EXTRA_DATA, data)
-                    it.findNavController().navigate(R.id.detailTvShowFavoriteFragment, bundle)
+                    bundle.putInt(DetailTvShowFragment.EXTRA_ID, data.id)
+                    bundle.putString(DetailTvShowFragment.EXTRA_TITLE, data.name)
+                    it.findNavController().navigate(R.id.detailTvShowFragment, bundle)
                 }
             }
         }

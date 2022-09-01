@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.databinding.FragmentTvShowBinding
-import com.taufik.themovieshow.ui.discover.tvshow.DiscoverTvShowsActivity
 import com.taufik.themovieshow.ui.main.tvshow.adapter.TvShowPagerAdapter
 
 class TvShowFragment : Fragment() {
@@ -48,7 +47,7 @@ class TvShowFragment : Fragment() {
 
     private fun setActionClick() = with(binding) {
         fabTvShow.setOnClickListener {
-            startActivity(Intent(requireActivity(), DiscoverTvShowsActivity::class.java))
+//            startActivity(Intent(requireActivity(), DiscoverTvShowsActivity::class.java))
         }
     }
 
