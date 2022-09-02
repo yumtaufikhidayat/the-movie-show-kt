@@ -41,8 +41,13 @@
         tools:layout="@layout/fragment_detail_movie" />
     <fragment
         android:id="@+id/discoverMovieFragment"
-        android:name="com.taufik.themovieshow.ui.discover.movie.DiscoverMovieFragment"
+        android:name="com.taufik.themovieshow.ui.discover.DiscoverMovieFragment"
         android:label="fragment_discover_movie"
         tools:layout="@layout/fragment_discover_movie" />
+    <fragment
+        android:id="@+id/discoverTvShowFragment"
+        android:name="com.taufik.themovieshow.ui.discover.DiscoverTvShowFragment"
+        android:label="fragment_discover_tv_show"
+        tools:layout="@layout/fragment_discover_tv_show" />
 
 </navigation>

@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.main.tvshow.discover.DiscoverTvShowsResult
 import com.taufik.themovieshow.databinding.ItemsMoviesTvShowBinding
-import com.taufik.themovieshow.ui.detail.DetailMovieFragment
+import com.taufik.themovieshow.ui.detail.DetailTvShowFragment
 import com.taufik.themovieshow.utils.loadImage
 import com.taufik.themovieshow.utils.toRating
 
@@ -35,9 +35,9 @@ class DiscoverTvShowsAdapter : ListAdapter<DiscoverTvShowsResult, DiscoverTvShow
 
                 itemView.setOnClickListener {
                     val bundle = Bundle()
-                    bundle.putInt(DetailMovieFragment.EXTRA_ID, data.id)
-                    bundle.putString(DetailMovieFragment.EXTRA_TITLE, data.name)
-                    it.findNavController().navigate(R.id.detailMovieFragment, bundle)
+                    bundle.putInt(DetailTvShowFragment.EXTRA_ID, data.id)
+                    bundle.putString(DetailTvShowFragment.EXTRA_TITLE, data.name)
+                    it.findNavController().navigate(R.id.detailTvShowFragment, bundle)
                 }
             }
         }

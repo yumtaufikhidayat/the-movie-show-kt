@@ -40,7 +40,7 @@ class TvShowTrendingFragment : Fragment() {
 
     private fun setData() {
         showLoading(true)
-        viewModel.setTvShowsTrending(BuildConfig.API_KEY)
+        viewModel.setTvShowsTrending()
         viewModel.getTvShowsTrending().observe(viewLifecycleOwner) {
             if (it != null) {
                 tvShowsTrendingAdapter.submitList(it)

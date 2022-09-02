@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.detailTvShowFragment -> showHideBottomNavigation(false)
                 R.id.detailMovieFragment -> showHideBottomNavigation(false)
                 R.id.discoverMovieFragment -> showHideBottomNavigation(false)
+                R.id.discoverTvShowFragment -> showHideBottomNavigation(false)
                 else -> showHideBottomNavigation(true)
             }
         }

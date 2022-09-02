@@ -48,7 +48,7 @@ class TVShowsPopularFragment : Fragment() {
 
     private fun setData() {
         showLoading(true)
-        viewModel.setTvShowsPopular(BuildConfig.API_KEY)
+        viewModel.setTvShowsPopular()
         viewModel.getTvShowsPopular().observe(viewLifecycleOwner) {
             if (it != null) {
                 tvShowsAdapter.submitList(it)

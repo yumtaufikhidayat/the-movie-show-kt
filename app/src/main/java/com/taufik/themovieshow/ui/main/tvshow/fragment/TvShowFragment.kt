@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.databinding.FragmentTvShowBinding
@@ -47,7 +48,7 @@ class TvShowFragment : Fragment() {
 
     private fun setActionClick() = with(binding) {
         fabTvShow.setOnClickListener {
-//            startActivity(Intent(requireActivity(), DiscoverTvShowsActivity::class.java))
+            findNavController().navigate(R.id.discoverTvShowFragment)
         }
     }
 

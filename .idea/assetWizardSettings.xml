@@ -319,7 +319,7 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_clear_white" />
+                            <entry key="outputName" value="ic_outline_clear" />
                           </map>
                         </option>
                       </PersistentState>

@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.taufik.themovieshow.BuildConfig
 import com.taufik.themovieshow.data.api.ApiClient
 import com.taufik.themovieshow.data.main.tvshow.discover.DiscoverTvShowsResponse
 import com.taufik.themovieshow.data.main.tvshow.discover.DiscoverTvShowsResult
@@ -17,6 +18,7 @@ import retrofit2.Response
 
 class TvShowsViewModel : ViewModel() {
 
+    private val apiKey = BuildConfig.API_KEY
     private val listAiringToday = MutableLiveData<ArrayList<TvShowsMainResult>>()
     private val listPopular = MutableLiveData<ArrayList<TvShowsMainResult>>()
     private val listTrending = MutableLiveData<ArrayList<TvShowsTrendingResult>>()
@@ -43,7 +45,7 @@ class TvShowsViewModel : ViewModel() {
         return listAiringToday
     }
 
-    fun setTvShowsPopular(apiKey: String) {
+    fun setTvShowsPopular() {
         ApiClient.apiInstance
                 .getTvShowsPopular(apiKey)
                 .enqueue(object : Callback<TvShowsMainResponse> {
@@ -64,7 +66,7 @@ class TvShowsViewModel : ViewModel() {
         return listPopular
     }
 
-    fun setTvShowsTrending(apiKey: String) {
+    fun setTvShowsTrending() {
         ApiClient.apiInstance
             .getTvShowsTrending(apiKey)
             .enqueue(object : Callback<TvShowsTrendingReponse> {
@@ -89,7 +91,7 @@ class TvShowsViewModel : ViewModel() {
         return listTrending
     }
 
-    fun setDiscoverTvShows(apiKey: String, query: String) {
+    fun setDiscoverTvShows(query: String) {
         ApiClient.apiInstance
             .getDiscoverTvShows(apiKey, query)
             .enqueue(object : Callback<DiscoverTvShowsResponse> {
