@@ -11,6 +11,9 @@ import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.main.tvshow.discover.DiscoverTvShowsResult
 import com.taufik.themovieshow.databinding.ItemsMoviesTvShowBinding
 import com.taufik.themovieshow.ui.detail.DetailTvShowFragment
+import com.taufik.themovieshow.utils.CommonConstants.MMM_DD_YYYY_FORMAT
+import com.taufik.themovieshow.utils.CommonConstants.YYYY_MM_DD_FORMAT
+import com.taufik.themovieshow.utils.convertDate
 import com.taufik.themovieshow.utils.loadImage
 import com.taufik.themovieshow.utils.toRating
 
@@ -30,7 +33,7 @@ class DiscoverTvShowsAdapter : ListAdapter<DiscoverTvShowsResult, DiscoverTvShow
             with(binding) {
                 imgPoster.loadImage(data.posterPath)
                 tvTitle.text = data.name
-                tvReleaseDate.text = data.firstAirDate
+                tvReleaseDate.text = data.firstAirDate.convertDate(YYYY_MM_DD_FORMAT, MMM_DD_YYYY_FORMAT)
                 tvRating.text = toRating(data.voteAverage)
 
                 itemView.setOnClickListener {

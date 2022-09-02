@@ -19,6 +19,8 @@ import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.viewmodel.tvshow.DetailTvShowViewModel
 import com.taufik.themovieshow.databinding.FragmentDetailTvShowBinding
 import com.taufik.themovieshow.ui.main.tvshow.adapter.TvShowsCastAdapter
+import com.taufik.themovieshow.utils.CommonConstants
+import com.taufik.themovieshow.utils.convertDate
 import com.taufik.themovieshow.utils.loadImage
 import com.taufik.themovieshow.utils.toRating
 import es.dmoral.toasty.Toasty
@@ -91,7 +93,10 @@ class DetailTvShowFragment : Fragment() {
                         else -> tvNetwork.text = String.format("${it.networks[0].name} (${it.networks[0].originCountry})")
                     }
 
-                    tvReleaseDate.text = it.firstAirDate
+                    tvReleaseDate.text = it.firstAirDate.convertDate(
+                        CommonConstants.YYYY_MM_DD_FORMAT,
+                        CommonConstants.MMM_DD_YYYY_FORMAT
+                    )
                     tvStatus.text = it.status
                     tvOverview.text = it.overview
                     tvRating.text = toRating(it.voteAverage)

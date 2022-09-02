@@ -30,7 +30,7 @@ class CustomEditText: AppCompatEditText, View.OnTouchListener {
 
     private fun init() {
         searchIcon = ContextCompat.getDrawable(context, R.drawable.ic_search) as Drawable
-        clearIcon = ContextCompat.getDrawable(context, R.drawable.ic_outline_clear) as Drawable
+        clearIcon = ContextCompat.getDrawable(context, R.drawable.ic_clear) as Drawable
 
         setOnTouchListener(this)
 
@@ -93,14 +93,14 @@ class CustomEditText: AppCompatEditText, View.OnTouchListener {
                         when (event.action) {
                             MotionEvent.ACTION_DOWN -> {
                                 searchIcon = ContextCompat.getDrawable(context, R.drawable.ic_search) as Drawable
-                                clearIcon = ContextCompat.getDrawable(context, R.drawable.ic_outline_clear) as Drawable
+                                clearIcon = ContextCompat.getDrawable(context, R.drawable.ic_clear) as Drawable
                                 showClearButton()
                                 return true
                             }
 
                             MotionEvent.ACTION_UP -> {
                                 searchIcon = ContextCompat.getDrawable(context, R.drawable.ic_search) as Drawable
-                                clearIcon = ContextCompat.getDrawable(context, R.drawable.ic_outline_clear) as Drawable
+                                clearIcon = ContextCompat.getDrawable(context, R.drawable.ic_clear) as Drawable
                                 when {
                                     text != null -> text?.clear()
                                 }

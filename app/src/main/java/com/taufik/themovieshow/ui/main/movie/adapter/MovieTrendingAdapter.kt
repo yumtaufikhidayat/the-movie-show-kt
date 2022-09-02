@@ -11,6 +11,8 @@ import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.main.movie.trending.MovieTrendingResult
 import com.taufik.themovieshow.databinding.ItemsMoviesTvShowBinding
 import com.taufik.themovieshow.ui.detail.DetailMovieFragment
+import com.taufik.themovieshow.utils.CommonConstants
+import com.taufik.themovieshow.utils.convertDate
 import com.taufik.themovieshow.utils.loadImage
 import com.taufik.themovieshow.utils.toRating
 
@@ -28,7 +30,10 @@ class MovieTrendingAdapter : ListAdapter<MovieTrendingResult, MovieTrendingAdapt
         fun bind(data: MovieTrendingResult) = with(binding) {
             imgPoster.loadImage(data.posterPath)
             tvTitle.text = data.title
-            tvReleaseDate.text = data.releaseDate
+            tvReleaseDate.text = data.releaseDate.convertDate(
+                CommonConstants.YYYY_MM_DD_FORMAT,
+                CommonConstants.MMM_DD_YYYY_FORMAT
+            )
             tvRating.text = toRating(data.voteAverage)
 
             itemView.setOnClickListener {

@@ -19,6 +19,8 @@ import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.viewmodel.movie.DetailMovieViewModel
 import com.taufik.themovieshow.databinding.FragmentDetailMovieBinding
 import com.taufik.themovieshow.ui.main.movie.adapter.MovieCastAdapter
+import com.taufik.themovieshow.utils.CommonConstants
+import com.taufik.themovieshow.utils.convertDate
 import com.taufik.themovieshow.utils.loadImage
 import com.taufik.themovieshow.utils.toRating
 import es.dmoral.toasty.Toasty
@@ -84,7 +86,10 @@ class DetailMovieFragment : Fragment() {
                     imgPoster.loadImage(it.posterPath)
                     imgBackdrop.loadImage(it.backdropPath)
                     tvTitle.text = it.title
-                    tvReleaseDate.text = it.releaseDate
+                    tvReleaseDate.text = it.releaseDate.convertDate(
+                        CommonConstants.YYYY_MM_DD_FORMAT,
+                        CommonConstants.MMM_DD_YYYY_FORMAT
+                    )
                     tvStatus.text = it.status
                     tvOverview.text = it.overview
                     tvRating.text = toRating(it.voteAverage)

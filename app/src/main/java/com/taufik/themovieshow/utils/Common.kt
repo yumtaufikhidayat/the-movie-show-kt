@@ -5,6 +5,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.api.UrlEndpoint
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.math.roundToInt
 
 fun ImageView.loadImage(url: String?) {
@@ -17,4 +19,11 @@ fun ImageView.loadImage(url: String?) {
 fun toRating(data: Double): String {
     val tenDouble = 10.0
     return ((data * tenDouble).roundToInt() / tenDouble).toString()
+}
+
+fun String.convertDate(inputFormat: String, outputFormat: String): String {
+    val formatter = SimpleDateFormat(inputFormat, Locale.getDefault())
+    val formatParser = formatter.parse(this) ?: Date()
+    val newOutputFormat = SimpleDateFormat(outputFormat, Locale.getDefault())
+    return newOutputFormat.format(formatParser)
 }
