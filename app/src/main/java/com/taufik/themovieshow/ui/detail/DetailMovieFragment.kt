@@ -68,10 +68,12 @@ class DetailMovieFragment : Fragment() {
     }
 
     private fun showToolbarData() = with(binding) {
-        toolbarDetailMovie.imgBack.setOnClickListener {
-            findNavController().popBackStack()
+        toolbarDetailMovie.apply {
+            tvToolbar.text = title
+            imgBack.setOnClickListener {
+                findNavController().popBackStack()
+            }
         }
-        toolbarDetailMovie.tvToolbar.text = title
     }
 
     private fun setData() = with(binding) {

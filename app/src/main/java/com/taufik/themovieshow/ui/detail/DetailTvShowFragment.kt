@@ -68,10 +68,12 @@ class DetailTvShowFragment : Fragment() {
     }
 
     private fun showToolbarData() = with(binding) {
-        toolbarDetailTvShow.imgBack.setOnClickListener {
-            findNavController().popBackStack()
+        toolbarDetailTvShow.apply {
+            tvToolbar.text = title
+            imgBack.setOnClickListener {
+                findNavController().popBackStack()
+            }
         }
-        toolbarDetailTvShow.tvToolbar.text = title
     }
 
     private fun setData() = with(binding){
