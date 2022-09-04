@@ -8,7 +8,6 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.taufik.themovieshow.BuildConfig
 import com.taufik.themovieshow.data.viewmodel.tvshow.TvShowsViewModel
 import com.taufik.themovieshow.databinding.FragmentTvShowTrendingBinding
 import com.taufik.themovieshow.ui.main.tvshow.adapter.TvShowsTrendingAdapter
@@ -40,11 +39,13 @@ class TvShowTrendingFragment : Fragment() {
 
     private fun setData() {
         showLoading(true)
-        viewModel.setTvShowsTrending()
-        viewModel.getTvShowsTrending().observe(viewLifecycleOwner) {
-            if (it != null) {
-                tvShowsTrendingAdapter.submitList(it)
-                showLoading(false)
+        viewModel.apply {
+            setTvShowsTrending()
+            listTrending.observe(viewLifecycleOwner) {
+                if (it != null) {
+                    tvShowsTrendingAdapter.submitList(it)
+                    showLoading(false)
+                }
             }
         }
     }

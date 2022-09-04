@@ -19,90 +19,86 @@ import retrofit2.Response
 class MovieViewModel : ViewModel() {
 
     private val apiKey = BuildConfig.API_KEY
-    private val listNowPlaying = MutableLiveData<ArrayList<MovieMainResult>>()
-    private val listUpcoming = MutableLiveData<ArrayList<MovieMainResult>>()
-    private val listTrendingDay  = MutableLiveData<ArrayList<MovieTrendingResult>>()
-    private val listDiscover = MutableLiveData<ArrayList<DiscoverMovieResult>>()
+    private val apiInstance = ApiClient.apiInstance
+
+    private val _listNowPlaying = MutableLiveData<ArrayList<MovieMainResult>>()
+    val listNowPlaying: LiveData<ArrayList<MovieMainResult>> = _listNowPlaying
+
+    private val _listUpcoming = MutableLiveData<ArrayList<MovieMainResult>>()
+    val listUpcoming: LiveData<ArrayList<MovieMainResult>> = _listUpcoming
+
+    private val _listTrendingDay  = MutableLiveData<ArrayList<MovieTrendingResult>>()
+    val listTrendingDay: LiveData<ArrayList<MovieTrendingResult>> = _listTrendingDay
+
+    private val _listDiscover = MutableLiveData<ArrayList<DiscoverMovieResult>>()
+    val listDiscover: LiveData<ArrayList<DiscoverMovieResult>> = _listDiscover
 
     fun setMovieNowPlaying(){
-        ApiClient.apiInstance
-                .getMovieNowPlaying(apiKey)
-                .enqueue(object : Callback<MovieMainResponse> {
-                    override fun onResponse(
-                            call: Call<MovieMainResponse>,
-                            response: Response<MovieMainResponse>
-                    ) {
-                        if (response.isSuccessful) {
-                            listNowPlaying.postValue(response.body()?.results as ArrayList<MovieMainResult>)
-                            Log.e("mainSuccess", "onResponse: ${response.body()}")
-                        }
+        apiInstance.getMovieNowPlaying(apiKey)
+            .enqueue(object : Callback<MovieMainResponse> {
+                override fun onResponse(
+                    call: Call<MovieMainResponse>,
+                    response: Response<MovieMainResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        _listNowPlaying.value = response.body()?.results as ArrayList<MovieMainResult>
+                        Log.e("mainSuccess", "onResponse: ${response.body()}")
                     }
+                }
 
-                    override fun onFailure(call: Call<MovieMainResponse>, t: Throwable) {
-                        Log.e("mainFailed", "onFailure: ${t.localizedMessage}")
-                    }
-                })
-    }
-
-    fun getMovieNowPlaying(): LiveData<ArrayList<MovieMainResult>> {
-        return listNowPlaying
+                override fun onFailure(call: Call<MovieMainResponse>, t: Throwable) {
+                    Log.e("mainFailed", "onFailure: ${t.localizedMessage}")
+                }
+            })
     }
 
     fun setMovieUpcoming(){
-        ApiClient.apiInstance
-                .getMovieUpcoming(apiKey)
-                .enqueue(object : Callback<MovieMainResponse> {
-                    override fun onResponse(
-                            call: Call<MovieMainResponse>,
-                            response: Response<MovieMainResponse>
-                    ) {
-                        if (response.isSuccessful) {
-                            listUpcoming.postValue(response.body()?.results as ArrayList<MovieMainResult>)
-                            Log.e("mainSuccess", "onResponse: ${response.body()}")
-                        }
+        apiInstance.getMovieUpcoming(apiKey)
+            .enqueue(object : Callback<MovieMainResponse> {
+                override fun onResponse(
+                    call: Call<MovieMainResponse>,
+                    response: Response<MovieMainResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        _listUpcoming.value = response.body()?.results as ArrayList<MovieMainResult>
+                        Log.e("mainSuccess", "onResponse: ${response.body()}")
                     }
+                }
 
-                    override fun onFailure(call: Call<MovieMainResponse>, t: Throwable) {
-                        Log.e("mainFailed", "onFailure: ${t.localizedMessage}")
-                    }
-                })
-    }
-
-    fun getMovieUpcoming(): LiveData<ArrayList<MovieMainResult>> {
-        return listUpcoming
+                override fun onFailure(call: Call<MovieMainResponse>, t: Throwable) {
+                    Log.e("mainFailed", "onFailure: ${t.localizedMessage}")
+                }
+            })
     }
 
     fun setMovieTrendingDay(){
-        ApiClient.apiInstance
-                .getMovieTrendingDay(apiKey)
-                .enqueue(object : Callback<MovieTrendingResponse> {
-                    override fun onResponse(call: Call<MovieTrendingResponse>, response: Response<MovieTrendingResponse>) {
-                        if (response.isSuccessful) {
-                            listTrendingDay.postValue(response.body()?.results as ArrayList<MovieTrendingResult>)
-                            Log.e("mainSuccess", "onResponse: ${response.body()}")
-                        }
+        apiInstance.getMovieTrendingDay(apiKey)
+            .enqueue(object : Callback<MovieTrendingResponse> {
+                override fun onResponse(
+                    call: Call<MovieTrendingResponse>,
+                    response: Response<MovieTrendingResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        _listTrendingDay.value = response.body()?.results as ArrayList<MovieTrendingResult>
+                        Log.e("mainSuccess", "onResponse: ${response.body()}")
                     }
+                }
 
-                    override fun onFailure(call: Call<MovieTrendingResponse>, t: Throwable) {
-                        Log.e("mainFailed", "onFailure: ${t.localizedMessage}")
-                    }
-                })
-    }
-
-    fun getMovieTrendingDay(): LiveData<ArrayList<MovieTrendingResult>> {
-        return listTrendingDay
+                override fun onFailure(call: Call<MovieTrendingResponse>, t: Throwable) {
+                    Log.e("mainFailed", "onFailure: ${t.localizedMessage}")
+                }
+            })
     }
 
     fun setDiscoverMovie(query: String){
-        ApiClient.apiInstance
-            .getDiscoverMovie(apiKey, query)
+        apiInstance.getDiscoverMovie(apiKey, query)
             .enqueue(object : Callback<DiscoverMovieResponse> {
                 override fun onResponse(
                     call: Call<DiscoverMovieResponse>,
                     response: Response<DiscoverMovieResponse>
                 ) {
                     if (response.isSuccessful) {
-                        listDiscover.postValue(response.body()?.results as ArrayList<DiscoverMovieResult>)
+                        _listDiscover.value = response.body()?.results as ArrayList<DiscoverMovieResult>
                         Log.e("mainSuccess", "onResponse: ${response.body()}")
                     }
                 }
@@ -111,9 +107,5 @@ class MovieViewModel : ViewModel() {
                     Log.e("mainFailed", "onFailure: ${t.localizedMessage}")
                 }
             })
-    }
-
-    fun getDiscoverMovie(): LiveData<ArrayList<DiscoverMovieResult>> {
-        return listDiscover
     }
 }

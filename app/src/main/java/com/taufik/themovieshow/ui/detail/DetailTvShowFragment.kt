@@ -81,7 +81,7 @@ class DetailTvShowFragment : Fragment() {
     private fun setData() = with(binding){
         viewModel.apply {
             setDetailTvShowPopular(idTvShow)
-            getDetailTvShowsPopular().observe(viewLifecycleOwner) {
+            detailTvShows.observe(viewLifecycleOwner) {
                 if (it != null) {
                     imgPoster.loadImage(it.posterPath)
                     imgBackdrop.loadImage(it.backdropPath)
@@ -182,7 +182,7 @@ class DetailTvShowFragment : Fragment() {
     private fun showVideo(id: Int) = with(binding) {
         viewModel.apply {
             setDetailTvShowVideo(id)
-            getDetailTvShowsVideo().observe(viewLifecycleOwner) {
+            detailVideo.observe(viewLifecycleOwner) {
                 if (it != null) {
                     when {
                         it.results.isEmpty() -> tvTrailer.text = String.format(Locale.getDefault(), "Trailer Video Not Available")
@@ -218,7 +218,7 @@ class DetailTvShowFragment : Fragment() {
     private fun setCast(id: Int) {
         viewModel.apply {
             setDetailTvShowsCast(id)
-            getDetailTvShowsCast().observe(viewLifecycleOwner) {
+            listDetailCasts.observe(viewLifecycleOwner) {
                 if (it != null) {
                     castAdapter.submitList(it)
                 }

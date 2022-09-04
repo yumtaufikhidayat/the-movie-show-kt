@@ -81,7 +81,7 @@ class DetailMovieFragment : Fragment() {
     private fun setData() = with(binding) {
         viewModel.apply {
             setDetailMovies(idMovie)
-            getDetailMovies().observe(viewLifecycleOwner) {
+            detailMovies.observe(viewLifecycleOwner) {
                 if (it != null) {
                     imgPoster.loadImage(it.posterPath)
                     imgBackdrop.loadImage(it.backdropPath)
@@ -172,7 +172,7 @@ class DetailMovieFragment : Fragment() {
     private fun showVideo(id: Int) = with(binding) {
         viewModel.apply {
             setDetailMovieVideo(id)
-            getDetailMovieVideo().observe(viewLifecycleOwner) {
+            detailVideo.observe(viewLifecycleOwner) {
                 if (it != null) {
                     when {
                         it.results.isEmpty() -> tvTrailer.text = String.format(Locale.getDefault(), "Trailer Video Not Available")
@@ -208,7 +208,7 @@ class DetailMovieFragment : Fragment() {
     private fun setCast(id: Int) {
         viewModel.apply {
             setDetailMovieCast(id)
-            getDetailMovieCast().observe(viewLifecycleOwner) {
+            listDetailCast.observe(viewLifecycleOwner) {
                 if (it != null) {
                     castAdapter.submitList(it)
                 }

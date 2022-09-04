@@ -47,11 +47,13 @@ class MovieTrendingFragment : Fragment() {
 
     private fun setData() {
         showLoading(true)
-        viewModel.setMovieTrendingDay()
-        viewModel.getMovieTrendingDay().observe(viewLifecycleOwner) {
-            if (it != null) {
-                movieTrendingAdapter.submitList(it)
-                showLoading(false)
+        viewModel.apply {
+            setMovieTrendingDay()
+            listTrendingDay.observe(viewLifecycleOwner) {
+                if (it != null) {
+                    movieTrendingAdapter.submitList(it)
+                    showLoading(false)
+                }
             }
         }
     }

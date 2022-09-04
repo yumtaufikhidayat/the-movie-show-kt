@@ -19,63 +19,67 @@ import retrofit2.Response
 class TvShowsViewModel : ViewModel() {
 
     private val apiKey = BuildConfig.API_KEY
-    private val listAiringToday = MutableLiveData<ArrayList<TvShowsMainResult>>()
-    private val listPopular = MutableLiveData<ArrayList<TvShowsMainResult>>()
-    private val listTrending = MutableLiveData<ArrayList<TvShowsTrendingResult>>()
-    private val listDiscover = MutableLiveData<ArrayList<DiscoverTvShowsResult>>()
+    private val apiInstance = ApiClient.apiInstance
+
+    private val _listAiringToday = MutableLiveData<ArrayList<TvShowsMainResult>>()
+    val listAiringToday: LiveData<ArrayList<TvShowsMainResult>> = _listAiringToday
+
+    private val _listPopular = MutableLiveData<ArrayList<TvShowsMainResult>>()
+    val listPopular: LiveData<ArrayList<TvShowsMainResult>> = _listPopular
+
+    private val _listTrending = MutableLiveData<ArrayList<TvShowsTrendingResult>>()
+    val listTrending: LiveData<ArrayList<TvShowsTrendingResult>> = _listTrending
+
+    private val _listDiscover = MutableLiveData<ArrayList<DiscoverTvShowsResult>>()
+    val listDiscover: LiveData<ArrayList<DiscoverTvShowsResult>> = _listDiscover
 
     fun setTvShowsAiringToday(apiKey: String) {
-        ApiClient.apiInstance
-                .getTvShowsAiringToday(apiKey)
-                .enqueue(object : Callback<TvShowsMainResponse> {
-                    override fun onResponse(call: Call<TvShowsMainResponse>, response: Response<TvShowsMainResponse>) {
-                        if (response.isSuccessful) {
-                            listAiringToday.postValue(response.body()?.results as ArrayList<TvShowsMainResult>)
-                            Log.e("mainSuccess", "onResponse: ${response.body()}")
-                        }
+        apiInstance.getTvShowsAiringToday(apiKey)
+            .enqueue(object : Callback<TvShowsMainResponse> {
+                override fun onResponse(
+                    call: Call<TvShowsMainResponse>,
+                    response: Response<TvShowsMainResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        _listAiringToday.value = response.body()?.results as ArrayList<TvShowsMainResult>
+                        Log.e("mainSuccess", "onResponse: ${response.body()}")
                     }
+                }
 
-                    override fun onFailure(call: Call<TvShowsMainResponse>, t: Throwable) {
-                        Log.e("mainFailed", "onFailure: ${t.localizedMessage}")
-                    }
-                })
-    }
-
-    fun getTvShowsAiringToday(): LiveData<ArrayList<TvShowsMainResult>> {
-        return listAiringToday
+                override fun onFailure(call: Call<TvShowsMainResponse>, t: Throwable) {
+                    Log.e("mainFailed", "onFailure: ${t.localizedMessage}")
+                }
+            })
     }
 
     fun setTvShowsPopular() {
-        ApiClient.apiInstance
-                .getTvShowsPopular(apiKey)
-                .enqueue(object : Callback<TvShowsMainResponse> {
-                    override fun onResponse(call: Call<TvShowsMainResponse>, response: Response<TvShowsMainResponse>) {
-                        if (response.isSuccessful) {
-                            listPopular.postValue(response.body()?.results as ArrayList<TvShowsMainResult>)
-                            Log.e("mainSuccess", "onResponse: ${response.body()}")
-                        }
+        apiInstance.getTvShowsPopular(apiKey)
+            .enqueue(object : Callback<TvShowsMainResponse> {
+                override fun onResponse(
+                    call: Call<TvShowsMainResponse>,
+                    response: Response<TvShowsMainResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        _listPopular.value = response.body()?.results as ArrayList<TvShowsMainResult>
+                        Log.e("mainSuccess", "onResponse: ${response.body()}")
                     }
+                }
 
-                    override fun onFailure(call: Call<TvShowsMainResponse>, t: Throwable) {
-                        Log.e("mainFailed", "onFailure: ${t.localizedMessage}")
-                    }
-                })
-    }
-
-    fun getTvShowsPopular(): LiveData<ArrayList<TvShowsMainResult>> {
-        return listPopular
+                override fun onFailure(call: Call<TvShowsMainResponse>, t: Throwable) {
+                    Log.e("mainFailed", "onFailure: ${t.localizedMessage}")
+                }
+            })
     }
 
     fun setTvShowsTrending() {
-        ApiClient.apiInstance
-            .getTvShowsTrending(apiKey)
+        apiInstance.getTvShowsTrending(apiKey)
             .enqueue(object : Callback<TvShowsTrendingReponse> {
                 override fun onResponse(
                     call: Call<TvShowsTrendingReponse>,
                     response: Response<TvShowsTrendingReponse>
                 ) {
                     if (response.body() != null) {
-                        listTrending.postValue(response.body()?.results as ArrayList<TvShowsTrendingResult>)
+                        _listTrending.value = response.body()?.results as ArrayList<TvShowsTrendingResult>
                         Log.e("mainSuccess", "onResponse: ${response.body()}")
                     }
                 }
@@ -87,20 +91,15 @@ class TvShowsViewModel : ViewModel() {
             })
     }
 
-    fun getTvShowsTrending(): LiveData<ArrayList<TvShowsTrendingResult>> {
-        return listTrending
-    }
-
     fun setDiscoverTvShows(query: String) {
-        ApiClient.apiInstance
-            .getDiscoverTvShows(apiKey, query)
+        apiInstance.getDiscoverTvShows(apiKey, query)
             .enqueue(object : Callback<DiscoverTvShowsResponse> {
                 override fun onResponse(
                     call: Call<DiscoverTvShowsResponse>,
                     response: Response<DiscoverTvShowsResponse>
                 ) {
                     if (response.isSuccessful) {
-                        listDiscover.postValue(response.body()?.results as ArrayList<DiscoverTvShowsResult>)
+                        _listDiscover.value = response.body()?.results as ArrayList<DiscoverTvShowsResult>
                         Log.e("mainSuccess", "onResponse: ${response.body()}")
                     }
                 }
@@ -109,9 +108,5 @@ class TvShowsViewModel : ViewModel() {
                     Log.e("mainFailed", "onFailure: ${t.localizedMessage}")
                 }
             })
-    }
-
-    fun getDiscoverTvShows(): LiveData<ArrayList<DiscoverTvShowsResult>>{
-        return listDiscover
     }
 }

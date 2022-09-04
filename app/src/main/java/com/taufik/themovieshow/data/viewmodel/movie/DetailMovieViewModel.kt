@@ -24,9 +24,16 @@ import retrofit2.Response
 class DetailMovieViewModel(application: Application) : AndroidViewModel(application) {
 
     private val apiKey = BuildConfig.API_KEY
-    val listDetailMovies = MutableLiveData<MovieDetailResponse>()
-    val listDetailVideo = MutableLiveData<MovieVideoResponse>()
-    val listDetailCast = MutableLiveData<ArrayList<MovieCast>>()
+    private val apiClient = ApiClient.apiInstance
+
+    private val _listDetailMovies = MutableLiveData<MovieDetailResponse>()
+    val detailMovies: LiveData<MovieDetailResponse> = _listDetailMovies
+
+    private val _detailVideo = MutableLiveData<MovieVideoResponse>()
+    val detailVideo: LiveData<MovieVideoResponse> = _detailVideo
+
+    private val _listDetailCast = MutableLiveData<ArrayList<MovieCast>>()
+    val listDetailCast: LiveData<ArrayList<MovieCast>> = _listDetailCast
 
     private var movieDao: FavoriteMovieDao?
     private var movieDb: MovieDatabase? = MovieDatabase.getDatabase(context = application)
@@ -36,15 +43,14 @@ class DetailMovieViewModel(application: Application) : AndroidViewModel(applicat
     }
 
     fun setDetailMovies(id: Int) {
-        ApiClient.apiInstance
-            .getDetailMovie(id, apiKey)
+        apiClient.getDetailMovie(id, apiKey)
             .enqueue(object : Callback<MovieDetailResponse> {
                 override fun onResponse(
                     call: Call<MovieDetailResponse>,
                     response: Response<MovieDetailResponse>
                 ) {
                     if (response.isSuccessful) {
-                        listDetailMovies.postValue(response.body())
+                        _listDetailMovies.value = response.body()
                         Log.e("listDetailMovies", "onResponse: ${response.body()}" )
                     }
                 }
@@ -52,25 +58,19 @@ class DetailMovieViewModel(application: Application) : AndroidViewModel(applicat
                 override fun onFailure(call: Call<MovieDetailResponse>, t: Throwable) {
                     Log.e("errorRetrofit", "onFailure: ${t.localizedMessage}")
                 }
-
             })
     }
 
-    fun getDetailMovies(): LiveData<MovieDetailResponse> {
-        return listDetailMovies
-    }
-
     fun setDetailMovieVideo(id: Int) {
-        ApiClient.apiInstance
-            .getMovieVideo(id, apiKey)
+        apiClient.getMovieVideo(id, apiKey)
             .enqueue(object : Callback<MovieVideoResponse> {
                 override fun onResponse(
                     call: Call<MovieVideoResponse>,
                     response: Response<MovieVideoResponse>
                 ) {
                     if (response.isSuccessful) {
-                        listDetailVideo.postValue(response.body())
-                        Log.e("listDetailVideo", "onResponse: ${response.body()}")
+                        _detailVideo.value = response.body()
+                        Log.e("detailVideo", "onResponse: ${response.body()}")
                     }
                 }
 
@@ -78,10 +78,6 @@ class DetailMovieViewModel(application: Application) : AndroidViewModel(applicat
                     Log.e("errorRetrofit", "onFailure: ${t.localizedMessage}")
                 }
             })
-    }
-
-    fun getDetailMovieVideo(): LiveData<MovieVideoResponse>{
-        return listDetailVideo
     }
 
     fun setDetailMovieCast(id: Int) {
@@ -93,7 +89,7 @@ class DetailMovieViewModel(application: Application) : AndroidViewModel(applicat
                     response: Response<MovieCastResponse>
                 ) {
                     if (response.isSuccessful) {
-                        listDetailCast.postValue(response.body()?.cast as ArrayList<MovieCast>)
+                        _listDetailCast.value = response.body()?.cast as ArrayList<MovieCast>
                         Log.e("listDetailCast", "onResponse: ${response.body()}")
                     }
                 }
@@ -102,10 +98,6 @@ class DetailMovieViewModel(application: Application) : AndroidViewModel(applicat
                     Log.e("errorRetrofit", "onFailure: ${t.localizedMessage}")
                 }
             })
-    }
-
-    fun getDetailMovieCast(): LiveData<ArrayList<MovieCast>> {
-        return listDetailCast
     }
 
     // Favorite

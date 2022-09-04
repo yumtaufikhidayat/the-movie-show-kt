@@ -47,11 +47,13 @@ class MovieUpcomingFragment : Fragment() {
 
     private fun setData() {
         showLoading(true)
-        viewModel.setMovieUpcoming()
-        viewModel.getMovieUpcoming().observe(viewLifecycleOwner) {
-            if (it != null) {
-                movieAdapter.submitList(it)
-                showLoading(false)
+        viewModel.apply {
+            setMovieUpcoming()
+            listUpcoming.observe(viewLifecycleOwner) {
+                if (it != null) {
+                    movieAdapter.submitList(it)
+                    showLoading(false)
+                }
             }
         }
     }

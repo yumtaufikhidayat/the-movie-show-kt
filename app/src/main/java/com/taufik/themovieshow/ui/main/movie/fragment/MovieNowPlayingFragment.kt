@@ -47,11 +47,13 @@ class MovieNowPlayingFragment : Fragment() {
 
     private fun setData() {
         showLoading(true)
-        viewModel.setMovieNowPlaying()
-        viewModel.getMovieNowPlaying().observe(viewLifecycleOwner) {
-            if (it != null) {
-                movieAdapter.submitList(it)
-                showLoading(false)
+        viewModel.apply {
+            setMovieNowPlaying()
+            listNowPlaying.observe(viewLifecycleOwner) {
+                if (it != null) {
+                    movieAdapter.submitList(it)
+                    showLoading(false)
+                }
             }
         }
     }

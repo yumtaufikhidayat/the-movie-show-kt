@@ -23,11 +23,17 @@ import retrofit2.Response
 
 class DetailTvShowViewModel(application: Application) : AndroidViewModel(application) {
 
-    val apiKey = BuildConfig.API_KEY
+    private val apiKey = BuildConfig.API_KEY
+    private val apiInstance = ApiClient.apiInstance
 
-    val listDetailTvShows = MutableLiveData<TvShowsPopularDetailResponse>()
-    val listDetailVideo = MutableLiveData<TvShowsVideoResponse>()
-    val listDetailCast = MutableLiveData<ArrayList<TvShowsCast>>()
+    private val _listDetailTvShows = MutableLiveData<TvShowsPopularDetailResponse>()
+    val detailTvShows: LiveData<TvShowsPopularDetailResponse> = _listDetailTvShows
+
+    private val _listDetailVideo = MutableLiveData<TvShowsVideoResponse>()
+    val detailVideo: LiveData<TvShowsVideoResponse> = _listDetailVideo
+
+    private val _listDetailCast = MutableLiveData<ArrayList<TvShowsCast>>()
+    val listDetailCasts: LiveData<ArrayList<TvShowsCast>> = _listDetailCast
 
     private var tvShowDao: FavoriteTvShowDao?
     private var tvShowDb: TvShowDatabase? = TvShowDatabase.getDatabase(context = application)
@@ -37,36 +43,33 @@ class DetailTvShowViewModel(application: Application) : AndroidViewModel(applica
     }
 
     fun setDetailTvShowPopular(id: Int) {
-        ApiClient.apiInstance
-                .getDetailTvShows(id, apiKey)
-                .enqueue(object : Callback<TvShowsPopularDetailResponse> {
-                    override fun onResponse(call: Call<TvShowsPopularDetailResponse>, response: Response<TvShowsPopularDetailResponse>) {
-                        if (response.isSuccessful) {
-                            listDetailTvShows.postValue(response.body())
-                            Log.e("listDetailTvShows", "onResponse: ${response.body()}")
-                        }
+        apiInstance.getDetailTvShows(id, apiKey)
+            .enqueue(object : Callback<TvShowsPopularDetailResponse> {
+                override fun onResponse(
+                    call: Call<TvShowsPopularDetailResponse>,
+                    response: Response<TvShowsPopularDetailResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        _listDetailTvShows.value = response.body()
+                        Log.e("listDetailTvShows", "onResponse: ${response.body()}")
                     }
+                }
 
-                    override fun onFailure(call: Call<TvShowsPopularDetailResponse>, t: Throwable) {
-                        Log.e("errorRetrofit", "onFailure: ${t.localizedMessage}")
-                    }
-                })
-    }
-
-    fun getDetailTvShowsPopular(): LiveData<TvShowsPopularDetailResponse> {
-        return listDetailTvShows
+                override fun onFailure(call: Call<TvShowsPopularDetailResponse>, t: Throwable) {
+                    Log.e("errorRetrofit", "onFailure: ${t.localizedMessage}")
+                }
+            })
     }
 
     fun setDetailTvShowVideo(id: Int) {
-        ApiClient.apiInstance
-            .getTvShowsVideo(id, apiKey)
+        apiInstance.getTvShowsVideo(id, apiKey)
             .enqueue(object : Callback<TvShowsVideoResponse> {
                 override fun onResponse(
                     call: Call<TvShowsVideoResponse>,
                     response: Response<TvShowsVideoResponse>
                 ) {
                     if (response.isSuccessful) {
-                        listDetailVideo.postValue(response.body())
+                        _listDetailVideo.value = response.body()
                         Log.e("listDetailVideo", "onResponse: ${response.body()}")
                     }
                 }
@@ -77,20 +80,15 @@ class DetailTvShowViewModel(application: Application) : AndroidViewModel(applica
             })
     }
 
-    fun getDetailTvShowsVideo(): LiveData<TvShowsVideoResponse> {
-        return listDetailVideo
-    }
-
     fun setDetailTvShowsCast(id: Int) {
-        ApiClient.apiInstance
-            .getTvShowsCast(id, apiKey)
+        apiInstance.getTvShowsCast(id, apiKey)
             .enqueue(object : Callback<TvShowsCastResponse> {
                 override fun onResponse(
                     call: Call<TvShowsCastResponse>,
                     response: Response<TvShowsCastResponse>
                 ) {
                     if (response.isSuccessful) {
-                        listDetailCast.postValue(response.body()?.cast as ArrayList<TvShowsCast>)
+                        _listDetailCast.value = response.body()?.cast as ArrayList<TvShowsCast>
                         Log.e("listDetailCast", "onResponse: ${response.body()}")
                     }
                 }
@@ -99,10 +97,6 @@ class DetailTvShowViewModel(application: Application) : AndroidViewModel(applica
                     Log.e("errorRetrofit", "onFailure: ${t.localizedMessage}")
                 }
             })
-    }
-
-    fun getDetailTvShowsCast(): LiveData<ArrayList<TvShowsCast>> {
-        return listDetailCast
     }
 
     // Favorite

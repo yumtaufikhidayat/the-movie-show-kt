@@ -48,11 +48,13 @@ class TvShowAiringTodayFragment : Fragment() {
 
     private fun setData() {
         showLoading(true)
-        viewModel.setTvShowsAiringToday(BuildConfig.API_KEY)
-        viewModel.getTvShowsAiringToday().observe(viewLifecycleOwner) {
-            if (it != null) {
-                tvShowsAdapter.submitList(it)
-                showLoading(false)
+        viewModel.apply {
+            setTvShowsAiringToday(BuildConfig.API_KEY)
+            listAiringToday.observe(viewLifecycleOwner) {
+                if (it != null) {
+                    tvShowsAdapter.submitList(it)
+                    showLoading(false)
+                }
             }
         }
     }

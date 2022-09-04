@@ -77,7 +77,7 @@ class DiscoverTvShowFragment : Fragment() {
         showLoading(true)
         viewModel.apply {
             setDiscoverTvShows(query.toString())
-            getDiscoverTvShows().observe(viewLifecycleOwner) {
+            listDiscover.observe(viewLifecycleOwner) {
                 if (it != null) {
                     discoverTvShowsAdapter.submitList(it)
                     showLoading(false)

@@ -8,7 +8,6 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.taufik.themovieshow.BuildConfig
 import com.taufik.themovieshow.data.viewmodel.tvshow.TvShowsViewModel
 import com.taufik.themovieshow.databinding.FragmentTvShowsPopularBinding
 import com.taufik.themovieshow.ui.main.tvshow.adapter.TvShowsAdapter
@@ -48,11 +47,13 @@ class TVShowsPopularFragment : Fragment() {
 
     private fun setData() {
         showLoading(true)
-        viewModel.setTvShowsPopular()
-        viewModel.getTvShowsPopular().observe(viewLifecycleOwner) {
-            if (it != null) {
-                tvShowsAdapter.submitList(it)
-                showLoading(false)
+        viewModel.apply {
+            setTvShowsPopular()
+            listPopular.observe(viewLifecycleOwner) {
+                if (it != null) {
+                    tvShowsAdapter.submitList(it)
+                    showLoading(false)
+                }
             }
         }
     }
