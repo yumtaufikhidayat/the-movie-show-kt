@@ -20,19 +20,13 @@ import retrofit2.http.Query
 interface Api {
 
     @GET(UrlEndpoint.MOVIE_NOW_PLAYING)
-    fun getMovieNowPlaying(
-            @Query("api_key") apiKey: String
-    ): Call<MovieMainResponse>
+    fun getMovieNowPlaying(@Query("api_key") apiKey: String): Call<MovieMainResponse>
 
     @GET(UrlEndpoint.MOVIE_UPCOMING)
-    fun getMovieUpcoming(
-            @Query("api_key") apiKey: String
-    ): Call<MovieMainResponse>
+    fun getMovieUpcoming(@Query("api_key") apiKey: String): Call<MovieMainResponse>
 
     @GET(UrlEndpoint.MOVIE_TRENDING_DAY)
-    fun getMovieTrendingDay(
-            @Query("api_key") apiKey: String
-    ): Call<MovieTrendingResponse>
+    fun getMovieTrendingDay(@Query("api_key") apiKey: String): Call<MovieTrendingResponse>
 
     @GET(UrlEndpoint.DISCOVER_MOVIES)
     fun getDiscoverMovie(
@@ -93,7 +87,7 @@ interface Api {
 
     @GET(UrlEndpoint.TV_SHOWS_DETAIL)
     fun getDetailTvShows(
-            @Path("tv_id") tvId: Int,
-            @Query("api_key") apiKey: String
+        @Path("tv_id") tvId: Int,
+        @Query("api_key") apiKey: String
     ): Call<TvShowsPopularDetailResponse>
 }

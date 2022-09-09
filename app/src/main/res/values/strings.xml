@@ -19,7 +19,8 @@
     </string>
     <string name="tvBullet">\u2022</string>
     <string name="tvRuntime">Runtime</string>
-    <string name="tvGenre">Genre</string>
+    <string name="tvCountry">Country</string>
+    <string name="tvGenre">Genres</string>
     <string name="tvEpisodes">Episodes</string>
     <string name="tvOtherMenus">Menu Lainnya</string>
     <string name="tvShare">Share</string>

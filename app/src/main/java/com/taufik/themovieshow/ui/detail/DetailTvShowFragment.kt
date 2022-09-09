@@ -99,15 +99,20 @@ class DetailTvShowFragment : Fragment() {
                     tvStatus.text = it.status
                     tvOverview.text = it.overview
                     tvRating.text = toRating(it.voteAverage)
-
+                    tvLanguage.text = it.originalLanguage
                     when {
-                        it.genres.isEmpty() -> tvGenre.text = "N/A"
-                        else -> tvGenre.text = it.genres[0].name
+                        it.originCountry.isEmpty() -> tvCountry.text = "N/A"
+                        else -> tvCountry.text = it.originCountry.joinToString { countries -> countries }
                     }
 
                     when {
                         it.episodeRunTime.isEmpty() -> tvEpisodes.text = "N/A"
                         else -> tvEpisodes.text = String.format("${it.episodeRunTime[0]} episodes")
+                    }
+
+                    when {
+                        it.genres.isEmpty() -> tvGenre.text = "N/A"
+                        else -> tvGenre.text = it.genres.joinToString { genres -> genres.name }
                     }
 
                     checkFavoriteData(idTvShow)

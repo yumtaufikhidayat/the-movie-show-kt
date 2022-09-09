@@ -92,13 +92,18 @@ class DetailMovieFragment : Fragment() {
                     tvStatus.text = it.status
                     tvOverview.text = it.overview
                     tvRating.text = toRating(it.voteAverage)
-
+                    tvLanguage.text = it.originalLanguage
                     when {
-                        it.genres.isEmpty() -> tvGenre.text = "N/A"
-                        else -> tvGenre.text = it.genres[0].name
+                        it.productionCountries.isEmpty() -> tvCountry.text = "N/A"
+                        else -> tvCountry.text = it.productionCountries.joinToString { countries -> countries.iso31661 }
                     }
 
                     tvRuntime.text = String.format("${it.runtime} min")
+
+                    when {
+                        it.genres.isEmpty() -> tvGenre.text = "N/A"
+                        else -> tvGenre.text = it.genres.joinToString { genre -> genre.name }
+                    }
 
                     checkFavoriteData(idMovie)
                     setActionFavorite(idMovie, it.posterPath, title, it.releaseDate, it.voteAverage)
