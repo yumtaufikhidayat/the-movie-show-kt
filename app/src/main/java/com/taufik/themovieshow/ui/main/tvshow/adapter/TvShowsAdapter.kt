@@ -35,7 +35,7 @@ class TvShowsAdapter : ListAdapter<TvShowsMainResult, TvShowsAdapter.TvShowsView
                 tvTitle.text = data.name
                 tvReleaseDate.text = data.firstAirDate.convertDate(
                     CommonConstants.YYYY_MM_DD_FORMAT,
-                    CommonConstants.MMM_DD_YYYY_FORMAT
+                    CommonConstants.EEE_D_MMM_YYYY_FORMAT
                 )
                 tvRating.text = toRating(data.voteAverage)
 

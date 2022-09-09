@@ -32,7 +32,7 @@ class MovieTrendingAdapter : ListAdapter<MovieTrendingResult, MovieTrendingAdapt
             tvTitle.text = data.title
             tvReleaseDate.text = data.releaseDate.convertDate(
                 CommonConstants.YYYY_MM_DD_FORMAT,
-                CommonConstants.MMM_DD_YYYY_FORMAT
+                CommonConstants.EEE_D_MMM_YYYY_FORMAT
             )
             tvRating.text = toRating(data.voteAverage)
 

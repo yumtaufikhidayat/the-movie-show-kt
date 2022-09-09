@@ -94,7 +94,7 @@ class DetailTvShowFragment : Fragment() {
 
                     tvReleaseDate.text = it.firstAirDate.convertDate(
                         CommonConstants.YYYY_MM_DD_FORMAT,
-                        CommonConstants.MMM_DD_YYYY_FORMAT
+                        CommonConstants.EEE_D_MMM_YYYY_FORMAT
                     )
                     tvStatus.text = it.status
                     tvOverview.text = it.overview

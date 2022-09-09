@@ -22,8 +22,8 @@ fun toRating(data: Double): String {
 }
 
 fun String.convertDate(inputFormat: String, outputFormat: String): String {
-    val formatter = SimpleDateFormat(inputFormat, Locale.getDefault())
+    val formatter = SimpleDateFormat(inputFormat, Locale.US)
     val formatParser = formatter.parse(this) ?: Date()
-    val newOutputFormat = SimpleDateFormat(outputFormat, Locale.getDefault())
+    val newOutputFormat = SimpleDateFormat(outputFormat, Locale.US)
     return newOutputFormat.format(formatParser)
 }
