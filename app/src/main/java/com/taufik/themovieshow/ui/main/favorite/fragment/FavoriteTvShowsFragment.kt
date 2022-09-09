@@ -18,8 +18,8 @@ class FavoriteTvShowsFragment : Fragment() {
     private var _binding: FragmentFavoriteTvShowsBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var tvShowsAdapter: TvShowsAdapter
     private val viewModel: FavoriteTvShowViewModel by viewModels()
+    private val tvShowsAdapter by lazy { TvShowsAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,7 +38,6 @@ class FavoriteTvShowsFragment : Fragment() {
     }
 
     private fun setAdapter() = with(binding) {
-        tvShowsAdapter = TvShowsAdapter()
         rvDiscoverFavoriteTvShow.apply {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)

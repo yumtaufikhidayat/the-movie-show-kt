@@ -36,12 +36,11 @@ class DetailTvShowFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: DetailTvShowViewModel by viewModels()
+    private val castAdapter by lazy { TvShowsCastAdapter() }
 
     private var idTvShow = 0
     private var title = ""
     private var isChecked = false
-
-    private lateinit var castAdapter: TvShowsCastAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -207,7 +206,6 @@ class DetailTvShowFragment : Fragment() {
     }
 
     private fun setCastAdapter() = with(binding) {
-        castAdapter = TvShowsCastAdapter()
         rvTvShowCast.apply {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             setHasFixedSize(true)

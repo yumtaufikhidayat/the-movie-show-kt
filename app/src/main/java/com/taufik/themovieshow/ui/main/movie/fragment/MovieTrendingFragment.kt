@@ -18,7 +18,7 @@ class MovieTrendingFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: MovieViewModel by viewModels()
-    private lateinit var movieTrendingAdapter: MovieTrendingAdapter
+    private val movieTrendingAdapter by lazy { MovieTrendingAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,7 +37,6 @@ class MovieTrendingFragment : Fragment() {
     }
 
     private fun setAdapter() = with(binding) {
-        movieTrendingAdapter = MovieTrendingAdapter()
         rvTrendingMovie.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)

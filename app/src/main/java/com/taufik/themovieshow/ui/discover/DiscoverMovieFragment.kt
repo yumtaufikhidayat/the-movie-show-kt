@@ -25,8 +25,7 @@ class DiscoverMovieFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: MovieViewModel by viewModels()
-
-    private lateinit var discoverMovieAdapter: DiscoverMovieAdapter
+    private val discoverMovieAdapter by lazy { DiscoverMovieAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,7 +50,6 @@ class DiscoverMovieFragment : Fragment() {
     }
 
     private fun initAdapter() = with(binding) {
-        discoverMovieAdapter = DiscoverMovieAdapter()
         rvSearchMovie.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)

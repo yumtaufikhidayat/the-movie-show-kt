@@ -18,8 +18,7 @@ class TvShowTrendingFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: TvShowsViewModel by viewModels()
-
-    private lateinit var tvShowsTrendingAdapter: TvShowsTrendingAdapter
+    private val tvShowsTrendingAdapter by lazy { TvShowsTrendingAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,6 +36,14 @@ class TvShowTrendingFragment : Fragment() {
         setData()
     }
 
+    private fun setAdapter() = with(binding) {
+        rvTrendingMovie.apply {
+            layoutManager = LinearLayoutManager(context)
+            setHasFixedSize(true)
+            adapter = tvShowsTrendingAdapter
+        }
+    }
+
     private fun setData() {
         showLoading(true)
         viewModel.apply {
@@ -47,15 +54,6 @@ class TvShowTrendingFragment : Fragment() {
                     showLoading(false)
                 }
             }
-        }
-    }
-
-    private fun setAdapter() = with(binding) {
-        tvShowsTrendingAdapter = TvShowsTrendingAdapter()
-        rvTrendingMovie.apply {
-            layoutManager = LinearLayoutManager(context)
-            setHasFixedSize(true)
-            adapter = tvShowsTrendingAdapter
         }
     }
 

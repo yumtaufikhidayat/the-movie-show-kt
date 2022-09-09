@@ -25,8 +25,7 @@ class DiscoverTvShowFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel by viewModels<TvShowsViewModel>()
-
-    private lateinit var discoverTvShowsAdapter: DiscoverTvShowsAdapter
+    private val discoverTvShowsAdapter by lazy { DiscoverTvShowsAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,7 +50,6 @@ class DiscoverTvShowFragment : Fragment() {
     }
 
     private fun initAdapter() = with(binding) {
-        discoverTvShowsAdapter = DiscoverTvShowsAdapter()
         rvSearchTvShow.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)

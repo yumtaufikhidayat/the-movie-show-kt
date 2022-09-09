@@ -19,8 +19,8 @@ class AboutFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: AboutViewModel by viewModels()
-    private lateinit var authorAdapter: AboutAuthorAdapter
-    private lateinit var applicationAdapter: AboutApplicationAdapter
+    private val authorAdapter by lazy { AboutAuthorAdapter() }
+    private val applicationAdapter by lazy { AboutApplicationAdapter() }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
@@ -40,9 +40,7 @@ class AboutFragment : Fragment() {
     }
 
     private fun setAuthorData() = with(binding) {
-        authorAdapter = AboutAuthorAdapter()
         authorAdapter.setAbout(viewModel.getAboutAuthor())
-
         rvAuthorAbout.apply {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
@@ -51,9 +49,7 @@ class AboutFragment : Fragment() {
     }
 
     private fun setApplicationData() = with(binding){
-        applicationAdapter = AboutApplicationAdapter()
         applicationAdapter.setAbout(viewModel.getAboutApplication())
-
         rvApplicationAbout.apply {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)

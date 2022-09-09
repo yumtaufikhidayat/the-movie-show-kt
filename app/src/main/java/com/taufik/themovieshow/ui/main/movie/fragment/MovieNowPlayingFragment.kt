@@ -18,7 +18,7 @@ class MovieNowPlayingFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: MovieViewModel by viewModels()
-    private lateinit var movieAdapter: MovieAdapter
+    private val movieAdapter by lazy { MovieAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,7 +37,6 @@ class MovieNowPlayingFragment : Fragment() {
     }
 
     private fun setAdapter() = with(binding) {
-        movieAdapter = MovieAdapter()
         rvMovie.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
@@ -58,9 +57,7 @@ class MovieNowPlayingFragment : Fragment() {
         }
     }
 
-    private fun showLoading(isShow: Boolean) = with(binding) {
-        progressBar.isVisible = isShow
-    }
+    private fun showLoading(isShow: Boolean) = binding.progressBar.isVisible == isShow
 
     override fun onDestroyView() {
         super.onDestroyView()

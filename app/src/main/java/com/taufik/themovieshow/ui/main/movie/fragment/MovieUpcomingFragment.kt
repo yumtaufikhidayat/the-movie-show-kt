@@ -17,8 +17,8 @@ class MovieUpcomingFragment : Fragment() {
     private var _binding: FragmentMovieUpcomingBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var movieAdapter: MovieAdapter
     private val viewModel: MovieViewModel by viewModels()
+    private val movieAdapter by lazy { MovieAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,7 +37,6 @@ class MovieUpcomingFragment : Fragment() {
     }
 
     private fun setAdapter() = with(binding) {
-        movieAdapter = MovieAdapter()
         rvMovie.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)

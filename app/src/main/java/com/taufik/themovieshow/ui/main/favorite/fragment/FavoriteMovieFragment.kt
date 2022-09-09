@@ -18,8 +18,8 @@ class FavoriteMovieFragment : Fragment() {
     private var _binding: FragmentFavoriteMovieBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var movieAdapter: MovieAdapter
     private val viewModel: FavoriteMovieViewModel by viewModels()
+    private val movieAdapter by lazy { MovieAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,7 +37,6 @@ class FavoriteMovieFragment : Fragment() {
     }
 
     private fun setAdapter() = with(binding) {
-        movieAdapter = MovieAdapter()
         rvDiscoverFavoriteMovies.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)

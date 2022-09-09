@@ -36,12 +36,11 @@ class DetailMovieFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: DetailMovieViewModel by viewModels()
+    private val castAdapter by lazy { MovieCastAdapter() }
 
     private var idMovie = 0
     private var title = ""
     private var isChecked = false
-
-    private lateinit var castAdapter: MovieCastAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -197,7 +196,6 @@ class DetailMovieFragment : Fragment() {
     }
 
     private fun setCastAdapter() = with(binding) {
-        castAdapter = MovieCastAdapter()
         rvMovieCast.apply {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             setHasFixedSize(true)
