@@ -11,7 +11,7 @@ import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.main.movie.similar.MovieSimilarResult
 import com.taufik.themovieshow.databinding.ItemSimilarBinding
 import com.taufik.themovieshow.ui.detail.DetailMovieFragment
-import com.taufik.themovieshow.utils.CommonConstants
+import com.taufik.themovieshow.utils.CommonFormatConstants
 import com.taufik.themovieshow.utils.convertDate
 import com.taufik.themovieshow.utils.loadImage
 
@@ -29,7 +29,7 @@ class MovieSimilarAdapter: ListAdapter<MovieSimilarResult, MovieSimilarAdapter.M
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: MovieSimilarResult) = with(binding) {
             imgPoster.loadImage(data.posterPath)
-            val releaseYear = data.releaseDate.convertDate(CommonConstants.YYYY_MM_DD_FORMAT, CommonConstants.YYYY_FORMAT)
+            val releaseYear = data.releaseDate.convertDate(CommonFormatConstants.YYYY_MM_DD_FORMAT, CommonFormatConstants.YYYY_FORMAT)
             tvMovieName.text = StringBuilder(data.originalTitle).append("\n").append("($releaseYear)")
             cardPoster.setOnClickListener {
                 val bundle = Bundle()

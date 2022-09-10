@@ -20,7 +20,7 @@ import com.taufik.themovieshow.data.viewmodel.movie.DetailMovieViewModel
 import com.taufik.themovieshow.databinding.FragmentDetailMovieBinding
 import com.taufik.themovieshow.ui.main.movie.adapter.MovieCastAdapter
 import com.taufik.themovieshow.ui.main.movie.adapter.MovieSimilarAdapter
-import com.taufik.themovieshow.utils.CommonConstants
+import com.taufik.themovieshow.utils.CommonFormatConstants
 import com.taufik.themovieshow.utils.convertDate
 import com.taufik.themovieshow.utils.loadImage
 import com.taufik.themovieshow.utils.toRating
@@ -89,19 +89,21 @@ class DetailMovieFragment : Fragment() {
                     imgBackdrop.loadImage(it.backdropPath)
                     tvTitle.text = it.title
                     tvReleaseDate.text = it.releaseDate.convertDate(
-                        CommonConstants.YYYY_MM_DD_FORMAT,
-                        CommonConstants.EEE_D_MMM_YYYY_FORMAT
+                        CommonFormatConstants.YYYY_MM_DD_FORMAT,
+                        CommonFormatConstants.EEE_D_MMM_YYYY_FORMAT
                     )
+
                     tvStatus.text = it.status
                     tvOverview.text = it.overview
                     tvRating.text = toRating(it.voteAverage)
                     tvLanguage.text = it.originalLanguage
+
                     when {
                         it.productionCountries.isEmpty() -> tvCountry.text = "N/A"
                         else -> tvCountry.text = it.productionCountries.joinToString { countries -> countries.iso31661 }
                     }
 
-                    tvRuntime.text = String.format("${it.runtime} min")
+                    tvRuntime.text = convertRuntime(it.runtime)
 
                     when {
                         it.genres.isEmpty() -> tvGenre.text = "N/A"
@@ -261,6 +263,12 @@ class DetailMovieFragment : Fragment() {
         Toasty.success(requireContext(), message, Toast.LENGTH_SHORT, true).show()
     }
 
+    private fun convertRuntime(data: Int): String {
+        val hours = data / TIME_60
+        val minutes = data % TIME_60
+        return getString(R.string.tvRuntimeInTime, hours, minutes)
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -269,5 +277,6 @@ class DetailMovieFragment : Fragment() {
     companion object {
         const val EXTRA_ID = "EXTRA_ID"
         const val EXTRA_TITLE = "EXTRA_TITLE"
+        const val TIME_60 = 60
     }
 }

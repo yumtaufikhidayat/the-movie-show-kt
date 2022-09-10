@@ -37,8 +37,9 @@
     <string name="tvApplication">Application</string>
     <string name="tvUpdate">Update</string>
     <string name="tvSearch">Cari…</string>
-    <string name="tvSimilarMovie">Similar Movie</string>
+    <string name="tvSimilarMovie">Similar Movies</string>
     <string name="tvSimilarTvShows">Similar TV Shows</string>
+    <string name="tvRuntimeInTime">%d h %d min</string>
 
     <!--Button-->
     <string name="btnReviews">Reviews</string>
