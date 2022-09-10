@@ -13,6 +13,8 @@ import com.taufik.themovieshow.data.local.room.MovieDatabase
 import com.taufik.themovieshow.data.main.movie.cast.MovieCast
 import com.taufik.themovieshow.data.main.movie.cast.MovieCastResponse
 import com.taufik.themovieshow.data.main.movie.detail.MovieDetailResponse
+import com.taufik.themovieshow.data.main.movie.similar.MovieSimilarResponse
+import com.taufik.themovieshow.data.main.movie.similar.MovieSimilarResult
 import com.taufik.themovieshow.data.main.movie.video.MovieVideoResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -24,7 +26,7 @@ import retrofit2.Response
 class DetailMovieViewModel(application: Application) : AndroidViewModel(application) {
 
     private val apiKey = BuildConfig.API_KEY
-    private val apiClient = ApiClient.apiInstance
+    private val apiInstance = ApiClient.apiInstance
 
     private val _listDetailMovies = MutableLiveData<MovieDetailResponse>()
     val detailMovies: LiveData<MovieDetailResponse> = _listDetailMovies
@@ -35,6 +37,9 @@ class DetailMovieViewModel(application: Application) : AndroidViewModel(applicat
     private val _listDetailCast = MutableLiveData<ArrayList<MovieCast>>()
     val listDetailCast: LiveData<ArrayList<MovieCast>> = _listDetailCast
 
+    private val _listSimilar = MutableLiveData<ArrayList<MovieSimilarResult>>()
+    val listSimilarMovie: LiveData<ArrayList<MovieSimilarResult>> = _listSimilar
+
     private var movieDao: FavoriteMovieDao?
     private var movieDb: MovieDatabase? = MovieDatabase.getDatabase(context = application)
 
@@ -43,7 +48,7 @@ class DetailMovieViewModel(application: Application) : AndroidViewModel(applicat
     }
 
     fun setDetailMovies(id: Int) {
-        apiClient.getDetailMovie(id, apiKey)
+        apiInstance.getDetailMovie(id, apiKey)
             .enqueue(object : Callback<MovieDetailResponse> {
                 override fun onResponse(
                     call: Call<MovieDetailResponse>,
@@ -62,7 +67,7 @@ class DetailMovieViewModel(application: Application) : AndroidViewModel(applicat
     }
 
     fun setDetailMovieVideo(id: Int) {
-        apiClient.getMovieVideo(id, apiKey)
+        apiInstance.getMovieVideo(id, apiKey)
             .enqueue(object : Callback<MovieVideoResponse> {
                 override fun onResponse(
                     call: Call<MovieVideoResponse>,
@@ -81,8 +86,7 @@ class DetailMovieViewModel(application: Application) : AndroidViewModel(applicat
     }
 
     fun setDetailMovieCast(id: Int) {
-        ApiClient.apiInstance
-            .getMovieCast(id, apiKey)
+        apiInstance.getMovieCast(id, apiKey)
             .enqueue(object : Callback<MovieCastResponse> {
                 override fun onResponse(
                     call: Call<MovieCastResponse>,
@@ -95,6 +99,25 @@ class DetailMovieViewModel(application: Application) : AndroidViewModel(applicat
                 }
 
                 override fun onFailure(call: Call<MovieCastResponse>, t: Throwable) {
+                    Log.e("errorRetrofit", "onFailure: ${t.localizedMessage}")
+                }
+            })
+    }
+
+    fun setDetailMovieSimilar(id: Int) {
+        apiInstance.getSimilarMovie(id, apiKey)
+            .enqueue(object : Callback<MovieSimilarResponse> {
+                override fun onResponse(
+                    call: Call<MovieSimilarResponse>,
+                    response: Response<MovieSimilarResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        _listSimilar.value = response.body()?.results as ArrayList<MovieSimilarResult>
+                        Log.e("listSimilar", "onResponse: ${response.body()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<MovieSimilarResponse>, t: Throwable) {
                     Log.e("errorRetrofit", "onFailure: ${t.localizedMessage}")
                 }
             })

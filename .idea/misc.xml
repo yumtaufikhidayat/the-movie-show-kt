@@ -39,7 +39,8 @@
         <entry key="app/src/main/res/layout/fragment_tv_show_airing_today.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_tv_shows_popular.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_about.xml" value="0.2126865671641791" />
-        <entry key="app/src/main/res/layout/item_cast.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/item_cast.xml" value="0.16203703703703703" />
+        <entry key="app/src/main/res/layout/item_similar.xml" value="0.1796875" />
         <entry key="app/src/main/res/layout/items_movies.xml" value="0.1828125" />
         <entry key="app/src/main/res/layout/items_tv_shows.xml" value="0.1796875" />
         <entry key="app/src/main/res/layout/toolbar_detail_general.xml" value="0.1796875" />

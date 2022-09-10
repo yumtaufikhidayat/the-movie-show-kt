@@ -19,6 +19,7 @@ import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.viewmodel.movie.DetailMovieViewModel
 import com.taufik.themovieshow.databinding.FragmentDetailMovieBinding
 import com.taufik.themovieshow.ui.main.movie.adapter.MovieCastAdapter
+import com.taufik.themovieshow.ui.main.movie.adapter.MovieSimilarAdapter
 import com.taufik.themovieshow.utils.CommonConstants
 import com.taufik.themovieshow.utils.convertDate
 import com.taufik.themovieshow.utils.loadImage
@@ -37,6 +38,7 @@ class DetailMovieFragment : Fragment() {
 
     private val viewModel: DetailMovieViewModel by viewModels()
     private val castAdapter by lazy { MovieCastAdapter() }
+    private val similarAdapter by lazy { MovieSimilarAdapter() }
 
     private var idMovie = 0
     private var title = ""
@@ -57,6 +59,7 @@ class DetailMovieFragment : Fragment() {
         showToolbarData()
         setData()
         setCastAdapter()
+        setSimilarMovieAdapter()
         setReadMore()
     }
 
@@ -110,6 +113,7 @@ class DetailMovieFragment : Fragment() {
                     shareMovie(it.homepage)
                     setCast(idMovie)
                     showVideo(idMovie)
+                    showSimilar(idMovie)
                 }
             }
         }
@@ -195,6 +199,25 @@ class DetailMovieFragment : Fragment() {
                             }
                         }
                     })
+                }
+            }
+        }
+    }
+
+    private fun setSimilarMovieAdapter() = with(binding) {
+        rvMovieSimilar.apply {
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            setHasFixedSize(true)
+            adapter = similarAdapter
+        }
+    }
+
+    private fun showSimilar(id: Int) {
+        viewModel.apply {
+            setDetailMovieSimilar(id)
+            listSimilarMovie.observe(viewLifecycleOwner) {
+                if (it != null) {
+                    similarAdapter.submitList(it)
                 }
             }
         }
