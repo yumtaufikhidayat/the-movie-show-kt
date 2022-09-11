@@ -13,7 +13,7 @@ The Movie Show is an Android application as catalogue movies and tv shows. It ha
 - Detail movies and tv shows:
     - Banner and poster
     - Overview
-    - Release data/first air date
+    - Release date/first air date
     - Cast
     - Network
     - Country origin
@@ -22,10 +22,10 @@ The Movie Show is an Android application as catalogue movies and tv shows. It ha
     - Genre
     - Runtime
     - Episodes
-    - Spoken language
+    - Language
     - Share
-    - Open in browser
-    - Website
+    - Reviews
+    - Similar movies/TV shows
 - Favorite
 - About author and about application
 
