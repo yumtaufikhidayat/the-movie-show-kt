@@ -14,6 +14,7 @@
           <stringArguments>
             <stringArg name="classpath">
               <args>
+                <arg>$MODULE_DIR$/../../../app/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/17284a60e45688522d470a63fb2c94a0/transformed/jetified-viewbinding-7.0.4-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/b1b9d3df7347a94180d4c3ceae27047d/transformed/jetified-kotlin-parcelize-runtime-1.7.10.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/80e6e2b2734566ef66bd6631568621b4/transformed/navigation-fragment-ktx-2.5.2-api.jar</arg>
@@ -109,7 +110,6 @@
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/9d73005f2a6f1ff0a35b40ec0b944b12/transformed/jetified-justifiedtextview-1.1.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/c250d6a00f918f37a5bdc7d78946380d/transformed/jetified-gson-2.8.5.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/23968736b939e13ef27b95d204c2b82d/transformed/jetified-Toasty-1.5.0-api.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/02e5e1c4fb603d908d36a44ffdc40efd/transformed/jetified-circleimageview-3.1.0-api.jar</arg>
                 <arg>$USER_HOME$/Android/Sdk/platforms/android-32/android.jar</arg>
                 <arg>$USER_HOME$/Android/Sdk/build-tools/30.0.3/core-lambda-stubs.jar</arg>
               </args>
@@ -295,6 +295,5 @@
     <orderEntry type="library" name="Gradle: androidx.constraintlayout:constraintlayout:2.1.4@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.codesgood:justifiedtextview:1.1.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.github.GrenderG:Toasty:1.5.0@aar" level="project" />
-    <orderEntry type="library" name="Gradle: de.hdodenhof:circleimageview:3.1.0@aar" level="project" />
   </component>
 </module>

@@ -124,7 +124,6 @@
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/0f9f119fa4f05ebcca27223b18f98d6e/transformed/jetified-accessibility-test-framework-3.1-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/9d73005f2a6f1ff0a35b40ec0b944b12/transformed/jetified-justifiedtextview-1.1.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/23968736b939e13ef27b95d204c2b82d/transformed/jetified-Toasty-1.5.0-api.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/02e5e1c4fb603d908d36a44ffdc40efd/transformed/jetified-circleimageview-3.1.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/3e4527a71360b2b52755e4acb44ec587/transformed/jetified-disklrucache-4.13.2.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/8b92a9c11358a433efaf1648516f9f46/transformed/jetified-annotations-4.13.2.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/c250d6a00f918f37a5bdc7d78946380d/transformed/jetified-gson-2.8.5.jar</arg>
@@ -313,7 +312,6 @@
     <orderEntry type="library" scope="TEST" name="Gradle: com.google.android.apps.common.testing.accessibility.framework:accessibility-test-framework:3.1@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.codesgood:justifiedtextview:1.1.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.github.GrenderG:Toasty:1.5.0@aar" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: de.hdodenhof:circleimageview:3.1.0@aar" level="project" />
   </component>
   <component name="TestModuleProperties" production-module="The_Movie_Show.app.main" />
 </module>

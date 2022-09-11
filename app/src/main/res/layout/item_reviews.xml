@@ -17,16 +17,25 @@
         android:layout_width="match_parent"
         android:layout_height="160dp">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imgReviewer"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardImageReviewer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:src="@color/colorPrimary"
-            app:civ_border_width="1dp"
-            app:civ_border_color="@color/colorPrimary"
+            app:cardBackgroundColor="@color/colorPrimary"
+            app:cardCornerRadius="5dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imgReviewer"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@color/colorPrimary"
+                android:contentDescription="@string/tvReviews"/>
+
+        </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/tvReviewerName"
@@ -36,8 +45,8 @@
             tools:text="@tools:sample/full_names"
             android:textSize="16sp"
             android:textColor="@color/colorOrange"
-            app:layout_constraintTop_toTopOf="@id/imgReviewer"
-            app:layout_constraintStart_toEndOf="@id/imgReviewer"
+            app:layout_constraintTop_toTopOf="@id/cardImageReviewer"
+            app:layout_constraintStart_toEndOf="@id/cardImageReviewer"
             app:layout_constraintEnd_toEndOf="parent"/>
 
         <ImageView
