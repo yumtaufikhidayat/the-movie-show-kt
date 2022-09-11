@@ -40,7 +40,7 @@
     <string name="tvReviews">Reviews</string>
     <string name="tvSimilarMovie">Similar Movies</string>
     <string name="tvSimilarTvShows">Similar TV Shows</string>
-    <string name="tvRuntimeInTime">%d h %d min</string>
+    <string name="tvRuntimeInTime">%d h %d m</string>
 
     <!--Button-->
     <string name="btnReviews">Reviews</string>
