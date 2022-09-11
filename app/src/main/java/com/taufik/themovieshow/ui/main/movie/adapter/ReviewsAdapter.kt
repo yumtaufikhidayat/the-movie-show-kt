@@ -27,7 +27,7 @@ class ReviewsAdapter: ListAdapter<MovieReviewsResult, ReviewsAdapter.ReviewsView
             val author = data.authorDetails
             imgReviewer.loadImage(author.avatarPath)
             tvReviewerName.text = data.author
-            tvReviewerRating.text = author.rating.toString()
+            tvReviewerRating.text = String.format("%s%s", author.rating.toString(), "/10")
             tvReviewerDate.text = data.updatedAt.convertDate(
                 CommonDateFormatConstants.FULL_FORMAT,
                 CommonDateFormatConstants.EEE_D_MMM_YYYY_FORMAT
