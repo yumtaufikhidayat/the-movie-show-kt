@@ -43,6 +43,7 @@
         <entry key="app/src/main/res/layout/item_reviews.xml" value="0.2" />
         <entry key="app/src/main/res/layout/item_similar.xml" value="0.1796875" />
         <entry key="app/src/main/res/layout/items_movies.xml" value="0.1828125" />
+        <entry key="app/src/main/res/layout/items_movies_tv_show.xml" value="0.1" />
         <entry key="app/src/main/res/layout/items_tv_shows.xml" value="0.1796875" />
         <entry key="app/src/main/res/layout/toolbar_detail_general.xml" value="0.1796875" />
         <entry key="app/src/main/res/layout/toolbar_general.xml" value="0.1" />

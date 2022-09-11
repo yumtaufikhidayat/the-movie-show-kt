@@ -1,5 +1,8 @@
 package com.taufik.themovieshow.ui.main.movie.adapter
 
+import android.content.Intent
+import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -30,6 +33,14 @@ class ReviewsAdapter: ListAdapter<MovieReviewsResult, ReviewsAdapter.ReviewsView
                 CommonDateFormatConstants.EEE_D_MMM_YYYY_FORMAT
             )
             tvReviewerReview.text = data.content
+            cardReview.setOnClickListener {
+                try {
+                    val intentBrowser = Intent(Intent.ACTION_VIEW, Uri.parse(data.url))
+                    it.context.startActivity(Intent.createChooser(intentBrowser, "Open with:"))
+                } catch (e: java.lang.Exception) {
+                    Log.e("errorIntent", "onBindViewHolder: ${e.localizedMessage}")
+                }
+            }
         }
     }
 
