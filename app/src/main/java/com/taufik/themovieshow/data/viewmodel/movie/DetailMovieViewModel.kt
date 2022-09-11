@@ -13,6 +13,8 @@ import com.taufik.themovieshow.data.local.room.MovieDatabase
 import com.taufik.themovieshow.data.main.movie.cast.MovieCast
 import com.taufik.themovieshow.data.main.movie.cast.MovieCastResponse
 import com.taufik.themovieshow.data.main.movie.detail.MovieDetailResponse
+import com.taufik.themovieshow.data.main.movie.reviews.MovieReviewsResponse
+import com.taufik.themovieshow.data.main.movie.reviews.MovieReviewsResult
 import com.taufik.themovieshow.data.main.movie.similar.MovieSimilarResponse
 import com.taufik.themovieshow.data.main.movie.similar.MovieSimilarResult
 import com.taufik.themovieshow.data.main.movie.video.MovieVideoResponse
@@ -22,6 +24,7 @@ import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import kotlin.math.log
 
 class DetailMovieViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -39,6 +42,9 @@ class DetailMovieViewModel(application: Application) : AndroidViewModel(applicat
 
     private val _listSimilar = MutableLiveData<ArrayList<MovieSimilarResult>>()
     val listSimilarMovie: LiveData<ArrayList<MovieSimilarResult>> = _listSimilar
+
+    private val _listReviews = MutableLiveData<ArrayList<MovieReviewsResult>>()
+    val listReviewMovie: LiveData<ArrayList<MovieReviewsResult>> = _listReviews
 
     private var movieDao: FavoriteMovieDao?
     private var movieDb: MovieDatabase? = MovieDatabase.getDatabase(context = application)
@@ -118,6 +124,25 @@ class DetailMovieViewModel(application: Application) : AndroidViewModel(applicat
                 }
 
                 override fun onFailure(call: Call<MovieSimilarResponse>, t: Throwable) {
+                    Log.e("errorRetrofit", "onFailure: ${t.localizedMessage}")
+                }
+            })
+    }
+
+    fun setDetailMovieReviews(id: Int) {
+        apiInstance.getReviewsMovie(id, apiKey)
+            .enqueue(object : Callback<MovieReviewsResponse> {
+                override fun onResponse(
+                    call: Call<MovieReviewsResponse>,
+                    response: Response<MovieReviewsResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        _listReviews.value = response.body()?.results as ArrayList<MovieReviewsResult>
+                        Log.e("listReview", "onResponse: ${response.body()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<MovieReviewsResponse>, t: Throwable) {
                     Log.e("errorRetrofit", "onFailure: ${t.localizedMessage}")
                 }
             })

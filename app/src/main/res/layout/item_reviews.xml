@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardReview"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardBackgroundColor="@color/colorPrimaryDark"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgReviewer"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_margin="8dp"
+            android:src="@color/colorPrimary"
+            app:civ_border_width="1dp"
+            app:civ_border_color="@color/colorPrimary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/tvReviewerName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            tools:text="@tools:sample/full_names"
+            android:textSize="16sp"
+            android:textColor="@color/colorOrange"
+            app:layout_constraintTop_toTopOf="@id/imgReviewer"
+            app:layout_constraintStart_toEndOf="@id/imgReviewer"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <ImageView
+            android:id="@+id/imgReviewerRating"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_marginTop="8dp"
+            android:contentDescription="@string/tvReviews"
+            android:background="@drawable/ic_rate"
+            app:layout_constraintTop_toBottomOf="@id/tvReviewerName"
+            app:layout_constraintStart_toStartOf="@id/tvReviewerName" />
+
+        <TextView
+            android:id="@+id/tvReviewerRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            tools:text="10"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toTopOf="@id/imgReviewerRating"
+            app:layout_constraintBottom_toBottomOf="@id/imgReviewerRating"
+            app:layout_constraintStart_toEndOf="@id/imgReviewerRating"/>
+
+        <TextView
+            android:id="@+id/tvReviewerDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorGrey"
+            tools:text="@tools:sample/date/mmddyy"
+            app:layout_constraintTop_toBottomOf="@id/tvReviewerRating"
+            app:layout_constraintStart_toStartOf="@id/tvReviewerName"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:id="@+id/tvReviewerReview"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="8dp"
+            android:textColor="@color/white"
+            android:maxLines="4"
+            android:ellipsize="end"
+            tools:text="@tools:sample/lorem/random"
+            app:layout_constraintTop_toBottomOf="@id/tvReviewerDate"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

@@ -10,6 +10,7 @@ object UrlEndpoint {
     const val MOVIE_VIDEO = "movie/{movie_id}/videos"
     const val MOVIE_CAST = "movie/{movie_id}/credits"
     const val MOVIE_SIMILAR = "movie/{movie_id}/similar"
+    const val MOVIE_REVIEWS = "movie/{movie_id}/reviews"
     const val TV_SHOWS_POPULAR = "tv/popular"
     const val TV_SHOWS_AIRING_TODAY = "tv/airing_today"
     const val TV_SHOWS_TRENDING_DAY = "trending/tv/day"

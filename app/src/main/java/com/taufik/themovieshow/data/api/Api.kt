@@ -4,6 +4,7 @@ import com.taufik.themovieshow.data.main.movie.cast.MovieCastResponse
 import com.taufik.themovieshow.data.main.movie.detail.MovieDetailResponse
 import com.taufik.themovieshow.data.main.movie.discover.DiscoverMovieResponse
 import com.taufik.themovieshow.data.main.movie.nowplayingupcoming.MovieMainResponse
+import com.taufik.themovieshow.data.main.movie.reviews.MovieReviewsResponse
 import com.taufik.themovieshow.data.main.movie.similar.MovieSimilarResponse
 import com.taufik.themovieshow.data.main.movie.trending.MovieTrendingResponse
 import com.taufik.themovieshow.data.main.movie.video.MovieVideoResponse
@@ -58,6 +59,12 @@ interface Api {
         @Path("movie_id") movieId: Int,
         @Query("api_key") apiKey: String
     ): Call<MovieSimilarResponse>
+
+    @GET(UrlEndpoint.MOVIE_REVIEWS)
+    fun getReviewsMovie(
+        @Path("movie_id") movieId: Int,
+        @Query("api_key") apiKey: String
+    ): Call<MovieReviewsResponse>
 
     @GET(UrlEndpoint.TV_SHOWS_AIRING_TODAY)
     fun getTvShowsAiringToday(
