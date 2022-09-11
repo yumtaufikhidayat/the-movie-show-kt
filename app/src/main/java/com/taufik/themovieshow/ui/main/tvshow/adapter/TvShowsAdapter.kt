@@ -12,7 +12,7 @@ import com.taufik.themovieshow.data.api.UrlEndpoint
 import com.taufik.themovieshow.data.main.tvshow.popularairingtoday.TvShowsMainResult
 import com.taufik.themovieshow.databinding.ItemsMoviesTvShowBinding
 import com.taufik.themovieshow.ui.detail.DetailTvShowFragment
-import com.taufik.themovieshow.utils.CommonFormatConstants
+import com.taufik.themovieshow.utils.CommonDateFormatConstants
 import com.taufik.themovieshow.utils.convertDate
 import com.taufik.themovieshow.utils.loadImage
 import com.taufik.themovieshow.utils.toRating
@@ -34,8 +34,8 @@ class TvShowsAdapter : ListAdapter<TvShowsMainResult, TvShowsAdapter.TvShowsView
                 imgPoster.loadImage(UrlEndpoint.IMAGE_URL + data.posterPath)
                 tvTitle.text = data.name
                 tvReleaseDate.text = data.firstAirDate.convertDate(
-                    CommonFormatConstants.YYYY_MM_DD_FORMAT,
-                    CommonFormatConstants.EEE_D_MMM_YYYY_FORMAT
+                    CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
+                    CommonDateFormatConstants.EEE_D_MMM_YYYY_FORMAT
                 )
                 tvRating.text = toRating(data.voteAverage)
 

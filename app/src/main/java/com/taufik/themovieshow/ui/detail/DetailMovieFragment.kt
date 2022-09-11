@@ -21,7 +21,7 @@ import com.taufik.themovieshow.databinding.FragmentDetailMovieBinding
 import com.taufik.themovieshow.ui.main.movie.adapter.MovieCastAdapter
 import com.taufik.themovieshow.ui.main.movie.adapter.MovieSimilarAdapter
 import com.taufik.themovieshow.ui.main.movie.adapter.ReviewsAdapter
-import com.taufik.themovieshow.utils.CommonFormatConstants
+import com.taufik.themovieshow.utils.CommonDateFormatConstants
 import com.taufik.themovieshow.utils.convertDate
 import com.taufik.themovieshow.utils.loadImage
 import com.taufik.themovieshow.utils.toRating
@@ -92,8 +92,8 @@ class DetailMovieFragment : Fragment() {
                     imgBackdrop.loadImage(it.backdropPath)
                     tvTitle.text = it.title
                     tvReleaseDate.text = it.releaseDate.convertDate(
-                        CommonFormatConstants.YYYY_MM_DD_FORMAT,
-                        CommonFormatConstants.EEE_D_MMM_YYYY_FORMAT
+                        CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
+                        CommonDateFormatConstants.EEE_D_MMM_YYYY_FORMAT
                     )
 
                     tvStatus.text = it.status

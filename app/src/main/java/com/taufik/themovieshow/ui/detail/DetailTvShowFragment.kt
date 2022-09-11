@@ -19,7 +19,7 @@ import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.viewmodel.tvshow.DetailTvShowViewModel
 import com.taufik.themovieshow.databinding.FragmentDetailTvShowBinding
 import com.taufik.themovieshow.ui.main.tvshow.adapter.TvShowsCastAdapter
-import com.taufik.themovieshow.utils.CommonFormatConstants
+import com.taufik.themovieshow.utils.CommonDateFormatConstants
 import com.taufik.themovieshow.utils.convertDate
 import com.taufik.themovieshow.utils.loadImage
 import com.taufik.themovieshow.utils.toRating
@@ -93,8 +93,8 @@ class DetailTvShowFragment : Fragment() {
                     }
 
                     tvReleaseDate.text = it.firstAirDate.convertDate(
-                        CommonFormatConstants.YYYY_MM_DD_FORMAT,
-                        CommonFormatConstants.EEE_D_MMM_YYYY_FORMAT
+                        CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
+                        CommonDateFormatConstants.EEE_D_MMM_YYYY_FORMAT
                     )
                     tvStatus.text = it.status
                     tvOverview.text = it.overview

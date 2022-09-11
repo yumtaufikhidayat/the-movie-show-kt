@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.taufik.themovieshow.data.main.movie.reviews.MovieReviewsResult
 import com.taufik.themovieshow.databinding.ItemReviewsBinding
+import com.taufik.themovieshow.utils.CommonDateFormatConstants
+import com.taufik.themovieshow.utils.convertDate
 import com.taufik.themovieshow.utils.loadImage
 
 class ReviewsAdapter: ListAdapter<MovieReviewsResult, ReviewsAdapter.ReviewsViewHolder>(ReviewsDiffCallback) {
@@ -23,6 +25,10 @@ class ReviewsAdapter: ListAdapter<MovieReviewsResult, ReviewsAdapter.ReviewsView
             imgReviewer.loadImage(author.avatarPath)
             tvReviewerName.text = data.author
             tvReviewerRating.text = author.rating.toString()
+            tvReviewerDate.text = data.updatedAt.convertDate(
+                CommonDateFormatConstants.FULL_FORMAT,
+                CommonDateFormatConstants.EEE_D_MMM_YYYY_FORMAT
+            )
             tvReviewerReview.text = data.content
         }
     }
