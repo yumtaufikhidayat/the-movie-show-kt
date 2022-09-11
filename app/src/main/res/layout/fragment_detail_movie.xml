@@ -367,8 +367,8 @@
                 android:layout_marginTop="12dp"
                 tools:listitem="@layout/item_reviews"
                 tools:itemCount="1"
-                app:layout_constraintStart_toStartOf="@id/cardPoster"
-                app:layout_constraintEnd_toEndOf="@id/tvOverview"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvReviewsTitle"/>
 
             <TextView

@@ -13,6 +13,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
+import androidx.recyclerview.widget.SnapHelper
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.taufik.themovieshow.R
@@ -212,7 +214,9 @@ class DetailMovieFragment : Fragment() {
 
     private fun setReviewsAdapter() = with(binding) {
         rvMovieReviews.apply {
+            val helper: SnapHelper = LinearSnapHelper()
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            helper.attachToRecyclerView(this)
             setHasFixedSize(true)
             adapter = reviewsAdapter
         }
