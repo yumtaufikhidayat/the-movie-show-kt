@@ -62,10 +62,10 @@ class DetailMovieFragment : Fragment() {
         getBundleData()
         showToolbarData()
         setData()
+        setReadMore()
         setCastAdapter()
         setReviewsAdapter()
         setSimilarMovieAdapter()
-        setReadMore()
     }
 
     private fun getBundleData() {
@@ -185,6 +185,40 @@ class DetailMovieFragment : Fragment() {
         }
     }
 
+    private fun setReadMore() = with(binding) {
+        tvReadMore.isVisible = true
+        tvReadMore.setOnClickListener {
+            if (tvReadMore.text.toString() == "Read More") {
+                tvOverview.maxLines = Integer.MAX_VALUE
+                tvOverview.ellipsize = null
+                tvReadMore.text = getString(R.string.tvReadLess)
+            } else {
+                tvOverview.maxLines = 4
+                tvOverview.ellipsize = TextUtils.TruncateAt.END
+                tvReadMore.text = getString(R.string.tvReadMore)
+            }
+        }
+    }
+
+    private fun setCastAdapter() = with(binding) {
+        rvMovieCast.apply {
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            setHasFixedSize(true)
+            adapter = castAdapter
+        }
+    }
+
+    private fun setCast(id: Int) {
+        viewModel.apply {
+            setDetailMovieCast(id)
+            listDetailCast.observe(viewLifecycleOwner) {
+                if (it != null) {
+                    castAdapter.submitList(it)
+                }
+            }
+        }
+    }
+
     private fun showVideo(id: Int) = with(binding) {
         viewModel.apply {
             setDetailMovieVideo(id)
@@ -222,14 +256,6 @@ class DetailMovieFragment : Fragment() {
         }
     }
 
-    private fun setSimilarMovieAdapter() = with(binding) {
-        rvMovieSimilar.apply {
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            setHasFixedSize(true)
-            adapter = similarAdapter
-        }
-    }
-
     private fun showReviews(id: Int) {
         viewModel.apply {
             setDetailMovieReviews(id)
@@ -241,6 +267,14 @@ class DetailMovieFragment : Fragment() {
         }
     }
 
+    private fun setSimilarMovieAdapter() = with(binding) {
+        rvMovieSimilar.apply {
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            setHasFixedSize(true)
+            adapter = similarAdapter
+        }
+    }
+
     private fun showSimilar(id: Int) {
         viewModel.apply {
             setDetailMovieSimilar(id)
@@ -248,40 +282,6 @@ class DetailMovieFragment : Fragment() {
                 if (it != null) {
                     similarAdapter.submitList(it)
                 }
-            }
-        }
-    }
-
-    private fun setCastAdapter() = with(binding) {
-        rvMovieCast.apply {
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            setHasFixedSize(true)
-            adapter = castAdapter
-        }
-    }
-
-    private fun setCast(id: Int) {
-        viewModel.apply {
-            setDetailMovieCast(id)
-            listDetailCast.observe(viewLifecycleOwner) {
-                if (it != null) {
-                    castAdapter.submitList(it)
-                }
-            }
-        }
-    }
-
-    private fun setReadMore() = with(binding) {
-        tvReadMore.isVisible = true
-        tvReadMore.setOnClickListener {
-            if (tvReadMore.text.toString() == "Read More") {
-                tvOverview.maxLines = Integer.MAX_VALUE
-                tvOverview.ellipsize = null
-                tvReadMore.text = getString(R.string.tvReadLess)
-            } else {
-                tvOverview.maxLines = 4
-                tvOverview.ellipsize = TextUtils.TruncateAt.END
-                tvReadMore.text = getString(R.string.tvReadMore)
             }
         }
     }

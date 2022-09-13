@@ -13,8 +13,8 @@ import com.taufik.themovieshow.data.local.room.MovieDatabase
 import com.taufik.themovieshow.data.main.movie.cast.MovieCast
 import com.taufik.themovieshow.data.main.movie.cast.MovieCastResponse
 import com.taufik.themovieshow.data.main.movie.detail.MovieDetailResponse
-import com.taufik.themovieshow.data.main.movie.reviews.MovieReviewsResponse
-import com.taufik.themovieshow.data.main.movie.reviews.MovieReviewsResult
+import com.taufik.themovieshow.data.main.common.reviews.ReviewsResponse
+import com.taufik.themovieshow.data.main.common.reviews.ReviewsResult
 import com.taufik.themovieshow.data.main.movie.similar.MovieSimilarResponse
 import com.taufik.themovieshow.data.main.movie.similar.MovieSimilarResult
 import com.taufik.themovieshow.data.main.movie.video.MovieVideoResponse
@@ -39,11 +39,11 @@ class DetailMovieViewModel(application: Application) : AndroidViewModel(applicat
     private val _listDetailCast = MutableLiveData<ArrayList<MovieCast>>()
     val listDetailCast: LiveData<ArrayList<MovieCast>> = _listDetailCast
 
+    private val _listReviews = MutableLiveData<ArrayList<ReviewsResult>>()
+    val listReviewMovie: LiveData<ArrayList<ReviewsResult>> = _listReviews
+
     private val _listSimilar = MutableLiveData<ArrayList<MovieSimilarResult>>()
     val listSimilarMovie: LiveData<ArrayList<MovieSimilarResult>> = _listSimilar
-
-    private val _listReviews = MutableLiveData<ArrayList<MovieReviewsResult>>()
-    val listReviewMovie: LiveData<ArrayList<MovieReviewsResult>> = _listReviews
 
     private var movieDao: FavoriteMovieDao?
     private var movieDb: MovieDatabase? = MovieDatabase.getDatabase(context = application)
@@ -130,18 +130,18 @@ class DetailMovieViewModel(application: Application) : AndroidViewModel(applicat
 
     fun setDetailMovieReviews(id: Int) {
         apiInstance.getReviewsMovie(id, apiKey)
-            .enqueue(object : Callback<MovieReviewsResponse> {
+            .enqueue(object : Callback<ReviewsResponse> {
                 override fun onResponse(
-                    call: Call<MovieReviewsResponse>,
-                    response: Response<MovieReviewsResponse>
+                    call: Call<ReviewsResponse>,
+                    response: Response<ReviewsResponse>
                 ) {
                     if (response.isSuccessful) {
-                        _listReviews.value = response.body()?.results as ArrayList<MovieReviewsResult>
+                        _listReviews.value = response.body()?.results as ArrayList<ReviewsResult>
                         Log.e("listReview", "onResponse: ${response.body()}")
                     }
                 }
 
-                override fun onFailure(call: Call<MovieReviewsResponse>, t: Throwable) {
+                override fun onFailure(call: Call<ReviewsResponse>, t: Throwable) {
                     Log.e("errorRetrofit", "onFailure: ${t.localizedMessage}")
                 }
             })

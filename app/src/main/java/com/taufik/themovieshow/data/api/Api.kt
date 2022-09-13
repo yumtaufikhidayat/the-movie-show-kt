@@ -4,7 +4,7 @@ import com.taufik.themovieshow.data.main.movie.cast.MovieCastResponse
 import com.taufik.themovieshow.data.main.movie.detail.MovieDetailResponse
 import com.taufik.themovieshow.data.main.movie.discover.DiscoverMovieResponse
 import com.taufik.themovieshow.data.main.movie.nowplayingupcoming.MovieMainResponse
-import com.taufik.themovieshow.data.main.movie.reviews.MovieReviewsResponse
+import com.taufik.themovieshow.data.main.common.reviews.ReviewsResponse
 import com.taufik.themovieshow.data.main.movie.similar.MovieSimilarResponse
 import com.taufik.themovieshow.data.main.movie.trending.MovieTrendingResponse
 import com.taufik.themovieshow.data.main.movie.video.MovieVideoResponse
@@ -54,17 +54,17 @@ interface Api {
         @Query("api_key") apiKey: String
     ): Call<MovieDetailResponse>
 
+    @GET(UrlEndpoint.MOVIE_REVIEWS)
+    fun getReviewsMovie(
+        @Path("movie_id") movieId: Int,
+        @Query("api_key") apiKey: String
+    ): Call<ReviewsResponse>
+
     @GET(UrlEndpoint.MOVIE_SIMILAR)
     fun getSimilarMovie(
         @Path("movie_id") movieId: Int,
         @Query("api_key") apiKey: String
     ): Call<MovieSimilarResponse>
-
-    @GET(UrlEndpoint.MOVIE_REVIEWS)
-    fun getReviewsMovie(
-        @Path("movie_id") movieId: Int,
-        @Query("api_key") apiKey: String
-    ): Call<MovieReviewsResponse>
 
     @GET(UrlEndpoint.TV_SHOWS_AIRING_TODAY)
     fun getTvShowsAiringToday(
@@ -104,4 +104,10 @@ interface Api {
         @Path("tv_id") tvId: Int,
         @Query("api_key") apiKey: String
     ): Call<TvShowsPopularDetailResponse>
+
+    @GET(UrlEndpoint.TV_SHOWS_REVIEWS)
+    fun getReviewsTvShows(
+        @Path("tv_id") tvId: Int,
+        @Query("api_key") apiKey: String
+    ): Call<ReviewsResponse>
 }

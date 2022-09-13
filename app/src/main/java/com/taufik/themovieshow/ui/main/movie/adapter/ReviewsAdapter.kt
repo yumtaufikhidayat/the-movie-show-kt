@@ -8,13 +8,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.taufik.themovieshow.data.main.movie.reviews.MovieReviewsResult
+import com.taufik.themovieshow.data.main.common.reviews.ReviewsResult
 import com.taufik.themovieshow.databinding.ItemReviewsBinding
 import com.taufik.themovieshow.utils.CommonDateFormatConstants
 import com.taufik.themovieshow.utils.convertDate
 import com.taufik.themovieshow.utils.loadImage
 
-class ReviewsAdapter: ListAdapter<MovieReviewsResult, ReviewsAdapter.ReviewsViewHolder>(ReviewsDiffCallback) {
+class ReviewsAdapter: ListAdapter<ReviewsResult, ReviewsAdapter.ReviewsViewHolder>(ReviewsDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReviewsViewHolder {
         return ReviewsViewHolder(ItemReviewsBinding.inflate(LayoutInflater.from(parent.context), parent, false))
@@ -23,7 +23,7 @@ class ReviewsAdapter: ListAdapter<MovieReviewsResult, ReviewsAdapter.ReviewsView
     override fun onBindViewHolder(holder: ReviewsViewHolder, position: Int) = holder.bind(getItem(position))
 
     inner class ReviewsViewHolder(private val binding: ItemReviewsBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: MovieReviewsResult) = with(binding) {
+        fun bind(data: ReviewsResult) = with(binding) {
             val author = data.authorDetails
             imgReviewer.loadImage(author.avatarPath)
             tvReviewerName.text = data.author
@@ -44,15 +44,15 @@ class ReviewsAdapter: ListAdapter<MovieReviewsResult, ReviewsAdapter.ReviewsView
         }
     }
 
-    object ReviewsDiffCallback: DiffUtil.ItemCallback<MovieReviewsResult>() {
+    object ReviewsDiffCallback: DiffUtil.ItemCallback<ReviewsResult>() {
         override fun areItemsTheSame(
-            oldItem: MovieReviewsResult,
-            newItem: MovieReviewsResult
+            oldItem: ReviewsResult,
+            newItem: ReviewsResult
         ): Boolean = oldItem.id == newItem.id
 
         override fun areContentsTheSame(
-            oldItem: MovieReviewsResult,
-            newItem: MovieReviewsResult
+            oldItem: ReviewsResult,
+            newItem: ReviewsResult
         ): Boolean = oldItem == newItem
     }
 }
