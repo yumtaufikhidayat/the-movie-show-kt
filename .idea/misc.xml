@@ -6,6 +6,8 @@
         <entry key="../../../../.gradle/caches/transforms-3/9765b28e85a9a2100761dc5fb0652176/transformed/jetified-Toasty-1.5.0/res/drawable-anydpi-v21/ic_clear_white_24dp.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/background_movie_show.xml" value="0.19895833333333332" />
         <entry key="app/src/main/res/drawable/bg_search.xml" value="0.1115" />
+        <entry key="app/src/main/res/drawable/bg_search_discover.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/bg_search_favorite.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/bottom_navigation_selector.xml" value="0.19589743589743588" />
         <entry key="app/src/main/res/drawable/ic_discover.xml" value="0.19895833333333332" />
         <entry key="app/src/main/res/drawable/ic_language_white.xml" value="0.19895833333333332" />
@@ -30,7 +32,7 @@
         <entry key="app/src/main/res/layout/fragment_discover_tv_show.xml" value="0.1796875" />
         <entry key="app/src/main/res/layout/fragment_favorite.xml" value="0.1796875" />
         <entry key="app/src/main/res/layout/fragment_favorite_movie.xml" value="0.1796875" />
-        <entry key="app/src/main/res/layout/fragment_favorite_tv_shows.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_favorite_tv_shows.xml" value="0.1425925925925926" />
         <entry key="app/src/main/res/layout/fragment_movie.xml" value="0.16" />
         <entry key="app/src/main/res/layout/fragment_movie_now_playing.xml" value="0.1828125" />
         <entry key="app/src/main/res/layout/fragment_movie_trending.xml" value="0.1" />
@@ -56,7 +58,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

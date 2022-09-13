@@ -8,13 +8,33 @@
     android:background="@color/colorPrimary"
     tools:context=".ui.main.favorite.fragment.FavoriteMovieFragment">
 
+    <com.taufik.themovieshow.utils.CustomEditText
+        android:id="@+id/etSearch"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_margin="8dp"
+        android:paddingHorizontal="6dp"
+        android:background="@drawable/bg_search_favorite"
+        android:hint="@string/tvSearch"
+        android:textColorHint="@color/colorGrey"
+        android:inputType="text"
+        android:importantForAutofill="auto"
+        android:imeOptions="actionSearch"
+        android:autofillHints="Search..."
+        android:drawablePadding="8dp"
+        android:drawableStart="@drawable/ic_search"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvDiscoverFavoriteMovies"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:overScrollMode="never"
+        android:layout_marginTop="8dp"
         tools:listitem="@layout/items_movies_tv_show"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etSearch"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
