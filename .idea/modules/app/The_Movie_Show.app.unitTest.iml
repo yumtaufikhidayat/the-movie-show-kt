@@ -14,6 +14,7 @@
           <stringArguments>
             <stringArg name="classpath">
               <args>
+                <arg>$MODULE_DIR$/../../../app/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/17284a60e45688522d470a63fb2c94a0/transformed/jetified-viewbinding-7.0.4-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/b1b9d3df7347a94180d4c3ceae27047d/transformed/jetified-kotlin-parcelize-runtime-1.7.10.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/80e6e2b2734566ef66bd6631568621b4/transformed/navigation-fragment-ktx-2.5.2-api.jar</arg>
@@ -50,14 +51,14 @@
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/00b0731c7e40e5422d83f6d7f1a65e72/transformed/legacy-support-core-utils-1.0.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/3703eae51f893e3e35b95dbaf6ba105b/transformed/loader-1.0.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/e90e76940564cd8bb3337b1d89f50d78/transformed/lifecycle-viewmodel-2.5.1-api.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/f62bbb0779f09497b806d8e30c0830ba/transformed/jetified-kotlinx-coroutines-core-jvm-1.6.1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/ff5cde673381fade92a40f40fb2ee317/transformed/jetified-kotlinx-coroutines-core-jvm-1.6.2.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/69343df2acbcd0d2869557edee51923e/transformed/jetified-lifecycle-runtime-ktx-2.5.1-api.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/184e07004c1e974742354e3c6721decd/transformed/jetified-kotlinx-coroutines-android-1.6.1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/481a777142fccd5a2d3322f1aea9f7bc/transformed/jetified-kotlinx-coroutines-android-1.6.2.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/bedee1f79351446353d2a111b771790b/transformed/jetified-okio-jvm-3.0.0.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/6f5af0255e06ad21b68f6dd7e847e720/transformed/jetified-kotlin-stdlib-jdk8-1.6.10.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/3497506629221764f2138e04935e4dc5/transformed/jetified-kotlin-stdlib-jdk8-1.6.21.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/7371c89142b68c92bd7a8ebb5df9ac39/transformed/jetified-collection-ktx-1.1.0.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/50210457d2358148653ce267f314d773/transformed/jetified-lifecycle-livedata-core-ktx-2.5.1-api.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/8e687279a45e8c1b0042160a820163bb/transformed/jetified-kotlin-stdlib-jdk7-1.6.10.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/9caabb59c528b1c747ea180fd4e4c8db/transformed/jetified-kotlin-stdlib-jdk7-1.6.21.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/fb617aacb1a7b4ca2284757a116f3744/transformed/jetified-kotlin-stdlib-1.7.10.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/87751afa52c8d10f2433a7f1bb838d17/transformed/jetified-kotlin-stdlib-common-1.7.10.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/09d12f83ad8e82135938cbd1b84e7fd2/transformed/jetified-annotations-13.0.jar</arg>
@@ -66,10 +67,9 @@
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/328c4b29e8479618808ceb5016bf875d/transformed/jetified-junit-4.13.2.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/02cffa5eae3cdbfc04c4c129d566e482/transformed/jetified-hamcrest-core-1.3.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/a233271e25550f3d9d849c98d8a5e79c/transformed/jetified-mockito-inline-3.6.0.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/0d86004208c42dddd956f9624372e6e5/transformed/jetified-mockito-core-3.6.0.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/ed4cd85d87d9737cd39c337ae9b07f47/transformed/jetified-byte-buddy-1.10.15.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/fc017bc6b15d0765313fc02ba74a8fd9/transformed/jetified-byte-buddy-agent-1.10.15.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/c768d5a9854e240d69b27a69f6360699/transformed/jetified-objenesis-3.1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/5162dee0851e21769339632b4de1a761/transformed/jetified-mockito-core-4.0.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/9447112d043cb6c03c17ded7a0e87827/transformed/jetified-byte-buddy-1.11.19.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/a8f14903f0f150a20266da8064169b74/transformed/jetified-byte-buddy-agent-1.11.19.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/64447ddc0ec014f4f97f98379352b10f/transformed/lifecycle-livedata-2.2.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/128e1541fc1e7f2cab55da73279e902a/transformed/core-runtime-2.1.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.lifecycle/lifecycle-common-java8/2.5.1/5b8f86fea035328fc9e8c660773037a3401ce25f/lifecycle-common-java8-2.5.1.jar</arg>
@@ -190,22 +190,21 @@
     <orderEntry type="library" scope="TEST" name="Gradle: com.squareup.okhttp3:logging-interceptor:4.10.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.squareup.okhttp3:okhttp:4.10.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlin:kotlin-android-extensions-runtime:1.7.10" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.1" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.2" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.squareup.okio:okio-jvm:3.0.0" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.10" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.21" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.collection:collection-ktx:1.1.0" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.10" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.21" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.7.10" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.7.10" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains:annotations:13.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: junit:junit:4.13.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.hamcrest:hamcrest-core:1.3" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.mockito:mockito-inline:3.6.0" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: org.mockito:mockito-core:3.6.0" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: net.bytebuddy:byte-buddy:1.10.15" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: net.bytebuddy:byte-buddy-agent:1.10.15" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: org.objenesis:objenesis:3.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.mockito:mockito-core:4.0.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: net.bytebuddy:byte-buddy:1.11.19" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: net.bytebuddy:byte-buddy-agent:1.11.19" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.lifecycle:lifecycle-common-java8:2.5.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.arch.core:core-common:2.1.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.lifecycle:lifecycle-common:2.5.1" level="project" />

@@ -14,6 +14,7 @@
           <stringArguments>
             <stringArg name="classpath">
               <args>
+                <arg>$MODULE_DIR$/../../../app/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/17284a60e45688522d470a63fb2c94a0/transformed/jetified-viewbinding-7.0.4-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/b1b9d3df7347a94180d4c3ceae27047d/transformed/jetified-kotlin-parcelize-runtime-1.7.10.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/80e6e2b2734566ef66bd6631568621b4/transformed/navigation-fragment-ktx-2.5.2-api.jar</arg>
@@ -92,11 +93,11 @@
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/05a4d677032d63b21c1ae0f0386d6054/transformed/jetified-logging-interceptor-4.10.0.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/70710df48b2d3bcd2fca84563a9e63f2/transformed/jetified-okhttp-4.10.0.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/174d2600391f7c4d8562a5f529e01259/transformed/jetified-kotlin-android-extensions-runtime-1.7.10.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/f62bbb0779f09497b806d8e30c0830ba/transformed/jetified-kotlinx-coroutines-core-jvm-1.6.1.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/184e07004c1e974742354e3c6721decd/transformed/jetified-kotlinx-coroutines-android-1.6.1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/ff5cde673381fade92a40f40fb2ee317/transformed/jetified-kotlinx-coroutines-core-jvm-1.6.2.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/481a777142fccd5a2d3322f1aea9f7bc/transformed/jetified-kotlinx-coroutines-android-1.6.2.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/bedee1f79351446353d2a111b771790b/transformed/jetified-okio-jvm-3.0.0.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/6f5af0255e06ad21b68f6dd7e847e720/transformed/jetified-kotlin-stdlib-jdk8-1.6.10.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/8e687279a45e8c1b0042160a820163bb/transformed/jetified-kotlin-stdlib-jdk7-1.6.10.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/3497506629221764f2138e04935e4dc5/transformed/jetified-kotlin-stdlib-jdk8-1.6.21.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/9caabb59c528b1c747ea180fd4e4c8db/transformed/jetified-kotlin-stdlib-jdk7-1.6.21.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/fb617aacb1a7b4ca2284757a116f3744/transformed/jetified-kotlin-stdlib-1.7.10.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/87751afa52c8d10f2433a7f1bb838d17/transformed/jetified-kotlin-stdlib-common-1.7.10.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/09d12f83ad8e82135938cbd1b84e7fd2/transformed/jetified-annotations-13.0.jar</arg>
@@ -216,11 +217,11 @@
     <orderEntry type="library" name="Gradle: com.squareup.okhttp3:logging-interceptor:4.10.0" level="project" />
     <orderEntry type="library" name="Gradle: com.squareup.okhttp3:okhttp:4.10.0" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-android-extensions-runtime:1.7.10" level="project" />
-    <orderEntry type="library" name="Gradle: org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.1" level="project" />
-    <orderEntry type="library" name="Gradle: org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.2" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.2" level="project" />
     <orderEntry type="library" name="Gradle: com.squareup.okio:okio-jvm:3.0.0" level="project" />
-    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.10" level="project" />
-    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.10" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.21" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.21" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.7.10" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.7.10" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains:annotations:13.0" level="project" />

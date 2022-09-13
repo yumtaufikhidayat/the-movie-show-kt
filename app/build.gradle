@@ -69,11 +69,12 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-core:3.4.0"
     androidTestImplementation "androidx.test.espresso:espresso-contrib:3.4.0"
     testImplementation 'androidx.arch.core:core-testing:2.1.0'
-    testImplementation 'org.mockito:mockito-core:3.6.0'
+    testImplementation 'org.mockito:mockito-core:4.0.0'
     testImplementation 'org.mockito:mockito-inline:3.6.0'
 
     // Justified text view
-    implementation 'com.codesgood:justifiedtextview:1.1.0'
+    def justifiedTextVersion = "1.1.0"
+    implementation "com.codesgood:justifiedtextview:$justifiedTextVersion"
 
     // View Model
     implementation "androidx.lifecycle:lifecycle-extensions:$lifeCycleVersion"
@@ -88,10 +89,12 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
 
     // Toasty
-    implementation 'com.github.GrenderG:Toasty:1.5.0'
+    def toastVersion = "1.5.0"
+    implementation "com.github.GrenderG:Toasty:$toastVersion"
 
     // Youtube player
-    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
+    def videoVersion = "10.0.5"
+    implementation "com.pierfrancescosoffritti.androidyoutubeplayer:core:$videoVersion"
 
     // Room DB
     def room_version = '2.4.3'
@@ -101,7 +104,7 @@ dependencies {
     kapt "androidx.room:room-compiler:$room_version"
 
     // Coroutine
-    def coroutineVersion = "1.6.1"
+    def coroutineVersion = "1.6.2"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutineVersion"
 
