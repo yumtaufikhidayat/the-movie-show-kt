@@ -10,6 +10,8 @@ import com.taufik.themovieshow.data.api.ApiClient
 import com.taufik.themovieshow.data.local.dao.FavoriteTvShowDao
 import com.taufik.themovieshow.data.local.entity.FavoriteTvShow
 import com.taufik.themovieshow.data.local.room.TvShowDatabase
+import com.taufik.themovieshow.data.main.common.reviews.ReviewsResponse
+import com.taufik.themovieshow.data.main.common.reviews.ReviewsResult
 import com.taufik.themovieshow.data.main.tvshow.cast.TvShowsCast
 import com.taufik.themovieshow.data.main.tvshow.cast.TvShowsCastResponse
 import com.taufik.themovieshow.data.main.tvshow.detail.TvShowsPopularDetailResponse
@@ -34,6 +36,9 @@ class DetailTvShowViewModel(application: Application) : AndroidViewModel(applica
 
     private val _listDetailCast = MutableLiveData<ArrayList<TvShowsCast>>()
     val listDetailCasts: LiveData<ArrayList<TvShowsCast>> = _listDetailCast
+
+    private val _listReviews = MutableLiveData<ArrayList<ReviewsResult>>()
+    val listReviewTvShows: LiveData<ArrayList<ReviewsResult>> = _listReviews
 
     private var tvShowDao: FavoriteTvShowDao?
     private var tvShowDb: TvShowDatabase? = TvShowDatabase.getDatabase(context = application)
@@ -94,6 +99,25 @@ class DetailTvShowViewModel(application: Application) : AndroidViewModel(applica
                 }
 
                 override fun onFailure(call: Call<TvShowsCastResponse>, t: Throwable) {
+                    Log.e("errorRetrofit", "onFailure: ${t.localizedMessage}")
+                }
+            })
+    }
+
+    fun setDetailTvShowsReviews(id: Int) {
+        apiInstance.getReviewsTvShows(id, apiKey)
+            .enqueue(object : Callback<ReviewsResponse> {
+                override fun onResponse(
+                    call: Call<ReviewsResponse>,
+                    response: Response<ReviewsResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        _listReviews.value = response.body()?.results as ArrayList<ReviewsResult>
+                        Log.e("listReview", "onResponse: ${response.body()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<ReviewsResponse>, t: Throwable) {
                     Log.e("errorRetrofit", "onFailure: ${t.localizedMessage}")
                 }
             })

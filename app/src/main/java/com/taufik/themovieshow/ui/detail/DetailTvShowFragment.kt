@@ -13,11 +13,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
+import androidx.recyclerview.widget.SnapHelper
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.viewmodel.tvshow.DetailTvShowViewModel
 import com.taufik.themovieshow.databinding.FragmentDetailTvShowBinding
+import com.taufik.themovieshow.ui.main.movie.adapter.ReviewsAdapter
 import com.taufik.themovieshow.ui.main.tvshow.adapter.TvShowsCastAdapter
 import com.taufik.themovieshow.utils.CommonDateFormatConstants
 import com.taufik.themovieshow.utils.convertDate
@@ -37,6 +40,7 @@ class DetailTvShowFragment : Fragment() {
 
     private val viewModel: DetailTvShowViewModel by viewModels()
     private val castAdapter by lazy { TvShowsCastAdapter() }
+    private val reviewsAdapter by lazy { ReviewsAdapter() }
 
     private var idTvShow = 0
     private var title = ""
@@ -56,8 +60,9 @@ class DetailTvShowFragment : Fragment() {
         getBundleData()
         showToolbarData()
         setData()
-        setCastAdapter()
         setReadMore()
+        setCastAdapter()
+        setReviewsAdapter()
     }
 
     private fun getBundleData() {
@@ -120,6 +125,7 @@ class DetailTvShowFragment : Fragment() {
                     shareTvShow(it.homepage)
                     setCast(idTvShow)
                     showVideo(idTvShow)
+                    showReviews(idTvShow)
                 }
             }
         }
@@ -183,6 +189,40 @@ class DetailTvShowFragment : Fragment() {
         }
     }
 
+    private fun setReadMore() = with(binding) {
+        tvReadMore.isVisible = true
+        tvReadMore.setOnClickListener {
+            if (tvReadMore.text.toString() == "Read More") {
+                tvOverview.maxLines = Integer.MAX_VALUE
+                tvOverview.ellipsize = null
+                tvReadMore.text = getString(R.string.tvReadLess)
+            } else {
+                tvOverview.maxLines = 4
+                tvOverview.ellipsize = TextUtils.TruncateAt.END
+                tvReadMore.text = getString(R.string.tvReadMore)
+            }
+        }
+    }
+
+    private fun setCastAdapter() = with(binding) {
+        rvTvShowCast.apply {
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            setHasFixedSize(true)
+            adapter = castAdapter
+        }
+    }
+
+    private fun setCast(id: Int) {
+        viewModel.apply {
+            setDetailTvShowsCast(id)
+            listDetailCasts.observe(viewLifecycleOwner) {
+                if (it != null) {
+                    castAdapter.submitList(it)
+                }
+            }
+        }
+    }
+
     private fun showVideo(id: Int) = with(binding) {
         viewModel.apply {
             setDetailTvShowVideo(id)
@@ -210,36 +250,23 @@ class DetailTvShowFragment : Fragment() {
         }
     }
 
-    private fun setCastAdapter() = with(binding) {
-        rvTvShowCast.apply {
+    private fun setReviewsAdapter() = with(binding) {
+        rvTvShowReviews.apply {
+            val helper: SnapHelper = LinearSnapHelper()
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            helper.attachToRecyclerView(this)
             setHasFixedSize(true)
-            adapter = castAdapter
+            adapter = reviewsAdapter
         }
     }
 
-    private fun setCast(id: Int) {
+    private fun showReviews(id: Int) {
         viewModel.apply {
-            setDetailTvShowsCast(id)
-            listDetailCasts.observe(viewLifecycleOwner) {
+            setDetailTvShowsReviews(id)
+            listReviewTvShows.observe(viewLifecycleOwner) {
                 if (it != null) {
-                    castAdapter.submitList(it)
+                    reviewsAdapter.submitList(it)
                 }
-            }
-        }
-    }
-
-    private fun setReadMore() = with(binding) {
-        tvReadMore.isVisible = true
-        tvReadMore.setOnClickListener {
-            if (tvReadMore.text.toString() == "Read More") {
-                tvOverview.maxLines = Integer.MAX_VALUE
-                tvOverview.ellipsize = null
-                tvReadMore.text = getString(R.string.tvReadLess)
-            } else {
-                tvOverview.maxLines = 4
-                tvOverview.ellipsize = TextUtils.TruncateAt.END
-                tvReadMore.text = getString(R.string.tvReadMore)
             }
         }
     }
