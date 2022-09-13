@@ -399,7 +399,7 @@
                 app:layout_constraintTop_toBottomOf="@id/rvTvShowReviews" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvMovieSimilar"
+                android:id="@+id/rvTvShowSimilar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"

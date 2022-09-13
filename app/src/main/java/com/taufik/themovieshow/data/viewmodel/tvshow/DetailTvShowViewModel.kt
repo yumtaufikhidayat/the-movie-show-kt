@@ -15,6 +15,8 @@ import com.taufik.themovieshow.data.main.common.reviews.ReviewsResult
 import com.taufik.themovieshow.data.main.tvshow.cast.TvShowsCast
 import com.taufik.themovieshow.data.main.tvshow.cast.TvShowsCastResponse
 import com.taufik.themovieshow.data.main.tvshow.detail.TvShowsPopularDetailResponse
+import com.taufik.themovieshow.data.main.tvshow.similar.TvShowsSimilarResponse
+import com.taufik.themovieshow.data.main.tvshow.similar.TvShowsSimilarResultsItem
 import com.taufik.themovieshow.data.main.tvshow.video.TvShowsVideoResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -40,6 +42,9 @@ class DetailTvShowViewModel(application: Application) : AndroidViewModel(applica
     private val _listReviews = MutableLiveData<ArrayList<ReviewsResult>>()
     val listReviewTvShows: LiveData<ArrayList<ReviewsResult>> = _listReviews
 
+    private val _listSimilar = MutableLiveData<ArrayList<TvShowsSimilarResultsItem>>()
+    val listSimilarTvShows: LiveData<ArrayList<TvShowsSimilarResultsItem>> = _listSimilar
+    
     private var tvShowDao: FavoriteTvShowDao?
     private var tvShowDb: TvShowDatabase? = TvShowDatabase.getDatabase(context = application)
 
@@ -118,6 +123,25 @@ class DetailTvShowViewModel(application: Application) : AndroidViewModel(applica
                 }
 
                 override fun onFailure(call: Call<ReviewsResponse>, t: Throwable) {
+                    Log.e("errorRetrofit", "onFailure: ${t.localizedMessage}")
+                }
+            })
+    }
+    
+    fun setDetailTvShowsSimilar(id: Int) {
+        apiInstance.getSimilarTvShows(id, apiKey)
+            .enqueue(object : Callback<TvShowsSimilarResponse> {
+                override fun onResponse(
+                    call: Call<TvShowsSimilarResponse>,
+                    response: Response<TvShowsSimilarResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        _listSimilar.value = response.body()?.results as ArrayList<TvShowsSimilarResultsItem>
+                        Log.e("listSimilar", "onResponse: ${response.body()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<TvShowsSimilarResponse>, t: Throwable) {
                     Log.e("errorRetrofit", "onFailure: ${t.localizedMessage}")
                 }
             })

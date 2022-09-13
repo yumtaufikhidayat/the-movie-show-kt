@@ -12,6 +12,7 @@ import com.taufik.themovieshow.data.main.tvshow.cast.TvShowsCastResponse
 import com.taufik.themovieshow.data.main.tvshow.detail.TvShowsPopularDetailResponse
 import com.taufik.themovieshow.data.main.tvshow.discover.DiscoverTvShowsResponse
 import com.taufik.themovieshow.data.main.tvshow.popularairingtoday.TvShowsMainResponse
+import com.taufik.themovieshow.data.main.tvshow.similar.TvShowsSimilarResponse
 import com.taufik.themovieshow.data.main.tvshow.trending.TvShowsTrendingReponse
 import com.taufik.themovieshow.data.main.tvshow.video.TvShowsVideoResponse
 import retrofit2.Call
@@ -110,4 +111,10 @@ interface Api {
         @Path("tv_id") tvId: Int,
         @Query("api_key") apiKey: String
     ): Call<ReviewsResponse>
+
+    @GET(UrlEndpoint.TV_SHOWS_SIMILAR)
+    fun getSimilarTvShows(
+        @Path("tv_id") movieId: Int,
+        @Query("api_key") apiKey: String
+    ): Call<TvShowsSimilarResponse>
 }

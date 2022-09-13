@@ -18,6 +18,7 @@ object UrlEndpoint {
     const val TV_SHOWS_VIDEO = "tv/{tv_id}/videos"
     const val TV_SHOWS_CAST = "tv/{tv_id}/credits"
     const val TV_SHOWS_REVIEWS = "tv/{tv_id}/reviews"
+    const val TV_SHOWS_SIMILAR = "tv/{tv_id}/similar"
     const val DISCOVER_MOVIES = "search/movie"
     const val DISCOVER_TV_SHOWS = "search/tv"
 }

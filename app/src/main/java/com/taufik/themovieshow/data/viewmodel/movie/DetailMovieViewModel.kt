@@ -71,25 +71,6 @@ class DetailMovieViewModel(application: Application) : AndroidViewModel(applicat
             })
     }
 
-    fun setDetailMovieVideo(id: Int) {
-        apiInstance.getMovieVideo(id, apiKey)
-            .enqueue(object : Callback<MovieVideoResponse> {
-                override fun onResponse(
-                    call: Call<MovieVideoResponse>,
-                    response: Response<MovieVideoResponse>
-                ) {
-                    if (response.isSuccessful) {
-                        _detailVideo.value = response.body()
-                        Log.e("detailVideo", "onResponse: ${response.body()}")
-                    }
-                }
-
-                override fun onFailure(call: Call<MovieVideoResponse>, t: Throwable) {
-                    Log.e("errorRetrofit", "onFailure: ${t.localizedMessage}")
-                }
-            })
-    }
-
     fun setDetailMovieCast(id: Int) {
         apiInstance.getMovieCast(id, apiKey)
             .enqueue(object : Callback<MovieCastResponse> {
@@ -109,20 +90,20 @@ class DetailMovieViewModel(application: Application) : AndroidViewModel(applicat
             })
     }
 
-    fun setDetailMovieSimilar(id: Int) {
-        apiInstance.getSimilarMovie(id, apiKey)
-            .enqueue(object : Callback<MovieSimilarResponse> {
+    fun setDetailMovieVideo(id: Int) {
+        apiInstance.getMovieVideo(id, apiKey)
+            .enqueue(object : Callback<MovieVideoResponse> {
                 override fun onResponse(
-                    call: Call<MovieSimilarResponse>,
-                    response: Response<MovieSimilarResponse>
+                    call: Call<MovieVideoResponse>,
+                    response: Response<MovieVideoResponse>
                 ) {
                     if (response.isSuccessful) {
-                        _listSimilar.value = response.body()?.results as ArrayList<MovieSimilarResult>
-                        Log.e("listSimilar", "onResponse: ${response.body()}")
+                        _detailVideo.value = response.body()
+                        Log.e("detailVideo", "onResponse: ${response.body()}")
                     }
                 }
 
-                override fun onFailure(call: Call<MovieSimilarResponse>, t: Throwable) {
+                override fun onFailure(call: Call<MovieVideoResponse>, t: Throwable) {
                     Log.e("errorRetrofit", "onFailure: ${t.localizedMessage}")
                 }
             })
@@ -142,6 +123,25 @@ class DetailMovieViewModel(application: Application) : AndroidViewModel(applicat
                 }
 
                 override fun onFailure(call: Call<ReviewsResponse>, t: Throwable) {
+                    Log.e("errorRetrofit", "onFailure: ${t.localizedMessage}")
+                }
+            })
+    }
+
+    fun setDetailMovieSimilar(id: Int) {
+        apiInstance.getSimilarMovie(id, apiKey)
+            .enqueue(object : Callback<MovieSimilarResponse> {
+                override fun onResponse(
+                    call: Call<MovieSimilarResponse>,
+                    response: Response<MovieSimilarResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        _listSimilar.value = response.body()?.results as ArrayList<MovieSimilarResult>
+                        Log.e("listSimilar", "onResponse: ${response.body()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<MovieSimilarResponse>, t: Throwable) {
                     Log.e("errorRetrofit", "onFailure: ${t.localizedMessage}")
                 }
             })

@@ -21,6 +21,7 @@ import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.viewmodel.tvshow.DetailTvShowViewModel
 import com.taufik.themovieshow.databinding.FragmentDetailTvShowBinding
 import com.taufik.themovieshow.ui.main.movie.adapter.ReviewsAdapter
+import com.taufik.themovieshow.ui.main.tvshow.adapter.TvShowSimilarAdapter
 import com.taufik.themovieshow.ui.main.tvshow.adapter.TvShowsCastAdapter
 import com.taufik.themovieshow.utils.CommonDateFormatConstants
 import com.taufik.themovieshow.utils.convertDate
@@ -41,6 +42,7 @@ class DetailTvShowFragment : Fragment() {
     private val viewModel: DetailTvShowViewModel by viewModels()
     private val castAdapter by lazy { TvShowsCastAdapter() }
     private val reviewsAdapter by lazy { ReviewsAdapter() }
+    private val similarAdapter by lazy { TvShowSimilarAdapter() }
 
     private var idTvShow = 0
     private var title = ""
@@ -63,6 +65,7 @@ class DetailTvShowFragment : Fragment() {
         setReadMore()
         setCastAdapter()
         setReviewsAdapter()
+        setSimilarAdapter()
     }
 
     private fun getBundleData() {
@@ -126,6 +129,7 @@ class DetailTvShowFragment : Fragment() {
                     setCast(idTvShow)
                     showVideo(idTvShow)
                     showReviews(idTvShow)
+                    showSimilar(idTvShow)
                 }
             }
         }
@@ -266,6 +270,27 @@ class DetailTvShowFragment : Fragment() {
             listReviewTvShows.observe(viewLifecycleOwner) {
                 if (it != null) {
                     reviewsAdapter.submitList(it)
+                }
+            }
+        }
+    }
+
+    private fun setSimilarAdapter() = with(binding) {
+        rvTvShowSimilar.apply {
+            val helper: SnapHelper = LinearSnapHelper()
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            helper.attachToRecyclerView(this)
+            setHasFixedSize(true)
+            adapter = similarAdapter
+        }
+    }
+
+    private fun showSimilar(id: Int) {
+        viewModel.apply {
+            setDetailTvShowsSimilar(id)
+            listSimilarTvShows.observe(viewLifecycleOwner) {
+                if (it != null) {
+                    similarAdapter.submitList(it)
                 }
             }
         }
