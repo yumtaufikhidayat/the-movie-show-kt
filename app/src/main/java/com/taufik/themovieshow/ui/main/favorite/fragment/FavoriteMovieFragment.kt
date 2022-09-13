@@ -53,10 +53,8 @@ class FavoriteMovieFragment : Fragment() {
     }
 
     private fun mapList(movies: List<FavoriteMovie>):  ArrayList<MovieMainResult> {
-
         val listMovies = ArrayList<MovieMainResult>()
-
-        for (movie in movies) {
+        movies.forEach {  movie ->
             val movieMapped = MovieMainResult(
                 movie.movieId,
                 movie.moviePoster,

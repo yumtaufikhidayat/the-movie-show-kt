@@ -54,10 +54,8 @@ class FavoriteTvShowsFragment : Fragment() {
     }
 
     private fun mapList(tvShows: List<FavoriteTvShow>): ArrayList<TvShowsMainResult> {
-
         val listTvShow = ArrayList<TvShowsMainResult>()
-
-        for (tvShow in tvShows) {
+        tvShows.forEach { tvShow ->
             val tvShowMapped = TvShowsMainResult(
                 tvShow.tvShowFirstAirDate,
                 tvShow.tvShowId,
