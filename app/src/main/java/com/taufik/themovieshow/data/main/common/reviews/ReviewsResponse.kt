@@ -1,15 +1,15 @@
-package com.taufik.themovieshow.data.main.movie.reviews
+package com.taufik.themovieshow.data.main.common.reviews
 
 
 import com.google.gson.annotations.SerializedName
 
-data class MovieReviewsResponse(
+data class ReviewsResponse(
     @SerializedName("id")
     val id: Int,
     @SerializedName("page")
     val page: Int,
     @SerializedName("results")
-    val results: List<MovieReviewsResult>,
+    val results: List<ReviewsResult>,
     @SerializedName("total_pages")
     val totalPages: Int,
     @SerializedName("total_results")

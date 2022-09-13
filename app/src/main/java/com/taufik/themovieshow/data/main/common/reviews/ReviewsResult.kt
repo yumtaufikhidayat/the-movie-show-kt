@@ -1,13 +1,13 @@
-package com.taufik.themovieshow.data.main.movie.reviews
+package com.taufik.themovieshow.data.main.common.reviews
 
 
 import com.google.gson.annotations.SerializedName
 
-data class MovieReviewsResult(
+data class ReviewsResult(
     @SerializedName("author")
     val author: String,
     @SerializedName("author_details")
-    val authorDetails: MovieAuthorDetails,
+    val authorDetails: ReviewsAuthorDetails,
     @SerializedName("content")
     val content: String,
     @SerializedName("created_at")
