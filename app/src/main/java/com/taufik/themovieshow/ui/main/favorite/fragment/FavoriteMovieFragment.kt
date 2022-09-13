@@ -47,8 +47,7 @@ class FavoriteMovieFragment : Fragment() {
     private fun getFavoriteMovie() {
         viewModel.getFavoriteMovies()?.observe(viewLifecycleOwner) {
             if (it != null) {
-                val list = mapList(it)
-                movieAdapter.submitList(list)
+                movieAdapter.submitList(mapList(it))
             }
         }
     }

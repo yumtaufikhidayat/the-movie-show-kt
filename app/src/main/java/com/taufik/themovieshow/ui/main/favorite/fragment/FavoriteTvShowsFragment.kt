@@ -48,8 +48,7 @@ class FavoriteTvShowsFragment : Fragment() {
     private fun getFavoriteTvShow() {
         viewModel.getFavoriteTvShow()?.observe(viewLifecycleOwner) {
             if (it != null) {
-                val list = mapList(it)
-                tvShowsAdapter.submitList(list)
+                tvShowsAdapter.submitList(mapList(it))
             }
         }
     }
