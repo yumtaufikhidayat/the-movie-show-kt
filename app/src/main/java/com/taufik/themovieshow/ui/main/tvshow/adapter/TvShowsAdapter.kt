@@ -81,9 +81,7 @@ class TvShowsAdapter : ListAdapter<TvShowsMainResult, TvShowsAdapter.TvShowsView
             } else {
                 val filterPattern = p0.toString().lowercase(Locale.ROOT).trim()
                 listTvShows.forEach { item ->
-                    if (item.name.lowercase().contains(filterPattern)) {
-                        filteredList.add(item)
-                    }
+                    if (item.name.lowercase().contains(filterPattern)) filteredList.add(item)
                 }
             }
 

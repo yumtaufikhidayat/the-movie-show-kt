@@ -72,9 +72,7 @@ class MovieAdapter : ListAdapter<MovieMainResult, MovieAdapter.MovieViewHolder>(
             } else {
                 val filterPattern = p0.toString().lowercase(Locale.ROOT).trim()
                 listMovies.forEach { item ->
-                    if (item.title.lowercase().contains(filterPattern)) {
-                        filteredList.add(item)
-                    }
+                    if (item.title.lowercase().contains(filterPattern)) filteredList.add(item)
                 }
             }
 
