@@ -11,6 +11,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
+import com.taufik.themovieshow.R
 import com.taufik.themovieshow.databinding.FragmentTrendingBinding
 import com.taufik.themovieshow.ui.main.trending.adapter.TrendingPagerAdapter
 import es.dmoral.toasty.Toasty
@@ -38,7 +39,7 @@ class TrendingFragment : Fragment() {
     }
 
     private fun setToolbar() = with(binding) {
-        toolbarTrending.tvToolbar.text = getString(com.taufik.themovieshow.R.string.icTrending)
+        toolbarTrending.tvToolbar.text = getString(R.string.icTrending)
     }
 
     private fun setTabLayout() = with(binding) {
@@ -73,6 +74,6 @@ class TrendingFragment : Fragment() {
 
     companion object {
         @StringRes
-        private val tabsTitle = intArrayOf(com.taufik.themovieshow.R.string.tvMovies, com.taufik.themovieshow.R.string.tvShows)
+        private val tabsTitle = intArrayOf(R.string.tvMovies, R.string.tvShows)
     }
 }
