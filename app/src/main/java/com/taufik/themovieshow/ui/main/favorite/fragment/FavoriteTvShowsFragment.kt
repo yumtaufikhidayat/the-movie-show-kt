@@ -1,9 +1,14 @@
 package com.taufik.themovieshow.ui.main.favorite.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -35,6 +40,7 @@ class FavoriteTvShowsFragment : Fragment() {
 
         setAdapter()
         getFavoriteTvShow()
+        searchData()
     }
 
     private fun setAdapter() = with(binding) {
@@ -47,9 +53,23 @@ class FavoriteTvShowsFragment : Fragment() {
 
     private fun getFavoriteTvShow() {
         viewModel.getFavoriteTvShow()?.observe(viewLifecycleOwner) {
-            if (it != null) {
-                tvShowsAdapter.submitList(mapList(it))
-            }
+            if (it != null && it.isNotEmpty()) tvShowsAdapter.setData(mapList(it))
+        }
+    }
+
+    private fun searchData() {
+        binding.etSearch.apply {
+            setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, _ ->
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    hideKeyboard()
+                    return@OnEditorActionListener true
+                }
+                false
+            })
+
+            addTextChangedListener(afterTextChanged = { p0 ->
+                tvShowsAdapter.filter.filter(p0.toString())
+            })
         }
     }
 
@@ -67,6 +87,12 @@ class FavoriteTvShowsFragment : Fragment() {
         }
 
         return listTvShow
+    }
+
+    private fun hideKeyboard() = with(binding) {
+        etSearch.clearFocus()
+        val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(etSearch.windowToken, 0)
     }
 
     override fun onDestroyView() {
