@@ -107,7 +107,7 @@ class FavoriteTvShowsFragment : Fragment() {
             layoutNoFavorite.apply {
                 root.isVisible = true
                 imgError.setImageResource(R.drawable.ic_outline_no_favorite)
-                tvError.text = getString(R.string.tvNoFavorite)
+                tvError.text = getString(R.string.tvNoFavoriteData)
             }
         } else {
             layoutNoFavorite.root.isVisible = false
