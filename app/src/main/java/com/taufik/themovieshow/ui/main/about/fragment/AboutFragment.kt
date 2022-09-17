@@ -18,7 +18,7 @@ class AboutFragment : Fragment() {
     private var _binding: FragmentAboutBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: AboutViewModel by viewModels()
+    private val viewModel by viewModels<AboutViewModel>()
     private val authorAdapter by lazy { AboutAuthorAdapter() }
     private val applicationAdapter by lazy { AboutApplicationAdapter() }
 
