@@ -15,6 +15,7 @@
         <entry key="app/src/main/res/drawable/ic_outline_bug.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_outline_clear.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_outline_email.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_outline_no_favorite.xml" value="0.119" />
         <entry key="app/src/main/res/drawable/ic_outline_profile.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_outline_rate.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_share.xml" value="0.19895833333333332" />
@@ -47,6 +48,7 @@
         <entry key="app/src/main/res/layout/items_movies.xml" value="0.1828125" />
         <entry key="app/src/main/res/layout/items_movies_tv_show.xml" value="0.1" />
         <entry key="app/src/main/res/layout/items_tv_shows.xml" value="0.1796875" />
+        <entry key="app/src/main/res/layout/layout_no_favorite.xml" value="0.1703125" />
         <entry key="app/src/main/res/layout/toolbar_detail_general.xml" value="0.1796875" />
         <entry key="app/src/main/res/layout/toolbar_general.xml" value="0.1" />
         <entry key="app/src/main/res/layout/toolbar_main_general.xml" value="0.17692307692307693" />
