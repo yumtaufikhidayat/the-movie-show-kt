@@ -8,10 +8,12 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.local.entity.FavoriteTvShow
 import com.taufik.themovieshow.data.main.tvshow.popularairingtoday.TvShowsMainResult
 import com.taufik.themovieshow.data.viewmodel.tvshow.FavoriteTvShowViewModel
@@ -53,7 +55,12 @@ class FavoriteTvShowsFragment : Fragment() {
 
     private fun getFavoriteTvShow() {
         viewModel.getFavoriteTvShow()?.observe(viewLifecycleOwner) {
-            if (it != null && it.isNotEmpty()) tvShowsAdapter.setData(mapList(it))
+            if (it != null && it.isNotEmpty()) {
+                tvShowsAdapter.setData(mapList(it))
+                showNoFavorite(false)
+            } else {
+                showNoFavorite(true)
+            }
         }
     }
 
@@ -93,6 +100,18 @@ class FavoriteTvShowsFragment : Fragment() {
         etSearch.clearFocus()
         val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(etSearch.windowToken, 0)
+    }
+
+    private fun showNoFavorite(isShow: Boolean) = with(binding) {
+        if (isShow) {
+            layoutNoFavorite.apply {
+                root.isVisible = true
+                imgError.setImageResource(R.drawable.ic_outline_no_favorite)
+                tvError.text = getString(R.string.tvNoFavorite)
+            }
+        } else {
+            layoutNoFavorite.root.isVisible = false
+        }
     }
 
     override fun onDestroyView() {
