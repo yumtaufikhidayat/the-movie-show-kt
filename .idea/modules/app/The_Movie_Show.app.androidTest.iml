@@ -127,8 +127,8 @@
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/3e4527a71360b2b52755e4acb44ec587/transformed/jetified-disklrucache-4.13.2.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/8b92a9c11358a433efaf1648516f9f46/transformed/jetified-annotations-4.13.2.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/c250d6a00f918f37a5bdc7d78946380d/transformed/jetified-gson-2.8.5.jar</arg>
-                <arg>$USER_HOME$/Library/Android/sdk/platforms/android-32/android.jar</arg>
-                <arg>$USER_HOME$/Library/Android/sdk/build-tools/30.0.3/core-lambda-stubs.jar</arg>
+                <arg>$USER_HOME$/Android/Sdk/platforms/android-32/android.jar</arg>
+                <arg>$USER_HOME$/Android/Sdk/build-tools/30.0.3/core-lambda-stubs.jar</arg>
               </args>
             </stringArg>
             <stringArg name="destination" arg="$MODULE_DIR$/../../../app/build/tmp/kotlin-classes/debugAndroidTest" />

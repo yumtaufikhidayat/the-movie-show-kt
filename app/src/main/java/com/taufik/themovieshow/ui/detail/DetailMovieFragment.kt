@@ -32,7 +32,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.util.*
 
 class DetailMovieFragment : Fragment() {
 
@@ -99,20 +98,45 @@ class DetailMovieFragment : Fragment() {
                     )
 
                     tvStatus.text = it.status
-                    tvOverview.text = it.overview
-                    tvRating.text = toRating(it.voteAverage)
-                    tvLanguage.text = it.originalLanguage
+                    when {
+                        it.overview.isEmpty() -> {
+                            tvOverview.isVisible = false
+                            tvNoOverview.isVisible = true
+                            tvReadMore.isVisible = false
+                        }
+                        else -> {
+                            tvOverview.text = it.overview
+                            tvNoOverview.isVisible = false
+                        }
+                    }
 
                     when {
-                        it.productionCountries.isEmpty() -> tvCountry.text = "N/A"
+                        it.voteAverage.toString().isEmpty() -> tvRating.text = getString(R.string.tvNA)
+                        else -> tvRating.text = toRating(it.voteAverage)
+                    }
+
+                    when {
+                        it.originalLanguage.isEmpty() -> tvLanguage.text = getString(R.string.tvNA)
+                        else -> tvLanguage.text = it.originalLanguage
+                    }
+
+                    when {
+                        it.productionCountries.isEmpty() -> tvCountry.text = getString(R.string.tvNA)
                         else -> tvCountry.text = it.productionCountries.joinToString { countries -> countries.iso31661 }
                     }
 
-                    tvRuntime.text = convertRuntime(it.runtime)
+                    when {
+                        it.runtime.toString().isEmpty() -> tvRuntime.text = getString(R.string.tvNA)
+                        else -> tvRuntime.text = convertRuntime(it.runtime)
+                    }
 
                     when {
-                        it.genres.isEmpty() -> tvGenre.text = "N/A"
-                        else -> tvGenre.text = it.genres.joinToString { genre -> genre.name }
+                        it.genres.isEmpty() -> tvNoGenres.isVisible = true
+                        else -> {
+                            tvNoGenres.isVisible = false
+                            tvGenre.text = it.genres.joinToString { genre -> genre.name }
+                            Log.i("TAG", "genres: ${tvGenre.text}")
+                        }
                     }
 
                     checkFavoriteData(idMovie)
@@ -208,12 +232,15 @@ class DetailMovieFragment : Fragment() {
         }
     }
 
-    private fun setCast(id: Int) {
+    private fun setCast(id: Int) = with(binding) {
         viewModel.apply {
             setDetailMovieCast(id)
             listDetailCast.observe(viewLifecycleOwner) {
-                if (it != null) {
+                if (it != null && it.isNotEmpty()) {
                     castAdapter.submitList(it)
+                    tvNoCast.isVisible = false
+                } else {
+                    tvNoCast.visibility = View.VISIBLE
                 }
             }
         }
@@ -225,8 +252,15 @@ class DetailMovieFragment : Fragment() {
             detailVideo.observe(viewLifecycleOwner) {
                 if (it != null) {
                     when {
-                        it.results.isEmpty() -> tvTrailer.text = String.format(Locale.getDefault(), "Trailer Video Not Available")
-                        else -> tvTrailer.text = it.results[0].name
+                        it.results.isEmpty() -> {
+                            videoTrailer.visibility = View.GONE
+                            tvNoVideo.visibility = View.VISIBLE
+                        }
+                        else -> {
+                            tvTrailer.text = it.results[0].name
+                            videoTrailer.visibility = View.VISIBLE
+                            tvNoVideo.visibility = View.GONE
+                        }
                     }
 
                     lifecycle.addObserver(videoTrailer)
@@ -256,12 +290,15 @@ class DetailMovieFragment : Fragment() {
         }
     }
 
-    private fun showReviews(id: Int) {
+    private fun showReviews(id: Int) = with(binding) {
         viewModel.apply {
             setDetailMovieReviews(id)
             listReviewMovie.observe(viewLifecycleOwner) {
-                if (it != null) {
+                if (it != null && it.isNotEmpty()) {
                     reviewsAdapter.submitList(it)
+                    tvNoReviews.isVisible = false
+                } else {
+                    tvNoReviews.isVisible = true
                 }
             }
         }
@@ -275,12 +312,15 @@ class DetailMovieFragment : Fragment() {
         }
     }
 
-    private fun showSimilar(id: Int) {
+    private fun showSimilar(id: Int) = with(binding) {
         viewModel.apply {
             setDetailMovieSimilar(id)
             listSimilarMovie.observe(viewLifecycleOwner) {
-                if (it != null) {
+                if (it != null && it.isNotEmpty()) {
                     similarAdapter.submitList(it)
+                    tvNoSimilar.isVisible = false
+                } else {
+                    tvNoSimilar.isVisible = true
                 }
             }
         }

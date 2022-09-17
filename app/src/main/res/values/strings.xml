@@ -36,16 +36,24 @@
     <string name="tvAuthor">Author</string>
     <string name="tvApplication">Application</string>
     <string name="tvUpdate">Update</string>
-    <string name="tvSearch">Cari…</string>
+    <string name="tvSearch">Search…</string>
     <string name="tvReviews">Reviews</string>
     <string name="tvSimilarMovie">Similar Movies</string>
     <string name="tvSimilarTvShows">Similar TV Shows</string>
     <string name="tvRuntimeInTime">%d h %d m</string>
+    <string name="tvNoOverview">No overview available</string>
+    <string name="tvNoGenres">No genres available</string>
+    <string name="tvNoCast">No cast available</string>
+    <string name="tvNoReviews">No reviews available</string>
+    <string name="tvNoSimilar">No similar available</string>
+    <string name="tvNoVideo">No video available</string>
+    <string name="tvNA">N/A</string>
 
     <!--Button-->
     <string name="btnReviews">Reviews</string>
     <string name="btnWebsites">Website</string>
 
+    <!--Tab menu title-->
     <string name="tvMovieNowPlaying">Now Playing</string>
     <string name="tvMovieUpcoming">Upcoming</string>
     <string name="tvTvShowPopular">Popular</string>
