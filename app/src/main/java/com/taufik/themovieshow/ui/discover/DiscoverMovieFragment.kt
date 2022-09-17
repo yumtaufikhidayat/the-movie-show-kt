@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.viewmodel.movie.MovieViewModel
 import com.taufik.themovieshow.databinding.FragmentDiscoverMovieBinding
 import com.taufik.themovieshow.ui.main.movie.adapter.DiscoverMovieAdapter
@@ -79,21 +80,20 @@ class DiscoverMovieFragment : Fragment() {
         }
     }
 
-    private fun showSearchData(query: Editable) = with(binding) {
-        showLoading(true)
+    private fun showSearchData(query: Editable) {
         viewModel.apply {
             setDiscoverMovie(query.toString())
             listDiscover.observe(viewLifecycleOwner) {
                 if (it != null) {
-                    discoverMovieAdapter.submitList(it)
-                    showLoading(false)
+                    if (it.isNotEmpty()) {
+                        discoverMovieAdapter.submitList(it)
+                        showNoResults(false)
+                    } else {
+                        showNoResults(true)
+                    }
                 }
             }
         }
-    }
-
-    private fun showLoading(isShow: Boolean) = with(binding) {
-        progressBar.isVisible = isShow
     }
 
     private fun hideKeyboard() = with(binding) {
@@ -101,6 +101,18 @@ class DiscoverMovieFragment : Fragment() {
             etSearch.clearFocus()
             val imm = requireActivity().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(etSearch.windowToken, 0)
+        }
+    }
+
+    private fun showNoResults(isShow: Boolean) = with(binding) {
+        if (isShow) {
+            layoutNoSearch.apply {
+                root.isVisible = true
+                imgError.setImageResource(R.drawable.ic_search_orange)
+                tvError.text = getString(R.string.tvNoSearchData)
+            }
+        } else {
+            layoutNoSearch.root.isVisible = false
         }
     }
 

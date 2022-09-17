@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.viewmodel.tvshow.TvShowsViewModel
 import com.taufik.themovieshow.databinding.FragmentDiscoverTvShowBinding
 import com.taufik.themovieshow.ui.main.tvshow.adapter.DiscoverTvShowsAdapter
@@ -71,14 +72,17 @@ class DiscoverTvShowFragment : Fragment() {
         }
     }
 
-    private fun showSearchData(query: Editable) = with(binding) {
-        showLoading(true)
+    private fun showSearchData(query: Editable) {
         viewModel.apply {
             setDiscoverTvShows(query.toString())
             listDiscover.observe(viewLifecycleOwner) {
                 if (it != null) {
-                    discoverTvShowsAdapter.submitList(it)
-                    showLoading(false)
+                    if (it.isNotEmpty()) {
+                        discoverTvShowsAdapter.submitList(it)
+                        showNoResults(false)
+                    } else {
+                        showNoResults(true)
+                    }
                 }
             }
         }
@@ -92,15 +96,23 @@ class DiscoverTvShowFragment : Fragment() {
         }
     }
 
-    private fun showLoading(isShow: Boolean) = with(binding) {
-        progressBar.isVisible = isShow
-    }
-
     private fun hideKeyboard() = with(binding) {
         toolbarSearchTvShow.apply {
             etSearch.clearFocus()
             val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(etSearch.windowToken, 0)
+        }
+    }
+
+    private fun showNoResults(isShow: Boolean) = with(binding) {
+        if (isShow) {
+            layoutNoSearch.apply {
+                root.isVisible = true
+                imgError.setImageResource(R.drawable.ic_search_orange)
+                tvError.text = getString(R.string.tvNoSearchData)
+            }
+        } else {
+            layoutNoSearch.root.isVisible = false
         }
     }
 

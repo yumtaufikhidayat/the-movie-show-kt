@@ -48,6 +48,8 @@
     <string name="tvNoSimilar">No similar available</string>
     <string name="tvNoVideo">No video available</string>
     <string name="tvNA">N/A</string>
+    <string name="tvNoFavoriteData">No favorite data</string>
+    <string name="tvNoSearchData">No search results</string>
 
     <!--Button-->
     <string name="btnReviews">Reviews</string>
