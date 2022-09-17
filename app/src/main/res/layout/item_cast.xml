@@ -30,7 +30,7 @@
     <TextView
         android:id="@+id/tvCastName"
         android:layout_width="0dp"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
         android:text="@string/app_name"
         android:textAlignment="center"
