@@ -240,6 +240,7 @@
                 android:id="@+id/tvNoOverview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:text="@string/tvNoOverview"
                 app:layout_constraintTop_toBottomOf="@id/tvOverviewTitle"
                 app:layout_constraintStart_toStartOf="@id/tvOverviewTitle"/>
@@ -287,6 +288,7 @@
                 android:id="@+id/tvNoGenres"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:text="@string/tvNoGenres"
                 app:layout_constraintTop_toBottomOf="@id/tvGenreTitle"
                 app:layout_constraintStart_toStartOf="@id/tvTrailer"/>
@@ -321,6 +323,7 @@
                 android:id="@+id/tvNoCast"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:text="@string/tvNoCast"
                 app:layout_constraintTop_toBottomOf="@id/tvCast"
                 app:layout_constraintStart_toStartOf="@id/tvTrailer"/>
@@ -359,6 +362,7 @@
                 android:id="@+id/tvNoVideo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:text="@string/tvNoVideo"
                 app:layout_constraintTop_toBottomOf="@id/tvTrailer"
                 app:layout_constraintStart_toStartOf="@id/tvTrailer"/>
@@ -394,6 +398,7 @@
                 android:id="@+id/tvNoReviews"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:text="@string/tvNoReviews"
                 app:layout_constraintTop_toBottomOf="@+id/tvReviewsTitle"
                 app:layout_constraintStart_toStartOf="@id/tvReviewsTitle"/>
@@ -427,6 +432,7 @@
                 android:id="@+id/tvNoSimilar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:text="@string/tvNoSimilar"
                 app:layout_constraintTop_toBottomOf="@+id/tvMovieSimilar"
                 app:layout_constraintStart_toStartOf="@id/tvReviewsTitle"/>

@@ -98,6 +98,7 @@ class DetailMovieFragment : Fragment() {
                     )
 
                     tvStatus.text = it.status
+
                     when {
                         it.overview.isEmpty() -> {
                             tvOverview.isVisible = false
@@ -105,8 +106,11 @@ class DetailMovieFragment : Fragment() {
                             tvReadMore.isVisible = false
                         }
                         else -> {
-                            tvOverview.text = it.overview
                             tvNoOverview.isVisible = false
+                            tvOverview.apply {
+                                isVisible = true
+                                text = it.overview
+                            }
                         }
                     }
 
@@ -135,11 +139,10 @@ class DetailMovieFragment : Fragment() {
                     }
 
                     when {
-                        it.genres.isEmpty() -> tvNoGenres.isVisible = true
+                        it.genres.isEmpty() -> showNoGenres(true)
                         else -> {
-                            tvNoGenres.isVisible = false
+                            showNoGenres(false)
                             tvGenre.text = it.genres.joinToString { genre -> genre.name }
-                            Log.i("TAG", "genres: ${tvGenre.text}")
                         }
                     }
 
@@ -236,15 +239,15 @@ class DetailMovieFragment : Fragment() {
         }
     }
 
-    private fun setCast(id: Int) = with(binding) {
+    private fun setCast(id: Int) {
         viewModel.apply {
             setDetailMovieCast(id)
             listDetailCast.observe(viewLifecycleOwner) {
                 if (it != null && it.isNotEmpty()) {
                     castAdapter.submitList(it)
-                    tvNoCast.isVisible = false
+                    showNoCast(false)
                 } else {
-                    tvNoCast.visibility = View.VISIBLE
+                    showNoCast(true)
                 }
             }
         }
@@ -256,29 +259,23 @@ class DetailMovieFragment : Fragment() {
             detailVideo.observe(viewLifecycleOwner) {
                 if (it != null) {
                     when {
-                        it.results.isEmpty() -> {
-                            videoTrailer.visibility = View.GONE
-                            tvNoVideo.visibility = View.VISIBLE
-                        }
+                        it.results.isEmpty() -> showVideo(false)
                         else -> {
-                            tvTrailer.text = it.results[0].name
-                            videoTrailer.visibility = View.VISIBLE
-                            tvNoVideo.visibility = View.GONE
+                            showVideo(true)
+                            lifecycle.addObserver(videoTrailer)
+                            videoTrailer.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
+                                override fun onReady(youTubePlayer: YouTubePlayer) {
+                                    when {
+                                        it.results.isEmpty() -> Log.e("videoFailed", "onReady: ")
+                                        else -> {
+                                            val videoId = it.results[0].key
+                                            youTubePlayer.loadVideo(videoId, 0F)
+                                        }
+                                    }
+                                }
+                            })
                         }
                     }
-
-                    lifecycle.addObserver(videoTrailer)
-                    videoTrailer.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
-                        override fun onReady(youTubePlayer: YouTubePlayer) {
-                            when {
-                                it.results.isEmpty() -> Log.e("videoFailed", "onReady: ")
-                                else -> {
-                                    val videoId = it.results[0].key
-                                    youTubePlayer.loadVideo(videoId, 0F)
-                                }
-                            }
-                        }
-                    })
                 }
             }
         }
@@ -316,22 +313,18 @@ class DetailMovieFragment : Fragment() {
         }
     }
 
-    private fun showSimilar(id: Int) = with(binding) {
+    private fun showSimilar(id: Int) {
         viewModel.apply {
             setDetailMovieSimilar(id)
             listSimilarMovie.observe(viewLifecycleOwner) {
                 if (it != null && it.isNotEmpty()) {
                     similarAdapter.submitList(it)
-                    tvNoSimilar.isVisible = false
+                    showNoSimilarVideo(false)
                 } else {
-                    tvNoSimilar.isVisible = true
+                    showNoSimilarVideo(true)
                 }
             }
         }
-    }
-
-    private fun showToasty(message: String) {
-        Toasty.success(requireContext(), message, Toast.LENGTH_SHORT, true).show()
     }
 
     private fun convertRuntime(data: Int): String {
@@ -339,6 +332,24 @@ class DetailMovieFragment : Fragment() {
         val minutes = data % TIME_60
         return getString(R.string.tvRuntimeInTime, hours, minutes)
     }
+
+    private fun showVideo(isShow: Boolean) = with(binding) {
+        if (isShow) {
+            videoTrailer.isVisible = true
+            tvNoVideo.isVisible = false
+        } else {
+            videoTrailer.isVisible = false
+            tvNoVideo.isVisible = true
+        }
+    }
+
+    private fun showToasty(message: String) = Toasty.success(requireContext(), message, Toast.LENGTH_SHORT, true).show()
+
+    private fun showNoGenres(isShow: Boolean) = binding.tvNoGenres.isVisible == isShow
+
+    private fun showNoCast(isShow: Boolean) = binding.tvNoCast.isVisible == isShow
+
+    private fun showNoSimilarVideo(isShow: Boolean) = binding.tvNoSimilar.isVisible == isShow
 
     override fun onDestroyView() {
         super.onDestroyView()
