@@ -25,7 +25,7 @@ class DiscoverMovieFragment : Fragment() {
     private var _binding: FragmentDiscoverMovieBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: MovieViewModel by viewModels()
+    private val viewModel by viewModels<MovieViewModel>()
     private val discoverMovieAdapter by lazy { DiscoverMovieAdapter() }
 
     override fun onCreateView(

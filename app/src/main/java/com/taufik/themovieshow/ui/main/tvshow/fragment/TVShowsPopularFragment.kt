@@ -17,7 +17,7 @@ class TVShowsPopularFragment : Fragment() {
     private var _binding: FragmentTvShowsPopularBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: TvShowsViewModel by viewModels()
+    private val viewModel by viewModels<TvShowsViewModel>()
     private val tvShowsAdapter by lazy { TvShowsAdapter() }
 
     override fun onCreateView(

@@ -17,7 +17,7 @@ class MovieUpcomingFragment : Fragment() {
     private var _binding: FragmentMovieUpcomingBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: MovieViewModel by viewModels()
+    private val viewModel by viewModels<MovieViewModel>()
     private val movieAdapter by lazy { MovieAdapter() }
 
     override fun onCreateView(

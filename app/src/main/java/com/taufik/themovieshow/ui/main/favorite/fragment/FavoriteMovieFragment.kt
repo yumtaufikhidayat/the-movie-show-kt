@@ -25,7 +25,7 @@ class FavoriteMovieFragment : Fragment() {
     private var _binding: FragmentFavoriteMovieBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: FavoriteMovieViewModel by viewModels()
+    private val viewModel by viewModels<FavoriteMovieViewModel>()
     private val movieAdapter by lazy { MovieAdapter() }
 
     override fun onCreateView(
