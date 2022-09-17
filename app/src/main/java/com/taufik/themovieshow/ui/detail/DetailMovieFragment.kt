@@ -117,7 +117,11 @@ class DetailMovieFragment : Fragment() {
 
                     when {
                         it.originalLanguage.isEmpty() -> tvLanguage.text = getString(R.string.tvNA)
-                        else -> tvLanguage.text = it.originalLanguage
+                        else -> tvLanguage.text = if (it.spokenLanguages.isNotEmpty()) {
+                            it.spokenLanguages[0].englishName
+                        } else {
+                            it.originalLanguage
+                        }
                     }
 
                     when {
