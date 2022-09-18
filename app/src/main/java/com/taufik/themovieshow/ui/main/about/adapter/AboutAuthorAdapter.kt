@@ -2,7 +2,6 @@ package com.taufik.themovieshow.ui.main.about.adapter
 
 import android.content.Intent
 import android.net.Uri
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -45,9 +44,7 @@ class AboutAuthorAdapter: RecyclerView.Adapter<AboutAuthorAdapter.AboutViewHolde
         holder.itemView.setOnClickListener {
             when(position) {
                 0 -> {
-
                     val urlLink = "https://linkedin.com/in/taufik-hidayat"
-
                     try {
                         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(urlLink))
                         holder.itemView.context.startActivity(Intent.createChooser(intent, "Open with:"))
@@ -57,15 +54,11 @@ class AboutAuthorAdapter: RecyclerView.Adapter<AboutAuthorAdapter.AboutViewHolde
                                 "Please install browser.",
                                 Toast.LENGTH_SHORT, true
                         ).show()
-
-                        Log.e("errorLink", "setViewModel: ${e.localizedMessage}")
                     }
                 }
 
                 1-> {
-
                     val githubLink = "https://github.com/yumtaufikhidayat/the-movie-show-kt"
-
                     try {
                         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(githubLink))
                         holder.itemView.context.startActivity(Intent.createChooser(intent, "Open with:"))
@@ -75,15 +68,11 @@ class AboutAuthorAdapter: RecyclerView.Adapter<AboutAuthorAdapter.AboutViewHolde
                                 "Please install browser.",
                                 Toast.LENGTH_SHORT, true
                         ).show()
-
-                        Log.e("errorLink", "setViewModel: ${e.localizedMessage}" )
                     }
                 }
 
                 2 -> {
-
-                    val email = "taufik.hidayat@merahputih.id"
-
+                    val email = "yumtaufikhidayat@gmail.com"
                     try {
                         val intentEmail = Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", email, null))
                         intentEmail.putExtra(Intent.EXTRA_EMAIL, email)
@@ -92,7 +81,6 @@ class AboutAuthorAdapter: RecyclerView.Adapter<AboutAuthorAdapter.AboutViewHolde
                         holder.itemView.context.startActivity(Intent.createChooser(intentEmail, "Send email"))
                     } catch (e: java.lang.Exception) {
                         Toasty.error(holder.itemView.context, "Please install email apps", Toast.LENGTH_SHORT).show()
-                        Log.e("errorEmail", "developerEmail: ${e.localizedMessage}")
                     }
                 }
             }

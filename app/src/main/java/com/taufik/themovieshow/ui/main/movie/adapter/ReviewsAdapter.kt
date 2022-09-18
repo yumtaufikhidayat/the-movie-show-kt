@@ -2,7 +2,6 @@ package com.taufik.themovieshow.ui.main.movie.adapter
 
 import android.content.Intent
 import android.net.Uri
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -37,9 +36,7 @@ class ReviewsAdapter: ListAdapter<ReviewsResult, ReviewsAdapter.ReviewsViewHolde
                 try {
                     val intentBrowser = Intent(Intent.ACTION_VIEW, Uri.parse(data.url))
                     it.context.startActivity(Intent.createChooser(intentBrowser, "Open with:"))
-                } catch (e: java.lang.Exception) {
-                    Log.e("errorIntent", "onBindViewHolder: ${e.localizedMessage}")
-                }
+                } catch (e: java.lang.Exception) {}
             }
         }
     }
