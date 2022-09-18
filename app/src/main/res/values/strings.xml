@@ -46,14 +46,13 @@
     <string name="tvNoCast">No cast available</string>
     <string name="tvNoReviews">No reviews available</string>
     <string name="tvNoSimilar">No similar available</string>
-    <string name="tvNoVideo">No video available</string>
+    <string name="tvNoVideo">No trailer video available</string>
     <string name="tvNA">N/A</string>
     <string name="tvNoFavoriteData">No favorite data</string>
     <string name="tvNoSearchData">No search results</string>
 
-    <!--Button-->
-    <string name="btnReviews">Reviews</string>
-    <string name="btnWebsites">Website</string>
+    <string name="action_added_to_favorite">Added to favorite</string>
+    <string name="action_removed_from_favorite">Removed from favorite</string>
 
     <!--Tab menu title-->
     <string name="tvMovieNowPlaying">Now Playing</string>
