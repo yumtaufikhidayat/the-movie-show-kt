@@ -352,8 +352,6 @@
                 android:textColor="@color/colorOrange"
                 android:textStyle="bold"
                 android:textSize="16sp"
-                android:maxLines="4"
-                android:ellipsize="end"
                 app:layout_constraintStart_toStartOf="@id/cardPoster"
                 app:layout_constraintEnd_toEndOf="@id/tvOverview"
                 app:layout_constraintTop_toBottomOf="@id/rvMovieCast"/>

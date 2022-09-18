@@ -3,7 +3,6 @@ package com.taufik.themovieshow.ui.detail
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -192,10 +191,10 @@ class DetailMovieFragment : Fragment() {
                     releaseDate,
                     voteAverage
                 )
-                showToasty("Added to favorite")
+                showToasty(getString(R.string.action_added_to_favorite))
             } else {
                 viewModel.removeFromFavorite(id)
-                showToasty("Removed from favorite")
+                showToasty(getString(R.string.action_removed_from_favorite))
             }
         }
     }
@@ -210,16 +209,14 @@ class DetailMovieFragment : Fragment() {
                     putExtra(Intent.EXTRA_TEXT, body)
                 }
                 startActivity(Intent.createChooser(shareIntent, "Share with:"))
-            } catch (e: Exception) {
-                Log.e("shareFailed", "onOptionsItemSelected: ${e.localizedMessage}")
-            }
+            } catch (e: Exception) { }
         }
     }
 
     private fun setReadMore() = with(binding) {
         tvReadMore.isVisible = true
         tvReadMore.setOnClickListener {
-            if (tvReadMore.text.toString() == "Read More") {
+            if (tvReadMore.text.toString() == getString(R.string.tvReadMore)) {
                 tvOverview.maxLines = Integer.MAX_VALUE
                 tvOverview.ellipsize = null
                 tvReadMore.text = getString(R.string.tvReadLess)
@@ -266,7 +263,7 @@ class DetailMovieFragment : Fragment() {
                             videoTrailer.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
                                 override fun onReady(youTubePlayer: YouTubePlayer) {
                                     when {
-                                        it.results.isEmpty() -> Log.e("videoFailed", "onReady: ")
+                                        it.results.isEmpty() -> {}
                                         else -> {
                                             val videoId = it.results[0].key
                                             youTubePlayer.loadVideo(videoId, 0F)

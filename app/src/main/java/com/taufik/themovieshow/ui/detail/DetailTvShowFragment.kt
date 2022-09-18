@@ -3,7 +3,6 @@ package com.taufik.themovieshow.ui.detail
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,7 +31,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.util.*
 
 class DetailTvShowFragment : Fragment() {
 
@@ -105,22 +103,52 @@ class DetailTvShowFragment : Fragment() {
                         CommonDateFormatConstants.EEE_D_MMM_YYYY_FORMAT
                     )
                     tvStatus.text = it.status
-                    tvOverview.text = it.overview
-                    tvRating.text = toRating(it.voteAverage)
-                    tvLanguage.text = it.originalLanguage
+
                     when {
-                        it.originCountry.isEmpty() -> tvCountry.text = "N/A"
+                        it.overview.isEmpty() -> {
+                            tvOverview.isVisible = false
+                            tvNoOverview.isVisible = true
+                            tvReadMore.isVisible = false
+                        }
+                        else -> {
+                            tvNoOverview.isVisible = false
+                            tvOverview.apply {
+                                isVisible = true
+                                text = it.overview
+                            }
+                        }
+                    }
+
+                    when {
+                        it.voteAverage.toString().isEmpty() -> tvRating.text = getString(R.string.tvNA)
+                        else -> tvRating.text = toRating(it.voteAverage)
+                    }
+
+                    when {
+                        it.originalLanguage.isEmpty() -> tvLanguage.text = getString(R.string.tvNA)
+                        else -> tvLanguage.text = if (it.spokenLanguages.isNotEmpty()) {
+                            it.spokenLanguages[0].englishName
+                        } else {
+                            it.originalLanguage
+                        }
+                    }
+
+                    when {
+                        it.originCountry.isEmpty() -> tvCountry.text = getString(R.string.tvNA)
                         else -> tvCountry.text = it.originCountry.joinToString { countries -> countries }
                     }
 
                     when {
-                        it.episodeRunTime.isEmpty() -> tvEpisodes.text = "N/A"
+                        it.episodeRunTime.isEmpty() -> tvEpisodes.text = getString(R.string.tvNA)
                         else -> tvEpisodes.text = String.format("${it.episodeRunTime[0]} episodes")
                     }
 
                     when {
-                        it.genres.isEmpty() -> tvGenre.text = "N/A"
-                        else -> tvGenre.text = it.genres.joinToString { genres -> genres.name }
+                        it.genres.isEmpty() -> showNoGenres(true)
+                        else -> {
+                            showNoGenres(false)
+                            tvGenre.text = it.genres.joinToString { genres -> genres.name }
+                        }
                     }
 
                     checkFavoriteData(idTvShow)
@@ -169,10 +197,10 @@ class DetailTvShowFragment : Fragment() {
                     firstAirDate,
                     voteAverage
                 )
-                showToasty("Added to favorite")
+                showToasty(getString(R.string.action_added_to_favorite))
             } else {
                 viewModel.removeFromFavorite(id)
-                showToasty("Removed from favorite")
+                showToasty(getString(R.string.action_removed_from_favorite))
             }
         }
     }
@@ -187,16 +215,14 @@ class DetailTvShowFragment : Fragment() {
                     putExtra(Intent.EXTRA_TEXT, body)
                 }
                 startActivity(Intent.createChooser(shareIntent, "Share with:"))
-            } catch (e: Exception) {
-                Log.e("shareFailed", "onOptionsItemSelected: ${e.localizedMessage}")
-            }
+            } catch (e: Exception) { }
         }
     }
 
     private fun setReadMore() = with(binding) {
         tvReadMore.isVisible = true
         tvReadMore.setOnClickListener {
-            if (tvReadMore.text.toString() == "Read More") {
+            if (tvReadMore.text.toString() == getString(R.string.tvReadMore)) {
                 tvOverview.maxLines = Integer.MAX_VALUE
                 tvOverview.ellipsize = null
                 tvReadMore.text = getString(R.string.tvReadLess)
@@ -220,8 +246,11 @@ class DetailTvShowFragment : Fragment() {
         viewModel.apply {
             setDetailTvShowsCast(id)
             listDetailCasts.observe(viewLifecycleOwner) {
-                if (it != null) {
+                if (it != null && it.isNotEmpty()) {
                     castAdapter.submitList(it)
+                    showNoCast(false)
+                } else {
+                    showNoCast(true)
                 }
             }
         }
@@ -233,22 +262,23 @@ class DetailTvShowFragment : Fragment() {
             detailVideo.observe(viewLifecycleOwner) {
                 if (it != null) {
                     when {
-                        it.results.isEmpty() -> tvTrailer.text = String.format(Locale.getDefault(), "Trailer Video Not Available")
-                        else -> tvTrailer.text = it.results[0].name
-                    }
-
-                    lifecycle.addObserver(videoTrailer)
-                    videoTrailer.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
-                        override fun onReady(youTubePlayer: YouTubePlayer) {
-                            when {
-                                it.results.isEmpty() -> Log.e("videoFailed", "onReady: ")
-                                else -> {
-                                    val videoId = it.results[0].key
-                                    youTubePlayer.loadVideo(videoId, 0F)
+                        it.results.isEmpty() -> showVideo(false)
+                        else -> {
+                            showVideo(true)
+                            lifecycle.addObserver(videoTrailer)
+                            videoTrailer.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
+                                override fun onReady(youTubePlayer: YouTubePlayer) {
+                                    when {
+                                        it.results.isEmpty() -> {}
+                                        else -> {
+                                            val videoId = it.results[0].key
+                                            youTubePlayer.loadVideo(videoId, 0F)
+                                        }
+                                    }
                                 }
-                            }
+                            })
                         }
-                    })
+                    }
                 }
             }
         }
@@ -264,12 +294,15 @@ class DetailTvShowFragment : Fragment() {
         }
     }
 
-    private fun showReviews(id: Int) {
+    private fun showReviews(id: Int) = with(binding) {
         viewModel.apply {
             setDetailTvShowsReviews(id)
             listReviewTvShows.observe(viewLifecycleOwner) {
-                if (it != null) {
+                if (it != null && it.isNotEmpty()) {
                     reviewsAdapter.submitList(it)
+                    tvNoReviews.isVisible = false
+                } else {
+                    tvNoReviews.isVisible = true
                 }
             }
         }
@@ -289,16 +322,33 @@ class DetailTvShowFragment : Fragment() {
         viewModel.apply {
             setDetailTvShowsSimilar(id)
             listSimilarTvShows.observe(viewLifecycleOwner) {
-                if (it != null) {
+                if (it != null && it.isNotEmpty()) {
                     similarAdapter.submitList(it)
+                    showNoSimilarVideo(false)
+                } else {
+                    showNoSimilarVideo(true)
                 }
             }
         }
     }
 
-    private fun showToasty(message: String) {
-        Toasty.success(requireContext(), message, Toast.LENGTH_SHORT, true).show()
+    private fun showVideo(isShow: Boolean) = with(binding) {
+        if (isShow) {
+            videoTrailer.isVisible = true
+            tvNoVideo.isVisible = false
+        } else {
+            videoTrailer.isVisible = false
+            tvNoVideo.isVisible = true
+        }
     }
+
+    private fun showToasty(message: String) = Toasty.success(requireContext(), message, Toast.LENGTH_SHORT, true).show()
+
+    private fun showNoGenres(isShow: Boolean) = binding.tvNoGenres.isVisible == isShow
+
+    private fun showNoCast(isShow: Boolean) = binding.tvNoCast.isVisible == isShow
+
+    private fun showNoSimilarVideo(isShow: Boolean) = binding.tvNoSimilar.isVisible == isShow
 
     override fun onDestroyView() {
         super.onDestroyView()

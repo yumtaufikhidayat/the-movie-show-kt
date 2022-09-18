@@ -247,6 +247,15 @@
                 app:layout_constraintStart_toStartOf="@id/cardPoster"
                 app:layout_constraintTop_toBottomOf="@id/tvEpisodes"/>
 
+            <TextView
+                android:id="@+id/tvNoOverview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:text="@string/tvNoOverview"
+                app:layout_constraintTop_toBottomOf="@id/tvOverviewTitle"
+                app:layout_constraintStart_toStartOf="@id/tvOverviewTitle"/>
+
             <com.codesgood.views.JustifiedTextView
                 android:id="@+id/tvOverview"
                 android:layout_width="match_parent"
@@ -256,7 +265,7 @@
                 android:textColor="@color/white"
                 android:ellipsize="end"
                 android:maxLines="4"
-                app:layout_constraintTop_toBottomOf="@id/tvOverviewTitle"
+                app:layout_constraintTop_toBottomOf="@id/tvNoOverview"
                 app:layout_constraintStart_toStartOf="@id/cardPoster"
                 tools:text="@string/tvLoremIpsum"/>
 
@@ -286,6 +295,15 @@
                 app:layout_constraintTop_toBottomOf="@id/tvReadMore"
                 app:layout_constraintStart_toStartOf="@id/cardPoster"/>
 
+            <TextView
+                android:id="@+id/tvNoGenres"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:text="@string/tvNoGenres"
+                app:layout_constraintTop_toBottomOf="@id/tvGenreTitle"
+                app:layout_constraintStart_toStartOf="@id/tvTrailer"/>
+
             <com.codesgood.views.JustifiedTextView
                 android:id="@+id/tvGenre"
                 android:layout_width="0dp"
@@ -294,7 +312,7 @@
                 android:textColor="@color/white"
                 android:ellipsize="end"
                 android:maxLines="4"
-                app:layout_constraintTop_toBottomOf="@id/tvGenreTitle"
+                app:layout_constraintTop_toBottomOf="@id/tvNoGenres"
                 app:layout_constraintStart_toStartOf="@id/cardPoster"
                 app:layout_constraintEnd_toEndOf="@id/tvOverview"
                 tools:text="@string/tvGenre"/>
@@ -314,6 +332,15 @@
                 app:layout_constraintEnd_toEndOf="@id/tvOverview"
                 app:layout_constraintTop_toBottomOf="@id/tvGenre"/>
 
+            <TextView
+                android:id="@+id/tvNoCast"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:text="@string/tvNoCast"
+                app:layout_constraintTop_toBottomOf="@id/tvCast"
+                app:layout_constraintStart_toStartOf="@id/tvTrailer"/>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvTvShowCast"
                 android:layout_width="match_parent"
@@ -325,7 +352,7 @@
                 tools:listitem="@layout/item_cast"
                 tools:itemCount="1"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintTop_toBottomOf="@id/tvCast"/>
+                app:layout_constraintTop_toBottomOf="@id/tvNoCast"/>
 
             <TextView
                 android:id="@+id/tvTrailer"
@@ -337,12 +364,19 @@
                 android:textColor="@color/colorOrange"
                 android:textStyle="bold"
                 android:textSize="16sp"
-                android:maxLines="4"
-                android:ellipsize="end"
                 app:layout_constraintStart_toStartOf="@id/cardPoster"
                 app:layout_constraintEnd_toEndOf="@id/tvOverview"
                 app:layout_constraintTop_toBottomOf="@id/rvTvShowCast"
                 tools:text="@string/tvTrailer"/>
+
+            <TextView
+                android:id="@+id/tvNoVideo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:text="@string/tvNoVideo"
+                app:layout_constraintTop_toBottomOf="@id/tvTrailer"
+                app:layout_constraintStart_toStartOf="@id/tvTrailer"/>
 
             <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
                 android:id="@+id/videoTrailer"
@@ -372,6 +406,15 @@
                 app:layout_constraintEnd_toEndOf="@id/tvOverview"
                 app:layout_constraintTop_toBottomOf="@id/videoTrailer" />
 
+            <TextView
+                android:id="@+id/tvNoReviews"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:text="@string/tvNoReviews"
+                app:layout_constraintTop_toBottomOf="@+id/tvReviewsTitle"
+                app:layout_constraintStart_toStartOf="@id/tvReviewsTitle"/>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvTvShowReviews"
                 android:layout_width="0dp"
@@ -381,7 +424,7 @@
                 tools:itemCount="1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvReviewsTitle"/>
+                app:layout_constraintTop_toBottomOf="@id/tvNoReviews"/>
 
             <TextView
                 android:id="@+id/tvTvShowSimilar"
@@ -398,6 +441,15 @@
                 app:layout_constraintEnd_toEndOf="@id/tvOverview"
                 app:layout_constraintTop_toBottomOf="@id/rvTvShowReviews" />
 
+            <TextView
+                android:id="@+id/tvNoSimilar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:text="@string/tvNoSimilar"
+                app:layout_constraintTop_toBottomOf="@+id/tvTvShowSimilar"
+                app:layout_constraintStart_toStartOf="@id/tvReviewsTitle"/>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvTvShowSimilar"
                 android:layout_width="match_parent"
@@ -408,7 +460,7 @@
                 tools:listitem="@layout/item_similar"
                 tools:itemCount="1"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintTop_toBottomOf="@id/tvTvShowSimilar"
+                app:layout_constraintTop_toBottomOf="@id/tvNoSimilar"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
