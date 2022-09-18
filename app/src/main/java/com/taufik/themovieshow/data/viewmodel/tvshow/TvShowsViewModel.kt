@@ -1,6 +1,5 @@
 package com.taufik.themovieshow.data.viewmodel.tvshow
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -42,13 +41,10 @@ class TvShowsViewModel : ViewModel() {
                 ) {
                     if (response.isSuccessful) {
                         _listAiringToday.value = response.body()?.results as ArrayList<TvShowsMainResult>
-                        Log.e("mainSuccess", "onResponse: ${response.body()}")
                     }
                 }
 
-                override fun onFailure(call: Call<TvShowsMainResponse>, t: Throwable) {
-                    Log.e("mainFailed", "onFailure: ${t.localizedMessage}")
-                }
+                override fun onFailure(call: Call<TvShowsMainResponse>, t: Throwable) {}
             })
     }
 
@@ -61,13 +57,10 @@ class TvShowsViewModel : ViewModel() {
                 ) {
                     if (response.isSuccessful) {
                         _listPopular.value = response.body()?.results as ArrayList<TvShowsMainResult>
-                        Log.e("mainSuccess", "onResponse: ${response.body()}")
                     }
                 }
 
-                override fun onFailure(call: Call<TvShowsMainResponse>, t: Throwable) {
-                    Log.e("mainFailed", "onFailure: ${t.localizedMessage}")
-                }
+                override fun onFailure(call: Call<TvShowsMainResponse>, t: Throwable) {}
             })
     }
 
@@ -80,14 +73,10 @@ class TvShowsViewModel : ViewModel() {
                 ) {
                     if (response.body() != null) {
                         _listTrending.value = response.body()?.results as ArrayList<TvShowsTrendingResult>
-                        Log.e("mainSuccess", "onResponse: ${response.body()}")
                     }
                 }
 
-                override fun onFailure(call: Call<TvShowsTrendingReponse>, t: Throwable) {
-                    Log.e("mainFailed", "onFailure: ${t.localizedMessage}")
-                }
-
+                override fun onFailure(call: Call<TvShowsTrendingReponse>, t: Throwable) {}
             })
     }
 
@@ -100,13 +89,10 @@ class TvShowsViewModel : ViewModel() {
                 ) {
                     if (response.isSuccessful) {
                         _listDiscover.value = response.body()?.results as ArrayList<DiscoverTvShowsResult>
-                        Log.e("mainSuccess", "onResponse: ${response.body()}")
                     }
                 }
 
-                override fun onFailure(call: Call<DiscoverTvShowsResponse>, t: Throwable) {
-                    Log.e("mainFailed", "onFailure: ${t.localizedMessage}")
-                }
+                override fun onFailure(call: Call<DiscoverTvShowsResponse>, t: Throwable) {}
             })
     }
 }

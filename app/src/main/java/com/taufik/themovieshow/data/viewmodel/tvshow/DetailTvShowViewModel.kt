@@ -1,7 +1,6 @@
 package com.taufik.themovieshow.data.viewmodel.tvshow
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -61,13 +60,10 @@ class DetailTvShowViewModel(application: Application) : AndroidViewModel(applica
                 ) {
                     if (response.isSuccessful) {
                         _listDetailTvShows.value = response.body()
-                        Log.e("listDetailTvShows", "onResponse: ${response.body()}")
                     }
                 }
 
-                override fun onFailure(call: Call<TvShowsPopularDetailResponse>, t: Throwable) {
-                    Log.e("errorRetrofit", "onFailure: ${t.localizedMessage}")
-                }
+                override fun onFailure(call: Call<TvShowsPopularDetailResponse>, t: Throwable) {}
             })
     }
 
@@ -80,13 +76,10 @@ class DetailTvShowViewModel(application: Application) : AndroidViewModel(applica
                 ) {
                     if (response.isSuccessful) {
                         _listDetailVideo.value = response.body()
-                        Log.e("listDetailVideo", "onResponse: ${response.body()}")
                     }
                 }
 
-                override fun onFailure(call: Call<TvShowsVideoResponse>, t: Throwable) {
-                    Log.e("errorRetrofit", "onFailure: ${t.localizedMessage}")
-                }
+                override fun onFailure(call: Call<TvShowsVideoResponse>, t: Throwable) {}
             })
     }
 
@@ -99,13 +92,10 @@ class DetailTvShowViewModel(application: Application) : AndroidViewModel(applica
                 ) {
                     if (response.isSuccessful) {
                         _listDetailCast.value = response.body()?.cast as ArrayList<TvShowsCast>
-                        Log.e("listDetailCast", "onResponse: ${response.body()}")
                     }
                 }
 
-                override fun onFailure(call: Call<TvShowsCastResponse>, t: Throwable) {
-                    Log.e("errorRetrofit", "onFailure: ${t.localizedMessage}")
-                }
+                override fun onFailure(call: Call<TvShowsCastResponse>, t: Throwable) {}
             })
     }
 
@@ -118,13 +108,10 @@ class DetailTvShowViewModel(application: Application) : AndroidViewModel(applica
                 ) {
                     if (response.isSuccessful) {
                         _listReviews.value = response.body()?.results as ArrayList<ReviewsResult>
-                        Log.e("listReview", "onResponse: ${response.body()}")
                     }
                 }
 
-                override fun onFailure(call: Call<ReviewsResponse>, t: Throwable) {
-                    Log.e("errorRetrofit", "onFailure: ${t.localizedMessage}")
-                }
+                override fun onFailure(call: Call<ReviewsResponse>, t: Throwable) {}
             })
     }
     
@@ -137,13 +124,10 @@ class DetailTvShowViewModel(application: Application) : AndroidViewModel(applica
                 ) {
                     if (response.isSuccessful) {
                         _listSimilar.value = response.body()?.results as ArrayList<TvShowsSimilarResultsItem>
-                        Log.e("listSimilar", "onResponse: ${response.body()}")
                     }
                 }
 
-                override fun onFailure(call: Call<TvShowsSimilarResponse>, t: Throwable) {
-                    Log.e("errorRetrofit", "onFailure: ${t.localizedMessage}")
-                }
+                override fun onFailure(call: Call<TvShowsSimilarResponse>, t: Throwable) {}
             })
     }
 

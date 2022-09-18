@@ -1,6 +1,5 @@
 package com.taufik.themovieshow.data.viewmodel.movie
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -42,13 +41,10 @@ class MovieViewModel : ViewModel() {
                 ) {
                     if (response.isSuccessful) {
                         _listNowPlaying.value = response.body()?.results as ArrayList<MovieMainResult>
-                        Log.e("mainSuccess", "onResponse: ${response.body()}")
                     }
                 }
 
-                override fun onFailure(call: Call<MovieMainResponse>, t: Throwable) {
-                    Log.e("mainFailed", "onFailure: ${t.localizedMessage}")
-                }
+                override fun onFailure(call: Call<MovieMainResponse>, t: Throwable) {}
             })
     }
 
@@ -61,13 +57,10 @@ class MovieViewModel : ViewModel() {
                 ) {
                     if (response.isSuccessful) {
                         _listUpcoming.value = response.body()?.results as ArrayList<MovieMainResult>
-                        Log.e("mainSuccess", "onResponse: ${response.body()}")
                     }
                 }
 
-                override fun onFailure(call: Call<MovieMainResponse>, t: Throwable) {
-                    Log.e("mainFailed", "onFailure: ${t.localizedMessage}")
-                }
+                override fun onFailure(call: Call<MovieMainResponse>, t: Throwable) {}
             })
     }
 
@@ -80,13 +73,10 @@ class MovieViewModel : ViewModel() {
                 ) {
                     if (response.isSuccessful) {
                         _listTrendingDay.value = response.body()?.results as ArrayList<MovieTrendingResult>
-                        Log.e("mainSuccess", "onResponse: ${response.body()}")
                     }
                 }
 
-                override fun onFailure(call: Call<MovieTrendingResponse>, t: Throwable) {
-                    Log.e("mainFailed", "onFailure: ${t.localizedMessage}")
-                }
+                override fun onFailure(call: Call<MovieTrendingResponse>, t: Throwable) {}
             })
     }
 
@@ -99,13 +89,10 @@ class MovieViewModel : ViewModel() {
                 ) {
                     if (response.isSuccessful) {
                         _listDiscover.value = response.body()?.results as ArrayList<DiscoverMovieResult>
-                        Log.e("mainSuccess", "onResponse: ${response.body()}")
                     }
                 }
 
-                override fun onFailure(call: Call<DiscoverMovieResponse>, t: Throwable) {
-                    Log.e("mainFailed", "onFailure: ${t.localizedMessage}")
-                }
+                override fun onFailure(call: Call<DiscoverMovieResponse>, t: Throwable) {}
             })
     }
 }
