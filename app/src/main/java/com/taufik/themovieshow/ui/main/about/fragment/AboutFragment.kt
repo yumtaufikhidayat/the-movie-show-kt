@@ -19,11 +19,10 @@ class AboutFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel by viewModels<AboutViewModel>()
-    private val authorAdapter by lazy { AboutAuthorAdapter() }
-    private val applicationAdapter by lazy { AboutApplicationAdapter() }
+    private val authorAdapter by lazy { AboutAuthorAdapter(requireContext()) }
+    private val applicationAdapter by lazy { AboutApplicationAdapter(requireContext()) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        // Inflate the layout for this fragment
         _binding = FragmentAboutBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -35,25 +34,23 @@ class AboutFragment : Fragment() {
         setApplicationData()
     }
 
-    private fun setToolbar() = with(binding) {
-        toolbarAbout.tvToolbar.text = getString(R.string.icAbout)
-    }
+    private fun setToolbar() = binding.toolbarAbout.tvToolbar.text == getString(R.string.icAbout)
 
     private fun setAuthorData() = with(binding) {
-        authorAdapter.setAbout(viewModel.getAboutAuthor())
         rvAuthorAbout.apply {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
             adapter = authorAdapter
         }
+        authorAdapter.submitList(viewModel.getAboutAuthor())
     }
 
     private fun setApplicationData() = with(binding){
-        applicationAdapter.setAbout(viewModel.getAboutApplication())
         rvApplicationAbout.apply {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
             adapter = applicationAdapter
         }
+        applicationAdapter.submitList(viewModel.getAboutApplication())
     }
 }
