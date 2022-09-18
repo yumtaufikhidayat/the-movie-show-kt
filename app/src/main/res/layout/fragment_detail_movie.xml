@@ -390,6 +390,7 @@
                 android:id="@+id/rvMovieReviews"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
                 tools:listitem="@layout/item_reviews"
                 tools:itemCount="1"
                 app:layout_constraintStart_toStartOf="@id/cardPoster"

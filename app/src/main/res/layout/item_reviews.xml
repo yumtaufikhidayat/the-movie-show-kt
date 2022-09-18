@@ -5,7 +5,7 @@
     android:id="@+id/cardReview"
     android:layout_width="300dp"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
+    android:layout_marginEnd="8dp"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?attr/selectableItemBackground"
