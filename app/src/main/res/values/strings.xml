@@ -22,6 +22,7 @@
     <string name="tvCountry">Country</string>
     <string name="tvGenre">Genre(s)</string>
     <string name="tvEpisodes">Episodes</string>
+    <string name="tvEps">Eps</string>
     <string name="tvOtherMenus">Menu Lainnya</string>
     <string name="tvShare">Share</string>
     <string name="tvOpenInBrowser">Open in browser</string>
@@ -40,7 +41,7 @@
     <string name="tvReviews">Reviews</string>
     <string name="tvSimilarMovie">Similar Movies</string>
     <string name="tvSimilarTvShows">Similar TV Shows</string>
-    <string name="tvRuntimeInTime">%d h %d m</string>
+    <string name="tvRuntimeInTime">%dh %dm</string>
     <string name="tvNoOverview">No overview available</string>
     <string name="tvNoGenres">No genres available</string>
     <string name="tvNoCast">No cast available</string>
