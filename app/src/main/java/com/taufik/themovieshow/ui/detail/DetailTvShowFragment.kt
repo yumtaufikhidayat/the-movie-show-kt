@@ -270,13 +270,7 @@ class DetailTvShowFragment : Fragment() {
                             lifecycle.addObserver(videoTrailer)
                             videoTrailer.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
                                 override fun onReady(youTubePlayer: YouTubePlayer) {
-                                    when {
-                                        it.results.isEmpty() -> {}
-                                        else -> {
-                                            val videoId = it.results[0].key
-                                            youTubePlayer.loadVideo(videoId, 0F)
-                                        }
-                                    }
+                                    youTubePlayer.cueVideo(it.results[0].key, 0F)
                                 }
                             })
                         }
