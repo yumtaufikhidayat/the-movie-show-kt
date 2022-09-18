@@ -59,9 +59,9 @@
                 android:id="@+id/tvTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginTop="10dp"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:textSize="20sp"
@@ -69,49 +69,39 @@
                 android:ellipsize="end"
                 app:layout_constraintTop_toBottomOf="@id/imgBackdrop"
                 app:layout_constraintStart_toEndOf="@id/cardPoster"
-                app:layout_constraintEnd_toEndOf="@id/tvOverview"
+                app:layout_constraintEnd_toEndOf="parent"
                 tools:text="@string/tvTitle"/>
 
             <TextView
                 android:id="@+id/tvNetwork"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:ellipsize="end"
                 android:textColor="@color/colorOrange"
                 app:layout_constraintStart_toStartOf="@id/tvTitle"
+                app:layout_constraintEnd_toEndOf="@id/tvTitle"
                 app:layout_constraintTop_toBottomOf="@id/tvTitle"
                 tools:text="@string/tvNetwork"/>
 
             <TextView
-                android:id="@+id/tvReleasedOn"
-                android:layout_width="wrap_content"
+                android:id="@+id/tvStartedOn"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorGrey"
                 android:text="@string/tvStartedOn"
                 app:layout_constraintStart_toStartOf="@id/tvNetwork"
+                app:layout_constraintEnd_toEndOf="@id/tvTitle"
                 app:layout_constraintTop_toBottomOf="@id/tvNetwork"/>
 
             <TextView
-                android:id="@+id/tvReleaseDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="3dp"
-                android:maxLines="1"
-                android:ellipsize="end"
-                android:textColor="@color/colorGrey"
-                app:layout_constraintStart_toEndOf="@id/tvReleasedOn"
-                app:layout_constraintTop_toTopOf="@id/tvReleasedOn"
-                app:layout_constraintBottom_toBottomOf="@+id/tvReleasedOn"
-                tools:text="@string/tvReleaseDate"/>
-
-            <TextView
                 android:id="@+id/tvStatus"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/holo_green_light"
                 app:layout_constraintStart_toStartOf="@id/tvTitle"
-                app:layout_constraintTop_toBottomOf="@id/tvReleaseDate"
+                app:layout_constraintEnd_toEndOf="@id/tvTitle"
+                app:layout_constraintTop_toBottomOf="@id/tvStartedOn"
                 tools:text="@string/tvStatus"/>
 
             <TextView
@@ -245,7 +235,7 @@
                 android:textStyle="bold"
                 android:textColor="@color/colorOrange"
                 app:layout_constraintStart_toStartOf="@id/cardPoster"
-                app:layout_constraintTop_toBottomOf="@id/tvEpisodes"/>
+                app:layout_constraintTop_toBottomOf="@id/tvCountry"/>
 
             <TextView
                 android:id="@+id/tvNoOverview"
@@ -258,15 +248,15 @@
 
             <com.codesgood.views.JustifiedTextView
                 android:id="@+id/tvOverview"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_marginHorizontal="16dp"
                 android:textColor="@color/white"
                 android:ellipsize="end"
                 android:maxLines="4"
                 app:layout_constraintTop_toBottomOf="@id/tvNoOverview"
                 app:layout_constraintStart_toStartOf="@id/cardPoster"
+                app:layout_constraintEnd_toEndOf="@id/tvTitle"
                 tools:text="@string/tvLoremIpsum"/>
 
             <TextView
@@ -319,7 +309,7 @@
 
             <TextView
                 android:id="@+id/tvCast"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginHorizontal="16dp"
@@ -329,7 +319,6 @@
                 android:textStyle="bold"
                 android:textColor="@color/colorOrange"
                 app:layout_constraintStart_toStartOf="@id/cardPoster"
-                app:layout_constraintEnd_toEndOf="@id/tvOverview"
                 app:layout_constraintTop_toBottomOf="@id/tvGenre"/>
 
             <TextView
@@ -343,28 +332,27 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvTvShowCast"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="12dp"
                 android:scrollbars="none"
                 tools:listitem="@layout/item_cast"
                 tools:itemCount="1"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintTop_toBottomOf="@id/tvNoCast"/>
+                app:layout_constraintTop_toBottomOf="@id/tvNoCast"
+                app:layout_constraintStart_toStartOf="@id/cardPoster"
+                app:layout_constraintEnd_toEndOf="@id/tvTitle"/>
 
             <TextView
                 android:id="@+id/tvTrailer"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
                 android:text="@string/tvTrailer"
                 android:textColor="@color/colorOrange"
                 android:textStyle="bold"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="@id/cardPoster"
-                app:layout_constraintEnd_toEndOf="@id/tvOverview"
                 app:layout_constraintTop_toBottomOf="@id/rvTvShowCast" />
 
             <TextView
@@ -387,21 +375,21 @@
                 android:layout_marginHorizontal="16dp"
                 app:autoPlay="false"
                 app:showFullScreenButton="false"
+                app:showVideoDuration="true"
+                app:showSeekBar="true"
                 app:layout_constraintTop_toBottomOf="@id/tvNoVideo"/>
 
             <TextView
                 android:id="@+id/tvReviewsTitle"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
                 android:includeFontPadding="false"
                 android:textColor="@color/colorOrange"
                 android:text="@string/tvReviews"
                 android:textStyle="bold"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="@id/cardPoster"
-                app:layout_constraintEnd_toEndOf="@id/tvOverview"
                 app:layout_constraintTop_toBottomOf="@id/videoTrailer" />
 
             <TextView
@@ -417,26 +405,23 @@
                 android:id="@+id/rvTvShowReviews"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
                 tools:listitem="@layout/item_reviews"
                 tools:itemCount="1"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/cardPoster"
+                app:layout_constraintEnd_toEndOf="@id/tvTitle"
                 app:layout_constraintTop_toBottomOf="@id/tvNoReviews"/>
 
             <TextView
                 android:id="@+id/tvTvShowSimilar"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
                 android:includeFontPadding="false"
                 android:textColor="@color/colorOrange"
                 android:text="@string/tvSimilarMovie"
                 android:textStyle="bold"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="@id/cardPoster"
-                app:layout_constraintEnd_toEndOf="@id/tvOverview"
                 app:layout_constraintTop_toBottomOf="@id/rvTvShowReviews" />
 
             <TextView
