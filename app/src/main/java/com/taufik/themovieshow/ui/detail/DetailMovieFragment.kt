@@ -91,10 +91,11 @@ class DetailMovieFragment : Fragment() {
                     imgPoster.loadImage(it.posterPath)
                     imgBackdrop.loadImage(it.backdropPath)
                     tvTitle.text = it.title
-                    tvReleaseDate.text = it.releaseDate.convertDate(
+                    val releasedDate =  it.releaseDate.convertDate(
                         CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
                         CommonDateFormatConstants.EEE_D_MMM_YYYY_FORMAT
                     )
+                    tvReleasedOn.text = String.format("%s %s", getString(R.string.tvReleasedOn), releasedDate)
 
                     tvStatus.text = it.status
 

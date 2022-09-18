@@ -98,10 +98,12 @@ class DetailTvShowFragment : Fragment() {
                         else -> tvNetwork.text = String.format("${it.networks[0].name} (${it.networks[0].originCountry})")
                     }
 
-                    tvReleaseDate.text = it.firstAirDate.convertDate(
+                    val startedOn = it.firstAirDate.convertDate(
                         CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
                         CommonDateFormatConstants.EEE_D_MMM_YYYY_FORMAT
                     )
+                    tvStartedOn.text = String.format("%s %s", getString(R.string.tvStartedOn), startedOn)
+
                     tvStatus.text = it.status
 
                     when {
@@ -140,7 +142,7 @@ class DetailTvShowFragment : Fragment() {
 
                     when {
                         it.episodeRunTime.isEmpty() -> tvEpisodes.text = getString(R.string.tvNA)
-                        else -> tvEpisodes.text = String.format("${it.episodeRunTime[0]} episodes")
+                        else -> tvEpisodes.text = String.format("%s %s", "${it.episodeRunTime[0]}", getString(R.string.tvEps))
                     }
 
                     when {
