@@ -34,6 +34,13 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
+            <View
+                android:id="@+id/viewGradientBackground"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/bg_gradient_black"
+                app:layout_constraintBottom_toBottomOf="@id/imgBackdrop"/>
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardPoster"
                 android:layout_width="100dp"
