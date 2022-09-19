@@ -10,7 +10,7 @@
         android:id="@+id/cardPoster"
         android:layout_width="100dp"
         android:layout_height="150dp"
-        android:layout_marginEnd="6dp"
+        android:layout_marginEnd="8dp"
         app:cardCornerRadius="4dp"
         app:cardElevation="0dp"
         app:layout_constraintTop_toTopOf="parent"
