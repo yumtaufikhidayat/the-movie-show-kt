@@ -1,10 +1,10 @@
 package com.taufik.themovieshow.data.api
 
+import com.taufik.themovieshow.data.main.common.reviews.ReviewsResponse
 import com.taufik.themovieshow.data.main.movie.cast.MovieCastResponse
 import com.taufik.themovieshow.data.main.movie.detail.MovieDetailResponse
 import com.taufik.themovieshow.data.main.movie.discover.DiscoverMovieResponse
 import com.taufik.themovieshow.data.main.movie.nowplayingupcoming.MovieMainResponse
-import com.taufik.themovieshow.data.main.common.reviews.ReviewsResponse
 import com.taufik.themovieshow.data.main.movie.similar.MovieSimilarResponse
 import com.taufik.themovieshow.data.main.movie.trending.MovieTrendingResponse
 import com.taufik.themovieshow.data.main.movie.video.MovieVideoResponse
