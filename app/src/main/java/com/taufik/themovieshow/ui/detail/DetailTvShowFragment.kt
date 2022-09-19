@@ -238,7 +238,9 @@ class DetailTvShowFragment : Fragment() {
 
     private fun setCastAdapter() = with(binding) {
         rvTvShowCast.apply {
+            val helper: SnapHelper = LinearSnapHelper()
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            helper.attachToRecyclerView(this)
             setHasFixedSize(true)
             adapter = castAdapter
         }
