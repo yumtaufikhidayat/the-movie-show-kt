@@ -217,7 +217,9 @@ class DetailTvShowFragment : Fragment() {
                     putExtra(Intent.EXTRA_TEXT, body)
                 }
                 startActivity(Intent.createChooser(shareIntent, "Share with:"))
-            } catch (e: Exception) { }
+            } catch (e: Exception) {
+                showToasty("Oops!. Something went wrong.")
+            }
         }
     }
 
