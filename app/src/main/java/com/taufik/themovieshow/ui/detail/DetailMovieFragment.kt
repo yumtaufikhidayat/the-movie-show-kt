@@ -231,7 +231,9 @@ class DetailMovieFragment : Fragment() {
 
     private fun setCastAdapter() = with(binding) {
         rvMovieCast.apply {
+            val helper: SnapHelper = LinearSnapHelper()
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            helper.attachToRecyclerView(this)
             setHasFixedSize(true)
             adapter = castAdapter
         }
@@ -299,7 +301,9 @@ class DetailMovieFragment : Fragment() {
 
     private fun setSimilarMovieAdapter() = with(binding) {
         rvMovieSimilar.apply {
+            val helper: SnapHelper = LinearSnapHelper()
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            helper.attachToRecyclerView(this)
             setHasFixedSize(true)
             adapter = similarAdapter
         }
