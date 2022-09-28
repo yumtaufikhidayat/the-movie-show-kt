@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">The Movie Show</string>
+    <string name="tvPoster">Poster</string>
+    <string name="tvBanner">Banner</string>
     <string name="tvAppVersion">1.0</string>
     <string name="tvTrending">Trending</string>
     <string name="tvMovies">Movies</string>
@@ -67,7 +69,5 @@
     <string name="icTVShows">TV Shows</string>
     <string name="icFavorite">Favorite</string>
     <string name="icAbout">About</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
