@@ -7,15 +7,15 @@ plugins {
 }
 
 android {
-    compileSdkVersion 32
+    compileSdkVersion 33
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.taufik.themovieshow"
         minSdkVersion 23
-        targetSdkVersion 32
-        versionCode 15
-        versionName "1.5"
+        targetSdkVersion 33
+        versionCode 16
+        versionName "1.6"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "API_KEY", api_key)
