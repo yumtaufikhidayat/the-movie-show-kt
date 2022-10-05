@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.SnapHelper
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.viewmodel.tvshow.DetailTvShowViewModel
 import com.taufik.themovieshow.databinding.FragmentDetailTvShowBinding
-import com.taufik.themovieshow.ui.detail.movie.fragment.DetailMovieFragment
 import com.taufik.themovieshow.ui.detail.tvshow.adapter.TvShowTrailerVideoAdapter
 import com.taufik.themovieshow.ui.main.movie.adapter.ReviewsAdapter
 import com.taufik.themovieshow.ui.main.tvshow.adapter.TvShowSimilarAdapter
@@ -69,11 +68,8 @@ class DetailTvShowFragment : Fragment() {
     }
 
     private fun getBundleData() {
-        val bundle = this.arguments
-        if (bundle != null) {
-            idTvShow = bundle.getInt(DetailMovieFragment.EXTRA_ID, 0)
-            title = bundle.getString(DetailMovieFragment.EXTRA_TITLE, "")
-        }
+        idTvShow = arguments?.getInt(EXTRA_ID, 0) ?: 0
+        title = arguments?.getString(EXTRA_TITLE, "") ?: ""
     }
 
     private fun showToolbarData() = with(binding) {
