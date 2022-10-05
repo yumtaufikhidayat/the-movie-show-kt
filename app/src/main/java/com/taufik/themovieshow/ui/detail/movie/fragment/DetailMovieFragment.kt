@@ -68,11 +68,8 @@ class DetailMovieFragment : Fragment() {
     }
 
     private fun getBundleData() {
-        val bundle = this.arguments
-        if (bundle != null) {
-            idMovie = bundle.getInt(EXTRA_ID, 0)
-            title = bundle.getString(EXTRA_TITLE, "")
-        }
+        idMovie = arguments?.getInt(EXTRA_ID, 0) ?: 0
+        title = arguments?.getString(EXTRA_TITLE, "") ?: ""
     }
 
     private fun showToolbarData() = with(binding) {
