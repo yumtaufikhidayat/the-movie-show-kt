@@ -3,6 +3,8 @@ package com.taufik.themovieshow.data.api
 object UrlEndpoint {
     const val BASE_URL = "https://api.themoviedb.org/3/"
     const val IMAGE_URL = "https://image.tmdb.org/t/p/w780/"
+    const val THUMBNAIL_IMAGE_URL = "https://img.youtube.com/vi/"
+    const val THUMBNAIL_IMAGE_JPG = "/maxresdefault.jpg"
     const val MOVIE_NOW_PLAYING = "movie/now_playing"
     const val MOVIE_UPCOMING = "movie/upcoming"
     const val MOVIE_TRENDING_DAY = "trending/movie/day"

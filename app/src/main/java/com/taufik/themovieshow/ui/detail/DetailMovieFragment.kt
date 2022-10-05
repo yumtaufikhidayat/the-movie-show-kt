@@ -14,11 +14,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.SnapHelper
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.viewmodel.movie.DetailMovieViewModel
 import com.taufik.themovieshow.databinding.FragmentDetailMovieBinding
+import com.taufik.themovieshow.ui.detail.adapter.MovieTrailerVideoAdapter
 import com.taufik.themovieshow.ui.main.movie.adapter.MovieCastAdapter
 import com.taufik.themovieshow.ui.main.movie.adapter.MovieSimilarAdapter
 import com.taufik.themovieshow.ui.main.movie.adapter.ReviewsAdapter
@@ -39,6 +38,7 @@ class DetailMovieFragment : Fragment() {
 
     private val viewModel: DetailMovieViewModel by viewModels()
     private val castAdapter by lazy { MovieCastAdapter() }
+    private val trailerVideoAdapter by lazy { MovieTrailerVideoAdapter() }
     private val reviewsAdapter by lazy { ReviewsAdapter() }
     private val similarAdapter by lazy { MovieSimilarAdapter() }
 
@@ -62,6 +62,7 @@ class DetailMovieFragment : Fragment() {
         setData()
         setReadMore()
         setCastAdapter()
+        setTrailerVideoAdapter()
         setReviewsAdapter()
         setSimilarMovieAdapter()
     }
@@ -150,7 +151,7 @@ class DetailMovieFragment : Fragment() {
                     setActionFavorite(idMovie, it.posterPath, title, it.releaseDate, it.voteAverage)
                     shareMovie(it.homepage)
                     setCast(idMovie)
-                    showVideo(idMovie)
+                    showTrailerVideo(idMovie)
                     showReviews(idMovie)
                     showSimilar(idMovie)
                 }
@@ -255,7 +256,17 @@ class DetailMovieFragment : Fragment() {
         }
     }
 
-    private fun showVideo(id: Int) = with(binding) {
+    private fun setTrailerVideoAdapter() = with(binding) {
+        rvTrailerVideo.apply {
+            val helper: SnapHelper = LinearSnapHelper()
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            helper.attachToRecyclerView(this)
+            setHasFixedSize(true)
+            adapter = trailerVideoAdapter
+        }
+    }
+
+    private fun showTrailerVideo(id: Int) {
         viewModel.apply {
             setDetailMovieVideo(id)
             detailVideo.observe(viewLifecycleOwner) {
@@ -264,12 +275,7 @@ class DetailMovieFragment : Fragment() {
                         it.results.isEmpty() -> showVideo(false)
                         else -> {
                             showVideo(true)
-                            lifecycle.addObserver(videoTrailer)
-                            videoTrailer.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
-                                override fun onReady(youTubePlayer: YouTubePlayer) {
-                                    youTubePlayer.cueVideo(it.results[0].key, 0F)
-                                }
-                            })
+                            trailerVideoAdapter.submitList(it.results)
                         }
                     }
                 }
@@ -333,10 +339,10 @@ class DetailMovieFragment : Fragment() {
 
     private fun showVideo(isShow: Boolean) = with(binding) {
         if (isShow) {
-            videoTrailer.isVisible = true
+            rvTrailerVideo.isVisible = true
             tvNoVideo.isVisible = false
         } else {
-            videoTrailer.isVisible = false
+            rvTrailerVideo.isVisible = false
             tvNoVideo.isVisible = true
         }
     }

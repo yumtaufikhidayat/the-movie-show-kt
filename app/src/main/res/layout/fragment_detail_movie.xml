@@ -357,18 +357,16 @@
                 app:layout_constraintTop_toBottomOf="@id/tvTrailer"
                 app:layout_constraintStart_toStartOf="@id/tvTrailer"/>
 
-            <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-                android:id="@+id/videoTrailer"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvTrailerVideo"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:orientation="vertical"
-                android:paddingBottom="10dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
                 android:layout_marginHorizontal="16dp"
-                app:autoPlay="false"
-                app:showFullScreenButton="false"
-                app:showVideoDuration="true"
-                app:showSeekBar="true"
+                tools:listitem="@layout/item_trailer_video"
+                tools:itemCount="2"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="horizontal"
                 app:layout_constraintTop_toBottomOf="@id/tvNoVideo"/>
 
             <TextView
@@ -382,7 +380,7 @@
                 android:textStyle="bold"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="@id/cardPoster"
-                app:layout_constraintTop_toBottomOf="@id/videoTrailer" />
+                app:layout_constraintTop_toBottomOf="@id/rvTrailerVideo" />
 
             <TextView
                 android:id="@+id/tvNoReviews"

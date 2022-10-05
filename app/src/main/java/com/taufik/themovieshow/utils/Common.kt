@@ -16,6 +16,13 @@ fun ImageView.loadImage(url: String?) {
         .into(this)
 }
 
+fun ImageView.loadVideoThumbnail(url: String?) {
+    Glide.with(this.context)
+        .load(UrlEndpoint.THUMBNAIL_IMAGE_URL + url + UrlEndpoint.THUMBNAIL_IMAGE_JPG)
+        .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error))
+        .into(this)
+}
+
 fun toRating(data: Double): String {
     val tenDouble = 10.0
     return ((data * tenDouble).roundToInt() / tenDouble).toString()
