@@ -6,7 +6,6 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -21,11 +20,7 @@ import com.taufik.themovieshow.ui.detail.tvshow.adapter.TvShowTrailerVideoAdapte
 import com.taufik.themovieshow.ui.main.movie.adapter.ReviewsAdapter
 import com.taufik.themovieshow.ui.main.tvshow.adapter.TvShowSimilarAdapter
 import com.taufik.themovieshow.ui.main.tvshow.adapter.TvShowsCastAdapter
-import com.taufik.themovieshow.utils.CommonDateFormatConstants
-import com.taufik.themovieshow.utils.convertDate
-import com.taufik.themovieshow.utils.loadImage
-import com.taufik.themovieshow.utils.toRating
-import es.dmoral.toasty.Toasty
+import com.taufik.themovieshow.utils.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -197,10 +192,10 @@ class DetailTvShowFragment : Fragment() {
                     firstAirDate,
                     voteAverage
                 )
-                showToasty(getString(R.string.action_added_to_favorite))
+                showToasty(requireContext(), getString(R.string.action_added_to_favorite))
             } else {
                 viewModel.removeFromFavorite(id)
-                showToasty(getString(R.string.action_removed_from_favorite))
+                showToasty(requireContext(), getString(R.string.action_removed_from_favorite))
             }
         }
     }
@@ -208,15 +203,15 @@ class DetailTvShowFragment : Fragment() {
     private fun shareTvShow(link: String) = with(binding) {
         toolbarDetailTvShow.imgShare.setOnClickListener {
             try {
-                val body = "Visit this awesome shows \n${link}"
+                val body = getString(R.string.tvVisitTvShow, link)
                 val shareIntent = Intent(Intent.ACTION_SEND)
                 shareIntent.apply {
                     type = "text/plain"
                     putExtra(Intent.EXTRA_TEXT, body)
                 }
-                startActivity(Intent.createChooser(shareIntent, "Share with:"))
+                startActivity(Intent.createChooser(shareIntent, getString(R.string.tvShareWith)))
             } catch (e: Exception) {
-                showToasty("Oops!. Something went wrong.")
+                showToasty(requireContext(), getString(R.string.tvOops))
             }
         }
     }
@@ -327,9 +322,9 @@ class DetailTvShowFragment : Fragment() {
             listSimilarTvShows.observe(viewLifecycleOwner) {
                 if (it != null && it.isNotEmpty()) {
                     similarAdapter.submitList(it)
-                    showNoSimilarVideo(false)
+                    showNoSimilarTvShow(false)
                 } else {
-                    showNoSimilarVideo(true)
+                    showNoSimilarTvShow(true)
                 }
             }
         }
@@ -345,13 +340,11 @@ class DetailTvShowFragment : Fragment() {
         }
     }
 
-    private fun showToasty(message: String) = Toasty.success(requireContext(), message, Toast.LENGTH_SHORT, true).show()
-
     private fun showNoGenres(isShow: Boolean) = binding.tvNoGenres.isVisible == isShow
 
     private fun showNoCast(isShow: Boolean) = binding.tvNoCast.isVisible == isShow
 
-    private fun showNoSimilarVideo(isShow: Boolean) = binding.tvNoSimilar.isVisible == isShow
+    private fun showNoSimilarTvShow(isShow: Boolean) = binding.tvNoSimilar.isVisible == isShow
 
     override fun onDestroyView() {
         super.onDestroyView()

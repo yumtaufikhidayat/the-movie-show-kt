@@ -6,7 +6,6 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -21,11 +20,7 @@ import com.taufik.themovieshow.ui.detail.movie.adapter.MovieTrailerVideoAdapter
 import com.taufik.themovieshow.ui.main.movie.adapter.MovieCastAdapter
 import com.taufik.themovieshow.ui.main.movie.adapter.MovieSimilarAdapter
 import com.taufik.themovieshow.ui.main.movie.adapter.ReviewsAdapter
-import com.taufik.themovieshow.utils.CommonDateFormatConstants
-import com.taufik.themovieshow.utils.convertDate
-import com.taufik.themovieshow.utils.loadImage
-import com.taufik.themovieshow.utils.toRating
-import es.dmoral.toasty.Toasty
+import com.taufik.themovieshow.utils.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -190,10 +185,10 @@ class DetailMovieFragment : Fragment() {
                     releaseDate,
                     voteAverage
                 )
-                showToasty(getString(R.string.action_added_to_favorite))
+                showToasty(requireContext(), getString(R.string.action_added_to_favorite))
             } else {
                 viewModel.removeFromFavorite(id)
-                showToasty(getString(R.string.action_removed_from_favorite))
+                showToasty(requireContext(), getString(R.string.action_removed_from_favorite))
             }
         }
     }
@@ -201,15 +196,15 @@ class DetailMovieFragment : Fragment() {
     private fun shareMovie(link: String) = with(binding) {
         toolbarDetailMovie.imgShare.setOnClickListener {
             try {
-                val body = "Visit this awesome movie \n${link}"
+                val body = getString(R.string.tvVisitMovie, link)
                 val shareIntent = Intent(Intent.ACTION_SEND)
                 shareIntent.apply {
                     type = "text/plain"
                     putExtra(Intent.EXTRA_TEXT, body)
                 }
-                startActivity(Intent.createChooser(shareIntent, "Share with:"))
+                startActivity(Intent.createChooser(shareIntent, getString(R.string.tvShareWith)))
             } catch (e: Exception) {
-                showToasty("Oops!. Something went wrong.")
+                showToasty(requireContext(), getString(R.string.tvOops))
             }
         }
     }
@@ -320,9 +315,9 @@ class DetailMovieFragment : Fragment() {
             listSimilarMovie.observe(viewLifecycleOwner) {
                 if (it != null && it.isNotEmpty()) {
                     similarAdapter.submitList(it)
-                    showNoSimilarVideo(false)
+                    showNoSimilarMovie(false)
                 } else {
-                    showNoSimilarVideo(true)
+                    showNoSimilarMovie(true)
                 }
             }
         }
@@ -344,13 +339,11 @@ class DetailMovieFragment : Fragment() {
         }
     }
 
-    private fun showToasty(message: String) = Toasty.success(requireContext(), message, Toast.LENGTH_SHORT, true).show()
-
     private fun showNoGenres(isShow: Boolean) = binding.tvNoGenres.isVisible == isShow
 
     private fun showNoCast(isShow: Boolean) = binding.tvNoCast.isVisible == isShow
 
-    private fun showNoSimilarVideo(isShow: Boolean) = binding.tvNoSimilar.isVisible == isShow
+    private fun showNoSimilarMovie(isShow: Boolean) = binding.tvNoSimilar.isVisible == isShow
 
     override fun onDestroyView() {
         super.onDestroyView()
