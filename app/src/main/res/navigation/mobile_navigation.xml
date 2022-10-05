@@ -32,11 +32,11 @@
         tools:layout="@layout/fragment_about" />
     <fragment
         android:id="@+id/detailTvShowFragment"
-        android:name="com.taufik.themovieshow.ui.detail.DetailTvShowFragment"
+        android:name="com.taufik.themovieshow.ui.detail.tvshow.fragment.DetailTvShowFragment"
         tools:layout="@layout/fragment_detail_tv_show" />
     <fragment
         android:id="@+id/detailMovieFragment"
-        android:name="com.taufik.themovieshow.ui.detail.DetailMovieFragment"
+        android:name="com.taufik.themovieshow.ui.detail.movie.fragment.DetailMovieFragment"
         android:label="fragment_detail_movie"
         tools:layout="@layout/fragment_detail_movie" />
     <fragment

@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.main.tvshow.discover.DiscoverTvShowsResult
 import com.taufik.themovieshow.databinding.ItemsMoviesTvShowBinding
-import com.taufik.themovieshow.ui.detail.DetailTvShowFragment
+import com.taufik.themovieshow.ui.detail.tvshow.fragment.DetailTvShowFragment
 import com.taufik.themovieshow.utils.CommonDateFormatConstants.EEE_D_MMM_YYYY_FORMAT
 import com.taufik.themovieshow.utils.CommonDateFormatConstants.YYYY_MM_DD_FORMAT
 import com.taufik.themovieshow.utils.convertDate
