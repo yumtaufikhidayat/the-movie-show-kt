@@ -14,8 +14,8 @@ android {
         applicationId "com.taufik.themovieshow"
         minSdkVersion 23
         targetSdkVersion 33
-        versionCode 17
-        versionName "1.7"
+        versionCode 18
+        versionName "1.8"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "API_KEY", api_key)
@@ -106,9 +106,9 @@ dependencies {
     // Coroutine
     def coroutineVersion = "1.6.2"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutineVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.4"
 
     // Android KTX
-    def androidKtxVersion = '1.5.2'
+    def androidKtxVersion = '1.5.3'
     implementation "androidx.fragment:fragment-ktx:$androidKtxVersion"
 }
