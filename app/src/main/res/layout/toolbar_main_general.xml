@@ -25,7 +25,7 @@
             android:gravity="center"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="@color/white"
+            android:textColor="@color/colorOrange"
             tools:text="@string/icTrending"/>
 
     </androidx.appcompat.widget.Toolbar>
