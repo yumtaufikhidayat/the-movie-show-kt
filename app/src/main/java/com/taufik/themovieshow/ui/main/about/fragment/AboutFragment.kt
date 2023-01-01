@@ -34,7 +34,9 @@ class AboutFragment : Fragment() {
         setApplicationData()
     }
 
-    private fun setToolbar() = binding.toolbarAbout.tvToolbar.text == getString(R.string.icAbout)
+    private fun setToolbar() = with(binding) {
+        toolbarAbout.tvToolbar.text = getString(R.string.icAbout)
+    }
 
     private fun setAuthorData() = with(binding) {
         rvAuthorAbout.apply {
