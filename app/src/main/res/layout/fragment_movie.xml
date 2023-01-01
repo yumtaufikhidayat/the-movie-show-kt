@@ -19,10 +19,10 @@
         android:background="@color/colorPrimaryDark"
         app:tabGravity="fill"
         app:tabInlineLabel="true"
-        app:tabIndicatorColor="@color/white"
+        app:tabIndicatorColor="@color/colorOrange"
         app:tabIndicatorHeight="2dp"
         app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
-        app:tabSelectedTextColor="@color/white"
+        app:tabSelectedTextColor="@color/colorOrange"
         app:layout_constraintTop_toBottomOf="@id/toolbarMovie"/>
 
     <androidx.viewpager2.widget.ViewPager2
