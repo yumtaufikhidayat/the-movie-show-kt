@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.main.tvshow.cast.TvShowsCast
 import com.taufik.themovieshow.databinding.ItemCastBinding
 import com.taufik.themovieshow.utils.loadImage
@@ -24,7 +25,7 @@ class TvShowsCastAdapter : ListAdapter<TvShowsCast, TvShowsCastAdapter.MovieView
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: TvShowsCast) = with(binding) {
             imgPoster.loadImage(data.profilePath)
-            tvCastName.text = data.name
+            tvCastName.text = root.context.getString(R.string.tvNameCharacter, data.name, data.character)
         }
     }
 
