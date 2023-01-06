@@ -10,7 +10,7 @@ data class DiscoverTvShowsResult(
     @SerializedName("backdrop_path")
     val backdropPath: String,
     @SerializedName("first_air_date")
-    val firstAirDate: String,
+    val firstAirDate: String?,
     @SerializedName("genre_ids")
     val genreIds: List<Int>,
     @SerializedName("id")
