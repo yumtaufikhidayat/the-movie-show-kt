@@ -37,6 +37,7 @@ buildscript {
         androidKTXVersion = '1.5.5'
         videoVersion = "10.0.5"
         roomVersion = '2.4.3'
+        espressoVersion = '3.5.1'
     }
 }
 
