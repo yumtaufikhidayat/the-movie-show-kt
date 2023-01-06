@@ -33,7 +33,7 @@ class DiscoverTvShowsAdapter : ListAdapter<DiscoverTvShowsResult, DiscoverTvShow
             with(binding) {
                 imgPoster.loadImage(data.posterPath)
                 tvTitle.text = data.name
-                tvReleaseDate.text = data.firstAirDate.convertDate(YYYY_MM_DD_FORMAT, EEE_D_MMM_YYYY_FORMAT)
+                tvReleaseDate.text = data.firstAirDate?.convertDate(YYYY_MM_DD_FORMAT, EEE_D_MMM_YYYY_FORMAT) ?: root.context.getString(R.string.tvNA)
                 tvRating.text = toRating(data.voteAverage)
 
                 itemView.setOnClickListener {
