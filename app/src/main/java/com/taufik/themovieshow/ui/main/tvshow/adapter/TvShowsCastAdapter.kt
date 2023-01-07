@@ -25,7 +25,11 @@ class TvShowsCastAdapter : ListAdapter<TvShowsCast, TvShowsCastAdapter.MovieView
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: TvShowsCast) = with(binding) {
             imgPoster.loadImage(data.profilePath)
-            tvCastName.text = root.context.getString(R.string.tvNameCharacter, data.name, data.character)
+            tvCastName.text = if(data.character.isNotEmpty()) {
+                root.context.getString(R.string.tvNameCharacter, data.name, data.character)
+            } else {
+                root.context.getString(R.string.tvNameCharacter, data.name, root.context.getString(R.string.tvNA))
+            }
         }
     }
 
