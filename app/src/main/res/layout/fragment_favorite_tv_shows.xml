@@ -17,6 +17,7 @@
         android:background="@drawable/bg_search_favorite"
         android:hint="@string/tvSearch"
         android:textColorHint="@color/colorGrey"
+        android:textColor="@color/colorOrange"
         android:inputType="text"
         android:importantForAutofill="auto"
         android:imeOptions="actionSearch"
