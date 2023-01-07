@@ -43,10 +43,10 @@ class TvShowsAdapter : ListAdapter<TvShowsMainResult, TvShowsAdapter.TvShowsView
             with(binding) {
                 imgPoster.loadImage(UrlEndpoint.IMAGE_URL + data.posterPath)
                 tvTitle.text = data.name
-                tvReleaseDate.text = data.firstAirDate.convertDate(
+                tvReleaseDate.text = data.firstAirDate?.convertDate(
                     CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
                     CommonDateFormatConstants.EEE_D_MMM_YYYY_FORMAT
-                )
+                ) ?: root.context.getString(R.string.tvNA)
                 tvRating.text = toRating(data.voteAverage)
 
                 itemView.setOnClickListener {

@@ -41,10 +41,10 @@ class MovieAdapter : ListAdapter<MovieMainResult, MovieAdapter.MovieViewHolder>(
             with(binding) {
                 imgPoster.loadImage(data.posterPath)
                 tvTitle.text = data.title
-                tvReleaseDate.text = data.releaseDate.convertDate(
+                tvReleaseDate.text = data.releaseDate?.convertDate(
                     CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
                     CommonDateFormatConstants.EEE_D_MMM_YYYY_FORMAT
-                )
+                ) ?: root.context.getString(R.string.tvNA)
                 tvRating.text = toRating(data.voteAverage)
 
                 itemView.setOnClickListener {
