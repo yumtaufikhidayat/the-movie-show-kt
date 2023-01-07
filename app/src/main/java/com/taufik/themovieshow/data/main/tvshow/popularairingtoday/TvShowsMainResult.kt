@@ -8,7 +8,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class TvShowsMainResult(
     @SerializedName("first_air_date")
-    val firstAirDate: String,
+    val firstAirDate: String?,
     @SerializedName("id")
     val id: Int,
     @SerializedName("name")

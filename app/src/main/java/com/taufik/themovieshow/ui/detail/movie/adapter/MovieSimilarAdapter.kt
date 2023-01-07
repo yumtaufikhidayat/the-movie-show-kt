@@ -1,4 +1,4 @@
-package com.taufik.themovieshow.ui.main.movie.adapter
+package com.taufik.themovieshow.ui.detail.movie.adapter
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,7 +15,9 @@ import com.taufik.themovieshow.utils.CommonDateFormatConstants
 import com.taufik.themovieshow.utils.convertDate
 import com.taufik.themovieshow.utils.loadImage
 
-class MovieSimilarAdapter: ListAdapter<MovieSimilarResult, MovieSimilarAdapter.MovieViewHolder>(MovieSimilarDiffCallback) {
+class MovieSimilarAdapter: ListAdapter<MovieSimilarResult, MovieSimilarAdapter.MovieViewHolder>(
+    MovieSimilarDiffCallback
+) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         return MovieViewHolder(ItemSimilarBinding.inflate(LayoutInflater.from(parent.context), parent, false))

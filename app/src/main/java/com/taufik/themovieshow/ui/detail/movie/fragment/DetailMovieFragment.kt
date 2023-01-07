@@ -17,8 +17,8 @@ import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.viewmodel.movie.DetailMovieViewModel
 import com.taufik.themovieshow.databinding.FragmentDetailMovieBinding
 import com.taufik.themovieshow.ui.detail.movie.adapter.MovieTrailerVideoAdapter
-import com.taufik.themovieshow.ui.main.movie.adapter.MovieCastAdapter
-import com.taufik.themovieshow.ui.main.movie.adapter.MovieSimilarAdapter
+import com.taufik.themovieshow.ui.detail.movie.adapter.MovieCastAdapter
+import com.taufik.themovieshow.ui.detail.movie.adapter.MovieSimilarAdapter
 import com.taufik.themovieshow.ui.main.movie.adapter.ReviewsAdapter
 import com.taufik.themovieshow.utils.*
 import kotlinx.coroutines.CoroutineScope
