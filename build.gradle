@@ -31,16 +31,16 @@ buildscript {
         recyclerViewVersion = '1.1.0'
         glideVersion = '4.14.2'
         lifeCycleVersion = '2.2.0'
-        lifeCycleJava8Support = '2.5.1'
         retrofitVersion = '2.9.0'
         okHttpVersion = '4.10.0'
         navKTXVersion = '2.5.3'
         androidKTXVersion = '1.5.5'
         videoVersion = "10.0.5"
-        roomVersion = '2.4.3'
+        roomVersion = '2.5.0'
         espressoVersion = '3.5.1'
         hiltVersion = '2.44'
         toastVersion = '1.5.0'
+        justifiedTextVersion = "1.1.0"
     }
 }
 

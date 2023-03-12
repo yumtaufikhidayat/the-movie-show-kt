@@ -74,12 +74,10 @@ dependencies {
     testImplementation 'org.mockito:mockito-inline:3.6.0'
 
     // Justified text view
-    def justifiedTextVersion = "1.1.0"
     implementation "com.codesgood:justifiedtextview:$justifiedTextVersion"
 
     // View Model
     implementation "androidx.lifecycle:lifecycle-extensions:$lifeCycleVersion"
-    implementation "androidx.lifecycle:lifecycle-common-java8:$lifeCycleJava8Support"
 
     // Network
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
