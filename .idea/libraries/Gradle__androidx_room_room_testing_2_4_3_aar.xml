@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: androidx.room:room-testing:2.4.3@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/9076f10d94593cb6885104127d23bbed/transformed/room-testing-2.4.3/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/9076f10d94593cb6885104127d23bbed/transformed/room-testing-2.4.3/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/9076f10d94593cb6885104127d23bbed/transformed/room-testing-2.4.3/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/9aa5e4b0d5d2ccc0643973a0c147ca4c/transformed/room-testing-2.4.3/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/9aa5e4b0d5d2ccc0643973a0c147ca4c/transformed/room-testing-2.4.3/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/9aa5e4b0d5d2ccc0643973a0c147ca4c/transformed/room-testing-2.4.3/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
