@@ -7,9 +7,10 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.3.1'
+        classpath 'com.android.tools.build:gradle:7.4.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.5.3"
+        classpath 'com.google.dagger:hilt-android-gradle-plugin:2.44'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -38,6 +39,8 @@ buildscript {
         videoVersion = "10.0.5"
         roomVersion = '2.4.3'
         espressoVersion = '3.5.1'
+        hiltVersion = '2.44'
+        toastVersion = '1.5.0'
     }
 }
 
