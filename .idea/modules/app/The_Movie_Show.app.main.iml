@@ -25,7 +25,7 @@
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/5dd48f2fbd7774fefb25af4d64d1f53b/transformed/material-1.8.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/6c7a24652fb9bfd13e653e5ff918026f/transformed/appcompat-1.6.1-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/f880762ae20addf2f9d769bdd97ec524/transformed/legacy-support-v4-1.0.0-api.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/0325105c8d16268095924b8ae0023aaf/transformed/jetified-glide-4.14.2-api.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/c67643cf7c560e89ea4149d6881b2585/transformed/jetified-glide-4.15.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/2e182aebc68925f7c048025a5613766d/transformed/lifecycle-extensions-2.2.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/6e798d22dd9c0302ca89f55bd884fc68/transformed/jetified-hilt-android-2.44-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/14d476447483b832a9f0ba112cb7678e/transformed/jetified-viewpager2-1.0.0-api.jar</arg>
@@ -65,7 +65,7 @@
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/4075d3ebe14a79815253fa89442a8994/transformed/jetified-lifecycle-service-2.2.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/9afbf466f9ac9aa87998adfc529233f7/transformed/jetified-lifecycle-runtime-ktx-2.5.1-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/640e16f75113ba809e468c66d0e2fff9/transformed/lifecycle-runtime-2.5.1-api.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/0ff760664134f44a761a181f00938aa4/transformed/jetified-gifdecoder-4.14.2-api.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/c6fa047e91e9c90423a5a95df44a43ce/transformed/jetified-gifdecoder-4.15.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/a46eedd4f0ac73da9347b81ee7c71e73/transformed/lifecycle-livedata-2.2.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/45be41e5fc8c443c193e90dbedb2c8ed/transformed/core-runtime-2.1.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.arch.core/core-common/2.1.0/b3152fc64428c9354344bd89848ecddc09b6f07e/core-common-2.1.0.jar</arg>
@@ -104,8 +104,8 @@
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/f95897637ab1266cb2bbefdd407708e5/transformed/jetified-tracing-1.0.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/e407ba55183cbeeb1ef985c7d6cdfa7d/transformed/jetified-startup-runtime-1.1.1-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/a174e0d0eacffd63f77dbdebfdd4eadd/transformed/constraintlayout-2.1.4-api.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/bd582486ed798afd8614d6d3733d8ff4/transformed/jetified-disklrucache-4.14.2.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/6a9c530875e7b50e033d3f5ae679acaa/transformed/jetified-annotations-4.14.2.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/de67ddb6f85c57466e3e47ab68a55b7d/transformed/jetified-disklrucache-4.15.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/f3e4fb5bf9f8ed07b83c7afc78addd0c/transformed/jetified-annotations-4.15.0.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/b090fb6bd9a0d4873f2411622f6367b9/transformed/exifinterface-1.3.3-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/26e0fd2e1757e4896ebfd0da7b63efa6/transformed/jetified-justifiedtextview-1.1.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/6c52b69ffe05f859f4d1ce51d5fbe6d8/transformed/jetified-gson-2.8.5.jar</arg>
@@ -247,8 +247,8 @@
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.4" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.20" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.20" level="project" />
-    <orderEntry type="library" name="Gradle: com.github.bumptech.glide:disklrucache:4.14.2" level="project" />
-    <orderEntry type="library" name="Gradle: com.github.bumptech.glide:annotations:4.14.2" level="project" />
+    <orderEntry type="library" name="Gradle: com.github.bumptech.glide:disklrucache:4.15.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.github.bumptech.glide:annotations:4.15.0" level="project" />
     <orderEntry type="library" name="Gradle: androidx.collection:collection-ktx:1.1.0" level="project" />
     <orderEntry type="library" name="Gradle: com.squareup.retrofit2:retrofit:2.9.0" level="project" />
     <orderEntry type="library" name="Gradle: com.squareup.okhttp3:okhttp:4.10.0" level="project" />
@@ -303,8 +303,8 @@
     <orderEntry type="library" name="Gradle: androidx.slidingpanelayout:slidingpanelayout:1.2.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.swiperefreshlayout:swiperefreshlayout:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.asynclayoutinflater:asynclayoutinflater:1.0.0@aar" level="project" />
-    <orderEntry type="library" name="Gradle: com.github.bumptech.glide:glide:4.14.2@aar" level="project" />
-    <orderEntry type="library" name="Gradle: com.github.bumptech.glide:gifdecoder:4.14.2@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.github.bumptech.glide:glide:4.15.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.github.bumptech.glide:gifdecoder:4.15.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.exifinterface:exifinterface:1.3.3@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.tracing:tracing:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.navigation:navigation-fragment-ktx:2.5.3@aar" level="project" />
