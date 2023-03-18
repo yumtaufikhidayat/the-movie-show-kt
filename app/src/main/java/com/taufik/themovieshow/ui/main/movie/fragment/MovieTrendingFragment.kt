@@ -57,7 +57,7 @@ class MovieTrendingFragment : Fragment() {
         }
     }
 
-    private fun showLoading(isShow: Boolean) = with(binding){
+    private fun showLoading(isShow: Boolean) = with(binding) {
         progressBar.isVisible = isShow
     }
 

@@ -35,7 +35,7 @@ class FavoriteFragment : Fragment() {
         toolbarFavorite.tvToolbar.text = getString(R.string.icFavorite)
     }
 
-    private fun setTabLayout() = with(binding){
+    private fun setTabLayout() = with(binding) {
         val discoverPagerAdapter = FavoritePagerAdapter(this@FavoriteFragment)
         viewPagerFavorite.adapter = discoverPagerAdapter
         TabLayoutMediator(tabLayoutFavorite, viewPagerFavorite) { tabs, position ->

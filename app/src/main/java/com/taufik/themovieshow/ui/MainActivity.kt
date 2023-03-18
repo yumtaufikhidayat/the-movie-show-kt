@@ -25,14 +25,15 @@ class MainActivity : AppCompatActivity() {
         setUpNavigationDestination()
     }
 
-    private fun setNavHost() = with(binding){
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer) as NavHostFragment
+    private fun setNavHost() = with(binding) {
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.fragmentContainer) as NavHostFragment
         navController = navHostFragment.findNavController()
         navBottom.setupWithNavController(navController)
     }
 
     private fun setUpNavigationDestination() {
-        navController.addOnDestinationChangedListener {_, destination, _ ->
+        navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.detailTvShowFragment -> showHideBottomNavigation(false)
                 R.id.detailMovieFragment -> showHideBottomNavigation(false)

@@ -8,19 +8,24 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.taufik.themovieshow.R
-import com.taufik.themovieshow.data.main.tvshow.similar.TvShowsSimilarResultsItem
 import com.taufik.themovieshow.databinding.ItemSimilarBinding
+import com.taufik.themovieshow.model.response.tvshow.similar.TvShowsSimilarResultsItem
 import com.taufik.themovieshow.ui.detail.movie.fragment.DetailMovieFragment
 import com.taufik.themovieshow.utils.CommonDateFormatConstants
 import com.taufik.themovieshow.utils.convertDate
 import com.taufik.themovieshow.utils.loadImage
 
-class TvShowSimilarAdapter: ListAdapter<TvShowsSimilarResultsItem, TvShowSimilarAdapter.TvShowViewHolder>(
-    TvShowSimilarDiffCallback
-) {
+class TvShowSimilarAdapter :
+    ListAdapter<TvShowsSimilarResultsItem, TvShowSimilarAdapter.TvShowViewHolder>(TvShowSimilarDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TvShowViewHolder {
-        return TvShowViewHolder(ItemSimilarBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return TvShowViewHolder(
+            ItemSimilarBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: TvShowViewHolder, position: Int) {
@@ -29,20 +34,26 @@ class TvShowSimilarAdapter: ListAdapter<TvShowsSimilarResultsItem, TvShowSimilar
 
     inner class TvShowViewHolder(private val binding: ItemSimilarBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: TvShowsSimilarResultsItem) = with(binding) {
-            imgPoster.loadImage(data.posterPath)
-            val releaseYear = data.firstAirDate.convertDate(CommonDateFormatConstants.YYYY_MM_DD_FORMAT, CommonDateFormatConstants.YYYY_FORMAT)
-            tvMovieName.text = StringBuilder(data.name).append("\n").append("($releaseYear)")
-            cardPoster.setOnClickListener {
-                val bundle = Bundle()
-                bundle.putInt(DetailMovieFragment.EXTRA_ID, data.id)
-                bundle.putString(DetailMovieFragment.EXTRA_TITLE, data.name)
-                it.findNavController().navigate(R.id.detailTvShowFragment, bundle)
+        fun bind(data: TvShowsSimilarResultsItem) {
+            binding.apply {
+                imgPoster.loadImage(data.posterPath)
+                val releaseYear = data.firstAirDate.convertDate(
+                    CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
+                    CommonDateFormatConstants.YYYY_FORMAT
+                )
+                tvMovieName.text = StringBuilder(data.name).append("\n").append("($releaseYear)")
+                cardPoster.setOnClickListener {
+                    val bundle = Bundle()
+                    bundle.putInt(DetailMovieFragment.EXTRA_ID, data.id)
+                    bundle.putString(DetailMovieFragment.EXTRA_TITLE, data.name)
+                    it.findNavController().navigate(R.id.detailTvShowFragment, bundle)
+                }
             }
         }
     }
 
-    object TvShowSimilarDiffCallback: DiffUtil.ItemCallback<TvShowsSimilarResultsItem>() {
+    object TvShowSimilarDiffCallback :
+        DiffUtil.ItemCallback<TvShowsSimilarResultsItem>() {
         override fun areItemsTheSame(
             oldItem: TvShowsSimilarResultsItem,
             newItem: TvShowsSimilarResultsItem

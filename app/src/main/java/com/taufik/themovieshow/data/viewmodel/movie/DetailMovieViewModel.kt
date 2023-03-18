@@ -5,18 +5,18 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.taufik.themovieshow.BuildConfig
-import com.taufik.themovieshow.data.remote.api.ApiClient
 import com.taufik.themovieshow.data.local.dao.FavoriteMovieDao
 import com.taufik.themovieshow.data.local.entity.FavoriteMovie
 import com.taufik.themovieshow.data.local.room.MovieDatabase
-import com.taufik.themovieshow.data.main.common.reviews.ReviewsResponse
-import com.taufik.themovieshow.data.main.common.reviews.ReviewsResult
-import com.taufik.themovieshow.data.main.movie.cast.MovieCast
-import com.taufik.themovieshow.data.main.movie.cast.MovieCastResponse
-import com.taufik.themovieshow.data.main.movie.detail.MovieDetailResponse
-import com.taufik.themovieshow.data.main.movie.similar.MovieSimilarResponse
-import com.taufik.themovieshow.data.main.movie.similar.MovieSimilarResult
-import com.taufik.themovieshow.data.main.movie.video.MovieVideoResponse
+import com.taufik.themovieshow.data.remote.api.ApiClient
+import com.taufik.themovieshow.model.response.common.reviews.ReviewsResponse
+import com.taufik.themovieshow.model.response.common.reviews.ReviewsResult
+import com.taufik.themovieshow.model.response.movie.cast.MovieCast
+import com.taufik.themovieshow.model.response.movie.cast.MovieCastResponse
+import com.taufik.themovieshow.model.response.movie.detail.MovieDetailResponse
+import com.taufik.themovieshow.model.response.movie.similar.MovieSimilarResponse
+import com.taufik.themovieshow.model.response.movie.similar.MovieSimilarResult
+import com.taufik.themovieshow.model.response.movie.video.MovieVideoResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -63,7 +63,11 @@ class DetailMovieViewModel(application: Application) : AndroidViewModel(applicat
                     }
                 }
 
-                override fun onFailure(call: Call<MovieDetailResponse>, t: Throwable) {}
+                override fun onFailure(
+                    call: Call<MovieDetailResponse>,
+                    t: Throwable
+                ) {
+                }
             })
     }
 
@@ -75,11 +79,16 @@ class DetailMovieViewModel(application: Application) : AndroidViewModel(applicat
                     response: Response<MovieCastResponse>
                 ) {
                     if (response.isSuccessful) {
-                        _listDetailCast.value = response.body()?.cast as ArrayList<MovieCast>
+                        _listDetailCast.value =
+                            response.body()?.cast as ArrayList<MovieCast>
                     }
                 }
 
-                override fun onFailure(call: Call<MovieCastResponse>, t: Throwable) {}
+                override fun onFailure(
+                    call: Call<MovieCastResponse>,
+                    t: Throwable
+                ) {
+                }
             })
     }
 
@@ -95,7 +104,11 @@ class DetailMovieViewModel(application: Application) : AndroidViewModel(applicat
                     }
                 }
 
-                override fun onFailure(call: Call<MovieVideoResponse>, t: Throwable) {}
+                override fun onFailure(
+                    call: Call<MovieVideoResponse>,
+                    t: Throwable
+                ) {
+                }
             })
     }
 
@@ -107,11 +120,16 @@ class DetailMovieViewModel(application: Application) : AndroidViewModel(applicat
                     response: Response<ReviewsResponse>
                 ) {
                     if (response.isSuccessful) {
-                        _listReviews.value = response.body()?.results as ArrayList<ReviewsResult>
+                        _listReviews.value =
+                            response.body()?.results as ArrayList<ReviewsResult>
                     }
                 }
 
-                override fun onFailure(call: Call<ReviewsResponse>, t: Throwable) {}
+                override fun onFailure(
+                    call: Call<ReviewsResponse>,
+                    t: Throwable
+                ) {
+                }
             })
     }
 
@@ -123,11 +141,16 @@ class DetailMovieViewModel(application: Application) : AndroidViewModel(applicat
                     response: Response<MovieSimilarResponse>
                 ) {
                     if (response.isSuccessful) {
-                        _listSimilar.value = response.body()?.results as ArrayList<MovieSimilarResult>
+                        _listSimilar.value =
+                            response.body()?.results as ArrayList<MovieSimilarResult>
                     }
                 }
 
-                override fun onFailure(call: Call<MovieSimilarResponse>, t: Throwable) {}
+                override fun onFailure(
+                    call: Call<MovieSimilarResponse>,
+                    t: Throwable
+                ) {
+                }
             })
     }
 

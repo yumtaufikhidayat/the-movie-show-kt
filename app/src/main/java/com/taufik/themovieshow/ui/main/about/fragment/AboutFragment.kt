@@ -22,7 +22,11 @@ class AboutFragment : Fragment() {
     private val authorAdapter by lazy { AboutAuthorAdapter(requireContext()) }
     private val applicationAdapter by lazy { AboutApplicationAdapter(requireContext()) }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         _binding = FragmentAboutBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -47,7 +51,7 @@ class AboutFragment : Fragment() {
         authorAdapter.submitList(viewModel.getAboutAuthor())
     }
 
-    private fun setApplicationData() = with(binding){
+    private fun setApplicationData() = with(binding) {
         rvApplicationAbout.apply {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)

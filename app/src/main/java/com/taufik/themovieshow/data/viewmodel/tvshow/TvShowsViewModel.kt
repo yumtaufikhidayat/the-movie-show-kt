@@ -5,12 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.taufik.themovieshow.BuildConfig
 import com.taufik.themovieshow.data.remote.api.ApiClient
-import com.taufik.themovieshow.data.main.tvshow.discover.DiscoverTvShowsResponse
-import com.taufik.themovieshow.data.main.tvshow.discover.DiscoverTvShowsResult
-import com.taufik.themovieshow.data.main.tvshow.popularairingtoday.TvShowsMainResponse
-import com.taufik.themovieshow.data.main.tvshow.popularairingtoday.TvShowsMainResult
-import com.taufik.themovieshow.data.main.tvshow.trending.TvShowsTrendingReponse
-import com.taufik.themovieshow.data.main.tvshow.trending.TvShowsTrendingResult
+import com.taufik.themovieshow.model.response.tvshow.discover.DiscoverTvShowsResponse
+import com.taufik.themovieshow.model.response.tvshow.discover.DiscoverTvShowsResult
+import com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResponse
+import com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResult
+import com.taufik.themovieshow.model.response.tvshow.trending.TvShowsTrendingResponse
+import com.taufik.themovieshow.model.response.tvshow.trending.TvShowsTrendingResult
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -34,65 +34,89 @@ class TvShowsViewModel : ViewModel() {
 
     fun setTvShowsAiringToday(apiKey: String) {
         apiInstance.getTvShowsAiringToday(apiKey)
-            .enqueue(object : Callback<TvShowsMainResponse> {
+            .enqueue(object :
+                Callback<TvShowsMainResponse> {
                 override fun onResponse(
                     call: Call<TvShowsMainResponse>,
                     response: Response<TvShowsMainResponse>
                 ) {
                     if (response.isSuccessful) {
-                        _listAiringToday.value = response.body()?.results as ArrayList<TvShowsMainResult>
+                        _listAiringToday.value =
+                            response.body()?.results as ArrayList<TvShowsMainResult>
                     }
                 }
 
-                override fun onFailure(call: Call<TvShowsMainResponse>, t: Throwable) {}
+                override fun onFailure(
+                    call: Call<TvShowsMainResponse>,
+                    t: Throwable
+                ) {
+                }
             })
     }
 
     fun setTvShowsPopular() {
         apiInstance.getTvShowsPopular(apiKey)
-            .enqueue(object : Callback<TvShowsMainResponse> {
+            .enqueue(object :
+                Callback<TvShowsMainResponse> {
                 override fun onResponse(
                     call: Call<TvShowsMainResponse>,
                     response: Response<TvShowsMainResponse>
                 ) {
                     if (response.isSuccessful) {
-                        _listPopular.value = response.body()?.results as ArrayList<TvShowsMainResult>
+                        _listPopular.value =
+                            response.body()?.results as ArrayList<TvShowsMainResult>
                     }
                 }
 
-                override fun onFailure(call: Call<TvShowsMainResponse>, t: Throwable) {}
+                override fun onFailure(
+                    call: Call<TvShowsMainResponse>,
+                    t: Throwable
+                ) {
+                }
             })
     }
 
     fun setTvShowsTrending() {
         apiInstance.getTvShowsTrending(apiKey)
-            .enqueue(object : Callback<TvShowsTrendingReponse> {
+            .enqueue(object :
+                Callback<TvShowsTrendingResponse> {
                 override fun onResponse(
-                    call: Call<TvShowsTrendingReponse>,
-                    response: Response<TvShowsTrendingReponse>
+                    call: Call<TvShowsTrendingResponse>,
+                    response: Response<TvShowsTrendingResponse>
                 ) {
                     if (response.body() != null) {
-                        _listTrending.value = response.body()?.results as ArrayList<TvShowsTrendingResult>
+                        _listTrending.value =
+                            response.body()?.results as ArrayList<TvShowsTrendingResult>
                     }
                 }
 
-                override fun onFailure(call: Call<TvShowsTrendingReponse>, t: Throwable) {}
+                override fun onFailure(
+                    call: Call<TvShowsTrendingResponse>,
+                    t: Throwable
+                ) {
+                }
             })
     }
 
     fun setDiscoverTvShows(query: String) {
         apiInstance.getDiscoverTvShows(apiKey, query)
-            .enqueue(object : Callback<DiscoverTvShowsResponse> {
+            .enqueue(object :
+                Callback<DiscoverTvShowsResponse> {
                 override fun onResponse(
                     call: Call<DiscoverTvShowsResponse>,
                     response: Response<DiscoverTvShowsResponse>
                 ) {
                     if (response.isSuccessful) {
-                        _listDiscover.value = response.body()?.results as ArrayList<DiscoverTvShowsResult>
+                        _listDiscover.value =
+                            response.body()?.results as ArrayList<DiscoverTvShowsResult>
                     }
                 }
 
-                override fun onFailure(call: Call<DiscoverTvShowsResponse>, t: Throwable) {}
+                override fun onFailure(
+                    call: Call<DiscoverTvShowsResponse>,
+                    t: Throwable
+                ) {
+                }
             })
     }
 }

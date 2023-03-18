@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.taufik.themovieshow.R
-import com.taufik.themovieshow.data.main.tvshow.discover.DiscoverTvShowsResult
 import com.taufik.themovieshow.databinding.ItemsMoviesTvShowBinding
+import com.taufik.themovieshow.model.response.tvshow.discover.DiscoverTvShowsResult
 import com.taufik.themovieshow.ui.detail.tvshow.fragment.DetailTvShowFragment
 import com.taufik.themovieshow.utils.CommonDateFormatConstants.EEE_D_MMM_YYYY_FORMAT
 import com.taufik.themovieshow.utils.CommonDateFormatConstants.YYYY_MM_DD_FORMAT
@@ -28,12 +28,15 @@ class DiscoverTvShowsAdapter : ListAdapter<DiscoverTvShowsResult, DiscoverTvShow
         holder.bind(getItem(position))
     }
 
-    inner class TvShowsViewHolder(private val binding: ItemsMoviesTvShowBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class TvShowsViewHolder(private val binding: ItemsMoviesTvShowBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(data: DiscoverTvShowsResult) {
-            with(binding) {
+            binding.apply {
                 imgPoster.loadImage(data.posterPath)
                 tvTitle.text = data.name
-                tvReleaseDate.text = data.firstAirDate?.convertDate(YYYY_MM_DD_FORMAT, EEE_D_MMM_YYYY_FORMAT) ?: root.context.getString(R.string.tvNA)
+                tvReleaseDate.text =
+                    data.firstAirDate?.convertDate(YYYY_MM_DD_FORMAT, EEE_D_MMM_YYYY_FORMAT)
+                        ?: root.context.getString(R.string.tvNA)
                 tvRating.text = toRating(data.voteAverage)
 
                 itemView.setOnClickListener {
@@ -46,7 +49,8 @@ class DiscoverTvShowsAdapter : ListAdapter<DiscoverTvShowsResult, DiscoverTvShow
         }
     }
 
-    object DiscoverTvShowCallback: DiffUtil.ItemCallback<DiscoverTvShowsResult>(){
+    object DiscoverTvShowCallback :
+        DiffUtil.ItemCallback<DiscoverTvShowsResult>() {
         override fun areItemsTheSame(
             oldItem: DiscoverTvShowsResult,
             newItem: DiscoverTvShowsResult

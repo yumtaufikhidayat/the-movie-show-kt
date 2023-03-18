@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.taufik.themovieshow.R
-import com.taufik.themovieshow.data.main.movie.nowplayingupcoming.MovieMainResult
 import com.taufik.themovieshow.databinding.ItemsMoviesTvShowBinding
+import com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult
 import com.taufik.themovieshow.ui.detail.movie.fragment.DetailMovieFragment
 import com.taufik.themovieshow.utils.CommonDateFormatConstants
 import com.taufik.themovieshow.utils.convertDate
@@ -19,7 +19,7 @@ import com.taufik.themovieshow.utils.loadImage
 import com.taufik.themovieshow.utils.toRating
 import java.util.*
 
-class MovieAdapter : ListAdapter<MovieMainResult, MovieAdapter.MovieViewHolder>(MovieDiffCallback), Filterable{
+class MovieAdapter : ListAdapter<MovieMainResult, MovieAdapter.MovieViewHolder>(MovieDiffCallback), Filterable {
 
     private var listMovies = listOf<MovieMainResult>()
 
@@ -29,16 +29,23 @@ class MovieAdapter : ListAdapter<MovieMainResult, MovieAdapter.MovieViewHolder>(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        return MovieViewHolder(ItemsMoviesTvShowBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return MovieViewHolder(
+            ItemsMoviesTvShowBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
-    inner class MovieViewHolder (private val binding: ItemsMoviesTvShowBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class MovieViewHolder(private val binding: ItemsMoviesTvShowBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(data: MovieMainResult) {
-            with(binding) {
+            binding.apply {
                 imgPoster.loadImage(data.posterPath)
                 tvTitle.text = data.title
                 tvReleaseDate.text = data.releaseDate?.convertDate(
@@ -57,16 +64,25 @@ class MovieAdapter : ListAdapter<MovieMainResult, MovieAdapter.MovieViewHolder>(
         }
     }
 
-    object MovieDiffCallback : DiffUtil.ItemCallback<MovieMainResult>(){
-        override fun areItemsTheSame(oldItem: MovieMainResult, newItem: MovieMainResult): Boolean = oldItem.id == newItem.id
-        override fun areContentsTheSame(oldItem: MovieMainResult, newItem: MovieMainResult): Boolean = oldItem == newItem
+    object MovieDiffCallback :
+        DiffUtil.ItemCallback<MovieMainResult>() {
+        override fun areItemsTheSame(
+            oldItem: MovieMainResult,
+            newItem: MovieMainResult
+        ): Boolean = oldItem.id == newItem.id
+
+        override fun areContentsTheSame(
+            oldItem: MovieMainResult,
+            newItem: MovieMainResult
+        ): Boolean = oldItem == newItem
     }
 
     override fun getFilter(): Filter = searchFilter
 
     private val searchFilter = object : Filter() {
         override fun performFiltering(p0: CharSequence): FilterResults {
-            val filteredList = mutableListOf<MovieMainResult>()
+            val filteredList =
+                mutableListOf<MovieMainResult>()
             if (p0.isEmpty()) {
                 filteredList.addAll(listMovies)
             } else {

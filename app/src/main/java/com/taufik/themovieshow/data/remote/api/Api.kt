@@ -1,20 +1,20 @@
 package com.taufik.themovieshow.data.remote.api
 
-import com.taufik.themovieshow.data.main.common.reviews.ReviewsResponse
-import com.taufik.themovieshow.data.main.movie.cast.MovieCastResponse
-import com.taufik.themovieshow.data.main.movie.detail.MovieDetailResponse
-import com.taufik.themovieshow.data.main.movie.discover.DiscoverMovieResponse
-import com.taufik.themovieshow.data.main.movie.nowplayingupcoming.MovieMainResponse
-import com.taufik.themovieshow.data.main.movie.similar.MovieSimilarResponse
-import com.taufik.themovieshow.data.main.movie.trending.MovieTrendingResponse
-import com.taufik.themovieshow.data.main.movie.video.MovieVideoResponse
-import com.taufik.themovieshow.data.main.tvshow.cast.TvShowsCastResponse
-import com.taufik.themovieshow.data.main.tvshow.detail.TvShowsPopularDetailResponse
-import com.taufik.themovieshow.data.main.tvshow.discover.DiscoverTvShowsResponse
-import com.taufik.themovieshow.data.main.tvshow.popularairingtoday.TvShowsMainResponse
-import com.taufik.themovieshow.data.main.tvshow.similar.TvShowsSimilarResponse
-import com.taufik.themovieshow.data.main.tvshow.trending.TvShowsTrendingReponse
-import com.taufik.themovieshow.data.main.tvshow.video.TvShowsVideoResponse
+import com.taufik.themovieshow.model.response.common.reviews.ReviewsResponse
+import com.taufik.themovieshow.model.response.movie.cast.MovieCastResponse
+import com.taufik.themovieshow.model.response.movie.detail.MovieDetailResponse
+import com.taufik.themovieshow.model.response.movie.discover.DiscoverMovieResponse
+import com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResponse
+import com.taufik.themovieshow.model.response.movie.similar.MovieSimilarResponse
+import com.taufik.themovieshow.model.response.movie.trending.MovieTrendingResponse
+import com.taufik.themovieshow.model.response.movie.video.MovieVideoResponse
+import com.taufik.themovieshow.model.response.tvshow.cast.TvShowsCastResponse
+import com.taufik.themovieshow.model.response.tvshow.detail.TvShowsPopularDetailResponse
+import com.taufik.themovieshow.model.response.tvshow.discover.DiscoverTvShowsResponse
+import com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResponse
+import com.taufik.themovieshow.model.response.tvshow.similar.TvShowsSimilarResponse
+import com.taufik.themovieshow.model.response.tvshow.trending.TvShowsTrendingResponse
+import com.taufik.themovieshow.model.response.tvshow.video.TvShowsVideoResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -69,18 +69,18 @@ interface Api {
 
     @GET(UrlEndpoint.TV_SHOWS_AIRING_TODAY)
     fun getTvShowsAiringToday(
-            @Query("api_key") apiKey: String
+        @Query("api_key") apiKey: String
     ): Call<TvShowsMainResponse>
 
     @GET(UrlEndpoint.TV_SHOWS_POPULAR)
     fun getTvShowsPopular(
-            @Query("api_key") apiKey: String
+        @Query("api_key") apiKey: String
     ): Call<TvShowsMainResponse>
 
     @GET(UrlEndpoint.TV_SHOWS_TRENDING_DAY)
     fun getTvShowsTrending(
         @Query("api_key") apiKey: String
-    ): Call<TvShowsTrendingReponse>
+    ): Call<TvShowsTrendingResponse>
 
     @GET(UrlEndpoint.DISCOVER_TV_SHOWS)
     fun getDiscoverTvShows(

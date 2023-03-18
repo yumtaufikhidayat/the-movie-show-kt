@@ -5,12 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.taufik.themovieshow.BuildConfig
 import com.taufik.themovieshow.data.remote.api.ApiClient
-import com.taufik.themovieshow.data.main.movie.discover.DiscoverMovieResponse
-import com.taufik.themovieshow.data.main.movie.discover.DiscoverMovieResult
-import com.taufik.themovieshow.data.main.movie.nowplayingupcoming.MovieMainResponse
-import com.taufik.themovieshow.data.main.movie.nowplayingupcoming.MovieMainResult
-import com.taufik.themovieshow.data.main.movie.trending.MovieTrendingResponse
-import com.taufik.themovieshow.data.main.movie.trending.MovieTrendingResult
+import com.taufik.themovieshow.model.response.movie.discover.DiscoverMovieResponse
+import com.taufik.themovieshow.model.response.movie.discover.DiscoverMovieResult
+import com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResponse
+import com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult
+import com.taufik.themovieshow.model.response.movie.trending.MovieTrendingResponse
+import com.taufik.themovieshow.model.response.movie.trending.MovieTrendingResult
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,73 +26,97 @@ class MovieViewModel : ViewModel() {
     private val _listUpcoming = MutableLiveData<ArrayList<MovieMainResult>>()
     val listUpcoming: LiveData<ArrayList<MovieMainResult>> = _listUpcoming
 
-    private val _listTrendingDay  = MutableLiveData<ArrayList<MovieTrendingResult>>()
+    private val _listTrendingDay = MutableLiveData<ArrayList<MovieTrendingResult>>()
     val listTrendingDay: LiveData<ArrayList<MovieTrendingResult>> = _listTrendingDay
 
     private val _listDiscover = MutableLiveData<ArrayList<DiscoverMovieResult>>()
     val listDiscover: LiveData<ArrayList<DiscoverMovieResult>> = _listDiscover
 
-    fun setMovieNowPlaying(){
+    fun setMovieNowPlaying() {
         apiInstance.getMovieNowPlaying(apiKey)
-            .enqueue(object : Callback<MovieMainResponse> {
+            .enqueue(object :
+                Callback<MovieMainResponse> {
                 override fun onResponse(
                     call: Call<MovieMainResponse>,
                     response: Response<MovieMainResponse>
                 ) {
                     if (response.isSuccessful) {
-                        _listNowPlaying.value = response.body()?.results as ArrayList<MovieMainResult>
+                        _listNowPlaying.value =
+                            response.body()?.results as ArrayList<MovieMainResult>
                     }
                 }
 
-                override fun onFailure(call: Call<MovieMainResponse>, t: Throwable) {}
+                override fun onFailure(
+                    call: Call<MovieMainResponse>,
+                    t: Throwable
+                ) {
+                }
             })
     }
 
-    fun setMovieUpcoming(){
+    fun setMovieUpcoming() {
         apiInstance.getMovieUpcoming(apiKey)
-            .enqueue(object : Callback<MovieMainResponse> {
+            .enqueue(object :
+                Callback<MovieMainResponse> {
                 override fun onResponse(
                     call: Call<MovieMainResponse>,
                     response: Response<MovieMainResponse>
                 ) {
                     if (response.isSuccessful) {
-                        _listUpcoming.value = response.body()?.results as ArrayList<MovieMainResult>
+                        _listUpcoming.value =
+                            response.body()?.results as ArrayList<MovieMainResult>
                     }
                 }
 
-                override fun onFailure(call: Call<MovieMainResponse>, t: Throwable) {}
+                override fun onFailure(
+                    call: Call<MovieMainResponse>,
+                    t: Throwable
+                ) {
+                }
             })
     }
 
-    fun setMovieTrendingDay(){
+    fun setMovieTrendingDay() {
         apiInstance.getMovieTrendingDay(apiKey)
-            .enqueue(object : Callback<MovieTrendingResponse> {
+            .enqueue(object :
+                Callback<MovieTrendingResponse> {
                 override fun onResponse(
                     call: Call<MovieTrendingResponse>,
                     response: Response<MovieTrendingResponse>
                 ) {
                     if (response.isSuccessful) {
-                        _listTrendingDay.value = response.body()?.results as ArrayList<MovieTrendingResult>
+                        _listTrendingDay.value =
+                            response.body()?.results as ArrayList<MovieTrendingResult>
                     }
                 }
 
-                override fun onFailure(call: Call<MovieTrendingResponse>, t: Throwable) {}
+                override fun onFailure(
+                    call: Call<MovieTrendingResponse>,
+                    t: Throwable
+                ) {
+                }
             })
     }
 
-    fun setDiscoverMovie(query: String){
+    fun setDiscoverMovie(query: String) {
         apiInstance.getDiscoverMovie(apiKey, query)
-            .enqueue(object : Callback<DiscoverMovieResponse> {
+            .enqueue(object :
+                Callback<DiscoverMovieResponse> {
                 override fun onResponse(
                     call: Call<DiscoverMovieResponse>,
                     response: Response<DiscoverMovieResponse>
                 ) {
                     if (response.isSuccessful) {
-                        _listDiscover.value = response.body()?.results as ArrayList<DiscoverMovieResult>
+                        _listDiscover.value =
+                            response.body()?.results as ArrayList<DiscoverMovieResult>
                     }
                 }
 
-                override fun onFailure(call: Call<DiscoverMovieResponse>, t: Throwable) {}
+                override fun onFailure(
+                    call: Call<DiscoverMovieResponse>,
+                    t: Throwable
+                ) {
+                }
             })
     }
 }
