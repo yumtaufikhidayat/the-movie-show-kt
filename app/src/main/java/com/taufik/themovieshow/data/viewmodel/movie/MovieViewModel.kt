@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.taufik.themovieshow.BuildConfig
-import com.taufik.themovieshow.data.api.ApiClient
+import com.taufik.themovieshow.data.remote.api.ApiClient
 import com.taufik.themovieshow.data.main.movie.discover.DiscoverMovieResponse
 import com.taufik.themovieshow.data.main.movie.discover.DiscoverMovieResult
 import com.taufik.themovieshow.data.main.movie.nowplayingupcoming.MovieMainResponse

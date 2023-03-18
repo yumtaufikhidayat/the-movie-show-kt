@@ -6,7 +6,7 @@ import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.taufik.themovieshow.R
-import com.taufik.themovieshow.data.api.UrlEndpoint
+import com.taufik.themovieshow.data.remote.api.UrlEndpoint
 import es.dmoral.toasty.Toasty
 import java.text.SimpleDateFormat
 import java.util.*

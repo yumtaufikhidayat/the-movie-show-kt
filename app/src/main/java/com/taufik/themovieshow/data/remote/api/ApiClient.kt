@@ -1,4 +1,4 @@
-package com.taufik.themovieshow.data.api
+package com.taufik.themovieshow.data.remote.api
 
 import com.taufik.themovieshow.BuildConfig
 import okhttp3.OkHttpClient
