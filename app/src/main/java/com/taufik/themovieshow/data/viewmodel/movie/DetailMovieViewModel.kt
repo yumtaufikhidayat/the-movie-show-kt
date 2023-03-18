@@ -53,8 +53,7 @@ class DetailMovieViewModel(application: Application) : AndroidViewModel(applicat
 
     fun setDetailMovies(id: Int) {
         apiInstance.getDetailMovie(id, apiKey)
-            .enqueue(object :
-                Callback<MovieDetailResponse> {
+            .enqueue(object : Callback<MovieDetailResponse> {
                 override fun onResponse(
                     call: Call<MovieDetailResponse>,
                     response: Response<MovieDetailResponse>
@@ -74,8 +73,7 @@ class DetailMovieViewModel(application: Application) : AndroidViewModel(applicat
 
     fun setDetailMovieCast(id: Int) {
         apiInstance.getMovieCast(id, apiKey)
-            .enqueue(object :
-                Callback<MovieCastResponse> {
+            .enqueue(object : Callback<MovieCastResponse> {
                 override fun onResponse(
                     call: Call<MovieCastResponse>,
                     response: Response<MovieCastResponse>
@@ -96,8 +94,7 @@ class DetailMovieViewModel(application: Application) : AndroidViewModel(applicat
 
     fun setDetailMovieVideo(id: Int) {
         apiInstance.getMovieVideo(id, apiKey)
-            .enqueue(object :
-                Callback<MovieVideoResponse> {
+            .enqueue(object : Callback<MovieVideoResponse> {
                 override fun onResponse(
                     call: Call<MovieVideoResponse>,
                     response: Response<MovieVideoResponse>
@@ -117,8 +114,7 @@ class DetailMovieViewModel(application: Application) : AndroidViewModel(applicat
 
     fun setDetailMovieReviews(id: Int) {
         apiInstance.getReviewsMovie(id, apiKey)
-            .enqueue(object :
-                Callback<ReviewsResponse> {
+            .enqueue(object : Callback<ReviewsResponse> {
                 override fun onResponse(
                     call: Call<ReviewsResponse>,
                     response: Response<ReviewsResponse>
@@ -139,8 +135,7 @@ class DetailMovieViewModel(application: Application) : AndroidViewModel(applicat
 
     fun setDetailMovieSimilar(id: Int) {
         apiInstance.getSimilarMovie(id, apiKey)
-            .enqueue(object :
-                Callback<MovieSimilarResponse> {
+            .enqueue(object : Callback<MovieSimilarResponse> {
                 override fun onResponse(
                     call: Call<MovieSimilarResponse>,
                     response: Response<MovieSimilarResponse>
