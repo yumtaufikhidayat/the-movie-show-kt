@@ -16,7 +16,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.taufik.themovieshow.R
-import com.taufik.themovieshow.data.viewmodel.tvshow.TvShowsViewModel
+import com.taufik.themovieshow.ui.main.tvshow.viewmodel.TvShowsViewModel
 import com.taufik.themovieshow.databinding.FragmentDiscoverTvShowBinding
 import com.taufik.themovieshow.ui.main.tvshow.adapter.DiscoverTvShowsAdapter
 

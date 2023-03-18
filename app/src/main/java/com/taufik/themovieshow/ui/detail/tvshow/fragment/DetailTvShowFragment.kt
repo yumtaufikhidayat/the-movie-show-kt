@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.SnapHelper
 import com.taufik.themovieshow.R
-import com.taufik.themovieshow.data.viewmodel.tvshow.DetailTvShowViewModel
+import com.taufik.themovieshow.ui.main.tvshow.viewmodel.DetailTvShowViewModel
 import com.taufik.themovieshow.databinding.FragmentDetailTvShowBinding
 import com.taufik.themovieshow.ui.detail.tvshow.adapter.TvShowSimilarAdapter
 import com.taufik.themovieshow.ui.detail.tvshow.adapter.TvShowTrailerVideoAdapter

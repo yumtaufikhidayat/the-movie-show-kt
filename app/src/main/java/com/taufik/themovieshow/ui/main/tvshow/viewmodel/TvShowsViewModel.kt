@@ -1,4 +1,4 @@
-package com.taufik.themovieshow.data.viewmodel.tvshow
+package com.taufik.themovieshow.ui.main.tvshow.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
