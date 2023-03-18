@@ -4,30 +4,26 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.taufik.themovieshow.BuildConfig
 import com.taufik.themovieshow.data.local.dao.FavoriteTvShowDao
 import com.taufik.themovieshow.data.local.entity.FavoriteTvShow
 import com.taufik.themovieshow.data.local.room.TvShowDatabase
-import com.taufik.themovieshow.data.remote.api.ApiClient
-import com.taufik.themovieshow.model.response.common.reviews.ReviewsResponse
+import com.taufik.themovieshow.data.repository.TheMovieShowRepository
 import com.taufik.themovieshow.model.response.common.reviews.ReviewsResult
 import com.taufik.themovieshow.model.response.tvshow.cast.TvShowsCast
-import com.taufik.themovieshow.model.response.tvshow.cast.TvShowsCastResponse
 import com.taufik.themovieshow.model.response.tvshow.detail.TvShowsPopularDetailResponse
-import com.taufik.themovieshow.model.response.tvshow.similar.TvShowsSimilarResponse
 import com.taufik.themovieshow.model.response.tvshow.similar.TvShowsSimilarResultsItem
 import com.taufik.themovieshow.model.response.tvshow.video.TvShowsVideoResponse
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import javax.inject.Inject
 
-class DetailTvShowViewModel(application: Application) : AndroidViewModel(application) {
-
-    private val apiKey = BuildConfig.API_KEY
-    private val apiInstance = ApiClient.apiInstance
+@HiltViewModel
+class DetailTvShowViewModel @Inject constructor(
+    application: Application,
+    private val repository: TheMovieShowRepository
+) : AndroidViewModel(application) {
 
     private val _listDetailTvShows = MutableLiveData<TvShowsPopularDetailResponse>()
     val detailTvShows: LiveData<TvShowsPopularDetailResponse> = _listDetailTvShows
@@ -51,113 +47,15 @@ class DetailTvShowViewModel(application: Application) : AndroidViewModel(applica
         tvShowDao = tvShowDb?.favoriteTvShowDao()
     }
 
-    fun setDetailTvShowPopular(id: Int) {
-        apiInstance.getDetailTvShows(id, apiKey)
-            .enqueue(object :
-                Callback<TvShowsPopularDetailResponse> {
-                override fun onResponse(
-                    call: Call<TvShowsPopularDetailResponse>,
-                    response: Response<TvShowsPopularDetailResponse>
-                ) {
-                    if (response.isSuccessful) {
-                        _listDetailTvShows.value = response.body()
-                    }
-                }
+    suspend fun setDetailTvShowPopular(id: Int) = repository.getDetailTvShows(id)
 
-                override fun onFailure(
-                    call: Call<TvShowsPopularDetailResponse>,
-                    t: Throwable
-                ) {
-                }
-            })
-    }
+    suspend fun setDetailTvShowVideo(id: Int) = repository.getTvShowsVideo(id)
 
-    fun setDetailTvShowVideo(id: Int) {
-        apiInstance.getTvShowsVideo(id, apiKey)
-            .enqueue(object :
-                Callback<TvShowsVideoResponse> {
-                override fun onResponse(
-                    call: Call<TvShowsVideoResponse>,
-                    response: Response<TvShowsVideoResponse>
-                ) {
-                    if (response.isSuccessful) {
-                        _listDetailVideo.value = response.body()
-                    }
-                }
+    suspend fun setDetailTvShowsCast(id: Int) = repository.getTvShowsCast(id)
 
-                override fun onFailure(
-                    call: Call<TvShowsVideoResponse>,
-                    t: Throwable
-                ) {
-                }
-            })
-    }
+    suspend fun setDetailTvShowsReviews(id: Int) = repository.getTvShowsReviews(id)
 
-    fun setDetailTvShowsCast(id: Int) {
-        apiInstance.getTvShowsCast(id, apiKey)
-            .enqueue(object :
-                Callback<TvShowsCastResponse> {
-                override fun onResponse(
-                    call: Call<TvShowsCastResponse>,
-                    response: Response<TvShowsCastResponse>
-                ) {
-                    if (response.isSuccessful) {
-                        _listDetailCast.value =
-                            response.body()?.cast as ArrayList<TvShowsCast>
-                    }
-                }
-
-                override fun onFailure(
-                    call: Call<TvShowsCastResponse>,
-                    t: Throwable
-                ) {
-                }
-            })
-    }
-
-    fun setDetailTvShowsReviews(id: Int) {
-        apiInstance.getReviewsTvShows(id, apiKey)
-            .enqueue(object :
-                Callback<ReviewsResponse> {
-                override fun onResponse(
-                    call: Call<ReviewsResponse>,
-                    response: Response<ReviewsResponse>
-                ) {
-                    if (response.isSuccessful) {
-                        _listReviews.value =
-                            response.body()?.results as ArrayList<ReviewsResult>
-                    }
-                }
-
-                override fun onFailure(
-                    call: Call<ReviewsResponse>,
-                    t: Throwable
-                ) {
-                }
-            })
-    }
-
-    fun setDetailTvShowsSimilar(id: Int) {
-        apiInstance.getSimilarTvShows(id, apiKey)
-            .enqueue(object :
-                Callback<TvShowsSimilarResponse> {
-                override fun onResponse(
-                    call: Call<TvShowsSimilarResponse>,
-                    response: Response<TvShowsSimilarResponse>
-                ) {
-                    if (response.isSuccessful) {
-                        _listSimilar.value =
-                            response.body()?.results as ArrayList<TvShowsSimilarResultsItem>
-                    }
-                }
-
-                override fun onFailure(
-                    call: Call<TvShowsSimilarResponse>,
-                    t: Throwable
-                ) {
-                }
-            })
-    }
+    suspend fun setDetailTvShowsSimilar(id: Int) = repository.getSimilarTvShows(id)
 
     // Favorite
     fun addToFavorite(
