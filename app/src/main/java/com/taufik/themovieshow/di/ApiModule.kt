@@ -25,11 +25,11 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object ApiModule {
 
-    const val NETWORK_TIMEOUT = 60L
-    const val READ_TIMEOUT = 30
-    const val WRITE_TIMEOUT = 30
-    const val CONNECTION_TIMEOUT = 10
-    const val CACHE_SIZE_BYTES = 10 * 1024 * 1024L // 10 MB
+    private const val NETWORK_TIMEOUT = 60L
+    private const val READ_TIMEOUT = 30
+    private const val WRITE_TIMEOUT = 30
+    private const val CONNECTION_TIMEOUT = 10
+    private const val CACHE_SIZE_BYTES = 10 * 1024 * 1024L // 10 MB
 
     @Provides
     @Singleton
