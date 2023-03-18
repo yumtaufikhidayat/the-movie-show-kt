@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.remote.api.UrlEndpoint
-import com.taufik.themovieshow.data.main.tvshow.trending.TvShowsTrendingResult
+import com.taufik.themovieshow.model.response.tvshow.trending.TvShowsTrendingResult
 import com.taufik.themovieshow.databinding.ItemsMoviesTvShowBinding
 import com.taufik.themovieshow.ui.detail.tvshow.fragment.DetailTvShowFragment
 import com.taufik.themovieshow.utils.CommonDateFormatConstants
@@ -17,7 +17,7 @@ import com.taufik.themovieshow.utils.convertDate
 import com.taufik.themovieshow.utils.loadImage
 import com.taufik.themovieshow.utils.toRating
 
-class TvShowsTrendingAdapter : ListAdapter<TvShowsTrendingResult, TvShowsTrendingAdapter.TvShowsViewHolder>(TvShowTrendingDiffCallback) {
+class TvShowsTrendingAdapter : ListAdapter<com.taufik.themovieshow.model.response.tvshow.trending.TvShowsTrendingResult, TvShowsTrendingAdapter.TvShowsViewHolder>(TvShowTrendingDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TvShowsViewHolder {
         return TvShowsViewHolder(ItemsMoviesTvShowBinding.inflate(LayoutInflater.from(parent.context), parent, false))
@@ -28,7 +28,7 @@ class TvShowsTrendingAdapter : ListAdapter<TvShowsTrendingResult, TvShowsTrendin
     }
 
     inner class TvShowsViewHolder(private val binding: ItemsMoviesTvShowBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: TvShowsTrendingResult) = with(binding) {
+        fun bind(data: com.taufik.themovieshow.model.response.tvshow.trending.TvShowsTrendingResult) = with(binding) {
             imgPoster.loadImage(UrlEndpoint.IMAGE_URL + data.posterPath)
             tvTitle.text = data.name
             tvReleaseDate.text = data.firstAirDate.convertDate(
@@ -46,15 +46,15 @@ class TvShowsTrendingAdapter : ListAdapter<TvShowsTrendingResult, TvShowsTrendin
         }
     }
 
-    object TvShowTrendingDiffCallback: DiffUtil.ItemCallback<TvShowsTrendingResult>(){
+    object TvShowTrendingDiffCallback: DiffUtil.ItemCallback<com.taufik.themovieshow.model.response.tvshow.trending.TvShowsTrendingResult>(){
         override fun areItemsTheSame(
-            oldItem: TvShowsTrendingResult,
-            newItem: TvShowsTrendingResult
+            oldItem: com.taufik.themovieshow.model.response.tvshow.trending.TvShowsTrendingResult,
+            newItem: com.taufik.themovieshow.model.response.tvshow.trending.TvShowsTrendingResult
         ): Boolean = oldItem.id == newItem.id
 
         override fun areContentsTheSame(
-            oldItem: TvShowsTrendingResult,
-            newItem: TvShowsTrendingResult
+            oldItem: com.taufik.themovieshow.model.response.tvshow.trending.TvShowsTrendingResult,
+            newItem: com.taufik.themovieshow.model.response.tvshow.trending.TvShowsTrendingResult
         ): Boolean = oldItem == newItem
     }
 }

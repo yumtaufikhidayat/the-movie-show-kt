@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.taufik.themovieshow.data.main.tvshow.video.TvShowsVideoResult
+import com.taufik.themovieshow.model.response.tvshow.video.TvShowsVideoResult
 import com.taufik.themovieshow.databinding.ItemTrailerVideoBinding
 import com.taufik.themovieshow.utils.loadVideoThumbnail
 
-class TvShowTrailerVideoAdapter: ListAdapter<TvShowsVideoResult, TvShowTrailerVideoAdapter.TvShowTrailerViewHolder>(TvShowTrailerDiffCallback) {
+class TvShowTrailerVideoAdapter: ListAdapter<com.taufik.themovieshow.model.response.tvshow.video.TvShowsVideoResult, TvShowTrailerVideoAdapter.TvShowTrailerViewHolder>(TvShowTrailerDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TvShowTrailerViewHolder {
         return TvShowTrailerViewHolder(ItemTrailerVideoBinding.inflate(LayoutInflater.from(parent.context), parent, false))
@@ -23,7 +23,7 @@ class TvShowTrailerVideoAdapter: ListAdapter<TvShowsVideoResult, TvShowTrailerVi
 
     inner class TvShowTrailerViewHolder(private val binding: ItemTrailerVideoBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: TvShowsVideoResult) = with(binding) {
+        fun bind(data: com.taufik.themovieshow.model.response.tvshow.video.TvShowsVideoResult) = with(binding) {
             imgPoster.loadVideoThumbnail(data.key)
             tvTitle.text = data.name
             cardTrailerVideo.setOnClickListener {
@@ -33,15 +33,15 @@ class TvShowTrailerVideoAdapter: ListAdapter<TvShowsVideoResult, TvShowTrailerVi
         }
     }
 
-    object TvShowTrailerDiffCallback: DiffUtil.ItemCallback<TvShowsVideoResult>() {
+    object TvShowTrailerDiffCallback: DiffUtil.ItemCallback<com.taufik.themovieshow.model.response.tvshow.video.TvShowsVideoResult>() {
         override fun areItemsTheSame(
-            oldItem: TvShowsVideoResult,
-            newItem: TvShowsVideoResult
+            oldItem: com.taufik.themovieshow.model.response.tvshow.video.TvShowsVideoResult,
+            newItem: com.taufik.themovieshow.model.response.tvshow.video.TvShowsVideoResult
         ): Boolean = oldItem == newItem
 
         override fun areContentsTheSame(
-            oldItem: TvShowsVideoResult,
-            newItem: TvShowsVideoResult
+            oldItem: com.taufik.themovieshow.model.response.tvshow.video.TvShowsVideoResult,
+            newItem: com.taufik.themovieshow.model.response.tvshow.video.TvShowsVideoResult
         ): Boolean = oldItem.id == newItem.id
     }
 }

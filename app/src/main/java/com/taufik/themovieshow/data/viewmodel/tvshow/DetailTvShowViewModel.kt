@@ -9,14 +9,14 @@ import com.taufik.themovieshow.data.remote.api.ApiClient
 import com.taufik.themovieshow.data.local.dao.FavoriteTvShowDao
 import com.taufik.themovieshow.data.local.entity.FavoriteTvShow
 import com.taufik.themovieshow.data.local.room.TvShowDatabase
-import com.taufik.themovieshow.data.main.common.reviews.ReviewsResponse
-import com.taufik.themovieshow.data.main.common.reviews.ReviewsResult
-import com.taufik.themovieshow.data.main.tvshow.cast.TvShowsCast
-import com.taufik.themovieshow.data.main.tvshow.cast.TvShowsCastResponse
-import com.taufik.themovieshow.data.main.tvshow.detail.TvShowsPopularDetailResponse
-import com.taufik.themovieshow.data.main.tvshow.similar.TvShowsSimilarResponse
-import com.taufik.themovieshow.data.main.tvshow.similar.TvShowsSimilarResultsItem
-import com.taufik.themovieshow.data.main.tvshow.video.TvShowsVideoResponse
+import com.taufik.themovieshow.model.response.common.reviews.ReviewsResponse
+import com.taufik.themovieshow.model.response.common.reviews.ReviewsResult
+import com.taufik.themovieshow.model.response.tvshow.cast.TvShowsCast
+import com.taufik.themovieshow.model.response.tvshow.cast.TvShowsCastResponse
+import com.taufik.themovieshow.model.response.tvshow.detail.TvShowsPopularDetailResponse
+import com.taufik.themovieshow.model.response.tvshow.similar.TvShowsSimilarResponse
+import com.taufik.themovieshow.model.response.tvshow.similar.TvShowsSimilarResultsItem
+import com.taufik.themovieshow.model.response.tvshow.video.TvShowsVideoResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -29,20 +29,20 @@ class DetailTvShowViewModel(application: Application) : AndroidViewModel(applica
     private val apiKey = BuildConfig.API_KEY
     private val apiInstance = ApiClient.apiInstance
 
-    private val _listDetailTvShows = MutableLiveData<TvShowsPopularDetailResponse>()
-    val detailTvShows: LiveData<TvShowsPopularDetailResponse> = _listDetailTvShows
+    private val _listDetailTvShows = MutableLiveData<com.taufik.themovieshow.model.response.tvshow.detail.TvShowsPopularDetailResponse>()
+    val detailTvShows: LiveData<com.taufik.themovieshow.model.response.tvshow.detail.TvShowsPopularDetailResponse> = _listDetailTvShows
 
-    private val _listDetailVideo = MutableLiveData<TvShowsVideoResponse>()
-    val detailVideo: LiveData<TvShowsVideoResponse> = _listDetailVideo
+    private val _listDetailVideo = MutableLiveData<com.taufik.themovieshow.model.response.tvshow.video.TvShowsVideoResponse>()
+    val detailVideo: LiveData<com.taufik.themovieshow.model.response.tvshow.video.TvShowsVideoResponse> = _listDetailVideo
 
-    private val _listDetailCast = MutableLiveData<ArrayList<TvShowsCast>>()
-    val listDetailCasts: LiveData<ArrayList<TvShowsCast>> = _listDetailCast
+    private val _listDetailCast = MutableLiveData<ArrayList<com.taufik.themovieshow.model.response.tvshow.cast.TvShowsCast>>()
+    val listDetailCasts: LiveData<ArrayList<com.taufik.themovieshow.model.response.tvshow.cast.TvShowsCast>> = _listDetailCast
 
-    private val _listReviews = MutableLiveData<ArrayList<ReviewsResult>>()
-    val listReviewTvShows: LiveData<ArrayList<ReviewsResult>> = _listReviews
+    private val _listReviews = MutableLiveData<ArrayList<com.taufik.themovieshow.model.response.common.reviews.ReviewsResult>>()
+    val listReviewTvShows: LiveData<ArrayList<com.taufik.themovieshow.model.response.common.reviews.ReviewsResult>> = _listReviews
 
-    private val _listSimilar = MutableLiveData<ArrayList<TvShowsSimilarResultsItem>>()
-    val listSimilarTvShows: LiveData<ArrayList<TvShowsSimilarResultsItem>> = _listSimilar
+    private val _listSimilar = MutableLiveData<ArrayList<com.taufik.themovieshow.model.response.tvshow.similar.TvShowsSimilarResultsItem>>()
+    val listSimilarTvShows: LiveData<ArrayList<com.taufik.themovieshow.model.response.tvshow.similar.TvShowsSimilarResultsItem>> = _listSimilar
     
     private var tvShowDao: FavoriteTvShowDao?
     private var tvShowDb: TvShowDatabase? = TvShowDatabase.getDatabase(context = application)
@@ -53,81 +53,81 @@ class DetailTvShowViewModel(application: Application) : AndroidViewModel(applica
 
     fun setDetailTvShowPopular(id: Int) {
         apiInstance.getDetailTvShows(id, apiKey)
-            .enqueue(object : Callback<TvShowsPopularDetailResponse> {
+            .enqueue(object : Callback<com.taufik.themovieshow.model.response.tvshow.detail.TvShowsPopularDetailResponse> {
                 override fun onResponse(
-                    call: Call<TvShowsPopularDetailResponse>,
-                    response: Response<TvShowsPopularDetailResponse>
+                    call: Call<com.taufik.themovieshow.model.response.tvshow.detail.TvShowsPopularDetailResponse>,
+                    response: Response<com.taufik.themovieshow.model.response.tvshow.detail.TvShowsPopularDetailResponse>
                 ) {
                     if (response.isSuccessful) {
                         _listDetailTvShows.value = response.body()
                     }
                 }
 
-                override fun onFailure(call: Call<TvShowsPopularDetailResponse>, t: Throwable) {}
+                override fun onFailure(call: Call<com.taufik.themovieshow.model.response.tvshow.detail.TvShowsPopularDetailResponse>, t: Throwable) {}
             })
     }
 
     fun setDetailTvShowVideo(id: Int) {
         apiInstance.getTvShowsVideo(id, apiKey)
-            .enqueue(object : Callback<TvShowsVideoResponse> {
+            .enqueue(object : Callback<com.taufik.themovieshow.model.response.tvshow.video.TvShowsVideoResponse> {
                 override fun onResponse(
-                    call: Call<TvShowsVideoResponse>,
-                    response: Response<TvShowsVideoResponse>
+                    call: Call<com.taufik.themovieshow.model.response.tvshow.video.TvShowsVideoResponse>,
+                    response: Response<com.taufik.themovieshow.model.response.tvshow.video.TvShowsVideoResponse>
                 ) {
                     if (response.isSuccessful) {
                         _listDetailVideo.value = response.body()
                     }
                 }
 
-                override fun onFailure(call: Call<TvShowsVideoResponse>, t: Throwable) {}
+                override fun onFailure(call: Call<com.taufik.themovieshow.model.response.tvshow.video.TvShowsVideoResponse>, t: Throwable) {}
             })
     }
 
     fun setDetailTvShowsCast(id: Int) {
         apiInstance.getTvShowsCast(id, apiKey)
-            .enqueue(object : Callback<TvShowsCastResponse> {
+            .enqueue(object : Callback<com.taufik.themovieshow.model.response.tvshow.cast.TvShowsCastResponse> {
                 override fun onResponse(
-                    call: Call<TvShowsCastResponse>,
-                    response: Response<TvShowsCastResponse>
+                    call: Call<com.taufik.themovieshow.model.response.tvshow.cast.TvShowsCastResponse>,
+                    response: Response<com.taufik.themovieshow.model.response.tvshow.cast.TvShowsCastResponse>
                 ) {
                     if (response.isSuccessful) {
-                        _listDetailCast.value = response.body()?.cast as ArrayList<TvShowsCast>
+                        _listDetailCast.value = response.body()?.cast as ArrayList<com.taufik.themovieshow.model.response.tvshow.cast.TvShowsCast>
                     }
                 }
 
-                override fun onFailure(call: Call<TvShowsCastResponse>, t: Throwable) {}
+                override fun onFailure(call: Call<com.taufik.themovieshow.model.response.tvshow.cast.TvShowsCastResponse>, t: Throwable) {}
             })
     }
 
     fun setDetailTvShowsReviews(id: Int) {
         apiInstance.getReviewsTvShows(id, apiKey)
-            .enqueue(object : Callback<ReviewsResponse> {
+            .enqueue(object : Callback<com.taufik.themovieshow.model.response.common.reviews.ReviewsResponse> {
                 override fun onResponse(
-                    call: Call<ReviewsResponse>,
-                    response: Response<ReviewsResponse>
+                    call: Call<com.taufik.themovieshow.model.response.common.reviews.ReviewsResponse>,
+                    response: Response<com.taufik.themovieshow.model.response.common.reviews.ReviewsResponse>
                 ) {
                     if (response.isSuccessful) {
-                        _listReviews.value = response.body()?.results as ArrayList<ReviewsResult>
+                        _listReviews.value = response.body()?.results as ArrayList<com.taufik.themovieshow.model.response.common.reviews.ReviewsResult>
                     }
                 }
 
-                override fun onFailure(call: Call<ReviewsResponse>, t: Throwable) {}
+                override fun onFailure(call: Call<com.taufik.themovieshow.model.response.common.reviews.ReviewsResponse>, t: Throwable) {}
             })
     }
     
     fun setDetailTvShowsSimilar(id: Int) {
         apiInstance.getSimilarTvShows(id, apiKey)
-            .enqueue(object : Callback<TvShowsSimilarResponse> {
+            .enqueue(object : Callback<com.taufik.themovieshow.model.response.tvshow.similar.TvShowsSimilarResponse> {
                 override fun onResponse(
-                    call: Call<TvShowsSimilarResponse>,
-                    response: Response<TvShowsSimilarResponse>
+                    call: Call<com.taufik.themovieshow.model.response.tvshow.similar.TvShowsSimilarResponse>,
+                    response: Response<com.taufik.themovieshow.model.response.tvshow.similar.TvShowsSimilarResponse>
                 ) {
                     if (response.isSuccessful) {
-                        _listSimilar.value = response.body()?.results as ArrayList<TvShowsSimilarResultsItem>
+                        _listSimilar.value = response.body()?.results as ArrayList<com.taufik.themovieshow.model.response.tvshow.similar.TvShowsSimilarResultsItem>
                     }
                 }
 
-                override fun onFailure(call: Call<TvShowsSimilarResponse>, t: Throwable) {}
+                override fun onFailure(call: Call<com.taufik.themovieshow.model.response.tvshow.similar.TvShowsSimilarResponse>, t: Throwable) {}
             })
     }
 

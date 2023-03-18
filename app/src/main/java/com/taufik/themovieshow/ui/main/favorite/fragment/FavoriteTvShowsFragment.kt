@@ -15,7 +15,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.local.entity.FavoriteTvShow
-import com.taufik.themovieshow.data.main.tvshow.popularairingtoday.TvShowsMainResult
+import com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResult
 import com.taufik.themovieshow.data.viewmodel.tvshow.FavoriteTvShowViewModel
 import com.taufik.themovieshow.databinding.FragmentFavoriteTvShowsBinding
 import com.taufik.themovieshow.ui.main.tvshow.adapter.TvShowsAdapter
@@ -80,16 +80,17 @@ class FavoriteTvShowsFragment : Fragment() {
         }
     }
 
-    private fun mapList(tvShows: List<FavoriteTvShow>): ArrayList<TvShowsMainResult> {
-        val listTvShow = ArrayList<TvShowsMainResult>()
+    private fun mapList(tvShows: List<FavoriteTvShow>): ArrayList<com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResult> {
+        val listTvShow = ArrayList<com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResult>()
         tvShows.forEach { tvShow ->
-            val tvShowMapped = TvShowsMainResult(
-                tvShow.tvShowFirstAirDate,
-                tvShow.tvShowId,
-                tvShow.tvShowTitle,
-                tvShow.tvShowPoster,
-                tvShow.tvShowRating
-            )
+            val tvShowMapped =
+                com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResult(
+                    tvShow.tvShowFirstAirDate,
+                    tvShow.tvShowId,
+                    tvShow.tvShowTitle,
+                    tvShow.tvShowPoster,
+                    tvShow.tvShowRating
+                )
             listTvShow.add(tvShowMapped)
         }
 

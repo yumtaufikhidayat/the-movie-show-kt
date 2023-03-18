@@ -9,11 +9,11 @@ import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.taufik.themovieshow.data.main.about.About
+import com.taufik.themovieshow.model.response.about.About
 import com.taufik.themovieshow.databinding.ItemAboutBinding
 import es.dmoral.toasty.Toasty
 
-class AboutApplicationAdapter(val context: Context): ListAdapter<About, AboutApplicationAdapter.AboutViewHolder>(AboutAuthorDiffCallback) {
+class AboutApplicationAdapter(val context: Context): ListAdapter<com.taufik.themovieshow.model.response.about.About, AboutApplicationAdapter.AboutViewHolder>(AboutAuthorDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AboutViewHolder {
         return AboutViewHolder(ItemAboutBinding.inflate(LayoutInflater.from(parent.context), parent, false))
@@ -25,7 +25,7 @@ class AboutApplicationAdapter(val context: Context): ListAdapter<About, AboutApp
 
     inner class AboutViewHolder(private val binding: ItemAboutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(about: About) = with(binding) {
+        fun bind(about: com.taufik.themovieshow.model.response.about.About) = with(binding) {
             imgAbout.setImageResource(about.imgAbout)
             tvAboutTitle.text = about.titleAbout
             tvAboutDesc.text = about.descAbout
@@ -91,8 +91,8 @@ class AboutApplicationAdapter(val context: Context): ListAdapter<About, AboutApp
 
     private fun showToasty(message: String) = Toasty.error(context, message, Toast.LENGTH_SHORT).show()
 
-    object AboutAuthorDiffCallback: DiffUtil.ItemCallback<About>() {
-        override fun areItemsTheSame(oldItem: About, newItem: About): Boolean = oldItem.titleAbout == newItem.titleAbout
-        override fun areContentsTheSame(oldItem: About, newItem: About): Boolean = oldItem == newItem
+    object AboutAuthorDiffCallback: DiffUtil.ItemCallback<com.taufik.themovieshow.model.response.about.About>() {
+        override fun areItemsTheSame(oldItem: com.taufik.themovieshow.model.response.about.About, newItem: com.taufik.themovieshow.model.response.about.About): Boolean = oldItem.titleAbout == newItem.titleAbout
+        override fun areContentsTheSame(oldItem: com.taufik.themovieshow.model.response.about.About, newItem: com.taufik.themovieshow.model.response.about.About): Boolean = oldItem == newItem
     }
 }

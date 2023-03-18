@@ -6,11 +6,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.taufik.themovieshow.R
-import com.taufik.themovieshow.data.main.movie.cast.MovieCast
+import com.taufik.themovieshow.model.response.movie.cast.MovieCast
 import com.taufik.themovieshow.databinding.ItemCastBinding
 import com.taufik.themovieshow.utils.loadImage
 
-class MovieCastAdapter : ListAdapter<MovieCast, MovieCastAdapter.MovieViewHolder>(
+class MovieCastAdapter : ListAdapter<com.taufik.themovieshow.model.response.movie.cast.MovieCast, MovieCastAdapter.MovieViewHolder>(
     MovieCastDiffCallback
 ) {
 
@@ -25,7 +25,7 @@ class MovieCastAdapter : ListAdapter<MovieCast, MovieCastAdapter.MovieViewHolder
 
     inner class MovieViewHolder(private val binding: ItemCastBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: MovieCast) = with(binding) {
+        fun bind(data: com.taufik.themovieshow.model.response.movie.cast.MovieCast) = with(binding) {
             imgPoster.loadImage(data.profilePath)
             tvCastName.text = if(data.character.isNotEmpty()) {
                 root.context.getString(R.string.tvNameCharacter, data.name, data.character)
@@ -36,7 +36,7 @@ class MovieCastAdapter : ListAdapter<MovieCast, MovieCastAdapter.MovieViewHolder
     }
 }
 
-object MovieCastDiffCallback : DiffUtil.ItemCallback<MovieCast>() {
-    override fun areItemsTheSame(oldItem: MovieCast, newItem: MovieCast): Boolean = oldItem.id == newItem.id
-    override fun areContentsTheSame(oldItem: MovieCast, newItem: MovieCast): Boolean = oldItem == newItem
+object MovieCastDiffCallback : DiffUtil.ItemCallback<com.taufik.themovieshow.model.response.movie.cast.MovieCast>() {
+    override fun areItemsTheSame(oldItem: com.taufik.themovieshow.model.response.movie.cast.MovieCast, newItem: com.taufik.themovieshow.model.response.movie.cast.MovieCast): Boolean = oldItem.id == newItem.id
+    override fun areContentsTheSame(oldItem: com.taufik.themovieshow.model.response.movie.cast.MovieCast, newItem: com.taufik.themovieshow.model.response.movie.cast.MovieCast): Boolean = oldItem == newItem
 }

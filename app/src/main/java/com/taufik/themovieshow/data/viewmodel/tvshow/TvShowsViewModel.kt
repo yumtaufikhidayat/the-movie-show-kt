@@ -5,12 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.taufik.themovieshow.BuildConfig
 import com.taufik.themovieshow.data.remote.api.ApiClient
-import com.taufik.themovieshow.data.main.tvshow.discover.DiscoverTvShowsResponse
-import com.taufik.themovieshow.data.main.tvshow.discover.DiscoverTvShowsResult
-import com.taufik.themovieshow.data.main.tvshow.popularairingtoday.TvShowsMainResponse
-import com.taufik.themovieshow.data.main.tvshow.popularairingtoday.TvShowsMainResult
-import com.taufik.themovieshow.data.main.tvshow.trending.TvShowsTrendingReponse
-import com.taufik.themovieshow.data.main.tvshow.trending.TvShowsTrendingResult
+import com.taufik.themovieshow.model.response.tvshow.discover.DiscoverTvShowsResponse
+import com.taufik.themovieshow.model.response.tvshow.discover.DiscoverTvShowsResult
+import com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResponse
+import com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResult
+import com.taufik.themovieshow.model.response.tvshow.trending.TvShowsTrendingReponse
+import com.taufik.themovieshow.model.response.tvshow.trending.TvShowsTrendingResult
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -20,79 +20,79 @@ class TvShowsViewModel : ViewModel() {
     private val apiKey = BuildConfig.API_KEY
     private val apiInstance = ApiClient.apiInstance
 
-    private val _listAiringToday = MutableLiveData<ArrayList<TvShowsMainResult>>()
-    val listAiringToday: LiveData<ArrayList<TvShowsMainResult>> = _listAiringToday
+    private val _listAiringToday = MutableLiveData<ArrayList<com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResult>>()
+    val listAiringToday: LiveData<ArrayList<com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResult>> = _listAiringToday
 
-    private val _listPopular = MutableLiveData<ArrayList<TvShowsMainResult>>()
-    val listPopular: LiveData<ArrayList<TvShowsMainResult>> = _listPopular
+    private val _listPopular = MutableLiveData<ArrayList<com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResult>>()
+    val listPopular: LiveData<ArrayList<com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResult>> = _listPopular
 
-    private val _listTrending = MutableLiveData<ArrayList<TvShowsTrendingResult>>()
-    val listTrending: LiveData<ArrayList<TvShowsTrendingResult>> = _listTrending
+    private val _listTrending = MutableLiveData<ArrayList<com.taufik.themovieshow.model.response.tvshow.trending.TvShowsTrendingResult>>()
+    val listTrending: LiveData<ArrayList<com.taufik.themovieshow.model.response.tvshow.trending.TvShowsTrendingResult>> = _listTrending
 
-    private val _listDiscover = MutableLiveData<ArrayList<DiscoverTvShowsResult>>()
-    val listDiscover: LiveData<ArrayList<DiscoverTvShowsResult>> = _listDiscover
+    private val _listDiscover = MutableLiveData<ArrayList<com.taufik.themovieshow.model.response.tvshow.discover.DiscoverTvShowsResult>>()
+    val listDiscover: LiveData<ArrayList<com.taufik.themovieshow.model.response.tvshow.discover.DiscoverTvShowsResult>> = _listDiscover
 
     fun setTvShowsAiringToday(apiKey: String) {
         apiInstance.getTvShowsAiringToday(apiKey)
-            .enqueue(object : Callback<TvShowsMainResponse> {
+            .enqueue(object : Callback<com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResponse> {
                 override fun onResponse(
-                    call: Call<TvShowsMainResponse>,
-                    response: Response<TvShowsMainResponse>
+                    call: Call<com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResponse>,
+                    response: Response<com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResponse>
                 ) {
                     if (response.isSuccessful) {
-                        _listAiringToday.value = response.body()?.results as ArrayList<TvShowsMainResult>
+                        _listAiringToday.value = response.body()?.results as ArrayList<com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResult>
                     }
                 }
 
-                override fun onFailure(call: Call<TvShowsMainResponse>, t: Throwable) {}
+                override fun onFailure(call: Call<com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResponse>, t: Throwable) {}
             })
     }
 
     fun setTvShowsPopular() {
         apiInstance.getTvShowsPopular(apiKey)
-            .enqueue(object : Callback<TvShowsMainResponse> {
+            .enqueue(object : Callback<com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResponse> {
                 override fun onResponse(
-                    call: Call<TvShowsMainResponse>,
-                    response: Response<TvShowsMainResponse>
+                    call: Call<com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResponse>,
+                    response: Response<com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResponse>
                 ) {
                     if (response.isSuccessful) {
-                        _listPopular.value = response.body()?.results as ArrayList<TvShowsMainResult>
+                        _listPopular.value = response.body()?.results as ArrayList<com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResult>
                     }
                 }
 
-                override fun onFailure(call: Call<TvShowsMainResponse>, t: Throwable) {}
+                override fun onFailure(call: Call<com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResponse>, t: Throwable) {}
             })
     }
 
     fun setTvShowsTrending() {
         apiInstance.getTvShowsTrending(apiKey)
-            .enqueue(object : Callback<TvShowsTrendingReponse> {
+            .enqueue(object : Callback<com.taufik.themovieshow.model.response.tvshow.trending.TvShowsTrendingReponse> {
                 override fun onResponse(
-                    call: Call<TvShowsTrendingReponse>,
-                    response: Response<TvShowsTrendingReponse>
+                    call: Call<com.taufik.themovieshow.model.response.tvshow.trending.TvShowsTrendingReponse>,
+                    response: Response<com.taufik.themovieshow.model.response.tvshow.trending.TvShowsTrendingReponse>
                 ) {
                     if (response.body() != null) {
-                        _listTrending.value = response.body()?.results as ArrayList<TvShowsTrendingResult>
+                        _listTrending.value = response.body()?.results as ArrayList<com.taufik.themovieshow.model.response.tvshow.trending.TvShowsTrendingResult>
                     }
                 }
 
-                override fun onFailure(call: Call<TvShowsTrendingReponse>, t: Throwable) {}
+                override fun onFailure(call: Call<com.taufik.themovieshow.model.response.tvshow.trending.TvShowsTrendingReponse>, t: Throwable) {}
             })
     }
 
     fun setDiscoverTvShows(query: String) {
         apiInstance.getDiscoverTvShows(apiKey, query)
-            .enqueue(object : Callback<DiscoverTvShowsResponse> {
+            .enqueue(object : Callback<com.taufik.themovieshow.model.response.tvshow.discover.DiscoverTvShowsResponse> {
                 override fun onResponse(
-                    call: Call<DiscoverTvShowsResponse>,
-                    response: Response<DiscoverTvShowsResponse>
+                    call: Call<com.taufik.themovieshow.model.response.tvshow.discover.DiscoverTvShowsResponse>,
+                    response: Response<com.taufik.themovieshow.model.response.tvshow.discover.DiscoverTvShowsResponse>
                 ) {
                     if (response.isSuccessful) {
-                        _listDiscover.value = response.body()?.results as ArrayList<DiscoverTvShowsResult>
+                        _listDiscover.value = response.body()?.results as ArrayList<com.taufik.themovieshow.model.response.tvshow.discover.DiscoverTvShowsResult>
                     }
                 }
 
-                override fun onFailure(call: Call<DiscoverTvShowsResponse>, t: Throwable) {}
+                override fun onFailure(call: Call<com.taufik.themovieshow.model.response.tvshow.discover.DiscoverTvShowsResponse>, t: Throwable) {}
             })
     }
 }
