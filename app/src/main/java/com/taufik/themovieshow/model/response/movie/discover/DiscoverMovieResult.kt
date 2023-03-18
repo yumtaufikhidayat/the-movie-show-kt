@@ -35,4 +35,4 @@ data class DiscoverMovieResult(
     val voteAverage: Double,
     @SerializedName("vote_count")
     val voteCount: Int
-): Parcelable
+) : Parcelable

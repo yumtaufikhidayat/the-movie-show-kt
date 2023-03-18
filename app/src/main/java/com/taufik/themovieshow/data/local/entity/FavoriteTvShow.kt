@@ -12,4 +12,4 @@ data class FavoriteTvShow(
     val tvShowTitle: String,
     val tvShowFirstAirDate: String,
     val tvShowRating: Double
-): Serializable
+) : Serializable

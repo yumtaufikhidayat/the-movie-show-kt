@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.taufik.themovieshow.R
-import com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult
 import com.taufik.themovieshow.databinding.ItemsMoviesTvShowBinding
 import com.taufik.themovieshow.ui.detail.movie.fragment.DetailMovieFragment
 import com.taufik.themovieshow.utils.CommonDateFormatConstants
@@ -19,9 +18,13 @@ import com.taufik.themovieshow.utils.loadImage
 import com.taufik.themovieshow.utils.toRating
 import java.util.*
 
-class MovieAdapter : ListAdapter<com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult, MovieAdapter.MovieViewHolder>(MovieDiffCallback), Filterable{
+class MovieAdapter :
+    ListAdapter<com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult, MovieAdapter.MovieViewHolder>(
+        MovieDiffCallback
+    ), Filterable {
 
-    private var listMovies = listOf<com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult>()
+    private var listMovies =
+        listOf<com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult>()
 
     fun setData(list: List<com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult>) {
         this.listMovies = list
@@ -29,14 +32,21 @@ class MovieAdapter : ListAdapter<com.taufik.themovieshow.model.response.movie.no
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        return MovieViewHolder(ItemsMoviesTvShowBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return MovieViewHolder(
+            ItemsMoviesTvShowBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
-    inner class MovieViewHolder (private val binding: ItemsMoviesTvShowBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class MovieViewHolder(private val binding: ItemsMoviesTvShowBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(data: com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult) {
             with(binding) {
                 imgPoster.loadImage(data.posterPath)
@@ -57,16 +67,25 @@ class MovieAdapter : ListAdapter<com.taufik.themovieshow.model.response.movie.no
         }
     }
 
-    object MovieDiffCallback : DiffUtil.ItemCallback<com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult>(){
-        override fun areItemsTheSame(oldItem: com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult, newItem: com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult): Boolean = oldItem.id == newItem.id
-        override fun areContentsTheSame(oldItem: com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult, newItem: com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult): Boolean = oldItem == newItem
+    object MovieDiffCallback :
+        DiffUtil.ItemCallback<com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult>() {
+        override fun areItemsTheSame(
+            oldItem: com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult,
+            newItem: com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult
+        ): Boolean = oldItem.id == newItem.id
+
+        override fun areContentsTheSame(
+            oldItem: com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult,
+            newItem: com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult
+        ): Boolean = oldItem == newItem
     }
 
     override fun getFilter(): Filter = searchFilter
 
     private val searchFilter = object : Filter() {
         override fun performFiltering(p0: CharSequence): FilterResults {
-            val filteredList = mutableListOf<com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult>()
+            val filteredList =
+                mutableListOf<com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult>()
             if (p0.isEmpty()) {
                 filteredList.addAll(listMovies)
             } else {

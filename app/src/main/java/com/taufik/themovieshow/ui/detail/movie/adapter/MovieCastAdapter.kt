@@ -6,16 +6,17 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.taufik.themovieshow.R
-import com.taufik.themovieshow.model.response.movie.cast.MovieCast
 import com.taufik.themovieshow.databinding.ItemCastBinding
 import com.taufik.themovieshow.utils.loadImage
 
-class MovieCastAdapter : ListAdapter<com.taufik.themovieshow.model.response.movie.cast.MovieCast, MovieCastAdapter.MovieViewHolder>(
-    MovieCastDiffCallback
-) {
+class MovieCastAdapter :
+    ListAdapter<com.taufik.themovieshow.model.response.movie.cast.MovieCast, MovieCastAdapter.MovieViewHolder>(
+        MovieCastDiffCallback
+    ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val itemsCastBinding = ItemCastBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val itemsCastBinding =
+            ItemCastBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MovieViewHolder(itemsCastBinding)
     }
 
@@ -25,18 +26,31 @@ class MovieCastAdapter : ListAdapter<com.taufik.themovieshow.model.response.movi
 
     inner class MovieViewHolder(private val binding: ItemCastBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: com.taufik.themovieshow.model.response.movie.cast.MovieCast) = with(binding) {
-            imgPoster.loadImage(data.profilePath)
-            tvCastName.text = if(data.character.isNotEmpty()) {
-                root.context.getString(R.string.tvNameCharacter, data.name, data.character)
-            } else {
-                root.context.getString(R.string.tvNameCharacter, data.name, root.context.getString(R.string.tvNA))
+        fun bind(data: com.taufik.themovieshow.model.response.movie.cast.MovieCast) =
+            with(binding) {
+                imgPoster.loadImage(data.profilePath)
+                tvCastName.text = if (data.character.isNotEmpty()) {
+                    root.context.getString(R.string.tvNameCharacter, data.name, data.character)
+                } else {
+                    root.context.getString(
+                        R.string.tvNameCharacter,
+                        data.name,
+                        root.context.getString(R.string.tvNA)
+                    )
+                }
             }
-        }
     }
 }
 
-object MovieCastDiffCallback : DiffUtil.ItemCallback<com.taufik.themovieshow.model.response.movie.cast.MovieCast>() {
-    override fun areItemsTheSame(oldItem: com.taufik.themovieshow.model.response.movie.cast.MovieCast, newItem: com.taufik.themovieshow.model.response.movie.cast.MovieCast): Boolean = oldItem.id == newItem.id
-    override fun areContentsTheSame(oldItem: com.taufik.themovieshow.model.response.movie.cast.MovieCast, newItem: com.taufik.themovieshow.model.response.movie.cast.MovieCast): Boolean = oldItem == newItem
+object MovieCastDiffCallback :
+    DiffUtil.ItemCallback<com.taufik.themovieshow.model.response.movie.cast.MovieCast>() {
+    override fun areItemsTheSame(
+        oldItem: com.taufik.themovieshow.model.response.movie.cast.MovieCast,
+        newItem: com.taufik.themovieshow.model.response.movie.cast.MovieCast
+    ): Boolean = oldItem.id == newItem.id
+
+    override fun areContentsTheSame(
+        oldItem: com.taufik.themovieshow.model.response.movie.cast.MovieCast,
+        newItem: com.taufik.themovieshow.model.response.movie.cast.MovieCast
+    ): Boolean = oldItem == newItem
 }

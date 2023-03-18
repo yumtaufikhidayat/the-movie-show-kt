@@ -15,7 +15,6 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.local.entity.FavoriteMovie
-import com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult
 import com.taufik.themovieshow.data.viewmodel.movie.FavoriteMovieViewModel
 import com.taufik.themovieshow.databinding.FragmentFavoriteMovieBinding
 import com.taufik.themovieshow.ui.main.movie.adapter.MovieAdapter
@@ -80,9 +79,10 @@ class FavoriteMovieFragment : Fragment() {
         }
     }
 
-    private fun mapList(movies: List<FavoriteMovie>):  ArrayList<com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult> {
-        val listMovies = ArrayList<com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult>()
-        movies.forEach {  movie ->
+    private fun mapList(movies: List<FavoriteMovie>): ArrayList<com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult> {
+        val listMovies =
+            ArrayList<com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult>()
+        movies.forEach { movie ->
             val movieMapped =
                 com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult(
                     movie.movieId,
@@ -99,7 +99,8 @@ class FavoriteMovieFragment : Fragment() {
 
     private fun hideKeyboard() = with(binding) {
         etSearch.clearFocus()
-        val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val imm =
+            requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(etSearch.windowToken, 0)
     }
 

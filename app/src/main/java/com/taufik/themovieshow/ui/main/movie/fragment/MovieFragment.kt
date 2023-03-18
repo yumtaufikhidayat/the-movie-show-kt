@@ -37,7 +37,7 @@ class MovieFragment : Fragment() {
         toolbarMovie.tvToolbar.text = getString(R.string.icMovies)
     }
 
-    private fun setTabLayout() = with(binding){
+    private fun setTabLayout() = with(binding) {
         val mainPagerAdapter = MoviePagerAdapter(this@MovieFragment)
         viewPagerMovie.adapter = mainPagerAdapter
         TabLayoutMediator(tabLayoutMovie, viewPagerMovie) { tabs, position ->

@@ -8,14 +8,14 @@ import com.taufik.themovieshow.data.local.dao.FavoriteMovieDao
 import com.taufik.themovieshow.data.local.entity.FavoriteMovie
 
 @Database(entities = [FavoriteMovie::class], version = 1, exportSchema = false)
-abstract class MovieDatabase: RoomDatabase() {
+abstract class MovieDatabase : RoomDatabase() {
     companion object {
 
-        private var INSTANCE : MovieDatabase? = null
+        private var INSTANCE: MovieDatabase? = null
 
         fun getDatabase(context: Context): MovieDatabase? {
             if (INSTANCE == null) {
-                synchronized(MovieDatabase::class){
+                synchronized(MovieDatabase::class) {
                     INSTANCE = Room.databaseBuilder(
                         context.applicationContext,
                         MovieDatabase::class.java,

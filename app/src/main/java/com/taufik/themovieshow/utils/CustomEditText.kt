@@ -11,20 +11,24 @@ import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
 import com.taufik.themovieshow.R
 
-class CustomEditText: AppCompatEditText, View.OnTouchListener {
+class CustomEditText : AppCompatEditText, View.OnTouchListener {
 
     private lateinit var searchIcon: Drawable
     private lateinit var clearIcon: Drawable
 
-    constructor(context: Context): super(context) {
+    constructor(context: Context) : super(context) {
         init()
     }
 
-    constructor(context: Context, attrs: AttributeSet): super(context, attrs) {
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
         init()
     }
 
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int): super(context, attrs, defStyleAttr) {
+    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
+        context,
+        attrs,
+        defStyleAttr
+    ) {
         init()
     }
 
@@ -51,7 +55,10 @@ class CustomEditText: AppCompatEditText, View.OnTouchListener {
 
     private fun showClearButton() {
         when (id) {
-            R.id.etSearch -> setButtonDrawables(startOfTheText = searchIcon, endOfTheText = clearIcon)
+            R.id.etSearch -> setButtonDrawables(
+                startOfTheText = searchIcon,
+                endOfTheText = clearIcon
+            )
         }
     }
 
@@ -67,7 +74,12 @@ class CustomEditText: AppCompatEditText, View.OnTouchListener {
         endOfTheText: Drawable? = null,
         bottomOfTheText: Drawable? = null
     ) {
-        setCompoundDrawablesWithIntrinsicBounds(startOfTheText, topOfTheText, endOfTheText, bottomOfTheText)
+        setCompoundDrawablesWithIntrinsicBounds(
+            startOfTheText,
+            topOfTheText,
+            endOfTheText,
+            bottomOfTheText
+        )
     }
 
     override fun onTouch(view: View, event: MotionEvent): Boolean {
@@ -92,15 +104,27 @@ class CustomEditText: AppCompatEditText, View.OnTouchListener {
                     if (isClearButtonClicked) {
                         when (event.action) {
                             MotionEvent.ACTION_DOWN -> {
-                                searchIcon = ContextCompat.getDrawable(context, R.drawable.ic_search) as Drawable
-                                clearIcon = ContextCompat.getDrawable(context, R.drawable.ic_clear) as Drawable
+                                searchIcon = ContextCompat.getDrawable(
+                                    context,
+                                    R.drawable.ic_search
+                                ) as Drawable
+                                clearIcon = ContextCompat.getDrawable(
+                                    context,
+                                    R.drawable.ic_clear
+                                ) as Drawable
                                 showClearButton()
                                 return true
                             }
 
                             MotionEvent.ACTION_UP -> {
-                                searchIcon = ContextCompat.getDrawable(context, R.drawable.ic_search) as Drawable
-                                clearIcon = ContextCompat.getDrawable(context, R.drawable.ic_clear) as Drawable
+                                searchIcon = ContextCompat.getDrawable(
+                                    context,
+                                    R.drawable.ic_search
+                                ) as Drawable
+                                clearIcon = ContextCompat.getDrawable(
+                                    context,
+                                    R.drawable.ic_clear
+                                ) as Drawable
                                 when {
                                     text != null -> text?.clear()
                                 }

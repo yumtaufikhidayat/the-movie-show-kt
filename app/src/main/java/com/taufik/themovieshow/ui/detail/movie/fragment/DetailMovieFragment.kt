@@ -16,11 +16,15 @@ import androidx.recyclerview.widget.SnapHelper
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.viewmodel.movie.DetailMovieViewModel
 import com.taufik.themovieshow.databinding.FragmentDetailMovieBinding
-import com.taufik.themovieshow.ui.detail.movie.adapter.MovieTrailerVideoAdapter
 import com.taufik.themovieshow.ui.detail.movie.adapter.MovieCastAdapter
 import com.taufik.themovieshow.ui.detail.movie.adapter.MovieSimilarAdapter
+import com.taufik.themovieshow.ui.detail.movie.adapter.MovieTrailerVideoAdapter
 import com.taufik.themovieshow.ui.main.movie.adapter.ReviewsAdapter
-import com.taufik.themovieshow.utils.*
+import com.taufik.themovieshow.utils.CommonDateFormatConstants
+import com.taufik.themovieshow.utils.convertDate
+import com.taufik.themovieshow.utils.loadImage
+import com.taufik.themovieshow.utils.showToasty
+import com.taufik.themovieshow.utils.toRating
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -84,11 +88,12 @@ class DetailMovieFragment : Fragment() {
                     imgPoster.loadImage(it.posterPath)
                     imgBackdrop.loadImage(it.backdropPath)
                     tvTitle.text = it.title
-                    val releasedDate =  it.releaseDate.convertDate(
+                    val releasedDate = it.releaseDate.convertDate(
                         CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
                         CommonDateFormatConstants.EEE_D_MMM_YYYY_FORMAT
                     )
-                    tvReleasedOn.text = String.format("%s %s", getString(R.string.tvReleasedOn), releasedDate)
+                    tvReleasedOn.text =
+                        String.format("%s %s", getString(R.string.tvReleasedOn), releasedDate)
 
                     tvStatus.text = it.status
 
@@ -108,7 +113,8 @@ class DetailMovieFragment : Fragment() {
                     }
 
                     when {
-                        it.voteAverage.toString().isEmpty() -> tvRating.text = getString(R.string.tvNA)
+                        it.voteAverage.toString().isEmpty() -> tvRating.text =
+                            getString(R.string.tvNA)
                         else -> tvRating.text = toRating(it.voteAverage)
                     }
 
@@ -122,8 +128,10 @@ class DetailMovieFragment : Fragment() {
                     }
 
                     when {
-                        it.productionCountries.isEmpty() -> tvCountry.text = getString(R.string.tvNA)
-                        else -> tvCountry.text = it.productionCountries.joinToString { countries -> countries.iso31661 }
+                        it.productionCountries.isEmpty() -> tvCountry.text =
+                            getString(R.string.tvNA)
+                        else -> tvCountry.text =
+                            it.productionCountries.joinToString { countries -> countries.iso31661 }
                     }
 
                     when {
@@ -227,7 +235,8 @@ class DetailMovieFragment : Fragment() {
     private fun setCastAdapter() = with(binding) {
         rvMovieCast.apply {
             val helper: SnapHelper = LinearSnapHelper()
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             helper.attachToRecyclerView(this)
             setHasFixedSize(true)
             adapter = castAdapter
@@ -251,7 +260,8 @@ class DetailMovieFragment : Fragment() {
     private fun setTrailerVideoAdapter() = with(binding) {
         rvTrailerVideo.apply {
             val helper: SnapHelper = LinearSnapHelper()
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             helper.attachToRecyclerView(this)
             setHasFixedSize(true)
             adapter = trailerVideoAdapter
@@ -278,7 +288,8 @@ class DetailMovieFragment : Fragment() {
     private fun setReviewsAdapter() = with(binding) {
         rvMovieReviews.apply {
             val helper: SnapHelper = LinearSnapHelper()
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             helper.attachToRecyclerView(this)
             setHasFixedSize(true)
             adapter = reviewsAdapter
@@ -302,7 +313,8 @@ class DetailMovieFragment : Fragment() {
     private fun setSimilarMovieAdapter() = with(binding) {
         rvMovieSimilar.apply {
             val helper: SnapHelper = LinearSnapHelper()
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             helper.attachToRecyclerView(this)
             setHasFixedSize(true)
             adapter = similarAdapter

@@ -12,4 +12,4 @@ data class FavoriteMovie(
     val movieTitle: String,
     val movieReleaseData: String,
     val movieRating: Double
-): Serializable
+) : Serializable

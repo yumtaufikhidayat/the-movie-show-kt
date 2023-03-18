@@ -17,4 +17,4 @@ data class TvShowsMainResult(
     val posterPath: String,
     @SerializedName("vote_average")
     val voteAverage: Double
-): Parcelable
+) : Parcelable

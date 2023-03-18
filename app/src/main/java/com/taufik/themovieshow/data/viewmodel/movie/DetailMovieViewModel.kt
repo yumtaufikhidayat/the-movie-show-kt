@@ -5,18 +5,10 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.taufik.themovieshow.BuildConfig
-import com.taufik.themovieshow.data.remote.api.ApiClient
 import com.taufik.themovieshow.data.local.dao.FavoriteMovieDao
 import com.taufik.themovieshow.data.local.entity.FavoriteMovie
 import com.taufik.themovieshow.data.local.room.MovieDatabase
-import com.taufik.themovieshow.model.response.common.reviews.ReviewsResponse
-import com.taufik.themovieshow.model.response.common.reviews.ReviewsResult
-import com.taufik.themovieshow.model.response.movie.cast.MovieCast
-import com.taufik.themovieshow.model.response.movie.cast.MovieCastResponse
-import com.taufik.themovieshow.model.response.movie.detail.MovieDetailResponse
-import com.taufik.themovieshow.model.response.movie.similar.MovieSimilarResponse
-import com.taufik.themovieshow.model.response.movie.similar.MovieSimilarResult
-import com.taufik.themovieshow.model.response.movie.video.MovieVideoResponse
+import com.taufik.themovieshow.data.remote.api.ApiClient
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -29,20 +21,30 @@ class DetailMovieViewModel(application: Application) : AndroidViewModel(applicat
     private val apiKey = BuildConfig.API_KEY
     private val apiInstance = ApiClient.apiInstance
 
-    private val _listDetailMovies = MutableLiveData<com.taufik.themovieshow.model.response.movie.detail.MovieDetailResponse>()
-    val detailMovies: LiveData<com.taufik.themovieshow.model.response.movie.detail.MovieDetailResponse> = _listDetailMovies
+    private val _listDetailMovies =
+        MutableLiveData<com.taufik.themovieshow.model.response.movie.detail.MovieDetailResponse>()
+    val detailMovies: LiveData<com.taufik.themovieshow.model.response.movie.detail.MovieDetailResponse> =
+        _listDetailMovies
 
-    private val _detailVideo = MutableLiveData<com.taufik.themovieshow.model.response.movie.video.MovieVideoResponse>()
-    val detailVideo: LiveData<com.taufik.themovieshow.model.response.movie.video.MovieVideoResponse> = _detailVideo
+    private val _detailVideo =
+        MutableLiveData<com.taufik.themovieshow.model.response.movie.video.MovieVideoResponse>()
+    val detailVideo: LiveData<com.taufik.themovieshow.model.response.movie.video.MovieVideoResponse> =
+        _detailVideo
 
-    private val _listDetailCast = MutableLiveData<ArrayList<com.taufik.themovieshow.model.response.movie.cast.MovieCast>>()
-    val listDetailCast: LiveData<ArrayList<com.taufik.themovieshow.model.response.movie.cast.MovieCast>> = _listDetailCast
+    private val _listDetailCast =
+        MutableLiveData<ArrayList<com.taufik.themovieshow.model.response.movie.cast.MovieCast>>()
+    val listDetailCast: LiveData<ArrayList<com.taufik.themovieshow.model.response.movie.cast.MovieCast>> =
+        _listDetailCast
 
-    private val _listReviews = MutableLiveData<ArrayList<com.taufik.themovieshow.model.response.common.reviews.ReviewsResult>>()
-    val listReviewMovie: LiveData<ArrayList<com.taufik.themovieshow.model.response.common.reviews.ReviewsResult>> = _listReviews
+    private val _listReviews =
+        MutableLiveData<ArrayList<com.taufik.themovieshow.model.response.common.reviews.ReviewsResult>>()
+    val listReviewMovie: LiveData<ArrayList<com.taufik.themovieshow.model.response.common.reviews.ReviewsResult>> =
+        _listReviews
 
-    private val _listSimilar = MutableLiveData<ArrayList<com.taufik.themovieshow.model.response.movie.similar.MovieSimilarResult>>()
-    val listSimilarMovie: LiveData<ArrayList<com.taufik.themovieshow.model.response.movie.similar.MovieSimilarResult>> = _listSimilar
+    private val _listSimilar =
+        MutableLiveData<ArrayList<com.taufik.themovieshow.model.response.movie.similar.MovieSimilarResult>>()
+    val listSimilarMovie: LiveData<ArrayList<com.taufik.themovieshow.model.response.movie.similar.MovieSimilarResult>> =
+        _listSimilar
 
     private var movieDao: FavoriteMovieDao?
     private var movieDb: MovieDatabase? = MovieDatabase.getDatabase(context = application)
@@ -53,7 +55,8 @@ class DetailMovieViewModel(application: Application) : AndroidViewModel(applicat
 
     fun setDetailMovies(id: Int) {
         apiInstance.getDetailMovie(id, apiKey)
-            .enqueue(object : Callback<com.taufik.themovieshow.model.response.movie.detail.MovieDetailResponse> {
+            .enqueue(object :
+                Callback<com.taufik.themovieshow.model.response.movie.detail.MovieDetailResponse> {
                 override fun onResponse(
                     call: Call<com.taufik.themovieshow.model.response.movie.detail.MovieDetailResponse>,
                     response: Response<com.taufik.themovieshow.model.response.movie.detail.MovieDetailResponse>
@@ -63,29 +66,40 @@ class DetailMovieViewModel(application: Application) : AndroidViewModel(applicat
                     }
                 }
 
-                override fun onFailure(call: Call<com.taufik.themovieshow.model.response.movie.detail.MovieDetailResponse>, t: Throwable) {}
+                override fun onFailure(
+                    call: Call<com.taufik.themovieshow.model.response.movie.detail.MovieDetailResponse>,
+                    t: Throwable
+                ) {
+                }
             })
     }
 
     fun setDetailMovieCast(id: Int) {
         apiInstance.getMovieCast(id, apiKey)
-            .enqueue(object : Callback<com.taufik.themovieshow.model.response.movie.cast.MovieCastResponse> {
+            .enqueue(object :
+                Callback<com.taufik.themovieshow.model.response.movie.cast.MovieCastResponse> {
                 override fun onResponse(
                     call: Call<com.taufik.themovieshow.model.response.movie.cast.MovieCastResponse>,
                     response: Response<com.taufik.themovieshow.model.response.movie.cast.MovieCastResponse>
                 ) {
                     if (response.isSuccessful) {
-                        _listDetailCast.value = response.body()?.cast as ArrayList<com.taufik.themovieshow.model.response.movie.cast.MovieCast>
+                        _listDetailCast.value =
+                            response.body()?.cast as ArrayList<com.taufik.themovieshow.model.response.movie.cast.MovieCast>
                     }
                 }
 
-                override fun onFailure(call: Call<com.taufik.themovieshow.model.response.movie.cast.MovieCastResponse>, t: Throwable) {}
+                override fun onFailure(
+                    call: Call<com.taufik.themovieshow.model.response.movie.cast.MovieCastResponse>,
+                    t: Throwable
+                ) {
+                }
             })
     }
 
     fun setDetailMovieVideo(id: Int) {
         apiInstance.getMovieVideo(id, apiKey)
-            .enqueue(object : Callback<com.taufik.themovieshow.model.response.movie.video.MovieVideoResponse> {
+            .enqueue(object :
+                Callback<com.taufik.themovieshow.model.response.movie.video.MovieVideoResponse> {
                 override fun onResponse(
                     call: Call<com.taufik.themovieshow.model.response.movie.video.MovieVideoResponse>,
                     response: Response<com.taufik.themovieshow.model.response.movie.video.MovieVideoResponse>
@@ -95,39 +109,55 @@ class DetailMovieViewModel(application: Application) : AndroidViewModel(applicat
                     }
                 }
 
-                override fun onFailure(call: Call<com.taufik.themovieshow.model.response.movie.video.MovieVideoResponse>, t: Throwable) {}
+                override fun onFailure(
+                    call: Call<com.taufik.themovieshow.model.response.movie.video.MovieVideoResponse>,
+                    t: Throwable
+                ) {
+                }
             })
     }
 
     fun setDetailMovieReviews(id: Int) {
         apiInstance.getReviewsMovie(id, apiKey)
-            .enqueue(object : Callback<com.taufik.themovieshow.model.response.common.reviews.ReviewsResponse> {
+            .enqueue(object :
+                Callback<com.taufik.themovieshow.model.response.common.reviews.ReviewsResponse> {
                 override fun onResponse(
                     call: Call<com.taufik.themovieshow.model.response.common.reviews.ReviewsResponse>,
                     response: Response<com.taufik.themovieshow.model.response.common.reviews.ReviewsResponse>
                 ) {
                     if (response.isSuccessful) {
-                        _listReviews.value = response.body()?.results as ArrayList<com.taufik.themovieshow.model.response.common.reviews.ReviewsResult>
+                        _listReviews.value =
+                            response.body()?.results as ArrayList<com.taufik.themovieshow.model.response.common.reviews.ReviewsResult>
                     }
                 }
 
-                override fun onFailure(call: Call<com.taufik.themovieshow.model.response.common.reviews.ReviewsResponse>, t: Throwable) {}
+                override fun onFailure(
+                    call: Call<com.taufik.themovieshow.model.response.common.reviews.ReviewsResponse>,
+                    t: Throwable
+                ) {
+                }
             })
     }
 
     fun setDetailMovieSimilar(id: Int) {
         apiInstance.getSimilarMovie(id, apiKey)
-            .enqueue(object : Callback<com.taufik.themovieshow.model.response.movie.similar.MovieSimilarResponse> {
+            .enqueue(object :
+                Callback<com.taufik.themovieshow.model.response.movie.similar.MovieSimilarResponse> {
                 override fun onResponse(
                     call: Call<com.taufik.themovieshow.model.response.movie.similar.MovieSimilarResponse>,
                     response: Response<com.taufik.themovieshow.model.response.movie.similar.MovieSimilarResponse>
                 ) {
                     if (response.isSuccessful) {
-                        _listSimilar.value = response.body()?.results as ArrayList<com.taufik.themovieshow.model.response.movie.similar.MovieSimilarResult>
+                        _listSimilar.value =
+                            response.body()?.results as ArrayList<com.taufik.themovieshow.model.response.movie.similar.MovieSimilarResult>
                     }
                 }
 
-                override fun onFailure(call: Call<com.taufik.themovieshow.model.response.movie.similar.MovieSimilarResponse>, t: Throwable) {}
+                override fun onFailure(
+                    call: Call<com.taufik.themovieshow.model.response.movie.similar.MovieSimilarResponse>,
+                    t: Throwable
+                ) {
+                }
             })
     }
 

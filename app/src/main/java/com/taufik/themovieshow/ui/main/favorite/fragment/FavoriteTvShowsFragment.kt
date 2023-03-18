@@ -15,7 +15,6 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.local.entity.FavoriteTvShow
-import com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResult
 import com.taufik.themovieshow.data.viewmodel.tvshow.FavoriteTvShowViewModel
 import com.taufik.themovieshow.databinding.FragmentFavoriteTvShowsBinding
 import com.taufik.themovieshow.ui.main.tvshow.adapter.TvShowsAdapter
@@ -81,7 +80,8 @@ class FavoriteTvShowsFragment : Fragment() {
     }
 
     private fun mapList(tvShows: List<FavoriteTvShow>): ArrayList<com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResult> {
-        val listTvShow = ArrayList<com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResult>()
+        val listTvShow =
+            ArrayList<com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResult>()
         tvShows.forEach { tvShow ->
             val tvShowMapped =
                 com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResult(
@@ -99,7 +99,8 @@ class FavoriteTvShowsFragment : Fragment() {
 
     private fun hideKeyboard() = with(binding) {
         etSearch.clearFocus()
-        val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val imm =
+            requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(etSearch.windowToken, 0)
     }
 

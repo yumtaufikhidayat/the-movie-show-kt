@@ -96,7 +96,8 @@ class DiscoverTvShowFragment : Fragment() {
     private fun hideKeyboard() = with(binding) {
         toolbarSearchTvShow.apply {
             etSearch.clearFocus()
-            val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            val imm =
+                requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(etSearch.windowToken, 0)
         }
     }
