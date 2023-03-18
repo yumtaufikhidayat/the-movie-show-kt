@@ -9,6 +9,7 @@ import com.taufik.themovieshow.data.local.dao.FavoriteMovieDao
 import com.taufik.themovieshow.data.local.entity.FavoriteMovie
 import com.taufik.themovieshow.data.local.room.MovieDatabase
 import com.taufik.themovieshow.data.remote.api.ApiClient
+import com.taufik.themovieshow.model.response.movie.detail.MovieDetailResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -22,8 +23,8 @@ class DetailMovieViewModel(application: Application) : AndroidViewModel(applicat
     private val apiInstance = ApiClient.apiInstance
 
     private val _listDetailMovies =
-        MutableLiveData<com.taufik.themovieshow.model.response.movie.detail.MovieDetailResponse>()
-    val detailMovies: LiveData<com.taufik.themovieshow.model.response.movie.detail.MovieDetailResponse> =
+        MutableLiveData<MovieDetailResponse>()
+    val detailMovies: LiveData<MovieDetailResponse> =
         _listDetailMovies
 
     private val _detailVideo =
@@ -56,10 +57,10 @@ class DetailMovieViewModel(application: Application) : AndroidViewModel(applicat
     fun setDetailMovies(id: Int) {
         apiInstance.getDetailMovie(id, apiKey)
             .enqueue(object :
-                Callback<com.taufik.themovieshow.model.response.movie.detail.MovieDetailResponse> {
+                Callback<MovieDetailResponse> {
                 override fun onResponse(
-                    call: Call<com.taufik.themovieshow.model.response.movie.detail.MovieDetailResponse>,
-                    response: Response<com.taufik.themovieshow.model.response.movie.detail.MovieDetailResponse>
+                    call: Call<MovieDetailResponse>,
+                    response: Response<MovieDetailResponse>
                 ) {
                     if (response.isSuccessful) {
                         _listDetailMovies.value = response.body()
@@ -67,7 +68,7 @@ class DetailMovieViewModel(application: Application) : AndroidViewModel(applicat
                 }
 
                 override fun onFailure(
-                    call: Call<com.taufik.themovieshow.model.response.movie.detail.MovieDetailResponse>,
+                    call: Call<MovieDetailResponse>,
                     t: Throwable
                 ) {
                 }
