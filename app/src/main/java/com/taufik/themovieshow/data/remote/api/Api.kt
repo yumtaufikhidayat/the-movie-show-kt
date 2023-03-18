@@ -8,8 +8,13 @@ import com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMain
 import com.taufik.themovieshow.model.response.movie.similar.MovieSimilarResponse
 import com.taufik.themovieshow.model.response.movie.trending.MovieTrendingResponse
 import com.taufik.themovieshow.model.response.movie.video.MovieVideoResponse
+import com.taufik.themovieshow.model.response.tvshow.cast.TvShowsCastResponse
+import com.taufik.themovieshow.model.response.tvshow.detail.TvShowsPopularDetailResponse
+import com.taufik.themovieshow.model.response.tvshow.discover.DiscoverTvShowsResponse
 import com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResponse
+import com.taufik.themovieshow.model.response.tvshow.similar.TvShowsSimilarResponse
 import com.taufik.themovieshow.model.response.tvshow.trending.TvShowsTrendingReponse
+import com.taufik.themovieshow.model.response.tvshow.video.TvShowsVideoResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -81,25 +86,25 @@ interface Api {
     fun getDiscoverTvShows(
         @Query("api_key") apiKey: String,
         @Query("query") query: String
-    ): Call<com.taufik.themovieshow.model.response.tvshow.discover.DiscoverTvShowsResponse>
+    ): Call<DiscoverTvShowsResponse>
 
     @GET(UrlEndpoint.TV_SHOWS_VIDEO)
     fun getTvShowsVideo(
         @Path("tv_id") tvId: Int,
         @Query("api_key") apiKey: String
-    ): Call<com.taufik.themovieshow.model.response.tvshow.video.TvShowsVideoResponse>
+    ): Call<TvShowsVideoResponse>
 
     @GET(UrlEndpoint.TV_SHOWS_CAST)
     fun getTvShowsCast(
         @Path("tv_id") tvId: Int,
         @Query("api_key") apiKey: String
-    ): Call<com.taufik.themovieshow.model.response.tvshow.cast.TvShowsCastResponse>
+    ): Call<TvShowsCastResponse>
 
     @GET(UrlEndpoint.TV_SHOWS_DETAIL)
     fun getDetailTvShows(
         @Path("tv_id") tvId: Int,
         @Query("api_key") apiKey: String
-    ): Call<com.taufik.themovieshow.model.response.tvshow.detail.TvShowsPopularDetailResponse>
+    ): Call<TvShowsPopularDetailResponse>
 
     @GET(UrlEndpoint.TV_SHOWS_REVIEWS)
     fun getReviewsTvShows(
@@ -111,5 +116,5 @@ interface Api {
     fun getSimilarTvShows(
         @Path("tv_id") movieId: Int,
         @Query("api_key") apiKey: String
-    ): Call<com.taufik.themovieshow.model.response.tvshow.similar.TvShowsSimilarResponse>
+    ): Call<TvShowsSimilarResponse>
 }
