@@ -1,4 +1,4 @@
-package com.taufik.themovieshow.data.viewmodel.movie
+package com.taufik.themovieshow.ui.main.movie.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

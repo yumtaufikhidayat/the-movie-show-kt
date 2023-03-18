@@ -8,7 +8,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.taufik.themovieshow.data.viewmodel.tvshow.TvShowsViewModel
+import com.taufik.themovieshow.ui.main.tvshow.viewmodel.TvShowsViewModel
 import com.taufik.themovieshow.databinding.FragmentTvShowsPopularBinding
 import com.taufik.themovieshow.ui.main.tvshow.adapter.TvShowsAdapter
 
