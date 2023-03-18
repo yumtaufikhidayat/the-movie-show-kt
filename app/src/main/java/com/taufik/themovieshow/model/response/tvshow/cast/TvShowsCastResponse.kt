@@ -5,9 +5,9 @@ import com.google.gson.annotations.SerializedName
 
 data class TvShowsCastResponse(
     @SerializedName("cast")
-    val cast: List<com.taufik.themovieshow.model.response.tvshow.cast.TvShowsCast>,
+    val cast: List<TvShowsCast>,
     @SerializedName("crew")
-    val crew: List<com.taufik.themovieshow.model.response.tvshow.cast.TvShowsCastCrew>,
+    val crew: List<TvShowsCastCrew>,
     @SerializedName("id")
     val id: Int
 )

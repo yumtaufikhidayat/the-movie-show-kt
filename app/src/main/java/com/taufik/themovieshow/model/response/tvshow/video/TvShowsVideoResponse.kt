@@ -7,5 +7,5 @@ data class TvShowsVideoResponse(
     @SerializedName("id")
     val id: Int,
     @SerializedName("results")
-    val results: List<com.taufik.themovieshow.model.response.tvshow.video.TvShowsVideoResult>
+    val results: List<TvShowsVideoResult>
 )

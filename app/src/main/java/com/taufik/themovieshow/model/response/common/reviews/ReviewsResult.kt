@@ -7,7 +7,7 @@ data class ReviewsResult(
     @SerializedName("author")
     val author: String,
     @SerializedName("author_details")
-    val authorDetails: com.taufik.themovieshow.model.response.common.reviews.ReviewsAuthorDetails,
+    val authorDetails: ReviewsAuthorDetails,
     @SerializedName("content")
     val content: String,
     @SerializedName("created_at")

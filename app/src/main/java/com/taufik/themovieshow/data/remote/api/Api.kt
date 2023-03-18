@@ -13,7 +13,7 @@ import com.taufik.themovieshow.model.response.tvshow.detail.TvShowsPopularDetail
 import com.taufik.themovieshow.model.response.tvshow.discover.DiscoverTvShowsResponse
 import com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResponse
 import com.taufik.themovieshow.model.response.tvshow.similar.TvShowsSimilarResponse
-import com.taufik.themovieshow.model.response.tvshow.trending.TvShowsTrendingReponse
+import com.taufik.themovieshow.model.response.tvshow.trending.TvShowsTrendingResponse
 import com.taufik.themovieshow.model.response.tvshow.video.TvShowsVideoResponse
 import retrofit2.Call
 import retrofit2.http.GET
@@ -80,7 +80,7 @@ interface Api {
     @GET(UrlEndpoint.TV_SHOWS_TRENDING_DAY)
     fun getTvShowsTrending(
         @Query("api_key") apiKey: String
-    ): Call<TvShowsTrendingReponse>
+    ): Call<TvShowsTrendingResponse>
 
     @GET(UrlEndpoint.DISCOVER_TV_SHOWS)
     fun getDiscoverTvShows(

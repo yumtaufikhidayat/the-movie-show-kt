@@ -6,7 +6,7 @@ data class MovieSimilarResponse(
     @SerializedName("page")
     val page: Int,
     @SerializedName("results")
-    val results: List<com.taufik.themovieshow.model.response.movie.similar.MovieSimilarResult>,
+    val results: List<MovieSimilarResult>,
     @SerializedName("total_pages")
     val totalPages: Int,
     @SerializedName("total_results")

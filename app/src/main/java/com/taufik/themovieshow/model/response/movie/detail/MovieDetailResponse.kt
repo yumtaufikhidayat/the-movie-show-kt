@@ -9,11 +9,11 @@ data class MovieDetailResponse(
     @SerializedName("backdrop_path")
     val backdropPath: String,
     @SerializedName("belongs_to_collection")
-    val belongsToCollection: com.taufik.themovieshow.model.response.movie.detail.MovieDetailBelongsToCollection,
+    val belongsToCollection: MovieDetailBelongsToCollection,
     @SerializedName("budget")
     val budget: Int,
     @SerializedName("genres")
-    val genres: List<com.taufik.themovieshow.model.response.movie.detail.MovieDetailGenre>,
+    val genres: List<MovieDetailGenre>,
     @SerializedName("homepage")
     val homepage: String,
     @SerializedName("id")
@@ -31,9 +31,9 @@ data class MovieDetailResponse(
     @SerializedName("poster_path")
     val posterPath: String,
     @SerializedName("production_companies")
-    val productionCompanies: List<com.taufik.themovieshow.model.response.movie.detail.MovieDetailProductionCompany>,
+    val productionCompanies: List<MovieDetailProductionCompany>,
     @SerializedName("production_countries")
-    val productionCountries: List<com.taufik.themovieshow.model.response.movie.detail.MovieDetailProductionCountry>,
+    val productionCountries: List<MovieDetailProductionCountry>,
     @SerializedName("release_date")
     val releaseDate: String,
     @SerializedName("revenue")
@@ -41,7 +41,7 @@ data class MovieDetailResponse(
     @SerializedName("runtime")
     val runtime: Int,
     @SerializedName("spoken_languages")
-    val spokenLanguages: List<com.taufik.themovieshow.model.response.movie.detail.MovieDetailSpokenLanguage>,
+    val spokenLanguages: List<MovieDetailSpokenLanguage>,
     @SerializedName("status")
     val status: String,
     @SerializedName("tagline")

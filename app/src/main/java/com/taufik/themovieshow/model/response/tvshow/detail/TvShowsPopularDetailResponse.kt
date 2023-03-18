@@ -7,13 +7,13 @@ data class TvShowsPopularDetailResponse(
     @SerializedName("backdrop_path")
     val backdropPath: String,
     @SerializedName("created_by")
-    val createdBy: List<com.taufik.themovieshow.model.response.tvshow.detail.TvShowsPopularDetailCreatedBy>,
+    val createdBy: List<TvShowsPopularDetailCreatedBy>,
     @SerializedName("episode_run_time")
     val episodeRunTime: List<Int>,
     @SerializedName("first_air_date")
     val firstAirDate: String,
     @SerializedName("genres")
-    val genres: List<com.taufik.themovieshow.model.response.tvshow.detail.TvShowsPopularDetailGenre>,
+    val genres: List<TvShowsPopularDetailGenre>,
     @SerializedName("homepage")
     val homepage: String,
     @SerializedName("id")
@@ -25,13 +25,13 @@ data class TvShowsPopularDetailResponse(
     @SerializedName("last_air_date")
     val lastAirDate: String,
     @SerializedName("last_episode_to_air")
-    val lastEpisodeToAir: com.taufik.themovieshow.model.response.tvshow.detail.TvShowsPopularDetailLastEpisodeToAir,
+    val lastEpisodeToAir: TvShowsPopularDetailLastEpisodeToAir,
     @SerializedName("name")
     val name: String,
     @SerializedName("networks")
-    val networks: List<com.taufik.themovieshow.model.response.tvshow.detail.TvShowsPopularDetailNetwork>,
+    val networks: List<TvShowsPopularDetailNetwork>,
     @SerializedName("next_episode_to_air")
-    val nextEpisodeToAir: com.taufik.themovieshow.model.response.tvshow.detail.TvShowsPopularDetailNextEpisodeToAir,
+    val nextEpisodeToAir: TvShowsPopularDetailNextEpisodeToAir,
     @SerializedName("number_of_episodes")
     val numberOfEpisodes: Int,
     @SerializedName("number_of_seasons")
@@ -49,13 +49,13 @@ data class TvShowsPopularDetailResponse(
     @SerializedName("poster_path")
     val posterPath: String,
     @SerializedName("production_companies")
-    val productionCompanies: List<com.taufik.themovieshow.model.response.tvshow.detail.TvShowsPopularDetailProductionCompany>,
+    val productionCompanies: List<TvShowsPopularDetailProductionCompany>,
     @SerializedName("production_countries")
-    val productionCountries: List<com.taufik.themovieshow.model.response.tvshow.detail.TvShowsPopularDetailProductionCountry>,
+    val productionCountries: List<TvShowsPopularDetailProductionCountry>,
     @SerializedName("seasons")
-    val seasons: List<com.taufik.themovieshow.model.response.tvshow.detail.TvShowsPopularDetailSeason>,
+    val seasons: List<TvShowsPopularDetailSeason>,
     @SerializedName("spoken_languages")
-    val spokenLanguages: List<com.taufik.themovieshow.model.response.tvshow.detail.TvShowsPopularDetailSpokenLanguage>,
+    val spokenLanguages: List<TvShowsPopularDetailSpokenLanguage>,
     @SerializedName("status")
     val status: String,
     @SerializedName("tagline")

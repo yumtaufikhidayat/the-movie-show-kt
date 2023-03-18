@@ -9,7 +9,7 @@ import com.taufik.themovieshow.model.response.tvshow.discover.DiscoverTvShowsRes
 import com.taufik.themovieshow.model.response.tvshow.discover.DiscoverTvShowsResult
 import com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResponse
 import com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResult
-import com.taufik.themovieshow.model.response.tvshow.trending.TvShowsTrendingReponse
+import com.taufik.themovieshow.model.response.tvshow.trending.TvShowsTrendingResponse
 import com.taufik.themovieshow.model.response.tvshow.trending.TvShowsTrendingResult
 import retrofit2.Call
 import retrofit2.Callback
@@ -79,10 +79,10 @@ class TvShowsViewModel : ViewModel() {
     fun setTvShowsTrending() {
         apiInstance.getTvShowsTrending(apiKey)
             .enqueue(object :
-                Callback<TvShowsTrendingReponse> {
+                Callback<TvShowsTrendingResponse> {
                 override fun onResponse(
-                    call: Call<TvShowsTrendingReponse>,
-                    response: Response<TvShowsTrendingReponse>
+                    call: Call<TvShowsTrendingResponse>,
+                    response: Response<TvShowsTrendingResponse>
                 ) {
                     if (response.body() != null) {
                         _listTrending.value =
@@ -91,7 +91,7 @@ class TvShowsViewModel : ViewModel() {
                 }
 
                 override fun onFailure(
-                    call: Call<TvShowsTrendingReponse>,
+                    call: Call<TvShowsTrendingResponse>,
                     t: Throwable
                 ) {
                 }
