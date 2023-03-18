@@ -1,35 +1,31 @@
 package com.taufik.themovieshow.ui.main.movie.viewmodel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.taufik.themovieshow.BuildConfig
+import androidx.lifecycle.ViewModel
 import com.taufik.themovieshow.data.local.dao.FavoriteMovieDao
 import com.taufik.themovieshow.data.local.entity.FavoriteMovie
 import com.taufik.themovieshow.data.local.room.MovieDatabase
-import com.taufik.themovieshow.data.remote.api.ApiClient
-import com.taufik.themovieshow.model.response.common.reviews.ReviewsResponse
+import com.taufik.themovieshow.data.repository.TheMovieShowRepository
 import com.taufik.themovieshow.model.response.common.reviews.ReviewsResult
 import com.taufik.themovieshow.model.response.movie.cast.MovieCast
-import com.taufik.themovieshow.model.response.movie.cast.MovieCastResponse
 import com.taufik.themovieshow.model.response.movie.detail.MovieDetailResponse
-import com.taufik.themovieshow.model.response.movie.similar.MovieSimilarResponse
 import com.taufik.themovieshow.model.response.movie.similar.MovieSimilarResult
 import com.taufik.themovieshow.model.response.movie.video.MovieVideoResponse
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import javax.inject.Inject
 
-class DetailMovieViewModel(application: Application) : AndroidViewModel(application) {
+@HiltViewModel
+class DetailMovieViewModel @Inject constructor(
+    context: Context,
+    private val repository: TheMovieShowRepository
+) : ViewModel() {
 
-    private val apiKey = BuildConfig.API_KEY
-    private val apiInstance = ApiClient.apiInstance
-
-    private val _listDetailMovies = MutableLiveData<MovieDetailResponse>()
+    /*private val _listDetailMovies = MutableLiveData<MovieDetailResponse>()
     val detailMovies: LiveData<MovieDetailResponse> = _listDetailMovies
 
     private val _detailVideo = MutableLiveData<MovieVideoResponse>()
@@ -42,117 +38,24 @@ class DetailMovieViewModel(application: Application) : AndroidViewModel(applicat
     val listReviewMovie: LiveData<ArrayList<ReviewsResult>> = _listReviews
 
     private val _listSimilar = MutableLiveData<ArrayList<MovieSimilarResult>>()
-    val listSimilarMovie: LiveData<ArrayList<MovieSimilarResult>> = _listSimilar
+    val listSimilarMovie: LiveData<ArrayList<MovieSimilarResult>> = _listSimilar*/
 
     private var movieDao: FavoriteMovieDao?
-    private var movieDb: MovieDatabase? = MovieDatabase.getDatabase(context = application)
+    private var movieDb: MovieDatabase? = MovieDatabase.getDatabase(context)
 
     init {
         movieDao = movieDb?.favoriteMovieDao()
     }
 
-    fun setDetailMovies(id: Int) {
-        apiInstance.getDetailMovie(id, apiKey)
-            .enqueue(object : Callback<MovieDetailResponse> {
-                override fun onResponse(
-                    call: Call<MovieDetailResponse>,
-                    response: Response<MovieDetailResponse>
-                ) {
-                    if (response.isSuccessful) {
-                        _listDetailMovies.value = response.body()
-                    }
-                }
+    suspend fun setDetailMovies(id: Int) = repository.getDetailMovie(id)
 
-                override fun onFailure(
-                    call: Call<MovieDetailResponse>,
-                    t: Throwable
-                ) {
-                }
-            })
-    }
+    suspend fun setDetailMovieCast(id: Int) = repository.getMovieCast(id)
 
-    fun setDetailMovieCast(id: Int) {
-        apiInstance.getMovieCast(id, apiKey)
-            .enqueue(object : Callback<MovieCastResponse> {
-                override fun onResponse(
-                    call: Call<MovieCastResponse>,
-                    response: Response<MovieCastResponse>
-                ) {
-                    if (response.isSuccessful) {
-                        _listDetailCast.value =
-                            response.body()?.cast as ArrayList<MovieCast>
-                    }
-                }
+    suspend fun setDetailMovieVideo(id: Int) = repository.getMovieVideo(id)
 
-                override fun onFailure(
-                    call: Call<MovieCastResponse>,
-                    t: Throwable
-                ) {
-                }
-            })
-    }
+    suspend fun setDetailMovieReviews(id: Int) = repository.getMovieReviews(id)
 
-    fun setDetailMovieVideo(id: Int) {
-        apiInstance.getMovieVideo(id, apiKey)
-            .enqueue(object : Callback<MovieVideoResponse> {
-                override fun onResponse(
-                    call: Call<MovieVideoResponse>,
-                    response: Response<MovieVideoResponse>
-                ) {
-                    if (response.isSuccessful) {
-                        _detailVideo.value = response.body()
-                    }
-                }
-
-                override fun onFailure(
-                    call: Call<MovieVideoResponse>,
-                    t: Throwable
-                ) {
-                }
-            })
-    }
-
-    fun setDetailMovieReviews(id: Int) {
-        apiInstance.getReviewsMovie(id, apiKey)
-            .enqueue(object : Callback<ReviewsResponse> {
-                override fun onResponse(
-                    call: Call<ReviewsResponse>,
-                    response: Response<ReviewsResponse>
-                ) {
-                    if (response.isSuccessful) {
-                        _listReviews.value =
-                            response.body()?.results as ArrayList<ReviewsResult>
-                    }
-                }
-
-                override fun onFailure(
-                    call: Call<ReviewsResponse>,
-                    t: Throwable
-                ) {
-                }
-            })
-    }
-
-    fun setDetailMovieSimilar(id: Int) {
-        apiInstance.getSimilarMovie(id, apiKey)
-            .enqueue(object : Callback<MovieSimilarResponse> {
-                override fun onResponse(
-                    call: Call<MovieSimilarResponse>,
-                    response: Response<MovieSimilarResponse>
-                ) {
-                    if (response.isSuccessful) {
-                        _listSimilar.value =
-                            response.body()?.results as ArrayList<MovieSimilarResult>
-                    }
-                }
-
-                override fun onFailure(
-                    call: Call<MovieSimilarResponse>,
-                    t: Throwable
-                ) {
-                }
-            })
-    }
+    suspend fun setDetailMovieSimilar(id: Int) = repository.getSimilarMovie(id)
 
     // Favorite
     fun addToFavorite(
