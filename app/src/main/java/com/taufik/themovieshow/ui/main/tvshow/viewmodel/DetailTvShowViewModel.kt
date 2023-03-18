@@ -1,9 +1,9 @@
 package com.taufik.themovieshow.ui.main.tvshow.viewmodel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.taufik.themovieshow.data.local.dao.FavoriteTvShowDao
 import com.taufik.themovieshow.data.local.entity.FavoriteTvShow
 import com.taufik.themovieshow.data.local.room.TvShowDatabase
@@ -21,9 +21,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DetailTvShowViewModel @Inject constructor(
-    application: Application,
+    context: Context,
     private val repository: TheMovieShowRepository
-) : AndroidViewModel(application) {
+) : ViewModel() {
 
     private val _listDetailTvShows = MutableLiveData<TvShowsPopularDetailResponse>()
     val detailTvShows: LiveData<TvShowsPopularDetailResponse> = _listDetailTvShows
@@ -41,7 +41,7 @@ class DetailTvShowViewModel @Inject constructor(
     val listSimilarTvShows: LiveData<ArrayList<TvShowsSimilarResultsItem>> = _listSimilar
 
     private var tvShowDao: FavoriteTvShowDao?
-    private var tvShowDb: TvShowDatabase? = TvShowDatabase.getDatabase(context = application)
+    private var tvShowDb: TvShowDatabase? = TvShowDatabase.getDatabase(context)
 
     init {
         tvShowDao = tvShowDb?.favoriteTvShowDao()

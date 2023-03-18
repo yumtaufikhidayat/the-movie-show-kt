@@ -1,9 +1,9 @@
 package com.taufik.themovieshow.ui.main.movie.viewmodel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.taufik.themovieshow.data.local.dao.FavoriteMovieDao
 import com.taufik.themovieshow.data.local.entity.FavoriteMovie
 import com.taufik.themovieshow.data.local.room.MovieDatabase
@@ -21,11 +21,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DetailMovieViewModel @Inject constructor(
-    application: Application,
+    context: Context,
     private val repository: TheMovieShowRepository
-) : AndroidViewModel(application) {
+) : ViewModel() {
 
-    private val _listDetailMovies = MutableLiveData<MovieDetailResponse>()
+    /*private val _listDetailMovies = MutableLiveData<MovieDetailResponse>()
     val detailMovies: LiveData<MovieDetailResponse> = _listDetailMovies
 
     private val _detailVideo = MutableLiveData<MovieVideoResponse>()
@@ -38,10 +38,10 @@ class DetailMovieViewModel @Inject constructor(
     val listReviewMovie: LiveData<ArrayList<ReviewsResult>> = _listReviews
 
     private val _listSimilar = MutableLiveData<ArrayList<MovieSimilarResult>>()
-    val listSimilarMovie: LiveData<ArrayList<MovieSimilarResult>> = _listSimilar
+    val listSimilarMovie: LiveData<ArrayList<MovieSimilarResult>> = _listSimilar*/
 
     private var movieDao: FavoriteMovieDao?
-    private var movieDb: MovieDatabase? = MovieDatabase.getDatabase(context = application)
+    private var movieDb: MovieDatabase? = MovieDatabase.getDatabase(context)
 
     init {
         movieDao = movieDb?.favoriteMovieDao()
