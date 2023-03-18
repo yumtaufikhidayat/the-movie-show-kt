@@ -2,6 +2,7 @@ package com.taufik.themovieshow.data.remote.api
 
 object UrlEndpoint {
     const val BASE_URL = "https://api.themoviedb.org/3/"
+    const val NETWORK_TIMEOUT = 60L
     const val IMAGE_URL = "https://image.tmdb.org/t/p/w780/"
     const val THUMBNAIL_IMAGE_URL = "https://img.youtube.com/vi/"
     const val THUMBNAIL_IMAGE_JPG = "/maxresdefault.jpg"
