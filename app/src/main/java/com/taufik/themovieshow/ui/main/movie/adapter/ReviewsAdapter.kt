@@ -8,14 +8,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.taufik.themovieshow.databinding.ItemReviewsBinding
+import com.taufik.themovieshow.model.response.common.reviews.ReviewsResult
 import com.taufik.themovieshow.utils.CommonDateFormatConstants
 import com.taufik.themovieshow.utils.convertDate
 import com.taufik.themovieshow.utils.loadImage
 
-class ReviewsAdapter :
-    ListAdapter<com.taufik.themovieshow.model.response.common.reviews.ReviewsResult, ReviewsAdapter.ReviewsViewHolder>(
-        ReviewsDiffCallback
-    ) {
+class ReviewsAdapter : ListAdapter<ReviewsResult, ReviewsAdapter.ReviewsViewHolder>(ReviewsDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReviewsViewHolder {
         return ReviewsViewHolder(
@@ -32,8 +30,8 @@ class ReviewsAdapter :
 
     inner class ReviewsViewHolder(private val binding: ItemReviewsBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: com.taufik.themovieshow.model.response.common.reviews.ReviewsResult) =
-            with(binding) {
+        fun bind(data: ReviewsResult) {
+            binding.apply {
                 val author = data.authorDetails
                 imgReviewer.loadImage(author.avatarPath)
                 tvReviewerName.text = data.author
@@ -47,22 +45,22 @@ class ReviewsAdapter :
                     try {
                         val intentBrowser = Intent(Intent.ACTION_VIEW, Uri.parse(data.url))
                         it.context.startActivity(Intent.createChooser(intentBrowser, "Open with:"))
-                    } catch (e: java.lang.Exception) {
-                    }
+                    } catch (_: Exception) { }
                 }
             }
+        }
     }
 
     object ReviewsDiffCallback :
-        DiffUtil.ItemCallback<com.taufik.themovieshow.model.response.common.reviews.ReviewsResult>() {
+        DiffUtil.ItemCallback<ReviewsResult>() {
         override fun areItemsTheSame(
-            oldItem: com.taufik.themovieshow.model.response.common.reviews.ReviewsResult,
-            newItem: com.taufik.themovieshow.model.response.common.reviews.ReviewsResult
+            oldItem: ReviewsResult,
+            newItem: ReviewsResult
         ): Boolean = oldItem.id == newItem.id
 
         override fun areContentsTheSame(
-            oldItem: com.taufik.themovieshow.model.response.common.reviews.ReviewsResult,
-            newItem: com.taufik.themovieshow.model.response.common.reviews.ReviewsResult
+            oldItem: ReviewsResult,
+            newItem: ReviewsResult
         ): Boolean = oldItem == newItem
     }
 }

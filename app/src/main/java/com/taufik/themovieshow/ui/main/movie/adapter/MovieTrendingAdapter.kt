@@ -9,16 +9,14 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.databinding.ItemsMoviesTvShowBinding
+import com.taufik.themovieshow.model.response.movie.trending.MovieTrendingResult
 import com.taufik.themovieshow.ui.detail.movie.fragment.DetailMovieFragment
 import com.taufik.themovieshow.utils.CommonDateFormatConstants
 import com.taufik.themovieshow.utils.convertDate
 import com.taufik.themovieshow.utils.loadImage
 import com.taufik.themovieshow.utils.toRating
 
-class MovieTrendingAdapter :
-    ListAdapter<com.taufik.themovieshow.model.response.movie.trending.MovieTrendingResult, MovieTrendingAdapter.MovieViewHolder>(
-        MovieTrendingDiffCallback
-    ) {
+class MovieTrendingAdapter : ListAdapter<MovieTrendingResult, MovieTrendingAdapter.MovieViewHolder>(MovieTrendingDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         return MovieViewHolder(
@@ -36,8 +34,8 @@ class MovieTrendingAdapter :
 
     inner class MovieViewHolder(private val binding: ItemsMoviesTvShowBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: com.taufik.themovieshow.model.response.movie.trending.MovieTrendingResult) =
-            with(binding) {
+        fun bind(data: MovieTrendingResult) =
+            binding.apply {
                 imgPoster.loadImage(data.posterPath)
                 tvTitle.text = data.title
                 tvReleaseDate.text = data.releaseDate.convertDate(
@@ -56,15 +54,15 @@ class MovieTrendingAdapter :
     }
 
     object MovieTrendingDiffCallback :
-        DiffUtil.ItemCallback<com.taufik.themovieshow.model.response.movie.trending.MovieTrendingResult>() {
+        DiffUtil.ItemCallback<MovieTrendingResult>() {
         override fun areItemsTheSame(
-            oldItem: com.taufik.themovieshow.model.response.movie.trending.MovieTrendingResult,
-            newItem: com.taufik.themovieshow.model.response.movie.trending.MovieTrendingResult
+            oldItem: MovieTrendingResult,
+            newItem: MovieTrendingResult
         ): Boolean = oldItem == newItem
 
         override fun areContentsTheSame(
-            oldItem: com.taufik.themovieshow.model.response.movie.trending.MovieTrendingResult,
-            newItem: com.taufik.themovieshow.model.response.movie.trending.MovieTrendingResult
+            oldItem: MovieTrendingResult,
+            newItem: MovieTrendingResult
         ): Boolean = oldItem.id == newItem.id
     }
 }

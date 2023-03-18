@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.databinding.ItemsMoviesTvShowBinding
+import com.taufik.themovieshow.model.response.movie.discover.DiscoverMovieResult
 import com.taufik.themovieshow.ui.detail.movie.fragment.DetailMovieFragment
 import com.taufik.themovieshow.utils.CommonDateFormatConstants
 import com.taufik.themovieshow.utils.convertDate
@@ -16,13 +17,10 @@ import com.taufik.themovieshow.utils.loadImage
 import com.taufik.themovieshow.utils.toRating
 
 class DiscoverMovieAdapter :
-    ListAdapter<com.taufik.themovieshow.model.response.movie.discover.DiscoverMovieResult, DiscoverMovieAdapter.MovieViewHolder>(
-        DiscoverMovieDiffCallback
-    ) {
+    ListAdapter<DiscoverMovieResult, DiscoverMovieAdapter.MovieViewHolder>(DiscoverMovieDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val itemsMovieBinding =
-            ItemsMoviesTvShowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val itemsMovieBinding = ItemsMoviesTvShowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MovieViewHolder(itemsMovieBinding)
     }
 
@@ -30,10 +28,9 @@ class DiscoverMovieAdapter :
         holder.bind(getItem(position))
     }
 
-    inner class MovieViewHolder(private val binding: ItemsMoviesTvShowBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: com.taufik.themovieshow.model.response.movie.discover.DiscoverMovieResult) {
-            with(binding) {
+    inner class MovieViewHolder(private val binding: ItemsMoviesTvShowBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(data: DiscoverMovieResult) {
+            binding.apply {
                 imgPoster.loadImage(data.posterPath)
                 tvTitle.text = data.title
                 tvReleaseDate.text = data.releaseDate?.convertDate(
@@ -53,15 +50,15 @@ class DiscoverMovieAdapter :
     }
 
     object DiscoverMovieDiffCallback :
-        DiffUtil.ItemCallback<com.taufik.themovieshow.model.response.movie.discover.DiscoverMovieResult>() {
+        DiffUtil.ItemCallback<DiscoverMovieResult>() {
         override fun areItemsTheSame(
-            oldItem: com.taufik.themovieshow.model.response.movie.discover.DiscoverMovieResult,
-            newItem: com.taufik.themovieshow.model.response.movie.discover.DiscoverMovieResult
+            oldItem: DiscoverMovieResult,
+            newItem: DiscoverMovieResult
         ): Boolean = oldItem.id == newItem.id
 
         override fun areContentsTheSame(
-            oldItem: com.taufik.themovieshow.model.response.movie.discover.DiscoverMovieResult,
-            newItem: com.taufik.themovieshow.model.response.movie.discover.DiscoverMovieResult
+            oldItem: DiscoverMovieResult,
+            newItem: DiscoverMovieResult
         ): Boolean = oldItem == newItem
     }
 }

@@ -10,16 +10,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.remote.api.UrlEndpoint
 import com.taufik.themovieshow.databinding.ItemsMoviesTvShowBinding
+import com.taufik.themovieshow.model.response.tvshow.trending.TvShowsTrendingResult
 import com.taufik.themovieshow.ui.detail.tvshow.fragment.DetailTvShowFragment
 import com.taufik.themovieshow.utils.CommonDateFormatConstants
 import com.taufik.themovieshow.utils.convertDate
 import com.taufik.themovieshow.utils.loadImage
 import com.taufik.themovieshow.utils.toRating
 
-class TvShowsTrendingAdapter :
-    ListAdapter<com.taufik.themovieshow.model.response.tvshow.trending.TvShowsTrendingResult, TvShowsTrendingAdapter.TvShowsViewHolder>(
-        TvShowTrendingDiffCallback
-    ) {
+class TvShowsTrendingAdapter : ListAdapter<TvShowsTrendingResult, TvShowsTrendingAdapter.TvShowsViewHolder>(TvShowTrendingDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TvShowsViewHolder {
         return TvShowsViewHolder(
@@ -37,8 +35,8 @@ class TvShowsTrendingAdapter :
 
     inner class TvShowsViewHolder(private val binding: ItemsMoviesTvShowBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: com.taufik.themovieshow.model.response.tvshow.trending.TvShowsTrendingResult) =
-            with(binding) {
+        fun bind(data: TvShowsTrendingResult) {
+            binding.apply {
                 imgPoster.loadImage(UrlEndpoint.IMAGE_URL + data.posterPath)
                 tvTitle.text = data.name
                 tvReleaseDate.text = data.firstAirDate.convertDate(
@@ -54,18 +52,19 @@ class TvShowsTrendingAdapter :
                     it.findNavController().navigate(R.id.detailTvShowFragment, bundle)
                 }
             }
+        }
     }
 
     object TvShowTrendingDiffCallback :
-        DiffUtil.ItemCallback<com.taufik.themovieshow.model.response.tvshow.trending.TvShowsTrendingResult>() {
+        DiffUtil.ItemCallback<TvShowsTrendingResult>() {
         override fun areItemsTheSame(
-            oldItem: com.taufik.themovieshow.model.response.tvshow.trending.TvShowsTrendingResult,
-            newItem: com.taufik.themovieshow.model.response.tvshow.trending.TvShowsTrendingResult
+            oldItem: TvShowsTrendingResult,
+            newItem: TvShowsTrendingResult
         ): Boolean = oldItem.id == newItem.id
 
         override fun areContentsTheSame(
-            oldItem: com.taufik.themovieshow.model.response.tvshow.trending.TvShowsTrendingResult,
-            newItem: com.taufik.themovieshow.model.response.tvshow.trending.TvShowsTrendingResult
+            oldItem: TvShowsTrendingResult,
+            newItem: TvShowsTrendingResult
         ): Boolean = oldItem == newItem
     }
 }

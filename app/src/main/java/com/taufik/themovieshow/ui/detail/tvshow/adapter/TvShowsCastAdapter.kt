@@ -7,12 +7,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.databinding.ItemCastBinding
+import com.taufik.themovieshow.model.response.tvshow.cast.TvShowsCast
 import com.taufik.themovieshow.utils.loadImage
 
 class TvShowsCastAdapter :
-    ListAdapter<com.taufik.themovieshow.model.response.tvshow.cast.TvShowsCast, TvShowsCastAdapter.MovieViewHolder>(
-        TvShowCastDiffCallback
-    ) {
+    ListAdapter<TvShowsCast, TvShowsCastAdapter.MovieViewHolder>(TvShowCastDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val itemsCastBinding =
@@ -26,8 +25,8 @@ class TvShowsCastAdapter :
 
     inner class MovieViewHolder(private val binding: ItemCastBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: com.taufik.themovieshow.model.response.tvshow.cast.TvShowsCast) =
-            with(binding) {
+        fun bind(data: TvShowsCast) {
+            binding.apply {
                 imgPoster.loadImage(data.profilePath)
                 tvCastName.text = if (data.character.isNotEmpty()) {
                     root.context.getString(R.string.tvNameCharacter, data.name, data.character)
@@ -39,18 +38,19 @@ class TvShowsCastAdapter :
                     )
                 }
             }
+        }
     }
 
     object TvShowCastDiffCallback :
-        DiffUtil.ItemCallback<com.taufik.themovieshow.model.response.tvshow.cast.TvShowsCast>() {
+        DiffUtil.ItemCallback<TvShowsCast>() {
         override fun areItemsTheSame(
-            oldItem: com.taufik.themovieshow.model.response.tvshow.cast.TvShowsCast,
-            newItem: com.taufik.themovieshow.model.response.tvshow.cast.TvShowsCast
+            oldItem: TvShowsCast,
+            newItem: TvShowsCast
         ): Boolean = oldItem.id == newItem.id
 
         override fun areContentsTheSame(
-            oldItem: com.taufik.themovieshow.model.response.tvshow.cast.TvShowsCast,
-            newItem: com.taufik.themovieshow.model.response.tvshow.cast.TvShowsCast
+            oldItem: TvShowsCast,
+            newItem: TvShowsCast
         ): Boolean = oldItem == newItem
     }
 }

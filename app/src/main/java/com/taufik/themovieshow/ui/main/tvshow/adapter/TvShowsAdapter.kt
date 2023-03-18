@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.remote.api.UrlEndpoint
 import com.taufik.themovieshow.databinding.ItemsMoviesTvShowBinding
+import com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResult
 import com.taufik.themovieshow.ui.detail.tvshow.fragment.DetailTvShowFragment
 import com.taufik.themovieshow.utils.CommonDateFormatConstants
 import com.taufik.themovieshow.utils.convertDate
@@ -20,14 +21,14 @@ import com.taufik.themovieshow.utils.toRating
 import java.util.*
 
 class TvShowsAdapter :
-    ListAdapter<com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResult, TvShowsAdapter.TvShowsViewHolder>(
+    ListAdapter<TvShowsMainResult, TvShowsAdapter.TvShowsViewHolder>(
         TvShowsCallback
     ), Filterable {
 
     private var listTvShows =
-        listOf<com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResult>()
+        listOf<TvShowsMainResult>()
 
-    fun setData(list: List<com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResult>) {
+    fun setData(list: List<TvShowsMainResult>) {
         this.listTvShows = list
         submitList(list)
     }
@@ -44,7 +45,7 @@ class TvShowsAdapter :
 
     inner class TvShowsViewHolder(private val binding: ItemsMoviesTvShowBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResult) {
+        fun bind(data: TvShowsMainResult) {
             with(binding) {
                 imgPoster.loadImage(UrlEndpoint.IMAGE_URL + data.posterPath)
                 tvTitle.text = data.name
@@ -65,15 +66,15 @@ class TvShowsAdapter :
     }
 
     object TvShowsCallback :
-        DiffUtil.ItemCallback<com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResult>() {
+        DiffUtil.ItemCallback<TvShowsMainResult>() {
         override fun areItemsTheSame(
-            oldItem: com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResult,
-            newItem: com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResult
+            oldItem: TvShowsMainResult,
+            newItem: TvShowsMainResult
         ): Boolean = oldItem.id == newItem.id
 
         override fun areContentsTheSame(
-            oldItem: com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResult,
-            newItem: com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResult
+            oldItem: TvShowsMainResult,
+            newItem: TvShowsMainResult
         ): Boolean = oldItem == newItem
     }
 
@@ -82,7 +83,7 @@ class TvShowsAdapter :
     private val searchFilter = object : Filter() {
         override fun performFiltering(p0: CharSequence): FilterResults {
             val filteredList =
-                mutableListOf<com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResult>()
+                mutableListOf<TvShowsMainResult>()
             if (p0.isEmpty()) {
                 filteredList.addAll(listTvShows)
             } else {
@@ -98,7 +99,7 @@ class TvShowsAdapter :
         }
 
         override fun publishResults(p0: CharSequence?, p1: FilterResults?) {
-            submitList(p1?.values as MutableList<com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResult>?)
+            submitList(p1?.values as MutableList<TvShowsMainResult>?)
         }
     }
 }

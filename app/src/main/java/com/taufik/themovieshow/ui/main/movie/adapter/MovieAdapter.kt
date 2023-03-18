@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.databinding.ItemsMoviesTvShowBinding
+import com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult
 import com.taufik.themovieshow.ui.detail.movie.fragment.DetailMovieFragment
 import com.taufik.themovieshow.utils.CommonDateFormatConstants
 import com.taufik.themovieshow.utils.convertDate
@@ -18,15 +19,11 @@ import com.taufik.themovieshow.utils.loadImage
 import com.taufik.themovieshow.utils.toRating
 import java.util.*
 
-class MovieAdapter :
-    ListAdapter<com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult, MovieAdapter.MovieViewHolder>(
-        MovieDiffCallback
-    ), Filterable {
+class MovieAdapter : ListAdapter<MovieMainResult, MovieAdapter.MovieViewHolder>(MovieDiffCallback), Filterable {
 
-    private var listMovies =
-        listOf<com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult>()
+    private var listMovies = listOf<MovieMainResult>()
 
-    fun setData(list: List<com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult>) {
+    fun setData(list: List<MovieMainResult>) {
         this.listMovies = list
         submitList(list)
     }
@@ -47,8 +44,8 @@ class MovieAdapter :
 
     inner class MovieViewHolder(private val binding: ItemsMoviesTvShowBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult) {
-            with(binding) {
+        fun bind(data: MovieMainResult) {
+            binding.apply {
                 imgPoster.loadImage(data.posterPath)
                 tvTitle.text = data.title
                 tvReleaseDate.text = data.releaseDate?.convertDate(
@@ -68,15 +65,15 @@ class MovieAdapter :
     }
 
     object MovieDiffCallback :
-        DiffUtil.ItemCallback<com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult>() {
+        DiffUtil.ItemCallback<MovieMainResult>() {
         override fun areItemsTheSame(
-            oldItem: com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult,
-            newItem: com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult
+            oldItem: MovieMainResult,
+            newItem: MovieMainResult
         ): Boolean = oldItem.id == newItem.id
 
         override fun areContentsTheSame(
-            oldItem: com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult,
-            newItem: com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult
+            oldItem: MovieMainResult,
+            newItem: MovieMainResult
         ): Boolean = oldItem == newItem
     }
 
@@ -85,7 +82,7 @@ class MovieAdapter :
     private val searchFilter = object : Filter() {
         override fun performFiltering(p0: CharSequence): FilterResults {
             val filteredList =
-                mutableListOf<com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult>()
+                mutableListOf<MovieMainResult>()
             if (p0.isEmpty()) {
                 filteredList.addAll(listMovies)
             } else {
@@ -101,7 +98,7 @@ class MovieAdapter :
         }
 
         override fun publishResults(p0: CharSequence?, p1: FilterResults?) {
-            submitList(p1?.values as MutableList<com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult>?)
+            submitList(p1?.values as MutableList<MovieMainResult>?)
         }
     }
 }

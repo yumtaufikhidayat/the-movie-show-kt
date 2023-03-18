@@ -7,10 +7,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.databinding.ItemCastBinding
+import com.taufik.themovieshow.model.response.movie.cast.MovieCast
 import com.taufik.themovieshow.utils.loadImage
 
 class MovieCastAdapter :
-    ListAdapter<com.taufik.themovieshow.model.response.movie.cast.MovieCast, MovieCastAdapter.MovieViewHolder>(
+    ListAdapter<MovieCast, MovieCastAdapter.MovieViewHolder>(
         MovieCastDiffCallback
     ) {
 
@@ -26,8 +27,8 @@ class MovieCastAdapter :
 
     inner class MovieViewHolder(private val binding: ItemCastBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: com.taufik.themovieshow.model.response.movie.cast.MovieCast) =
-            with(binding) {
+        fun bind(data: MovieCast) {
+            binding.apply {
                 imgPoster.loadImage(data.profilePath)
                 tvCastName.text = if (data.character.isNotEmpty()) {
                     root.context.getString(R.string.tvNameCharacter, data.name, data.character)
@@ -39,18 +40,19 @@ class MovieCastAdapter :
                     )
                 }
             }
+        }
     }
 }
 
 object MovieCastDiffCallback :
-    DiffUtil.ItemCallback<com.taufik.themovieshow.model.response.movie.cast.MovieCast>() {
+    DiffUtil.ItemCallback<MovieCast>() {
     override fun areItemsTheSame(
-        oldItem: com.taufik.themovieshow.model.response.movie.cast.MovieCast,
-        newItem: com.taufik.themovieshow.model.response.movie.cast.MovieCast
+        oldItem: MovieCast,
+        newItem: MovieCast
     ): Boolean = oldItem.id == newItem.id
 
     override fun areContentsTheSame(
-        oldItem: com.taufik.themovieshow.model.response.movie.cast.MovieCast,
-        newItem: com.taufik.themovieshow.model.response.movie.cast.MovieCast
+        oldItem: MovieCast,
+        newItem: MovieCast
     ): Boolean = oldItem == newItem
 }
