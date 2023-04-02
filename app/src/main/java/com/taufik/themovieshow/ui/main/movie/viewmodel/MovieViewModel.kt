@@ -3,33 +3,51 @@ package com.taufik.themovieshow.ui.main.movie.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.taufik.themovieshow.data.NetworkResult
 import com.taufik.themovieshow.data.repository.TheMovieShowRepository
-import com.taufik.themovieshow.model.response.movie.discover.DiscoverMovieResult
-import com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult
-import com.taufik.themovieshow.model.response.movie.trending.MovieTrendingResult
+import com.taufik.themovieshow.model.response.movie.discover.DiscoverMovieResponse
+import com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResponse
+import com.taufik.themovieshow.model.response.movie.trending.MovieTrendingResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MovieViewModel @Inject constructor(private val repository: TheMovieShowRepository) : ViewModel() {
 
-    private val _listNowPlaying = MutableLiveData<ArrayList<MovieMainResult>>()
-    val listNowPlaying: LiveData<ArrayList<MovieMainResult>> = _listNowPlaying
+    private val _movieNowPlayingResponse: MutableLiveData<NetworkResult<MovieMainResponse>> = MutableLiveData()
+    val movieNowPlayingResponse: LiveData<NetworkResult<MovieMainResponse>> = _movieNowPlayingResponse
 
-    private val _listUpcoming = MutableLiveData<ArrayList<MovieMainResult>>()
-    val listUpcoming: LiveData<ArrayList<MovieMainResult>> = _listUpcoming
+    private val _movieUpcomingResponse: MutableLiveData<NetworkResult<MovieMainResponse>> = MutableLiveData()
+    val movieUpcomingResponse: LiveData<NetworkResult<MovieMainResponse>> = _movieUpcomingResponse
 
-    private val _listTrendingDay = MutableLiveData<ArrayList<MovieTrendingResult>>()
-    val listTrendingDay: LiveData<ArrayList<MovieTrendingResult>> = _listTrendingDay
+    private val _movieTrendingDayResponse: MutableLiveData<NetworkResult<MovieTrendingResponse>> = MutableLiveData()
+    val movieTrendingDayResponse: LiveData<NetworkResult<MovieTrendingResponse>> = _movieTrendingDayResponse
 
-    private val _listDiscover = MutableLiveData<ArrayList<DiscoverMovieResult>>()
-    val listDiscover: LiveData<ArrayList<DiscoverMovieResult>> = _listDiscover
+    private val _discoverMovieResponse: MutableLiveData<NetworkResult<DiscoverMovieResponse>> = MutableLiveData()
+    val discoverMovieResponse: LiveData<NetworkResult<DiscoverMovieResponse>> = _discoverMovieResponse
+    fun setMovieNowPlaying() = viewModelScope.launch {
+        repository.getMovieNowPlaying().collect {
+            _movieNowPlayingResponse.value = it
+        }
+    }
 
-    suspend fun setMovieNowPlaying() = repository.getMovieNowPlaying()
+    fun setMovieUpcoming() = viewModelScope.launch {
+        repository.getMovieUpcoming().collect {
+            _movieUpcomingResponse.value = it
+        }
+    }
 
-    suspend fun setMovieUpcoming() = repository.getMovieUpcoming()
+    fun setMovieTrendingDay() = viewModelScope.launch {
+        repository.getMovieTrendingDay().collect {
+            _movieTrendingDayResponse.value = it
+        }
+    }
 
-    suspend fun setMovieTrendingDay() = repository.getMovieTrendingDay()
-
-    suspend fun setDiscoverMovie(query: String) = repository.getDiscoverMovie(query)
+    fun setDiscoverMovie(query: String) = viewModelScope.launch {
+        repository.getDiscoverMovie(query).collect {
+            _discoverMovieResponse.value = it
+        }
+    }
 }

@@ -8,10 +8,13 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.taufik.themovieshow.ui.main.tvshow.viewmodel.TvShowsViewModel
+import com.taufik.themovieshow.data.NetworkResult
 import com.taufik.themovieshow.databinding.FragmentTvShowTrendingBinding
 import com.taufik.themovieshow.ui.main.tvshow.adapter.TvShowsTrendingAdapter
+import com.taufik.themovieshow.ui.main.tvshow.viewmodel.TvShowsViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class TvShowTrendingFragment : Fragment() {
 
     private var _binding: FragmentTvShowTrendingBinding? = null
@@ -36,8 +39,8 @@ class TvShowTrendingFragment : Fragment() {
         setData()
     }
 
-    private fun setAdapter() = with(binding) {
-        rvTrendingMovie.apply {
+    private fun setAdapter()  {
+        binding.rvTrendingMovie.apply {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
             adapter = tvShowsTrendingAdapter
@@ -45,20 +48,24 @@ class TvShowTrendingFragment : Fragment() {
     }
 
     private fun setData() {
-        showLoading(true)
         viewModel.apply {
             setTvShowsTrending()
-            listTrending.observe(viewLifecycleOwner) {
-                if (it != null) {
-                    tvShowsTrendingAdapter.submitList(it)
-                    showLoading(false)
+                tvShowTrendingResponse.observe(viewLifecycleOwner) { response ->
+                when (response) {
+                    is NetworkResult.Loading -> showLoading(true)
+                    is NetworkResult.Success -> {
+                        showLoading(false)
+                        val data = response.data
+                        if (data != null) tvShowsTrendingAdapter.submitList(data.results)
+                    }
+                    is NetworkResult.Error -> showLoading(false)
                 }
             }
         }
     }
 
-    private fun showLoading(isShow: Boolean) = with(binding) {
-        progressBar.isVisible = isShow
+    private fun showLoading(isShow: Boolean) {
+       binding.progressBar.isVisible = isShow
     }
 
     override fun onDestroyView() {

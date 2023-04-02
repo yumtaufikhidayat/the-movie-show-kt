@@ -45,8 +45,8 @@ class TrendingFragment : Fragment() {
         setTabLayout()
     }
 
-    private fun setToolbar() = with(binding) {
-        toolbarTrending.tvToolbar.text = getString(R.string.icTrending)
+    private fun setToolbar() {
+        binding.toolbarTrending.tvToolbar.text = getString(R.string.icTrending)
     }
 
     private fun setTabLayout() = with(binding) {

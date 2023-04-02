@@ -16,10 +16,13 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.taufik.themovieshow.R
-import com.taufik.themovieshow.ui.main.movie.viewmodel.MovieViewModel
+import com.taufik.themovieshow.data.NetworkResult
 import com.taufik.themovieshow.databinding.FragmentDiscoverMovieBinding
 import com.taufik.themovieshow.ui.main.movie.adapter.DiscoverMovieAdapter
+import com.taufik.themovieshow.ui.main.movie.viewmodel.MovieViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DiscoverMovieFragment : Fragment() {
 
     private var _binding: FragmentDiscoverMovieBinding? = null
@@ -77,17 +80,20 @@ class DiscoverMovieFragment : Fragment() {
     private fun showSearchData(query: Editable?) {
         viewModel.apply {
             val q = query.toString()
-            if (q.isNotEmpty()) {
-                setDiscoverMovie(q)
-                listDiscover.observe(viewLifecycleOwner) {
-                    if (it != null) {
-                        if (it.isNotEmpty()) {
-                            discoverMovieAdapter.submitList(it)
+            setDiscoverMovie(q)
+            discoverMovieResponse.observe(viewLifecycleOwner) { response ->
+                when (response) {
+                    is NetworkResult.Loading -> showNoResults(false)
+                    is NetworkResult.Success -> {
+                        val data = response.data
+                        if (q.isNotEmpty() && data != null) {
+                            discoverMovieAdapter.submitList(data.results)
                             showNoResults(false)
                         } else {
                             showNoResults(true)
                         }
                     }
+                    is NetworkResult.Error -> showNoResults(false)
                 }
             }
         }

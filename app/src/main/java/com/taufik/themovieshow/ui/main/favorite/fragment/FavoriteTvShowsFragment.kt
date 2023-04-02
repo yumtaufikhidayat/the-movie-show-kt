@@ -14,17 +14,19 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.taufik.themovieshow.R
-import com.taufik.themovieshow.data.local.entity.FavoriteTvShow
-import com.taufik.themovieshow.ui.main.tvshow.viewmodel.FavoriteTvShowViewModel
+import com.taufik.themovieshow.data.local.entity.tvshow.FavoriteTvShow
+import com.taufik.themovieshow.ui.main.favorite.viewmodel.FavoriteTvShowViewModel
 import com.taufik.themovieshow.databinding.FragmentFavoriteTvShowsBinding
 import com.taufik.themovieshow.ui.main.tvshow.adapter.TvShowsAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FavoriteTvShowsFragment : Fragment() {
 
     private var _binding: FragmentFavoriteTvShowsBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel by viewModels<FavoriteTvShowViewModel>()
+    private val viewModel: FavoriteTvShowViewModel by viewModels()
     private val tvShowsAdapter by lazy { TvShowsAdapter() }
 
     override fun onCreateView(
@@ -53,7 +55,7 @@ class FavoriteTvShowsFragment : Fragment() {
     }
 
     private fun getFavoriteTvShow() {
-        viewModel.getFavoriteTvShow()?.observe(viewLifecycleOwner) {
+        viewModel.getFavoriteTvShow().observe(viewLifecycleOwner) {
             if (it != null && it.isNotEmpty()) {
                 tvShowsAdapter.setData(mapList(it))
                 showNoFavorite(false)

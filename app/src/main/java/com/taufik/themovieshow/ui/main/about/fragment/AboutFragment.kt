@@ -12,7 +12,9 @@ import com.taufik.themovieshow.ui.main.about.viewmodel.AboutViewModel
 import com.taufik.themovieshow.databinding.FragmentAboutBinding
 import com.taufik.themovieshow.ui.main.about.adapter.AboutApplicationAdapter
 import com.taufik.themovieshow.ui.main.about.adapter.AboutAuthorAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AboutFragment : Fragment() {
 
     private var _binding: FragmentAboutBinding? = null

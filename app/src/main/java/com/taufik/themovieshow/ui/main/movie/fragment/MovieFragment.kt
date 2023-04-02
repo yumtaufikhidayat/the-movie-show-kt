@@ -33,8 +33,8 @@ class MovieFragment : Fragment() {
         setActionClick()
     }
 
-    private fun setToolbar() = with(binding) {
-        toolbarMovie.tvToolbar.text = getString(R.string.icMovies)
+    private fun setToolbar() {
+        binding.toolbarMovie.tvToolbar.text = getString(R.string.icMovies)
     }
 
     private fun setTabLayout() = with(binding) {

@@ -8,10 +8,13 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.taufik.themovieshow.ui.main.movie.viewmodel.MovieViewModel
+import com.taufik.themovieshow.data.NetworkResult
 import com.taufik.themovieshow.databinding.FragmentMovieUpcomingBinding
 import com.taufik.themovieshow.ui.main.movie.adapter.MovieAdapter
+import com.taufik.themovieshow.ui.main.movie.viewmodel.MovieViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MovieUpcomingFragment : Fragment() {
 
     private var _binding: FragmentMovieUpcomingBinding? = null
@@ -45,13 +48,17 @@ class MovieUpcomingFragment : Fragment() {
     }
 
     private fun setData() {
-        showLoading(true)
         viewModel.apply {
             setMovieUpcoming()
-            listUpcoming.observe(viewLifecycleOwner) {
-                if (it != null) {
-                    movieAdapter.submitList(it)
-                    showLoading(false)
+            movieUpcomingResponse.observe(viewLifecycleOwner) { response ->
+                when (response) {
+                    is NetworkResult.Loading -> showLoading(true)
+                    is NetworkResult.Success -> {
+                        showLoading(false)
+                        val data = response.data
+                        if (data != null) movieAdapter.submitList(data.results)
+                    }
+                    is NetworkResult.Error -> showLoading(false)
                 }
             }
         }

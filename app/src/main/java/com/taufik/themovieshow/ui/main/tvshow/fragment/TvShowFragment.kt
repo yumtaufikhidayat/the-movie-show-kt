@@ -33,8 +33,8 @@ class TvShowFragment : Fragment() {
         setActionClick()
     }
 
-    private fun setToolbar() = with(binding) {
-        toolbarTvShow.tvToolbar.text = getString(R.string.icTVShows)
+    private fun setToolbar() {
+        binding.toolbarTvShow.tvToolbar.text = getString(R.string.icTVShows)
     }
 
     private fun setTabLayout() = with(binding) {

@@ -8,10 +8,13 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.taufik.themovieshow.ui.main.movie.viewmodel.MovieViewModel
+import com.taufik.themovieshow.data.NetworkResult
 import com.taufik.themovieshow.databinding.FragmentMovieNowPlayingBinding
 import com.taufik.themovieshow.ui.main.movie.adapter.MovieAdapter
+import com.taufik.themovieshow.ui.main.movie.viewmodel.MovieViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MovieNowPlayingFragment : Fragment() {
 
     private var _binding: FragmentMovieNowPlayingBinding? = null
@@ -31,7 +34,6 @@ class MovieNowPlayingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setAdapter()
         setData()
     }
@@ -45,13 +47,17 @@ class MovieNowPlayingFragment : Fragment() {
     }
 
     private fun setData() {
-        showLoading(true)
         viewModel.apply {
             setMovieNowPlaying()
-            listNowPlaying.observe(viewLifecycleOwner) {
-                if (it != null) {
-                    movieAdapter.submitList(it)
-                    showLoading(false)
+            movieNowPlayingResponse.observe(viewLifecycleOwner) { response ->
+                when (response) {
+                    is NetworkResult.Loading -> showLoading(true)
+                    is NetworkResult.Success -> {
+                        showLoading(false)
+                        val data = response.data
+                        if (data != null) movieAdapter.submitList(data.results)
+                    }
+                    is NetworkResult.Error -> showLoading(false)
                 }
             }
         }

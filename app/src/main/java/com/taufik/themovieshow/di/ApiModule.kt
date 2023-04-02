@@ -1,15 +1,15 @@
 package com.taufik.themovieshow.di
 
 import android.content.Context
-import com.App
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.taufik.themovieshow.BuildConfig
-import com.taufik.themovieshow.data.remote.api.Api
+import com.taufik.themovieshow.data.remote.api.ApiService
 import com.taufik.themovieshow.data.remote.api.UrlEndpoint
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.Cache
 import okhttp3.Interceptor
@@ -84,9 +84,7 @@ object ApiModule {
 
     @Provides
     @Singleton
-    fun provideContext(application: App): Context {
-        return application.applicationContext
-    }
+    fun provideContext(@ApplicationContext context: Context): Context = context
 
     @Singleton
     @Provides
@@ -94,10 +92,10 @@ object ApiModule {
         baseUrl: String,
         gson: Gson,
         client: OkHttpClient
-    ): Api = Retrofit.Builder()
+    ): ApiService = Retrofit.Builder()
         .baseUrl(baseUrl)
         .client(client)
         .addConverterFactory(GsonConverterFactory.create(gson))
         .build()
-        .create(Api::class.java)
+        .create(ApiService::class.java)
 }

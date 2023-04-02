@@ -1,83 +1,91 @@
 package com.taufik.themovieshow.ui.main.movie.viewmodel
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.taufik.themovieshow.data.local.dao.FavoriteMovieDao
-import com.taufik.themovieshow.data.local.entity.FavoriteMovie
-import com.taufik.themovieshow.data.local.room.MovieDatabase
+import androidx.lifecycle.viewModelScope
+import com.taufik.themovieshow.data.NetworkResult
+import com.taufik.themovieshow.data.local.entity.movie.FavoriteMovie
 import com.taufik.themovieshow.data.repository.TheMovieShowRepository
-import com.taufik.themovieshow.model.response.common.reviews.ReviewsResult
-import com.taufik.themovieshow.model.response.movie.cast.MovieCast
+import com.taufik.themovieshow.model.response.common.reviews.ReviewsResponse
+import com.taufik.themovieshow.model.response.movie.cast.MovieCastResponse
 import com.taufik.themovieshow.model.response.movie.detail.MovieDetailResponse
-import com.taufik.themovieshow.model.response.movie.similar.MovieSimilarResult
+import com.taufik.themovieshow.model.response.movie.similar.MovieSimilarResponse
 import com.taufik.themovieshow.model.response.movie.video.MovieVideoResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class DetailMovieViewModel @Inject constructor(
-    context: Context,
-    private val repository: TheMovieShowRepository
-) : ViewModel() {
+class DetailMovieViewModel @Inject constructor(private val repository: TheMovieShowRepository) : ViewModel() {
 
-    /*private val _listDetailMovies = MutableLiveData<MovieDetailResponse>()
-    val detailMovies: LiveData<MovieDetailResponse> = _listDetailMovies
+    private val _detailMoviesResponse: MutableLiveData<NetworkResult<MovieDetailResponse>> = MutableLiveData()
+    val detailMoviesResponse: LiveData<NetworkResult<MovieDetailResponse>> = _detailMoviesResponse
 
-    private val _detailVideo = MutableLiveData<MovieVideoResponse>()
-    val detailVideo: LiveData<MovieVideoResponse> = _detailVideo
+    private val _detailMoviesCastResponse: MutableLiveData<NetworkResult<MovieCastResponse>> = MutableLiveData()
+    val detailMoviesCastResponse: LiveData<NetworkResult<MovieCastResponse>> = _detailMoviesCastResponse
 
-    private val _listDetailCast = MutableLiveData<ArrayList<MovieCast>>()
-    val listDetailCast: LiveData<ArrayList<MovieCast>> = _listDetailCast
+    private val _detailMoviesVideoResponse: MutableLiveData<NetworkResult<MovieVideoResponse>> = MutableLiveData()
+    val detailMoviesVideoResponse: LiveData<NetworkResult<MovieVideoResponse>> = _detailMoviesVideoResponse
 
-    private val _listReviews = MutableLiveData<ArrayList<ReviewsResult>>()
-    val listReviewMovie: LiveData<ArrayList<ReviewsResult>> = _listReviews
+    private val _detailMovieReviewsResponse: MutableLiveData<NetworkResult<ReviewsResponse>> = MutableLiveData()
+    val detailMovieReviewsResponse: LiveData<NetworkResult<ReviewsResponse>> = _detailMovieReviewsResponse
 
-    private val _listSimilar = MutableLiveData<ArrayList<MovieSimilarResult>>()
-    val listSimilarMovie: LiveData<ArrayList<MovieSimilarResult>> = _listSimilar*/
+    private val _detailMovieSimilarResponse: MutableLiveData<NetworkResult<MovieSimilarResponse>> = MutableLiveData()
+    val detailMovieSimilarResponse: LiveData<NetworkResult<MovieSimilarResponse>> = _detailMovieSimilarResponse
 
-    private var movieDao: FavoriteMovieDao?
-    private var movieDb: MovieDatabase? = MovieDatabase.getDatabase(context)
-
-    init {
-        movieDao = movieDb?.favoriteMovieDao()
+    fun setDetailMovies(id: Int) = viewModelScope.launch {
+        repository.getDetailMovie(id).collect {
+            _detailMoviesResponse.value = it
+        }
     }
 
-    suspend fun setDetailMovies(id: Int) = repository.getDetailMovie(id)
+    fun setDetailMovieCast(id: Int) = viewModelScope.launch {
+        repository.getMovieCast(id).collect {
+            _detailMoviesCastResponse.value = it
+        }
+    }
 
-    suspend fun setDetailMovieCast(id: Int) = repository.getMovieCast(id)
+    fun setDetailMovieVideo(id: Int) = viewModelScope.launch {
+        repository.getMovieVideo(id).collect {
+            _detailMoviesVideoResponse.value = it
+        }
+    }
 
-    suspend fun setDetailMovieVideo(id: Int) = repository.getMovieVideo(id)
+    fun setDetailMovieReviews(id: Int) = viewModelScope.launch {
+        repository.getMovieReviews(id).collect {
+            _detailMovieReviewsResponse.value = it
+        }
+    }
 
-    suspend fun setDetailMovieReviews(id: Int) = repository.getMovieReviews(id)
-
-    suspend fun setDetailMovieSimilar(id: Int) = repository.getSimilarMovie(id)
+    fun setDetailMovieSimilar(id: Int) = viewModelScope.launch {
+        repository.getSimilarMovie(id).collect {
+            _detailMovieSimilarResponse.value = it
+        }
+    }
 
     // Favorite
-    fun addToFavorite(
+    fun addMovieToFavorite(
         movieId: Int,
         posterPath: String,
         title: String,
         releaseDate: String,
         rating: Double
     ) {
-        CoroutineScope(Dispatchers.IO).launch {
-            val movie = FavoriteMovie(
-                movieId, posterPath, title, releaseDate, rating
+        viewModelScope.launch {
+            repository.addMovieToFavorite(
+                FavoriteMovie(
+                    movieId, posterPath, title, releaseDate, rating
+                )
             )
-            movieDao?.addToFavorite(movie)
         }
     }
 
-    suspend fun checkFavorite(movieId: Int) = movieDao?.checkFavorite(movieId)
+    suspend fun checkFavoriteMovie(movieId: Int) = repository.checkFavoriteMovie(movieId)
 
-    fun removeFromFavorite(movieId: Int) {
-        CoroutineScope(Dispatchers.IO).launch {
-            movieDao?.removeFromFavorite(movieId)
+    fun removeMovieFromFavorite(movieId: Int) {
+        viewModelScope.launch {
+            repository.removeMovieFromFavorite(movieId)
         }
     }
 }

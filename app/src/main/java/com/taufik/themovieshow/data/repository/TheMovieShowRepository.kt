@@ -1,25 +1,163 @@
 package com.taufik.themovieshow.data.repository
 
-import com.taufik.themovieshow.data.remote.api.Api
+import com.taufik.themovieshow.data.NetworkResult
+import com.taufik.themovieshow.data.local.entity.movie.FavoriteMovie
+import com.taufik.themovieshow.data.local.entity.tvshow.FavoriteTvShow
+import com.taufik.themovieshow.data.source.BaseApiResponse
+import com.taufik.themovieshow.data.source.LocalDataSource
+import com.taufik.themovieshow.data.source.RemoteDataSource
+import com.taufik.themovieshow.model.response.common.reviews.ReviewsResponse
+import com.taufik.themovieshow.model.response.movie.cast.MovieCastResponse
+import com.taufik.themovieshow.model.response.movie.detail.MovieDetailResponse
+import com.taufik.themovieshow.model.response.movie.discover.DiscoverMovieResponse
+import com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResponse
+import com.taufik.themovieshow.model.response.movie.similar.MovieSimilarResponse
+import com.taufik.themovieshow.model.response.movie.trending.MovieTrendingResponse
+import com.taufik.themovieshow.model.response.movie.video.MovieVideoResponse
+import com.taufik.themovieshow.model.response.tvshow.cast.TvShowsCastResponse
+import com.taufik.themovieshow.model.response.tvshow.detail.TvShowsPopularDetailResponse
+import com.taufik.themovieshow.model.response.tvshow.discover.DiscoverTvShowsResponse
+import com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResponse
+import com.taufik.themovieshow.model.response.tvshow.similar.TvShowsSimilarResponse
+import com.taufik.themovieshow.model.response.tvshow.trending.TvShowsTrendingResponse
+import com.taufik.themovieshow.model.response.tvshow.video.TvShowsVideoResponse
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
-class TheMovieShowRepository @Inject constructor(private val api: Api) {
-    suspend fun getMovieNowPlaying() = api.getMovieNowPlaying()
-    suspend fun getMovieUpcoming() = api.getMovieUpcoming()
-    suspend fun getMovieTrendingDay() = api.getMovieTrendingDay()
-    suspend fun getDiscoverMovie(query: String) = api.getDiscoverMovie(query)
-    suspend fun getMovieVideo(movieId: Int) = api.getMovieVideo(movieId)
-    suspend fun getMovieCast(movieId: Int) = api.getMovieCast(movieId)
-    suspend fun getDetailMovie(movieId: Int) = api.getDetailMovie(movieId)
-    suspend fun getMovieReviews(movieId: Int) = api.getReviewsMovie(movieId)
-    suspend fun getSimilarMovie(movieId: Int) = api.getSimilarMovie(movieId)
-    suspend fun getTvShowsAiringToday() = api.getTvShowsAiringToday()
-    suspend fun getTvShowsPopular() = api.getTvShowsPopular()
-    suspend fun getTvShowsTrending() = api.getTvShowsTrending()
-    suspend fun getDiscoverTvShows(query: String) = api.getDiscoverTvShows(query)
-    suspend fun getTvShowsVideo(tvId: Int) = api.getTvShowsVideo(tvId)
-    suspend fun getTvShowsCast(tvId: Int) = api.getTvShowsCast(tvId)
-    suspend fun getDetailTvShows(tvId: Int) = api.getDetailTvShows(tvId)
-    suspend fun getTvShowsReviews(tvId: Int) = api.getReviewsTvShows(tvId)
-    suspend fun getSimilarTvShows(tvId: Int) = api.getSimilarTvShows(tvId)
+class TheMovieShowRepository @Inject constructor(
+    private val remoteDataSource: RemoteDataSource,
+    private val localDataSource: LocalDataSource
+): BaseApiResponse() {
+
+    private val dispatchersIO = Dispatchers.IO
+    suspend fun getMovieNowPlaying(): Flow<NetworkResult<MovieMainResponse>> {
+        return flow {
+            emit(safeApiCall { remoteDataSource.getMovieNowPlaying() })
+        }.flowOn(dispatchersIO)
+    }
+
+    suspend fun getMovieUpcoming(): Flow<NetworkResult<MovieMainResponse>> {
+        return flow {
+            emit(safeApiCall { remoteDataSource.getMovieUpcoming() })
+        }.flowOn(dispatchersIO)
+    }
+
+    suspend fun getMovieTrendingDay() : Flow<NetworkResult<MovieTrendingResponse>> {
+        return flow {
+            emit(safeApiCall { remoteDataSource.getMovieTrendingDay() })
+        }.flowOn(dispatchersIO)
+    }
+    
+    suspend fun getDiscoverMovie(query: String) : Flow<NetworkResult<DiscoverMovieResponse>> {
+        return flow {
+            emit(safeApiCall { remoteDataSource.getDiscoverMovie(query) })
+        }.flowOn(dispatchersIO)
+    }
+
+    suspend fun getMovieVideo(movieId: Int) : Flow<NetworkResult<MovieVideoResponse>> {
+        return flow {
+            emit(safeApiCall { remoteDataSource.getMovieVideo(movieId) })
+        }.flowOn(dispatchersIO)
+    }
+
+    suspend fun getMovieCast(movieId: Int) : Flow<NetworkResult<MovieCastResponse>> {
+        return flow {
+            emit(safeApiCall { remoteDataSource.getMovieCast(movieId) })
+        }.flowOn(dispatchersIO)
+    }
+
+    suspend fun getDetailMovie(movieId: Int) : Flow<NetworkResult<MovieDetailResponse>> {
+        return flow {
+            emit(safeApiCall { remoteDataSource.getDetailMovie(movieId) })
+        }.flowOn(dispatchersIO)
+    }
+
+    suspend fun getMovieReviews(movieId: Int) : Flow<NetworkResult<ReviewsResponse>> {
+        return flow {
+            emit(safeApiCall { remoteDataSource.getMovieReviews(movieId) })
+        }.flowOn(dispatchersIO)
+    }
+
+    suspend fun getSimilarMovie(movieId: Int) : Flow<NetworkResult<MovieSimilarResponse>> {
+        return flow {
+            emit(safeApiCall { remoteDataSource.getSimilarMovie(movieId) })
+        }.flowOn(dispatchersIO)
+    }
+
+    suspend fun getTvShowsAiringToday() : Flow<NetworkResult<TvShowsMainResponse>> {
+        return flow {
+            emit(safeApiCall { remoteDataSource.getTvShowsAiringToday() })
+        }.flowOn(dispatchersIO)
+    }
+
+    suspend fun getTvShowsPopular() : Flow<NetworkResult<TvShowsMainResponse>> {
+        return flow {
+            emit(safeApiCall { remoteDataSource.getTvShowsPopular() })
+        }.flowOn(dispatchersIO)
+    }
+
+    suspend fun getTvShowsTrending() : Flow<NetworkResult<TvShowsTrendingResponse>> {
+        return flow {
+            emit(safeApiCall { remoteDataSource.getTvShowsTrending() })
+        }.flowOn(dispatchersIO)
+    }
+
+    suspend fun getDiscoverTvShows(query: String) : Flow<NetworkResult<DiscoverTvShowsResponse>> {
+        return flow {
+            emit(safeApiCall { remoteDataSource.getDiscoverTvShows(query) })
+        }.flowOn(dispatchersIO)
+    }
+
+    suspend fun getTvShowsVideo(tvId: Int) : Flow<NetworkResult<TvShowsVideoResponse>> {
+        return flow {
+            emit(safeApiCall { remoteDataSource.getTvShowsVideo(tvId) })
+        }.flowOn(dispatchersIO)
+    }
+
+    suspend fun getTvShowsCast(tvId: Int) : Flow<NetworkResult<TvShowsCastResponse>> {
+        return flow {
+            emit(safeApiCall { remoteDataSource.getTvShowsCast(tvId) })
+        }.flowOn(dispatchersIO)
+    }
+
+    suspend fun getDetailTvShows(tvId: Int) : Flow<NetworkResult<TvShowsPopularDetailResponse>> {
+        return flow {
+            emit(safeApiCall { remoteDataSource.getDetailTvShows(tvId) })
+        }.flowOn(dispatchersIO)
+    }
+
+    suspend fun getTvShowsReviews(tvId: Int) : Flow<NetworkResult<ReviewsResponse>> {
+        return flow {
+            emit(safeApiCall { remoteDataSource.getTvShowsReviews(tvId) })
+        }.flowOn(dispatchersIO)
+    }
+
+    suspend fun getSimilarTvShows(tvId: Int) : Flow<NetworkResult<TvShowsSimilarResponse>> {
+        return flow {
+            emit(safeApiCall { remoteDataSource.getSimilarTvShows(tvId) })
+        }.flowOn(dispatchersIO)
+    }
+
+    suspend fun addMovieToFavorite(favoriteMovie: FavoriteMovie) = localDataSource.addMovieToFavorite(favoriteMovie)
+
+    fun getFavoriteMovie() = localDataSource.getFavoriteMovies()
+
+    suspend fun checkFavoriteMovie(movieId: Int) = localDataSource.checkFavoriteMovie(movieId)
+
+    suspend fun removeMovieFromFavorite(movieId: Int) = localDataSource.removeMovieFromFavorite(movieId)
+
+    suspend fun addTvShowToFavorite(favoriteTvShow: FavoriteTvShow) = localDataSource.addTvShowToFavorite(favoriteTvShow)
+
+    fun getFavoriteTvShow() = localDataSource.getFavoriteTvShows()
+
+    suspend fun checkFavoriteTvShow(tvShowId: Int) = localDataSource.checkFavoriteTvShow(tvShowId)
+
+    suspend fun removeTvShowFromFavorite(tvShowId: Int) = localDataSource.removeTvShowFromFavorite(tvShowId)
+
+    fun getAboutAuthor() = localDataSource.getAboutAuthor()
+
+    fun getAboutApplication() = localDataSource.getAboutApplication()
 }

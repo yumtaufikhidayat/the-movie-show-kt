@@ -10,7 +10,9 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.databinding.FragmentFavoriteBinding
 import com.taufik.themovieshow.ui.main.favorite.adapter.FavoritePagerAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FavoriteFragment : Fragment() {
 
     private var _binding: FragmentFavoriteBinding? = null
@@ -31,8 +33,8 @@ class FavoriteFragment : Fragment() {
         setTabLayout()
     }
 
-    private fun setToolbar() = with(binding) {
-        toolbarFavorite.tvToolbar.text = getString(R.string.icFavorite)
+    private fun setToolbar() {
+        binding.toolbarFavorite.tvToolbar.text = getString(R.string.icFavorite)
     }
 
     private fun setTabLayout() = with(binding) {

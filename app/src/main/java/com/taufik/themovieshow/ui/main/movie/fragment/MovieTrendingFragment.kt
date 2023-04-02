@@ -8,10 +8,13 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.taufik.themovieshow.ui.main.movie.viewmodel.MovieViewModel
+import com.taufik.themovieshow.data.NetworkResult
 import com.taufik.themovieshow.databinding.FragmentMovieTrendingBinding
 import com.taufik.themovieshow.ui.main.movie.adapter.MovieTrendingAdapter
+import com.taufik.themovieshow.ui.main.movie.viewmodel.MovieViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MovieTrendingFragment : Fragment() {
 
     private var _binding: FragmentMovieTrendingBinding? = null
@@ -45,21 +48,23 @@ class MovieTrendingFragment : Fragment() {
     }
 
     private fun setData() {
-        showLoading(true)
         viewModel.apply {
             setMovieTrendingDay()
-            listTrendingDay.observe(viewLifecycleOwner) {
-                if (it != null) {
-                    movieTrendingAdapter.submitList(it)
-                    showLoading(false)
+            movieTrendingDayResponse.observe(viewLifecycleOwner) { response ->
+                when (response) {
+                    is NetworkResult.Loading -> showLoading(true)
+                    is NetworkResult.Success -> {
+                        showLoading(false)
+                        val data = response.data
+                        if (data != null) movieTrendingAdapter.submitList(data.results)
+                    }
+                    is NetworkResult.Error -> showLoading(false)
                 }
             }
         }
     }
 
-    private fun showLoading(isShow: Boolean) = with(binding) {
-        progressBar.isVisible = isShow
-    }
+    private fun showLoading(isShow: Boolean) = binding.progressBar.isVisible == isShow
 
     override fun onDestroyView() {
         super.onDestroyView()

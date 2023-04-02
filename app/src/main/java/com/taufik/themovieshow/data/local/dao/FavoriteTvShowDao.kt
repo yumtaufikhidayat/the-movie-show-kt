@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.taufik.themovieshow.data.local.entity.FavoriteTvShow
+import com.taufik.themovieshow.data.local.entity.tvshow.FavoriteTvShow
 
 @Dao
 interface FavoriteTvShowDao {

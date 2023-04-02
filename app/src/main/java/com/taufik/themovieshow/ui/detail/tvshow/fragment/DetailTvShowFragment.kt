@@ -9,27 +9,28 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.SnapHelper
 import com.taufik.themovieshow.R
-import com.taufik.themovieshow.ui.main.tvshow.viewmodel.DetailTvShowViewModel
+import com.taufik.themovieshow.data.NetworkResult
 import com.taufik.themovieshow.databinding.FragmentDetailTvShowBinding
 import com.taufik.themovieshow.ui.detail.tvshow.adapter.TvShowSimilarAdapter
 import com.taufik.themovieshow.ui.detail.tvshow.adapter.TvShowTrailerVideoAdapter
 import com.taufik.themovieshow.ui.detail.tvshow.adapter.TvShowsCastAdapter
 import com.taufik.themovieshow.ui.main.movie.adapter.ReviewsAdapter
+import com.taufik.themovieshow.ui.main.tvshow.viewmodel.DetailTvShowViewModel
 import com.taufik.themovieshow.utils.CommonDateFormatConstants
 import com.taufik.themovieshow.utils.convertDate
 import com.taufik.themovieshow.utils.loadImage
 import com.taufik.themovieshow.utils.showToasty
 import com.taufik.themovieshow.utils.toRating
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
+@AndroidEntryPoint
 class DetailTvShowFragment : Fragment() {
 
     private var _binding: FragmentDetailTvShowBinding? = null
@@ -71,8 +72,8 @@ class DetailTvShowFragment : Fragment() {
         title = arguments?.getString(EXTRA_TITLE, "") ?: ""
     }
 
-    private fun showToolbarData() = with(binding) {
-        toolbarDetailTvShow.apply {
+    private fun showToolbarData() {
+        binding.toolbarDetailTvShow.apply {
             tvToolbar.text = title
             imgBack.setOnClickListener {
                 findNavController().popBackStack()
@@ -80,115 +81,122 @@ class DetailTvShowFragment : Fragment() {
         }
     }
 
-    private fun setData() = with(binding) {
-        viewModel.apply {
-            setDetailTvShowPopular(idTvShow)
-            detailTvShows.observe(viewLifecycleOwner) {
-                if (it != null) {
-                    imgPoster.loadImage(it.posterPath)
-                    imgBackdrop.loadImage(it.backdropPath)
-                    tvTitle.text = it.name
+    private fun setData() {
+        binding.apply {
+            viewModel.apply {
+                setDetailTvShowPopular(idTvShow)
+                detailTvShowPopularResponse.observe(viewLifecycleOwner) { response ->
+                    when (response) {
+                        is NetworkResult.Loading -> {}
+                        is NetworkResult.Success -> {
+                            val data = response.data
+                            if (data != null) {
+                                imgPoster.loadImage(data.posterPath)
+                                imgBackdrop.loadImage(data.backdropPath)
+                                tvTitle.text = data.name
 
-                    when {
-                        it.networks.isEmpty() -> tvNetwork.text = "(N/A)"
-                        it.networks[0].originCountry == "" -> tvNetwork.text =
-                            String.format("${it.networks[0].name} (N/A)")
-                        else -> tvNetwork.text =
-                            String.format("${it.networks[0].name} (${it.networks[0].originCountry})")
-                    }
+                                when {
+                                    data.networks.isEmpty() -> tvNetwork.text = "(N/A)"
+                                    data.networks[0].originCountry.isEmpty() -> tvNetwork.text = String.format("${data.networks[0].name} (N/A)")
+                                    else -> tvNetwork.text = String.format("${data.networks[0].name} (${data.networks[0].originCountry})")
+                                }
 
-                    val startedOn = it.firstAirDate.convertDate(
-                        CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
-                        CommonDateFormatConstants.EEE_D_MMM_YYYY_FORMAT
-                    )
-                    tvStartedOn.text =
-                        String.format("%s %s", getString(R.string.tvStartedOn), startedOn)
+                                val startedOn = data.firstAirDate.convertDate(
+                                    CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
+                                    CommonDateFormatConstants.EEE_D_MMM_YYYY_FORMAT
+                                )
+                                tvStartedOn.text = String.format(
+                                    "%s %s",
+                                    getString(R.string.tvStartedOn),
+                                    startedOn
+                                )
 
-                    tvStatus.text = it.status
+                                tvStatus.text = data.status
 
-                    when {
-                        it.overview.isEmpty() -> {
-                            tvOverview.isVisible = false
-                            tvNoOverview.isVisible = true
-                            tvReadMore.isVisible = false
-                        }
-                        else -> {
-                            tvNoOverview.isVisible = false
-                            tvOverview.apply {
-                                isVisible = true
-                                text = it.overview
+                                when {
+                                    data.overview.isEmpty() -> {
+                                        tvOverview.isVisible = false
+                                        tvNoOverview.isVisible = true
+                                        tvReadMore.isVisible = false
+                                    }
+                                    else -> {
+                                        tvNoOverview.isVisible = false
+                                        tvOverview.apply {
+                                            isVisible = true
+                                            text = data.overview
+                                        }
+                                    }
+                                }
+
+                                when {
+                                    data.voteAverage.toString().isEmpty() -> tvRating.text = getString(R.string.tvNA)
+                                    else -> tvRating.text = toRating(data.voteAverage)
+                                }
+
+                                when {
+                                    data.originalLanguage.isEmpty() -> tvLanguage.text = getString(R.string.tvNA)
+                                    else -> tvLanguage.text =
+                                        if (data.spokenLanguages.isNotEmpty()) {
+                                            data.spokenLanguages[0].englishName
+                                        } else {
+                                            data.originalLanguage
+                                        }
+                                }
+
+                                when {
+                                    data.originCountry.isEmpty() -> tvCountry.text = getString(R.string.tvNA)
+                                    else -> tvCountry.text = data.originCountry.joinToString { countries -> countries }
+                                }
+
+                                when {
+                                    data.episodeRunTime.isEmpty() -> tvEpisodes.text = getString(R.string.tvNA)
+                                    else -> tvEpisodes.text = String.format(
+                                        "%s %s",
+                                        "${data.episodeRunTime[0]}",
+                                        getString(R.string.tvEps)
+                                    )
+                                }
+
+                                when {
+                                    data.genres.isEmpty() -> showNoGenres(true)
+                                    else -> {
+                                        showNoGenres(false)
+                                        tvGenre.text = data.genres.joinToString { genres -> genres.name }
+                                    }
+                                }
+
+                                checkFavoriteData(idTvShow)
+                                setActionFavorite(
+                                    idTvShow,
+                                    data.posterPath,
+                                    title,
+                                    data.firstAirDate,
+                                    data.voteAverage
+                                )
+                                shareTvShow(data.homepage)
+                                setCast(idTvShow)
+                                showTrailerVideo(idTvShow)
+                                showReviews(idTvShow)
+                                showSimilar(idTvShow)
                             }
                         }
+                        is NetworkResult.Error -> {}
                     }
-
-                    when {
-                        it.voteAverage.toString().isEmpty() -> tvRating.text =
-                            getString(R.string.tvNA)
-                        else -> tvRating.text = toRating(it.voteAverage)
-                    }
-
-                    when {
-                        it.originalLanguage.isEmpty() -> tvLanguage.text = getString(R.string.tvNA)
-                        else -> tvLanguage.text = if (it.spokenLanguages.isNotEmpty()) {
-                            it.spokenLanguages[0].englishName
-                        } else {
-                            it.originalLanguage
-                        }
-                    }
-
-                    when {
-                        it.originCountry.isEmpty() -> tvCountry.text = getString(R.string.tvNA)
-                        else -> tvCountry.text =
-                            it.originCountry.joinToString { countries -> countries }
-                    }
-
-                    when {
-                        it.episodeRunTime.isEmpty() -> tvEpisodes.text = getString(R.string.tvNA)
-                        else -> tvEpisodes.text = String.format(
-                            "%s %s",
-                            "${it.episodeRunTime[0]}",
-                            getString(R.string.tvEps)
-                        )
-                    }
-
-                    when {
-                        it.genres.isEmpty() -> showNoGenres(true)
-                        else -> {
-                            showNoGenres(false)
-                            tvGenre.text = it.genres.joinToString { genres -> genres.name }
-                        }
-                    }
-
-                    checkFavoriteData(idTvShow)
-                    setActionFavorite(
-                        idTvShow,
-                        it.posterPath,
-                        title,
-                        it.firstAirDate,
-                        it.voteAverage
-                    )
-                    shareTvShow(it.homepage)
-                    setCast(idTvShow)
-                    showTrailerVideo(idTvShow)
-                    showReviews(idTvShow)
-                    showSimilar(idTvShow)
                 }
             }
         }
     }
 
-    private fun checkFavoriteData(id: Int) = with(binding) {
-        CoroutineScope(Dispatchers.IO).launch {
-            val count = viewModel.checkFavorite(id)
-            withContext(Dispatchers.Main) {
-                if (count != null) {
-                    if (count > 0) {
-                        toolbarDetailTvShow.toggleFavorite.isChecked = true
-                        isChecked = true
-                    } else {
-                        toolbarDetailTvShow.toggleFavorite.isChecked = false
-                        isChecked = false
-                    }
+    private fun checkFavoriteData(id: Int) {
+        binding.apply {
+            lifecycleScope.launch {
+                val count = viewModel.checkFavoriteTvShow(id)
+                if (count > 0) {
+                    toolbarDetailTvShow.toggleFavorite.isChecked = true
+                    isChecked = true
+                } else {
+                    toolbarDetailTvShow.toggleFavorite.isChecked = false
+                    isChecked = false
                 }
             }
         }
@@ -200,27 +208,29 @@ class DetailTvShowFragment : Fragment() {
         title: String,
         firstAirDate: String,
         voteAverage: Double
-    ) = with(binding) {
-        toolbarDetailTvShow.toggleFavorite.setOnClickListener {
-            isChecked = !isChecked
-            if (isChecked) {
-                viewModel.addToFavorite(
-                    id,
-                    posterPath,
-                    title,
-                    firstAirDate,
-                    voteAverage
-                )
-                showToasty(requireContext(), getString(R.string.action_added_to_favorite))
-            } else {
-                viewModel.removeFromFavorite(id)
-                showToasty(requireContext(), getString(R.string.action_removed_from_favorite))
+    ) {
+        binding.apply {
+            toolbarDetailTvShow.toggleFavorite.setOnClickListener {
+                isChecked = !isChecked
+                if (isChecked) {
+                    viewModel.addTvShowFavorite(
+                        id,
+                        posterPath,
+                        title,
+                        firstAirDate,
+                        voteAverage
+                    )
+                    showToasty(requireContext(), getString(R.string.action_added_to_favorite))
+                } else {
+                    viewModel.removeTvShowFromFavorite(id)
+                    showToasty(requireContext(), getString(R.string.action_removed_from_favorite))
+                }
             }
         }
     }
 
-    private fun shareTvShow(link: String) = with(binding) {
-        toolbarDetailTvShow.imgShare.setOnClickListener {
+    private fun shareTvShow(link: String) {
+        binding.toolbarDetailTvShow.imgShare.setOnClickListener {
             try {
                 val body = getString(R.string.tvVisitTvShow, link)
                 val shareIntent = Intent(Intent.ACTION_SEND)
@@ -235,26 +245,27 @@ class DetailTvShowFragment : Fragment() {
         }
     }
 
-    private fun setReadMore() = with(binding) {
-        tvReadMore.isVisible = true
-        tvReadMore.setOnClickListener {
-            if (tvReadMore.text.toString() == getString(R.string.tvReadMore)) {
-                tvOverview.maxLines = Integer.MAX_VALUE
-                tvOverview.ellipsize = null
-                tvReadMore.text = getString(R.string.tvReadLess)
-            } else {
-                tvOverview.maxLines = 4
-                tvOverview.ellipsize = TextUtils.TruncateAt.END
-                tvReadMore.text = getString(R.string.tvReadMore)
+    private fun setReadMore() {
+        binding.apply {
+            tvReadMore.isVisible = true
+            tvReadMore.setOnClickListener {
+                if (tvReadMore.text.toString() == getString(R.string.tvReadMore)) {
+                    tvOverview.maxLines = Integer.MAX_VALUE
+                    tvOverview.ellipsize = null
+                    tvReadMore.text = getString(R.string.tvReadLess)
+                } else {
+                    tvOverview.maxLines = 4
+                    tvOverview.ellipsize = TextUtils.TruncateAt.END
+                    tvReadMore.text = getString(R.string.tvReadMore)
+                }
             }
         }
     }
 
-    private fun setCastAdapter() = with(binding) {
-        rvTvShowCast.apply {
+    private fun setCastAdapter() {
+        binding.rvTvShowCast.apply {
             val helper: SnapHelper = LinearSnapHelper()
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             helper.attachToRecyclerView(this)
             setHasFixedSize(true)
             adapter = castAdapter
@@ -264,22 +275,28 @@ class DetailTvShowFragment : Fragment() {
     private fun setCast(id: Int) {
         viewModel.apply {
             setDetailTvShowsCast(id)
-            listDetailCasts.observe(viewLifecycleOwner) {
-                if (it != null && it.isNotEmpty()) {
-                    castAdapter.submitList(it)
-                    showNoCast(false)
-                } else {
-                    showNoCast(true)
+            detailTvShowCastResponse.observe(viewLifecycleOwner) { response ->
+                when (response) {
+                    is NetworkResult.Loading -> {}
+                    is NetworkResult.Success -> {
+                        val data = response.data
+                        if (data != null && data.cast.isNotEmpty()) {
+                            castAdapter.submitList(data.cast)
+                            showNoCast(false)
+                        } else {
+                            showNoCast(true)
+                        }
+                    }
+                    is NetworkResult.Error -> {}
                 }
             }
         }
     }
 
-    private fun setTrailerVideoAdapter() = with(binding) {
-        rvTrailerVideo.apply {
+    private fun setTrailerVideoAdapter() {
+        binding.rvTrailerVideo.apply {
             val helper: SnapHelper = LinearSnapHelper()
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             helper.attachToRecyclerView(this)
             setHasFixedSize(true)
             adapter = trailerVideoAdapter
@@ -289,50 +306,64 @@ class DetailTvShowFragment : Fragment() {
     private fun showTrailerVideo(id: Int) {
         viewModel.apply {
             setDetailTvShowVideo(id)
-            detailVideo.observe(viewLifecycleOwner) {
-                if (it != null) {
-                    when {
-                        it.results.isEmpty() -> showVideo(false)
-                        else -> {
-                            showVideo(true)
-                            trailerVideoAdapter.submitList(it.results)
+                detailTvShowVideoResponse.observe(viewLifecycleOwner) { response ->
+                when (response) {
+                    is NetworkResult.Loading -> {}
+                    is NetworkResult.Success -> {
+                        val data = response.data
+                        if (data != null) {
+                            when {
+                                data.results.isEmpty() -> showVideo(false)
+                                else -> {
+                                    showVideo(true)
+                                    trailerVideoAdapter.submitList(data.results)
+                                }
+                            }
                         }
                     }
+                    is NetworkResult.Error -> {}
                 }
             }
         }
     }
 
-    private fun setReviewsAdapter() = with(binding) {
-        rvTvShowReviews.apply {
+    private fun setReviewsAdapter() {
+        binding.rvTvShowReviews.apply {
             val helper: SnapHelper = LinearSnapHelper()
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             helper.attachToRecyclerView(this)
             setHasFixedSize(true)
             adapter = reviewsAdapter
         }
     }
 
-    private fun showReviews(id: Int) = with(binding) {
-        viewModel.apply {
-            setDetailTvShowsReviews(id)
-            listReviewTvShows.observe(viewLifecycleOwner) {
-                if (it != null && it.isNotEmpty()) {
-                    reviewsAdapter.submitList(it)
-                    tvNoReviews.isVisible = false
-                } else {
-                    tvNoReviews.isVisible = true
+    private fun showReviews(id: Int) {
+        binding.apply {
+            viewModel.apply {
+                setDetailTvShowsReviews(id)
+                detailTvShowReviewsResponse.observe(viewLifecycleOwner) { response ->
+                    when (response) {
+                        is NetworkResult.Loading -> {}
+                        is NetworkResult.Success -> {
+                            val data = response.data
+                            if (data != null && data.results.isNotEmpty()) {
+                                reviewsAdapter.submitList(data.results)
+                                tvNoReviews.isVisible = false
+                            } else {
+                                tvNoReviews.isVisible = true
+                            }
+                        }
+                        is NetworkResult.Error -> {}
+                    }
                 }
             }
         }
     }
 
-    private fun setSimilarAdapter() = with(binding) {
-        rvTvShowSimilar.apply {
+    private fun setSimilarAdapter() {
+        binding.rvTvShowSimilar.apply {
             val helper: SnapHelper = LinearSnapHelper()
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             helper.attachToRecyclerView(this)
             setHasFixedSize(true)
             adapter = similarAdapter
@@ -342,24 +373,33 @@ class DetailTvShowFragment : Fragment() {
     private fun showSimilar(id: Int) {
         viewModel.apply {
             setDetailTvShowsSimilar(id)
-            listSimilarTvShows.observe(viewLifecycleOwner) {
-                if (it != null && it.isNotEmpty()) {
-                    similarAdapter.submitList(it)
-                    showNoSimilarTvShow(false)
-                } else {
-                    showNoSimilarTvShow(true)
+            detailTvShowSimilarResponse.observe(viewLifecycleOwner) { response ->
+                when (response) {
+                    is NetworkResult.Loading -> {}
+                    is NetworkResult.Success -> {
+                        val data = response.data
+                        if (data != null && data.results.isNotEmpty()) {
+                            similarAdapter.submitList(data.results)
+                            showNoSimilarTvShow(false)
+                        } else {
+                            showNoSimilarTvShow(true)
+                        }
+                    }
+                    is NetworkResult.Error -> {}
                 }
             }
         }
     }
 
-    private fun showVideo(isShow: Boolean) = with(binding) {
-        if (isShow) {
-            rvTrailerVideo.isVisible = true
-            tvNoVideo.isVisible = false
-        } else {
-            rvTrailerVideo.isVisible = false
-            tvNoVideo.isVisible = true
+    private fun showVideo(isShow: Boolean) {
+        binding.apply {
+            if (isShow) {
+                rvTrailerVideo.isVisible = true
+                tvNoVideo.isVisible = false
+            } else {
+                rvTrailerVideo.isVisible = false
+                tvNoVideo.isVisible = true
+            }
         }
     }
 

@@ -9,7 +9,9 @@ import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import com.taufik.themovieshow.databinding.ActivitySplashscreenBinding
 import com.taufik.themovieshow.ui.MainActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SplashscreenActivity : AppCompatActivity() {
 
     private val binding by lazy {

@@ -9,27 +9,28 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.SnapHelper
 import com.taufik.themovieshow.R
-import com.taufik.themovieshow.ui.main.movie.viewmodel.DetailMovieViewModel
+import com.taufik.themovieshow.data.NetworkResult
 import com.taufik.themovieshow.databinding.FragmentDetailMovieBinding
 import com.taufik.themovieshow.ui.detail.movie.adapter.MovieCastAdapter
 import com.taufik.themovieshow.ui.detail.movie.adapter.MovieSimilarAdapter
 import com.taufik.themovieshow.ui.detail.movie.adapter.MovieTrailerVideoAdapter
 import com.taufik.themovieshow.ui.main.movie.adapter.ReviewsAdapter
+import com.taufik.themovieshow.ui.main.movie.viewmodel.DetailMovieViewModel
 import com.taufik.themovieshow.utils.CommonDateFormatConstants
 import com.taufik.themovieshow.utils.convertDate
 import com.taufik.themovieshow.utils.loadImage
 import com.taufik.themovieshow.utils.showToasty
 import com.taufik.themovieshow.utils.toRating
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
+@AndroidEntryPoint
 class DetailMovieFragment : Fragment() {
 
     private var _binding: FragmentDetailMovieBinding? = null
@@ -71,106 +72,121 @@ class DetailMovieFragment : Fragment() {
         title = arguments?.getString(EXTRA_TITLE, "") ?: ""
     }
 
-    private fun showToolbarData() = with(binding) {
-        toolbarDetailMovie.apply {
-            tvToolbar.text = title
-            imgBack.setOnClickListener {
-                findNavController().popBackStack()
-            }
-        }
-    }
-
-    private fun setData() = with(binding) {
-        viewModel.apply {
-            setDetailMovies(idMovie)
-            detailMovies.observe(viewLifecycleOwner) {
-                if (it != null) {
-                    imgPoster.loadImage(it.posterPath)
-                    imgBackdrop.loadImage(it.backdropPath)
-                    tvTitle.text = it.title
-                    val releasedDate = it.releaseDate.convertDate(
-                        CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
-                        CommonDateFormatConstants.EEE_D_MMM_YYYY_FORMAT
-                    )
-                    tvReleasedOn.text =
-                        String.format("%s %s", getString(R.string.tvReleasedOn), releasedDate)
-
-                    tvStatus.text = it.status
-
-                    when {
-                        it.overview.isEmpty() -> {
-                            tvOverview.isVisible = false
-                            tvNoOverview.isVisible = true
-                            tvReadMore.isVisible = false
-                        }
-                        else -> {
-                            tvNoOverview.isVisible = false
-                            tvOverview.apply {
-                                isVisible = true
-                                text = it.overview
-                            }
-                        }
-                    }
-
-                    when {
-                        it.voteAverage.toString().isEmpty() -> tvRating.text =
-                            getString(R.string.tvNA)
-                        else -> tvRating.text = toRating(it.voteAverage)
-                    }
-
-                    when {
-                        it.originalLanguage.isEmpty() -> tvLanguage.text = getString(R.string.tvNA)
-                        else -> tvLanguage.text = if (it.spokenLanguages.isNotEmpty()) {
-                            it.spokenLanguages[0].englishName
-                        } else {
-                            it.originalLanguage
-                        }
-                    }
-
-                    when {
-                        it.productionCountries.isEmpty() -> tvCountry.text =
-                            getString(R.string.tvNA)
-                        else -> tvCountry.text =
-                            it.productionCountries.joinToString { countries -> countries.iso31661 }
-                    }
-
-                    when {
-                        it.runtime.toString().isEmpty() -> tvRuntime.text = getString(R.string.tvNA)
-                        else -> tvRuntime.text = convertRuntime(it.runtime)
-                    }
-
-                    when {
-                        it.genres.isEmpty() -> showNoGenres(true)
-                        else -> {
-                            showNoGenres(false)
-                            tvGenre.text = it.genres.joinToString { genre -> genre.name }
-                        }
-                    }
-
-                    checkFavoriteData(idMovie)
-                    setActionFavorite(idMovie, it.posterPath, title, it.releaseDate, it.voteAverage)
-                    shareMovie(it.homepage)
-                    setCast(idMovie)
-                    showTrailerVideo(idMovie)
-                    showReviews(idMovie)
-                    showSimilar(idMovie)
+    private fun showToolbarData() {
+        binding.apply {
+            toolbarDetailMovie.apply {
+                tvToolbar.text = title
+                imgBack.setOnClickListener {
+                    findNavController().popBackStack()
                 }
             }
         }
     }
 
-    private fun checkFavoriteData(id: Int) = with(binding) {
-        CoroutineScope(Dispatchers.IO).launch {
-            val count = viewModel.checkFavorite(id)
-            withContext(Dispatchers.Main) {
-                if (count != null) {
-                    if (count > 0) {
-                        toolbarDetailMovie.toggleFavorite.isChecked = true
-                        isChecked = true
-                    } else {
-                        toolbarDetailMovie.toggleFavorite.isChecked = false
-                        isChecked = false
+    private fun setData() {
+        binding.apply {
+            viewModel.apply {
+                setDetailMovies(idMovie)
+                detailMoviesResponse.observe(viewLifecycleOwner) { response ->
+                    when (response) {
+                        is NetworkResult.Loading -> {}
+                        is NetworkResult.Success -> {
+                            val data = response.data
+                            if (data != null) {
+                                imgPoster.loadImage(data.posterPath)
+                                imgBackdrop.loadImage(data.backdropPath)
+                                tvTitle.text = data.title
+                                val releasedDate = data.releaseDate.convertDate(
+                                    CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
+                                    CommonDateFormatConstants.EEE_D_MMM_YYYY_FORMAT
+                                )
+                                tvReleasedOn.text = String.format(
+                                    "%s %s",
+                                    getString(R.string.tvReleasedOn),
+                                    releasedDate
+                                )
+                                tvStatus.text = data.status
+
+                                when {
+                                    data.overview.isEmpty() -> {
+                                        tvOverview.isVisible = false
+                                        tvNoOverview.isVisible = true
+                                        tvReadMore.isVisible = false
+                                    }
+                                    else -> {
+                                        tvNoOverview.isVisible = false
+                                        tvOverview.apply {
+                                            isVisible = true
+                                            text = data.overview
+                                        }
+                                    }
+                                }
+
+                                when {
+                                    data.voteAverage.toString().isEmpty() -> tvRating.text = getString(R.string.tvNA)
+                                    else -> tvRating.text = toRating(data.voteAverage)
+                                }
+
+                                when {
+                                    data.originalLanguage.isEmpty() -> tvLanguage.text = getString(R.string.tvNA)
+                                    else -> tvLanguage.text =
+                                        if (data.spokenLanguages.isNotEmpty()) {
+                                            data.spokenLanguages[0].englishName
+                                        } else {
+                                            data.originalLanguage
+                                        }
+                                }
+
+                                when {
+                                    data.productionCountries.isEmpty() -> tvCountry.text = getString(R.string.tvNA)
+                                    else -> tvCountry.text = data.productionCountries.joinToString { countries -> countries.iso31661 }
+                                }
+
+                                when {
+                                    data.runtime.toString().isEmpty() -> tvRuntime.text = getString(R.string.tvNA)
+                                    else -> tvRuntime.text = convertRuntime(data.runtime)
+                                }
+
+                                when {
+                                    data.genres.isEmpty() -> showNoGenres(true)
+                                    else -> {
+                                        showNoGenres(false)
+                                        tvGenre.text = data.genres.joinToString { genre -> genre.name }
+                                    }
+                                }
+
+                                checkFavoriteData(idMovie)
+                                setActionFavorite(
+                                    idMovie,
+                                    data.posterPath,
+                                    title,
+                                    data.releaseDate,
+                                    data.voteAverage
+                                )
+                                shareMovie(data.homepage)
+                                setCast(idMovie)
+                                showTrailerVideo(idMovie)
+                                showReviews(idMovie)
+                                showSimilar(idMovie)
+                            }
+                        }
+                        is NetworkResult.Error -> {}
                     }
+                }
+            }
+        }
+    }
+
+    private fun checkFavoriteData(id: Int) {
+        binding.apply {
+            lifecycleScope.launch {
+                val count = viewModel.checkFavoriteMovie(id)
+                if (count > 0) {
+                    toolbarDetailMovie.toggleFavorite.isChecked = true
+                    isChecked = true
+                } else {
+                    toolbarDetailMovie.toggleFavorite.isChecked = false
+                    isChecked = false
                 }
             }
         }
@@ -182,61 +198,71 @@ class DetailMovieFragment : Fragment() {
         title: String,
         releaseDate: String,
         voteAverage: Double
-    ) = with(binding) {
-        toolbarDetailMovie.toggleFavorite.setOnClickListener {
-            isChecked = !isChecked
-            if (isChecked) {
-                viewModel.addToFavorite(
-                    id,
-                    posterPath,
-                    title,
-                    releaseDate,
-                    voteAverage
-                )
-                showToasty(requireContext(), getString(R.string.action_added_to_favorite))
-            } else {
-                viewModel.removeFromFavorite(id)
-                showToasty(requireContext(), getString(R.string.action_removed_from_favorite))
-            }
-        }
-    }
-
-    private fun shareMovie(link: String) = with(binding) {
-        toolbarDetailMovie.imgShare.setOnClickListener {
-            try {
-                val body = getString(R.string.tvVisitMovie, link)
-                val shareIntent = Intent(Intent.ACTION_SEND)
-                shareIntent.apply {
-                    type = "text/plain"
-                    putExtra(Intent.EXTRA_TEXT, body)
+    ) {
+        binding.apply {
+            toolbarDetailMovie.toggleFavorite.setOnClickListener {
+                isChecked = !isChecked
+                if (isChecked) {
+                    viewModel.addMovieToFavorite(
+                        id,
+                        posterPath,
+                        title,
+                        releaseDate,
+                        voteAverage
+                    )
+                    showToasty(requireContext(), getString(R.string.action_added_to_favorite))
+                } else {
+                    viewModel.removeMovieFromFavorite(id)
+                    showToasty(requireContext(), getString(R.string.action_removed_from_favorite))
                 }
-                startActivity(Intent.createChooser(shareIntent, getString(R.string.tvShareWith)))
-            } catch (e: Exception) {
-                showToasty(requireContext(), getString(R.string.tvOops))
+            }
+        }
+    }
+    
+    private fun shareMovie(link: String) {
+        binding.apply {
+            toolbarDetailMovie.imgShare.setOnClickListener {
+                try {
+                    val body = getString(R.string.tvVisitMovie, link)
+                    val shareIntent = Intent(Intent.ACTION_SEND)
+                    shareIntent.apply {
+                        type = "text/plain"
+                        putExtra(Intent.EXTRA_TEXT, body)
+                    }
+                    startActivity(
+                        Intent.createChooser(
+                            shareIntent,
+                            getString(R.string.tvShareWith)
+                        )
+                    )
+                } catch (e: Exception) {
+                    showToasty(requireContext(), getString(R.string.tvOops))
+                }
             }
         }
     }
 
-    private fun setReadMore() = with(binding) {
-        tvReadMore.isVisible = true
-        tvReadMore.setOnClickListener {
-            if (tvReadMore.text.toString() == getString(R.string.tvReadMore)) {
-                tvOverview.maxLines = Integer.MAX_VALUE
-                tvOverview.ellipsize = null
-                tvReadMore.text = getString(R.string.tvReadLess)
-            } else {
-                tvOverview.maxLines = 4
-                tvOverview.ellipsize = TextUtils.TruncateAt.END
-                tvReadMore.text = getString(R.string.tvReadMore)
+    private fun setReadMore() {
+        binding.apply {
+            tvReadMore.isVisible = true
+            tvReadMore.setOnClickListener {
+                if (tvReadMore.text.toString() == getString(R.string.tvReadMore)) {
+                    tvOverview.maxLines = Integer.MAX_VALUE
+                    tvOverview.ellipsize = null
+                    tvReadMore.text = getString(R.string.tvReadLess)
+                } else {
+                    tvOverview.maxLines = 4
+                    tvOverview.ellipsize = TextUtils.TruncateAt.END
+                    tvReadMore.text = getString(R.string.tvReadMore)
+                }
             }
         }
     }
 
-    private fun setCastAdapter() = with(binding) {
-        rvMovieCast.apply {
+    private fun setCastAdapter() {
+        binding.rvMovieCast.apply {
             val helper: SnapHelper = LinearSnapHelper()
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             helper.attachToRecyclerView(this)
             setHasFixedSize(true)
             adapter = castAdapter
@@ -246,22 +272,28 @@ class DetailMovieFragment : Fragment() {
     private fun setCast(id: Int) {
         viewModel.apply {
             setDetailMovieCast(id)
-            listDetailCast.observe(viewLifecycleOwner) {
-                if (it != null && it.isNotEmpty()) {
-                    castAdapter.submitList(it)
-                    showNoCast(false)
-                } else {
-                    showNoCast(true)
+            detailMoviesCastResponse.observe(viewLifecycleOwner) { response ->
+                when (response) {
+                    is NetworkResult.Loading -> showNoCast(false)
+                    is NetworkResult.Success -> {
+                       val cast = response.data?.cast
+                        if (cast.isNullOrEmpty()) {
+                            showNoCast(true)
+                        } else {
+                            showNoCast(false)
+                            castAdapter.submitList(cast)
+                        }
+                    }
+                    is NetworkResult.Error -> showNoCast(false)
                 }
             }
         }
     }
 
-    private fun setTrailerVideoAdapter() = with(binding) {
-        rvTrailerVideo.apply {
+    private fun setTrailerVideoAdapter() {
+        binding.rvTrailerVideo.apply {
             val helper: SnapHelper = LinearSnapHelper()
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             helper.attachToRecyclerView(this)
             setHasFixedSize(true)
             adapter = trailerVideoAdapter
@@ -271,50 +303,61 @@ class DetailMovieFragment : Fragment() {
     private fun showTrailerVideo(id: Int) {
         viewModel.apply {
             setDetailMovieVideo(id)
-            detailVideo.observe(viewLifecycleOwner) {
-                if (it != null) {
-                    when {
-                        it.results.isEmpty() -> showVideo(false)
-                        else -> {
+            detailMoviesVideoResponse.observe(viewLifecycleOwner) { response ->
+                when (response) {
+                    is NetworkResult.Loading -> showVideo(false)
+                    is NetworkResult.Success -> {
+                        val results = response.data?.results
+                        if (results.isNullOrEmpty()) {
+                            showVideo(false)
+                        } else {
                             showVideo(true)
-                            trailerVideoAdapter.submitList(it.results)
+                            trailerVideoAdapter.submitList(results)
                         }
                     }
+                    is NetworkResult.Error -> showVideo(false)
                 }
             }
         }
     }
 
-    private fun setReviewsAdapter() = with(binding) {
-        rvMovieReviews.apply {
+    private fun setReviewsAdapter() {
+        binding.rvMovieReviews.apply {
             val helper: SnapHelper = LinearSnapHelper()
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             helper.attachToRecyclerView(this)
             setHasFixedSize(true)
             adapter = reviewsAdapter
         }
     }
 
-    private fun showReviews(id: Int) = with(binding) {
-        viewModel.apply {
-            setDetailMovieReviews(id)
-            listReviewMovie.observe(viewLifecycleOwner) {
-                if (it != null && it.isNotEmpty()) {
-                    reviewsAdapter.submitList(it)
-                    tvNoReviews.isVisible = false
-                } else {
-                    tvNoReviews.isVisible = true
+    private fun showReviews(id: Int) {
+        binding.apply {
+            viewModel.apply {
+                setDetailMovieReviews(id)
+                    detailMovieReviewsResponse.observe(viewLifecycleOwner) { response ->
+                    when (response) {
+                        is NetworkResult.Loading -> tvNoReviews.isVisible = false
+                        is NetworkResult.Success -> {
+                            val results = response.data?.results
+                            if (results.isNullOrEmpty()) {
+                                tvNoReviews.isVisible = true
+                            } else {
+                                tvNoReviews.isVisible = false
+                                reviewsAdapter.submitList(results)
+                            }
+                        }
+                        is NetworkResult.Error -> tvNoReviews.isVisible = false
+                    }
                 }
             }
         }
     }
 
-    private fun setSimilarMovieAdapter() = with(binding) {
-        rvMovieSimilar.apply {
+    private fun setSimilarMovieAdapter() {
+        binding.rvMovieSimilar.apply {
             val helper: SnapHelper = LinearSnapHelper()
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             helper.attachToRecyclerView(this)
             setHasFixedSize(true)
             adapter = similarAdapter
@@ -324,12 +367,19 @@ class DetailMovieFragment : Fragment() {
     private fun showSimilar(id: Int) {
         viewModel.apply {
             setDetailMovieSimilar(id)
-            listSimilarMovie.observe(viewLifecycleOwner) {
-                if (it != null && it.isNotEmpty()) {
-                    similarAdapter.submitList(it)
-                    showNoSimilarMovie(false)
-                } else {
-                    showNoSimilarMovie(true)
+                detailMovieSimilarResponse.observe(viewLifecycleOwner) { response ->
+                when (response) {
+                    is NetworkResult.Loading -> showNoSimilarMovie(false)
+                    is NetworkResult.Success -> {
+                        val results = response.data?.results
+                        if (results.isNullOrEmpty()){
+                            showNoSimilarMovie(true)
+                        } else {
+                            showNoSimilarMovie(false)
+                            similarAdapter.submitList(results)
+                        }
+                    }
+                    is NetworkResult.Error -> showNoSimilarMovie(false)
                 }
             }
         }
@@ -341,13 +391,15 @@ class DetailMovieFragment : Fragment() {
         return getString(R.string.tvRuntimeInTime, hours, minutes)
     }
 
-    private fun showVideo(isShow: Boolean) = with(binding) {
-        if (isShow) {
-            rvTrailerVideo.isVisible = true
-            tvNoVideo.isVisible = false
-        } else {
-            rvTrailerVideo.isVisible = false
-            tvNoVideo.isVisible = true
+    private fun showVideo(isShow: Boolean) {
+        binding.apply {
+            if (isShow) {
+                rvTrailerVideo.isVisible = true
+                tvNoVideo.isVisible = false
+            } else {
+                rvTrailerVideo.isVisible = false
+                tvNoVideo.isVisible = true
+            }
         }
     }
 

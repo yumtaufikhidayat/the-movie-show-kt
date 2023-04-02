@@ -14,17 +14,20 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.taufik.themovieshow.R
-import com.taufik.themovieshow.data.local.entity.FavoriteMovie
-import com.taufik.themovieshow.ui.main.movie.viewmodel.FavoriteMovieViewModel
+import com.taufik.themovieshow.data.local.entity.movie.FavoriteMovie
+import com.taufik.themovieshow.ui.main.favorite.viewmodel.FavoriteMovieViewModel
 import com.taufik.themovieshow.databinding.FragmentFavoriteMovieBinding
+import com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult
 import com.taufik.themovieshow.ui.main.movie.adapter.MovieAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FavoriteMovieFragment : Fragment() {
 
     private var _binding: FragmentFavoriteMovieBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel by viewModels<FavoriteMovieViewModel>()
+    private val viewModel: FavoriteMovieViewModel by viewModels()
     private val movieAdapter by lazy { MovieAdapter() }
 
     override fun onCreateView(
@@ -44,8 +47,8 @@ class FavoriteMovieFragment : Fragment() {
         searchData()
     }
 
-    private fun setAdapter() = with(binding) {
-        rvDiscoverFavoriteMovies.apply {
+    private fun setAdapter() {
+        binding.rvDiscoverFavoriteMovies.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
             adapter = movieAdapter
@@ -53,7 +56,7 @@ class FavoriteMovieFragment : Fragment() {
     }
 
     private fun getFavoriteMovie() {
-        viewModel.getFavoriteMovies()?.observe(viewLifecycleOwner) {
+        viewModel.getFavoriteMovies().observe(viewLifecycleOwner) {
             if (it != null && it.isNotEmpty()) {
                 movieAdapter.setData(mapList(it))
                 showNoFavorite(false)
@@ -79,12 +82,11 @@ class FavoriteMovieFragment : Fragment() {
         }
     }
 
-    private fun mapList(movies: List<FavoriteMovie>): ArrayList<com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult> {
-        val listMovies =
-            ArrayList<com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult>()
+    private fun mapList(movies: List<FavoriteMovie>): ArrayList<MovieMainResult> {
+        val listMovies = ArrayList<MovieMainResult>()
         movies.forEach { movie ->
             val movieMapped =
-                com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult(
+                MovieMainResult(
                     movie.movieId,
                     movie.moviePoster,
                     movie.movieReleaseData,
@@ -97,22 +99,25 @@ class FavoriteMovieFragment : Fragment() {
         return listMovies
     }
 
-    private fun hideKeyboard() = with(binding) {
-        etSearch.clearFocus()
-        val imm =
-            requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(etSearch.windowToken, 0)
+    private fun hideKeyboard() {
+        binding.apply {
+            etSearch.clearFocus()
+            val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(etSearch.windowToken, 0)
+        }
     }
 
-    private fun showNoFavorite(isShow: Boolean) = with(binding) {
-        if (isShow) {
-            layoutNoFavorite.apply {
-                root.isVisible = true
-                imgError.setImageResource(R.drawable.ic_outline_no_favorite)
-                tvError.text = getString(R.string.tvNoFavoriteData)
+    private fun showNoFavorite(isShow: Boolean) {
+        binding.apply {
+            if (isShow) {
+                layoutNoFavorite.apply {
+                    root.isVisible = true
+                    imgError.setImageResource(R.drawable.ic_outline_no_favorite)
+                    tvError.text = getString(R.string.tvNoFavoriteData)
+                }
+            } else {
+                layoutNoFavorite.root.isVisible = false
             }
-        } else {
-            layoutNoFavorite.root.isVisible = false
         }
     }
 

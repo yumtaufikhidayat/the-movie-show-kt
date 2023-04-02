@@ -1,12 +1,13 @@
 package com.taufik.themovieshow.ui.main.about.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.taufik.themovieshow.model.response.about.About
-import com.taufik.themovieshow.utils.UtilsData
+import com.taufik.themovieshow.data.repository.TheMovieShowRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class AboutViewModel : ViewModel() {
-    fun getAboutAuthor(): List<About> = UtilsData.generateAboutAuthorData()
+@HiltViewModel
+class AboutViewModel @Inject constructor(private val repository: TheMovieShowRepository): ViewModel() {
+    fun getAboutAuthor() = repository.getAboutAuthor()
 
-    fun getAboutApplication(): List<About> =
-        UtilsData.generateAboutApplicationData()
+    fun getAboutApplication() = repository.getAboutApplication()
 }
