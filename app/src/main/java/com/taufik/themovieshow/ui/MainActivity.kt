@@ -14,7 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
-    private lateinit var navController: NavController
+    private var navController: NavController? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,11 +26,11 @@ class MainActivity : AppCompatActivity() {
     private fun setNavHost() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer) as NavHostFragment
         navController = navHostFragment.findNavController()
-        binding.navBottom.setupWithNavController(navController)
+        navController?.let { binding.navBottom.setupWithNavController(it) }
     }
 
     private fun setUpNavigationDestination() {
-        navController.addOnDestinationChangedListener { _, destination, _ ->
+        navController?.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.detailTvShowFragment -> showHideBottomNavigation(false)
                 R.id.detailMovieFragment -> showHideBottomNavigation(false)
@@ -43,5 +43,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun showHideBottomNavigation(isShow: Boolean)  {
         binding.navBottom.isVisible = isShow
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        navController = null
     }
 }
