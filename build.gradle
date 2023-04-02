@@ -1,6 +1,6 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
-    ext.kotlin_version = "1.7.20"
+    ext.kotlin_version = "1.8.10"
     repositories {
         google()
         jcenter()
@@ -31,12 +31,13 @@ buildscript {
         recyclerViewVersion = '1.1.0'
         glideVersion = '4.15.0'
         lifeCycleVersion = '2.2.0'
+        lifeCycleKtxVersion = '2.6.1'
         retrofitVersion = '2.9.0'
         okHttpVersion = '4.10.0'
         navKTXVersion = '2.5.3'
-        androidKTXVersion = '1.5.5'
+        androidKTXVersion = '1.5.6'
         videoVersion = "10.0.5"
-        roomVersion = '2.5.0'
+        roomVersion = '2.5.1'
         espressoVersion = '3.5.1'
         hiltVersion = '2.44'
         toastVersion = '1.5.0'

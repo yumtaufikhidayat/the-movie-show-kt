@@ -39,8 +39,8 @@ class MovieTrendingFragment : Fragment() {
         setData()
     }
 
-    private fun setAdapter() = with(binding) {
-        rvTrendingMovie.apply {
+    private fun setAdapter()  {
+        binding.rvTrendingMovie.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
             adapter = movieTrendingAdapter

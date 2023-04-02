@@ -37,16 +37,18 @@ class TvShowFragment : Fragment() {
         binding.toolbarTvShow.tvToolbar.text = getString(R.string.icTVShows)
     }
 
-    private fun setTabLayout() = with(binding) {
-        val mainPagerAdapter = TvShowPagerAdapter(this@TvShowFragment)
-        viewPagerTvShow.adapter = mainPagerAdapter
-        TabLayoutMediator(tabLayoutTvShow, viewPagerTvShow) { tabs, position ->
-            tabs.text = getString(tabsTitle[position])
-        }.attach()
+    private fun setTabLayout() {
+        binding.apply {
+            val mainPagerAdapter = TvShowPagerAdapter(this@TvShowFragment)
+            viewPagerTvShow.adapter = mainPagerAdapter
+            TabLayoutMediator(tabLayoutTvShow, viewPagerTvShow) { tabs, position ->
+                tabs.text = getString(tabsTitle[position])
+            }.attach()
+        }
     }
 
-    private fun setActionClick() = with(binding) {
-        fabTvShow.setOnClickListener {
+    private fun setActionClick()  {
+        binding.fabTvShow.setOnClickListener {
             findNavController().navigate(R.id.discoverTvShowFragment)
         }
     }

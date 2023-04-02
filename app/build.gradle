@@ -78,6 +78,8 @@ dependencies {
 
     // View Model
     implementation "androidx.lifecycle:lifecycle-extensions:$lifeCycleVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifeCycleKtxVersion"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifeCycleKtxVersion"
 
     // Network
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
@@ -107,4 +109,8 @@ dependencies {
     // Hilt
     implementation "com.google.dagger:hilt-android:$hiltVersion"
     kapt "com.google.dagger:hilt-compiler:$hiltVersion"
+}
+
+kapt {
+    correctErrorTypes true
 }

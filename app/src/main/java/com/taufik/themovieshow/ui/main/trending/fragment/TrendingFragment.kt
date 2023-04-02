@@ -49,12 +49,14 @@ class TrendingFragment : Fragment() {
         binding.toolbarTrending.tvToolbar.text = getString(R.string.icTrending)
     }
 
-    private fun setTabLayout() = with(binding) {
-        val mainPagerAdapter = TrendingPagerAdapter(this@TrendingFragment)
-        viewPagerTrending.adapter = mainPagerAdapter
-        TabLayoutMediator(tabLayoutTrending, viewPagerTrending) { tabs, position ->
-            tabs.text = getString(tabsTitle[position])
-        }.attach()
+    private fun setTabLayout() {
+        binding.apply {
+            val mainPagerAdapter = TrendingPagerAdapter(this@TrendingFragment)
+            viewPagerTrending.adapter = mainPagerAdapter
+            TabLayoutMediator(tabLayoutTrending, viewPagerTrending) { tabs, position ->
+                tabs.text = getString(tabsTitle[position])
+            }.attach()
+        }
     }
 
     override fun onDestroyView() {

@@ -37,16 +37,18 @@ class MovieFragment : Fragment() {
         binding.toolbarMovie.tvToolbar.text = getString(R.string.icMovies)
     }
 
-    private fun setTabLayout() = with(binding) {
-        val mainPagerAdapter = MoviePagerAdapter(this@MovieFragment)
-        viewPagerMovie.adapter = mainPagerAdapter
-        TabLayoutMediator(tabLayoutMovie, viewPagerMovie) { tabs, position ->
-            tabs.text = getString(tabsTitle[position])
-        }.attach()
+    private fun setTabLayout()  {
+        binding.apply {
+            val mainPagerAdapter = MoviePagerAdapter(this@MovieFragment)
+            viewPagerMovie.adapter = mainPagerAdapter
+            TabLayoutMediator(tabLayoutMovie, viewPagerMovie) { tabs, position ->
+                tabs.text = getString(tabsTitle[position])
+            }.attach()
+        }
     }
 
-    private fun setActionClick() = with(binding) {
-        fabMovie.setOnClickListener {
+    private fun setActionClick()  {
+        binding.fabMovie.setOnClickListener {
             findNavController().navigate(R.id.discoverMovieFragment)
         }
     }

@@ -38,8 +38,8 @@ class MovieNowPlayingFragment : Fragment() {
         setData()
     }
 
-    private fun setAdapter() = with(binding) {
-        rvMovie.apply {
+    private fun setAdapter()  {
+        binding.rvMovie.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
             adapter = movieAdapter

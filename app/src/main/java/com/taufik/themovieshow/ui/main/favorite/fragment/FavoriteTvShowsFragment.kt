@@ -46,8 +46,8 @@ class FavoriteTvShowsFragment : Fragment() {
         searchData()
     }
 
-    private fun setAdapter() = with(binding) {
-        rvDiscoverFavoriteTvShow.apply {
+    private fun setAdapter()  {
+        binding.rvDiscoverFavoriteTvShow.apply {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
             adapter = tvShowsAdapter
@@ -99,22 +99,25 @@ class FavoriteTvShowsFragment : Fragment() {
         return listTvShow
     }
 
-    private fun hideKeyboard() = with(binding) {
-        etSearch.clearFocus()
-        val imm =
-            requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(etSearch.windowToken, 0)
+    private fun hideKeyboard()  {
+        binding.apply {
+            etSearch.clearFocus()
+            val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(etSearch.windowToken, 0)
+        }
     }
 
-    private fun showNoFavorite(isShow: Boolean) = with(binding) {
-        if (isShow) {
-            layoutNoFavorite.apply {
-                root.isVisible = true
-                imgError.setImageResource(R.drawable.ic_outline_no_favorite)
-                tvError.text = getString(R.string.tvNoFavoriteData)
+    private fun showNoFavorite(isShow: Boolean)  {
+        binding.apply {
+            if (isShow) {
+                layoutNoFavorite.apply {
+                    root.isVisible = true
+                    imgError.setImageResource(R.drawable.ic_outline_no_favorite)
+                    tvError.text = getString(R.string.tvNoFavoriteData)
+                }
+            } else {
+                layoutNoFavorite.root.isVisible = false
             }
-        } else {
-            layoutNoFavorite.root.isVisible = false
         }
     }
 

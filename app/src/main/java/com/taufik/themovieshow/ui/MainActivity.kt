@@ -13,11 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-
-    private val binding by lazy {
-        ActivityMainBinding.inflate(layoutInflater)
-    }
-
+    private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,11 +23,10 @@ class MainActivity : AppCompatActivity() {
         setUpNavigationDestination()
     }
 
-    private fun setNavHost() = with(binding) {
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.fragmentContainer) as NavHostFragment
+    private fun setNavHost() {
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer) as NavHostFragment
         navController = navHostFragment.findNavController()
-        navBottom.setupWithNavController(navController)
+        binding.navBottom.setupWithNavController(navController)
     }
 
     private fun setUpNavigationDestination() {
@@ -46,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun showHideBottomNavigation(isShow: Boolean) = with(binding) {
-        navBottom.isVisible = isShow
+    private fun showHideBottomNavigation(isShow: Boolean)  {
+        binding.navBottom.isVisible = isShow
     }
 }

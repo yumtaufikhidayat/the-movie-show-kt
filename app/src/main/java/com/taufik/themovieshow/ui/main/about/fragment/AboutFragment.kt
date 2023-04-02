@@ -40,12 +40,12 @@ class AboutFragment : Fragment() {
         setApplicationData()
     }
 
-    private fun setToolbar() = with(binding) {
-        toolbarAbout.tvToolbar.text = getString(R.string.icAbout)
+    private fun setToolbar()  {
+        binding.toolbarAbout.tvToolbar.text = getString(R.string.icAbout)
     }
 
-    private fun setAuthorData() = with(binding) {
-        rvAuthorAbout.apply {
+    private fun setAuthorData()  {
+        binding.rvAuthorAbout.apply {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
             adapter = authorAdapter
@@ -53,8 +53,8 @@ class AboutFragment : Fragment() {
         authorAdapter.submitList(viewModel.getAboutAuthor())
     }
 
-    private fun setApplicationData() = with(binding) {
-        rvApplicationAbout.apply {
+    private fun setApplicationData()  {
+        binding.rvApplicationAbout.apply {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
             adapter = applicationAdapter

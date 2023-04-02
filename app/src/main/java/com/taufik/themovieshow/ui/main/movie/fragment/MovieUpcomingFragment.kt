@@ -39,8 +39,8 @@ class MovieUpcomingFragment : Fragment() {
         setData()
     }
 
-    private fun setAdapter() = with(binding) {
-        rvMovie.apply {
+    private fun setAdapter()  {
+        binding.rvMovie.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
             adapter = movieAdapter
@@ -64,8 +64,8 @@ class MovieUpcomingFragment : Fragment() {
         }
     }
 
-    private fun showLoading(isShow: Boolean) = with(binding) {
-        progressBar.isVisible = isShow
+    private fun showLoading(isShow: Boolean)  {
+        binding.progressBar.isVisible = isShow
     }
 
     override fun onDestroyView() {

@@ -34,11 +34,11 @@ class SplashscreenActivity : AppCompatActivity() {
         }, DELAY_TIME)
     }
 
-    private fun setAppVersion() = with(binding) {
+    private fun setAppVersion()  {
         try {
             val pInfo: PackageInfo = packageManager.getPackageInfo(packageName, 0)
             val appVersion = pInfo.versionName
-            tvAppVersion.text = appVersion
+            binding.tvAppVersion.text = appVersion
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
         }
