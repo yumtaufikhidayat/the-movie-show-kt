@@ -1,32 +1,21 @@
 package com.taufik.themovieshow.ui.main.movie.adapter
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Filter
-import android.widget.Filterable
-import androidx.navigation.findNavController
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.databinding.ItemsMoviesTvShowBinding
 import com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult
-import com.taufik.themovieshow.ui.detail.movie.fragment.DetailMovieFragment
 import com.taufik.themovieshow.utils.CommonDateFormatConstants
 import com.taufik.themovieshow.utils.convertDate
 import com.taufik.themovieshow.utils.loadImage
 import com.taufik.themovieshow.utils.toRating
-import java.util.*
 
-class MovieAdapter : ListAdapter<MovieMainResult, MovieAdapter.MovieViewHolder>(MovieDiffCallback), Filterable {
-
-    private var listMovies = listOf<MovieMainResult>()
-
-    fun setData(list: List<MovieMainResult>) {
-        this.listMovies = list
-        submitList(list)
-    }
+class MovieAdapter(
+    private val onItemClickListener: (MovieMainResult) -> Unit
+) : PagingDataAdapter<MovieMainResult, MovieAdapter.MovieViewHolder>(MovieDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         return MovieViewHolder(
@@ -39,7 +28,9 @@ class MovieAdapter : ListAdapter<MovieMainResult, MovieAdapter.MovieViewHolder>(
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        val data = getItem(position)
+        if (data != null) holder.bind(data)
+        holder.setIsRecyclable(false)
     }
 
     inner class MovieViewHolder(private val binding: ItemsMoviesTvShowBinding) :
@@ -55,10 +46,7 @@ class MovieAdapter : ListAdapter<MovieMainResult, MovieAdapter.MovieViewHolder>(
                 tvRating.text = toRating(data.voteAverage)
 
                 itemView.setOnClickListener {
-                    val bundle = Bundle()
-                    bundle.putInt(DetailMovieFragment.EXTRA_ID, data.id)
-                    bundle.putString(DetailMovieFragment.EXTRA_TITLE, data.title)
-                    it.findNavController().navigate(R.id.detailMovieFragment, bundle)
+                    onItemClickListener(data)
                 }
             }
         }
@@ -75,30 +63,5 @@ class MovieAdapter : ListAdapter<MovieMainResult, MovieAdapter.MovieViewHolder>(
             oldItem: MovieMainResult,
             newItem: MovieMainResult
         ): Boolean = oldItem == newItem
-    }
-
-    override fun getFilter(): Filter = searchFilter
-
-    private val searchFilter = object : Filter() {
-        override fun performFiltering(p0: CharSequence): FilterResults {
-            val filteredList =
-                mutableListOf<MovieMainResult>()
-            if (p0.isEmpty()) {
-                filteredList.addAll(listMovies)
-            } else {
-                val filterPattern = p0.toString().lowercase(Locale.ROOT).trim()
-                listMovies.forEach { item ->
-                    if (item.title.lowercase().contains(filterPattern)) filteredList.add(item)
-                }
-            }
-
-            val result = FilterResults()
-            result.values = filteredList
-            return result
-        }
-
-        override fun publishResults(p0: CharSequence?, p1: FilterResults?) {
-            submitList(p1?.values as MutableList<MovieMainResult>?)
-        }
     }
 }

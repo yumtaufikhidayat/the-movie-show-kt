@@ -3,7 +3,9 @@ package com.taufik.themovieshow.ui.main.movie.adapter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.AdapterView.OnItemClickListener
 import androidx.navigation.findNavController
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -16,7 +18,9 @@ import com.taufik.themovieshow.utils.convertDate
 import com.taufik.themovieshow.utils.loadImage
 import com.taufik.themovieshow.utils.toRating
 
-class MovieTrendingAdapter : ListAdapter<MovieTrendingResult, MovieTrendingAdapter.MovieViewHolder>(MovieTrendingDiffCallback) {
+class MovieTrendingAdapter(
+    private val onItemClickListener: (MovieTrendingResult) -> Unit
+) : PagingDataAdapter<MovieTrendingResult, MovieTrendingAdapter.MovieViewHolder>(MovieTrendingDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         return MovieViewHolder(
@@ -29,7 +33,9 @@ class MovieTrendingAdapter : ListAdapter<MovieTrendingResult, MovieTrendingAdapt
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        val data = getItem(position)
+        if (data != null) holder.bind(data)
+        holder.setIsRecyclable(false)
     }
 
     inner class MovieViewHolder(private val binding: ItemsMoviesTvShowBinding) :
@@ -45,10 +51,7 @@ class MovieTrendingAdapter : ListAdapter<MovieTrendingResult, MovieTrendingAdapt
                 tvRating.text = toRating(data.voteAverage)
 
                 itemView.setOnClickListener {
-                    val bundle = Bundle()
-                    bundle.putInt(DetailMovieFragment.EXTRA_ID, data.id)
-                    bundle.putString(DetailMovieFragment.EXTRA_TITLE, data.title)
-                    it.findNavController().navigate(R.id.detailMovieFragment, bundle)
+                    onItemClickListener(data)
                 }
             }
     }

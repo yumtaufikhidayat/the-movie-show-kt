@@ -7,12 +7,18 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.taufik.themovieshow.data.NetworkResult
+import com.taufik.themovieshow.R
 import com.taufik.themovieshow.databinding.FragmentMovieTrendingBinding
+import com.taufik.themovieshow.ui.detail.movie.fragment.DetailMovieFragment
+import com.taufik.themovieshow.ui.main.LoadMoreAdapter
 import com.taufik.themovieshow.ui.main.movie.adapter.MovieTrendingAdapter
 import com.taufik.themovieshow.ui.main.movie.viewmodel.MovieViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MovieTrendingFragment : Fragment() {
@@ -21,7 +27,7 @@ class MovieTrendingFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel by viewModels<MovieViewModel>()
-    private val movieTrendingAdapter by lazy { MovieTrendingAdapter() }
+    private var movieTrendingAdapter: MovieTrendingAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,20 +54,27 @@ class MovieTrendingFragment : Fragment() {
     }
 
     private fun setData() {
-        viewModel.apply {
-            setMovieTrendingDay()
-            movieTrendingDayResponse.observe(viewLifecycleOwner) { response ->
-                when (response) {
-                    is NetworkResult.Loading -> showLoading(true)
-                    is NetworkResult.Success -> {
-                        showLoading(false)
-                        val data = response.data
-                        if (data != null) movieTrendingAdapter.submitList(data.results)
-                    }
-                    is NetworkResult.Error -> showLoading(false)
+        lifecycleScope.launch {
+            movieTrendingAdapter = MovieTrendingAdapter {
+                val bundle = Bundle().apply {
+                    putInt(DetailMovieFragment.EXTRA_ID, it.id)
+                    putString(DetailMovieFragment.EXTRA_TITLE, it.title)
                 }
+                findNavController().navigate(R.id.detailMovieFragment, bundle)
+            }
+
+            viewModel.setMovieTrendingDay().collect {
+                movieTrendingAdapter?.submitData(it)
+            }
+
+            movieTrendingAdapter?.loadStateFlow?.collect {
+                showLoading(it.refresh is LoadState.Loading)
             }
         }
+
+        binding.rvTrendingMovie.adapter = movieTrendingAdapter?.withLoadStateFooter( LoadMoreAdapter {
+            movieTrendingAdapter?.retry()
+        })
     }
 
     private fun showLoading(isShow: Boolean) = binding.progressBar.isVisible == isShow
@@ -69,5 +82,6 @@ class MovieTrendingFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        movieTrendingAdapter = null
     }
 }
