@@ -407,7 +407,17 @@ class DetailMovieFragment : Fragment() {
 
     private fun showNoCast(isShow: Boolean) = binding.tvNoCast.isVisible == isShow
 
-    private fun showNoSimilarMovie(isShow: Boolean) = binding.tvNoSimilar.isVisible == isShow
+    private fun showNoSimilarMovie(isShow: Boolean) {
+        binding.apply {
+            if (isShow) {
+                rvMovieSimilar.isVisible = false
+                tvNoSimilar.isVisible = true
+            } else {
+                rvMovieSimilar.isVisible = true
+                tvNoSimilar.isVisible = false
+            }
+        }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

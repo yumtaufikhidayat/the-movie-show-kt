@@ -57,7 +57,7 @@ class FavoriteMovieFragment : Fragment() {
 
     private fun getFavoriteMovie() {
         viewModel.getFavoriteMovies().observe(viewLifecycleOwner) {
-            if (it != null && it.isNotEmpty()) {
+            if (!it.isNullOrEmpty()) {
                 movieAdapter.setData(mapList(it))
                 showNoFavorite(false)
             } else {

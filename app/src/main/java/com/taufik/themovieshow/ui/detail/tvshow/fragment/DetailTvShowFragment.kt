@@ -377,12 +377,12 @@ class DetailTvShowFragment : Fragment() {
                 when (response) {
                     is NetworkResult.Loading -> {}
                     is NetworkResult.Success -> {
-                        val data = response.data
-                        if (data != null && data.results.isNotEmpty()) {
-                            similarAdapter.submitList(data.results)
-                            showNoSimilarTvShow(false)
-                        } else {
+                        val results = response.data?.results
+                        if (results.isNullOrEmpty()){
                             showNoSimilarTvShow(true)
+                        } else {
+                            showNoSimilarTvShow(false)
+                            similarAdapter.submitList(results)
                         }
                     }
                     is NetworkResult.Error -> {}
@@ -407,7 +407,17 @@ class DetailTvShowFragment : Fragment() {
 
     private fun showNoCast(isShow: Boolean) = binding.tvNoCast.isVisible == isShow
 
-    private fun showNoSimilarTvShow(isShow: Boolean) = binding.tvNoSimilar.isVisible == isShow
+    private fun showNoSimilarTvShow(isShow: Boolean) {
+        binding.apply {
+            if (isShow) {
+                rvTvShowSimilar.isVisible = false
+                tvNoSimilar.isVisible = true
+            } else {
+                rvTvShowSimilar.isVisible = true
+                tvNoSimilar.isVisible = false
+            }
+        }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -56,7 +56,7 @@ class FavoriteTvShowsFragment : Fragment() {
 
     private fun getFavoriteTvShow() {
         viewModel.getFavoriteTvShow().observe(viewLifecycleOwner) {
-            if (it != null && it.isNotEmpty()) {
+            if (!it.isNullOrEmpty()) {
                 tvShowsAdapter.setData(mapList(it))
                 showNoFavorite(false)
             } else {

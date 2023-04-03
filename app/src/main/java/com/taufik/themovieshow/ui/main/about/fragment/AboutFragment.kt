@@ -8,10 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.taufik.themovieshow.R
-import com.taufik.themovieshow.ui.main.about.viewmodel.AboutViewModel
 import com.taufik.themovieshow.databinding.FragmentAboutBinding
 import com.taufik.themovieshow.ui.main.about.adapter.AboutApplicationAdapter
 import com.taufik.themovieshow.ui.main.about.adapter.AboutAuthorAdapter
+import com.taufik.themovieshow.ui.main.about.viewmodel.AboutViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,7 +20,7 @@ class AboutFragment : Fragment() {
     private var _binding: FragmentAboutBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel by viewModels<AboutViewModel>()
+    private val viewModel: AboutViewModel by viewModels()
     private val authorAdapter by lazy { AboutAuthorAdapter(requireContext()) }
     private val applicationAdapter by lazy { AboutApplicationAdapter(requireContext()) }
 
