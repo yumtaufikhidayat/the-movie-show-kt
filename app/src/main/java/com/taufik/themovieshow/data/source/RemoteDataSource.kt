@@ -4,9 +4,9 @@ import com.taufik.themovieshow.data.remote.api.ApiService
 import javax.inject.Inject
 
 class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
-    suspend fun getMovieNowPlaying() = apiService.getMovieNowPlaying()
-    suspend fun getMovieUpcoming() = apiService.getMovieUpcoming()
-    suspend fun getMovieTrendingDay() = apiService.getMovieTrendingDay()
+    suspend fun getMovieNowPlaying(page: Int) = apiService.getMovieNowPlaying(page)
+    suspend fun getMovieUpcoming(page: Int) = apiService.getMovieUpcoming(page)
+    suspend fun getMovieTrendingDay(page: Int) = apiService.getMovieTrendingDay(page)
     suspend fun getDiscoverMovie(query: String) = apiService.getDiscoverMovie(query)
     suspend fun getMovieVideo(movieId: Int) = apiService.getMovieVideo(movieId)
     suspend fun getMovieCast(movieId: Int) = apiService.getMovieCast(movieId)
