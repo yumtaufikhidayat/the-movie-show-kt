@@ -15,10 +15,10 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.local.entity.movie.FavoriteMovie
-import com.taufik.themovieshow.ui.main.favorite.viewmodel.FavoriteMovieViewModel
 import com.taufik.themovieshow.databinding.FragmentFavoriteMovieBinding
 import com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult
-import com.taufik.themovieshow.ui.main.movie.adapter.MovieAdapter
+import com.taufik.themovieshow.ui.main.favorite.adapter.FavoriteMovieAdapter
+import com.taufik.themovieshow.ui.main.favorite.viewmodel.FavoriteMovieViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -28,7 +28,7 @@ class FavoriteMovieFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: FavoriteMovieViewModel by viewModels()
-    private val movieAdapter by lazy { MovieAdapter() }
+    private val favoriteMovieAdapter by lazy { FavoriteMovieAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,14 +51,14 @@ class FavoriteMovieFragment : Fragment() {
         binding.rvDiscoverFavoriteMovies.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
-            adapter = movieAdapter
+            adapter = favoriteMovieAdapter
         }
     }
 
     private fun getFavoriteMovie() {
         viewModel.getFavoriteMovies().observe(viewLifecycleOwner) {
             if (!it.isNullOrEmpty()) {
-                movieAdapter.setData(mapList(it))
+                favoriteMovieAdapter.setData(mapList(it))
                 showNoFavorite(false)
             } else {
                 showNoFavorite(true)
@@ -77,7 +77,7 @@ class FavoriteMovieFragment : Fragment() {
             })
 
             addTextChangedListener(afterTextChanged = { p0 ->
-                movieAdapter.filter.filter(p0.toString())
+                favoriteMovieAdapter.filter.filter(p0.toString())
             })
         }
     }

@@ -10,9 +10,7 @@ import com.taufik.themovieshow.model.response.common.reviews.ReviewsResponse
 import com.taufik.themovieshow.model.response.movie.cast.MovieCastResponse
 import com.taufik.themovieshow.model.response.movie.detail.MovieDetailResponse
 import com.taufik.themovieshow.model.response.movie.discover.DiscoverMovieResponse
-import com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResponse
 import com.taufik.themovieshow.model.response.movie.similar.MovieSimilarResponse
-import com.taufik.themovieshow.model.response.movie.trending.MovieTrendingResponse
 import com.taufik.themovieshow.model.response.movie.video.MovieVideoResponse
 import com.taufik.themovieshow.model.response.tvshow.cast.TvShowsCastResponse
 import com.taufik.themovieshow.model.response.tvshow.detail.TvShowsPopularDetailResponse
@@ -31,25 +29,13 @@ class TheMovieShowRepository @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource
 ): BaseApiResponse() {
-
     private val dispatchersIO = Dispatchers.IO
-    suspend fun getMovieNowPlaying(): Flow<NetworkResult<MovieMainResponse>> {
-        return flow {
-            emit(safeApiCall { remoteDataSource.getMovieNowPlaying() })
-        }.flowOn(dispatchersIO)
-    }
 
-    suspend fun getMovieUpcoming(): Flow<NetworkResult<MovieMainResponse>> {
-        return flow {
-            emit(safeApiCall { remoteDataSource.getMovieUpcoming() })
-        }.flowOn(dispatchersIO)
-    }
+    suspend fun getMovieNowPlaying(page: Int) = remoteDataSource.getMovieNowPlaying(page)
 
-    suspend fun getMovieTrendingDay() : Flow<NetworkResult<MovieTrendingResponse>> {
-        return flow {
-            emit(safeApiCall { remoteDataSource.getMovieTrendingDay() })
-        }.flowOn(dispatchersIO)
-    }
+    suspend fun getMovieUpcoming(page: Int) = remoteDataSource.getMovieUpcoming(page)
+
+    suspend fun getMovieTrendingDay(page: Int) = remoteDataSource.getMovieTrendingDay(page)
     
     suspend fun getDiscoverMovie(query: String) : Flow<NetworkResult<DiscoverMovieResponse>> {
         return flow {
