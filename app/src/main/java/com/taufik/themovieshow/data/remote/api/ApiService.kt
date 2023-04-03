@@ -23,13 +23,19 @@ import retrofit2.http.Query
 interface ApiService {
 
     @GET(UrlEndpoint.MOVIE_NOW_PLAYING)
-    suspend fun getMovieNowPlaying(): Response<MovieMainResponse>
+    suspend fun getMovieNowPlaying(
+        @Query("page") page: Int
+    ): Response<MovieMainResponse>
 
     @GET(UrlEndpoint.MOVIE_UPCOMING)
-    suspend fun getMovieUpcoming(): Response<MovieMainResponse>
+    suspend fun getMovieUpcoming(
+        @Query("page") page: Int
+    ): Response<MovieMainResponse>
 
     @GET(UrlEndpoint.MOVIE_TRENDING_DAY)
-    suspend fun getMovieTrendingDay(): Response<MovieTrendingResponse>
+    suspend fun getMovieTrendingDay(
+        @Query("page") page: Int
+    ): Response<MovieTrendingResponse>
 
     @GET(UrlEndpoint.DISCOVER_MOVIES)
     suspend fun getDiscoverMovie(
