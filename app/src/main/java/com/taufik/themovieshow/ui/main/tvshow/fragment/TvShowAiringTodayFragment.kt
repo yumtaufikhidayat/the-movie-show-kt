@@ -83,5 +83,6 @@ class TvShowAiringTodayFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        tvShowsAdapter = null
     }
 }

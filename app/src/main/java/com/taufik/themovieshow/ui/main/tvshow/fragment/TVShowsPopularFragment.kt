@@ -82,5 +82,6 @@ class TVShowsPopularFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        tvShowsAdapter = null
     }
 }

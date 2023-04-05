@@ -84,5 +84,6 @@ class TvShowTrendingFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        tvShowsTrendingAdapter = null
     }
 }
