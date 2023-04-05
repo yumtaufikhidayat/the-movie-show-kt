@@ -68,13 +68,19 @@ interface ApiService {
     ): Response<MovieSimilarResponse>
 
     @GET(UrlEndpoint.TV_SHOWS_AIRING_TODAY)
-    suspend fun getTvShowsAiringToday(): Response<TvShowsMainResponse>
+    suspend fun getTvShowsAiringToday(
+        @Query("page") page: Int
+    ): Response<TvShowsMainResponse>
 
     @GET(UrlEndpoint.TV_SHOWS_POPULAR)
-    suspend fun getTvShowsPopular(): Response<TvShowsMainResponse>
+    suspend fun getTvShowsPopular(
+        @Query("page") page: Int
+    ): Response<TvShowsMainResponse>
 
     @GET(UrlEndpoint.TV_SHOWS_TRENDING_DAY)
-    suspend fun getTvShowsTrending(): Response<TvShowsTrendingResponse>
+    suspend fun getTvShowsTrending(
+        @Query("page") page: Int
+    ): Response<TvShowsTrendingResponse>
 
     @GET(UrlEndpoint.DISCOVER_TV_SHOWS)
     suspend fun getDiscoverTvShows(

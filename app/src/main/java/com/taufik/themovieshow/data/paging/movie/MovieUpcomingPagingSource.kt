@@ -4,6 +4,7 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.taufik.themovieshow.data.repository.TheMovieShowRepository
 import com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult
+import com.taufik.themovieshow.utils.CommonConstants.STARTING_PAGE_INDEX
 import retrofit2.HttpException
 
 class MovieUpcomingPagingSource(
@@ -33,9 +34,5 @@ class MovieUpcomingPagingSource(
         } catch (ex: Exception) {
             LoadResult.Error(ex)
         }
-    }
-
-    companion object {
-        private const val STARTING_PAGE_INDEX = 1
     }
 }

@@ -15,9 +15,7 @@ import com.taufik.themovieshow.model.response.movie.video.MovieVideoResponse
 import com.taufik.themovieshow.model.response.tvshow.cast.TvShowsCastResponse
 import com.taufik.themovieshow.model.response.tvshow.detail.TvShowsPopularDetailResponse
 import com.taufik.themovieshow.model.response.tvshow.discover.DiscoverTvShowsResponse
-import com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResponse
 import com.taufik.themovieshow.model.response.tvshow.similar.TvShowsSimilarResponse
-import com.taufik.themovieshow.model.response.tvshow.trending.TvShowsTrendingResponse
 import com.taufik.themovieshow.model.response.tvshow.video.TvShowsVideoResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -73,23 +71,11 @@ class TheMovieShowRepository @Inject constructor(
         }.flowOn(dispatchersIO)
     }
 
-    suspend fun getTvShowsAiringToday() : Flow<NetworkResult<TvShowsMainResponse>> {
-        return flow {
-            emit(safeApiCall { remoteDataSource.getTvShowsAiringToday() })
-        }.flowOn(dispatchersIO)
-    }
+    suspend fun getTvShowsAiringToday(page: Int) = remoteDataSource.getTvShowsAiringToday(page)
 
-    suspend fun getTvShowsPopular() : Flow<NetworkResult<TvShowsMainResponse>> {
-        return flow {
-            emit(safeApiCall { remoteDataSource.getTvShowsPopular() })
-        }.flowOn(dispatchersIO)
-    }
+    suspend fun getTvShowsPopular(page: Int) = remoteDataSource.getTvShowsPopular(page)
 
-    suspend fun getTvShowsTrending() : Flow<NetworkResult<TvShowsTrendingResponse>> {
-        return flow {
-            emit(safeApiCall { remoteDataSource.getTvShowsTrending() })
-        }.flowOn(dispatchersIO)
-    }
+    suspend fun getTvShowsTrending(page: Int) = remoteDataSource.getTvShowsTrending(page)
 
     suspend fun getDiscoverTvShows(query: String) : Flow<NetworkResult<DiscoverTvShowsResponse>> {
         return flow {

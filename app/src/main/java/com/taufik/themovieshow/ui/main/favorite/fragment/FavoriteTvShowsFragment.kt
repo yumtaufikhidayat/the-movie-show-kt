@@ -15,9 +15,10 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.local.entity.tvshow.FavoriteTvShow
-import com.taufik.themovieshow.ui.main.favorite.viewmodel.FavoriteTvShowViewModel
 import com.taufik.themovieshow.databinding.FragmentFavoriteTvShowsBinding
-import com.taufik.themovieshow.ui.main.tvshow.adapter.TvShowsAdapter
+import com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResult
+import com.taufik.themovieshow.ui.main.favorite.adapter.FavoriteTvShowsAdapter
+import com.taufik.themovieshow.ui.main.favorite.viewmodel.FavoriteTvShowViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -27,7 +28,7 @@ class FavoriteTvShowsFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: FavoriteTvShowViewModel by viewModels()
-    private val tvShowsAdapter by lazy { TvShowsAdapter() }
+    private val favoriteTvShowsAdapter by lazy { FavoriteTvShowsAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,14 +51,14 @@ class FavoriteTvShowsFragment : Fragment() {
         binding.rvDiscoverFavoriteTvShow.apply {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
-            adapter = tvShowsAdapter
+            adapter = favoriteTvShowsAdapter
         }
     }
 
     private fun getFavoriteTvShow() {
         viewModel.getFavoriteTvShow().observe(viewLifecycleOwner) {
             if (!it.isNullOrEmpty()) {
-                tvShowsAdapter.setData(mapList(it))
+                favoriteTvShowsAdapter.setData(mapList(it))
                 showNoFavorite(false)
             } else {
                 showNoFavorite(true)
@@ -76,17 +77,17 @@ class FavoriteTvShowsFragment : Fragment() {
             })
 
             addTextChangedListener(afterTextChanged = { p0 ->
-                tvShowsAdapter.filter.filter(p0.toString())
+                favoriteTvShowsAdapter.filter.filter(p0.toString())
             })
         }
     }
 
-    private fun mapList(tvShows: List<FavoriteTvShow>): ArrayList<com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResult> {
+    private fun mapList(tvShows: List<FavoriteTvShow>): ArrayList<TvShowsMainResult> {
         val listTvShow =
-            ArrayList<com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResult>()
+            ArrayList<TvShowsMainResult>()
         tvShows.forEach { tvShow ->
             val tvShowMapped =
-                com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResult(
+                TvShowsMainResult(
                     tvShow.tvShowFirstAirDate,
                     tvShow.tvShowId,
                     tvShow.tvShowTitle,

@@ -1,18 +1,12 @@
 package com.taufik.themovieshow.ui.main.movie.adapter
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.AdapterView.OnItemClickListener
-import androidx.navigation.findNavController
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.taufik.themovieshow.R
 import com.taufik.themovieshow.databinding.ItemsMoviesTvShowBinding
 import com.taufik.themovieshow.model.response.movie.trending.MovieTrendingResult
-import com.taufik.themovieshow.ui.detail.movie.fragment.DetailMovieFragment
 import com.taufik.themovieshow.utils.CommonDateFormatConstants
 import com.taufik.themovieshow.utils.convertDate
 import com.taufik.themovieshow.utils.loadImage
@@ -20,7 +14,7 @@ import com.taufik.themovieshow.utils.toRating
 
 class MovieTrendingAdapter(
     private val onItemClickListener: (MovieTrendingResult) -> Unit
-) : PagingDataAdapter<MovieTrendingResult, MovieTrendingAdapter.MovieViewHolder>(MovieTrendingDiffCallback) {
+) : PagingDataAdapter<MovieTrendingResult, MovieTrendingAdapter.MovieViewHolder>(movieTrendingDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         return MovieViewHolder(
@@ -56,16 +50,17 @@ class MovieTrendingAdapter(
             }
     }
 
-    object MovieTrendingDiffCallback :
-        DiffUtil.ItemCallback<MovieTrendingResult>() {
-        override fun areItemsTheSame(
-            oldItem: MovieTrendingResult,
-            newItem: MovieTrendingResult
-        ): Boolean = oldItem == newItem
+    companion object {
+        val movieTrendingDiffCallback = object: DiffUtil.ItemCallback<MovieTrendingResult>() {
+            override fun areItemsTheSame(
+                oldItem: MovieTrendingResult,
+                newItem: MovieTrendingResult
+            ): Boolean = oldItem == newItem
 
-        override fun areContentsTheSame(
-            oldItem: MovieTrendingResult,
-            newItem: MovieTrendingResult
-        ): Boolean = oldItem.id == newItem.id
+            override fun areContentsTheSame(
+                oldItem: MovieTrendingResult,
+                newItem: MovieTrendingResult
+            ): Boolean = oldItem.id == newItem.id
+        }
     }
 }
