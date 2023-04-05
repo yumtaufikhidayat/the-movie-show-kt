@@ -7,12 +7,18 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.taufik.themovieshow.data.NetworkResult
+import com.taufik.themovieshow.R
 import com.taufik.themovieshow.databinding.FragmentTvShowTrendingBinding
+import com.taufik.themovieshow.ui.detail.tvshow.fragment.DetailTvShowFragment
+import com.taufik.themovieshow.ui.main.LoadMoreAdapter
 import com.taufik.themovieshow.ui.main.tvshow.adapter.TvShowsTrendingAdapter
 import com.taufik.themovieshow.ui.main.tvshow.viewmodel.TvShowsViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class TvShowTrendingFragment : Fragment() {
@@ -21,7 +27,7 @@ class TvShowTrendingFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel by viewModels<TvShowsViewModel>()
-    private val tvShowsTrendingAdapter by lazy { TvShowsTrendingAdapter() }
+    private var tvShowsTrendingAdapter: TvShowsTrendingAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,20 +54,27 @@ class TvShowTrendingFragment : Fragment() {
     }
 
     private fun setData() {
-        viewModel.apply {
-            setTvShowsTrending()
-                tvShowTrendingResponse.observe(viewLifecycleOwner) { response ->
-                when (response) {
-                    is NetworkResult.Loading -> showLoading(true)
-                    is NetworkResult.Success -> {
-                        showLoading(false)
-                        val data = response.data
-                        if (data != null) tvShowsTrendingAdapter.submitList(data.results)
-                    }
-                    is NetworkResult.Error -> showLoading(false)
+        lifecycleScope.launch {
+            tvShowsTrendingAdapter = TvShowsTrendingAdapter {
+                val bundle = Bundle().apply {
+                    putInt(DetailTvShowFragment.EXTRA_ID, it.id)
+                    putString(DetailTvShowFragment.EXTRA_TITLE, it.name)
                 }
+                findNavController().navigate(R.id.detailTvShowFragment, bundle)
+            }
+
+            viewModel.setTvShowsTrending().collect {
+                tvShowsTrendingAdapter?.submitData(it)
+            }
+
+            tvShowsTrendingAdapter?.loadStateFlow?.collect {
+                showLoading(it.refresh is LoadState.Loading)
             }
         }
+
+        binding.rvTrendingMovie.adapter = tvShowsTrendingAdapter?.withLoadStateFooter( LoadMoreAdapter {
+            tvShowsTrendingAdapter?.retry()
+        })
     }
 
     private fun showLoading(isShow: Boolean) {

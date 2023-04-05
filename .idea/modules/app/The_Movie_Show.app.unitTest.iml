@@ -40,7 +40,9 @@
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/0dbff2a3410d73680b44703ded96d47d/transformed/drawerlayout-1.1.1-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/e9c0e19cb499810153e2aca2fa2f21a8/transformed/coordinatorlayout-1.1.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/8514a371b9dcba51d629aeac3b7a23ce/transformed/dynamicanimation-1.0.0-api.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/4a9301375d90aa83a9c2d7be3718a17a/transformed/recyclerview-1.1.0-api.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/2a74e1361a4633cacb8166bddfac5532/transformed/jetified-paging-runtime-ktx-3.1.1-api.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/78b308da1ae83b6ca3ac8f4f8237752f/transformed/paging-runtime-3.1.1-api.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/07e3c5da33691d93a6418b6015f0352a/transformed/recyclerview-1.2.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/5f96d53af73c5d1981dd164630c9adff/transformed/transition-1.4.1-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/97720e529008f89ca19406cdf492b690/transformed/vectordrawable-animated-1.1.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/31da9d677a09385928797569e0493aa6/transformed/vectordrawable-1.1.0-api.jar</arg>
@@ -77,6 +79,8 @@
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/5535ecdd6658952525273b9db5ca9119/transformed/jetified-savedstate-ktx-1.2.1-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/04b8c425e3707fd44b7e3fc610d3dc32/transformed/jetified-savedstate-1.2.1-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/ebfda7649f0df9aff0acd8663efa8f9f/transformed/jetified-annotation-experimental-1.3.0-api.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/d1f8508f42a37db4bcfd9e64ada8b2e5/transformed/jetified-paging-common-ktx-3.1.1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.paging/paging-common/3.1.1/586d234381652d6107a0cb5754bd29c0a6807fbe/paging-common-3.1.1.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/45c9fb304557b9d9e503f30b9c2a616f/transformed/jetified-kotlinx-coroutines-core-jvm-1.6.4.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/5a41896bfb0304967900bafb20ca6155/transformed/jetified-kotlinx-coroutines-android-1.6.4.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/cebbb3c01dfff6540613ac0bba20f621/transformed/room-testing-2.5.1-api.jar</arg>
@@ -223,6 +227,8 @@
     <orderEntry type="library" scope="TEST" name="Gradle: javax.inject:javax.inject:1" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.google.dagger:hilt-core:2.44" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.google.code.findbugs:jsr305:3.0.2" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: androidx.paging:paging-common:3.1.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: androidx.paging:paging-common-ktx:3.1.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: junit:junit:4.13.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.hamcrest:hamcrest-core:1.3" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.mockito:mockito-core:4.0.0" level="project" />
@@ -263,7 +269,7 @@
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.documentfile:documentfile:1.0.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.localbroadcastmanager:localbroadcastmanager:1.0.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.print:print:1.0.0@aar" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: androidx.recyclerview:recyclerview:1.1.0@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: androidx.recyclerview:recyclerview:1.2.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.transition:transition:1.4.1@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.viewpager2:viewpager2:1.0.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.legacy:legacy-support-v4:1.0.0@aar" level="project" />
@@ -304,6 +310,8 @@
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.room:room-ktx:2.5.1@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.google.dagger:hilt-android:2.44@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.google.dagger:dagger-lint-aar:2.44@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: androidx.paging:paging-runtime-ktx:3.1.1@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: androidx.paging:paging-runtime:3.1.1@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.arch.core:core-testing:2.2.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.room:room-testing:2.5.1@aar" level="project" />
   </component>

@@ -59,6 +59,7 @@
     <string name="tvVisitMovie">Visit this awesome movies \n%s</string>
     <string name="tvVisitTvShow">Visit this awesome Tv shows \n%s</string>
     <string name="tvNameCharacter">%s \n (%s)</string>
+    <string name="tvRetry">Retry</string>
 
     <string name="action_added_to_favorite">Added to favorite</string>
     <string name="action_removed_from_favorite">Removed from favorite</string>

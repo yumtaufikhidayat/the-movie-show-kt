@@ -109,6 +109,10 @@ dependencies {
     // Hilt
     implementation "com.google.dagger:hilt-android:$hiltVersion"
     kapt "com.google.dagger:hilt-compiler:$hiltVersion"
+
+    // Paging
+    implementation "androidx.paging:paging-runtime-ktx:$pagingVersion"
+    implementation "androidx.paging:paging-common-ktx:$pagingVersion"
 }
 
 kapt {

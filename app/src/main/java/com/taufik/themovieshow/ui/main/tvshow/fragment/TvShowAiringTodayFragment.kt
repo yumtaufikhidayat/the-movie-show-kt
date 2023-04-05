@@ -7,12 +7,18 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.taufik.themovieshow.data.NetworkResult
+import com.taufik.themovieshow.R
 import com.taufik.themovieshow.databinding.FragmentTvShowAiringTodayBinding
+import com.taufik.themovieshow.ui.detail.tvshow.fragment.DetailTvShowFragment
+import com.taufik.themovieshow.ui.main.LoadMoreAdapter
 import com.taufik.themovieshow.ui.main.tvshow.adapter.TvShowsAdapter
 import com.taufik.themovieshow.ui.main.tvshow.viewmodel.TvShowsViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class TvShowAiringTodayFragment : Fragment() {
@@ -21,7 +27,7 @@ class TvShowAiringTodayFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel by viewModels<TvShowsViewModel>()
-    private val tvShowsAdapter by lazy { TvShowsAdapter() }
+    private var tvShowsAdapter: TvShowsAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,20 +53,27 @@ class TvShowAiringTodayFragment : Fragment() {
     }
 
     private fun setData() {
-        viewModel.apply {
-            setTvShowsAiringToday()
-                tvShowAiringTodayResponse.observe(viewLifecycleOwner) { response ->
-                when (response) {
-                    is NetworkResult.Loading -> showLoading(true)
-                    is NetworkResult.Success -> {
-                        showLoading(false)
-                        val data = response.data
-                        if (data != null) tvShowsAdapter.submitList(data.results)
-                    }
-                    is NetworkResult.Error -> showLoading(false)
+        lifecycleScope.launch {
+            tvShowsAdapter = TvShowsAdapter {
+                val bundle = Bundle().apply {
+                    putInt(DetailTvShowFragment.EXTRA_ID, it.id)
+                    putString(DetailTvShowFragment.EXTRA_TITLE, it.name)
                 }
+                findNavController().navigate(R.id.detailTvShowFragment, bundle)
+            }
+
+            viewModel.setTvShowsAiringToday().collect {
+                tvShowsAdapter?.submitData(it)
+            }
+
+            tvShowsAdapter?.loadStateFlow?.collect {
+                showLoading(it.refresh is LoadState.Loading)
             }
         }
+
+        binding.rvTvShow.adapter = tvShowsAdapter?.withLoadStateFooter( LoadMoreAdapter {
+            tvShowsAdapter?.retry()
+        })
     }
 
     private fun showLoading(isShow: Boolean) {

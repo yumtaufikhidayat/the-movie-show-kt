@@ -1,23 +1,21 @@
 package com.taufik.themovieshow.ui.main.tvshow.adapter
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.navigation.findNavController
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.remote.api.UrlEndpoint
 import com.taufik.themovieshow.databinding.ItemsMoviesTvShowBinding
 import com.taufik.themovieshow.model.response.tvshow.trending.TvShowsTrendingResult
-import com.taufik.themovieshow.ui.detail.tvshow.fragment.DetailTvShowFragment
 import com.taufik.themovieshow.utils.CommonDateFormatConstants
 import com.taufik.themovieshow.utils.convertDate
 import com.taufik.themovieshow.utils.loadImage
 import com.taufik.themovieshow.utils.toRating
 
-class TvShowsTrendingAdapter : ListAdapter<TvShowsTrendingResult, TvShowsTrendingAdapter.TvShowsViewHolder>(TvShowTrendingDiffCallback) {
+class TvShowsTrendingAdapter(
+    private val onItemClickListener: (TvShowsTrendingResult) -> Unit
+) : PagingDataAdapter<TvShowsTrendingResult, TvShowsTrendingAdapter.TvShowsViewHolder>(TvShowTrendingDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TvShowsViewHolder {
         return TvShowsViewHolder(
@@ -30,7 +28,9 @@ class TvShowsTrendingAdapter : ListAdapter<TvShowsTrendingResult, TvShowsTrendin
     }
 
     override fun onBindViewHolder(holder: TvShowsViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        val data = getItem(position)
+        if (data != null) holder.bind(data)
+        holder.setIsRecyclable(false)
     }
 
     inner class TvShowsViewHolder(private val binding: ItemsMoviesTvShowBinding) :
@@ -46,25 +46,23 @@ class TvShowsTrendingAdapter : ListAdapter<TvShowsTrendingResult, TvShowsTrendin
                 tvRating.text = toRating(data.voteAverage)
 
                 itemView.setOnClickListener {
-                    val bundle = Bundle()
-                    bundle.putInt(DetailTvShowFragment.EXTRA_ID, data.id)
-                    bundle.putString(DetailTvShowFragment.EXTRA_TITLE, data.name)
-                    it.findNavController().navigate(R.id.detailTvShowFragment, bundle)
+                    onItemClickListener(data)
                 }
             }
         }
     }
 
-    object TvShowTrendingDiffCallback :
-        DiffUtil.ItemCallback<TvShowsTrendingResult>() {
-        override fun areItemsTheSame(
-            oldItem: TvShowsTrendingResult,
-            newItem: TvShowsTrendingResult
-        ): Boolean = oldItem.id == newItem.id
+    companion object {
+        val TvShowTrendingDiffCallback = object: DiffUtil.ItemCallback<TvShowsTrendingResult>() {
+            override fun areItemsTheSame(
+                oldItem: TvShowsTrendingResult,
+                newItem: TvShowsTrendingResult
+            ): Boolean = oldItem.id == newItem.id
 
-        override fun areContentsTheSame(
-            oldItem: TvShowsTrendingResult,
-            newItem: TvShowsTrendingResult
-        ): Boolean = oldItem == newItem
+            override fun areContentsTheSame(
+                oldItem: TvShowsTrendingResult,
+                newItem: TvShowsTrendingResult
+            ): Boolean = oldItem == newItem
+        }
     }
 }

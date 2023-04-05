@@ -42,6 +42,7 @@ buildscript {
         hiltVersion = '2.44'
         toastVersion = '1.5.0'
         justifiedTextVersion = "1.1.0"
+        pagingVersion = '3.1.1'
     }
 }
 

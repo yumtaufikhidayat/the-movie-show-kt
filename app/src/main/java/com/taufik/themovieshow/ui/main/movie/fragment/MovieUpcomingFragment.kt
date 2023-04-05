@@ -7,12 +7,18 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.taufik.themovieshow.data.NetworkResult
+import com.taufik.themovieshow.R
 import com.taufik.themovieshow.databinding.FragmentMovieUpcomingBinding
+import com.taufik.themovieshow.ui.detail.movie.fragment.DetailMovieFragment
+import com.taufik.themovieshow.ui.main.LoadMoreAdapter
 import com.taufik.themovieshow.ui.main.movie.adapter.MovieAdapter
 import com.taufik.themovieshow.ui.main.movie.viewmodel.MovieViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MovieUpcomingFragment : Fragment() {
@@ -21,7 +27,7 @@ class MovieUpcomingFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel by viewModels<MovieViewModel>()
-    private val movieAdapter by lazy { MovieAdapter() }
+    private var movieAdapter: MovieAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,20 +54,27 @@ class MovieUpcomingFragment : Fragment() {
     }
 
     private fun setData() {
-        viewModel.apply {
-            setMovieUpcoming()
-            movieUpcomingResponse.observe(viewLifecycleOwner) { response ->
-                when (response) {
-                    is NetworkResult.Loading -> showLoading(true)
-                    is NetworkResult.Success -> {
-                        showLoading(false)
-                        val data = response.data
-                        if (data != null) movieAdapter.submitList(data.results)
-                    }
-                    is NetworkResult.Error -> showLoading(false)
+        lifecycleScope.launch {
+            movieAdapter = MovieAdapter {
+                val bundle = Bundle().apply {
+                    putInt(DetailMovieFragment.EXTRA_ID, it.id)
+                    putString(DetailMovieFragment.EXTRA_TITLE, it.title)
                 }
+                findNavController().navigate(R.id.detailMovieFragment, bundle)
+            }
+
+            viewModel.setMovieUpcoming().collect {
+                movieAdapter?.submitData(it)
+            }
+
+            movieAdapter?.loadStateFlow?.collect {
+                showLoading(it.refresh is LoadState.Loading)
             }
         }
+
+        binding.rvMovie.adapter = movieAdapter?.withLoadStateFooter( LoadMoreAdapter {
+            movieAdapter?.retry()
+        })
     }
 
     private fun showLoading(isShow: Boolean)  {
@@ -71,5 +84,6 @@ class MovieUpcomingFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        movieAdapter = null
     }
 }
