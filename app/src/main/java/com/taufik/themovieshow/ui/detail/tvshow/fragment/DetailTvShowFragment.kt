@@ -91,7 +91,7 @@ class DetailTvShowFragment : Fragment() {
                         is NetworkResult.Success -> {
                             val data = response.data
                             if (data != null) {
-                                imgPoster.loadImage(data.posterPath)
+                                imgPoster.loadImage(data.posterPath.orEmpty())
                                 imgBackdrop.loadImage(data.backdropPath)
                                 tvTitle.text = data.name
 
@@ -168,7 +168,7 @@ class DetailTvShowFragment : Fragment() {
                                 checkFavoriteData(idTvShow)
                                 setActionFavorite(
                                     idTvShow,
-                                    data.posterPath,
+                                    data.posterPath.orEmpty(),
                                     title,
                                     data.firstAirDate,
                                     data.voteAverage

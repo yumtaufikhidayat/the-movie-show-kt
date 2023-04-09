@@ -93,7 +93,7 @@ class DetailMovieFragment : Fragment() {
                         is NetworkResult.Success -> {
                             val data = response.data
                             if (data != null) {
-                                imgPoster.loadImage(data.posterPath)
+                                imgPoster.loadImage(data.posterPath.orEmpty())
                                 imgBackdrop.loadImage(data.backdropPath)
                                 tvTitle.text = data.title
                                 val releasedDate = data.releaseDate.convertDate(
@@ -158,7 +158,7 @@ class DetailMovieFragment : Fragment() {
                                 checkFavoriteData(idMovie)
                                 setActionFavorite(
                                     idMovie,
-                                    data.posterPath,
+                                    data.posterPath.orEmpty(),
                                     title,
                                     data.releaseDate,
                                     data.voteAverage
