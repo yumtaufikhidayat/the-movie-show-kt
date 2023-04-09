@@ -47,7 +47,7 @@ data class TvShowsPopularDetailResponse(
     @SerializedName("popularity")
     val popularity: Double,
     @SerializedName("poster_path")
-    val posterPath: String,
+    val posterPath: String?,
     @SerializedName("production_companies")
     val productionCompanies: List<TvShowsPopularDetailProductionCompany>,
     @SerializedName("production_countries")
