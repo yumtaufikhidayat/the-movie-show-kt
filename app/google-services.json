@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1003679864150",
+    "project_id": "the-movie-show-623aa",
+    "storage_bucket": "the-movie-show-623aa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1003679864150:android:188417981e2b5c153872f7",
+        "android_client_info": {
+          "package_name": "com.taufik.themovieshow"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1003679864150-f2tm7r95psn42t30p6k1i77gmrpavnce.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCyDY-K8E_tiS24C2cR5B2dACa8xkP_vWc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1003679864150-f2tm7r95psn42t30p6k1i77gmrpavnce.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

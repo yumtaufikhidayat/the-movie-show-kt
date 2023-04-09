@@ -5,6 +5,8 @@ plugins {
     id 'kotlin-kapt'
     id 'androidx.navigation.safeargs'
     id 'dagger.hilt.android.plugin'
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
 }
 
 android {
@@ -113,6 +115,10 @@ dependencies {
     // Paging
     implementation "androidx.paging:paging-runtime-ktx:$pagingVersion"
     implementation "androidx.paging:paging-common-ktx:$pagingVersion"
+
+    // Firebase
+    implementation "com.google.firebase:firebase-crashlytics-ktx:$firebaseCrashlyticsVersion"
+    implementation "com.google.firebase:firebase-analytics-ktx:$firebaseCrashlyticsKtxVersion"
 }
 
 kapt {
