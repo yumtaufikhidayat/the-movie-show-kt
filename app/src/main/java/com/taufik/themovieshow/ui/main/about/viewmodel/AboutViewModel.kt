@@ -9,6 +9,5 @@ import javax.inject.Inject
 @HiltViewModel
 class AboutViewModel @Inject constructor(private val repository: TheMovieShowRepository): ViewModel() {
     fun getAboutAuthor(context: Context) = repository.getAboutAuthor(context)
-
     fun getAboutApplication(context: Context) = repository.getAboutApplication(context)
 }
