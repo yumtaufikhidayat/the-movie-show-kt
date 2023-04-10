@@ -1,5 +1,6 @@
 package com.taufik.themovieshow.data.repository
 
+import android.content.Context
 import com.taufik.themovieshow.data.NetworkResult
 import com.taufik.themovieshow.data.local.entity.movie.FavoriteMovie
 import com.taufik.themovieshow.data.local.entity.tvshow.FavoriteTvShow
@@ -129,7 +130,7 @@ class TheMovieShowRepository @Inject constructor(
 
     suspend fun removeTvShowFromFavorite(tvShowId: Int) = localDataSource.removeTvShowFromFavorite(tvShowId)
 
-    fun getAboutAuthor() = localDataSource.getAboutAuthor()
+    fun getAboutAuthor(context: Context) = localDataSource.getAboutAuthor(context)
 
-    fun getAboutApplication() = localDataSource.getAboutApplication()
+    fun getAboutApplication(context: Context) = localDataSource.getAboutApplication(context)
 }

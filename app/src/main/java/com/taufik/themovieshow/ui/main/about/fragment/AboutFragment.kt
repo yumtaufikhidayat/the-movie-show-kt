@@ -50,7 +50,7 @@ class AboutFragment : Fragment() {
             setHasFixedSize(true)
             adapter = authorAdapter
         }
-        authorAdapter.submitList(viewModel.getAboutAuthor())
+        authorAdapter.submitList(viewModel.getAboutAuthor(requireContext()))
     }
 
     private fun setApplicationData()  {
@@ -59,6 +59,6 @@ class AboutFragment : Fragment() {
             setHasFixedSize(true)
             adapter = applicationAdapter
         }
-        applicationAdapter.submitList(viewModel.getAboutApplication())
+        applicationAdapter.submitList(viewModel.getAboutApplication(requireContext()))
     }
 }

@@ -1,5 +1,6 @@
 package com.taufik.themovieshow.data.source
 
+import android.content.Context
 import com.taufik.themovieshow.data.local.dao.TheMovieShowDao
 import com.taufik.themovieshow.data.local.entity.movie.FavoriteMovie
 import com.taufik.themovieshow.data.local.entity.tvshow.FavoriteTvShow
@@ -26,7 +27,7 @@ class LocalDataSource @Inject constructor(
 
     suspend fun removeTvShowFromFavorite(tvShowId: Int) = favoriteDao.removeTvShowFromFavorite(tvShowId)
 
-    fun getAboutAuthor(): List<About> = UtilsData.generateAboutAuthorData()
+    fun getAboutAuthor(context: Context): List<About> = UtilsData.generateAboutAuthorData(context)
 
-    fun getAboutApplication(): List<About> = UtilsData.generateAboutApplicationData()
+    fun getAboutApplication(context: Context): List<About> = UtilsData.generateAboutApplicationData(context)
 }
