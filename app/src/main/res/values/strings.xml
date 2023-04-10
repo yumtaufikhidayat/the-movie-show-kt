@@ -77,4 +77,19 @@
     <string name="icFavorite">Favorite</string>
     <string name="icAbout">About</string>
 
+    <!--About-->
+    <string name="tvTitleLetsGreet">Let\'s greet</string>
+    <string name="tvDescLetsGreet">Taufik Hidayat</string>
+    <string name="tvTitleForkOnGithub">Fork on Github</string>
+    <string name="tvDescForkOnGithub">Fork this app on Github</string>
+    <string name="tvTitleSendEmail">Send an email</string>
+    <string name="tvDescSendEmail">yumtaufikhidayat@gmail.com</string>
+    <string name="tvTitleCopyright">Copyright</string>
+    <string name="tvDescCopyright">Copyright &#169; 2023 Taufik Hidayat</string>
+    <string name="tvTitleVersion">Version</string>
+    <string name="tvTitleRateThisApp">Rate this app</string>
+    <string name="tvDescRateThisApp">Like this app? Rate 5 stars</string>
+    <string name="tvTitleReportIssue">Report an issue</string>
+    <string name="tvDescReportIssue">Having an issue? Report in here</string>
+
 </resources>
