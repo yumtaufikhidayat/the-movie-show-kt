@@ -14,9 +14,7 @@ import com.taufik.themovieshow.data.paging.tvshow.TvShowsPopularPagingSource
 import com.taufik.themovieshow.data.paging.tvshow.TvShowsTrendingPagingSource
 import com.taufik.themovieshow.data.repository.TheMovieShowRepository
 import com.taufik.themovieshow.model.response.tvshow.discover.DiscoverTvShowsResponse
-import com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResponse
 import com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResult
-import com.taufik.themovieshow.model.response.tvshow.trending.TvShowsTrendingResponse
 import com.taufik.themovieshow.model.response.tvshow.trending.TvShowsTrendingResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
@@ -26,15 +24,6 @@ import javax.inject.Inject
 @HiltViewModel
 class TvShowsViewModel @Inject constructor(private val repository: TheMovieShowRepository) : ViewModel() {
 
-   /* private val _tvShowAiringTodayResponse: MutableLiveData<NetworkResult<TvShowsMainResponse>> = MutableLiveData()
-    val tvShowAiringTodayResponse: LiveData<NetworkResult<TvShowsMainResponse>> = _tvShowAiringTodayResponse
-    
-    private val _tvShowPopularResponse: MutableLiveData<NetworkResult<TvShowsMainResponse>> = MutableLiveData()
-    val tvShowPopularResponse: LiveData<NetworkResult<TvShowsMainResponse>> = _tvShowPopularResponse
-    
-    private val _tvShowTrendingResponse: MutableLiveData<NetworkResult<TvShowsTrendingResponse>> = MutableLiveData()
-    val tvShowTrendingResponse: LiveData<NetworkResult<TvShowsTrendingResponse>> = _tvShowTrendingResponse*/
-    
     private val _discoverTvShowsResponse: MutableLiveData<NetworkResult<DiscoverTvShowsResponse>> = MutableLiveData()
     val discoverTvShowsResponse: LiveData<NetworkResult<DiscoverTvShowsResponse>> = _discoverTvShowsResponse
     
