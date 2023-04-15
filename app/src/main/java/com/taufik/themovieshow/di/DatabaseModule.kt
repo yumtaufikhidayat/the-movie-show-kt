@@ -3,6 +3,7 @@ package com.taufik.themovieshow.di
 import android.content.Context
 import androidx.room.Room
 import com.taufik.themovieshow.data.local.room.TheMovieShowDatabase
+import com.taufik.themovieshow.utils.CommonConstants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,7 +19,7 @@ object DatabaseModule {
     fun provideFavoriteDatabase(
         @ApplicationContext context: Context
     ) = Room.databaseBuilder(
-        context, TheMovieShowDatabase::class.java, "the_movie_show_db"
+        context, TheMovieShowDatabase::class.java, CommonConstants.DB_NAME
     ).fallbackToDestructiveMigration().build()
 
     @Singleton
