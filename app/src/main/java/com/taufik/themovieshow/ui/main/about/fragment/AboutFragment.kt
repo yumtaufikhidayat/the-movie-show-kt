@@ -157,5 +157,6 @@ class AboutFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         applicationAdapter = null
+        _binding = null
     }
 }
