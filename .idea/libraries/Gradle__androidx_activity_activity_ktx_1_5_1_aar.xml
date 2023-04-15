@@ -2,8 +2,8 @@
   <library name="Gradle: androidx.activity:activity-ktx:1.5.1@aar">
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/f3acfc019736d48aded0559d227e5181/transformed/jetified-activity-ktx-1.5.1/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/f3acfc019736d48aded0559d227e5181/transformed/jetified-activity-ktx-1.5.1/AndroidManifest.xml" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/f3acfc019736d48aded0559d227e5181/transformed/jetified-activity-ktx-1.5.1/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/f3acfc019736d48aded0559d227e5181/transformed/jetified-activity-ktx-1.5.1/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

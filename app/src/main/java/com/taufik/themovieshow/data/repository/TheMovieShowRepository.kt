@@ -2,8 +2,8 @@ package com.taufik.themovieshow.data.repository
 
 import android.content.Context
 import com.taufik.themovieshow.data.NetworkResult
-import com.taufik.themovieshow.data.local.entity.movie.FavoriteMovie
-import com.taufik.themovieshow.data.local.entity.tvshow.FavoriteTvShow
+import com.taufik.themovieshow.data.local.entity.movie.FavoriteMovieEntity
+import com.taufik.themovieshow.data.local.entity.tvshow.FavoriteTvShowEntity
 import com.taufik.themovieshow.data.source.BaseApiResponse
 import com.taufik.themovieshow.data.source.LocalDataSource
 import com.taufik.themovieshow.data.source.RemoteDataSource
@@ -114,7 +114,7 @@ class TheMovieShowRepository @Inject constructor(
         }.flowOn(dispatchersIO)
     }
 
-    suspend fun addMovieToFavorite(favoriteMovie: FavoriteMovie) = localDataSource.addMovieToFavorite(favoriteMovie)
+    suspend fun addMovieToFavorite(favoriteMovieEntity: FavoriteMovieEntity) = localDataSource.addMovieToFavorite(favoriteMovieEntity)
 
     fun getFavoriteMovie() = localDataSource.getFavoriteMovies()
 
@@ -122,7 +122,7 @@ class TheMovieShowRepository @Inject constructor(
 
     suspend fun removeMovieFromFavorite(movieId: Int) = localDataSource.removeMovieFromFavorite(movieId)
 
-    suspend fun addTvShowToFavorite(favoriteTvShow: FavoriteTvShow) = localDataSource.addTvShowToFavorite(favoriteTvShow)
+    suspend fun addTvShowToFavorite(favoriteTvShowEntity: FavoriteTvShowEntity) = localDataSource.addTvShowToFavorite(favoriteTvShowEntity)
 
     fun getFavoriteTvShow() = localDataSource.getFavoriteTvShows()
 

@@ -2,8 +2,8 @@ package com.taufik.themovieshow.data.source
 
 import android.content.Context
 import com.taufik.themovieshow.data.local.dao.TheMovieShowDao
-import com.taufik.themovieshow.data.local.entity.movie.FavoriteMovie
-import com.taufik.themovieshow.data.local.entity.tvshow.FavoriteTvShow
+import com.taufik.themovieshow.data.local.entity.movie.FavoriteMovieEntity
+import com.taufik.themovieshow.data.local.entity.tvshow.FavoriteTvShowEntity
 import com.taufik.themovieshow.model.response.about.About
 import com.taufik.themovieshow.utils.UtilsData
 import javax.inject.Inject
@@ -11,7 +11,7 @@ import javax.inject.Inject
 class LocalDataSource @Inject constructor(
     private val favoriteDao: TheMovieShowDao
 ) {
-    suspend fun addMovieToFavorite(favoriteMovie: FavoriteMovie) = favoriteDao.addMovieToFavorite(favoriteMovie)
+    suspend fun addMovieToFavorite(favoriteMovieEntity: FavoriteMovieEntity) = favoriteDao.addMovieToFavorite(favoriteMovieEntity)
 
     fun getFavoriteMovies() = favoriteDao.getFavoriteMovies()
 
@@ -19,7 +19,7 @@ class LocalDataSource @Inject constructor(
 
     suspend fun removeMovieFromFavorite(movieId: Int) = favoriteDao.removeMovieFromFavorite(movieId)
 
-    suspend fun addTvShowToFavorite(favoriteTvShow: FavoriteTvShow) = favoriteDao.addTvShowToFavorite(favoriteTvShow)
+    suspend fun addTvShowToFavorite(favoriteTvShowEntity: FavoriteTvShowEntity) = favoriteDao.addTvShowToFavorite(favoriteTvShowEntity)
 
     fun getFavoriteTvShows() = favoriteDao.getFavoriteTvShows()
 
