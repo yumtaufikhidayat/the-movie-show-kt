@@ -8,13 +8,14 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.taufik.themovieshow.R
-import com.taufik.themovieshow.data.local.entity.tvshow.FavoriteTvShow
+import com.taufik.themovieshow.data.local.entity.tvshow.FavoriteTvShowEntity
 import com.taufik.themovieshow.databinding.FragmentFavoriteTvShowsBinding
 import com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResult
 import com.taufik.themovieshow.ui.main.favorite.adapter.FavoriteTvShowsAdapter
@@ -82,7 +83,7 @@ class FavoriteTvShowsFragment : Fragment() {
         }
     }
 
-    private fun mapList(tvShows: List<FavoriteTvShow>): ArrayList<TvShowsMainResult> {
+    private fun mapList(tvShows: List<FavoriteTvShowEntity>): ArrayList<TvShowsMainResult> {
         val listTvShow =
             ArrayList<TvShowsMainResult>()
         tvShows.forEach { tvShow ->
@@ -113,8 +114,15 @@ class FavoriteTvShowsFragment : Fragment() {
             if (isShow) {
                 layoutNoFavorite.apply {
                     root.isVisible = true
-                    imgError.setImageResource(R.drawable.ic_outline_no_favorite)
-                    tvError.text = getString(R.string.tvNoFavoriteData)
+                    imgError.apply {
+                        isVisible = true
+                        setImageResource(R.drawable.ic_outline_no_favorite)
+                    }
+                    tvError.apply {
+                        isVisible = true
+                        text = getString(R.string.tvNoFavoriteData)
+                        setTextColor(ContextCompat.getColor(requireContext(), R.color.colorOrange))
+                    }
                 }
             } else {
                 layoutNoFavorite.root.isVisible = false
