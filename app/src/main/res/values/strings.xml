@@ -52,11 +52,13 @@
     <string name="tvNoSimilarTvShows">No similar TV Shows available</string>
     <string name="tvNoVideo">No trailer video available</string>
     <string name="tvNA">N/A</string>
-    <string name="tvNoFavoriteData">No favorite data</string>
+    <string name="tvNoFavoriteData">Oops!. No Favorite Data…</string>
+    <string name="tvSaveFavoriteMovie">You don\'t have favorite movie. Save your favorite movie to show them.</string>
+    <string name="tvSaveFavoriteTvShows">You don\'t have favorite TV shows. Save your favorite TV shows to show them.</string>
     <string name="tvNoResultsFound">No results found</string>
     <string name="tvNoSearchData">No search results</string>
     <string name="tvShareWith">Share with:</string>
-    <string name="tvOops">Oops!. Something went wrong…</string>
+    <string name="tvOops">Oops!. Something Went Wrong…</string>
     <string name="tvUnableLoadData">Unable to load data. Please try again.</string>
     <string name="tvVisitMovie">Visit this awesome movies \n%s</string>
     <string name="tvVisitTvShow">Visit this awesome Tv shows \n%s</string>
