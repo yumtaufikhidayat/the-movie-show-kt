@@ -9,7 +9,7 @@ import retrofit2.HttpException
 
 class TvShowsPopularPagingSource(
     private val repository: TheMovieShowRepository
-): PagingSource<Int, TvShowsMainResult>() {
+) : PagingSource<Int, TvShowsMainResult>() {
     override fun getRefreshKey(state: PagingState<Int, TvShowsMainResult>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             val anchorPage = state.closestPageToPosition(anchorPosition)
@@ -23,11 +23,11 @@ class TvShowsPopularPagingSource(
             val response = repository.getTvShowsPopular(currentPage)
             val data = response.body()?.results
             val responseData = mutableListOf<TvShowsMainResult>()
-            if ( data != null) responseData.addAll(data)
+            if (data != null) responseData.addAll(data)
             LoadResult.Page(
                 data = responseData,
-                prevKey = if (currentPage == 1) null else -1,
-                nextKey = currentPage.plus(1)
+                prevKey = if (currentPage == CommonConstants.STARTING_PAGE_INDEX) null else currentPage - 1,
+                nextKey = if (data?.isEmpty() == true) null else currentPage + 1
             )
         } catch (httpEx: HttpException) {
             LoadResult.Error(httpEx)

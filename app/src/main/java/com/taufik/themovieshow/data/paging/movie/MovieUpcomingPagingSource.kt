@@ -9,7 +9,7 @@ import retrofit2.HttpException
 
 class MovieUpcomingPagingSource(
     private val repository: TheMovieShowRepository
-): PagingSource<Int, MovieMainResult>() {
+) : PagingSource<Int, MovieMainResult>() {
     override fun getRefreshKey(state: PagingState<Int, MovieMainResult>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             val anchorPage = state.closestPageToPosition(anchorPosition)
@@ -26,8 +26,8 @@ class MovieUpcomingPagingSource(
             if (data != null) responseData.addAll(data)
             LoadResult.Page(
                 data = responseData,
-                prevKey = if (currentPage == 1) null else -1,
-                nextKey = currentPage.plus(1)
+                prevKey = if (currentPage == STARTING_PAGE_INDEX) null else currentPage - 1,
+                nextKey = if (data?.isEmpty() == true) null else currentPage + 1
             )
         } catch (httpEx: HttpException) {
             LoadResult.Error(httpEx)
