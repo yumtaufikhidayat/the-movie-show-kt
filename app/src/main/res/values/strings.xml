@@ -40,6 +40,10 @@
     <string name="tvApplication">Application</string>
     <string name="tvUpdate">Update</string>
     <string name="tvSearch">Search…</string>
+    <string name="tvNoSearchMovie">Oops!. You Haven\'t Search a Movie…</string>
+    <string name="tvSearchMovie">Search your favorite movie to show them</string>
+    <string name="tvNoSearchTvShow">Oops!. You Haven\'t Search a TV Show…</string>
+    <string name="tvSearchTvShow">Search your favorite TV show to show them</string>
     <string name="tvReviews">Reviews</string>
     <string name="tvSimilarMovie">Similar Movies</string>
     <string name="tvSimilarTvShows">Similar TV Shows</string>
@@ -55,8 +59,8 @@
     <string name="tvNoFavoriteData">Oops!. No Favorite Data…</string>
     <string name="tvSaveFavoriteMovie">You don\'t have favorite movie. Save your favorite movie to show them.</string>
     <string name="tvSaveFavoriteTvShows">You don\'t have favorite TV shows. Save your favorite TV shows to show them.</string>
-    <string name="tvNoResultsFound">No results found</string>
-    <string name="tvNoSearchData">No search results</string>
+    <string name="tvOopsNoResults">Oops!. No Results Found…</string>
+    <string name="tvNoSearchData">No results found for this query. Please use another query.</string>
     <string name="tvShareWith">Share with:</string>
     <string name="tvOops">Oops!. Something Went Wrong…</string>
     <string name="tvUnableLoadData">Unable to load data. Please try again.</string>
