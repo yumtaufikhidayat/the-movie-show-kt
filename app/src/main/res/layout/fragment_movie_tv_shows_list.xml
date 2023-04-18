@@ -8,7 +8,7 @@
 
     <include
         android:id="@+id/layoutError"
-        layout="@layout/layout_no_data"/>
+        layout="@layout/layout_error"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvCommon"

@@ -40,6 +40,6 @@
 
     <include
         android:id="@+id/layoutNoFavorite"
-        layout="@layout/layout_no_data"/>
+        layout="@layout/layout_error"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
