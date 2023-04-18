@@ -3,14 +3,15 @@ package com.taufik.themovieshow.ui.discover
 import android.content.Context
 import android.os.Bundle
 import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -18,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.NetworkResult
 import com.taufik.themovieshow.databinding.FragmentDiscoverTvShowBinding
+import com.taufik.themovieshow.model.response.tvshow.discover.DiscoverTvShowsResult
 import com.taufik.themovieshow.ui.main.tvshow.adapter.DiscoverTvShowsAdapter
 import com.taufik.themovieshow.ui.main.tvshow.viewmodel.TvShowsViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -61,45 +63,67 @@ class DiscoverTvShowFragment : Fragment() {
         }
     }
 
-    private fun initSearch()  {
-        binding.toolbarSearchTvShow.etSearch.apply {
-            setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, _ ->
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    hideKeyboard()
-                    return@OnEditorActionListener true
-                }
-                false
-            })
+    private fun initSearch() {
+        binding.apply {
+            toolbarSearchTvShow.etSearch.apply {
+                showKeyboard()
+                setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, _ ->
+                    if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                        hideKeyboard()
+                        return@OnEditorActionListener true
+                    }
+                    false
+                })
 
-            addTextChangedListener(afterTextChanged = { p0 ->
-                showSearchData(p0)
-            })
+                addTextChangedListener(object : TextWatcher {
+                    override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+                    override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                        showNoResults(true, emptyList(), p0.toString())
+                    }
+
+                    override fun afterTextChanged(p0: Editable?) {
+                        showSearchData(p0)
+                    }
+                })
+            }
         }
     }
 
-    private fun showSearchData(query: Editable?) {
+    private fun showSearchData(p0: Editable?) {
         viewModel.apply {
-            val q = query.toString()
-            if (q.isNotEmpty()) {
-                setDiscoverTvShows(q)
-                    discoverTvShowsResponse.observe(viewLifecycleOwner) { response ->
-                    when (response) {
-                        is NetworkResult.Loading -> {}
-                        is NetworkResult.Success -> {
-                            val data = response.data
-                            if (data != null) {
-                                if (data.results.isNotEmpty()) {
-                                    discoverTvShowsAdapter.submitList(data.results)
-                                    showNoResults(false)
-                                } else {
-                                    showNoResults(true)
+            val query = p0.toString()
+            setDiscoverTvShows(query)
+            discoverTvShowsResponse.observe(viewLifecycleOwner) { response ->
+                when (response) {
+                    is NetworkResult.Loading -> showNoResults(false, emptyList(), query)
+                    is NetworkResult.Success -> {
+                        val data = response.data
+                        val results = data?.results
+                        if (results != null) {
+                            when {
+                                results.isEmpty() ->  showNoResults(true, results, query)
+                                query.isNotEmpty() -> {
+                                    discoverTvShowsAdapter.submitList(results)
+                                    showNoResults(false, results, query)
                                 }
+                                else -> showNoResults(true, emptyList(), query)
                             }
+                        } else {
+                            showNoResults(true, emptyList(), query)
                         }
-                        is NetworkResult.Error -> {}
                     }
+                    is NetworkResult.Error -> showNoResults(false, emptyList(), query)
                 }
             }
+        }
+    }
+
+    private fun showKeyboard() {
+        binding.toolbarSearchTvShow.apply {
+            etSearch.requestFocus()
+            val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.showSoftInput(etSearch, InputMethodManager.SHOW_IMPLICIT)
         }
     }
 
@@ -113,13 +137,37 @@ class DiscoverTvShowFragment : Fragment() {
         }
     }
 
-    private fun showNoResults(isShow: Boolean) {
+    private fun showNoResults(isShow: Boolean, list: List<DiscoverTvShowsResult>?, query: String) {
         binding.apply {
+            var textSearchTitle = ""
+            var textSearch = ""
             if (isShow) {
+                when {
+                    query.isEmpty() || query.isBlank() -> {
+                        textSearchTitle = getString(R.string.tvNoSearchTvShow)
+                        textSearch = getString(R.string.tvSearchTvShow)
+                    }
+                    list?.isEmpty() == true -> {
+                        textSearchTitle = getString(R.string.tvOopsNoResults)
+                        textSearch = getString(R.string.tvNoSearchData)
+                    }
+                }
                 layoutNoSearch.apply {
                     root.isVisible = true
-                    imgError.setImageResource(R.drawable.ic_search_orange)
-                    tvError.text = getString(R.string.tvNoSearchData)
+                    imgError.apply {
+                        isVisible = true
+                        setImageResource(R.drawable.ic_search_orange)
+                    }
+                    tvErrorTitle.apply {
+                        isVisible = true
+                        text = textSearchTitle
+                        setTextColor(ContextCompat.getColor(requireContext(), R.color.colorOrange))
+                    }
+                    tvError.apply {
+                        isVisible = true
+                        text = textSearch
+                        setTextColor(ContextCompat.getColor(requireContext(), R.color.colorOrange))
+                    }
                 }
             } else {
                 layoutNoSearch.root.isVisible = false

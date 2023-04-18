@@ -3,14 +3,15 @@ package com.taufik.themovieshow.ui.discover
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
 import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -18,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.NetworkResult
 import com.taufik.themovieshow.databinding.FragmentDiscoverMovieBinding
+import com.taufik.themovieshow.model.response.movie.discover.DiscoverMovieResult
 import com.taufik.themovieshow.ui.main.movie.adapter.DiscoverMovieAdapter
 import com.taufik.themovieshow.ui.main.movie.viewmodel.MovieViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -47,75 +49,129 @@ class DiscoverMovieFragment : Fragment() {
         initSearch()
     }
 
-    private fun initToolbar() = with(binding) {
-        toolbarSearchMovie.imgBack.setOnClickListener {
+    private fun initToolbar() {
+         binding.toolbarSearchMovie.imgBack.setOnClickListener {
             findNavController().popBackStack()
         }
     }
 
-    private fun initAdapter() = with(binding) {
-        rvSearchMovie.apply {
+    private fun initAdapter() {
+        binding.rvSearchMovie.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
             adapter = discoverMovieAdapter
         }
     }
 
-    private fun initSearch() = with(binding) {
-        toolbarSearchMovie.etSearch.apply {
-            setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, _ ->
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    hideKeyboard()
-                    return@OnEditorActionListener true
-                }
-                false
-            })
+    private fun initSearch() {
+        binding.apply {
+            toolbarSearchMovie.etSearch.apply {
+                showKeyboard()
+                setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, _ ->
+                    if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                        hideKeyboard()
+                        return@OnEditorActionListener true
+                    }
+                    false
+                })
 
-            addTextChangedListener(afterTextChanged = { p0 ->
-                showSearchData(p0)
-            })
+                addTextChangedListener(object : TextWatcher {
+                    override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+                    override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                        showNoResults(true, emptyList(), p0.toString())
+                    }
+
+                    override fun afterTextChanged(p0: Editable?) {
+                        showSearchData(p0)
+                    }
+                })
+            }
         }
     }
 
-    private fun showSearchData(query: Editable?) {
+    private fun showSearchData(p0: Editable?) {
         viewModel.apply {
-            val q = query.toString()
-            setDiscoverMovie(q)
+            val query = p0.toString()
+            setDiscoverMovie(query)
             discoverMovieResponse.observe(viewLifecycleOwner) { response ->
                 when (response) {
-                    is NetworkResult.Loading -> showNoResults(false)
+                    is NetworkResult.Loading -> showNoResults(false, emptyList(), query)
                     is NetworkResult.Success -> {
                         val data = response.data
-                        if (q.isNotEmpty() && data != null) {
-                            discoverMovieAdapter.submitList(data.results)
-                            showNoResults(false)
+                        val results = data?.results
+                        if (results != null) {
+                            when {
+                                results.isEmpty() ->  showNoResults(true, results, query)
+                                query.isNotEmpty() -> {
+                                    discoverMovieAdapter.submitList(results)
+                                    showNoResults(false, results, query)
+                                }
+                                else -> showNoResults(true, emptyList(), query)
+                            }
                         } else {
-                            showNoResults(true)
+                            showNoResults(true, emptyList(), query)
                         }
                     }
-                    is NetworkResult.Error -> showNoResults(false)
+                    is NetworkResult.Error -> showNoResults(false, emptyList(), query)
                 }
             }
         }
     }
 
-    private fun hideKeyboard() = with(binding) {
-        toolbarSearchMovie.apply {
-            etSearch.clearFocus()
+    private fun showKeyboard() {
+        binding.toolbarSearchMovie.apply {
+            etSearch.requestFocus()
             val imm = requireActivity().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(etSearch.windowToken, 0)
+            imm.showSoftInput(etSearch, InputMethodManager.SHOW_IMPLICIT)
         }
     }
 
-    private fun showNoResults(isShow: Boolean) = with(binding) {
-        if (isShow) {
-            layoutNoSearch.apply {
-                root.isVisible = true
-                imgError.setImageResource(R.drawable.ic_search_orange)
-                tvError.text = getString(R.string.tvNoSearchData)
+    private fun hideKeyboard() {
+        binding.apply {
+            toolbarSearchMovie.apply {
+                etSearch.clearFocus()
+                val imm = requireActivity().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(etSearch.windowToken, 0)
             }
-        } else {
-            layoutNoSearch.root.isVisible = false
+        }
+    }
+
+    private fun showNoResults(isShow: Boolean, list: List<DiscoverMovieResult>?, query: String) {
+        binding.apply {
+            var textSearchTitle = ""
+            var textSearch = ""
+            if (isShow) {
+                when {
+                    query.isEmpty() || query.isBlank() -> {
+                        textSearchTitle = getString(R.string.tvNoSearchMovie)
+                        textSearch = getString(R.string.tvSearchMovie)
+                    }
+                    list?.isEmpty() == true -> {
+                        textSearchTitle = getString(R.string.tvOopsNoResults)
+                        textSearch = getString(R.string.tvNoSearchData)
+                    }
+                }
+                layoutNoSearch.apply {
+                    root.isVisible = true
+                    imgError.apply {
+                        isVisible = true
+                        setImageResource(R.drawable.ic_search_orange)
+                    }
+                    tvErrorTitle.apply {
+                        isVisible = true
+                        text = textSearchTitle
+                        setTextColor(ContextCompat.getColor(requireContext(), R.color.colorOrange))
+                    }
+                    tvError.apply {
+                        isVisible = true
+                        text = textSearch
+                        setTextColor(ContextCompat.getColor(requireContext(), R.color.colorOrange))
+                    }
+                }
+            } else {
+                layoutNoSearch.root.isVisible = false
+            }
         }
     }
 
