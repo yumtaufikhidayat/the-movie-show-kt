@@ -13,7 +13,7 @@ class TheMovieShowRepository @Inject constructor(
 ) {
     fun getMovieNowPlaying() = remoteDataSource.getMovieNowPlaying()
 
-    suspend fun getMovieUpcoming(page: Int) = remoteDataSource.getMovieUpcoming(page)
+    fun getMovieUpcoming() = remoteDataSource.getMovieUpcoming()
 
     fun getMovieTrendingDay() = remoteDataSource.getMovieTrendingDay()
 
@@ -33,7 +33,7 @@ class TheMovieShowRepository @Inject constructor(
 
     suspend fun getTvShowsPopular(page: Int) = remoteDataSource.getTvShowsPopular(page)
 
-    suspend fun getTvShowsTrending(page: Int) = remoteDataSource.getTvShowsTrending(page)
+    fun getTvShowsTrending() = remoteDataSource.getTvShowsTrending()
 
     suspend fun getDiscoverTvShows(query: String) = remoteDataSource.getDiscoverTvShows(query)
 
