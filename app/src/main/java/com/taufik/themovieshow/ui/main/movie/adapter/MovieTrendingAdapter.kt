@@ -51,7 +51,7 @@ class MovieTrendingAdapter(
     }
 
     companion object {
-        val movieTrendingDiffCallback = object: DiffUtil.ItemCallback<MovieTrendingResult>() {
+        val movieTrendingDiffCallback = object : DiffUtil.ItemCallback<MovieTrendingResult>() {
             override fun areItemsTheSame(
                 oldItem: MovieTrendingResult,
                 newItem: MovieTrendingResult

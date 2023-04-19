@@ -47,7 +47,7 @@ class TvShowFragment : Fragment() {
         }
     }
 
-    private fun setActionClick()  {
+    private fun setActionClick() {
         binding.fabTvShow.setOnClickListener {
             findNavController().navigate(R.id.discoverTvShowFragment)
         }
