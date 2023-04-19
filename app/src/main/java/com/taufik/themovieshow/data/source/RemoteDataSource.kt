@@ -7,6 +7,7 @@ import com.taufik.themovieshow.data.NetworkResult
 import com.taufik.themovieshow.data.paging.movie.MovieNowPlayingPagingSource
 import com.taufik.themovieshow.data.paging.movie.MovieTrendingPagingSource
 import com.taufik.themovieshow.data.paging.movie.MovieUpcomingPagingSource
+import com.taufik.themovieshow.data.paging.tvshow.TvShowsAiringTodayPagingSource
 import com.taufik.themovieshow.data.paging.tvshow.TvShowsTrendingPagingSource
 import com.taufik.themovieshow.data.remote.api.ApiService
 import com.taufik.themovieshow.model.response.common.reviews.ReviewsResponse
@@ -92,7 +93,14 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService): 
         }.flowOn(dispatchersIO)
     }
 
-    suspend fun getTvShowsAiringToday(page: Int) = apiService.getTvShowsAiringToday(page)
+    fun getTvShowsAiringToday() = Pager(
+        PagingConfig(
+            pageSize = CommonConstants.STARTING_PAGE_INDEX,
+            maxSize = CommonConstants.LOAD_PER_PAGE,
+            enablePlaceholders = false
+        ), pagingSourceFactory = {
+            TvShowsAiringTodayPagingSource(apiService)
+        }).liveData
 
     suspend fun getTvShowsPopular(page: Int) = apiService.getTvShowsPopular(page)
 

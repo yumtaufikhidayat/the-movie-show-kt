@@ -29,7 +29,7 @@ class TheMovieShowRepository @Inject constructor(
 
     suspend fun getSimilarMovie(movieId: Int) = remoteDataSource.getSimilarMovie(movieId)
 
-    suspend fun getTvShowsAiringToday(page: Int) = remoteDataSource.getTvShowsAiringToday(page)
+    fun getTvShowsAiringToday() = remoteDataSource.getTvShowsAiringToday()
 
     suspend fun getTvShowsPopular(page: Int) = remoteDataSource.getTvShowsPopular(page)
 

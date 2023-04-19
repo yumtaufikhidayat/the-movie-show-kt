@@ -8,7 +8,6 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.liveData
 import com.taufik.themovieshow.data.NetworkResult
-import com.taufik.themovieshow.data.paging.tvshow.TvShowsAiringTodayPagingSource
 import com.taufik.themovieshow.data.paging.tvshow.TvShowsPopularPagingSource
 import com.taufik.themovieshow.data.repository.TheMovieShowRepository
 import com.taufik.themovieshow.model.response.tvshow.discover.DiscoverTvShowsResponse
@@ -23,14 +22,7 @@ class TvShowsViewModel @Inject constructor(private val repository: TheMovieShowR
     private val _discoverTvShowsResponse: MutableLiveData<NetworkResult<DiscoverTvShowsResponse>> = MutableLiveData()
     val discoverTvShowsResponse: LiveData<NetworkResult<DiscoverTvShowsResponse>> get() = _discoverTvShowsResponse
 
-    fun setTvShowsAiringToday() = Pager(
-        PagingConfig(
-            pageSize = CommonConstants.STARTING_PAGE_INDEX,
-            maxSize = CommonConstants.LOAD_PER_PAGE,
-            enablePlaceholders = false
-        ), pagingSourceFactory = {
-            TvShowsAiringTodayPagingSource(repository)
-        }).liveData
+    fun setTvShowsAiringToday() = repository.getTvShowsAiringToday()
 
     fun setTvShowsPopular() = Pager(
         PagingConfig(
