@@ -15,7 +15,7 @@ class TheMovieShowRepository @Inject constructor(
 
     suspend fun getMovieUpcoming(page: Int) = remoteDataSource.getMovieUpcoming(page)
 
-    suspend fun getMovieTrendingDay(page: Int) = remoteDataSource.getMovieTrendingDay(page)
+    fun getMovieTrendingDay() = remoteDataSource.getMovieTrendingDay()
 
     suspend fun getDiscoverMovie(query: String) = remoteDataSource.getDiscoverMovie(query)
 

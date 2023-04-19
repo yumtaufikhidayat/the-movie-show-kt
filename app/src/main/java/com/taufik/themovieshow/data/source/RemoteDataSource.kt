@@ -1,6 +1,10 @@
 package com.taufik.themovieshow.data.source
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.liveData
 import com.taufik.themovieshow.data.NetworkResult
+import com.taufik.themovieshow.data.paging.movie.MovieTrendingPagingSource
 import com.taufik.themovieshow.data.remote.api.ApiService
 import com.taufik.themovieshow.model.response.common.reviews.ReviewsResponse
 import com.taufik.themovieshow.model.response.movie.cast.MovieCastResponse
@@ -13,6 +17,7 @@ import com.taufik.themovieshow.model.response.tvshow.detail.TvShowsPopularDetail
 import com.taufik.themovieshow.model.response.tvshow.discover.DiscoverTvShowsResponse
 import com.taufik.themovieshow.model.response.tvshow.similar.TvShowsSimilarResponse
 import com.taufik.themovieshow.model.response.tvshow.video.TvShowsVideoResponse
+import com.taufik.themovieshow.utils.CommonConstants
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -26,7 +31,14 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService): 
 
     suspend fun getMovieUpcoming(page: Int) = apiService.getMovieUpcoming(page)
 
-    suspend fun getMovieTrendingDay(page: Int) = apiService.getMovieTrendingDay(page)
+    fun getMovieTrendingDay() = Pager(
+        PagingConfig(
+            pageSize = CommonConstants.STARTING_PAGE_INDEX,
+            maxSize = CommonConstants.LOAD_PER_PAGE,
+            enablePlaceholders = false
+        ), pagingSourceFactory = {
+            MovieTrendingPagingSource(apiService)
+        }).liveData
 
     suspend fun getDiscoverMovie(query: String): Flow<NetworkResult<DiscoverMovieResponse>> {
         return flow {
