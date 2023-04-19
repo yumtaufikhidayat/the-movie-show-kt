@@ -34,7 +34,7 @@ class SplashscreenActivity : AppCompatActivity() {
         }, DELAY_TIME)
     }
 
-    private fun setAppVersion()  {
+    private fun setAppVersion() {
         try {
             val pInfo: PackageInfo = packageManager.getPackageInfo(packageName, 0)
             val appVersion = pInfo.versionName

@@ -5,8 +5,13 @@ import androidx.room.RoomDatabase
 import com.taufik.themovieshow.data.local.dao.TheMovieShowDao
 import com.taufik.themovieshow.data.local.entity.movie.FavoriteMovieEntity
 import com.taufik.themovieshow.data.local.entity.tvshow.FavoriteTvShowEntity
+import com.taufik.themovieshow.utils.CommonConstants
 
-@Database(entities = [FavoriteMovieEntity::class, FavoriteTvShowEntity::class], version = 1, exportSchema = false)
-abstract class TheMovieShowDatabase: RoomDatabase() {
+@Database(
+    entities = [FavoriteMovieEntity::class, FavoriteTvShowEntity::class],
+    version = CommonConstants.DB_VERSION,
+    exportSchema = false
+)
+abstract class TheMovieShowDatabase : RoomDatabase() {
     abstract fun getFavoriteTheMovieShowDao(): TheMovieShowDao
 }
