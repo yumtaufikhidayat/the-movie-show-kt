@@ -7,15 +7,12 @@ import com.taufik.themovieshow.ui.main.favorite.fragment.FavoriteTvShowsFragment
 
 class FavoritePagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
 
-    override fun createFragment(position: Int): Fragment {
-        var fragment: Fragment? = null
-        when (position) {
-            0 -> fragment = FavoriteMovieFragment()
-            1 -> fragment = FavoriteTvShowsFragment()
-        }
+    private val listOfFragments = listOf(
+        FavoriteMovieFragment(),
+        FavoriteTvShowsFragment()
+    )
 
-        return fragment as Fragment
-    }
+    override fun createFragment(position: Int): Fragment = listOfFragments[position]
 
-    override fun getItemCount(): Int = 2
+    override fun getItemCount(): Int = listOfFragments.size
 }

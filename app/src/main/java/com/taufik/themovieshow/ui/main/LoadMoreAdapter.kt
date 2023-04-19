@@ -14,7 +14,13 @@ class LoadMoreAdapter(private val retry: () -> Unit): LoadStateAdapter<LoadMoreA
         parent: ViewGroup,
         loadState: LoadState
     ): LoadMoreAdapter.LoadMoreViewHolder {
-        return LoadMoreViewHolder(LoadMoreBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return LoadMoreViewHolder(
+            LoadMoreBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(

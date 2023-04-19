@@ -9,7 +9,8 @@ import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.remote.api.UrlEndpoint
 import es.dmoral.toasty.Toasty
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 import kotlin.math.roundToInt
 
 fun ImageView.loadImage(url: String?) {

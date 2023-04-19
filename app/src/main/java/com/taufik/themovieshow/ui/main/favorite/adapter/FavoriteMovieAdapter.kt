@@ -17,7 +17,7 @@ import com.taufik.themovieshow.utils.CommonDateFormatConstants
 import com.taufik.themovieshow.utils.convertDate
 import com.taufik.themovieshow.utils.loadImage
 import com.taufik.themovieshow.utils.toRating
-import java.util.*
+import java.util.Locale
 
 class FavoriteMovieAdapter : ListAdapter<MovieMainResult, FavoriteMovieAdapter.MovieViewHolder>(
     favoriteMovieDiffCallback

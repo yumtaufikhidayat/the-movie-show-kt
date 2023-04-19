@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun showHideBottomNavigation(isShow: Boolean)  {
+    private fun showHideBottomNavigation(isShow: Boolean) {
         binding.navBottom.isVisible = isShow
     }
 

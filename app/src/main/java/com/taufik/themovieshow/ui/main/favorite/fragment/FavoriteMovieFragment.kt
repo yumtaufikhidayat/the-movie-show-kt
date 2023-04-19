@@ -113,13 +113,14 @@ class FavoriteMovieFragment : Fragment() {
             if (isShow) {
                 layoutNoFavorite.apply {
                     root.isVisible = true
-                    imgError.apply {
+                    tvErrorTitle.apply {
                         isVisible = true
-                        setImageResource(R.drawable.ic_outline_no_favorite)
+                        text = getString(R.string.tvNoFavoriteData)
+                        setTextColor(ContextCompat.getColor(requireContext(), R.color.colorOrange))
                     }
                     tvError.apply {
                         isVisible = true
-                        text = getString(R.string.tvNoFavoriteData)
+                        text = getString(R.string.tvSaveFavoriteMovie)
                         setTextColor(ContextCompat.getColor(requireContext(), R.color.colorOrange))
                     }
                 }

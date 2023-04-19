@@ -50,7 +50,7 @@ class DiscoverMovieFragment : Fragment() {
     }
 
     private fun initToolbar() {
-         binding.toolbarSearchMovie.imgBack.setOnClickListener {
+        binding.toolbarSearchMovie.imgBack.setOnClickListener {
             findNavController().popBackStack()
         }
     }
@@ -102,7 +102,7 @@ class DiscoverMovieFragment : Fragment() {
                         val results = data?.results
                         if (results != null) {
                             when {
-                                results.isEmpty() ->  showNoResults(true, results, query)
+                                results.isEmpty() -> showNoResults(true, results, query)
                                 query.isNotEmpty() -> {
                                     discoverMovieAdapter.submitList(results)
                                     showNoResults(false, results, query)

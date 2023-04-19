@@ -113,6 +113,7 @@ class DetailMovieFragment : Fragment() {
                                         tvNoOverview.isVisible = true
                                         tvReadMore.isVisible = false
                                     }
+
                                     else -> {
                                         tvNoOverview.isVisible = false
                                         tvOverview.apply {
@@ -218,7 +219,7 @@ class DetailMovieFragment : Fragment() {
             }
         }
     }
-    
+
     private fun shareMovie(link: String) {
         binding.apply {
             toolbarDetailMovie.imgShare.setOnClickListener {
@@ -276,7 +277,7 @@ class DetailMovieFragment : Fragment() {
                 when (response) {
                     is NetworkResult.Loading -> showNoCast(false)
                     is NetworkResult.Success -> {
-                       val cast = response.data?.cast
+                        val cast = response.data?.cast
                         if (cast.isNullOrEmpty()) {
                             showNoCast(true)
                         } else {
@@ -335,7 +336,7 @@ class DetailMovieFragment : Fragment() {
         binding.apply {
             viewModel.apply {
                 setDetailMovieReviews(id)
-                    detailMovieReviewsResponse.observe(viewLifecycleOwner) { response ->
+                detailMovieReviewsResponse.observe(viewLifecycleOwner) { response ->
                     when (response) {
                         is NetworkResult.Loading -> tvNoReviews.isVisible = false
                         is NetworkResult.Success -> {
@@ -367,12 +368,12 @@ class DetailMovieFragment : Fragment() {
     private fun showSimilar(id: Int) {
         viewModel.apply {
             setDetailMovieSimilar(id)
-                detailMovieSimilarResponse.observe(viewLifecycleOwner) { response ->
+            detailMovieSimilarResponse.observe(viewLifecycleOwner) { response ->
                 when (response) {
                     is NetworkResult.Loading -> showNoSimilarMovie(false)
                     is NetworkResult.Success -> {
                         val results = response.data?.results
-                        if (results.isNullOrEmpty()){
+                        if (results.isNullOrEmpty()) {
                             showNoSimilarMovie(true)
                         } else {
                             showNoSimilarMovie(false)

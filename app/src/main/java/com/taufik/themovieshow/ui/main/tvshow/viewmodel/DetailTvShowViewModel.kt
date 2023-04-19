@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.taufik.themovieshow.data.NetworkResult
-import com.taufik.themovieshow.data.local.entity.tvshow.FavoriteTvShow
+import com.taufik.themovieshow.data.local.entity.tvshow.FavoriteTvShowEntity
 import com.taufik.themovieshow.data.repository.TheMovieShowRepository
 import com.taufik.themovieshow.model.response.common.reviews.ReviewsResponse
 import com.taufik.themovieshow.model.response.tvshow.cast.TvShowsCastResponse
@@ -74,7 +74,7 @@ class DetailTvShowViewModel @Inject constructor(private val repository: TheMovie
     ) {
         viewModelScope.launch {
             repository.addTvShowToFavorite(
-                FavoriteTvShow(
+                FavoriteTvShowEntity(
                     tvShowId, posterPath, title, firstAirDate, rating
                 )
             )

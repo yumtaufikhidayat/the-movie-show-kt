@@ -37,7 +37,7 @@ class MovieFragment : Fragment() {
         binding.toolbarMovie.tvToolbar.text = getString(R.string.icMovies)
     }
 
-    private fun setTabLayout()  {
+    private fun setTabLayout() {
         binding.apply {
             val mainPagerAdapter = MoviePagerAdapter(this@MovieFragment)
             viewPagerMovie.adapter = mainPagerAdapter
@@ -47,7 +47,7 @@ class MovieFragment : Fragment() {
         }
     }
 
-    private fun setActionClick()  {
+    private fun setActionClick() {
         binding.fabMovie.setOnClickListener {
             findNavController().navigate(R.id.discoverMovieFragment)
         }

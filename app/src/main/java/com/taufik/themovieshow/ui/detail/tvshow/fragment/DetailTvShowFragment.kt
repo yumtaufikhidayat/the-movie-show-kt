@@ -306,7 +306,7 @@ class DetailTvShowFragment : Fragment() {
     private fun showTrailerVideo(id: Int) {
         viewModel.apply {
             setDetailTvShowVideo(id)
-                detailTvShowVideoResponse.observe(viewLifecycleOwner) { response ->
+            detailTvShowVideoResponse.observe(viewLifecycleOwner) { response ->
                 when (response) {
                     is NetworkResult.Loading -> {}
                     is NetworkResult.Success -> {
@@ -378,7 +378,7 @@ class DetailTvShowFragment : Fragment() {
                     is NetworkResult.Loading -> {}
                     is NetworkResult.Success -> {
                         val results = response.data?.results
-                        if (results.isNullOrEmpty()){
+                        if (results.isNullOrEmpty()) {
                             showNoSimilarTvShow(true)
                         } else {
                             showNoSimilarTvShow(false)

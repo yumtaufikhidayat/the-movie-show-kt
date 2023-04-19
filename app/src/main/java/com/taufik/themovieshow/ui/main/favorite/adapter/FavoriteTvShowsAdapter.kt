@@ -18,7 +18,7 @@ import com.taufik.themovieshow.utils.CommonDateFormatConstants
 import com.taufik.themovieshow.utils.convertDate
 import com.taufik.themovieshow.utils.loadImage
 import com.taufik.themovieshow.utils.toRating
-import java.util.*
+import java.util.Locale
 
 class FavoriteTvShowsAdapter :
     ListAdapter<TvShowsMainResult, FavoriteTvShowsAdapter.TvShowsViewHolder>(
@@ -34,8 +34,7 @@ class FavoriteTvShowsAdapter :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TvShowsViewHolder {
-        val itemsMovieShowBinding =
-            ItemsMoviesTvShowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val itemsMovieShowBinding = ItemsMoviesTvShowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return TvShowsViewHolder(itemsMovieShowBinding)
     }
 

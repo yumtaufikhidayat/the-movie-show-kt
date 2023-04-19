@@ -55,7 +55,7 @@ class DiscoverTvShowFragment : Fragment() {
         }
     }
 
-    private fun initAdapter()  {
+    private fun initAdapter() {
         binding.rvSearchTvShow.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
@@ -102,7 +102,7 @@ class DiscoverTvShowFragment : Fragment() {
                         val results = data?.results
                         if (results != null) {
                             when {
-                                results.isEmpty() ->  showNoResults(true, results, query)
+                                results.isEmpty() -> showNoResults(true, results, query)
                                 query.isNotEmpty() -> {
                                     discoverTvShowsAdapter.submitList(results)
                                     showNoResults(false, results, query)

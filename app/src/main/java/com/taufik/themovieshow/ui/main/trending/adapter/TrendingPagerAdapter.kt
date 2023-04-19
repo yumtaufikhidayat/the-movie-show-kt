@@ -7,15 +7,12 @@ import com.taufik.themovieshow.ui.main.tvshow.fragment.TvShowTrendingFragment
 
 class TrendingPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
 
-    override fun createFragment(position: Int): Fragment {
-        var fragment: Fragment? = null
-        when (position) {
-            0 -> fragment = MovieTrendingFragment()
-            1 -> fragment = TvShowTrendingFragment()
-        }
+    private val listOfFragments = listOf(
+        MovieTrendingFragment(),
+        TvShowTrendingFragment()
+    )
 
-        return fragment as Fragment
-    }
+    override fun createFragment(position: Int): Fragment = listOfFragments[position]
 
-    override fun getItemCount(): Int = 2
+    override fun getItemCount(): Int = listOfFragments.size
 }

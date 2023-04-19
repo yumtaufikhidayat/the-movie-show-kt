@@ -48,7 +48,7 @@ class FavoriteTvShowsFragment : Fragment() {
         searchData()
     }
 
-    private fun setAdapter()  {
+    private fun setAdapter() {
         binding.rvDiscoverFavoriteTvShow.apply {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
@@ -84,24 +84,22 @@ class FavoriteTvShowsFragment : Fragment() {
     }
 
     private fun mapList(tvShows: List<FavoriteTvShowEntity>): ArrayList<TvShowsMainResult> {
-        val listTvShow =
-            ArrayList<TvShowsMainResult>()
+        val listTvShow = arrayListOf<TvShowsMainResult>()
         tvShows.forEach { tvShow ->
-            val tvShowMapped =
-                TvShowsMainResult(
-                    tvShow.tvShowFirstAirDate,
-                    tvShow.tvShowId,
-                    tvShow.tvShowTitle,
-                    tvShow.tvShowPoster,
-                    tvShow.tvShowRating
-                )
+            val tvShowMapped = TvShowsMainResult(
+                tvShow.tvShowFirstAirDate,
+                tvShow.tvShowId,
+                tvShow.tvShowTitle,
+                tvShow.tvShowPoster,
+                tvShow.tvShowRating
+            )
             listTvShow.add(tvShowMapped)
         }
 
         return listTvShow
     }
 
-    private fun hideKeyboard()  {
+    private fun hideKeyboard() {
         binding.apply {
             etSearch.clearFocus()
             val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -109,18 +107,19 @@ class FavoriteTvShowsFragment : Fragment() {
         }
     }
 
-    private fun showNoFavorite(isShow: Boolean)  {
+    private fun showNoFavorite(isShow: Boolean) {
         binding.apply {
             if (isShow) {
                 layoutNoFavorite.apply {
                     root.isVisible = true
-                    imgError.apply {
+                    tvErrorTitle.apply {
                         isVisible = true
-                        setImageResource(R.drawable.ic_outline_no_favorite)
+                        text = getString(R.string.tvNoFavoriteData)
+                        setTextColor(ContextCompat.getColor(requireContext(), R.color.colorOrange))
                     }
                     tvError.apply {
                         isVisible = true
-                        text = getString(R.string.tvNoFavoriteData)
+                        text = getString(R.string.tvSaveFavoriteTvShows)
                         setTextColor(ContextCompat.getColor(requireContext(), R.color.colorOrange))
                     }
                 }

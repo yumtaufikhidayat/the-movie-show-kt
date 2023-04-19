@@ -43,11 +43,11 @@ class AboutFragment : Fragment() {
         setApplicationData()
     }
 
-    private fun setToolbar()  {
+    private fun setToolbar() {
         binding.toolbarAbout.tvToolbar.text = getString(R.string.icAbout)
     }
 
-    private fun setAuthorData()  {
+    private fun setAuthorData() {
         authorAdapter = AboutAuthorAdapter { position ->
             when (position) {
                 0 -> showToastyBasedOnType("linkedIn")
@@ -65,7 +65,7 @@ class AboutFragment : Fragment() {
         authorAdapter?.submitList(viewModel.getAboutAuthor(requireContext()))
     }
 
-    private fun setApplicationData()  {
+    private fun setApplicationData() {
         applicationAdapter = AboutApplicationAdapter { position ->
             when (position) {
                 0 -> {}
