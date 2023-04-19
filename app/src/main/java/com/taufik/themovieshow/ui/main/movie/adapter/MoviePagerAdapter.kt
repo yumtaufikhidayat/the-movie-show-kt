@@ -7,15 +7,12 @@ import com.taufik.themovieshow.ui.main.movie.fragment.MovieUpcomingFragment
 
 class MoviePagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
 
-    override fun createFragment(position: Int): Fragment {
-        var fragment: Fragment? = null
-        when (position) {
-            0 -> fragment = MovieNowPlayingFragment()
-            1 -> fragment = MovieUpcomingFragment()
-        }
+    private val listOfFragments = listOf(
+        MovieNowPlayingFragment(),
+        MovieUpcomingFragment()
+    )
 
-        return fragment as Fragment
-    }
+    override fun createFragment(position: Int): Fragment = listOfFragments[position]
 
-    override fun getItemCount(): Int = 2
+    override fun getItemCount(): Int = listOfFragments.size
 }
