@@ -31,7 +31,7 @@ class TheMovieShowRepository @Inject constructor(
 
     fun getTvShowsAiringToday() = remoteDataSource.getTvShowsAiringToday()
 
-    suspend fun getTvShowsPopular(page: Int) = remoteDataSource.getTvShowsPopular(page)
+    fun getTvShowsPopular() = remoteDataSource.getTvShowsPopular()
 
     fun getTvShowsTrending() = remoteDataSource.getTvShowsTrending()
 
@@ -54,8 +54,7 @@ class TheMovieShowRepository @Inject constructor(
 
     suspend fun checkFavoriteMovie(movieId: Int) = localDataSource.checkFavoriteMovie(movieId)
 
-    suspend fun removeMovieFromFavorite(movieId: Int) =
-        localDataSource.removeMovieFromFavorite(movieId)
+    suspend fun removeMovieFromFavorite(movieId: Int) = localDataSource.removeMovieFromFavorite(movieId)
 
     suspend fun addTvShowToFavorite(favoriteTvShowEntity: FavoriteTvShowEntity) =
         localDataSource.addTvShowToFavorite(favoriteTvShowEntity)
@@ -64,8 +63,7 @@ class TheMovieShowRepository @Inject constructor(
 
     suspend fun checkFavoriteTvShow(tvShowId: Int) = localDataSource.checkFavoriteTvShow(tvShowId)
 
-    suspend fun removeTvShowFromFavorite(tvShowId: Int) =
-        localDataSource.removeTvShowFromFavorite(tvShowId)
+    suspend fun removeTvShowFromFavorite(tvShowId: Int) = localDataSource.removeTvShowFromFavorite(tvShowId)
 
     fun getAboutAuthor(context: Context) = localDataSource.getAboutAuthor(context)
 

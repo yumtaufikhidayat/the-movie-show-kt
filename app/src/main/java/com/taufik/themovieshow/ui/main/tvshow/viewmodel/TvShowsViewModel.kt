@@ -4,14 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.liveData
 import com.taufik.themovieshow.data.NetworkResult
-import com.taufik.themovieshow.data.paging.tvshow.TvShowsPopularPagingSource
 import com.taufik.themovieshow.data.repository.TheMovieShowRepository
 import com.taufik.themovieshow.model.response.tvshow.discover.DiscoverTvShowsResponse
-import com.taufik.themovieshow.utils.CommonConstants
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -24,14 +19,7 @@ class TvShowsViewModel @Inject constructor(private val repository: TheMovieShowR
 
     fun setTvShowsAiringToday() = repository.getTvShowsAiringToday()
 
-    fun setTvShowsPopular() = Pager(
-        PagingConfig(
-            pageSize = CommonConstants.STARTING_PAGE_INDEX,
-            maxSize = CommonConstants.LOAD_PER_PAGE,
-            enablePlaceholders = false
-        ), pagingSourceFactory = {
-            TvShowsPopularPagingSource(repository)
-        }).liveData
+    fun setTvShowsPopular() = repository.getTvShowsPopular()
 
     fun setTvShowsTrending() = repository.getTvShowsTrending()
 
