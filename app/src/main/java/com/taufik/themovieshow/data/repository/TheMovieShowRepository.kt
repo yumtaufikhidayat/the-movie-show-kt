@@ -11,7 +11,7 @@ class TheMovieShowRepository @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource
 ) {
-    suspend fun getMovieNowPlaying(page: Int) = remoteDataSource.getMovieNowPlaying(page)
+    fun getMovieNowPlaying() = remoteDataSource.getMovieNowPlaying()
 
     suspend fun getMovieUpcoming(page: Int) = remoteDataSource.getMovieUpcoming(page)
 

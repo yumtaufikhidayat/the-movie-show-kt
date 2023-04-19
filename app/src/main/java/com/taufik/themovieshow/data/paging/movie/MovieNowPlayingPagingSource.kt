@@ -2,13 +2,13 @@ package com.taufik.themovieshow.data.paging.movie
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.taufik.themovieshow.data.repository.TheMovieShowRepository
+import com.taufik.themovieshow.data.remote.api.ApiService
 import com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult
 import com.taufik.themovieshow.utils.CommonConstants.STARTING_PAGE_INDEX
 import retrofit2.HttpException
 
 class MovieNowPlayingPagingSource(
-    private val repository: TheMovieShowRepository
+    private val apiService: ApiService
 ) : PagingSource<Int, MovieMainResult>() {
     override fun getRefreshKey(state: PagingState<Int, MovieMainResult>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
@@ -20,7 +20,7 @@ class MovieNowPlayingPagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MovieMainResult> {
         val currentPage = params.key ?: STARTING_PAGE_INDEX
         return try {
-            val response = repository.getMovieNowPlaying(currentPage)
+            val response = apiService.getMovieNowPlaying(currentPage)
             val data = response.body()?.results
             val responseData = mutableListOf<MovieMainResult>()
             if (data != null) responseData.addAll(data)
