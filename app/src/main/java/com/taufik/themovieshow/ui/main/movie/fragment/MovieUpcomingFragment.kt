@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -12,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.taufik.themovieshow.R
-import com.taufik.themovieshow.databinding.FragmentMovieUpcomingBinding
+import com.taufik.themovieshow.databinding.FragmentMovieTvShowsListBinding
 import com.taufik.themovieshow.ui.detail.movie.fragment.DetailMovieFragment
 import com.taufik.themovieshow.ui.main.LoadMoreAdapter
 import com.taufik.themovieshow.ui.main.movie.adapter.MovieAdapter
@@ -23,7 +24,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class MovieUpcomingFragment : Fragment() {
 
-    private var _binding: FragmentMovieUpcomingBinding? = null
+    private var _binding: FragmentMovieTvShowsListBinding? = null
     private val binding get() = _binding!!
 
     private val viewModel by viewModels<MovieViewModel>()
@@ -34,19 +35,18 @@ class MovieUpcomingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        _binding = FragmentMovieUpcomingBinding.inflate(inflater, container, false)
+        _binding = FragmentMovieTvShowsListBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setAdapter()
         setData()
     }
 
-    private fun setAdapter()  {
-        binding.rvMovie.apply {
+    private fun setAdapter() {
+        binding.rvCommon.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
             adapter = movieAdapter
@@ -54,31 +54,73 @@ class MovieUpcomingFragment : Fragment() {
     }
 
     private fun setData() {
-        lifecycleScope.launch {
-            movieAdapter = MovieAdapter {
-                val bundle = Bundle().apply {
-                    putInt(DetailMovieFragment.EXTRA_ID, it.id)
-                    putString(DetailMovieFragment.EXTRA_TITLE, it.title)
+        binding.apply {
+            lifecycleScope.launch {
+                movieAdapter = MovieAdapter {
+                    val bundle = Bundle().apply {
+                        putInt(DetailMovieFragment.EXTRA_ID, it.id)
+                        putString(DetailMovieFragment.EXTRA_TITLE, it.title)
+                    }
+                    findNavController().navigate(R.id.detailMovieFragment, bundle)
                 }
-                findNavController().navigate(R.id.detailMovieFragment, bundle)
+
+                viewModel.setMovieUpcoming().observe(viewLifecycleOwner) {
+                    movieAdapter?.submitData(viewLifecycleOwner.lifecycle, it)
+                }
+
+                movieAdapter?.apply {
+                    layoutError.apply {
+                        addLoadStateListener { loadState ->
+                            val loadStateRefresh = loadState.source.refresh
+                            pbLoading.isVisible = loadStateRefresh is LoadState.Loading
+                            rvCommon.isVisible = loadStateRefresh is LoadState.NotLoading
+                            tvErrorTitle.apply {
+                                isVisible = loadStateRefresh is LoadState.Error
+                                text = getString(R.string.tvOops)
+                                setTextColor(
+                                    ContextCompat.getColor(
+                                        requireContext(),
+                                        R.color.colorOrange
+                                    )
+                                )
+                            }
+                            tvError.apply {
+                                isVisible = loadStateRefresh is LoadState.Error
+                                text = getString(R.string.tvUnableLoadData)
+                                setTextColor(
+                                    ContextCompat.getColor(
+                                        requireContext(),
+                                        R.color.colorOrange
+                                    )
+                                )
+                            }
+                            btnRetry.isVisible = loadStateRefresh is LoadState.Error
+
+                            if (loadStateRefresh is LoadState.NotLoading
+                                && loadState.append.endOfPaginationReached
+                                && itemCount < 1
+                            ) {
+                                rvCommon.isVisible = false
+                                tvEmptyTitle.isVisible = true
+                                tvEmpty.isVisible = true
+                            } else {
+                                tvEmptyTitle.isVisible = false
+                                tvEmpty.isVisible = false
+                            }
+                        }
+
+                        btnRetry.setOnClickListener {
+                            movieAdapter?.retry()
+                        }
+                    }
+                }
             }
 
-            viewModel.setMovieUpcoming().collect {
-                movieAdapter?.submitData(it)
-            }
-
-            movieAdapter?.loadStateFlow?.collect {
-                showLoading(it.refresh is LoadState.Loading)
-            }
+            rvCommon.adapter = movieAdapter?.withLoadStateHeaderAndFooter(
+                header = LoadMoreAdapter { movieAdapter?.retry() },
+                footer = LoadMoreAdapter { movieAdapter?.retry() }
+            )
         }
-
-        binding.rvMovie.adapter = movieAdapter?.withLoadStateFooter( LoadMoreAdapter {
-            movieAdapter?.retry()
-        })
-    }
-
-    private fun showLoading(isShow: Boolean)  {
-        binding.progressBar.isVisible = isShow
     }
 
     override fun onDestroyView() {

@@ -15,7 +15,9 @@ import com.taufik.themovieshow.utils.toRating
 
 class TvShowsTrendingAdapter(
     private val onItemClickListener: (TvShowsTrendingResult) -> Unit
-) : PagingDataAdapter<TvShowsTrendingResult, TvShowsTrendingAdapter.TvShowsViewHolder>(TvShowTrendingDiffCallback) {
+) : PagingDataAdapter<TvShowsTrendingResult, TvShowsTrendingAdapter.TvShowsViewHolder>(
+    TvShowTrendingDiffCallback
+) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TvShowsViewHolder {
         return TvShowsViewHolder(
@@ -53,7 +55,7 @@ class TvShowsTrendingAdapter(
     }
 
     companion object {
-        val TvShowTrendingDiffCallback = object: DiffUtil.ItemCallback<TvShowsTrendingResult>() {
+        val TvShowTrendingDiffCallback = object : DiffUtil.ItemCallback<TvShowsTrendingResult>() {
             override fun areItemsTheSame(
                 oldItem: TvShowsTrendingResult,
                 newItem: TvShowsTrendingResult
