@@ -24,7 +24,7 @@ interface TheMovieShowDao {
 
     @Query(
         "DELETE FROM ${CommonConstants.TABLE_NAME_FAVORITE_MOVIE_ENTITY} " +
-            "WHERE ${CommonConstants.TABLE_NAME_FAVORITE_MOVIE_ENTITY}.movieId = :movieId"
+                "WHERE ${CommonConstants.TABLE_NAME_FAVORITE_MOVIE_ENTITY}.movieId = :movieId"
     )
     suspend fun removeMovieFromFavorite(movieId: Int): Int
 
@@ -36,7 +36,7 @@ interface TheMovieShowDao {
 
     @Query(
         "SELECT count(*) FROM ${CommonConstants.TABLE_NAME_FAVORITE_TV_SHOW_ENTITY} " +
-            "WHERE ${CommonConstants.TABLE_NAME_FAVORITE_TV_SHOW_ENTITY}.tvShowId = :tvShowId"
+                "WHERE ${CommonConstants.TABLE_NAME_FAVORITE_TV_SHOW_ENTITY}.tvShowId = :tvShowId"
     )
     suspend fun checkTvShowFavorite(tvShowId: Int): Int
 

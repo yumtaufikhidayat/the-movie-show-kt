@@ -11,7 +11,8 @@ import javax.inject.Inject
 class LocalDataSource @Inject constructor(
     private val favoriteDao: TheMovieShowDao
 ) {
-    suspend fun addMovieToFavorite(favoriteMovieEntity: FavoriteMovieEntity) = favoriteDao.addMovieToFavorite(favoriteMovieEntity)
+    suspend fun addMovieToFavorite(favoriteMovieEntity: FavoriteMovieEntity) =
+        favoriteDao.addMovieToFavorite(favoriteMovieEntity)
 
     fun getFavoriteMovies() = favoriteDao.getFavoriteMovies()
 
@@ -19,15 +20,18 @@ class LocalDataSource @Inject constructor(
 
     suspend fun removeMovieFromFavorite(movieId: Int) = favoriteDao.removeMovieFromFavorite(movieId)
 
-    suspend fun addTvShowToFavorite(favoriteTvShowEntity: FavoriteTvShowEntity) = favoriteDao.addTvShowToFavorite(favoriteTvShowEntity)
+    suspend fun addTvShowToFavorite(favoriteTvShowEntity: FavoriteTvShowEntity) =
+        favoriteDao.addTvShowToFavorite(favoriteTvShowEntity)
 
     fun getFavoriteTvShows() = favoriteDao.getFavoriteTvShows()
 
     suspend fun checkFavoriteTvShow(tvShowId: Int) = favoriteDao.checkTvShowFavorite(tvShowId)
 
-    suspend fun removeTvShowFromFavorite(tvShowId: Int) = favoriteDao.removeTvShowFromFavorite(tvShowId)
+    suspend fun removeTvShowFromFavorite(tvShowId: Int) =
+        favoriteDao.removeTvShowFromFavorite(tvShowId)
 
     fun getAboutAuthor(context: Context): List<About> = UtilsData.generateAboutAuthorData(context)
 
-    fun getAboutApplication(context: Context): List<About> = UtilsData.generateAboutApplicationData(context)
+    fun getAboutApplication(context: Context): List<About> =
+        UtilsData.generateAboutApplicationData(context)
 }
