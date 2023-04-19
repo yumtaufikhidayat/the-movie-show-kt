@@ -4,14 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.liveData
 import com.taufik.themovieshow.data.NetworkResult
-import com.taufik.themovieshow.data.paging.movie.MovieUpcomingPagingSource
 import com.taufik.themovieshow.data.repository.TheMovieShowRepository
 import com.taufik.themovieshow.model.response.movie.discover.DiscoverMovieResponse
-import com.taufik.themovieshow.utils.CommonConstants
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -26,14 +21,7 @@ class MovieViewModel @Inject constructor(private val repository: TheMovieShowRep
 
     fun setMovieNowPlaying() = repository.getMovieNowPlaying()
 
-    fun setMovieUpcoming() = Pager(
-        PagingConfig(
-            pageSize = CommonConstants.STARTING_PAGE_INDEX,
-            maxSize = CommonConstants.LOAD_PER_PAGE,
-            enablePlaceholders = false
-        ), pagingSourceFactory = {
-            MovieUpcomingPagingSource(repository)
-        }).liveData
+    fun setMovieUpcoming() = repository.getMovieUpcoming()
 
     fun setDiscoverMovie(query: String) = viewModelScope.launch {
         repository.getDiscoverMovie(query).collect {
