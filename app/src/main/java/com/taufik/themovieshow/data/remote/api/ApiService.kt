@@ -15,6 +15,7 @@ import com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsM
 import com.taufik.themovieshow.model.response.tvshow.similar.TvShowsSimilarResponse
 import com.taufik.themovieshow.model.response.tvshow.trending.TvShowsTrendingResponse
 import com.taufik.themovieshow.model.response.tvshow.video.TvShowsVideoResponse
+import com.taufik.themovieshow.utils.CommonConstants
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -24,91 +25,91 @@ interface ApiService {
 
     @GET(UrlEndpoint.MOVIE_NOW_PLAYING)
     suspend fun getMovieNowPlaying(
-        @Query("page") page: Int
+        @Query(CommonConstants.QUERY_PAGE) page: Int
     ): Response<MovieMainResponse>
 
     @GET(UrlEndpoint.MOVIE_UPCOMING)
     suspend fun getMovieUpcoming(
-        @Query("page") page: Int
+        @Query(CommonConstants.QUERY_PAGE) page: Int
     ): Response<MovieMainResponse>
 
     @GET(UrlEndpoint.MOVIE_TRENDING_DAY)
     suspend fun getMovieTrendingDay(
-        @Query("page") page: Int
+        @Query(CommonConstants.QUERY_PAGE) page: Int
     ): Response<MovieTrendingResponse>
 
     @GET(UrlEndpoint.DISCOVER_MOVIES)
     suspend fun getDiscoverMovie(
-        @Query("query") query: String
+        @Query(CommonConstants.QUERY_Q) query: String
     ): Response<DiscoverMovieResponse>
 
     @GET(UrlEndpoint.MOVIE_VIDEO)
     suspend fun getMovieVideo(
-        @Path("movie_id") movieId: Int
+        @Path(CommonConstants.QUERY_MOVIE_ID) movieId: Int
     ): Response<MovieVideoResponse>
 
     @GET(UrlEndpoint.MOVIE_CAST)
     suspend fun getMovieCast(
-        @Path("movie_id") movieId: Int
+        @Path(CommonConstants.QUERY_MOVIE_ID) movieId: Int
     ): Response<MovieCastResponse>
 
     @GET(UrlEndpoint.MOVIE_DETAIL)
     suspend fun getDetailMovie(
-        @Path("movie_id") movieId: Int
+        @Path(CommonConstants.QUERY_MOVIE_ID) movieId: Int
     ): Response<MovieDetailResponse>
 
     @GET(UrlEndpoint.MOVIE_REVIEWS)
     suspend fun getReviewsMovie(
-        @Path("movie_id") movieId: Int
+        @Path(CommonConstants.QUERY_MOVIE_ID) movieId: Int
     ): Response<ReviewsResponse>
 
     @GET(UrlEndpoint.MOVIE_SIMILAR)
     suspend fun getSimilarMovie(
-        @Path("movie_id") movieId: Int
+        @Path(CommonConstants.QUERY_MOVIE_ID) movieId: Int
     ): Response<MovieSimilarResponse>
 
     @GET(UrlEndpoint.TV_SHOWS_AIRING_TODAY)
     suspend fun getTvShowsAiringToday(
-        @Query("page") page: Int
+        @Query(CommonConstants.QUERY_PAGE) page: Int
     ): Response<TvShowsMainResponse>
 
     @GET(UrlEndpoint.TV_SHOWS_POPULAR)
     suspend fun getTvShowsPopular(
-        @Query("page") page: Int
+        @Query(CommonConstants.QUERY_PAGE) page: Int
     ): Response<TvShowsMainResponse>
 
     @GET(UrlEndpoint.TV_SHOWS_TRENDING_DAY)
     suspend fun getTvShowsTrending(
-        @Query("page") page: Int
+        @Query(CommonConstants.QUERY_PAGE) page: Int
     ): Response<TvShowsTrendingResponse>
 
     @GET(UrlEndpoint.DISCOVER_TV_SHOWS)
     suspend fun getDiscoverTvShows(
-        @Query("query") query: String
+        @Query(CommonConstants.QUERY_Q) query: String
     ): Response<DiscoverTvShowsResponse>
 
     @GET(UrlEndpoint.TV_SHOWS_VIDEO)
     suspend fun getTvShowsVideo(
-        @Path("tv_id") tvId: Int
+        @Path(CommonConstants.QUERY_TV_SHOW_ID) tvId: Int
     ): Response<TvShowsVideoResponse>
 
     @GET(UrlEndpoint.TV_SHOWS_CAST)
     suspend fun getTvShowsCast(
-        @Path("tv_id") tvId: Int
+        @Path(CommonConstants.QUERY_TV_SHOW_ID) tvId: Int
     ): Response<TvShowsCastResponse>
 
     @GET(UrlEndpoint.TV_SHOWS_DETAIL)
     suspend fun getDetailTvShows(
-        @Path("tv_id") tvId: Int
+        @Path(CommonConstants.QUERY_TV_SHOW_ID) tvId: Int
     ): Response<TvShowsPopularDetailResponse>
 
     @GET(UrlEndpoint.TV_SHOWS_REVIEWS)
     suspend fun getReviewsTvShows(
-        @Path("tv_id") tvId: Int
+        @Path(CommonConstants.QUERY_TV_SHOW_ID) tvId: Int
     ): Response<ReviewsResponse>
 
     @GET(UrlEndpoint.TV_SHOWS_SIMILAR)
     suspend fun getSimilarTvShows(
-        @Path("tv_id") tvId: Int
+        @Path(CommonConstants.QUERY_TV_SHOW_ID) tvId: Int
     ): Response<TvShowsSimilarResponse>
 }
