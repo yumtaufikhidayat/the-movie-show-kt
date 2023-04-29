@@ -12,5 +12,8 @@ object CommonConstants {
     const val TABLE_NAME_FAVORITE_TV_SHOW_ENTITY = "favorite_tv_show"
     const val DB_NAME = "the_movie_show_db"
     const val DB_VERSION = 1
-    const val CURRENT_QUERY = "current_query"
+    const val QUERY_PAGE = "page"
+    const val QUERY_Q = "query"
+    const val QUERY_MOVIE_ID = "movie_id"
+    const val QUERY_TV_SHOW_ID = "tv_id"
 }
