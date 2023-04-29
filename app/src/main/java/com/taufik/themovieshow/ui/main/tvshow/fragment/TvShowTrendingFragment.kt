@@ -55,63 +55,63 @@ class TvShowTrendingFragment : Fragment() {
 
     private fun setData() {
         binding.apply {
-            lifecycleScope.launch {
-                tvShowsTrendingAdapter = TvShowsTrendingAdapter {
-                    val bundle = Bundle().apply {
-                        putInt(DetailTvShowFragment.EXTRA_ID, it.id)
-                        putString(DetailTvShowFragment.EXTRA_TITLE, it.name)
-                    }
-                    findNavController().navigate(R.id.detailTvShowFragment, bundle)
+            tvShowsTrendingAdapter = TvShowsTrendingAdapter {
+                val bundle = Bundle().apply {
+                    putInt(DetailTvShowFragment.EXTRA_ID, it.id)
+                    putString(DetailTvShowFragment.EXTRA_TITLE, it.name)
                 }
+                findNavController().navigate(R.id.detailTvShowFragment, bundle)
+            }
 
-                viewModel.setTvShowsTrending().observe(viewLifecycleOwner) {
+            lifecycleScope.launch {
+                viewModel.setTvShowsTrending().collect {
                     tvShowsTrendingAdapter?.submitData(viewLifecycleOwner.lifecycle, it)
                 }
+            }
 
-                tvShowsTrendingAdapter?.apply {
-                    layoutError.apply {
-                        addLoadStateListener { loadState ->
-                            val loadStateRefresh = loadState.source.refresh
-                            pbLoading.isVisible = loadStateRefresh is LoadState.Loading
-                            rvCommon.isVisible = loadStateRefresh is LoadState.NotLoading
-                            tvErrorTitle.apply {
-                                isVisible = loadStateRefresh is LoadState.Error
-                                text = getString(R.string.tvOops)
-                                setTextColor(
-                                    ContextCompat.getColor(
-                                        requireContext(),
-                                        R.color.colorOrange
-                                    )
+            tvShowsTrendingAdapter?.apply {
+                layoutError.apply {
+                    addLoadStateListener { loadState ->
+                        val loadStateRefresh = loadState.source.refresh
+                        pbLoading.isVisible = loadStateRefresh is LoadState.Loading
+                        rvCommon.isVisible = loadStateRefresh is LoadState.NotLoading
+                        tvErrorTitle.apply {
+                            isVisible = loadStateRefresh is LoadState.Error
+                            text = getString(R.string.tvOops)
+                            setTextColor(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.colorOrange
                                 )
-                            }
-                            tvError.apply {
-                                isVisible = loadStateRefresh is LoadState.Error
-                                text = getString(R.string.tvUnableLoadData)
-                                setTextColor(
-                                    ContextCompat.getColor(
-                                        requireContext(),
-                                        R.color.colorOrange
-                                    )
+                            )
+                        }
+                        tvError.apply {
+                            isVisible = loadStateRefresh is LoadState.Error
+                            text = getString(R.string.tvUnableLoadData)
+                            setTextColor(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.colorOrange
                                 )
-                            }
-                            btnRetry.isVisible = loadStateRefresh is LoadState.Error
-
-                            if (loadStateRefresh is LoadState.NotLoading
-                                && loadState.append.endOfPaginationReached
-                                && itemCount < 1
-                            ) {
-                                rvCommon.isVisible = false
-                                tvEmptyTitle.isVisible = true
-                                tvEmpty.isVisible = true
-                            } else {
-                                tvEmptyTitle.isVisible = false
-                                tvEmpty.isVisible = false
-                            }
+                            )
                         }
+                        btnRetry.isVisible = loadStateRefresh is LoadState.Error
 
-                        btnRetry.setOnClickListener {
-                            tvShowsTrendingAdapter?.retry()
+                        if (loadStateRefresh is LoadState.NotLoading
+                            && loadState.append.endOfPaginationReached
+                            && itemCount < 1
+                        ) {
+                            rvCommon.isVisible = false
+                            tvEmptyTitle.isVisible = true
+                            tvEmpty.isVisible = true
+                        } else {
+                            tvEmptyTitle.isVisible = false
+                            tvEmpty.isVisible = false
                         }
+                    }
+
+                    btnRetry.setOnClickListener {
+                        tvShowsTrendingAdapter?.retry()
                     }
                 }
             }

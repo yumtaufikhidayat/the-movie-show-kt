@@ -55,63 +55,63 @@ class MovieNowPlayingFragment : Fragment() {
 
     private fun setData() {
         binding.apply {
-            lifecycleScope.launch {
-                movieAdapter = MovieAdapter {
-                    val bundle = Bundle().apply {
-                        putInt(DetailMovieFragment.EXTRA_ID, it.id)
-                        putString(DetailMovieFragment.EXTRA_TITLE, it.title)
-                    }
-                    findNavController().navigate(R.id.detailMovieFragment, bundle)
+            movieAdapter = MovieAdapter {
+                val bundle = Bundle().apply {
+                    putInt(DetailMovieFragment.EXTRA_ID, it.id)
+                    putString(DetailMovieFragment.EXTRA_TITLE, it.title)
                 }
+                findNavController().navigate(R.id.detailMovieFragment, bundle)
+            }
 
-                viewModel.setMovieNowPlaying().observe(viewLifecycleOwner) {
+            lifecycleScope.launch {
+                viewModel.setMovieNowPlaying().collect {
                     movieAdapter?.submitData(viewLifecycleOwner.lifecycle, it)
                 }
+            }
 
-                movieAdapter?.apply {
-                    layoutError.apply {
-                        addLoadStateListener { loadState ->
-                            val loadStateRefresh = loadState.source.refresh
-                            pbLoading.isVisible = loadStateRefresh is LoadState.Loading
-                            rvCommon.isVisible = loadStateRefresh is LoadState.NotLoading
-                            tvErrorTitle.apply {
-                                isVisible = loadStateRefresh is LoadState.Error
-                                text = getString(R.string.tvOops)
-                                setTextColor(
-                                    ContextCompat.getColor(
-                                        requireContext(),
-                                        R.color.colorOrange
-                                    )
+            movieAdapter?.apply {
+                layoutError.apply {
+                    addLoadStateListener { loadState ->
+                        val loadStateRefresh = loadState.source.refresh
+                        pbLoading.isVisible = loadStateRefresh is LoadState.Loading
+                        rvCommon.isVisible = loadStateRefresh is LoadState.NotLoading
+                        tvErrorTitle.apply {
+                            isVisible = loadStateRefresh is LoadState.Error
+                            text = getString(R.string.tvOops)
+                            setTextColor(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.colorOrange
                                 )
-                            }
-                            tvError.apply {
-                                isVisible = loadStateRefresh is LoadState.Error
-                                text = getString(R.string.tvUnableLoadData)
-                                setTextColor(
-                                    ContextCompat.getColor(
-                                        requireContext(),
-                                        R.color.colorOrange
-                                    )
+                            )
+                        }
+                        tvError.apply {
+                            isVisible = loadStateRefresh is LoadState.Error
+                            text = getString(R.string.tvUnableLoadData)
+                            setTextColor(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.colorOrange
                                 )
-                            }
-                            btnRetry.isVisible = loadStateRefresh is LoadState.Error
-
-                            if (loadStateRefresh is LoadState.NotLoading
-                                && loadState.append.endOfPaginationReached
-                                && itemCount < 1
-                            ) {
-                                rvCommon.isVisible = false
-                                tvEmptyTitle.isVisible = true
-                                tvEmpty.isVisible = true
-                            } else {
-                                tvEmptyTitle.isVisible = false
-                                tvEmpty.isVisible = false
-                            }
+                            )
                         }
+                        btnRetry.isVisible = loadStateRefresh is LoadState.Error
 
-                        btnRetry.setOnClickListener {
-                            movieAdapter?.retry()
+                        if (loadStateRefresh is LoadState.NotLoading
+                            && loadState.append.endOfPaginationReached
+                            && itemCount < 1
+                        ) {
+                            rvCommon.isVisible = false
+                            tvEmptyTitle.isVisible = true
+                            tvEmpty.isVisible = true
+                        } else {
+                            tvEmptyTitle.isVisible = false
+                            tvEmpty.isVisible = false
                         }
+                    }
+
+                    btnRetry.setOnClickListener {
+                        movieAdapter?.retry()
                     }
                 }
             }
