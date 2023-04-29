@@ -2,7 +2,7 @@ package com.taufik.themovieshow.data.source
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import androidx.paging.liveData
+import com.taufik.themovieshow.data.BaseApiResponse
 import com.taufik.themovieshow.data.NetworkResult
 import com.taufik.themovieshow.data.paging.movie.MovieNowPlayingPagingSource
 import com.taufik.themovieshow.data.paging.movie.MovieTrendingPagingSource
@@ -39,7 +39,7 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService): 
             enablePlaceholders = false
         ), pagingSourceFactory = {
             MovieNowPlayingPagingSource(apiService)
-        }).liveData
+        }).flow
 
     fun getMovieUpcoming() = Pager(
         PagingConfig(
@@ -48,7 +48,7 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService): 
             enablePlaceholders = false
         ), pagingSourceFactory = {
             MovieUpcomingPagingSource(apiService)
-        }).liveData
+        }).flow
 
     fun getMovieTrendingDay() = Pager(
         PagingConfig(
@@ -57,7 +57,7 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService): 
             enablePlaceholders = false
         ), pagingSourceFactory = {
             MovieTrendingPagingSource(apiService)
-        }).liveData
+        }).flow
 
     suspend fun getDiscoverMovie(query: String): Flow<NetworkResult<DiscoverMovieResponse>> {
         return flow {
@@ -101,7 +101,7 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService): 
             enablePlaceholders = false
         ), pagingSourceFactory = {
             TvShowsAiringTodayPagingSource(apiService)
-        }).liveData
+        }).flow
 
     fun getTvShowsPopular() = Pager(
         PagingConfig(
@@ -110,7 +110,7 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService): 
             enablePlaceholders = false
         ), pagingSourceFactory = {
             TvShowsPopularPagingSource(apiService)
-        }).liveData
+        }).flow
 
     fun getTvShowsTrending() = Pager(
         PagingConfig(
@@ -119,7 +119,7 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService): 
             enablePlaceholders = false
         ), pagingSourceFactory = {
             TvShowsTrendingPagingSource(apiService)
-        }).liveData
+        }).flow
 
     suspend fun getDiscoverTvShows(query: String): Flow<NetworkResult<DiscoverTvShowsResponse>> {
         return flow {
