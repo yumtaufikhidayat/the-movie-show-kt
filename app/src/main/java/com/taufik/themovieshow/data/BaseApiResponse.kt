@@ -1,6 +1,5 @@
-package com.taufik.themovieshow.data.source
+package com.taufik.themovieshow.data
 
-import com.taufik.themovieshow.data.NetworkResult
 import retrofit2.Response
 
 abstract class BaseApiResponse {
