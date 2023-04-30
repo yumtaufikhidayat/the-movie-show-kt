@@ -17,8 +17,8 @@ android {
         applicationId "com.taufik.themovieshow"
         minSdkVersion 23
         targetSdkVersion 33
-        versionCode 111
-        versionName "1.11"
+        versionCode 112
+        versionName "1.12"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "API_KEY", api_key)
@@ -48,7 +48,7 @@ dependencies {
 
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.core:core-ktx:1.10.0'
 
     // UI
     implementation 'androidx.appcompat:appcompat:1.6.1'
@@ -72,8 +72,8 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
     androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
     testImplementation 'androidx.arch.core:core-testing:2.2.0'
-    testImplementation 'org.mockito:mockito-core:4.0.0'
-    testImplementation 'org.mockito:mockito-inline:3.6.0'
+    testImplementation "org.mockito:mockito-core:$testingVersion"
+    testImplementation "org.mockito:mockito-inline:$testingVersion"
 
     // Justified text view
     implementation "com.codesgood:justifiedtextview:$justifiedTextVersion"
