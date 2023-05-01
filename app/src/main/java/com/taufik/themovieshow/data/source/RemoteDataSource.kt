@@ -34,8 +34,7 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService): 
 
     fun getMovieNowPlaying() = Pager(
         PagingConfig(
-            pageSize = CommonConstants.STARTING_PAGE_INDEX,
-            maxSize = CommonConstants.LOAD_PER_PAGE,
+            pageSize = CommonConstants.LOAD_PER_PAGE,
             enablePlaceholders = false
         ), pagingSourceFactory = {
             MovieNowPlayingPagingSource(apiService)
@@ -43,8 +42,7 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService): 
 
     fun getMovieUpcoming() = Pager(
         PagingConfig(
-            pageSize = CommonConstants.STARTING_PAGE_INDEX,
-            maxSize = CommonConstants.LOAD_PER_PAGE,
+            pageSize = CommonConstants.LOAD_PER_PAGE,
             enablePlaceholders = false
         ), pagingSourceFactory = {
             MovieUpcomingPagingSource(apiService)
@@ -52,8 +50,7 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService): 
 
     fun getMovieTrendingDay() = Pager(
         PagingConfig(
-            pageSize = CommonConstants.STARTING_PAGE_INDEX,
-            maxSize = CommonConstants.LOAD_PER_PAGE,
+            pageSize = CommonConstants.LOAD_MAX_PER_PAGE,
             enablePlaceholders = false
         ), pagingSourceFactory = {
             MovieTrendingPagingSource(apiService)
@@ -96,8 +93,7 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService): 
 
     fun getTvShowsAiringToday() = Pager(
         PagingConfig(
-            pageSize = CommonConstants.STARTING_PAGE_INDEX,
-            maxSize = CommonConstants.LOAD_PER_PAGE,
+            pageSize = CommonConstants.LOAD_PER_PAGE,
             enablePlaceholders = false
         ), pagingSourceFactory = {
             TvShowsAiringTodayPagingSource(apiService)
@@ -105,8 +101,7 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService): 
 
     fun getTvShowsPopular() = Pager(
         PagingConfig(
-            pageSize = CommonConstants.STARTING_PAGE_INDEX,
-            maxSize = CommonConstants.LOAD_PER_PAGE,
+            pageSize = CommonConstants.LOAD_PER_PAGE,
             enablePlaceholders = false
         ), pagingSourceFactory = {
             TvShowsPopularPagingSource(apiService)
@@ -114,8 +109,7 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService): 
 
     fun getTvShowsTrending() = Pager(
         PagingConfig(
-            pageSize = CommonConstants.STARTING_PAGE_INDEX,
-            maxSize = CommonConstants.LOAD_PER_PAGE,
+            pageSize = CommonConstants.LOAD_PER_PAGE,
             enablePlaceholders = false
         ), pagingSourceFactory = {
             TvShowsTrendingPagingSource(apiService)
