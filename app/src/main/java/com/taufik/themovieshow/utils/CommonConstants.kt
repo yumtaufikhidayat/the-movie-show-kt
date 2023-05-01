@@ -2,7 +2,8 @@ package com.taufik.themovieshow.utils
 
 object CommonConstants {
     const val STARTING_PAGE_INDEX = 1
-    const val LOAD_PER_PAGE = 10
+    const val LOAD_PER_PAGE = 5
+    const val LOAD_MAX_PER_PAGE = 25
     const val TABLE_NAME_FAVORITE_MOVIE_ENTITY = "favorite_movie"
     const val COLUMN_NAME_POSTER = "poster"
     const val COLUMN_NAME_TITLE = "title"
