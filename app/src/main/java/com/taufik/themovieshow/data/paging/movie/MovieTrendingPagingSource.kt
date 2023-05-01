@@ -4,6 +4,7 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.taufik.themovieshow.data.remote.api.ApiService
 import com.taufik.themovieshow.model.response.movie.trending.MovieTrendingResult
+import com.taufik.themovieshow.utils.CommonConstants
 import com.taufik.themovieshow.utils.CommonConstants.STARTING_PAGE_INDEX
 import retrofit2.HttpException
 
@@ -18,16 +19,19 @@ class MovieTrendingPagingSource(
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MovieTrendingResult> {
-        val currentPage = params.key ?: STARTING_PAGE_INDEX
         return try {
+            val currentPage = params.key ?: STARTING_PAGE_INDEX
             val response = apiService.getMovieTrendingDay(currentPage)
             val data = response.body()?.results
-            val responseData = mutableListOf<MovieTrendingResult>()
-            if (data != null) responseData.addAll(data)
+            val nextKey = if (data.isNullOrEmpty()) {
+                null
+            } else {
+                currentPage + (params.loadSize / CommonConstants.LOAD_MAX_PER_PAGE)
+            }
             LoadResult.Page(
-                data = responseData,
+                data = data ?: emptyList(),
                 prevKey = if (currentPage == STARTING_PAGE_INDEX) null else currentPage - 1,
-                nextKey = if (data?.isEmpty() == true) null else currentPage + 1
+                nextKey = nextKey?.plus(1)
             )
         } catch (httpEx: HttpException) {
             LoadResult.Error(httpEx)
