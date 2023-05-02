@@ -18,16 +18,19 @@ class TvShowsPopularPagingSource(
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, TvShowsMainResult> {
-        val currentPage = params.key ?: CommonConstants.STARTING_PAGE_INDEX
         return try {
+            val currentPage = params.key ?: CommonConstants.STARTING_PAGE_INDEX
             val response = apiService.getTvShowsPopular(currentPage)
             val data = response.body()?.results
-            val responseData = mutableListOf<TvShowsMainResult>()
-            if (data != null) responseData.addAll(data)
+            val nextKey = if (data.isNullOrEmpty()) {
+                null
+            } else {
+                currentPage + (params.loadSize / CommonConstants.LOAD_MAX_PER_PAGE)
+            }
             LoadResult.Page(
-                data = responseData,
+                data = data ?: emptyList(),
                 prevKey = if (currentPage == CommonConstants.STARTING_PAGE_INDEX) null else currentPage - 1,
-                nextKey = if (data?.isEmpty() == true) null else currentPage + 1
+                nextKey = nextKey?.plus(1)
             )
         } catch (httpEx: HttpException) {
             LoadResult.Error(httpEx)
