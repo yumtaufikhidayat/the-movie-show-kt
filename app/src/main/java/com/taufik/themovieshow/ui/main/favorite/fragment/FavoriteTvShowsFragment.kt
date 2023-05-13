@@ -25,9 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class FavoriteTvShowsFragment : Fragment() {
 
-    private var _binding: FragmentFavoriteTvShowsBinding? = null
-    private val binding get() = _binding!!
-
+    private val binding by lazy { FragmentFavoriteTvShowsBinding.inflate(layoutInflater) }
     private val viewModel: FavoriteTvShowViewModel by viewModels()
     private val favoriteTvShowsAdapter by lazy { FavoriteTvShowsAdapter() }
 
@@ -36,7 +34,6 @@ class FavoriteTvShowsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        _binding = FragmentFavoriteTvShowsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -127,10 +124,5 @@ class FavoriteTvShowsFragment : Fragment() {
                 layoutNoFavorite.root.isVisible = false
             }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

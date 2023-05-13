@@ -2,6 +2,7 @@ package com.taufik.themovieshow.data.paging.movie
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.taufik.themovieshow.data.remote.api.ApiService
 import com.taufik.themovieshow.model.response.movie.trending.MovieTrendingResult
 import com.taufik.themovieshow.utils.CommonConstants
@@ -34,8 +35,10 @@ class MovieTrendingPagingSource(
                 nextKey = nextKey?.plus(1)
             )
         } catch (httpEx: HttpException) {
+            FirebaseCrashlytics.getInstance().recordException(httpEx)
             LoadResult.Error(httpEx)
         } catch (ex: Exception) {
+            FirebaseCrashlytics.getInstance().recordException(ex)
             LoadResult.Error(ex)
         }
     }
