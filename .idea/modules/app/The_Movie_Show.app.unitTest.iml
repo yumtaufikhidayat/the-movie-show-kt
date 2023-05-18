@@ -142,10 +142,10 @@
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/ae8dd95a72a4628937db48ae6e591855/transformed/jetified-annotations-13.0.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/57d0b3ab5ce8d88a4204cd7f57ae93a3/transformed/jetified-junit-4.13.2.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/6133b4f2c628e8d27e8d4303c9e3aeca/transformed/jetified-hamcrest-core-1.3.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/8d57504a9ef25e4e1559a723965b2c1e/transformed/jetified-mockito-inline-4.1.0.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/9ce06233fc8ffcfa298bfce43311449a/transformed/jetified-mockito-core-4.1.0.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/0e0de8bd851273fdacd8d6487543e122/transformed/jetified-byte-buddy-1.12.1.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/d09d305a8fcfba7d6e36e3a28e058906/transformed/jetified-byte-buddy-agent-1.12.1.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/894d17af0a47d7640b1c7e3344c7c78c/transformed/jetified-mockito-inline-4.7.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/08db2bfe4c78c2e3a755d398ba94bfe2/transformed/jetified-mockito-core-4.7.0.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/8689e8a01c94e00ba515bf89bd1fb6de/transformed/jetified-byte-buddy-1.12.13.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/3f953752ea1d278731c71518322366f9/transformed/jetified-byte-buddy-agent-1.12.13.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.room/room-migration/2.5.1/e2f2812f119fcb1e1e427406c620485d7a7d87de/room-migration-2.5.1.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/dfff4e9123838f51ac60d662e71577e7/transformed/jetified-gson-2.9.0.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/6b2aadf5966f626414eb26b0e7835efd/transformed/jetified-listenablefuture-1.0.jar</arg>
@@ -270,10 +270,10 @@
     <orderEntry type="library" scope="TEST" name="Gradle: com.google.firebase:firebase-encoders-proto:16.0.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: junit:junit:4.13.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.hamcrest:hamcrest-core:1.3" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: org.mockito:mockito-core:4.1.0" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: net.bytebuddy:byte-buddy:1.12.1" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: net.bytebuddy:byte-buddy-agent:1.12.1" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: org.mockito:mockito-inline:4.1.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.mockito:mockito-core:4.7.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: net.bytebuddy:byte-buddy:1.12.13" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: net.bytebuddy:byte-buddy-agent:1.12.13" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.mockito:mockito-inline:4.7.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.room:room-migration:2.5.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.databinding:viewbinding:7.4.2@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.core:core-ktx:1.10.0@aar" level="project" />
