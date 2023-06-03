@@ -17,8 +17,8 @@ android {
         applicationId "com.taufik.themovieshow"
         minSdkVersion 23
         targetSdkVersion 33
-        versionCode 113
-        versionName "1.13"
+        versionCode 118
+        versionName "1.18"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "API_KEY", api_key)
@@ -27,8 +27,13 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            buildConfigField("String", "API_KEY", api_key)
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+            firebaseCrashlytics {
+                mappingFileUploadEnabled true
+            }
         }
     }
     compileOptions {
@@ -93,7 +98,7 @@ dependencies {
     implementation "com.github.GrenderG:Toasty:$toastVersion"
 
     // Youtube player
-    implementation "com.pierfrancescosoffritti.androidyoutubeplayer:core:$videoVersion"
+//    implementation "com.pierfrancescosoffritti.androidyoutubeplayer:core:$videoVersion"
 
     // Room DB
     implementation "androidx.room:room-runtime:$roomVersion"
@@ -118,7 +123,7 @@ dependencies {
 
     // Firebase
     implementation "com.google.firebase:firebase-crashlytics-ktx:$firebaseCrashlyticsVersion"
-    implementation "com.google.firebase:firebase-analytics-ktx:$firebaseCrashlyticsKtxVersion"
+//    implementation "com.google.firebase:firebase-analytics-ktx:$firebaseCrashlyticsKtxVersion"
 }
 
 kapt {
