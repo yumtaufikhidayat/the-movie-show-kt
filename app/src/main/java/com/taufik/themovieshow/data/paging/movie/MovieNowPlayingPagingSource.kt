@@ -20,7 +20,7 @@ class MovieNowPlayingPagingSource(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MovieMainResult> {
         return try {
-        val currentPage = params.key ?: STARTING_PAGE_INDEX
+            val currentPage = params.key ?: STARTING_PAGE_INDEX
             val response = apiService.getMovieNowPlaying(currentPage)
             val data = response.body()?.results
             val nextKey = if (data.isNullOrEmpty()) {
