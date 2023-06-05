@@ -30,14 +30,10 @@
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/5093d2e3d31be752711bc1d414880e04/transformed/jetified-hilt-android-2.44-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/b08f61cb8ff9537a5debd03dedfc5558/transformed/jetified-viewpager2-1.0.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/cf884df8ef28363672bc38fc27f980ac/transformed/jetified-firebase-crashlytics-ktx-18.3.6-api.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/9e8da9cc40a38a950ad7d8b451b2d920/transformed/jetified-firebase-analytics-ktx-21.2.2-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/6bf7c6af7ffffe0fc0c45007f20dda77/transformed/jetified-firebase-common-ktx-20.3.1-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/05bd48ca1689a4aca6f10200f70549fa/transformed/jetified-firebase-crashlytics-18.3.6-api.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/5e4a47997adebaf73e1b50c8a03da3fe/transformed/jetified-firebase-analytics-21.2.2-api.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/c36eedff7a68a82d4ac8d1e766c9f8ba/transformed/jetified-play-services-measurement-api-21.2.2-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/db0b5c56530e5cd4ecbe4f2e7d04f6f2/transformed/jetified-firebase-installations-17.1.3-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/428d06472d90a3cc39227075632a3fb2/transformed/jetified-firebase-common-20.3.1-api.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/e536033dda4a21b9a79b1db337840777/transformed/jetified-core-10.0.5-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/ec787c0fc258b7bddd849434d2b95299/transformed/navigation-runtime-ktx-2.5.3-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/e2c394dc8265c92e3c57697f4bbea0b4/transformed/navigation-runtime-2.5.3-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/37987faced467de349a5f0efb7b247ef/transformed/jetified-activity-ktx-1.6.0-api.jar</arg>
@@ -54,10 +50,6 @@
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/d4ce400d9f85fd757a790784c0a646d3/transformed/vectordrawable-animated-1.1.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/aba8dce0d406e6444d60e4a185d2cab5/transformed/vectordrawable-1.1.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/fe00fe2ea38e675e501cf6d1099ae472/transformed/media-1.0.0-api.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/feb6485eb307d2b5954b9f960ea22dfc/transformed/jetified-play-services-measurement-21.2.2-api.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/753b9d6ce6e05844ec9c60fc295d650e/transformed/jetified-play-services-measurement-sdk-21.2.2-api.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/2c4b60aede32ece054000c9716e0d774/transformed/jetified-play-services-measurement-impl-21.2.2-api.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/e99bdf8174d709040d25fd4b9688cfd4/transformed/jetified-play-services-stats-17.0.2-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/c17a243f23c42a45346523661446fa57/transformed/legacy-support-core-utils-1.0.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/c860b57e11691d50aa33bf2fda40ab0d/transformed/viewpager-1.0.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/f7c09ed3b61d99f2b72070178fbbcbdd/transformed/slidingpanelayout-1.2.0-api.jar</arg>
@@ -88,10 +80,7 @@
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/3a6f614c056f6729c3492d834477e937/transformed/jetified-kotlinx-coroutines-play-services-1.6.4.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/3cbf72e67998427fa2761acc572af325/transformed/jetified-firebase-installations-interop-17.1.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/af4290d44898e056f015e9c8dd20d5a0/transformed/jetified-play-services-tasks-18.0.2-api.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/1a258f02cf93227bdd5ddbc6de66fc07/transformed/jetified-firebase-measurement-connector-19.0.0-api.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/6dcdd6ae856882b5f3dae2ef41fccc59/transformed/jetified-play-services-ads-identifier-18.0.0-api.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/500e6d7dd0f697cec77d382520232c93/transformed/jetified-play-services-measurement-sdk-api-21.2.2-api.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/98adb231cd6254447ad0e33e3015e5ec/transformed/jetified-play-services-measurement-base-21.2.2-api.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/22bcc1b2b1c667d278790b4d11bdcd97/transformed/jetified-firebase-measurement-connector-18.0.2-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/fc16302bb0b1a67a76fc9291be634a81/transformed/jetified-play-services-basement-18.1.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/35c3ab20c033dfd67ebdb197482f160f/transformed/fragment-1.5.7-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/672b06181014151a620e8062ff660068/transformed/jetified-core-ktx-1.10.0-api.jar</arg>
@@ -201,7 +190,6 @@
     <content url="file://$MODULE_DIR$/../../../app/build/generated/aidl_source_output_dir/debug/out" />
     <content url="file://$MODULE_DIR$/../../../app/build/generated/ap_generated_sources/debug/out">
       <sourceFolder url="file://$MODULE_DIR$/../../../app/build/generated/ap_generated_sources/debug/out" isTestSource="false" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../../../app/build/generated/ap_generated_sources/debug/out" isTestSource="false" generated="true" />
     </content>
     <content url="file://$MODULE_DIR$/../../../app/build/generated/crashlytics/res/debug">
       <sourceFolder url="file://$MODULE_DIR$/../../../app/build/generated/crashlytics/res/debug" type="java-resource" />
@@ -216,14 +204,11 @@
     <content url="file://$MODULE_DIR$/../../../app/build/generated/res/rs/debug" />
     <content url="file://$MODULE_DIR$/../../../app/build/generated/source/buildConfig/debug">
       <sourceFolder url="file://$MODULE_DIR$/../../../app/build/generated/source/buildConfig/debug" isTestSource="false" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../../../app/build/generated/source/buildConfig/debug" isTestSource="false" generated="true" />
     </content>
     <content url="file://$MODULE_DIR$/../../../app/build/generated/source/kapt/debug">
       <sourceFolder url="file://$MODULE_DIR$/../../../app/build/generated/source/kapt/debug" isTestSource="false" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../../../app/build/generated/source/kapt/debug" isTestSource="false" generated="true" />
     </content>
     <content url="file://$MODULE_DIR$/../../../app/build/generated/source/kaptKotlin/debug">
-      <sourceFolder url="file://$MODULE_DIR$/../../../app/build/generated/source/kaptKotlin/debug" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/../../../app/build/generated/source/kaptKotlin/debug" isTestSource="false" generated="true" />
     </content>
     <content url="file://$MODULE_DIR$/../../../app/build/generated/source/navigation-args/debug">
@@ -348,7 +333,6 @@
     <orderEntry type="library" name="Gradle: androidx.lifecycle:lifecycle-service:2.6.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.lifecycle:lifecycle-livedata-ktx:2.6.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.github.GrenderG:Toasty:1.5.0@aar" level="project" />
-    <orderEntry type="library" name="Gradle: com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.room:room-runtime:2.5.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.sqlite:sqlite:2.3.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.sqlite:sqlite-framework:2.3.1@aar" level="project" />
@@ -370,16 +354,6 @@
     <orderEntry type="library" name="Gradle: com.google.android.datatransport:transport-api:3.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.datatransport:transport-runtime:3.1.9@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.datatransport:transport-backend-cct:3.1.9@aar" level="project" />
-    <orderEntry type="library" name="Gradle: com.google.firebase:firebase-measurement-connector:19.0.0@aar" level="project" />
-    <orderEntry type="library" name="Gradle: com.google.firebase:firebase-analytics-ktx:21.2.2@aar" level="project" />
-    <orderEntry type="library" name="Gradle: com.google.firebase:firebase-analytics:21.2.2@aar" level="project" />
-    <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-measurement:21.2.2@aar" level="project" />
-    <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-ads-identifier:18.0.0@aar" level="project" />
-    <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-measurement-base:21.2.2@aar" level="project" />
-    <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-measurement-impl:21.2.2@aar" level="project" />
-    <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-stats:17.0.2@aar" level="project" />
-    <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-measurement-api:21.2.2@aar" level="project" />
-    <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-measurement-sdk-api:21.2.2@aar" level="project" />
-    <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-measurement-sdk:21.2.2@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.firebase:firebase-measurement-connector:18.0.2@aar" level="project" />
   </component>
 </module>
