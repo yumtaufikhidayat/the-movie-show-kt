@@ -50,9 +50,9 @@
 # Retain generic signatures of TypeToken and its subclasses with R8 version 3.0 and higher.
 -keep,allowobfuscation,allowshrinking class com.google.gson.reflect.TypeToken
 -keep,allowobfuscation,allowshrinking class * extends com.google.gson.reflect.TypeToken
-
 ##---------------End: proguard configuration for Gson  ----------
 
+##---------------Begin: proguard configuration for Retrofit  ----------
 # Retrofit does reflection on generic parameters. InnerClasses is required to use Signature and
 # EnclosingMethod is required to use InnerClasses.
 -keepattributes Signature, InnerClasses, EnclosingMethod
@@ -81,6 +81,15 @@
 -dontwarn retrofit2.KotlinExtensions
 -dontwarn retrofit2.KotlinExtensions$*
 
+# keep retrofit and okhttp
+-keep class retrofit2.** { *; }
+-keep class okhttp3.internal.** { *; }
+-dontwarn okhttp3.internal.**
+-dontwarn retrofit2.**
+-keepclasseswithmembers class * {
+    @retrofit2.http.* <methods>;
+}
+
 # With R8 full mode, it sees no subtypes of Retrofit interfaces since they are created with a Proxy
 # and replaces all potential values with null. Explicitly keeping the interfaces prevents this.
 -if interface * { @retrofit2.http.* <methods>; }
@@ -98,40 +107,37 @@
 # R8 full mode strips generic signatures from return types if not kept.
 -if interface * { @retrofit2.http.* public *** *(...); }
 -keep,allowoptimization,allowshrinking,allowobfuscation class <3>
+##---------------End: proguard configuration for Retrofit ----------
 
-# keep retrofit and okhttp
--keep class retrofit2.** { *; }
--keep class okhttp3.internal.** { *; }
--dontwarn okhttp3.internal.**
--dontwarn retrofit2.**
--keepclasseswithmembers class * {
-    @retrofit2.http.* <methods>;
+##---------------Begin: proguard configuration for Glide ----------
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep class * extends com.bumptech.glide.module.AppGlideModule {
+ <init>(...);
+}
+-keep public enum com.bumptech.glide.load.ImageHeaderParser$** {
+  **[] $VALUES;
+  public *;
+}
+-keep class com.bumptech.glide.load.data.ParcelFileDescriptorRewinder$InternalRewinder {
+  *** rewind();
 }
 
--keepattributes SourceFile,LineNumberTable        # Keep file names and line numbers.
+# Uncomment for DexGuard only
+#-keepresourcexmlelements manifest/application/meta-data@value=GlideModule
+##---------------End: proguard configuration for Glide ----------
+
+##---------------Begin: proguard configuration for Retrofit and OkHttp ----------
+
+##---------------End: proguard configuration for Retrofit and OkHttp ----------
+
 -keep public class * extends java.lang.Exception  # Optional: Keep custom exceptions.
 
-# keep gson serialize
--keepclassmembers,allowobfuscation class * {
-  @com.google.gson.annotations.SerializedName <fields>;
-}
-
+##---------------Begin: proguard configuration for Dagger Hilt ----------
 -keepnames @dagger.hilt.android.lifecycle.HiltViewModel class * extends androidx.lifecycle.ViewModel
 -keep @dagger.hilt.* class * { *; }
-
 -keep class dagger.hilt.** { *; }
 -keepclasseswithmembernames class * { @dagger.hilt.* <methods>; }
 -keepclasseswithmembernames class * { @dagger.hilt.* <fields>; }
-
-###### dagger 2.0 stuff
--keep class dagger.** { *; }
--keep interface dagger.** { *; }
--keepnames class com.taufik.**
--keepclassmembers class * {
-    @javax.inject.Inject <methods>;
-    @javax.inject.Inject <fields>;
-    @javax.inject.Inject <init>(...);
-}
 
 # Preserve Dagger Hilt annotations
 -keepattributes *Annotation*
@@ -147,8 +153,70 @@
 -keep class dagger.hilt.processor.** { *; }
 -keep class javax.inject.* { *; }
 -keep class javax.annotation.* { *; }
+##---------------End: proguard configuration for Dagger Hilt ----------
 
-# keep POJO class from obfuscating
+##---------------Begin: proguard configuration for Dagger2 ----------
+-keep class dagger.** { *; }
+-keep interface dagger.** { *; }
+-keepnames class com.taufik.**
+-keepclassmembers class * {
+    @javax.inject.Inject <methods>;
+    @javax.inject.Inject <fields>;
+    @javax.inject.Inject <init>(...);
+}
+##---------------End: proguard configuration for Dagger2 ----------
+
+##---------------Begin: proguard configuration for Paging ----------
+-keep class androidx.paging.* { *; }
+-keep class com.taufik.themovieshow.data.paging.movie.MovieTrendingPagingSource
+-keep class com.taufik.themovieshow.data.paging.movie.MovieNowPlayingPagingSource
+-keep class com.taufik.themovieshow.data.paging.movie.MovieUpcomingPagingSource
+# Paging 3
+-keep class androidx.paging.PagingDataAdapter { *; }
+-keep class androidx.paging.PagingSource { *; }
+-keep class androidx.paging.LoadState { *; }
+-keep class androidx.paging.LoadState$* { *; }
+-keep class androidx.paging.RemoteMediator { *; }
+-keep class androidx.paging.PageKeyedDataSource { *; }
+-keep class androidx.paging.PositionalDataSource { *; }
+-keep class androidx.paging.DataSource$* { *; }
+
+# If you're using Kotlin, you might need to add these rules to keep Kotlin-related classes
+-keep class kotlinx.coroutines.CoroutineExceptionHandler { *; }
+-keep class kotlinx.coroutines.Dispatchers { *; }
+-keep class kotlinx.coroutines.MainCoroutineDispatcher { *; }
+
+# If you're using LiveData or ViewModel along with Paging, you might need these rules
+-keep class androidx.lifecycle.ViewModel { *; }
+-keep class androidx.lifecycle.ViewModelProvider$Factory { *; }
+-keep class androidx.lifecycle.ViewModelProvider$KeyedFactory { *; }
+-keep class androidx.lifecycle.ViewModelProvider$NewInstanceFactory { *; }
+-keep class androidx.lifecycle.ViewModelProvider$AndroidViewModelFactory { *; }
+
+# Keep any custom classes, models, or data classes used for paging
+-keep class com.taufik.themovieshow.model.** { *; }
+
+# Keep any interfaces that are implemented by Paging related classes
+-keep interface androidx.paging.PagingDataAdapter { *; }
+-keep interface androidx.paging.PagingSource { *; }
+-keep interface androidx.paging.RemoteMediator { *; }
+-keep interface androidx.paging.PageKeyedDataSource { *; }
+-keep interface androidx.paging.PositionalDataSource { *; }
+
+# Keep any methods or fields used as entry points for Paging 3 (e.g., constructors, factory methods)
+-keepclassmembers class * implements androidx.paging.PagingSource {
+    <init>(...);
+    *(*);
+}
+
+# Keep any methods or fields used as entry points for PagingDataAdapter
+-keepclassmembers class * extends androidx.paging.PagingDataAdapter {
+    <init>(...);
+    *(*);
+}
+##---------------End: proguard configuration for Paging ----------
+
+##---------------Begin: proguard configuration for Response Classes ----------
 -keep class com.taufik.themovieshow.model.response.common.reviews.* { *; }
 -keep class com.taufik.themovieshow.model.response.movie.cast.* { *; }
 -keep class com.taufik.themovieshow.model.response.movie.detail.* { *; }
@@ -164,3 +232,4 @@
 -keep class com.taufik.themovieshow.model.response.tvshow.similar.* { *; }
 -keep class com.taufik.themovieshow.model.response.tvshow.trending.* { *; }
 -keep class com.taufik.themovieshow.model.response.tvshow.video.* { *; }
+##---------------Emd: proguard configuration for Classes ----------
