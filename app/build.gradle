@@ -23,10 +23,12 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "API_KEY", api_key)
         vectorDrawables.useSupportLibrary = true
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
         release {
+//            debuggable true
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField("String", "API_KEY", api_key)
@@ -34,6 +36,11 @@ android {
             firebaseCrashlytics {
                 mappingFileUploadEnabled true
             }
+        }
+        debug {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField("String", "API_KEY", api_key)
         }
     }
     compileOptions {
