@@ -28,8 +28,8 @@ android {
     buildTypes {
         release {
             minifyEnabled true
-            buildConfigField("String", "API_KEY", api_key)
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField("String", "API_KEY", api_key)
             signingConfig signingConfigs.debug
             firebaseCrashlytics {
                 mappingFileUploadEnabled true
@@ -37,11 +37,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
     }
     buildFeatures {
         viewBinding true
@@ -53,11 +53,11 @@ dependencies {
 
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.10.0'
+    implementation 'androidx.core:core-ktx:1.10.1'
 
     // UI
     implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
@@ -68,6 +68,9 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$navKTXVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$navKTXVersion"
 
+    // Fragment KTX
+    implementation "androidx.fragment:fragment-ktx:$fragmentKTXVersion"
+
     // Testing
     testImplementation "junit:junit:$junitVersion"
     androidTestImplementation "junit:junit:$junitVersion"
@@ -77,8 +80,8 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
     androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
     testImplementation 'androidx.arch.core:core-testing:2.2.0'
-    testImplementation "org.mockito:mockito-core:$testingVersion"
-    testImplementation "org.mockito:mockito-inline:$testingVersion"
+    testImplementation "org.mockito:mockito-core:$mockitoCoreVersion"
+    testImplementation "org.mockito:mockito-inline:$mockitoInlineVersion"
 
     // Justified text view
     implementation "com.codesgood:justifiedtextview:$justifiedTextVersion"
@@ -109,9 +112,6 @@ dependencies {
     // Coroutine
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineCoreVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutineAndroidVersion"
-
-    // Android KTX
-    implementation "androidx.fragment:fragment-ktx:$androidKTXVersion"
 
     // Hilt
     implementation "com.google.dagger:hilt-android:$hiltVersion"
