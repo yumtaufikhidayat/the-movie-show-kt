@@ -36,7 +36,7 @@ buildscript {
         lifeCycleKtxVersion = '2.6.1'
         retrofitVersion = '2.9.0'
         okHttpVersion = '4.11.0'
-        navKTXVersion = '2.6.9'
+        navKTXVersion = '2.6.0'
         fragmentKTXVersion = '1.6.1'
         videoVersion = "10.0.5"
         roomVersion = '2.5.2'
@@ -46,7 +46,7 @@ buildscript {
         justifiedTextVersion = "1.1.0"
         pagingVersion = '3.2.0'
         firebaseCrashlyticsVersion = '18.4.0'
-        firebaseCrashlyticsKtxVersion = '21.2.2'
+        firebaseCrashlyticsKtxVersion = '21.3.0'
         mockitoCoreVersion = '5.4.0'
         mockitoInlineVersion = '5.2.0'
     }
