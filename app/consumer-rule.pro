@@ -168,9 +168,52 @@
 
 ##---------------Begin: proguard configuration for Paging ----------
 -keep class androidx.paging.* { *; }
--keep class com.taufik.themovieshow.data.paging.movie.MovieTrendingPagingSource
--keep class com.taufik.themovieshow.data.paging.movie.MovieNowPlayingPagingSource
--keep class com.taufik.themovieshow.data.paging.movie.MovieUpcomingPagingSource
+-keep class com.taufik.themovieshow.data.paging.movie.**
+-keep class com.taufik.themovieshow.data.paging.tvshow.**
+
+# Paging 3
+-keep class androidx.paging.PagingDataAdapter { *; }
+-keep class androidx.paging.PagingSource { *; }
+-keep class androidx.paging.LoadState { *; }
+-keep class androidx.paging.LoadState$* { *; }
+-keep class androidx.paging.RemoteMediator { *; }
+-keep class androidx.paging.PageKeyedDataSource { *; }
+-keep class androidx.paging.PositionalDataSource { *; }
+-keep class androidx.paging.DataSource$* { *; }
+
+# If you're using Kotlin, you might need to add these rules to keep Kotlin-related classes
+-keep class kotlinx.coroutines.CoroutineExceptionHandler { *; }
+-keep class kotlinx.coroutines.Dispatchers { *; }
+-keep class kotlinx.coroutines.MainCoroutineDispatcher { *; }
+
+# If you're using LiveData or ViewModel along with Paging, you might need these rules
+-keep class androidx.lifecycle.ViewModel { *; }
+-keep class androidx.lifecycle.ViewModelProvider$Factory { *; }
+-keep class androidx.lifecycle.ViewModelProvider$KeyedFactory { *; }
+-keep class androidx.lifecycle.ViewModelProvider$NewInstanceFactory { *; }
+-keep class androidx.lifecycle.ViewModelProvider$AndroidViewModelFactory { *; }
+
+# Keep any custom classes, models, or data classes used for paging
+-keep class com.taufik.themovieshow.model.** { *; }
+
+# Keep any interfaces that are implemented by Paging related classes
+-keep interface androidx.paging.PagingDataAdapter { *; }
+-keep interface androidx.paging.PagingSource { *; }
+-keep interface androidx.paging.RemoteMediator { *; }
+-keep interface androidx.paging.PageKeyedDataSource { *; }
+-keep interface androidx.paging.PositionalDataSource { *; }
+
+# Keep any methods or fields used as entry points for Paging 3 (e.g., constructors, factory methods)
+-keepclassmembers class * implements androidx.paging.PagingSource {
+    <init>(...);
+    *(*);
+}
+
+# Keep any methods or fields used as entry points for PagingDataAdapter
+-keepclassmembers class * extends androidx.paging.PagingDataAdapter {
+    <init>(...);
+    *(*);
+}
 ##---------------End: proguard configuration for Paging ----------
 
 ##---------------Begin: proguard configuration for Response Classes ----------
