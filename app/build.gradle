@@ -28,7 +28,7 @@ android {
 
     buildTypes {
         release {
-//            debuggable true
+            debuggable false
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField("String", "API_KEY", api_key)
@@ -130,7 +130,7 @@ dependencies {
 
     // Firebase
     implementation "com.google.firebase:firebase-crashlytics-ktx:$firebaseCrashlyticsVersion"
-//    implementation "com.google.firebase:firebase-analytics-ktx:$firebaseCrashlyticsKtxVersion"
+    implementation "com.google.firebase:firebase-analytics-ktx:$firebaseCrashlyticsKtxVersion"
 }
 
 kapt {
