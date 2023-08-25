@@ -3,8 +3,8 @@ package com.taufik.themovieshow.ui.main.tvshow.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import androidx.paging.cachedIn
 import com.taufik.themovieshow.data.NetworkResult
 import com.taufik.themovieshow.data.repository.TheMovieShowRepository
 import com.taufik.themovieshow.model.response.tvshow.discover.DiscoverTvShowsResponse
@@ -18,11 +18,11 @@ class TvShowsViewModel @Inject constructor(private val repository: TheMovieShowR
     private val _discoverTvShowsResponse: MutableLiveData<NetworkResult<DiscoverTvShowsResponse>> = MutableLiveData()
     val discoverTvShowsResponse: LiveData<NetworkResult<DiscoverTvShowsResponse>> get() = _discoverTvShowsResponse
 
-    fun setTvShowsAiringToday() = repository.getTvShowsAiringToday().cachedIn(viewModelScope)
+    fun getTvShowsAiringToday() = repository.getTvShowsAiringToday().asLiveData()
 
-    fun setTvShowsPopular() = repository.getTvShowsPopular().cachedIn(viewModelScope)
+    fun getTvShowsPopular() = repository.getTvShowsPopular().asLiveData()
 
-    fun setTvShowsTrending() = repository.getTvShowsTrending().cachedIn(viewModelScope)
+    fun getTvShowsTrending() = repository.getTvShowsTrending().asLiveData()
 
     fun setDiscoverTvShows(query: String) = viewModelScope.launch {
         repository.getDiscoverTvShows(query).collect {
