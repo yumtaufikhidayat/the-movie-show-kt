@@ -11,11 +11,11 @@ class TheMovieShowRepository @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource
 ) {
+    fun getMovieTrendingDay() = remoteDataSource.getMovieTrendingDay()
+
     fun getMovieNowPlaying() = remoteDataSource.getMovieNowPlaying()
 
     fun getMovieUpcoming() = remoteDataSource.getMovieUpcoming()
-
-    fun getMovieTrendingDay() = remoteDataSource.getMovieTrendingDay()
 
     suspend fun getDiscoverMovie(query: String) = remoteDataSource.getDiscoverMovie(query)
 
