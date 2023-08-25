@@ -6,6 +6,7 @@
     <uses-permission android:name="com.google.android.gms.permission.AD_ID" tools:node="remove"/>
 
     <application
+        android:largeHeap="true"
         android:name="com.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -16,13 +17,8 @@
         <activity
             android:name=".ui.MainActivity"
             android:exported="true"
-            android:screenOrientation="fullSensor"
             android:windowSoftInputMode="adjustPan"
-            android:theme="@style/TheMovieShowDarkActivityTheme" />
-        <activity
-            android:name=".ui.splashscreen.SplashscreenActivity"
-            android:exported="true"
-            android:screenOrientation="fullSensor">
+            android:theme="@style/TheMovieShowDarkActivityTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
