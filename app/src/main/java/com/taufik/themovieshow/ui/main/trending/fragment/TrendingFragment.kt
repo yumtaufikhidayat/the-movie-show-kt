@@ -1,8 +1,6 @@
 package com.taufik.themovieshow.ui.main.trending.fragment
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,19 +8,24 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.tabs.TabLayoutMediator
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.databinding.FragmentTrendingBinding
 import com.taufik.themovieshow.ui.main.trending.adapter.TrendingPagerAdapter
+import dagger.hilt.android.AndroidEntryPoint
 import es.dmoral.toasty.Toasty
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlin.time.Duration.Companion.seconds
 
 
+@AndroidEntryPoint
 class TrendingFragment : Fragment() {
 
     private var _binding: FragmentTrendingBinding? = null
     private val binding get() = _binding!!
 
-    private val delayTime = 2000L
     private var doubleBackToExitPressedOnce = false
 
     override fun onCreateView(
@@ -30,7 +33,6 @@ class TrendingFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         _binding = FragmentTrendingBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -59,11 +61,6 @@ class TrendingFragment : Fragment() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
     private val backPressedCallback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
             if (doubleBackToExitPressedOnce) {
@@ -74,11 +71,16 @@ class TrendingFragment : Fragment() {
             doubleBackToExitPressedOnce = true
             Toasty.info(requireContext(), "Press back again to exit", Toast.LENGTH_SHORT).show()
 
-            Handler(Looper.getMainLooper())
-                .postDelayed({
-                    doubleBackToExitPressedOnce = false
-                }, delayTime)
+            lifecycleScope.launch {
+                delay(2.seconds)
+                doubleBackToExitPressedOnce = false
+            }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     companion object {
