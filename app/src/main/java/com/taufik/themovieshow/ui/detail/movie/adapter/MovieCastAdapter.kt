@@ -10,10 +10,7 @@ import com.taufik.themovieshow.databinding.ItemCastBinding
 import com.taufik.themovieshow.model.response.movie.cast.MovieCast
 import com.taufik.themovieshow.utils.loadImage
 
-class MovieCastAdapter :
-    ListAdapter<MovieCast, MovieCastAdapter.MovieViewHolder>(
-        MovieCastDiffCallback
-    ) {
+class MovieCastAdapter : ListAdapter<MovieCast, MovieCastAdapter.MovieViewHolder>(MOVIE_CAST_DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val itemsCastBinding =
@@ -42,17 +39,19 @@ class MovieCastAdapter :
             }
         }
     }
-}
 
-object MovieCastDiffCallback :
-    DiffUtil.ItemCallback<MovieCast>() {
-    override fun areItemsTheSame(
-        oldItem: MovieCast,
-        newItem: MovieCast
-    ): Boolean = oldItem.id == newItem.id
+    companion object {
+        val MOVIE_CAST_DIFF_CALLBACK = object :
+            DiffUtil.ItemCallback<MovieCast>() {
+            override fun areItemsTheSame(
+                oldItem: MovieCast,
+                newItem: MovieCast
+            ): Boolean = oldItem.id == newItem.id
 
-    override fun areContentsTheSame(
-        oldItem: MovieCast,
-        newItem: MovieCast
-    ): Boolean = oldItem == newItem
+            override fun areContentsTheSame(
+                oldItem: MovieCast,
+                newItem: MovieCast
+            ): Boolean = oldItem == newItem
+        }
+    }
 }
