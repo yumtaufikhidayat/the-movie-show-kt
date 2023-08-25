@@ -38,6 +38,7 @@ class AboutFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         setToolbar()
         setAuthorData()
         setApplicationData()
@@ -96,7 +97,7 @@ class AboutFragment : Fragment() {
                         )
                     )
                 } catch (e: Exception) {
-                    showToasty(requireContext(), "Please install browser app")
+                    requireContext().showToasty("Please install browser app")
                 }
             }
 
@@ -111,7 +112,7 @@ class AboutFragment : Fragment() {
                         )
                     )
                 } catch (e: Exception) {
-                    showToasty(requireContext(), "Please install browser app")
+                    requireContext().showToasty("Please install browser app")
                 }
             }
 
@@ -126,7 +127,7 @@ class AboutFragment : Fragment() {
                         )
                     )
                 } catch (e: Exception) {
-                    showToasty(requireContext(), "Please install browser app")
+                    requireContext().showToasty("Please install browser app")
                 }
             }
 
@@ -148,7 +149,7 @@ class AboutFragment : Fragment() {
                         )
                     )
                 } catch (e: Exception) {
-                    showToasty(requireContext(), "Please install email app")
+                    requireContext().showToasty("Please install email app")
                 }
             }
         }
@@ -156,7 +157,7 @@ class AboutFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        applicationAdapter = null
         _binding = null
+        applicationAdapter = null
     }
 }
