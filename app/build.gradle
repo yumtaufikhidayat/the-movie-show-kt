@@ -17,8 +17,8 @@ android {
         applicationId "com.taufik.themovieshow"
         minSdkVersion 23
         targetSdkVersion 33
-        versionCode 119
-        versionName "1.19"
+        versionCode 121
+        versionName "1.21"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "API_KEY", api_key)
@@ -28,7 +28,6 @@ android {
 
     buildTypes {
         release {
-            debuggable true
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
