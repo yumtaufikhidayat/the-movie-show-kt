@@ -15,10 +15,21 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private var navController: NavController? = null
+    private val navControllerDestination = NavController.OnDestinationChangedListener { _, destination, _ ->
+        when (destination.id) {
+            R.id.splashScreenFragment,
+            R.id.detailMovieFragment,
+            R.id.detailTvShowFragment,
+            R.id.discoverMovieFragment,
+            R.id.discoverTvShowFragment -> showBottomNavigation(false)
+            else -> showBottomNavigation(true)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
         setNavHost()
         setUpNavigationDestination()
     }
@@ -30,23 +41,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setUpNavigationDestination() {
-        navController?.addOnDestinationChangedListener { _, destination, _ ->
-            when (destination.id) {
-                R.id.detailTvShowFragment -> showHideBottomNavigation(false)
-                R.id.detailMovieFragment -> showHideBottomNavigation(false)
-                R.id.discoverMovieFragment -> showHideBottomNavigation(false)
-                R.id.discoverTvShowFragment -> showHideBottomNavigation(false)
-                else -> showHideBottomNavigation(true)
-            }
-        }
+        navController?.addOnDestinationChangedListener(navControllerDestination)
     }
 
-    private fun showHideBottomNavigation(isShow: Boolean) {
+    private fun showBottomNavigation(isShow: Boolean) {
         binding.navBottom.isVisible = isShow
     }
 
     override fun onDestroy() {
-        super.onDestroy()
+        navController?.removeOnDestinationChangedListener(navControllerDestination)
         navController = null
+        super.onDestroy()
     }
 }
