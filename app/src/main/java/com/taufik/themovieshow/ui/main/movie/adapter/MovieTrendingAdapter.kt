@@ -2,8 +2,8 @@ package com.taufik.themovieshow.ui.main.movie.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.taufik.themovieshow.databinding.ItemsMoviesTvShowBinding
 import com.taufik.themovieshow.model.response.movie.trending.MovieTrendingResult
@@ -14,10 +14,10 @@ import com.taufik.themovieshow.utils.toRating
 
 class MovieTrendingAdapter(
     private val onItemClickListener: (MovieTrendingResult) -> Unit
-) : PagingDataAdapter<MovieTrendingResult, MovieTrendingAdapter.MovieViewHolder>(movieTrendingDiffCallback) {
+) : ListAdapter<MovieTrendingResult, MovieTrendingAdapter.ViewHolder>(MOVIE_TRENDING_DIFF_CALLBACK){
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        return MovieViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return ViewHolder(
             ItemsMoviesTvShowBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
@@ -26,15 +26,11 @@ class MovieTrendingAdapter(
         )
     }
 
-    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        val data = getItem(position)
-        if (data != null) holder.bind(data)
-        holder.setIsRecyclable(false)
-    }
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(getItem(position))
 
-    inner class MovieViewHolder(private val binding: ItemsMoviesTvShowBinding) :
+    inner class ViewHolder(private val binding: ItemsMoviesTvShowBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: MovieTrendingResult) =
+        fun bind(data: MovieTrendingResult) {
             binding.apply {
                 imgPoster.loadImage(data.posterPath)
                 tvTitle.text = data.title
@@ -48,10 +44,11 @@ class MovieTrendingAdapter(
                     onItemClickListener(data)
                 }
             }
+        }
     }
 
     companion object {
-        val movieTrendingDiffCallback = object : DiffUtil.ItemCallback<MovieTrendingResult>() {
+        val MOVIE_TRENDING_DIFF_CALLBACK = object : DiffUtil.ItemCallback<MovieTrendingResult>() {
             override fun areItemsTheSame(
                 oldItem: MovieTrendingResult,
                 newItem: MovieTrendingResult
