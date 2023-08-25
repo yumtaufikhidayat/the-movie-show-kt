@@ -3,30 +3,72 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/nav_trending">
+    app:startDestination="@id/splashScreenFragment">
 
     <fragment
-        android:id="@+id/nav_trending"
+        android:id="@+id/splashScreenFragment"
+        android:name="com.taufik.themovieshow.ui.splashscreen.SplashScreenFragment"
+        android:label="fragment_splash_screen"
+        tools:layout="@layout/fragment_splash_screen" >
+        <action
+            android:id="@+id/action_splashScreenFragment_to_trendingFragment"
+            app:destination="@id/trendingFragment" />
+        <action
+            android:id="@+id/action_splashScreenFragment_to_movieFragment"
+            app:destination="@id/movieFragment" />
+        <action
+            android:id="@+id/action_splashScreenFragment_to_tvShowFragment"
+            app:destination="@id/tvShowFragment" />
+        <action
+            android:id="@+id/action_splashScreenFragment_to_favoriteFragment"
+            app:destination="@id/favoriteFragment" />
+        <action
+            android:id="@+id/action_splashScreenFragment_to_aboutFragment"
+            app:destination="@id/aboutFragment" />
+        <action
+            android:id="@+id/action_splashScreenFragment_to_discoverMovieFragment"
+            app:destination="@id/discoverMovieFragment" />
+        <action
+            android:id="@+id/action_splashScreenFragment_to_discoverTvShowFragment"
+            app:destination="@id/discoverTvShowFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/trendingFragment"
         android:name="com.taufik.themovieshow.ui.main.trending.fragment.TrendingFragment"
         android:label="Trending"
-        tools:layout="@layout/fragment_trending" />
+        tools:layout="@layout/fragment_trending" >
+        <action
+            android:id="@+id/action_trendingFragment_to_detailMovieFragment"
+            app:destination="@id/detailMovieFragment" />
+    </fragment>
     <fragment
-        android:id="@+id/nav_movie"
+        android:id="@+id/movieFragment"
         android:name="com.taufik.themovieshow.ui.main.movie.fragment.MovieFragment"
         android:label="Movies"
-        tools:layout="@layout/fragment_movie" />
+        tools:layout="@layout/fragment_movie" >
+        <action
+            android:id="@+id/action_movieFragment_to_detailMovieFragment"
+            app:destination="@id/detailMovieFragment" />
+        <action
+            android:id="@+id/action_movieFragment_to_detailMovieFragment2"
+            app:destination="@id/detailMovieFragment" />
+    </fragment>
     <fragment
-        android:id="@+id/nav_tv_show"
+        android:id="@+id/tvShowFragment"
         android:name="com.taufik.themovieshow.ui.main.tvshow.fragment.TvShowFragment"
         android:label="TV Shows"
-        tools:layout="@layout/fragment_tv_show" />
+        tools:layout="@layout/fragment_tv_show" >
+        <action
+            android:id="@+id/action_tvShowFragment_to_detailTvShowFragment"
+            app:destination="@id/detailTvShowFragment" />
+    </fragment>
     <fragment
-        android:id="@+id/nav_favorite"
+        android:id="@+id/favoriteFragment"
         android:name="com.taufik.themovieshow.ui.main.favorite.fragment.FavoriteFragment"
         android:label="Favorite"
         tools:layout="@layout/fragment_favorite" />
     <fragment
-        android:id="@+id/nav_about"
+        android:id="@+id/aboutFragment"
         android:name="com.taufik.themovieshow.ui.main.about.fragment.AboutFragment"
         android:label="About"
         tools:layout="@layout/fragment_about" />
@@ -43,11 +85,19 @@
         android:id="@+id/discoverMovieFragment"
         android:name="com.taufik.themovieshow.ui.discover.DiscoverMovieFragment"
         android:label="fragment_discover_movie"
-        tools:layout="@layout/fragment_discover_movie" />
+        tools:layout="@layout/fragment_discover_movie" >
+        <action
+            android:id="@+id/action_discoverMovieFragment_to_detailMovieFragment"
+            app:destination="@id/detailMovieFragment" />
+    </fragment>
     <fragment
         android:id="@+id/discoverTvShowFragment"
         android:name="com.taufik.themovieshow.ui.discover.DiscoverTvShowFragment"
         android:label="fragment_discover_tv_show"
-        tools:layout="@layout/fragment_discover_tv_show" />
+        tools:layout="@layout/fragment_discover_tv_show" >
+        <action
+            android:id="@+id/action_discoverTvShowFragment_to_detailTvShowFragment"
+            app:destination="@id/detailTvShowFragment" />
+    </fragment>
 
 </navigation>
