@@ -2,8 +2,8 @@ package com.taufik.themovieshow.ui.main.movie.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.databinding.ItemsMoviesTvShowBinding
@@ -15,7 +15,7 @@ import com.taufik.themovieshow.utils.toRating
 
 class MovieAdapter(
     private val onItemClickListener: (MovieMainResult) -> Unit
-) : PagingDataAdapter<MovieMainResult, MovieAdapter.MovieViewHolder>(MovieDiffCallback) {
+) : ListAdapter<MovieMainResult, MovieAdapter.MovieViewHolder>(MOVIE_DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         return MovieViewHolder(
@@ -27,11 +27,7 @@ class MovieAdapter(
         )
     }
 
-    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        val data = getItem(position)
-        if (data != null) holder.bind(data)
-        holder.setIsRecyclable(false)
-    }
+    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) = holder.bind(getItem(position))
 
     inner class MovieViewHolder(private val binding: ItemsMoviesTvShowBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -45,23 +41,24 @@ class MovieAdapter(
                 ) ?: root.context.getString(R.string.tvNA)
                 tvRating.text = toRating(data.voteAverage)
 
-                itemView.setOnClickListener {
+                cardMoviesTvShow.setOnClickListener {
                     onItemClickListener(data)
                 }
             }
         }
     }
 
-    object MovieDiffCallback :
-        DiffUtil.ItemCallback<MovieMainResult>() {
-        override fun areItemsTheSame(
-            oldItem: MovieMainResult,
-            newItem: MovieMainResult
-        ): Boolean = oldItem.id == newItem.id
+    companion object {
+        val MOVIE_DIFF_CALLBACK = object : DiffUtil.ItemCallback<MovieMainResult>() {
+            override fun areItemsTheSame(
+                oldItem: MovieMainResult,
+                newItem: MovieMainResult
+            ): Boolean = oldItem.id == newItem.id
 
-        override fun areContentsTheSame(
-            oldItem: MovieMainResult,
-            newItem: MovieMainResult
-        ): Boolean = oldItem == newItem
+            override fun areContentsTheSame(
+                oldItem: MovieMainResult,
+                newItem: MovieMainResult
+            ): Boolean = oldItem == newItem
+        }
     }
 }
