@@ -11,23 +11,26 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.databinding.FragmentMovieBinding
 import com.taufik.themovieshow.ui.main.movie.adapter.MoviePagerAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MovieFragment : Fragment() {
 
     private var _binding: FragmentMovieBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         _binding = FragmentMovieBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         setToolbar()
         setTabLayout()
         setActionClick()
@@ -51,6 +54,11 @@ class MovieFragment : Fragment() {
         binding.fabMovie.setOnClickListener {
             findNavController().navigate(R.id.discoverMovieFragment)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     companion object {
