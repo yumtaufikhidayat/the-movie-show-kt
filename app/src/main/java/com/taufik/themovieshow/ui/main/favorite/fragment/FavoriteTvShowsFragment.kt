@@ -20,20 +20,24 @@ import com.taufik.themovieshow.databinding.FragmentFavoriteTvShowsBinding
 import com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResult
 import com.taufik.themovieshow.ui.main.favorite.adapter.FavoriteTvShowsAdapter
 import com.taufik.themovieshow.ui.main.favorite.viewmodel.FavoriteTvShowViewModel
+import com.taufik.themovieshow.utils.navigateToDetailTvShow
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class FavoriteTvShowsFragment : Fragment() {
 
-    private val binding by lazy { FragmentFavoriteTvShowsBinding.inflate(layoutInflater) }
+    private var _binding: FragmentFavoriteTvShowsBinding? = null
+    private val binding get() = _binding!!
+
     private val viewModel: FavoriteTvShowViewModel by viewModels()
-    private val favoriteTvShowsAdapter by lazy { FavoriteTvShowsAdapter() }
+    private var favoriteTvShowsAdapter: FavoriteTvShowsAdapter? = null
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
+        _binding = FragmentFavoriteTvShowsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -46,6 +50,10 @@ class FavoriteTvShowsFragment : Fragment() {
     }
 
     private fun setAdapter() {
+        favoriteTvShowsAdapter = FavoriteTvShowsAdapter {
+            navigateToDetailTvShow(it.id, it.name)
+        }
+
         binding.rvDiscoverFavoriteTvShow.apply {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
@@ -56,7 +64,7 @@ class FavoriteTvShowsFragment : Fragment() {
     private fun getFavoriteTvShow() {
         viewModel.getFavoriteTvShow().observe(viewLifecycleOwner) {
             if (!it.isNullOrEmpty()) {
-                favoriteTvShowsAdapter.setData(mapList(it))
+                favoriteTvShowsAdapter?.setData(mapList(it))
                 showNoFavorite(false)
             } else {
                 showNoFavorite(true)
@@ -75,7 +83,7 @@ class FavoriteTvShowsFragment : Fragment() {
             })
 
             addTextChangedListener(afterTextChanged = { p0 ->
-                favoriteTvShowsAdapter.filter.filter(p0.toString())
+                favoriteTvShowsAdapter?.filter?.filter(p0.toString())
             })
         }
     }
@@ -114,7 +122,7 @@ class FavoriteTvShowsFragment : Fragment() {
                         text = getString(R.string.tvNoFavoriteData)
                         setTextColor(ContextCompat.getColor(requireContext(), R.color.colorOrange))
                     }
-                    tvError.apply {
+                    tvErrorDesc.apply {
                         isVisible = true
                         text = getString(R.string.tvSaveFavoriteTvShows)
                         setTextColor(ContextCompat.getColor(requireContext(), R.color.colorOrange))
@@ -124,5 +132,10 @@ class FavoriteTvShowsFragment : Fragment() {
                 layoutNoFavorite.root.isVisible = false
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

@@ -20,6 +20,7 @@ import com.taufik.themovieshow.databinding.FragmentFavoriteMovieBinding
 import com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult
 import com.taufik.themovieshow.ui.main.favorite.adapter.FavoriteMovieAdapter
 import com.taufik.themovieshow.ui.main.favorite.viewmodel.FavoriteMovieViewModel
+import com.taufik.themovieshow.utils.navigateToDetailMovie
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -29,13 +30,13 @@ class FavoriteMovieFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: FavoriteMovieViewModel by viewModels()
-    private val favoriteMovieAdapter by lazy { FavoriteMovieAdapter() }
+    private var favoriteMovieAdapter: FavoriteMovieAdapter? = null
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         _binding = FragmentFavoriteMovieBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -49,6 +50,9 @@ class FavoriteMovieFragment : Fragment() {
     }
 
     private fun setAdapter() {
+        favoriteMovieAdapter = FavoriteMovieAdapter {
+            navigateToDetailMovie(it.id, it.title)
+        }
         binding.rvDiscoverFavoriteMovies.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
@@ -59,7 +63,7 @@ class FavoriteMovieFragment : Fragment() {
     private fun getFavoriteMovie() {
         viewModel.getFavoriteMovies().observe(viewLifecycleOwner) {
             if (!it.isNullOrEmpty()) {
-                favoriteMovieAdapter.setData(mapList(it))
+                favoriteMovieAdapter?.setData(mapList(it))
                 showNoFavorite(false)
             } else {
                 showNoFavorite(true)
@@ -78,7 +82,7 @@ class FavoriteMovieFragment : Fragment() {
             })
 
             addTextChangedListener(afterTextChanged = { p0 ->
-                favoriteMovieAdapter.filter.filter(p0.toString())
+                favoriteMovieAdapter?.filter?.filter(p0.toString())
             })
         }
     }
@@ -118,7 +122,7 @@ class FavoriteMovieFragment : Fragment() {
                         text = getString(R.string.tvNoFavoriteData)
                         setTextColor(ContextCompat.getColor(requireContext(), R.color.colorOrange))
                     }
-                    tvError.apply {
+                    tvErrorDesc.apply {
                         isVisible = true
                         text = getString(R.string.tvSaveFavoriteMovie)
                         setTextColor(ContextCompat.getColor(requireContext(), R.color.colorOrange))

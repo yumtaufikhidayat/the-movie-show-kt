@@ -1,11 +1,9 @@
 package com.taufik.themovieshow.ui.main.favorite.adapter
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -13,17 +11,17 @@ import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.remote.api.UrlEndpoint
 import com.taufik.themovieshow.databinding.ItemsMoviesTvShowBinding
 import com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResult
-import com.taufik.themovieshow.ui.detail.tvshow.fragment.DetailTvShowFragment
 import com.taufik.themovieshow.utils.CommonDateFormatConstants
 import com.taufik.themovieshow.utils.convertDate
 import com.taufik.themovieshow.utils.loadImage
 import com.taufik.themovieshow.utils.toRating
 import java.util.Locale
 
-class FavoriteTvShowsAdapter :
-    ListAdapter<TvShowsMainResult, FavoriteTvShowsAdapter.TvShowsViewHolder>(
-        favoriteTvShowsCallback
-    ), Filterable {
+class FavoriteTvShowsAdapter(
+    private val onItemClickListener: (TvShowsMainResult) -> Unit
+) : ListAdapter<TvShowsMainResult, FavoriteTvShowsAdapter.TvShowsViewHolder>(
+    favoriteTvShowsCallback
+), Filterable {
 
     private var listTvShows =
         listOf<TvShowsMainResult>()
@@ -34,7 +32,8 @@ class FavoriteTvShowsAdapter :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TvShowsViewHolder {
-        val itemsMovieShowBinding = ItemsMoviesTvShowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val itemsMovieShowBinding =
+            ItemsMoviesTvShowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return TvShowsViewHolder(itemsMovieShowBinding)
     }
 
@@ -54,11 +53,8 @@ class FavoriteTvShowsAdapter :
                 ) ?: root.context.getString(R.string.tvNA)
                 tvRating.text = toRating(data.voteAverage)
 
-                itemView.setOnClickListener {
-                    val bundle = Bundle()
-                    bundle.putInt(DetailTvShowFragment.EXTRA_ID, data.id)
-                    bundle.putString(DetailTvShowFragment.EXTRA_TITLE, data.name)
-                    it.findNavController().navigate(R.id.detailTvShowFragment, bundle)
+                cardMoviesTvShow.setOnClickListener {
+                    onItemClickListener(data)
                 }
             }
         }

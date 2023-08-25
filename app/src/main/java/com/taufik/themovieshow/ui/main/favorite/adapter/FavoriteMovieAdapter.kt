@@ -1,25 +1,24 @@
 package com.taufik.themovieshow.ui.main.favorite.adapter
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.databinding.ItemsMoviesTvShowBinding
 import com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult
-import com.taufik.themovieshow.ui.detail.movie.fragment.DetailMovieFragment
 import com.taufik.themovieshow.utils.CommonDateFormatConstants
 import com.taufik.themovieshow.utils.convertDate
 import com.taufik.themovieshow.utils.loadImage
 import com.taufik.themovieshow.utils.toRating
 import java.util.Locale
 
-class FavoriteMovieAdapter : ListAdapter<MovieMainResult, FavoriteMovieAdapter.MovieViewHolder>(
+class FavoriteMovieAdapter(
+    private val onItemClickListener: (MovieMainResult) -> Unit
+) : ListAdapter<MovieMainResult, FavoriteMovieAdapter.MovieViewHolder>(
     favoriteMovieDiffCallback
 ), Filterable {
 
@@ -56,11 +55,8 @@ class FavoriteMovieAdapter : ListAdapter<MovieMainResult, FavoriteMovieAdapter.M
                 ) ?: root.context.getString(R.string.tvNA)
                 tvRating.text = toRating(data.voteAverage)
 
-                itemView.setOnClickListener {
-                    val bundle = Bundle()
-                    bundle.putInt(DetailMovieFragment.EXTRA_ID, data.id)
-                    bundle.putString(DetailMovieFragment.EXTRA_TITLE, data.title)
-                    it.findNavController().navigate(R.id.detailMovieFragment, bundle)
+                cardMoviesTvShow.setOnClickListener {
+                    onItemClickListener(data)
                 }
             }
         }
