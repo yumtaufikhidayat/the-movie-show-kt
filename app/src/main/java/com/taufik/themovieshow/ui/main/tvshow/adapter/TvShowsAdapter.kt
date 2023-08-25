@@ -2,8 +2,8 @@ package com.taufik.themovieshow.ui.main.tvshow.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.remote.api.UrlEndpoint
@@ -16,7 +16,7 @@ import com.taufik.themovieshow.utils.toRating
 
 class TvShowsAdapter(
     private val onItemClickListener: (TvShowsMainResult) -> Unit
-) : PagingDataAdapter<TvShowsMainResult, TvShowsAdapter.TvShowsViewHolder>(tvShowsCallback) {
+) : ListAdapter<TvShowsMainResult, TvShowsAdapter.TvShowsViewHolder>(TV_SHOW_DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TvShowsViewHolder {
         return TvShowsViewHolder(
@@ -28,11 +28,7 @@ class TvShowsAdapter(
         )
     }
 
-    override fun onBindViewHolder(holder: TvShowsViewHolder, position: Int) {
-        val data = getItem(position)
-        if (data != null) holder.bind(data)
-        holder.setIsRecyclable(false)
-    }
+    override fun onBindViewHolder(holder: TvShowsViewHolder, position: Int) = holder.bind(getItem(position))
 
     inner class TvShowsViewHolder(private val binding: ItemsMoviesTvShowBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -46,7 +42,7 @@ class TvShowsAdapter(
                 ) ?: root.context.getString(R.string.tvNA)
                 tvRating.text = toRating(data.voteAverage)
 
-                itemView.setOnClickListener {
+                cardMoviesTvShow.setOnClickListener {
                     onItemClickListener(data)
                 }
             }
@@ -54,7 +50,7 @@ class TvShowsAdapter(
     }
 
     companion object {
-        val tvShowsCallback = object :
+        val TV_SHOW_DIFF_CALLBACK = object :
             DiffUtil.ItemCallback<TvShowsMainResult>() {
             override fun areItemsTheSame(
                 oldItem: TvShowsMainResult,

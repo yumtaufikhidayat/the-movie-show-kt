@@ -1,22 +1,21 @@
 package com.taufik.themovieshow.ui.detail.tvshow.adapter
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.taufik.themovieshow.R
 import com.taufik.themovieshow.databinding.ItemSimilarBinding
 import com.taufik.themovieshow.model.response.tvshow.similar.TvShowsSimilarResultsItem
-import com.taufik.themovieshow.ui.detail.movie.fragment.DetailMovieFragment
 import com.taufik.themovieshow.utils.CommonDateFormatConstants
 import com.taufik.themovieshow.utils.convertDate
 import com.taufik.themovieshow.utils.loadImage
 
-class TvShowSimilarAdapter :
-    ListAdapter<TvShowsSimilarResultsItem, TvShowSimilarAdapter.TvShowViewHolder>(TvShowSimilarDiffCallback) {
+class TvShowSimilarAdapter(
+    private val onItemClickListener: (TvShowsSimilarResultsItem) -> Unit
+) : ListAdapter<TvShowsSimilarResultsItem, TvShowSimilarAdapter.TvShowViewHolder>(
+    TV_SHOW_SIMILAR_DIFF_CALLBACK
+) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TvShowViewHolder {
         return TvShowViewHolder(
@@ -43,25 +42,24 @@ class TvShowSimilarAdapter :
                 )
                 tvMovieName.text = StringBuilder(data.name).append("\n").append("($releaseYear)")
                 cardPoster.setOnClickListener {
-                    val bundle = Bundle()
-                    bundle.putInt(DetailMovieFragment.EXTRA_ID, data.id)
-                    bundle.putString(DetailMovieFragment.EXTRA_TITLE, data.name)
-                    it.findNavController().navigate(R.id.detailTvShowFragment, bundle)
+                    onItemClickListener(data)
                 }
             }
         }
     }
 
-    object TvShowSimilarDiffCallback :
-        DiffUtil.ItemCallback<TvShowsSimilarResultsItem>() {
-        override fun areItemsTheSame(
-            oldItem: TvShowsSimilarResultsItem,
-            newItem: TvShowsSimilarResultsItem
-        ): Boolean = oldItem.id == newItem.id
+    companion object {
+        val TV_SHOW_SIMILAR_DIFF_CALLBACK = object :
+            DiffUtil.ItemCallback<TvShowsSimilarResultsItem>() {
+            override fun areItemsTheSame(
+                oldItem: TvShowsSimilarResultsItem,
+                newItem: TvShowsSimilarResultsItem
+            ): Boolean = oldItem.id == newItem.id
 
-        override fun areContentsTheSame(
-            oldItem: TvShowsSimilarResultsItem,
-            newItem: TvShowsSimilarResultsItem
-        ): Boolean = oldItem == newItem
+            override fun areContentsTheSame(
+                oldItem: TvShowsSimilarResultsItem,
+                newItem: TvShowsSimilarResultsItem
+            ): Boolean = oldItem == newItem
+        }
     }
 }
