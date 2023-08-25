@@ -54,7 +54,6 @@ object ApiModule {
             val url = chain.request()
                 .url
                 .newBuilder()
-                .addQueryParameter("api_key", BuildConfig.API_KEY)
                 .build()
 
             val request = chain.request()
