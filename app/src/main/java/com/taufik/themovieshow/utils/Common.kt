@@ -1,12 +1,17 @@
 package com.taufik.themovieshow.utils
 
 import android.content.Context
+import android.os.Bundle
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.remote.api.UrlEndpoint
+import com.taufik.themovieshow.ui.detail.movie.fragment.DetailMovieFragment
+import com.taufik.themovieshow.ui.detail.tvshow.fragment.DetailTvShowFragment
 import es.dmoral.toasty.Toasty
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -42,6 +47,22 @@ fun toRating(data: Double): String {
     return ((data * tenDouble).roundToInt() / tenDouble).toString()
 }
 
-fun showToasty(context: Context, message: String) {
-    Toasty.success(context, message, Toast.LENGTH_SHORT, true).show()
+fun Context.showToasty(message: String) {
+    Toasty.success(this, message, Toast.LENGTH_SHORT, true).show()
+}
+
+fun Fragment.navigateToDetailMovie(id: Int, title: String) {
+    val bundle = Bundle().apply {
+        putInt(DetailMovieFragment.EXTRA_ID, id)
+        putString(DetailMovieFragment.EXTRA_TITLE, title)
+    }
+    this.findNavController().navigate(R.id.detailMovieFragment, bundle)
+}
+
+fun Fragment.navigateToDetailTvShow(id: Int, title: String) {
+    val bundle = Bundle().apply {
+        putInt(DetailTvShowFragment.EXTRA_ID, id)
+        putString(DetailTvShowFragment.EXTRA_TITLE, title)
+    }
+    this.findNavController().navigate(R.id.detailTvShowFragment, bundle)
 }
