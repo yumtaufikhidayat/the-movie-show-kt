@@ -28,11 +28,12 @@ android {
 
     buildTypes {
         release {
-            debuggable false
+            debuggable true
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField("String", "API_KEY", api_key)
-            signingConfig signingConfigs.debug
+
+            // Uncomment code below to run in release variant
+//            signingConfig signingConfigs.debug
             firebaseCrashlytics {
                 mappingFileUploadEnabled true
             }
@@ -40,7 +41,6 @@ android {
         debug {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField("String", "API_KEY", api_key)
         }
     }
     compileOptions {
@@ -52,6 +52,7 @@ android {
     }
     buildFeatures {
         viewBinding true
+        buildConfig true
     }
     namespace 'com.taufik.themovieshow'
 }
@@ -107,9 +108,6 @@ dependencies {
     // Toasty
     implementation "com.github.GrenderG:Toasty:$toastVersion"
 
-    // Youtube player
-//    implementation "com.pierfrancescosoffritti.androidyoutubeplayer:core:$videoVersion"
-
     // Room DB
     implementation "androidx.room:room-runtime:$roomVersion"
     implementation "androidx.room:room-ktx:$roomVersion"
@@ -124,13 +122,12 @@ dependencies {
     implementation "com.google.dagger:hilt-android:$hiltVersion"
     kapt "com.google.dagger:hilt-compiler:$hiltVersion"
 
-    // Paging
-    implementation "androidx.paging:paging-runtime-ktx:$pagingVersion"
-    implementation "androidx.paging:paging-common-ktx:$pagingVersion"
-
     // Firebase
     implementation "com.google.firebase:firebase-crashlytics-ktx:$firebaseCrashlyticsVersion"
     implementation "com.google.firebase:firebase-analytics-ktx:$firebaseCrashlyticsKtxVersion"
+
+    // Lottie
+    implementation "com.airbnb.android:lottie:$lottieVersion"
 }
 
 kapt {
