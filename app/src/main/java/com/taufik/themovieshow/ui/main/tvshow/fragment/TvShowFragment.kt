@@ -11,23 +11,26 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.databinding.FragmentTvShowBinding
 import com.taufik.themovieshow.ui.main.tvshow.adapter.TvShowPagerAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class TvShowFragment : Fragment() {
 
     private var _binding: FragmentTvShowBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         _binding = FragmentTvShowBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         setToolbar()
         setTabLayout()
         setActionClick()
@@ -51,6 +54,11 @@ class TvShowFragment : Fragment() {
         binding.fabTvShow.setOnClickListener {
             findNavController().navigate(R.id.discoverTvShowFragment)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     companion object {
