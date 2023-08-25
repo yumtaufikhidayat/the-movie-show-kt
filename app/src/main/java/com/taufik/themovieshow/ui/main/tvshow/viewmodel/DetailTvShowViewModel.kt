@@ -88,27 +88,4 @@ class DetailTvShowViewModel @Inject constructor(private val repository: TheMovie
             repository.removeTvShowFromFavorite(tvShowId)
         }
     }
-
-    /*fun addToFavorite(
-        tvShowId: Int,
-        posterPath: String,
-        title: String,
-        firstAirDate: String,
-        rating: Double
-    ) {
-        CoroutineScope(Dispatchers.IO).launch {
-            val tvShow = FavoriteTvShow(
-                tvShowId, posterPath, title, firstAirDate, rating
-            )
-            tvShowDao?.addToFavorite(tvShow)
-        }
-    }
-
-    suspend fun checkFavorite(tvShowId: Int) = tvShowDao?.checkFavorite(tvShowId)
-
-    fun removeFromFavorite(tvShowId: Int) {
-        CoroutineScope(Dispatchers.IO).launch {
-            tvShowDao?.removeFromFavorite(tvShowId)
-        }
-    }*/
 }

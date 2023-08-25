@@ -1,6 +1,7 @@
 package com.taufik.themovieshow.ui.detail.movie.fragment
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -25,6 +26,7 @@ import com.taufik.themovieshow.ui.main.movie.viewmodel.DetailMovieViewModel
 import com.taufik.themovieshow.utils.CommonDateFormatConstants
 import com.taufik.themovieshow.utils.convertDate
 import com.taufik.themovieshow.utils.loadImage
+import com.taufik.themovieshow.utils.navigateToDetailMovie
 import com.taufik.themovieshow.utils.showToasty
 import com.taufik.themovieshow.utils.toRating
 import dagger.hilt.android.AndroidEntryPoint
@@ -38,25 +40,26 @@ class DetailMovieFragment : Fragment() {
 
     private val viewModel: DetailMovieViewModel by viewModels()
     private val castAdapter by lazy { MovieCastAdapter() }
-    private val trailerVideoAdapter by lazy { MovieTrailerVideoAdapter() }
+    private var trailerVideoAdapter: MovieTrailerVideoAdapter? = null
     private val reviewsAdapter by lazy { ReviewsAdapter() }
-    private val similarAdapter by lazy { MovieSimilarAdapter() }
+    private var similarAdapter: MovieSimilarAdapter? = null
 
     private var idMovie = 0
     private var title = ""
     private var isChecked = false
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         _binding = FragmentDetailMovieBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         getBundleData()
         showToolbarData()
         setData()
@@ -69,7 +72,7 @@ class DetailMovieFragment : Fragment() {
 
     private fun getBundleData() {
         idMovie = arguments?.getInt(EXTRA_ID, 0) ?: 0
-        title = arguments?.getString(EXTRA_TITLE, "") ?: ""
+        title = arguments?.getString(EXTRA_TITLE).orEmpty()
     }
 
     private fun showToolbarData() {
@@ -211,10 +214,10 @@ class DetailMovieFragment : Fragment() {
                         releaseDate,
                         voteAverage
                     )
-                    showToasty(requireContext(), getString(R.string.action_added_to_favorite))
+                    requireContext().showToasty(getString(R.string.action_added_to_favorite))
                 } else {
                     viewModel.removeMovieFromFavorite(id)
-                    showToasty(requireContext(), getString(R.string.action_removed_from_favorite))
+                    requireContext().showToasty(getString(R.string.action_removed_from_favorite))
                 }
             }
         }
@@ -237,7 +240,7 @@ class DetailMovieFragment : Fragment() {
                         )
                     )
                 } catch (e: Exception) {
-                    showToasty(requireContext(), getString(R.string.tvOops))
+                    requireContext().showToasty(getString(R.string.tvOops))
                 }
             }
         }
@@ -292,6 +295,10 @@ class DetailMovieFragment : Fragment() {
     }
 
     private fun setTrailerVideoAdapter() {
+        trailerVideoAdapter = MovieTrailerVideoAdapter {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube://${it.key}"))
+            startActivity(intent)
+        }
         binding.rvTrailerVideo.apply {
             val helper: SnapHelper = LinearSnapHelper()
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -313,7 +320,7 @@ class DetailMovieFragment : Fragment() {
                             showVideo(false)
                         } else {
                             showVideo(true)
-                            trailerVideoAdapter.submitList(results)
+                            trailerVideoAdapter?.submitList(results)
                         }
                     }
                     is NetworkResult.Error -> showVideo(false)
@@ -356,6 +363,9 @@ class DetailMovieFragment : Fragment() {
     }
 
     private fun setSimilarMovieAdapter() {
+        similarAdapter = MovieSimilarAdapter {
+            navigateToDetailMovie(it.id, it.title)
+        }
         binding.rvMovieSimilar.apply {
             val helper: SnapHelper = LinearSnapHelper()
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -377,7 +387,7 @@ class DetailMovieFragment : Fragment() {
                             showNoSimilarMovie(true)
                         } else {
                             showNoSimilarMovie(false)
-                            similarAdapter.submitList(results)
+                            similarAdapter?.submitList(results)
                         }
                     }
                     is NetworkResult.Error -> showNoSimilarMovie(false)

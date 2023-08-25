@@ -22,6 +22,7 @@ import com.taufik.themovieshow.databinding.FragmentDiscoverMovieBinding
 import com.taufik.themovieshow.model.response.movie.discover.DiscoverMovieResult
 import com.taufik.themovieshow.ui.main.movie.adapter.DiscoverMovieAdapter
 import com.taufik.themovieshow.ui.main.movie.viewmodel.MovieViewModel
+import com.taufik.themovieshow.utils.navigateToDetailMovie
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -31,7 +32,7 @@ class DiscoverMovieFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel by viewModels<MovieViewModel>()
-    private val discoverMovieAdapter by lazy { DiscoverMovieAdapter() }
+    private var discoverMovieAdapter: DiscoverMovieAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,6 +45,7 @@ class DiscoverMovieFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         initToolbar()
         initAdapter()
         initSearch()
@@ -56,6 +58,10 @@ class DiscoverMovieFragment : Fragment() {
     }
 
     private fun initAdapter() {
+        discoverMovieAdapter = DiscoverMovieAdapter {
+            navigateToDetailMovie(it.id, it.title)
+        }
+
         binding.rvSearchMovie.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
@@ -104,7 +110,7 @@ class DiscoverMovieFragment : Fragment() {
                             when {
                                 results.isEmpty() -> showNoResults(true, results, query)
                                 query.isNotEmpty() -> {
-                                    discoverMovieAdapter.submitList(results)
+                                    discoverMovieAdapter?.submitList(results)
                                     showNoResults(false, results, query)
                                 }
                                 else -> showNoResults(true, emptyList(), query)
@@ -154,7 +160,7 @@ class DiscoverMovieFragment : Fragment() {
                 }
                 layoutNoSearch.apply {
                     root.isVisible = true
-                    imgError.apply {
+                    lottieEmptyBox.apply {
                         isVisible = true
                         setImageResource(R.drawable.ic_search_orange)
                     }
@@ -163,7 +169,7 @@ class DiscoverMovieFragment : Fragment() {
                         text = textSearchTitle
                         setTextColor(ContextCompat.getColor(requireContext(), R.color.colorOrange))
                     }
-                    tvError.apply {
+                    tvErrorDesc.apply {
                         isVisible = true
                         text = textSearch
                         setTextColor(ContextCompat.getColor(requireContext(), R.color.colorOrange))

@@ -1,23 +1,22 @@
 package com.taufik.themovieshow.ui.main.tvshow.adapter
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.databinding.ItemsMoviesTvShowBinding
 import com.taufik.themovieshow.model.response.tvshow.discover.DiscoverTvShowsResult
-import com.taufik.themovieshow.ui.detail.tvshow.fragment.DetailTvShowFragment
 import com.taufik.themovieshow.utils.CommonDateFormatConstants.EEE_D_MMM_YYYY_FORMAT
 import com.taufik.themovieshow.utils.CommonDateFormatConstants.YYYY_MM_DD_FORMAT
 import com.taufik.themovieshow.utils.convertDate
 import com.taufik.themovieshow.utils.loadImage
 import com.taufik.themovieshow.utils.toRating
 
-class DiscoverTvShowsAdapter : ListAdapter<DiscoverTvShowsResult, DiscoverTvShowsAdapter.TvShowsViewHolder>(DiscoverTvShowCallback) {
+class DiscoverTvShowsAdapter(
+    private val onItemClickListener: (DiscoverTvShowsResult) -> Unit
+) : ListAdapter<DiscoverTvShowsResult, DiscoverTvShowsAdapter.TvShowsViewHolder>(DiscoverTvShowCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TvShowsViewHolder {
         val itemsMovieShowBinding = ItemsMoviesTvShowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -39,11 +38,8 @@ class DiscoverTvShowsAdapter : ListAdapter<DiscoverTvShowsResult, DiscoverTvShow
                         ?: root.context.getString(R.string.tvNA)
                 tvRating.text = toRating(data.voteAverage)
 
-                itemView.setOnClickListener {
-                    val bundle = Bundle()
-                    bundle.putInt(DetailTvShowFragment.EXTRA_ID, data.id)
-                    bundle.putString(DetailTvShowFragment.EXTRA_TITLE, data.name)
-                    it.findNavController().navigate(R.id.detailTvShowFragment, bundle)
+                cardMoviesTvShow.setOnClickListener {
+                    onItemClickListener(data)
                 }
             }
         }

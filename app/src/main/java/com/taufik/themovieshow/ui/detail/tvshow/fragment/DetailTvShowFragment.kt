@@ -40,23 +40,24 @@ class DetailTvShowFragment : Fragment() {
     private val castAdapter by lazy { TvShowsCastAdapter() }
     private val trailerVideoAdapter by lazy { TvShowTrailerVideoAdapter() }
     private val reviewsAdapter by lazy { ReviewsAdapter() }
-    private val similarAdapter by lazy { TvShowSimilarAdapter() }
+    private var similarAdapter: TvShowSimilarAdapter? = null
 
     private var idTvShow = 0
     private var title = ""
     private var isChecked = false
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         _binding = FragmentDetailTvShowBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         getBundleData()
         showToolbarData()
         setData()
@@ -69,7 +70,7 @@ class DetailTvShowFragment : Fragment() {
 
     private fun getBundleData() {
         idTvShow = arguments?.getInt(EXTRA_ID, 0) ?: 0
-        title = arguments?.getString(EXTRA_TITLE, "") ?: ""
+        title = arguments?.getString(EXTRA_TITLE).orEmpty()
     }
 
     private fun showToolbarData() {
@@ -220,10 +221,10 @@ class DetailTvShowFragment : Fragment() {
                         firstAirDate,
                         voteAverage
                     )
-                    showToasty(requireContext(), getString(R.string.action_added_to_favorite))
+                    requireContext().showToasty(getString(R.string.action_added_to_favorite))
                 } else {
                     viewModel.removeTvShowFromFavorite(id)
-                    showToasty(requireContext(), getString(R.string.action_removed_from_favorite))
+                    requireContext().showToasty(getString(R.string.action_removed_from_favorite))
                 }
             }
         }
@@ -240,7 +241,7 @@ class DetailTvShowFragment : Fragment() {
                 }
                 startActivity(Intent.createChooser(shareIntent, getString(R.string.tvShareWith)))
             } catch (e: Exception) {
-                showToasty(requireContext(), getString(R.string.tvOops))
+                requireContext().showToasty(getString(R.string.tvOops))
             }
         }
     }
@@ -382,7 +383,7 @@ class DetailTvShowFragment : Fragment() {
                             showNoSimilarTvShow(true)
                         } else {
                             showNoSimilarTvShow(false)
-                            similarAdapter.submitList(results)
+                            similarAdapter?.submitList(results)
                         }
                     }
                     is NetworkResult.Error -> {}
@@ -422,6 +423,7 @@ class DetailTvShowFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        similarAdapter = null
     }
 
     companion object {

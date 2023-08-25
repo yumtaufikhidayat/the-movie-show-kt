@@ -22,6 +22,7 @@ import com.taufik.themovieshow.databinding.FragmentDiscoverTvShowBinding
 import com.taufik.themovieshow.model.response.tvshow.discover.DiscoverTvShowsResult
 import com.taufik.themovieshow.ui.main.tvshow.adapter.DiscoverTvShowsAdapter
 import com.taufik.themovieshow.ui.main.tvshow.viewmodel.TvShowsViewModel
+import com.taufik.themovieshow.utils.navigateToDetailTvShow
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -31,7 +32,7 @@ class DiscoverTvShowFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel by viewModels<TvShowsViewModel>()
-    private val discoverTvShowsAdapter by lazy { DiscoverTvShowsAdapter() }
+    private var discoverTvShowsAdapter: DiscoverTvShowsAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,6 +45,7 @@ class DiscoverTvShowFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         initToolbar()
         initAdapter()
         initSearch()
@@ -56,6 +58,10 @@ class DiscoverTvShowFragment : Fragment() {
     }
 
     private fun initAdapter() {
+        discoverTvShowsAdapter = DiscoverTvShowsAdapter {
+            navigateToDetailTvShow(it.id, it.name)
+        }
+
         binding.rvSearchTvShow.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
@@ -104,7 +110,7 @@ class DiscoverTvShowFragment : Fragment() {
                             when {
                                 results.isEmpty() -> showNoResults(true, results, query)
                                 query.isNotEmpty() -> {
-                                    discoverTvShowsAdapter.submitList(results)
+                                    discoverTvShowsAdapter?.submitList(results)
                                     showNoResults(false, results, query)
                                 }
                                 else -> showNoResults(true, emptyList(), query)
@@ -154,7 +160,7 @@ class DiscoverTvShowFragment : Fragment() {
                 }
                 layoutNoSearch.apply {
                     root.isVisible = true
-                    imgError.apply {
+                    lottieEmptyBox.apply {
                         isVisible = true
                         setImageResource(R.drawable.ic_search_orange)
                     }
@@ -163,7 +169,7 @@ class DiscoverTvShowFragment : Fragment() {
                         text = textSearchTitle
                         setTextColor(ContextCompat.getColor(requireContext(), R.color.colorOrange))
                     }
-                    tvError.apply {
+                    tvErrorDesc.apply {
                         isVisible = true
                         text = textSearch
                         setTextColor(ContextCompat.getColor(requireContext(), R.color.colorOrange))
