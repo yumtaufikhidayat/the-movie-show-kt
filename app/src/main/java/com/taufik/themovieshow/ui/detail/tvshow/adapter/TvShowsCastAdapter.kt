@@ -10,13 +10,16 @@ import com.taufik.themovieshow.databinding.ItemCastBinding
 import com.taufik.themovieshow.model.response.tvshow.cast.TvShowsCast
 import com.taufik.themovieshow.utils.loadImage
 
-class TvShowsCastAdapter :
-    ListAdapter<TvShowsCast, TvShowsCastAdapter.MovieViewHolder>(TvShowCastDiffCallback) {
+class TvShowsCastAdapter : ListAdapter<TvShowsCast, TvShowsCastAdapter.MovieViewHolder>(TV_SHOW_CAST_DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val itemsCastBinding =
-            ItemCastBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MovieViewHolder(itemsCastBinding)
+        return MovieViewHolder(
+            ItemCastBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
@@ -41,16 +44,18 @@ class TvShowsCastAdapter :
         }
     }
 
-    object TvShowCastDiffCallback :
-        DiffUtil.ItemCallback<TvShowsCast>() {
-        override fun areItemsTheSame(
-            oldItem: TvShowsCast,
-            newItem: TvShowsCast
-        ): Boolean = oldItem.id == newItem.id
+    companion object {
+        val TV_SHOW_CAST_DIFF_CALLBACK = object :
+            DiffUtil.ItemCallback<TvShowsCast>() {
+            override fun areItemsTheSame(
+                oldItem: TvShowsCast,
+                newItem: TvShowsCast
+            ): Boolean = oldItem.id == newItem.id
 
-        override fun areContentsTheSame(
-            oldItem: TvShowsCast,
-            newItem: TvShowsCast
-        ): Boolean = oldItem == newItem
+            override fun areContentsTheSame(
+                oldItem: TvShowsCast,
+                newItem: TvShowsCast
+            ): Boolean = oldItem == newItem
+        }
     }
 }

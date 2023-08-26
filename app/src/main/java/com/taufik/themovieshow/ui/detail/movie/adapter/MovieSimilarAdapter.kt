@@ -40,8 +40,7 @@ class MovieSimilarAdapter(
                     CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
                     CommonDateFormatConstants.YYYY_FORMAT
                 )
-                tvMovieName.text =
-                    StringBuilder(data.originalTitle).append("\n").append("($releaseYear)")
+                tvMovieName.text = StringBuilder(data.originalTitle).append("\n").append("($releaseYear)")
                 cardPoster.setOnClickListener {
                     onItemClickListener(data)
                 }

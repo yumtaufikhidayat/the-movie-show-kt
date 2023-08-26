@@ -16,7 +16,9 @@ import com.taufik.themovieshow.utils.toRating
 
 class TvShowsAdapter(
     private val onItemClickListener: (TvShowsMainResult) -> Unit
-) : ListAdapter<TvShowsMainResult, TvShowsAdapter.TvShowsViewHolder>(TV_SHOW_DIFF_CALLBACK) {
+) : ListAdapter<TvShowsMainResult, TvShowsAdapter.TvShowsViewHolder>(
+    TV_SHOW_DIFF_CALLBACK
+) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TvShowsViewHolder {
         return TvShowsViewHolder(
@@ -28,7 +30,8 @@ class TvShowsAdapter(
         )
     }
 
-    override fun onBindViewHolder(holder: TvShowsViewHolder, position: Int) = holder.bind(getItem(position))
+    override fun onBindViewHolder(holder: TvShowsViewHolder, position: Int) =
+        holder.bind(getItem(position))
 
     inner class TvShowsViewHolder(private val binding: ItemsMoviesTvShowBinding) :
         RecyclerView.ViewHolder(binding.root) {

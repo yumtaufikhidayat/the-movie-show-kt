@@ -11,8 +11,7 @@ import com.taufik.themovieshow.databinding.ItemTrailerVideoBinding
 import com.taufik.themovieshow.model.response.tvshow.video.TvShowsVideoResult
 import com.taufik.themovieshow.utils.loadVideoThumbnail
 
-class TvShowTrailerVideoAdapter :
-    ListAdapter<TvShowsVideoResult, TvShowTrailerVideoAdapter.TvShowTrailerViewHolder>(TvShowTrailerDiffCallback) {
+class TvShowTrailerVideoAdapter : ListAdapter<TvShowsVideoResult, TvShowTrailerVideoAdapter.TvShowTrailerViewHolder>(TV_SHOW_TRAILER_DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TvShowTrailerViewHolder {
         return TvShowTrailerViewHolder(
@@ -42,16 +41,18 @@ class TvShowTrailerVideoAdapter :
         }
     }
 
-    object TvShowTrailerDiffCallback :
-        DiffUtil.ItemCallback<TvShowsVideoResult>() {
-        override fun areItemsTheSame(
-            oldItem: TvShowsVideoResult,
-            newItem: TvShowsVideoResult
-        ): Boolean = oldItem == newItem
+    companion object {
+        val TV_SHOW_TRAILER_DIFF_CALLBACK = object :
+            DiffUtil.ItemCallback<TvShowsVideoResult>() {
+            override fun areItemsTheSame(
+                oldItem: TvShowsVideoResult,
+                newItem: TvShowsVideoResult
+            ): Boolean = oldItem == newItem
 
-        override fun areContentsTheSame(
-            oldItem: TvShowsVideoResult,
-            newItem: TvShowsVideoResult
-        ): Boolean = oldItem.id == newItem.id
+            override fun areContentsTheSame(
+                oldItem: TvShowsVideoResult,
+                newItem: TvShowsVideoResult
+            ): Boolean = oldItem.id == newItem.id
+        }
     }
 }

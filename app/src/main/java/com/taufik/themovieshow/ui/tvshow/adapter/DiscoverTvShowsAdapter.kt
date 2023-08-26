@@ -16,10 +16,13 @@ import com.taufik.themovieshow.utils.toRating
 
 class DiscoverTvShowsAdapter(
     private val onItemClickListener: (DiscoverTvShowsResult) -> Unit
-) : ListAdapter<DiscoverTvShowsResult, DiscoverTvShowsAdapter.TvShowsViewHolder>(DiscoverTvShowCallback) {
+) : ListAdapter<DiscoverTvShowsResult, DiscoverTvShowsAdapter.TvShowsViewHolder>(
+    DISCOVER_TV_SHOW_CALLBACK
+) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TvShowsViewHolder {
-        val itemsMovieShowBinding = ItemsMoviesTvShowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val itemsMovieShowBinding =
+            ItemsMoviesTvShowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return TvShowsViewHolder(itemsMovieShowBinding)
     }
 
@@ -45,16 +48,18 @@ class DiscoverTvShowsAdapter(
         }
     }
 
-    object DiscoverTvShowCallback :
-        DiffUtil.ItemCallback<DiscoverTvShowsResult>() {
-        override fun areItemsTheSame(
-            oldItem: DiscoverTvShowsResult,
-            newItem: DiscoverTvShowsResult
-        ): Boolean = oldItem.id == newItem.id
+    companion object {
+        val DISCOVER_TV_SHOW_CALLBACK = object :
+            DiffUtil.ItemCallback<DiscoverTvShowsResult>() {
+            override fun areItemsTheSame(
+                oldItem: DiscoverTvShowsResult,
+                newItem: DiscoverTvShowsResult
+            ): Boolean = oldItem.id == newItem.id
 
-        override fun areContentsTheSame(
-            oldItem: DiscoverTvShowsResult,
-            newItem: DiscoverTvShowsResult
-        ): Boolean = oldItem == newItem
+            override fun areContentsTheSame(
+                oldItem: DiscoverTvShowsResult,
+                newItem: DiscoverTvShowsResult
+            ): Boolean = oldItem == newItem
+        }
     }
 }

@@ -19,7 +19,7 @@ import java.util.Locale
 class FavoriteMovieAdapter(
     private val onItemClickListener: (MovieMainResult) -> Unit
 ) : ListAdapter<MovieMainResult, FavoriteMovieAdapter.MovieViewHolder>(
-    favoriteMovieDiffCallback
+    FAVORITE_MOVIE_DIFF_CALLBACK
 ), Filterable {
 
     private var listMovies = listOf<MovieMainResult>()
@@ -88,7 +88,7 @@ class FavoriteMovieAdapter(
     }
 
     companion object {
-        val favoriteMovieDiffCallback = object : DiffUtil.ItemCallback<MovieMainResult>() {
+        val FAVORITE_MOVIE_DIFF_CALLBACK = object : DiffUtil.ItemCallback<MovieMainResult>() {
             override fun areItemsTheSame(
                 oldItem: MovieMainResult,
                 newItem: MovieMainResult

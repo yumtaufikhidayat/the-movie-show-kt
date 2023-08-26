@@ -9,8 +9,8 @@ import com.taufik.themovieshow.databinding.ItemAboutBinding
 import com.taufik.themovieshow.model.response.about.About
 
 class AboutAuthorAdapter(
-    private val onItemClick: (Int) -> Unit
-) : ListAdapter<About, AboutAuthorAdapter.AboutViewHolder>(aboutAuthorDiffCallback) {
+    private val onItemClickListener: (Int) -> Unit
+) : ListAdapter<About, AboutAuthorAdapter.AboutViewHolder>(ABOUT_AUTHOR_DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AboutViewHolder {
         return AboutViewHolder(
@@ -35,14 +35,14 @@ class AboutAuthorAdapter(
                 tvAboutDesc.text = about.descAbout
 
                 itemView.setOnClickListener {
-                    onItemClick(layoutPosition)
+                    onItemClickListener(layoutPosition)
                 }
             }
         }
     }
 
     companion object {
-        val aboutAuthorDiffCallback = object : DiffUtil.ItemCallback<About>() {
+        val ABOUT_AUTHOR_DIFF_CALLBACK = object : DiffUtil.ItemCallback<About>() {
             override fun areItemsTheSame(
                 oldItem: About,
                 newItem: About

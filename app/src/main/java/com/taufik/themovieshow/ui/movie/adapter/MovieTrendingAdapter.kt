@@ -14,7 +14,9 @@ import com.taufik.themovieshow.utils.toRating
 
 class MovieTrendingAdapter(
     private val onItemClickListener: (MovieTrendingResult) -> Unit
-) : ListAdapter<MovieTrendingResult, MovieTrendingAdapter.ViewHolder>(MOVIE_TRENDING_DIFF_CALLBACK){
+) : ListAdapter<MovieTrendingResult, MovieTrendingAdapter.ViewHolder>(
+    MOVIE_TRENDING_DIFF_CALLBACK
+) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -26,7 +28,8 @@ class MovieTrendingAdapter(
         )
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(getItem(position))
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) =
+        holder.bind(getItem(position))
 
     inner class ViewHolder(private val binding: ItemsMoviesTvShowBinding) :
         RecyclerView.ViewHolder(binding.root) {

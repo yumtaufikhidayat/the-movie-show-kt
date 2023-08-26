@@ -15,10 +15,13 @@ import com.taufik.themovieshow.utils.toRating
 
 class DiscoverMovieAdapter(
     private val onItemClickListener: (DiscoverMovieResult) -> Unit
-) : ListAdapter<DiscoverMovieResult, DiscoverMovieAdapter.MovieViewHolder>(DiscoverMovieDiffCallback) {
+) : ListAdapter<DiscoverMovieResult, DiscoverMovieAdapter.MovieViewHolder>(
+    DISCOVER_MOVIE_DIFF_CALLBACK
+) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val itemsMovieBinding = ItemsMoviesTvShowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val itemsMovieBinding =
+            ItemsMoviesTvShowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MovieViewHolder(itemsMovieBinding)
     }
 
@@ -26,7 +29,8 @@ class DiscoverMovieAdapter(
         holder.bind(getItem(position))
     }
 
-    inner class MovieViewHolder(private val binding: ItemsMoviesTvShowBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class MovieViewHolder(private val binding: ItemsMoviesTvShowBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(data: DiscoverMovieResult) {
             binding.apply {
                 imgPoster.loadImage(data.posterPath)
@@ -44,16 +48,18 @@ class DiscoverMovieAdapter(
         }
     }
 
-    object DiscoverMovieDiffCallback :
-        DiffUtil.ItemCallback<DiscoverMovieResult>() {
-        override fun areItemsTheSame(
-            oldItem: DiscoverMovieResult,
-            newItem: DiscoverMovieResult
-        ): Boolean = oldItem.id == newItem.id
+    companion object {
+        val DISCOVER_MOVIE_DIFF_CALLBACK = object :
+            DiffUtil.ItemCallback<DiscoverMovieResult>() {
+            override fun areItemsTheSame(
+                oldItem: DiscoverMovieResult,
+                newItem: DiscoverMovieResult
+            ): Boolean = oldItem.id == newItem.id
 
-        override fun areContentsTheSame(
-            oldItem: DiscoverMovieResult,
-            newItem: DiscoverMovieResult
-        ): Boolean = oldItem == newItem
+            override fun areContentsTheSame(
+                oldItem: DiscoverMovieResult,
+                newItem: DiscoverMovieResult
+            ): Boolean = oldItem == newItem
+        }
     }
 }

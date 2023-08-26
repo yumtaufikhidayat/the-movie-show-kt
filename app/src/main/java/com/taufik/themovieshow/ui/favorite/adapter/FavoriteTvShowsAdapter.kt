@@ -20,7 +20,7 @@ import java.util.Locale
 class FavoriteTvShowsAdapter(
     private val onItemClickListener: (TvShowsMainResult) -> Unit
 ) : ListAdapter<TvShowsMainResult, FavoriteTvShowsAdapter.TvShowsViewHolder>(
-    favoriteTvShowsCallback
+    FAVORITE_TV_SHOW_DIFF_CALLBACK
 ), Filterable {
 
     private var listTvShows =
@@ -86,7 +86,7 @@ class FavoriteTvShowsAdapter(
     }
 
     companion object {
-        val favoriteTvShowsCallback = object : DiffUtil.ItemCallback<TvShowsMainResult>() {
+        val FAVORITE_TV_SHOW_DIFF_CALLBACK = object : DiffUtil.ItemCallback<TvShowsMainResult>() {
             override fun areItemsTheSame(
                 oldItem: TvShowsMainResult,
                 newItem: TvShowsMainResult

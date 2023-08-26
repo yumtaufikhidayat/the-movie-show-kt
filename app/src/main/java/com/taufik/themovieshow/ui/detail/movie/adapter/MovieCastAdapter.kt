@@ -13,9 +13,12 @@ import com.taufik.themovieshow.utils.loadImage
 class MovieCastAdapter : ListAdapter<MovieCast, MovieCastAdapter.MovieViewHolder>(MOVIE_CAST_DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val itemsCastBinding =
-            ItemCastBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MovieViewHolder(itemsCastBinding)
+        return MovieViewHolder(
+            ItemCastBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent, false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {

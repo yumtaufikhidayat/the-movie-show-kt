@@ -13,7 +13,8 @@ import com.taufik.themovieshow.utils.CommonDateFormatConstants
 import com.taufik.themovieshow.utils.convertDate
 import com.taufik.themovieshow.utils.loadImage
 
-class ReviewsAdapter : ListAdapter<ReviewsResult, ReviewsAdapter.ReviewsViewHolder>(ReviewsDiffCallback) {
+class ReviewsAdapter : ListAdapter<ReviewsResult, ReviewsAdapter.ReviewsViewHolder>(
+    REVIEWS_DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReviewsViewHolder {
         return ReviewsViewHolder(
@@ -51,16 +52,18 @@ class ReviewsAdapter : ListAdapter<ReviewsResult, ReviewsAdapter.ReviewsViewHold
         }
     }
 
-    object ReviewsDiffCallback :
-        DiffUtil.ItemCallback<ReviewsResult>() {
-        override fun areItemsTheSame(
-            oldItem: ReviewsResult,
-            newItem: ReviewsResult
-        ): Boolean = oldItem.id == newItem.id
+    companion object {
+        val REVIEWS_DIFF_CALLBACK = object :
+            DiffUtil.ItemCallback<ReviewsResult>() {
+            override fun areItemsTheSame(
+                oldItem: ReviewsResult,
+                newItem: ReviewsResult
+            ): Boolean = oldItem.id == newItem.id
 
-        override fun areContentsTheSame(
-            oldItem: ReviewsResult,
-            newItem: ReviewsResult
-        ): Boolean = oldItem == newItem
+            override fun areContentsTheSame(
+                oldItem: ReviewsResult,
+                newItem: ReviewsResult
+            ): Boolean = oldItem == newItem
+        }
     }
 }
