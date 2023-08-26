@@ -13,7 +13,7 @@ interface TheMovieShowDao {
     @Insert
     suspend fun addMovieToFavorite(favoriteMovieEntity: FavoriteMovieEntity)
 
-    @Query("SELECT * FROM ${CommonConstants.TABLE_NAME_FAVORITE_MOVIE_ENTITY} ORDER BY ${CommonConstants.COLUMN_NAME_TITLE} ASC")
+    @Query("SELECT * FROM ${CommonConstants.TABLE_NAME_FAVORITE_MOVIE_ENTITY} ORDER BY ${CommonConstants.COLUMN_NAME_TITLE} DESC")
     fun getFavoriteMovies(): LiveData<List<FavoriteMovieEntity>>
 
     @Query(
@@ -31,7 +31,7 @@ interface TheMovieShowDao {
     @Insert
     suspend fun addTvShowToFavorite(favoriteTvShowEntity: FavoriteTvShowEntity)
 
-    @Query("SELECT * FROM ${CommonConstants.TABLE_NAME_FAVORITE_TV_SHOW_ENTITY} ORDER BY ${CommonConstants.COLUMN_NAME_TITLE} ASC")
+    @Query("SELECT * FROM ${CommonConstants.TABLE_NAME_FAVORITE_TV_SHOW_ENTITY} ORDER BY ${CommonConstants.COLUMN_NAME_TITLE} DESC")
     fun getFavoriteTvShows(): LiveData<List<FavoriteTvShowEntity>>
 
     @Query(
