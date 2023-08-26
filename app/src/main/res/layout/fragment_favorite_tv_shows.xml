@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context=".ui.main.favorite.fragment.FavoriteTvShowsFragment">
+    tools:context=".ui.favorite.fragment.FavoriteTvShowsFragment">
 
     <com.taufik.themovieshow.utils.CustomEditText
         android:id="@+id/etSearch"

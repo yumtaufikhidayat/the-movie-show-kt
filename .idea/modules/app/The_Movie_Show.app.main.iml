@@ -14,6 +14,7 @@
           <stringArguments>
             <stringArg name="classpath">
               <args>
+                <arg>$MODULE_DIR$/../../../app/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/3ce59307735038662f13980825a7da4f/transformed/jetified-viewbinding-7.4.2-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/05416e3c48b88191f92cdc08acd62264/transformed/jetified-kotlin-parcelize-runtime-1.8.20.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/d897bcb9123cc6b2349b8ff469750d0d/transformed/navigation-common-2.6.0-api.jar</arg>
@@ -154,6 +155,7 @@
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/51dae614b55d1e1fb0d6ae685320485b/transformed/jetified-lottie-6.0.0-api.jar</arg>
                 <arg>$USER_HOME$/Library/Android/sdk/platforms/android-33/android.jar</arg>
                 <arg>$USER_HOME$/Library/Android/sdk/build-tools/30.0.3/core-lambda-stubs.jar</arg>
+                <arg>$MODULE_DIR$/../../../app/build/tmp/kapt3/classes/debug</arg>
               </args>
             </stringArg>
             <stringArg name="destination" arg="$MODULE_DIR$/../../../app/build/tmp/kotlin-classes/debug" />

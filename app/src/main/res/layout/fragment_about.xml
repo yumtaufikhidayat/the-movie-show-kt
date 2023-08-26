@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:scrollbars="none"
-    tools:context=".ui.main.about.fragment.AboutFragment">
+    tools:context=".ui.about.fragment.AboutFragment">
 
     <include
         android:id="@+id/toolbarAbout"
