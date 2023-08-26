@@ -71,6 +71,11 @@ class DiscoverTvShowFragment : Fragment() {
 
     private fun initSearch() {
         binding.apply {
+            showNoSearch(
+                title = getString(R.string.tvNoSearchTvShow),
+                description = getString(R.string.tvSearchTvShow)
+            )
+
             toolbarSearchTvShow.etSearch.apply {
                 showKeyboard()
                 setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, _ ->
@@ -158,25 +163,33 @@ class DiscoverTvShowFragment : Fragment() {
                         textSearch = getString(R.string.tvNoSearchData)
                     }
                 }
-                layoutNoSearch.apply {
-                    root.isVisible = true
-                    lottieEmptyBox.apply {
-                        isVisible = true
-                        setImageResource(R.drawable.ic_search_orange)
-                    }
-                    tvErrorTitle.apply {
-                        isVisible = true
-                        text = textSearchTitle
-                        setTextColor(ContextCompat.getColor(requireContext(), R.color.colorOrange))
-                    }
-                    tvErrorDesc.apply {
-                        isVisible = true
-                        text = textSearch
-                        setTextColor(ContextCompat.getColor(requireContext(), R.color.colorOrange))
-                    }
-                }
+                discoverTvShowsAdapter?.submitList(list)
+                showNoSearch(
+                    title = textSearchTitle,
+                    description = textSearch
+                )
             } else {
                 layoutNoSearch.root.isVisible = false
+            }
+        }
+    }
+
+    private fun showNoSearch(title: String, description: String) {
+        binding.layoutNoSearch.apply {
+            root.isVisible = true
+            imgNoSearch.apply {
+                isVisible = true
+                setImageResource(R.drawable.ic_search_orange)
+            }
+            tvErrorTitle.apply {
+                isVisible = true
+                text = title
+                setTextColor(ContextCompat.getColor(requireContext(), R.color.colorOrange))
+            }
+            tvErrorDesc.apply {
+                isVisible = true
+                text = description
+                setTextColor(ContextCompat.getColor(requireContext(), R.color.colorOrange))
             }
         }
     }
