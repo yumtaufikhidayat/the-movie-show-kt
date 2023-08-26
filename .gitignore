@@ -10,6 +10,9 @@
 # Bin file
 *.bin
 
+# Iml file
+*.iml
+
 # BlueJ files
 *.ctxt
 
