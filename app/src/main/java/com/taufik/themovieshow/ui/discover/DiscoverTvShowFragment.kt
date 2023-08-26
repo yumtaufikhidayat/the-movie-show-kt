@@ -20,8 +20,8 @@ import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.NetworkResult
 import com.taufik.themovieshow.databinding.FragmentDiscoverTvShowBinding
 import com.taufik.themovieshow.model.response.tvshow.discover.DiscoverTvShowsResult
-import com.taufik.themovieshow.ui.main.tvshow.adapter.DiscoverTvShowsAdapter
-import com.taufik.themovieshow.ui.main.tvshow.viewmodel.TvShowsViewModel
+import com.taufik.themovieshow.ui.tvshow.adapter.DiscoverTvShowsAdapter
+import com.taufik.themovieshow.ui.tvshow.viewmodel.TvShowsViewModel
 import com.taufik.themovieshow.utils.navigateToDetailTvShow
 import dagger.hilt.android.AndroidEntryPoint
 

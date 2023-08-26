@@ -20,8 +20,8 @@ import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.NetworkResult
 import com.taufik.themovieshow.databinding.FragmentDiscoverMovieBinding
 import com.taufik.themovieshow.model.response.movie.discover.DiscoverMovieResult
-import com.taufik.themovieshow.ui.main.movie.adapter.DiscoverMovieAdapter
-import com.taufik.themovieshow.ui.main.movie.viewmodel.MovieViewModel
+import com.taufik.themovieshow.ui.movie.adapter.DiscoverMovieAdapter
+import com.taufik.themovieshow.ui.movie.viewmodel.MovieViewModel
 import com.taufik.themovieshow.utils.navigateToDetailMovie
 import dagger.hilt.android.AndroidEntryPoint
 
