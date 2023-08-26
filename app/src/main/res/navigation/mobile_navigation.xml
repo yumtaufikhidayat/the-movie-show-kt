@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/trendingFragment"
-        android:name="com.taufik.themovieshow.ui.main.trending.fragment.TrendingFragment"
+        android:name="com.taufik.themovieshow.ui.trending.fragment.TrendingFragment"
         android:label="Trending"
         tools:layout="@layout/fragment_trending" >
         <action
@@ -43,7 +43,7 @@
     </fragment>
     <fragment
         android:id="@+id/movieFragment"
-        android:name="com.taufik.themovieshow.ui.main.movie.fragment.MovieFragment"
+        android:name="com.taufik.themovieshow.ui.movie.fragment.MovieFragment"
         android:label="Movies"
         tools:layout="@layout/fragment_movie" >
         <action
@@ -55,7 +55,7 @@
     </fragment>
     <fragment
         android:id="@+id/tvShowFragment"
-        android:name="com.taufik.themovieshow.ui.main.tvshow.fragment.TvShowFragment"
+        android:name="com.taufik.themovieshow.ui.tvshow.fragment.TvShowFragment"
         android:label="TV Shows"
         tools:layout="@layout/fragment_tv_show" >
         <action
@@ -64,12 +64,12 @@
     </fragment>
     <fragment
         android:id="@+id/favoriteFragment"
-        android:name="com.taufik.themovieshow.ui.main.favorite.fragment.FavoriteFragment"
+        android:name="com.taufik.themovieshow.ui.favorite.fragment.FavoriteFragment"
         android:label="Favorite"
         tools:layout="@layout/fragment_favorite" />
     <fragment
         android:id="@+id/aboutFragment"
-        android:name="com.taufik.themovieshow.ui.main.about.fragment.AboutFragment"
+        android:name="com.taufik.themovieshow.ui.about.fragment.AboutFragment"
         android:label="About"
         tools:layout="@layout/fragment_about" />
     <fragment
