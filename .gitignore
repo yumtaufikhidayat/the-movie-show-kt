@@ -4,6 +4,12 @@
 # Log file
 *.log
 
+# Lock file
+*.lock
+
+# Bin file
+*.bin
+
 # BlueJ files
 *.ctxt
 
