@@ -62,7 +62,7 @@ class DiscoverMovieFragment : Fragment() {
             navigateToDetailMovie(it.id, it.title)
         }
 
-        binding.rvSearchMovie.apply {
+        binding.rvDiscoverMovie.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
             adapter = discoverMovieAdapter

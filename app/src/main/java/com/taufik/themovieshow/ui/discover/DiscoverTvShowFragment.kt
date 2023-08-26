@@ -62,7 +62,7 @@ class DiscoverTvShowFragment : Fragment() {
             navigateToDetailTvShow(it.id, it.name)
         }
 
-        binding.rvSearchTvShow.apply {
+        binding.rvDiscoverTvShow.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
             adapter = discoverTvShowsAdapter
