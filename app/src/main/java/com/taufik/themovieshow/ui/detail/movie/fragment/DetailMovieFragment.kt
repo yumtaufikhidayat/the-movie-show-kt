@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.SnapHelper
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.NetworkResult
 import com.taufik.themovieshow.databinding.FragmentDetailMovieBinding
+import com.taufik.themovieshow.model.response.movie.detail.MovieDetailResponse
 import com.taufik.themovieshow.ui.detail.movie.adapter.MovieCastAdapter
 import com.taufik.themovieshow.ui.detail.movie.adapter.MovieSimilarAdapter
 import com.taufik.themovieshow.ui.detail.movie.adapter.MovieTrailerVideoAdapter
@@ -62,12 +63,16 @@ class DetailMovieFragment : Fragment() {
 
         getBundleData()
         showToolbarData()
-        setData()
-        setReadMore()
+        setDetailObserver()
         setCastAdapter()
+        setCastObserver(idMovie)
         setTrailerVideoAdapter()
+        showTrailerVideoObserver(idMovie)
         setReviewsAdapter()
+        showReviewsObserver(idMovie)
         setSimilarMovieAdapter()
+        showSimilarObserver(idMovie)
+        setReadMore()
     }
 
     private fun getBundleData() {
@@ -86,97 +91,96 @@ class DetailMovieFragment : Fragment() {
         }
     }
 
-    private fun setData() {
+    private fun setDetailObserver() {
         binding.apply {
             viewModel.apply {
                 setDetailMovies(idMovie)
                 detailMoviesResponse.observe(viewLifecycleOwner) { response ->
                     when (response) {
                         is NetworkResult.Loading -> {}
-                        is NetworkResult.Success -> {
-                            val data = response.data
-                            if (data != null) {
-                                imgPoster.loadImage(data.posterPath.orEmpty())
-                                imgBackdrop.loadImage(data.backdropPath)
-                                tvTitle.text = data.title
-                                val releasedDate = data.releaseDate.convertDate(
-                                    CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
-                                    CommonDateFormatConstants.EEE_D_MMM_YYYY_FORMAT
-                                )
-                                tvReleasedOn.text = String.format(
-                                    "%s %s",
-                                    getString(R.string.tvReleasedOn),
-                                    releasedDate
-                                )
-                                tvStatus.text = data.status
-
-                                when {
-                                    data.overview.isEmpty() -> {
-                                        tvOverview.isVisible = false
-                                        tvNoOverview.isVisible = true
-                                        tvReadMore.isVisible = false
-                                    }
-
-                                    else -> {
-                                        tvNoOverview.isVisible = false
-                                        tvOverview.apply {
-                                            isVisible = true
-                                            text = data.overview
-                                        }
-                                    }
-                                }
-
-                                when {
-                                    data.voteAverage.toString().isEmpty() -> tvRating.text = getString(R.string.tvNA)
-                                    else -> tvRating.text = toRating(data.voteAverage)
-                                }
-
-                                when {
-                                    data.originalLanguage.isEmpty() -> tvLanguage.text = getString(R.string.tvNA)
-                                    else -> tvLanguage.text =
-                                        if (data.spokenLanguages.isNotEmpty()) {
-                                            data.spokenLanguages[0].englishName
-                                        } else {
-                                            data.originalLanguage
-                                        }
-                                }
-
-                                when {
-                                    data.productionCountries.isEmpty() -> tvCountry.text = getString(R.string.tvNA)
-                                    else -> tvCountry.text = data.productionCountries.joinToString { countries -> countries.iso31661 }
-                                }
-
-                                when {
-                                    data.runtime.toString().isEmpty() -> tvRuntime.text = getString(R.string.tvNA)
-                                    else -> tvRuntime.text = convertRuntime(data.runtime)
-                                }
-
-                                when {
-                                    data.genres.isEmpty() -> showNoGenres(true)
-                                    else -> {
-                                        showNoGenres(false)
-                                        tvGenre.text = data.genres.joinToString { genre -> genre.name }
-                                    }
-                                }
-
-                                checkFavoriteData(idMovie)
-                                setActionFavorite(
-                                    idMovie,
-                                    data.posterPath.orEmpty(),
-                                    title,
-                                    data.releaseDate,
-                                    data.voteAverage
-                                )
-                                shareMovie(data.homepage)
-                                setCast(idMovie)
-                                showTrailerVideo(idMovie)
-                                showReviews(idMovie)
-                                showSimilar(idMovie)
-                            }
-                        }
+                        is NetworkResult.Success -> showDetailData(response.data)
                         is NetworkResult.Error -> {}
                     }
                 }
+            }
+        }
+    }
+
+    private fun showDetailData(data: MovieDetailResponse?) {
+        binding.apply {
+            if (data != null) {
+                imgPoster.loadImage(data.posterPath.orEmpty())
+                imgBackdrop.loadImage(data.backdropPath)
+                tvTitle.text = data.title
+                val releasedDate = data.releaseDate.convertDate(
+                    CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
+                    CommonDateFormatConstants.EEE_D_MMM_YYYY_FORMAT
+                )
+                tvReleasedOn.text = String.format(
+                    "%s %s",
+                    getString(R.string.tvReleasedOn),
+                    releasedDate
+                )
+                tvStatus.text = data.status
+
+                when {
+                    data.overview.isEmpty() -> {
+                        tvOverview.isVisible = false
+                        tvNoOverview.isVisible = true
+                        tvReadMore.isVisible = false
+                    }
+
+                    else -> {
+                        tvNoOverview.isVisible = false
+                        tvOverview.apply {
+                            isVisible = true
+                            text = data.overview
+                        }
+                    }
+                }
+
+                when {
+                    data.voteAverage.toString().isEmpty() -> tvRating.text = getString(R.string.tvNA)
+                    else -> tvRating.text = toRating(data.voteAverage)
+                }
+
+                when {
+                    data.originalLanguage.isEmpty() -> tvLanguage.text = getString(R.string.tvNA)
+                    else -> tvLanguage.text =
+                        if (data.spokenLanguages.isNotEmpty()) {
+                            data.spokenLanguages[0].englishName
+                        } else {
+                            data.originalLanguage
+                        }
+                }
+
+                when {
+                    data.productionCountries.isEmpty() -> tvCountry.text = getString(R.string.tvNA)
+                    else -> tvCountry.text = data.productionCountries.joinToString { countries -> countries.iso31661 }
+                }
+
+                when {
+                    data.runtime.toString().isEmpty() -> tvRuntime.text = getString(R.string.tvNA)
+                    else -> tvRuntime.text = convertRuntime(data.runtime)
+                }
+
+                when {
+                    data.genres.isEmpty() -> showNoGenres(true)
+                    else -> {
+                        showNoGenres(false)
+                        tvGenre.text = data.genres.joinToString { genre -> genre.name }
+                    }
+                }
+
+                checkFavoriteData(idMovie)
+                setActionFavorite(
+                    idMovie,
+                    data.posterPath.orEmpty(),
+                    title,
+                    data.releaseDate,
+                    data.voteAverage
+                )
+                shareMovie(data.homepage)
             }
         }
     }
@@ -273,7 +277,7 @@ class DetailMovieFragment : Fragment() {
         }
     }
 
-    private fun setCast(id: Int) {
+    private fun setCastObserver(id: Int) {
         viewModel.apply {
             setDetailMovieCast(id)
             detailMoviesCastResponse.observe(viewLifecycleOwner) { response ->
@@ -296,8 +300,7 @@ class DetailMovieFragment : Fragment() {
 
     private fun setTrailerVideoAdapter() {
         trailerVideoAdapter = MovieTrailerVideoAdapter {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube://${it.key}"))
-            startActivity(intent)
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube://${it.key}")))
         }
         binding.rvTrailerVideo.apply {
             val helper: SnapHelper = LinearSnapHelper()
@@ -308,7 +311,7 @@ class DetailMovieFragment : Fragment() {
         }
     }
 
-    private fun showTrailerVideo(id: Int) {
+    private fun showTrailerVideoObserver(id: Int) {
         viewModel.apply {
             setDetailMovieVideo(id)
             detailMoviesVideoResponse.observe(viewLifecycleOwner) { response ->
@@ -339,7 +342,7 @@ class DetailMovieFragment : Fragment() {
         }
     }
 
-    private fun showReviews(id: Int) {
+    private fun showReviewsObserver(id: Int) {
         binding.apply {
             viewModel.apply {
                 setDetailMovieReviews(id)
@@ -375,7 +378,7 @@ class DetailMovieFragment : Fragment() {
         }
     }
 
-    private fun showSimilar(id: Int) {
+    private fun showSimilarObserver(id: Int) {
         viewModel.apply {
             setDetailMovieSimilar(id)
             detailMovieSimilarResponse.observe(viewLifecycleOwner) { response ->
