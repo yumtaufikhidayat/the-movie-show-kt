@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.SnapHelper
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.NetworkResult
 import com.taufik.themovieshow.databinding.FragmentDetailTvShowBinding
+import com.taufik.themovieshow.model.response.tvshow.detail.TvShowsPopularDetailResponse
 import com.taufik.themovieshow.ui.detail.tvshow.adapter.TvShowSimilarAdapter
 import com.taufik.themovieshow.ui.detail.tvshow.adapter.TvShowTrailerVideoAdapter
 import com.taufik.themovieshow.ui.detail.tvshow.adapter.TvShowsCastAdapter
@@ -60,12 +61,16 @@ class DetailTvShowFragment : Fragment() {
 
         getBundleData()
         showToolbarData()
-        setData()
-        setReadMore()
+        setDetailObserver()
         setCastAdapter()
+        setCastObserver(idTvShow)
         setTrailerVideoAdapter()
+        showTrailerVideoObserver(idTvShow)
         setReviewsAdapter()
+        showReviewsObserver(idTvShow)
         setSimilarAdapter()
+        showSimilarObserver(idTvShow)
+        setReadMore()
     }
 
     private fun getBundleData() {
@@ -82,108 +87,107 @@ class DetailTvShowFragment : Fragment() {
         }
     }
 
-    private fun setData() {
+    private fun setDetailObserver() {
         binding.apply {
             viewModel.apply {
                 setDetailTvShowPopular(idTvShow)
                 detailTvShowPopularResponse.observe(viewLifecycleOwner) { response ->
                     when (response) {
                         is NetworkResult.Loading -> {}
-                        is NetworkResult.Success -> {
-                            val data = response.data
-                            if (data != null) {
-                                imgPoster.loadImage(data.posterPath.orEmpty())
-                                imgBackdrop.loadImage(data.backdropPath)
-                                tvTitle.text = data.name
-
-                                when {
-                                    data.networks.isEmpty() -> tvNetwork.text = "(N/A)"
-                                    data.networks[0].originCountry.isEmpty() -> tvNetwork.text = String.format("${data.networks[0].name} (N/A)")
-                                    else -> tvNetwork.text = String.format("${data.networks[0].name} (${data.networks[0].originCountry})")
-                                }
-
-                                val startedOn = data.firstAirDate.convertDate(
-                                    CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
-                                    CommonDateFormatConstants.EEE_D_MMM_YYYY_FORMAT
-                                )
-                                tvStartedOn.text = String.format(
-                                    "%s %s",
-                                    getString(R.string.tvStartedOn),
-                                    startedOn
-                                )
-
-                                tvStatus.text = data.status
-
-                                when {
-                                    data.overview.isEmpty() -> {
-                                        tvOverview.isVisible = false
-                                        tvNoOverview.isVisible = true
-                                        tvReadMore.isVisible = false
-                                    }
-                                    else -> {
-                                        tvNoOverview.isVisible = false
-                                        tvOverview.apply {
-                                            isVisible = true
-                                            text = data.overview
-                                        }
-                                    }
-                                }
-
-                                when {
-                                    data.voteAverage.toString().isEmpty() -> tvRating.text = getString(R.string.tvNA)
-                                    else -> tvRating.text = toRating(data.voteAverage)
-                                }
-
-                                when {
-                                    data.originalLanguage.isEmpty() -> tvLanguage.text = getString(R.string.tvNA)
-                                    else -> tvLanguage.text =
-                                        if (data.spokenLanguages.isNotEmpty()) {
-                                            data.spokenLanguages[0].englishName
-                                        } else {
-                                            data.originalLanguage
-                                        }
-                                }
-
-                                when {
-                                    data.originCountry.isEmpty() -> tvCountry.text = getString(R.string.tvNA)
-                                    else -> tvCountry.text = data.originCountry.joinToString { countries -> countries }
-                                }
-
-                                when {
-                                    data.episodeRunTime.isEmpty() -> tvEpisodes.text = getString(R.string.tvNA)
-                                    else -> tvEpisodes.text = String.format(
-                                        "%s %s",
-                                        "${data.episodeRunTime[0]}",
-                                        getString(R.string.tvEps)
-                                    )
-                                }
-
-                                when {
-                                    data.genres.isEmpty() -> showNoGenres(true)
-                                    else -> {
-                                        showNoGenres(false)
-                                        tvGenre.text = data.genres.joinToString { genres -> genres.name }
-                                    }
-                                }
-
-                                checkFavoriteData(idTvShow)
-                                setActionFavorite(
-                                    idTvShow,
-                                    data.posterPath.orEmpty(),
-                                    title,
-                                    data.firstAirDate,
-                                    data.voteAverage
-                                )
-                                shareTvShow(data.homepage)
-                                setCast(idTvShow)
-                                showTrailerVideo(idTvShow)
-                                showReviews(idTvShow)
-                                showSimilar(idTvShow)
-                            }
-                        }
+                        is NetworkResult.Success -> showDetailData(response.data)
                         is NetworkResult.Error -> {}
                     }
                 }
+            }
+        }
+    }
+
+    private fun showDetailData(data: TvShowsPopularDetailResponse?) {
+        binding.apply {
+            if (data != null) {
+                imgPoster.loadImage(data.posterPath.orEmpty())
+                imgBackdrop.loadImage(data.backdropPath)
+                tvTitle.text = data.name
+
+                when {
+                    data.networks.isEmpty() -> tvNetwork.text = "(N/A)"
+                    data.networks[0].originCountry.isEmpty() -> tvNetwork.text = String.format("${data.networks[0].name} (N/A)")
+                    else -> tvNetwork.text = String.format("${data.networks[0].name} (${data.networks[0].originCountry})")
+                }
+
+                val startedOn = data.firstAirDate.convertDate(
+                    CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
+                    CommonDateFormatConstants.EEE_D_MMM_YYYY_FORMAT
+                )
+                tvStartedOn.text = String.format(
+                    "%s %s",
+                    getString(R.string.tvStartedOn),
+                    startedOn
+                )
+
+                tvStatus.text = data.status
+
+                when {
+                    data.overview.isEmpty() -> {
+                        tvOverview.isVisible = false
+                        tvNoOverview.isVisible = true
+                        tvReadMore.isVisible = false
+                    }
+                    else -> {
+                        tvNoOverview.isVisible = false
+                        tvOverview.apply {
+                            isVisible = true
+                            text = data.overview
+                        }
+                    }
+                }
+
+                when {
+                    data.voteAverage.toString().isEmpty() -> tvRating.text = getString(R.string.tvNA)
+                    else -> tvRating.text = toRating(data.voteAverage)
+                }
+
+                when {
+                    data.originalLanguage.isEmpty() -> tvLanguage.text = getString(R.string.tvNA)
+                    else -> tvLanguage.text =
+                        if (data.spokenLanguages.isNotEmpty()) {
+                            data.spokenLanguages[0].englishName
+                        } else {
+                            data.originalLanguage
+                        }
+                }
+
+                when {
+                    data.originCountry.isEmpty() -> tvCountry.text = getString(R.string.tvNA)
+                    else -> tvCountry.text = data.originCountry.joinToString { countries -> countries }
+                }
+
+                when {
+                    data.episodeRunTime.isEmpty() -> tvEpisodes.text = getString(R.string.tvNA)
+                    else -> tvEpisodes.text = String.format(
+                        "%s %s",
+                        "${data.episodeRunTime[0]}",
+                        getString(R.string.tvEps)
+                    )
+                }
+
+                when {
+                    data.genres.isEmpty() -> showNoGenres(true)
+                    else -> {
+                        showNoGenres(false)
+                        tvGenre.text = data.genres.joinToString { genres -> genres.name }
+                    }
+                }
+
+                checkFavoriteData(idTvShow)
+                setActionFavorite(
+                    idTvShow,
+                    data.posterPath.orEmpty(),
+                    title,
+                    data.firstAirDate,
+                    data.voteAverage
+                )
+                shareTvShow(data.homepage)
             }
         }
     }
@@ -273,7 +277,7 @@ class DetailTvShowFragment : Fragment() {
         }
     }
 
-    private fun setCast(id: Int) {
+    private fun setCastObserver(id: Int) {
         viewModel.apply {
             setDetailTvShowsCast(id)
             detailTvShowCastResponse.observe(viewLifecycleOwner) { response ->
@@ -304,7 +308,7 @@ class DetailTvShowFragment : Fragment() {
         }
     }
 
-    private fun showTrailerVideo(id: Int) {
+    private fun showTrailerVideoObserver(id: Int) {
         viewModel.apply {
             setDetailTvShowVideo(id)
             detailTvShowVideoResponse.observe(viewLifecycleOwner) { response ->
@@ -338,7 +342,7 @@ class DetailTvShowFragment : Fragment() {
         }
     }
 
-    private fun showReviews(id: Int) {
+    private fun showReviewsObserver(id: Int) {
         binding.apply {
             viewModel.apply {
                 setDetailTvShowsReviews(id)
@@ -371,7 +375,7 @@ class DetailTvShowFragment : Fragment() {
         }
     }
 
-    private fun showSimilar(id: Int) {
+    private fun showSimilarObserver(id: Int) {
         viewModel.apply {
             setDetailTvShowsSimilar(id)
             detailTvShowSimilarResponse.observe(viewLifecycleOwner) { response ->
