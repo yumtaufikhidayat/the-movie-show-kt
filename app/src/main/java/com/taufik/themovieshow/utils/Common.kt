@@ -1,6 +1,7 @@
 package com.taufik.themovieshow.utils
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.Toast
@@ -65,4 +66,23 @@ fun Fragment.navigateToDetailTvShow(id: Int, title: String) {
         putString(DetailTvShowFragment.EXTRA_TITLE, title)
     }
     this.findNavController().navigate(R.id.detailTvShowFragment, bundle)
+}
+
+fun Context.share(shareText: String, link: String) {
+    try {
+        val body = StringBuilder(shareText).append(link).toString()
+        val shareIntent = Intent(Intent.ACTION_SEND)
+        shareIntent.apply {
+            type = "text/plain"
+            putExtra(Intent.EXTRA_TEXT, body)
+        }
+        startActivity(
+            Intent.createChooser(
+                shareIntent,
+                getString(R.string.tvShareWith)
+            )
+        )
+    } catch (e: Exception) {
+        showToasty(getString(R.string.tvOops))
+    }
 }
