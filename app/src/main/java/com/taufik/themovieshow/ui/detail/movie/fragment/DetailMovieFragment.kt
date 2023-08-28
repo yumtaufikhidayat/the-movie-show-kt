@@ -28,6 +28,7 @@ import com.taufik.themovieshow.utils.CommonDateFormatConstants
 import com.taufik.themovieshow.utils.convertDate
 import com.taufik.themovieshow.utils.loadImage
 import com.taufik.themovieshow.utils.navigateToDetailMovie
+import com.taufik.themovieshow.utils.share
 import com.taufik.themovieshow.utils.showToasty
 import com.taufik.themovieshow.utils.toRating
 import dagger.hilt.android.AndroidEntryPoint
@@ -228,25 +229,8 @@ class DetailMovieFragment : Fragment() {
     }
 
     private fun shareMovie(link: String) {
-        binding.apply {
-            toolbarDetailMovie.imgShare.setOnClickListener {
-                try {
-                    val body = getString(R.string.tvVisitMovie, link)
-                    val shareIntent = Intent(Intent.ACTION_SEND)
-                    shareIntent.apply {
-                        type = "text/plain"
-                        putExtra(Intent.EXTRA_TEXT, body)
-                    }
-                    startActivity(
-                        Intent.createChooser(
-                            shareIntent,
-                            getString(R.string.tvShareWith)
-                        )
-                    )
-                } catch (e: Exception) {
-                    requireContext().showToasty(getString(R.string.tvOops))
-                }
-            }
+        binding.toolbarDetailMovie.imgShare.setOnClickListener {
+            requireContext().share(getString(R.string.tvVisitMovie), link)
         }
     }
 

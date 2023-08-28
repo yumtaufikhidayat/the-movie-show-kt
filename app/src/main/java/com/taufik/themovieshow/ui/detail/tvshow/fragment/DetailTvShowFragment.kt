@@ -1,6 +1,5 @@
 package com.taufik.themovieshow.ui.detail.tvshow.fragment
 
-import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -26,6 +25,7 @@ import com.taufik.themovieshow.ui.tvshow.viewmodel.DetailTvShowViewModel
 import com.taufik.themovieshow.utils.CommonDateFormatConstants
 import com.taufik.themovieshow.utils.convertDate
 import com.taufik.themovieshow.utils.loadImage
+import com.taufik.themovieshow.utils.share
 import com.taufik.themovieshow.utils.showToasty
 import com.taufik.themovieshow.utils.toRating
 import dagger.hilt.android.AndroidEntryPoint
@@ -236,17 +236,7 @@ class DetailTvShowFragment : Fragment() {
 
     private fun shareTvShow(link: String) {
         binding.toolbarDetailTvShow.imgShare.setOnClickListener {
-            try {
-                val body = getString(R.string.tvVisitTvShow, link)
-                val shareIntent = Intent(Intent.ACTION_SEND)
-                shareIntent.apply {
-                    type = "text/plain"
-                    putExtra(Intent.EXTRA_TEXT, body)
-                }
-                startActivity(Intent.createChooser(shareIntent, getString(R.string.tvShareWith)))
-            } catch (e: Exception) {
-                requireContext().showToasty(getString(R.string.tvOops))
-            }
+            requireContext().share(getString(R.string.tvVisitTvShow), link)
         }
     }
 
