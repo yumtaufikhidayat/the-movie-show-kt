@@ -24,6 +24,9 @@ android {
         buildConfigField("String", "API_KEY", api_key)
         vectorDrawables.useSupportLibrary = true
         consumerProguardFiles "consumer-rules.pro"
+
+        def dateFormat = new Date().format('yyyyMMddHHmm')
+        setProperty("archivesBaseName", "the-movie-show" + "_v" + versionName + "(" + versionCode + ")_" + dateFormat)
     }
 
     buildTypes {
