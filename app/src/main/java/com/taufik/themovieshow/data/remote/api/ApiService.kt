@@ -25,17 +25,17 @@ interface ApiService {
 
     @GET(UrlEndpoint.MOVIE_TRENDING_DAY)
     suspend fun getMovieTrendingDay(
-        @Query(CommonConstants.QUERY_API_KEY) apiKey: String,
+        @Query(CommonConstants.QUERY_API_KEY) apiKey: String
     ): Response<MovieTrendingResponse>
 
     @GET(UrlEndpoint.MOVIE_NOW_PLAYING)
     suspend fun getMovieNowPlaying(
-        @Query(CommonConstants.QUERY_API_KEY) apiKey: String,
+        @Query(CommonConstants.QUERY_API_KEY) apiKey: String
     ): Response<MovieMainResponse>
 
     @GET(UrlEndpoint.MOVIE_UPCOMING)
     suspend fun getMovieUpcoming(
-        @Query(CommonConstants.QUERY_API_KEY) apiKey: String,
+        @Query(CommonConstants.QUERY_API_KEY) apiKey: String
     ): Response<MovieMainResponse>
 
     @GET(UrlEndpoint.DISCOVER_MOVIES)
@@ -76,17 +76,17 @@ interface ApiService {
 
     @GET(UrlEndpoint.TV_SHOWS_TRENDING_DAY)
     suspend fun getTvShowsTrending(
-        @Query(CommonConstants.QUERY_API_KEY) apiKey: String,
+        @Query(CommonConstants.QUERY_API_KEY) apiKey: String
     ): Response<TvShowsTrendingResponse>
 
     @GET(UrlEndpoint.TV_SHOWS_AIRING_TODAY)
     suspend fun getTvShowsAiringToday(
-        @Query(CommonConstants.QUERY_API_KEY) apiKey: String,
+        @Query(CommonConstants.QUERY_API_KEY) apiKey: String
     ): Response<TvShowsMainResponse>
 
     @GET(UrlEndpoint.TV_SHOWS_POPULAR)
     suspend fun getTvShowsPopular(
-        @Query(CommonConstants.QUERY_API_KEY) apiKey: String,
+        @Query(CommonConstants.QUERY_API_KEY) apiKey: String
     ): Response<TvShowsMainResponse>
 
     @GET(UrlEndpoint.DISCOVER_TV_SHOWS)
