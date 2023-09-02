@@ -17,8 +17,8 @@ android {
         applicationId "com.taufik.themovieshow"
         minSdkVersion 23
         targetSdkVersion 33
-        versionCode 122
-        versionName "1.22"
+        versionCode 123
+        versionName "1.23"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "API_KEY", api_key)
