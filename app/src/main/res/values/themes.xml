@@ -55,4 +55,8 @@
         <item name="colorAccent">@color/colorPrimaryDark</item>
     </style>
 
+    <style name="ShapeAppearanceOverlay.App.CornerSize5Percent" parent="">
+        <item name="cornerSize">5%</item>
+    </style>
+
 </resources>
