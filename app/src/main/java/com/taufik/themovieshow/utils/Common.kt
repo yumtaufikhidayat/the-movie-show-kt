@@ -86,3 +86,5 @@ fun Context.share(shareText: String, link: String) {
         showToasty(getString(R.string.tvOops))
     }
 }
+
+fun Fragment.popBackStack() = findNavController().popBackStack()
