@@ -12,7 +12,6 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.SnapHelper
@@ -29,6 +28,7 @@ import com.taufik.themovieshow.utils.CommonDateFormatConstants
 import com.taufik.themovieshow.utils.convertDate
 import com.taufik.themovieshow.utils.loadImage
 import com.taufik.themovieshow.utils.navigateToDetailMovie
+import com.taufik.themovieshow.utils.popBackStack
 import com.taufik.themovieshow.utils.share
 import com.taufik.themovieshow.utils.showToasty
 import com.taufik.themovieshow.utils.toRating
@@ -53,7 +53,7 @@ class DetailMovieFragment : Fragment() {
 
     private val backPressedCallback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
-            backPressed()
+            this@DetailMovieFragment.popBackStack()
         }
     }
 
@@ -97,7 +97,7 @@ class DetailMovieFragment : Fragment() {
             toolbarDetailMovie.apply {
                 tvToolbar.text = title
                 imgBack.setOnClickListener {
-                    backPressed()
+                    this@DetailMovieFragment.popBackStack()
                 }
             }
         }
@@ -427,8 +427,6 @@ class DetailMovieFragment : Fragment() {
             }
         }
     }
-
-    private fun backPressed() = findNavController().popBackStack()
 
     override fun onDestroyView() {
         super.onDestroyView()

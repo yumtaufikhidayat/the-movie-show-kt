@@ -5,11 +5,11 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.SnapHelper
@@ -25,6 +25,7 @@ import com.taufik.themovieshow.ui.tvshow.viewmodel.DetailTvShowViewModel
 import com.taufik.themovieshow.utils.CommonDateFormatConstants
 import com.taufik.themovieshow.utils.convertDate
 import com.taufik.themovieshow.utils.loadImage
+import com.taufik.themovieshow.utils.popBackStack
 import com.taufik.themovieshow.utils.share
 import com.taufik.themovieshow.utils.showToasty
 import com.taufik.themovieshow.utils.toRating
@@ -47,6 +48,12 @@ class DetailTvShowFragment : Fragment() {
     private var title = ""
     private var isChecked = false
 
+    private val backPressedCallback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            this@DetailTvShowFragment.popBackStack()
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -59,6 +66,10 @@ class DetailTvShowFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            backPressedCallback
+        )
         getBundleData()
         showToolbarData()
         setDetailObserver()
@@ -82,7 +93,7 @@ class DetailTvShowFragment : Fragment() {
         binding.toolbarDetailTvShow.apply {
             tvToolbar.text = title
             imgBack.setOnClickListener {
-                findNavController().popBackStack()
+                this@DetailTvShowFragment.popBackStack()
             }
         }
     }
