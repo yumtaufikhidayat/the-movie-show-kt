@@ -94,6 +94,6 @@ fun Context.showTrailerVideo(key: String) {
     try {
         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube://$key")))
     } catch (e: Exception) {
-        this.showToasty("Please install browser or YouTube app first.\nError: ${e.localizedMessage}")
+        this.showToasty(getString(R.string.tvInstallBrowserYouTube, e.localizedMessage))
     }
 }
