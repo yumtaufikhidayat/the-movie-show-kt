@@ -70,6 +70,7 @@
     <string name="tvRetry">Retry</string>
     <string name="action_added_to_favorite">Added to favorite</string>
     <string name="action_removed_from_favorite">Removed from favorite</string>
+    <string name="tvInstallBrowserYouTube">Please install browser or Youtube app first.\nError: %s</string>
 
     <!--Tab menu title-->
     <string name="tvMovieNowPlaying">Now Playing</string>
