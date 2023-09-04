@@ -1,7 +1,5 @@
 package com.taufik.themovieshow.ui.detail.tvshow.adapter
 
-import android.content.Intent
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -11,7 +9,9 @@ import com.taufik.themovieshow.databinding.ItemTrailerVideoBinding
 import com.taufik.themovieshow.model.response.tvshow.video.TvShowsVideoResult
 import com.taufik.themovieshow.utils.loadVideoThumbnail
 
-class TvShowTrailerVideoAdapter : ListAdapter<TvShowsVideoResult, TvShowTrailerVideoAdapter.TvShowTrailerViewHolder>(TV_SHOW_TRAILER_DIFF_CALLBACK) {
+class TvShowTrailerVideoAdapter(
+    private val onItemClickListener: (TvShowsVideoResult) -> Unit
+) : ListAdapter<TvShowsVideoResult, TvShowTrailerVideoAdapter.TvShowTrailerViewHolder>(TV_SHOW_TRAILER_DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TvShowTrailerViewHolder {
         return TvShowTrailerViewHolder(
@@ -34,8 +34,7 @@ class TvShowTrailerVideoAdapter : ListAdapter<TvShowsVideoResult, TvShowTrailerV
                 imgPoster.loadVideoThumbnail(data.key)
                 tvTitle.text = data.name
                 cardTrailerVideo.setOnClickListener {
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube://${data.key}"))
-                    itemView.context.startActivity(intent)
+                    onItemClickListener(data)
                 }
             }
         }
