@@ -55,7 +55,7 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService): 
     }
     suspend fun getMovieVideo(movieId: Int) : Flow<NetworkResult<MovieVideoResponse>> {
         return flow {
-            emit(safeApiCall { apiService.getMovieVideo(apiKey, movieId) })
+            emit(safeApiCall { apiService.getMovieVideo(movieId, apiKey) })
         }.flowOn(dispatchersIO)
     }
 

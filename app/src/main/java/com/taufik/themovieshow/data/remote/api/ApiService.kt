@@ -46,8 +46,8 @@ interface ApiService {
 
     @GET(UrlEndpoint.MOVIE_VIDEO)
     suspend fun getMovieVideo(
-        @Query(CommonConstants.QUERY_API_KEY) apiKey: String,
-        @Path(CommonConstants.QUERY_MOVIE_ID) movieId: Int
+        @Path(CommonConstants.QUERY_MOVIE_ID) movieId: Int,
+        @Query(CommonConstants.QUERY_API_KEY) apiKey: String
     ): Response<MovieVideoResponse>
 
     @GET(UrlEndpoint.MOVIE_CAST)
