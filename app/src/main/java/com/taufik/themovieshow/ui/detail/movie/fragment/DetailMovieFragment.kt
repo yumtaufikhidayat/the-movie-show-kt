@@ -295,7 +295,12 @@ class DetailMovieFragment : Fragment() {
 
     private fun setTrailerVideoAdapter() {
         trailerVideoAdapter = MovieTrailerVideoAdapter {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube://${it.key}")))
+            val intents = Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube://${it.key}"))
+            if (intents.resolveActivity(requireActivity().packageManager) != null) {
+                startActivity(intents)
+            } else {
+                requireContext().showToasty("Please install browser or YouTube app first.")
+            }
         }
         binding.rvTrailerVideo.apply {
             val helper: SnapHelper = LinearSnapHelper()
