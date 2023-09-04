@@ -2,6 +2,7 @@ package com.taufik.themovieshow.utils
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.Toast
@@ -88,3 +89,11 @@ fun Context.share(shareText: String, link: String) {
 }
 
 fun Fragment.popBackStack() = findNavController().popBackStack()
+
+fun Context.showTrailerVideo(key: String) {
+    try {
+        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube://$key")))
+    } catch (e: Exception) {
+        this.showToasty("Please install browser or YouTube app first.\nError: ${e.localizedMessage}")
+    }
+}
