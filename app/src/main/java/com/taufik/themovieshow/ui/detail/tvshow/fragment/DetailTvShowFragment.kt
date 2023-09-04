@@ -28,6 +28,7 @@ import com.taufik.themovieshow.utils.loadImage
 import com.taufik.themovieshow.utils.popBackStack
 import com.taufik.themovieshow.utils.share
 import com.taufik.themovieshow.utils.showToasty
+import com.taufik.themovieshow.utils.showTrailerVideo
 import com.taufik.themovieshow.utils.toRating
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -40,7 +41,7 @@ class DetailTvShowFragment : Fragment() {
 
     private val viewModel: DetailTvShowViewModel by viewModels()
     private val castAdapter by lazy { TvShowsCastAdapter() }
-    private val trailerVideoAdapter by lazy { TvShowTrailerVideoAdapter() }
+    private var trailerVideoAdapter: TvShowTrailerVideoAdapter? = null
     private val reviewsAdapter by lazy { ReviewsAdapter() }
     private var similarAdapter: TvShowSimilarAdapter? = null
 
@@ -300,6 +301,10 @@ class DetailTvShowFragment : Fragment() {
     }
 
     private fun setTrailerVideoAdapter() {
+        trailerVideoAdapter = TvShowTrailerVideoAdapter {
+            requireContext().showTrailerVideo(it.key)
+        }
+
         binding.rvTrailerVideo.apply {
             val helper: SnapHelper = LinearSnapHelper()
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -322,7 +327,7 @@ class DetailTvShowFragment : Fragment() {
                                 data.results.isEmpty() -> showVideo(false)
                                 else -> {
                                     showVideo(true)
-                                    trailerVideoAdapter.submitList(data.results)
+                                    trailerVideoAdapter?.submitList(data.results)
                                 }
                             }
                         }

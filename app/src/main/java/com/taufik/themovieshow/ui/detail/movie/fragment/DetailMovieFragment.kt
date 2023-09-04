@@ -1,7 +1,5 @@
 package com.taufik.themovieshow.ui.detail.movie.fragment
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -31,6 +29,7 @@ import com.taufik.themovieshow.utils.navigateToDetailMovie
 import com.taufik.themovieshow.utils.popBackStack
 import com.taufik.themovieshow.utils.share
 import com.taufik.themovieshow.utils.showToasty
+import com.taufik.themovieshow.utils.showTrailerVideo
 import com.taufik.themovieshow.utils.toRating
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -295,13 +294,9 @@ class DetailMovieFragment : Fragment() {
 
     private fun setTrailerVideoAdapter() {
         trailerVideoAdapter = MovieTrailerVideoAdapter {
-            val intents = Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube://${it.key}"))
-            if (intents.resolveActivity(requireActivity().packageManager) != null) {
-                startActivity(intents)
-            } else {
-                requireContext().showToasty("Please install browser or YouTube app first.")
-            }
+            requireContext().showTrailerVideo(it.key)
         }
+
         binding.rvTrailerVideo.apply {
             val helper: SnapHelper = LinearSnapHelper()
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
