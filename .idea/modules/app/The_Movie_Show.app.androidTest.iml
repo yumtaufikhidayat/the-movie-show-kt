@@ -190,7 +190,7 @@
             </stringArg>
             <stringArg name="destination" arg="$MODULE_DIR$/../../../app/build/tmp/kotlin-classes/debugAndroidTest" />
             <stringArg name="jvmTarget" arg="17" />
-            <stringArg name="moduleName" arg="the-movie-show_v1.23(123)_202309020844_debugAndroidTest" />
+            <stringArg name="moduleName" arg="the-movie-show_v1.24(124)_202309040840_debugAndroidTest" />
             <stringArg name="apiVersion" arg="1.8" />
             <stringArg name="languageVersion" arg="1.8" />
           </stringArguments>
