@@ -433,6 +433,7 @@ class DetailTvShowFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        trailerVideoAdapter = null
         similarAdapter = null
     }
 
