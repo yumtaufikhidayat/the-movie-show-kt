@@ -5,12 +5,9 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.taufik.themovieshow.ui.movie.fragment.MovieNowPlayingFragment
 import com.taufik.themovieshow.ui.movie.fragment.MovieUpcomingFragment
 
-class MoviePagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
-
-    private val listOfFragments = listOf(
-        MovieNowPlayingFragment(),
-        MovieUpcomingFragment()
-    )
+class MoviePagerAdapter(
+    private val listOfFragments: List<Fragment>,
+    fragment: Fragment) : FragmentStateAdapter(fragment) {
 
     override fun createFragment(position: Int): Fragment = listOfFragments[position]
 
