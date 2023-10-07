@@ -41,8 +41,13 @@ class MovieFragment : Fragment() {
     }
 
     private fun setTabLayout() {
+        val listOfFragments = listOf(
+            MovieNowPlayingFragment(),
+            MovieUpcomingFragment()
+        )
+
         binding.apply {
-            val mainPagerAdapter = MoviePagerAdapter(this@MovieFragment)
+            val mainPagerAdapter = MoviePagerAdapter(listOfFragments, this@MovieFragment)
             viewPagerMovie.adapter = mainPagerAdapter
             TabLayoutMediator(tabLayoutMovie, viewPagerMovie) { tabs, position ->
                 tabs.text = getString(tabsTitle[position])
