@@ -16,7 +16,6 @@
             <stringArg name="classpath">
               <args>
                 <arg>$MODULE_DIR$/../../../app/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar</arg>
-                <arg>$MODULE_DIR$/../../../app/build/intermediates/compile_app_classes_jar/debug/classes.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/3ce59307735038662f13980825a7da4f/transformed/jetified-viewbinding-7.4.2-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/05416e3c48b88191f92cdc08acd62264/transformed/jetified-kotlin-parcelize-runtime-1.8.20.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/d897bcb9123cc6b2349b8ff469750d0d/transformed/navigation-common-2.6.0-api.jar</arg>
@@ -170,7 +169,7 @@
             </stringArg>
             <stringArg name="destination" arg="$MODULE_DIR$/../../../app/build/tmp/kotlin-classes/debugUnitTest" />
             <stringArg name="jvmTarget" arg="17" />
-            <stringArg name="moduleName" arg="the-movie-show_v1.24(124)_202309040840_debugUnitTest" />
+            <stringArg name="moduleName" arg="the-movie-show_v1.24(124)_202310071859_debugUnitTest" />
             <stringArg name="apiVersion" arg="1.8" />
             <stringArg name="languageVersion" arg="1.8" />
           </stringArguments>

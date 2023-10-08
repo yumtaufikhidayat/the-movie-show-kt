@@ -26,8 +26,6 @@
           <stringArguments>
             <stringArg name="classpath">
               <args>
-                <arg>$MODULE_DIR$/../../../app/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debugAndroidTest/R.jar</arg>
-                <arg>$MODULE_DIR$/../../../app/build/intermediates/compile_app_classes_jar/debug/classes.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/a168b1c40cbd391255bf2c68cf5d3147/transformed/jetified-junit-1.1.5-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/a3aac0041c934271071a166d1cdc71d3/transformed/rules-1.5.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/e1403d6fc5f37c4a97f001abb5f6f407/transformed/espresso-contrib-3.5.1-api.jar</arg>
@@ -185,12 +183,11 @@
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/59e289f609d79e778f12ada93f06a4db/transformed/jetified-dagger-lint-aar-2.47-api.jar</arg>
                 <arg>$USER_HOME$/Library/Android/sdk/platforms/android-33/android.jar</arg>
                 <arg>$USER_HOME$/Library/Android/sdk/build-tools/30.0.3/core-lambda-stubs.jar</arg>
-                <arg>$MODULE_DIR$/../../../app/build/tmp/kapt3/classes/debugAndroidTest</arg>
               </args>
             </stringArg>
             <stringArg name="destination" arg="$MODULE_DIR$/../../../app/build/tmp/kotlin-classes/debugAndroidTest" />
             <stringArg name="jvmTarget" arg="17" />
-            <stringArg name="moduleName" arg="the-movie-show_v1.24(124)_202309040840_debugAndroidTest" />
+            <stringArg name="moduleName" arg="the-movie-show_v1.24(124)_202310071859_debugAndroidTest" />
             <stringArg name="apiVersion" arg="1.8" />
             <stringArg name="languageVersion" arg="1.8" />
           </stringArguments>
