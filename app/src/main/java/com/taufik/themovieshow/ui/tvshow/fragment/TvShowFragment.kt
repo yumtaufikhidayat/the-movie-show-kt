@@ -10,7 +10,9 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.databinding.FragmentTvShowBinding
-import com.taufik.themovieshow.ui.tvshow.adapter.TvShowPagerAdapter
+import com.taufik.themovieshow.ui.common.adapter.TabPagerAdapter
+import com.taufik.themovieshow.ui.movie.fragment.MovieNowPlayingFragment
+import com.taufik.themovieshow.ui.movie.fragment.MovieUpcomingFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -41,8 +43,13 @@ class TvShowFragment : Fragment() {
     }
 
     private fun setTabLayout() {
+        val listOfFragments = listOf(
+            MovieNowPlayingFragment(),
+            MovieUpcomingFragment()
+        )
+
         binding.apply {
-            val mainPagerAdapter = TvShowPagerAdapter(this@TvShowFragment)
+            val mainPagerAdapter = TabPagerAdapter(listOfFragments, this@TvShowFragment)
             viewPagerTvShow.adapter = mainPagerAdapter
             TabLayoutMediator(tabLayoutTvShow, viewPagerTvShow) { tabs, position ->
                 tabs.text = getString(tabsTitle[position])
