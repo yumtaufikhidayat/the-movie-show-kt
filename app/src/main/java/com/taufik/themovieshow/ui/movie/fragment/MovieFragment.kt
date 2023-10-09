@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.databinding.FragmentMovieBinding
-import com.taufik.themovieshow.ui.movie.adapter.MoviePagerAdapter
+import com.taufik.themovieshow.ui.common.adapter.TabPagerAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -47,7 +47,7 @@ class MovieFragment : Fragment() {
         )
 
         binding.apply {
-            val mainPagerAdapter = MoviePagerAdapter(listOfFragments, this@MovieFragment)
+            val mainPagerAdapter = TabPagerAdapter(listOfFragments, this@MovieFragment)
             viewPagerMovie.adapter = mainPagerAdapter
             TabLayoutMediator(tabLayoutMovie, viewPagerMovie) { tabs, position ->
                 tabs.text = getString(tabsTitle[position])
