@@ -21,8 +21,7 @@ class DiscoverTvShowsAdapter(
 ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TvShowsViewHolder {
-        val itemsMovieShowBinding =
-            ItemsMoviesTvShowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val itemsMovieShowBinding = ItemsMoviesTvShowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return TvShowsViewHolder(itemsMovieShowBinding)
     }
 
