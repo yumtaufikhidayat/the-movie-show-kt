@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
@@ -13,8 +12,8 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.databinding.FragmentTrendingBinding
 import com.taufik.themovieshow.ui.trending.adapter.TrendingPagerAdapter
+import com.taufik.themovieshow.utils.showToasty
 import dagger.hilt.android.AndroidEntryPoint
-import es.dmoral.toasty.Toasty
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.time.Duration.Companion.seconds
@@ -69,7 +68,7 @@ class TrendingFragment : Fragment() {
             }
 
             doubleBackToExitPressedOnce = true
-            Toasty.info(requireContext(), "Press back again to exit", Toast.LENGTH_SHORT).show()
+            requireContext().showToasty(getString(R.string.tvPressBackExit))
 
             lifecycleScope.launch {
                 delay(2.seconds)
