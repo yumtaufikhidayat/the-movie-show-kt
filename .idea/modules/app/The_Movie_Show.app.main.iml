@@ -160,7 +160,7 @@
             </stringArg>
             <stringArg name="destination" arg="$MODULE_DIR$/../../../app/build/tmp/kotlin-classes/debug" />
             <stringArg name="jvmTarget" arg="17" />
-            <stringArg name="moduleName" arg="the-movie-show_v1.24(124)_202310071859_debug" />
+            <stringArg name="moduleName" arg="the-movie-show_v1.24(124)_202310200613_debug" />
             <stringArg name="apiVersion" arg="1.8" />
             <stringArg name="languageVersion" arg="1.8" />
           </stringArguments>
