@@ -111,6 +111,7 @@ class DetailMovieFragment : Fragment() {
                         is NetworkResult.Loading -> {}
                         is NetworkResult.Success -> showDetailData(response.data)
                         is NetworkResult.Error -> {}
+                        else -> {}
                     }
                 }
             }
@@ -287,6 +288,7 @@ class DetailMovieFragment : Fragment() {
                         }
                     }
                     is NetworkResult.Error -> showNoCast(false)
+                    else -> {}
                 }
             }
         }
@@ -322,6 +324,7 @@ class DetailMovieFragment : Fragment() {
                         }
                     }
                     is NetworkResult.Error -> showVideo(false)
+                    else -> {}
                 }
             }
         }
@@ -354,6 +357,7 @@ class DetailMovieFragment : Fragment() {
                             }
                         }
                         is NetworkResult.Error -> tvNoReviews.isVisible = false
+                        else -> {}
                     }
                 }
             }
@@ -389,6 +393,7 @@ class DetailMovieFragment : Fragment() {
                         }
                     }
                     is NetworkResult.Error -> showNoSimilarMovie(false)
+                    else -> {}
                 }
             }
         }
