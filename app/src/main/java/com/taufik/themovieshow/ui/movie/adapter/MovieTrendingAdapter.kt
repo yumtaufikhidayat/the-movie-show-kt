@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.taufik.themovieshow.databinding.ItemsMoviesTvShowBinding
+import com.taufik.themovieshow.model.response.movie.genre.Genre
 import com.taufik.themovieshow.model.response.movie.trending.MovieTrendingResult
 import com.taufik.themovieshow.utils.CommonDateFormatConstants
 import com.taufik.themovieshow.utils.convertDate
@@ -13,6 +14,7 @@ import com.taufik.themovieshow.utils.loadImage
 import com.taufik.themovieshow.utils.toRating
 
 class MovieTrendingAdapter(
+    private val genres: List<Genre>,
     private val onItemClickListener: (MovieTrendingResult) -> Unit
 ) : ListAdapter<MovieTrendingResult, MovieTrendingAdapter.ViewHolder>(
     MOVIE_TRENDING_DIFF_CALLBACK
@@ -42,6 +44,20 @@ class MovieTrendingAdapter(
                     CommonDateFormatConstants.EEE_D_MMM_YYYY_FORMAT
                 )
                 tvRating.text = toRating(data.voteAverage)
+
+                val genre = mutableListOf<String>()
+                data.genreIds.forEach { id ->
+                    val genreTemp = genres.filter {
+                        it.id == id
+                    }
+                    if (genreTemp.isNotEmpty()) {
+                        genre.add(genreTemp.first().name)
+                    }
+                }
+
+                tvGenres.text = genre.toString()
+                    .replace("[", "")
+                    .replace("]", "")
 
                 itemView.setOnClickListener {
                     onItemClickListener(data)

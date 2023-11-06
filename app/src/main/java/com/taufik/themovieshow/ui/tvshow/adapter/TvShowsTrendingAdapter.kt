@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.taufik.themovieshow.data.remote.api.UrlEndpoint
 import com.taufik.themovieshow.databinding.ItemsMoviesTvShowBinding
+import com.taufik.themovieshow.model.response.movie.genre.Genre
 import com.taufik.themovieshow.model.response.tvshow.trending.TvShowsTrendingResult
 import com.taufik.themovieshow.utils.CommonDateFormatConstants
 import com.taufik.themovieshow.utils.convertDate
@@ -14,6 +15,7 @@ import com.taufik.themovieshow.utils.loadImage
 import com.taufik.themovieshow.utils.toRating
 
 class TvShowsTrendingAdapter(
+//    private val genres: List<Genre>,
     private val onItemClickListener: (TvShowsTrendingResult) -> Unit
 ) : ListAdapter<TvShowsTrendingResult, TvShowsTrendingAdapter.TvShowsViewHolder>(
     TV_SHOW_TRENDING_DIFF_CALLBACK

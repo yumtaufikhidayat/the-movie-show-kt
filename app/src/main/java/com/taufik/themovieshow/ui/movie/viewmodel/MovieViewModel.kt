@@ -24,6 +24,8 @@ class MovieViewModel @Inject constructor(private val repository: TheMovieShowRep
 
     fun getMovieUpcoming() = repository.getMovieUpcoming().asLiveData()
 
+    fun getMovieGenres() = repository.getMovieGenres().asLiveData()
+
     fun setDiscoverMovie(query: String) = viewModelScope.launch {
         repository.getDiscoverMovie(query).collect {
             _discoverMovieResponse.value = it

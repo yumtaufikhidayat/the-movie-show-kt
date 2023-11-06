@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.NetworkResult
 import com.taufik.themovieshow.databinding.FragmentMovieTvShowsListBinding
+import com.taufik.themovieshow.model.response.movie.genre.Genre
 import com.taufik.themovieshow.ui.movie.adapter.MovieTrendingAdapter
 import com.taufik.themovieshow.ui.movie.viewmodel.MovieViewModel
 import com.taufik.themovieshow.utils.navigateToDetailMovie
@@ -37,12 +38,28 @@ class MovieTrendingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setAdapter()
-        setData()
+        setGenreObserver()
+        setMovieTrendingObserver()
     }
 
-    private fun setAdapter() {
-        movieTrendingAdapter = MovieTrendingAdapter {
+    private fun setGenreObserver() {
+        viewModel.getMovieGenres().observe(viewLifecycleOwner) {
+            when (it) {
+                is NetworkResult.Loading -> showLoading(true)
+                is NetworkResult.Success -> {
+                    showLoading(false)
+                    setGenreList(it.data?.genres ?: emptyList())
+                }
+                is NetworkResult.Error -> {
+                    showLoading(false)
+                    showError(it.message.orEmpty())
+                }
+            }
+        }
+    }
+
+    private fun setGenreList(genreList: List<Genre>) {
+        movieTrendingAdapter = MovieTrendingAdapter(genreList) {
             navigateToDetailMovie(it.id, it.title)
         }
 
@@ -53,7 +70,7 @@ class MovieTrendingFragment : Fragment() {
         }
     }
 
-    private fun setData() {
+    private fun setMovieTrendingObserver() {
         binding.apply {
             viewModel.getMovieTrendingDay().observe(viewLifecycleOwner) {
                 when (it) {
