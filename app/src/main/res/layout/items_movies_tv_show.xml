@@ -37,7 +37,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imgPoster"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -79,7 +79,7 @@
         app:layout_constraintStart_toStartOf="@id/tvTitle"
         app:layout_constraintTop_toBottomOf="@id/tvTitle"/>
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvReleaseDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -101,7 +101,7 @@
         app:layout_constraintTop_toBottomOf="@id/tvReleasedOn"
         android:src="@drawable/ic_rate"/>
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvRating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -113,5 +113,17 @@
         app:layout_constraintTop_toTopOf="@id/imgRate"
         app:layout_constraintBottom_toBottomOf="@id/imgRate"
         tools:text="@string/tvRating"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvGenres"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:textColor="@color/white"
+        android:textStyle="italic"
+        app:layout_constraintTop_toBottomOf="@id/tvRating"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tvReleasedOn"
+        app:layout_constraintEnd_toEndOf="@id/tvTitle"
+        tools:text="@tools:sample/lorem"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
