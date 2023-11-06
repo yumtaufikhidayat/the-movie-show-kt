@@ -9,10 +9,10 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:7.4.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.6.0"
-        classpath 'com.google.dagger:hilt-android-gradle-plugin:2.47'
-        classpath 'com.google.gms:google-services:4.3.15'
-        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.8'
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.7.5"
+        classpath 'com.google.dagger:hilt-android-gradle-plugin:2.48.1'
+        classpath 'com.google.gms:google-services:4.4.0'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.9'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -33,22 +33,22 @@ buildscript {
         recyclerViewVersion = '1.1.0'
         glideVersion = '4.16.0'
         lifeCycleVersion = '2.2.0'
-        lifeCycleKtxVersion = '2.6.1'
+        lifeCycleKtxVersion = '2.6.2'
         retrofitVersion = '2.9.0'
-        okHttpVersion = '4.11.0'
-        navKTXVersion = '2.6.0'
-        fragmentKTXVersion = '1.6.1'
+        okHttpVersion = '4.12.0'
+        navKTXVersion = '2.7.5'
+        fragmentKTXVersion = '1.6.2'
         videoVersion = "10.0.5"
-        roomVersion = '2.5.2'
+        roomVersion = '2.6.0'
         espressoVersion = '3.5.1'
-        hiltVersion = '2.47'
+        hiltVersion = '2.48.1'
         toastVersion = '1.5.2'
         justifiedTextVersion = "1.1.0"
-        firebaseCrashlyticsVersion = '18.4.1'
-        firebaseCrashlyticsKtxVersion = '21.3.0'
-        mockitoCoreVersion = '5.4.0'
+        firebaseCrashlyticsVersion = '18.5.1'
+        firebaseCrashlyticsKtxVersion = '21.5.0'
+        mockitoCoreVersion = '5.5.0'
         mockitoInlineVersion = '5.2.0'
-        lottieVersion = '6.0.0'
+        lottieVersion = '6.1.0'
     }
 }
 
