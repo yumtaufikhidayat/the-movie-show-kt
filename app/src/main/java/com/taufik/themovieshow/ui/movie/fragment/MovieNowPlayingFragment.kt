@@ -54,7 +54,7 @@ class MovieNowPlayingFragment : Fragment() {
 
     private fun setData() {
         binding.apply {
-            viewModel.getMovieNowPlaying().observe(viewLifecycleOwner) {
+            viewModel.getMovieNowPlaying.observe(viewLifecycleOwner) {
                 when (it) {
                     is NetworkResult.Loading -> showLoading(true)
                     is NetworkResult.Success -> {

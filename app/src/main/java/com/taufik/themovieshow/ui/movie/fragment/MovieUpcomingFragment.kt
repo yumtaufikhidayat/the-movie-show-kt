@@ -53,7 +53,7 @@ class MovieUpcomingFragment : Fragment() {
 
     private fun setData() {
         binding.apply {
-            viewModel.getMovieUpcoming().observe(viewLifecycleOwner) {
+            viewModel.getMovieUpcoming.observe(viewLifecycleOwner) {
                 when (it) {
                     is NetworkResult.Loading -> showLoading(true)
                     is NetworkResult.Success -> {
