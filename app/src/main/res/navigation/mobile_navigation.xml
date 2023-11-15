@@ -11,9 +11,6 @@
         android:label="fragment_splash_screen"
         tools:layout="@layout/fragment_splash_screen" >
         <action
-            android:id="@+id/action_splashScreenFragment_to_trendingFragment"
-            app:destination="@id/trendingFragment" />
-        <action
             android:id="@+id/action_splashScreenFragment_to_movieFragment"
             app:destination="@id/movieFragment" />
         <action
@@ -31,15 +28,6 @@
         <action
             android:id="@+id/action_splashScreenFragment_to_discoverTvShowFragment"
             app:destination="@id/discoverTvShowFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/trendingFragment"
-        android:name="com.taufik.themovieshow.ui.trending.fragment.TrendingFragment"
-        android:label="Trending"
-        tools:layout="@layout/fragment_trending" >
-        <action
-            android:id="@+id/action_trendingFragment_to_detailMovieFragment"
-            app:destination="@id/detailMovieFragment" />
     </fragment>
     <fragment
         android:id="@+id/movieFragment"
