@@ -32,16 +32,16 @@ class SplashScreenFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        navigateToTrending()
+        navigateToMovie()
         setAppVersion()
     }
 
-    private fun navigateToTrending() {
+    private fun navigateToMovie() {
         lifecycleScope.launch {
             delay(2.seconds)
             findNavController().apply {
                 popBackStack()
-                navigate(R.id.trendingFragment)
+                navigate(R.id.movieFragment)
             }
         }
     }
