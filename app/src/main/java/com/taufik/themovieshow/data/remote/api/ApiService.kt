@@ -4,7 +4,6 @@ import com.taufik.themovieshow.model.response.common.reviews.ReviewsResponse
 import com.taufik.themovieshow.model.response.movie.cast.MovieCastResponse
 import com.taufik.themovieshow.model.response.movie.detail.MovieDetailResponse
 import com.taufik.themovieshow.model.response.movie.discover.DiscoverMovieResponse
-import com.taufik.themovieshow.model.response.movie.genre.GenresResponse
 import com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResponse
 import com.taufik.themovieshow.model.response.movie.similar.MovieSimilarResponse
 import com.taufik.themovieshow.model.response.movie.trending.MovieTrendingResponse
@@ -74,11 +73,6 @@ interface ApiService {
         @Path(CommonConstants.QUERY_MOVIE_ID) movieId: Int,
         @Query(CommonConstants.QUERY_API_KEY) apiKey: String
     ): Response<MovieSimilarResponse>
-
-    @GET(UrlEndpoint.MOVIE_GENRE)
-    suspend fun getGenres(
-        @Query(CommonConstants.QUERY_API_KEY) apiKey: String
-    ): Response<GenresResponse>
 
     @GET(UrlEndpoint.TV_SHOWS_TRENDING_DAY)
     suspend fun getTvShowsTrending(

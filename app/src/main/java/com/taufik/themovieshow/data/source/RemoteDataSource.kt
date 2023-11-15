@@ -7,7 +7,6 @@ import com.taufik.themovieshow.model.response.common.reviews.ReviewsResponse
 import com.taufik.themovieshow.model.response.movie.cast.MovieCastResponse
 import com.taufik.themovieshow.model.response.movie.detail.MovieDetailResponse
 import com.taufik.themovieshow.model.response.movie.discover.DiscoverMovieResponse
-import com.taufik.themovieshow.model.response.movie.genre.GenresResponse
 import com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResponse
 import com.taufik.themovieshow.model.response.movie.similar.MovieSimilarResponse
 import com.taufik.themovieshow.model.response.movie.trending.MovieTrendingResponse
@@ -81,12 +80,6 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService): 
     suspend fun getSimilarMovie(movieId: Int) : Flow<NetworkResult<MovieSimilarResponse>> {
         return flow {
             emit(safeApiCall { apiService.getSimilarMovie(movieId, apiKey) })
-        }.flowOn(dispatchersIO)
-    }
-
-    fun getMovieGenres(): Flow<NetworkResult<GenresResponse>> {
-        return flow {
-            emit(safeApiCall { apiService.getGenres(apiKey) })
         }.flowOn(dispatchersIO)
     }
 
