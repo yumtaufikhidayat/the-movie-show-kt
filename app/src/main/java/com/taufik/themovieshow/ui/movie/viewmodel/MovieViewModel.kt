@@ -18,13 +18,14 @@ class MovieViewModel @Inject constructor(private val repository: TheMovieShowRep
     private val _discoverMovieResponse: MutableLiveData<NetworkResult<DiscoverMovieResponse>> = MutableLiveData()
     val discoverMovieResponse: LiveData<NetworkResult<DiscoverMovieResponse>> get() = _discoverMovieResponse
 
-    fun getMovieTrendingDay() = repository.getMovieTrendingDay().asLiveData()
+    private val _getMovieTrendingDay = repository.getMovieTrendingDay()
+    val getMovieTrendingDay = _getMovieTrendingDay.asLiveData()
 
-    fun getMovieNowPlaying() = repository.getMovieNowPlaying().asLiveData()
+    private val _getMovieNowPlaying = repository.getMovieNowPlaying()
+    val getMovieNowPlaying = _getMovieNowPlaying.asLiveData()
 
-    fun getMovieUpcoming() = repository.getMovieUpcoming().asLiveData()
-
-    fun getMovieGenres() = repository.getMovieGenres().asLiveData()
+    private val _getMovieUpcoming = repository.getMovieUpcoming()
+    val getMovieUpcoming = _getMovieUpcoming.asLiveData()
 
     fun setDiscoverMovie(query: String) = viewModelScope.launch {
         repository.getDiscoverMovie(query).collect {
