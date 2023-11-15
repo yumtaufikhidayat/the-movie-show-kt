@@ -15,14 +15,20 @@
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayoutTvShow"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        android:paddingBottom="8dp"
         android:background="@color/colorPrimaryDark"
-        app:tabGravity="fill"
-        app:tabInlineLabel="true"
+        app:tabMode="fixed"
+        app:tabGravity="center"
+        app:tabIndicator="@drawable/bg_tab"
+        app:tabIndicatorAnimationMode="elastic"
+        app:tabIndicatorGravity="stretch"
         app:tabIndicatorColor="@color/colorOrange"
+        app:tabIndicatorFullWidth="true"
         app:tabIndicatorHeight="2dp"
+        app:tabSelectedTextColor="@color/white"
+        app:tabInlineLabel="true"
         app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
-        app:tabSelectedTextColor="@color/colorOrange"
         app:layout_constraintTop_toBottomOf="@+id/toolbarTvShow"/>
 
     <androidx.viewpager2.widget.ViewPager2

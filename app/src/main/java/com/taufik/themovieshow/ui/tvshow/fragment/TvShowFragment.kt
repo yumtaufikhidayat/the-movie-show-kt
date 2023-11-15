@@ -11,8 +11,6 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.databinding.FragmentTvShowBinding
 import com.taufik.themovieshow.ui.common.adapter.TabPagerAdapter
-import com.taufik.themovieshow.ui.movie.fragment.MovieNowPlayingFragment
-import com.taufik.themovieshow.ui.movie.fragment.MovieUpcomingFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -44,8 +42,9 @@ class TvShowFragment : Fragment() {
 
     private fun setTabLayout() {
         val listOfFragments = listOf(
-            MovieNowPlayingFragment(),
-            MovieUpcomingFragment()
+            TvShowTrendingFragment(),
+            TvShowAiringTodayFragment(),
+            TVShowsPopularFragment()
         )
 
         binding.apply {
@@ -70,6 +69,10 @@ class TvShowFragment : Fragment() {
 
     companion object {
         @StringRes
-        private val tabsTitle = intArrayOf(R.string.tvTvShowAiringToday, R.string.tvTvShowPopular)
+        private val tabsTitle = intArrayOf(
+            R.string.tvTrending,
+            R.string.tvTvShowAiringToday,
+            R.string.tvTvShowPopular
+        )
     }
 }
