@@ -48,8 +48,8 @@ class TvShowFragment : Fragment() {
         )
 
         binding.apply {
-            val mainPagerAdapter = TabPagerAdapter(listOfFragments, this@TvShowFragment)
-            viewPagerTvShow.adapter = mainPagerAdapter
+            val tabPagerAdapter = TabPagerAdapter(listOfFragments, this@TvShowFragment)
+            viewPagerTvShow.adapter = tabPagerAdapter
             TabLayoutMediator(tabLayoutTvShow, viewPagerTvShow) { tabs, position ->
                 tabs.text = getString(tabsTitle[position])
             }.attach()
