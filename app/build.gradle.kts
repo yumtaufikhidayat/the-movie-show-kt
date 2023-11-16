@@ -1,3 +1,6 @@
+import java.text.SimpleDateFormat
+import java.util.Date
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -13,6 +16,18 @@ plugins {
 android {
     namespace = "com.taufik.themovieshow"
     compileSdk = 34
+
+    // APK Name
+    applicationVariants.all {
+        val variant = this
+        variant.outputs
+            .map { it as com.android.build.gradle.internal.api.BaseVariantOutputImpl }
+            .forEach { output ->
+                val timestamp = SimpleDateFormat("yyyyMMddHHmm").format(Date())
+                val outputFileName = "TheMovieShow_v${variant.versionName}(${variant.versionCode})_${timestamp}_${variant.baseName}.apk"
+                output.outputFileName = outputFileName
+            }
+    }
 
     defaultConfig {
         applicationId = "com.taufik.themovieshow"
