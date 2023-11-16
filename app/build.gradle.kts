@@ -22,7 +22,7 @@ android {
         versionName = "1.25"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "API_KEY", "\"c5d387e24584756e5a37eb08021e1840\"")
+        buildConfigField("String", "API_KEY", "\"API_KEY\"")
         vectorDrawables.useSupportLibrary = true
 
         /*val dateFormat = new Date().format('yyyyMMddHHmm')
