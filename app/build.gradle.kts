@@ -79,7 +79,7 @@ android {
 dependencies {
 
     // Kotlin
-    implementation("androidx.core:core-ktx:1.12.0")
+    implementation("androidx.core:core-ktx:1.9.0")
 
     // UI
     implementation("androidx.appcompat:appcompat:1.6.1")
