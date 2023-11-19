@@ -13,7 +13,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.databinding.FragmentMovieBinding
 import com.taufik.themovieshow.ui.common.adapter.TabPagerAdapter
-import com.taufik.themovieshow.utils.showToasty
+import com.taufik.themovieshow.utils.showSuccessToasty
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -34,7 +34,7 @@ class MovieFragment : Fragment() {
             }
 
             doubleBackToExitPressedOnce = true
-            requireContext().showToasty(getString(R.string.tvPressBackExit))
+            requireContext().showSuccessToasty(getString(R.string.tvPressBackExit))
 
             lifecycleScope.launch {
                 delay(2.seconds)
