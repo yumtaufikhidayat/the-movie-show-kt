@@ -25,7 +25,6 @@ import com.taufik.themovieshow.ui.favorite.adapter.FavoriteTvShowsAdapter
 import com.taufik.themovieshow.ui.favorite.adapter.SortFilteringAdapter
 import com.taufik.themovieshow.ui.favorite.viewmodel.FavoriteTvShowViewModel
 import com.taufik.themovieshow.utils.navigateToDetailTvShow
-import com.taufik.themovieshow.utils.showSuccessToasty
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
