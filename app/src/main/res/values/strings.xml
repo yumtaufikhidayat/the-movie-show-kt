@@ -106,6 +106,6 @@
     <string name="tvSortAll">All</string>
     <string name="tvSortAtoZ">A to Z</string>
     <string name="tvSortZtoA">Z to A</string>
-    <string name="tvSortDate">Date</string>
-    <string name="tvSortName">Name</string>
+    <string name="tvSortReleaseDate">Release Date</string>
+    <string name="tvSortTitle">Title</string>
 </resources>
