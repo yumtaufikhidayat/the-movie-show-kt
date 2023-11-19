@@ -27,7 +27,7 @@ import com.taufik.themovieshow.utils.convertDate
 import com.taufik.themovieshow.utils.loadImage
 import com.taufik.themovieshow.utils.popBackStack
 import com.taufik.themovieshow.utils.share
-import com.taufik.themovieshow.utils.showToasty
+import com.taufik.themovieshow.utils.showSuccessToastyIcon
 import com.taufik.themovieshow.utils.showTrailerVideo
 import com.taufik.themovieshow.utils.toRating
 import dagger.hilt.android.AndroidEntryPoint
@@ -237,10 +237,10 @@ class DetailTvShowFragment : Fragment() {
                         firstAirDate,
                         voteAverage
                     )
-                    requireContext().showToasty(getString(R.string.action_added_to_favorite))
+                    requireContext().showSuccessToastyIcon(getString(R.string.action_added_to_favorite))
                 } else {
                     viewModel.removeTvShowFromFavorite(id)
-                    requireContext().showToasty(getString(R.string.action_removed_from_favorite))
+                    requireContext().showSuccessToastyIcon(getString(R.string.action_removed_from_favorite))
                 }
             }
         }
