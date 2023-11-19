@@ -139,7 +139,6 @@ class FavoriteTvShowsFragment : Fragment() {
                 5 -> {}
                 else -> {}
             }
-            requireContext().showSuccessToasty("Position: $position")
         }
 
         val flexLayoutManager = FlexboxLayoutManager(requireContext())
