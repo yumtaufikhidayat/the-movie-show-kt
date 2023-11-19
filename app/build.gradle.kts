@@ -166,6 +166,10 @@ dependencies {
     // Lottie
     val lottieVersion = "6.1.0"
     implementation("com.airbnb.android:lottie:$lottieVersion")
+
+    // FlexboxLayout
+    val flexboxVersion = "3.0.0"
+    implementation("com.google.android.flexbox:flexbox:$flexboxVersion")
 }
 
 kapt {
