@@ -14,13 +14,18 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.flexbox.JustifyContent
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.local.entity.movie.FavoriteMovieEntity
 import com.taufik.themovieshow.databinding.FragmentFavoriteMovieBinding
 import com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult
 import com.taufik.themovieshow.ui.favorite.adapter.FavoriteMovieAdapter
+import com.taufik.themovieshow.ui.favorite.adapter.SortFilteringAdapter
 import com.taufik.themovieshow.ui.favorite.viewmodel.FavoriteMovieViewModel
 import com.taufik.themovieshow.utils.navigateToDetailMovie
+import com.taufik.themovieshow.utils.showSuccessToasty
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -31,6 +36,9 @@ class FavoriteMovieFragment : Fragment() {
 
     private val viewModel: FavoriteMovieViewModel by viewModels()
     private var favoriteMovieAdapter: FavoriteMovieAdapter? = null
+    private var sortFilteringAdapter: SortFilteringAdapter? = null
+
+    private var isShow: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,6 +55,9 @@ class FavoriteMovieFragment : Fragment() {
         setAdapter()
         getFavoriteMovie()
         searchData()
+        showHideSortFilter()
+        setFilteringAdapter()
+        sortFilteringData()
     }
 
     private fun setAdapter() {
@@ -87,6 +98,68 @@ class FavoriteMovieFragment : Fragment() {
         }
     }
 
+    private fun showNoFavorite(isShow: Boolean) {
+        binding.apply {
+            if (isShow) {
+                layoutNoFavorite.apply {
+                    root.isVisible = true
+                    tvErrorTitle.apply {
+                        isVisible = true
+                        text = getString(R.string.tvNoFavoriteData)
+                        setTextColor(ContextCompat.getColor(requireContext(), R.color.colorOrange))
+                    }
+                    tvErrorDesc.apply {
+                        isVisible = true
+                        text = getString(R.string.tvSaveFavoriteMovie)
+                        setTextColor(ContextCompat.getColor(requireContext(), R.color.colorOrange))
+                    }
+                }
+            } else {
+                layoutNoFavorite.root.isVisible = false
+            }
+        }
+    }
+
+    private fun showHideSortFilter() {
+        binding.imgSortFiltering.setOnClickListener {
+            isShow = !isShow
+            binding.groupSortFilter.isVisible = isShow
+        }
+    }
+
+    private fun setFilteringAdapter() {
+        sortFilteringAdapter = SortFilteringAdapter { position ->
+            when (position) {
+                0 -> {}
+                1 -> {}
+                2 -> {}
+                3 -> {}
+                4 -> {}
+                5 -> {}
+                else -> {}
+            }
+            requireContext().showSuccessToasty("Position: $position")
+        }
+
+        val flexLayoutManager = FlexboxLayoutManager(requireContext())
+        flexLayoutManager.apply {
+            flexDirection = FlexDirection.ROW
+            justifyContent = JustifyContent.FLEX_START
+        }
+
+        binding.rvSortFiltering.apply {
+            layoutManager = flexLayoutManager
+            setHasFixedSize(true)
+            isNestedScrollingEnabled = true
+            adapter = sortFilteringAdapter
+        }
+    }
+
+    private fun sortFilteringData() {
+        sortFilteringAdapter?.submitList(viewModel.getSortFiltering(requireContext()))
+        sortFilteringAdapter?.setDefaultSelectedItemPosition(0)
+    }
+
     private fun mapList(movies: List<FavoriteMovieEntity>): ArrayList<MovieMainResult> {
         val listMovies = ArrayList<MovieMainResult>()
         movies.forEach { movie ->
@@ -112,32 +185,9 @@ class FavoriteMovieFragment : Fragment() {
         }
     }
 
-    private fun showNoFavorite(isShow: Boolean) {
-        binding.apply {
-            if (isShow) {
-                layoutNoFavorite.apply {
-                    root.isVisible = true
-                    tvErrorTitle.apply {
-                        isVisible = true
-                        text = getString(R.string.tvNoFavoriteData)
-                        setTextColor(ContextCompat.getColor(requireContext(), R.color.colorOrange))
-                    }
-                    tvErrorDesc.apply {
-                        isVisible = true
-                        text = getString(R.string.tvSaveFavoriteMovie)
-                        setTextColor(ContextCompat.getColor(requireContext(), R.color.colorOrange))
-                    }
-                }
-            } else {
-                layoutNoFavorite.root.isVisible = false
-            }
-        }
-    }
-
-
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        favoriteMovieAdapter = null
     }
 }

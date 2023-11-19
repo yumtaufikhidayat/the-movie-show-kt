@@ -26,7 +26,60 @@
         android:drawableStart="@drawable/ic_search"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/imgSortFiltering"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgSortFiltering"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/baseline_filter_list"
+        android:contentDescription="@string/tvSortFilter"
+        app:layout_constraintTop_toTopOf="@id/etSearch"
+        app:layout_constraintBottom_toBottomOf="@id/etSearch"
         app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/groupSortFilter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:constraint_referenced_ids="tvSortFilter, flSortFiltering" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvSortFilter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/tvSortFilter"
+        android:textColor="@color/colorOrange"
+        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/etSearch"
+        app:layout_constraintStart_toStartOf="@id/etSearch"
+        app:layout_constraintEnd_toEndOf="@id/imgSortFiltering"/>
+
+    <com.google.android.flexbox.FlexboxLayout
+        android:id="@+id/flSortFiltering"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvSortFilter"
+        app:layout_constraintStart_toStartOf="@id/etSearch"
+        app:layout_constraintEnd_toEndOf="@id/imgSortFiltering">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvSortFiltering"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            android:orientation="horizontal"
+            tools:listitem="@layout/item_sort_filter"
+            tools:itemCount="5"/>
+
+    </com.google.android.flexbox.FlexboxLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvDiscoverFavoriteMovies"
@@ -35,7 +88,7 @@
         android:overScrollMode="never"
         android:layout_marginTop="8dp"
         tools:listitem="@layout/items_movies_tv_show"
-        app:layout_constraintTop_toBottomOf="@id/etSearch"
+        app:layout_constraintTop_toBottomOf="@id/flSortFiltering"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
     <include
