@@ -4,6 +4,7 @@ import android.content.Context
 import com.taufik.themovieshow.data.local.dao.TheMovieShowDao
 import com.taufik.themovieshow.data.local.entity.movie.FavoriteMovieEntity
 import com.taufik.themovieshow.data.local.entity.tvshow.FavoriteTvShowEntity
+import com.taufik.themovieshow.model.favorite.SortFiltering
 import com.taufik.themovieshow.model.response.about.About
 import com.taufik.themovieshow.utils.UtilsData
 import javax.inject.Inject
@@ -27,11 +28,11 @@ class LocalDataSource @Inject constructor(
 
     suspend fun checkFavoriteTvShow(tvShowId: Int) = favoriteDao.checkTvShowFavorite(tvShowId)
 
-    suspend fun removeTvShowFromFavorite(tvShowId: Int) =
-        favoriteDao.removeTvShowFromFavorite(tvShowId)
+    suspend fun removeTvShowFromFavorite(tvShowId: Int) = favoriteDao.removeTvShowFromFavorite(tvShowId)
 
     fun getAboutAuthor(context: Context): List<About> = UtilsData.generateAboutAuthorData(context)
 
-    fun getAboutApplication(context: Context): List<About> =
-        UtilsData.generateAboutApplicationData(context)
+    fun getAboutApplication(context: Context): List<About> = UtilsData.generateAboutApplicationData(context)
+
+    fun getSortFiltering(context: Context): List<SortFiltering> = UtilsData.generateSortFilteringData(context)
 }

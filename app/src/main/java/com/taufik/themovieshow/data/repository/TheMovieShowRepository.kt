@@ -68,4 +68,6 @@ class TheMovieShowRepository @Inject constructor(
     fun getAboutAuthor(context: Context) = localDataSource.getAboutAuthor(context)
 
     fun getAboutApplication(context: Context) = localDataSource.getAboutApplication(context)
+
+    fun getSortFiltering(context: Context) = localDataSource.getSortFiltering(context)
 }

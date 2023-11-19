@@ -1,5 +1,6 @@
 package com.taufik.themovieshow.ui.favorite.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.taufik.themovieshow.data.local.entity.movie.FavoriteMovieEntity
@@ -14,4 +15,6 @@ class FavoriteMovieViewModel @Inject constructor(
     fun getFavoriteMovies(): LiveData<List<FavoriteMovieEntity>> {
         return favoriteTvShowRepository.getFavoriteMovie()
     }
+
+    fun getSortFiltering(context: Context) = favoriteTvShowRepository.getSortFiltering(context)
 }
