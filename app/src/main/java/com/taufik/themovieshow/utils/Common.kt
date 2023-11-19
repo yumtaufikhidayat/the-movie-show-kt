@@ -49,8 +49,12 @@ fun toRating(data: Double): String {
     return ((data * tenDouble).roundToInt() / tenDouble).toString()
 }
 
-fun Context.showToasty(message: String) {
+fun Context.showSuccessToastyIcon(message: String) {
     Toasty.success(this, message, Toast.LENGTH_SHORT, true).show()
+}
+
+fun Context.showSuccessToasty(message: String) {
+    Toasty.success(this, message, Toast.LENGTH_SHORT, false).show()
 }
 
 fun Fragment.navigateToDetailMovie(id: Int, title: String) {
@@ -84,7 +88,7 @@ fun Context.share(shareText: String, link: String) {
             )
         )
     } catch (e: Exception) {
-        showToasty(getString(R.string.tvOops))
+        showSuccessToastyIcon(getString(R.string.tvOops))
     }
 }
 
@@ -94,6 +98,6 @@ fun Context.showTrailerVideo(key: String) {
     try {
         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube://$key")))
     } catch (e: Exception) {
-        this.showToasty(getString(R.string.tvInstallBrowserYouTube, e.localizedMessage))
+        this.showSuccessToastyIcon(getString(R.string.tvInstallBrowserYouTube, e.localizedMessage))
     }
 }
