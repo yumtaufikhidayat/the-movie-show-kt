@@ -14,7 +14,7 @@ import com.taufik.themovieshow.databinding.FragmentAboutBinding
 import com.taufik.themovieshow.ui.about.adapter.AboutApplicationAdapter
 import com.taufik.themovieshow.ui.about.adapter.AboutAuthorAdapter
 import com.taufik.themovieshow.ui.about.viewmodel.AboutViewModel
-import com.taufik.themovieshow.utils.showToasty
+import com.taufik.themovieshow.utils.showSuccessToastyIcon
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -51,9 +51,9 @@ class AboutFragment : Fragment() {
     private fun setAuthorData() {
         authorAdapter = AboutAuthorAdapter { position ->
             when (position) {
-                0 -> showToastyBasedOnType("linkedIn")
-                1 -> showToastyBasedOnType("github")
-                2 -> showToastyBasedOnType("email")
+                0 -> showToastyBasedOnType(LINKEDIN)
+                1 -> showToastyBasedOnType(GITHUB)
+                2 -> showToastyBasedOnType(EMAIL)
             }
         }
 
@@ -70,8 +70,8 @@ class AboutFragment : Fragment() {
         applicationAdapter = AboutApplicationAdapter { position ->
                 when (position) {
                     0 -> {}
-                    1, 2 -> showToastyBasedOnType("google-play")
-                    3 -> showToastyBasedOnType("email")
+                    1, 2 -> showToastyBasedOnType(GOOGLE_PLAY)
+                    3 -> showToastyBasedOnType(EMAIL)
                 }
             }
 
@@ -86,7 +86,7 @@ class AboutFragment : Fragment() {
 
     private fun showToastyBasedOnType(type: String) {
         when (type) {
-            "linkedIn" -> {
+            LINKEDIN -> {
                 val urlLink = "https://linkedin.com/in/taufik-hidayat"
                 try {
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(urlLink))
@@ -97,11 +97,11 @@ class AboutFragment : Fragment() {
                         )
                     )
                 } catch (e: Exception) {
-                    requireContext().showToasty("Please install browser app")
+                    requireContext().showSuccessToastyIcon("Please install browser app")
                 }
             }
 
-            "google-play" -> {
+            GOOGLE_PLAY -> {
                 val versionLink = "https://play.google.com/store/apps/details?id=com.taufik.themovieshow"
                 try {
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(versionLink))
@@ -112,11 +112,11 @@ class AboutFragment : Fragment() {
                         )
                     )
                 } catch (e: Exception) {
-                    requireContext().showToasty("Please install browser app")
+                    requireContext().showSuccessToastyIcon("Please install browser app")
                 }
             }
 
-            "github" -> {
+            GITHUB -> {
                 val githubLink = "https://github.com/yumtaufikhidayat/the-movie-show-kt"
                 try {
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(githubLink))
@@ -127,11 +127,11 @@ class AboutFragment : Fragment() {
                         )
                     )
                 } catch (e: Exception) {
-                    requireContext().showToasty("Please install browser app")
+                    requireContext().showSuccessToastyIcon("Please install browser app")
                 }
             }
 
-            "email" -> {
+            EMAIL -> {
                 val email = "yumtaufikhidayat@gmail.com"
                 try {
                     val intentEmail = Intent(
@@ -149,7 +149,7 @@ class AboutFragment : Fragment() {
                         )
                     )
                 } catch (e: Exception) {
-                    requireContext().showToasty("Please install email app")
+                    requireContext().showSuccessToastyIcon("Please install email app")
                 }
             }
         }
@@ -159,5 +159,12 @@ class AboutFragment : Fragment() {
         super.onDestroyView()
         _binding = null
         applicationAdapter = null
+    }
+
+    companion object {
+        const val LINKEDIN = "linkedIn"
+        const val GOOGLE_PLAY = "google_play"
+        const val GITHUB = "github"
+        const val EMAIL = "email"
     }
 }
