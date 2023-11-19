@@ -101,4 +101,11 @@
     <string name="tvTitleReportIssue">Report an issue</string>
     <string name="tvDescReportIssue">Having an issue? Report in here</string>
 
+    <!--Sort & Filtering-->
+    <string name="tvSortFilter">Sort &amp; Filter</string>
+    <string name="tvSortAll">All</string>
+    <string name="tvSortAtoZ">A to Z</string>
+    <string name="tvSortZtoA">Z to A</string>
+    <string name="tvSortDate">Date</string>
+    <string name="tvSortName">Name</string>
 </resources>
