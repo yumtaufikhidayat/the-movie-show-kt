@@ -187,5 +187,6 @@ class FavoriteMovieFragment : Fragment() {
         super.onDestroyView()
         _binding = null
         favoriteMovieAdapter = null
+        sortFilteringAdapter = null
     }
 }
