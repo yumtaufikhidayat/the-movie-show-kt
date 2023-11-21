@@ -308,7 +308,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:$USER_HOME$/Android/Sdk/icons/material/materialiconsoutlined/copyright/outline_copyright_24.xml" />
+                                      <entry key="url" value="file:$USER_HOME$/Library/Android/sdk/icons/material/materialicons/filter_list/baseline_filter_list_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -318,8 +318,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_outline_copyright" />
+                            <entry key="color" value="ffa500" />
+                            <entry key="outputName" value="baseline_filter_list" />
                           </map>
                         </option>
                       </PersistentState>
