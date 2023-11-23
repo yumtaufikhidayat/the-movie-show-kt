@@ -14,6 +14,7 @@ import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.remote.api.UrlEndpoint
 import com.taufik.themovieshow.ui.detail.movie.fragment.DetailMovieFragment
 import com.taufik.themovieshow.ui.detail.tvshow.fragment.DetailTvShowFragment
+import com.taufik.themovieshow.ui.favorite.fragment.FavoriteMovieFragment
 import es.dmoral.toasty.Toasty
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -57,10 +58,11 @@ fun Context.showSuccessToasty(message: String) {
     Toasty.success(this, message, Toast.LENGTH_SHORT, false).show()
 }
 
-fun Fragment.navigateToDetailMovie(id: Int, title: String) {
+fun Fragment.navigateToDetailMovie(id: Int, title: String, position: Int) {
     val bundle = Bundle().apply {
         putInt(DetailMovieFragment.EXTRA_ID, id)
         putString(DetailMovieFragment.EXTRA_TITLE, title)
+        putInt(FavoriteMovieFragment.POSITION_KEY, position)
     }
     this.findNavController().navigate(R.id.detailMovieFragment, bundle)
 }
