@@ -37,8 +37,10 @@ class FavoriteMovieFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: FavoriteMovieViewModel by viewModels()
-    private var favoriteMovieAdapter: FavoriteMovieAdapter? = null
-    private var sortFilteringAdapter: SortFilteringAdapter? = null
+    private val sortFilteringAdapter by lazy { SortFilteringAdapter { showFilteringData(it) }}
+    private val favoriteMovieAdapter by lazy { FavoriteMovieAdapter {
+        navigateToDetailMovie(it.id, it.title, FavoriteMovieViewModel.position)
+    }}
 
     private var isShow: Boolean = false
 
@@ -59,13 +61,10 @@ class FavoriteMovieFragment : Fragment() {
         searchData()
         showHideSortFilter()
         setFilteringAdapter()
-        sortFilteringData()
+        showSortFilteringData()
     }
 
     private fun setAdapter() {
-        favoriteMovieAdapter = FavoriteMovieAdapter {
-            navigateToDetailMovie(it.id, it.title)
-        }
         binding.rvDiscoverFavoriteMovies.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
@@ -99,7 +98,7 @@ class FavoriteMovieFragment : Fragment() {
 
     private fun showFavoriteMovies(favoriteMovieList: List<FavoriteMovieEntity>?) {
         if (!favoriteMovieList.isNullOrEmpty()) {
-            favoriteMovieAdapter?.setData(mapList(favoriteMovieList))
+            favoriteMovieAdapter.setData(mapList(favoriteMovieList))
             showNoFavorite(false)
         } else {
             showNoFavorite(true)
@@ -117,7 +116,7 @@ class FavoriteMovieFragment : Fragment() {
             })
 
             addTextChangedListener(afterTextChanged = { p0 ->
-                favoriteMovieAdapter?.filter?.filter(p0.toString())
+                favoriteMovieAdapter.filter.filter(p0.toString())
             })
         }
     }
@@ -152,31 +151,6 @@ class FavoriteMovieFragment : Fragment() {
     }
 
     private fun setFilteringAdapter() {
-        sortFilteringAdapter = SortFilteringAdapter { position ->
-            when (position) {
-                0 -> {
-                    getFavoriteMovie()
-                    scrollToTopPositionItem()
-                }
-                1 -> {
-                    getFavoriteMovieByTitle()
-                    scrollToTopPositionItem()
-                }
-                2 -> {
-                    getFavoriteMovieByRelease()
-                    scrollToTopPositionItem()
-                }
-                3 -> {
-                    getFavoriteMovieByRating()
-                    scrollToTopPositionItem()
-                }
-                else -> {
-                    getFavoriteMovie()
-                    scrollToTopPositionItem()
-                }
-            }
-        }
-
         val flexLayoutManager = FlexboxLayoutManager(requireContext())
         flexLayoutManager.apply {
             flexDirection = FlexDirection.ROW
@@ -191,16 +165,47 @@ class FavoriteMovieFragment : Fragment() {
         }
     }
 
+    private fun showSortFilteringData() {
+        sortFilteringAdapter.submitList(viewModel.getSortFiltering(requireContext()))
+        sortFilteringAdapter.setDefaultSelectedItemPosition(FavoriteMovieViewModel.position)
+    }
+
+    private fun showFilteringData(position: Int) {
+        when (position) {
+            0 -> {
+                getFavoriteMovie()
+                scrollToTopPositionItem()
+                FavoriteMovieViewModel.position = 0
+            }
+            1 -> {
+                getFavoriteMovieByTitle()
+                scrollToTopPositionItem()
+                FavoriteMovieViewModel.position = 1
+            }
+            2 -> {
+                getFavoriteMovieByRelease()
+                scrollToTopPositionItem()
+                FavoriteMovieViewModel.position = 2
+            }
+            3 -> {
+                getFavoriteMovieByRating()
+                scrollToTopPositionItem()
+                FavoriteMovieViewModel.position = 3
+            }
+            else -> {
+                getFavoriteMovie()
+                scrollToTopPositionItem()
+                FavoriteMovieViewModel.position = 0
+            }
+        }
+        sortFilteringAdapter.setDefaultSelectedItemPosition(FavoriteMovieViewModel.position)
+    }
+
     private fun scrollToTopPositionItem() {
         lifecycleScope.launch {
             delay(100)
             binding.rvDiscoverFavoriteMovies.smoothScrollToPosition(0)
         }
-    }
-
-    private fun sortFilteringData() {
-        sortFilteringAdapter?.submitList(viewModel.getSortFiltering(requireContext()))
-        sortFilteringAdapter?.setDefaultSelectedItemPosition(0)
     }
 
     private fun mapList(movies: List<FavoriteMovieEntity>): ArrayList<MovieMainResult> {
@@ -231,7 +236,9 @@ class FavoriteMovieFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        favoriteMovieAdapter = null
-        sortFilteringAdapter = null
+    }
+
+    companion object {
+        const val POSITION_KEY = "position_key"
     }
 }

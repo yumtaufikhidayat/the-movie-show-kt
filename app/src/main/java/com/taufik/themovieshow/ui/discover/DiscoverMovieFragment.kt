@@ -20,6 +20,7 @@ import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.NetworkResult
 import com.taufik.themovieshow.databinding.FragmentDiscoverMovieBinding
 import com.taufik.themovieshow.model.response.movie.discover.DiscoverMovieResult
+import com.taufik.themovieshow.ui.favorite.viewmodel.FavoriteMovieViewModel
 import com.taufik.themovieshow.ui.movie.adapter.DiscoverMovieAdapter
 import com.taufik.themovieshow.ui.movie.viewmodel.MovieViewModel
 import com.taufik.themovieshow.utils.navigateToDetailMovie
@@ -59,7 +60,7 @@ class DiscoverMovieFragment : Fragment() {
 
     private fun initAdapter() {
         discoverMovieAdapter = DiscoverMovieAdapter {
-            navigateToDetailMovie(it.id, it.title)
+            navigateToDetailMovie(it.id, it.title, FavoriteMovieViewModel.position)
         }
 
         binding.rvDiscoverMovie.apply {

@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.taufik.themovieshow.data.NetworkResult
 import com.taufik.themovieshow.databinding.FragmentMovieTvShowsListBinding
+import com.taufik.themovieshow.ui.favorite.viewmodel.FavoriteMovieViewModel
 import com.taufik.themovieshow.ui.movie.adapter.MovieAdapter
 import com.taufik.themovieshow.ui.movie.viewmodel.MovieViewModel
 import com.taufik.themovieshow.utils.navigateToDetailMovie
@@ -42,7 +43,7 @@ class MovieNowPlayingFragment : Fragment() {
 
     private fun setAdapter() {
         movieAdapter = MovieAdapter {
-            navigateToDetailMovie(it.id, it.title)
+            navigateToDetailMovie(it.id, it.title, FavoriteMovieViewModel.position)
         }
 
         binding.rvCommon.apply {
