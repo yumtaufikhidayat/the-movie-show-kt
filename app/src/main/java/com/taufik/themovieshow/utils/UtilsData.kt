@@ -58,7 +58,7 @@ object UtilsData {
             SortFiltering(sortId = 1, sortName = context.getString(R.string.tvSortAtoZ)),
             SortFiltering(sortId = 2, sortName = context.getString(R.string.tvSortZtoA)),
             SortFiltering(sortId = 3, sortName = context.getString(R.string.tvSortTitle)),
-            SortFiltering(sortId = 4, sortName = context.getString(R.string.tvSortReleaseDate)),
+            SortFiltering(sortId = 4, sortName = context.getString(R.string.tvSortRelease)),
             SortFiltering(sortId = 5, sortName = context.getString(R.string.tvRating))
         )
     }
