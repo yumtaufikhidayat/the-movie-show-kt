@@ -13,8 +13,20 @@ interface TheMovieShowDao {
     @Insert
     suspend fun addMovieToFavorite(favoriteMovieEntity: FavoriteMovieEntity)
 
-    @Query("SELECT * FROM ${CommonConstants.TABLE_NAME_FAVORITE_MOVIE_ENTITY} ORDER BY ${CommonConstants.COLUMN_NAME_TITLE} DESC")
+    @Query("SELECT * FROM ${CommonConstants.TABLE_NAME_FAVORITE_MOVIE_ENTITY}")
     fun getFavoriteMovies(): LiveData<List<FavoriteMovieEntity>>
+
+    @Query("SELECT * FROM ${CommonConstants.TABLE_NAME_FAVORITE_MOVIE_ENTITY} " +
+            "ORDER BY ${CommonConstants.COLUMN_NAME_TITLE}")
+    fun getFavoriteMoviesByTitle(): LiveData<List<FavoriteMovieEntity>>
+
+    @Query("SELECT * FROM ${CommonConstants.TABLE_NAME_FAVORITE_MOVIE_ENTITY} " +
+            "ORDER BY ${CommonConstants.COLUMN_NAME_RELEASE_DATE}")
+    fun getFavoriteMoviesByRelease(): LiveData<List<FavoriteMovieEntity>>
+
+    @Query("SELECT * FROM ${CommonConstants.TABLE_NAME_FAVORITE_MOVIE_ENTITY} " +
+            "ORDER BY ${CommonConstants.COLUMN_NAME_RATING}")
+    fun getFavoriteMoviesByRating(): LiveData<List<FavoriteMovieEntity>>
 
     @Query(
         "SELECT count(*) FROM ${CommonConstants.TABLE_NAME_FAVORITE_MOVIE_ENTITY} " +

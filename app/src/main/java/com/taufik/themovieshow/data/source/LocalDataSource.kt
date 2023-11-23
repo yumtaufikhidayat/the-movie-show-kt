@@ -17,6 +17,12 @@ class LocalDataSource @Inject constructor(
 
     fun getFavoriteMovies() = favoriteDao.getFavoriteMovies()
 
+    fun getFavoriteMoviesByTitle() = favoriteDao.getFavoriteMoviesByTitle()
+
+    fun getFavoriteMoviesByRelease() = favoriteDao.getFavoriteMoviesByRelease()
+
+    fun getFavoriteMoviesByRating() = favoriteDao.getFavoriteMoviesByRating()
+
     suspend fun checkFavoriteMovie(movieId: Int) = favoriteDao.checkMovieFavorite(movieId)
 
     suspend fun removeMovieFromFavorite(movieId: Int) = favoriteDao.removeMovieFromFavorite(movieId)

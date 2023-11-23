@@ -55,11 +55,9 @@ object UtilsData {
     fun generateSortFilteringData(context: Context): List<SortFiltering> {
         return mutableListOf(
             SortFiltering(sortId = 0, sortName = context.getString(R.string.tvSortAll)),
-            SortFiltering(sortId = 1, sortName = context.getString(R.string.tvSortAtoZ)),
-            SortFiltering(sortId = 2, sortName = context.getString(R.string.tvSortZtoA)),
-            SortFiltering(sortId = 3, sortName = context.getString(R.string.tvSortTitle)),
-            SortFiltering(sortId = 4, sortName = context.getString(R.string.tvSortReleaseDate)),
-            SortFiltering(sortId = 5, sortName = context.getString(R.string.tvRating))
+            SortFiltering(sortId = 1, sortName = context.getString(R.string.tvSortTitle)),
+            SortFiltering(sortId = 2, sortName = context.getString(R.string.tvSortRelease)),
+            SortFiltering(sortId = 3, sortName = context.getString(R.string.tvRating))
         )
     }
 }

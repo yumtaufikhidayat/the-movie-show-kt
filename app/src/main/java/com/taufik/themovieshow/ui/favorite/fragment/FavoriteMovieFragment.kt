@@ -13,6 +13,7 @@ import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
@@ -26,6 +27,8 @@ import com.taufik.themovieshow.ui.favorite.adapter.SortFilteringAdapter
 import com.taufik.themovieshow.ui.favorite.viewmodel.FavoriteMovieViewModel
 import com.taufik.themovieshow.utils.navigateToDetailMovie
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class FavoriteMovieFragment : Fragment() {
@@ -71,13 +74,35 @@ class FavoriteMovieFragment : Fragment() {
     }
 
     private fun getFavoriteMovie() {
-        viewModel.getFavoriteMovies().observe(viewLifecycleOwner) {
-            if (!it.isNullOrEmpty()) {
-                favoriteMovieAdapter?.setData(mapList(it))
-                showNoFavorite(false)
-            } else {
-                showNoFavorite(true)
-            }
+        viewModel.getFavoriteMovies.observe(viewLifecycleOwner) {
+            showFavoriteMovies(it)
+        }
+    }
+
+    private fun getFavoriteMovieByTitle() {
+        viewModel.getFavoriteMoviesByTitle.observe(viewLifecycleOwner) {
+            showFavoriteMovies(it)
+        }
+    }
+
+    private fun getFavoriteMovieByRelease() {
+        viewModel.getFavoriteMoviesByRelease.observe(viewLifecycleOwner) {
+            showFavoriteMovies(it)
+        }
+    }
+
+    private fun getFavoriteMovieByRating() {
+        viewModel.getFavoriteMoviesByRating.observe(viewLifecycleOwner) {
+            showFavoriteMovies(it)
+        }
+    }
+
+    private fun showFavoriteMovies(favoriteMovieList: List<FavoriteMovieEntity>?) {
+        if (!favoriteMovieList.isNullOrEmpty()) {
+            favoriteMovieAdapter?.setData(mapList(favoriteMovieList))
+            showNoFavorite(false)
+        } else {
+            showNoFavorite(true)
         }
     }
 
@@ -129,13 +154,26 @@ class FavoriteMovieFragment : Fragment() {
     private fun setFilteringAdapter() {
         sortFilteringAdapter = SortFilteringAdapter { position ->
             when (position) {
-                0 -> {}
-                1 -> {}
-                2 -> {}
-                3 -> {}
-                4 -> {}
-                5 -> {}
-                else -> {}
+                0 -> {
+                    getFavoriteMovie()
+                    scrollToTopPositionItem()
+                }
+                1 -> {
+                    getFavoriteMovieByTitle()
+                    scrollToTopPositionItem()
+                }
+                2 -> {
+                    getFavoriteMovieByRelease()
+                    scrollToTopPositionItem()
+                }
+                3 -> {
+                    getFavoriteMovieByRating()
+                    scrollToTopPositionItem()
+                }
+                else -> {
+                    getFavoriteMovie()
+                    scrollToTopPositionItem()
+                }
             }
         }
 
@@ -150,6 +188,13 @@ class FavoriteMovieFragment : Fragment() {
             setHasFixedSize(true)
             isNestedScrollingEnabled = true
             adapter = sortFilteringAdapter
+        }
+    }
+
+    private fun scrollToTopPositionItem() {
+        lifecycleScope.launch {
+            delay(100)
+            binding.rvDiscoverFavoriteMovies.smoothScrollToPosition(0)
         }
     }
 
