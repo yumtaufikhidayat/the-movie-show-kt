@@ -71,13 +71,35 @@ class FavoriteMovieFragment : Fragment() {
     }
 
     private fun getFavoriteMovie() {
-        viewModel.getFavoriteMovies().observe(viewLifecycleOwner) {
-            if (!it.isNullOrEmpty()) {
-                favoriteMovieAdapter?.setData(mapList(it))
-                showNoFavorite(false)
-            } else {
-                showNoFavorite(true)
-            }
+        viewModel.getFavoriteMovies.observe(viewLifecycleOwner) {
+            showFavoriteMovies(it)
+        }
+    }
+
+    private fun getFavoriteMovieByTitle() {
+        viewModel.getFavoriteMoviesByTitle.observe(viewLifecycleOwner) {
+            showFavoriteMovies(it)
+        }
+    }
+
+    private fun getFavoriteMovieByRelease() {
+        viewModel.getFavoriteMoviesByRelease.observe(viewLifecycleOwner) {
+            showFavoriteMovies(it)
+        }
+    }
+
+    private fun getFavoriteMovieByRating() {
+        viewModel.getFavoriteMoviesByRating.observe(viewLifecycleOwner) {
+            showFavoriteMovies(it)
+        }
+    }
+
+    private fun showFavoriteMovies(favoriteMovieList: List<FavoriteMovieEntity>?) {
+        if (!favoriteMovieList.isNullOrEmpty()) {
+            favoriteMovieAdapter?.setData(mapList(favoriteMovieList))
+            showNoFavorite(false)
+        } else {
+            showNoFavorite(true)
         }
     }
 
@@ -129,13 +151,11 @@ class FavoriteMovieFragment : Fragment() {
     private fun setFilteringAdapter() {
         sortFilteringAdapter = SortFilteringAdapter { position ->
             when (position) {
-                0 -> {}
-                1 -> {}
-                2 -> {}
-                3 -> {}
-                4 -> {}
-                5 -> {}
-                else -> {}
+                0 -> getFavoriteMovie()
+                1 -> getFavoriteMovieByTitle()
+                2 -> getFavoriteMovieByRelease()
+                3 -> getFavoriteMovieByRating()
+                else -> getFavoriteMovie()
             }
         }
 
