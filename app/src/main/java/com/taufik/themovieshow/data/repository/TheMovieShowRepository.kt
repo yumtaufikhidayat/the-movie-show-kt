@@ -52,6 +52,12 @@ class TheMovieShowRepository @Inject constructor(
 
     fun getFavoriteMovie() = localDataSource.getFavoriteMovies()
 
+    fun getFavoriteMoviesByTitle() = localDataSource.getFavoriteMoviesByTitle()
+
+    fun getFavoriteMoviesByRelease() = localDataSource.getFavoriteMoviesByRelease()
+
+    fun getFavoriteMoviesByRating() = localDataSource.getFavoriteMoviesByRating()
+
     suspend fun checkFavoriteMovie(movieId: Int) = localDataSource.checkFavoriteMovie(movieId)
 
     suspend fun removeMovieFromFavorite(movieId: Int) = localDataSource.removeMovieFromFavorite(movieId)
