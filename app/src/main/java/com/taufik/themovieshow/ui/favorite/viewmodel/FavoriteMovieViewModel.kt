@@ -24,4 +24,8 @@ class FavoriteMovieViewModel @Inject constructor(
     val getFavoriteMoviesByRating = _getFavoriteMoviesByRating
 
     fun getSortFiltering(context: Context) = favoriteTvShowRepository.getSortFiltering(context)
+
+    companion object {
+        var position: Int = 0
+    }
 }
