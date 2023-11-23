@@ -104,8 +104,6 @@
     <!--Sort & Filtering-->
     <string name="tvSortFilter">Sort &amp; Filter</string>
     <string name="tvSortAll">All</string>
-    <string name="tvSortAtoZ">A to Z</string>
-    <string name="tvSortZtoA">Z to A</string>
     <string name="tvSortRelease">Release</string>
     <string name="tvSortTitle">Title</string>
 </resources>
