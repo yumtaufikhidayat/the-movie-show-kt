@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.taufik.themovieshow.data.NetworkResult
 import com.taufik.themovieshow.databinding.FragmentMovieTvShowsListBinding
+import com.taufik.themovieshow.ui.favorite.viewmodel.FavoriteTvShowViewModel
 import com.taufik.themovieshow.ui.tvshow.adapter.TvShowsTrendingAdapter
 import com.taufik.themovieshow.ui.tvshow.viewmodel.TvShowsViewModel
 import com.taufik.themovieshow.utils.navigateToDetailTvShow
@@ -42,7 +43,7 @@ class TvShowTrendingFragment : Fragment() {
 
     private fun setAdapter() {
         tvShowsTrendingAdapter = TvShowsTrendingAdapter {
-            navigateToDetailTvShow(it.id, it.name)
+            navigateToDetailTvShow(it.id, it.name, FavoriteTvShowViewModel.position)
         }
 
         binding.rvCommon.apply {

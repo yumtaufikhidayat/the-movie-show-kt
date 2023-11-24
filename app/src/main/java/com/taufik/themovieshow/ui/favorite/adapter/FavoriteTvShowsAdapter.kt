@@ -23,11 +23,12 @@ class FavoriteTvShowsAdapter(
     FAVORITE_TV_SHOW_DIFF_CALLBACK
 ), Filterable {
 
-    private var listTvShows =
-        listOf<TvShowsMainResult>()
+    private var listTvShows = listOf<TvShowsMainResult>()
+    private var position: Int = 0
 
-    fun setData(list: List<TvShowsMainResult>) {
+    fun setData(list: List<TvShowsMainResult>, position: Int) {
         this.listTvShows = list
+        this.position = position
         submitList(list)
     }
 

@@ -13,6 +13,7 @@ import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
@@ -26,6 +27,8 @@ import com.taufik.themovieshow.ui.favorite.adapter.SortFilteringAdapter
 import com.taufik.themovieshow.ui.favorite.viewmodel.FavoriteTvShowViewModel
 import com.taufik.themovieshow.utils.navigateToDetailTvShow
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class FavoriteTvShowsFragment : Fragment() {
@@ -34,8 +37,12 @@ class FavoriteTvShowsFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: FavoriteTvShowViewModel by viewModels()
-    private var favoriteTvShowsAdapter: FavoriteTvShowsAdapter? = null
-    private var sortFilteringAdapter: SortFilteringAdapter? = null
+    private val sortFilteringAdapter by lazy { SortFilteringAdapter { showFilteringData(it)} }
+    private val favoriteTvShowsAdapter by lazy { FavoriteTvShowsAdapter {
+        navigateToDetailTvShow(it.id, it.name, FavoriteTvShowViewModel.position)
+    }}
+
+    private var favoriteList: List<FavoriteTvShowEntity> = listOf()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,17 +57,13 @@ class FavoriteTvShowsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setAdapter()
-        getFavoriteTvShow()
+        showFavoriteTvShowsByPosition(FavoriteTvShowViewModel.position)
         searchData()
         setFilteringAdapter()
-        sortFilteringData()
+        showSortFilteringData()
     }
 
     private fun setAdapter() {
-        favoriteTvShowsAdapter = FavoriteTvShowsAdapter {
-            navigateToDetailTvShow(it.id, it.name)
-        }
-
         binding.rvDiscoverFavoriteTvShow.apply {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
@@ -68,14 +71,105 @@ class FavoriteTvShowsFragment : Fragment() {
         }
     }
 
-    private fun getFavoriteTvShow() {
-        viewModel.getFavoriteTvShow().observe(viewLifecycleOwner) {
-            if (!it.isNullOrEmpty()) {
-                favoriteTvShowsAdapter?.setData(mapList(it))
-                showNoFavorite(false)
-            } else {
-                showNoFavorite(true)
+    private fun showFavoriteTvShowsByPosition(position: Int) {
+        when (position) {
+            0 -> getAllFavoriteTvShows(FavoriteTvShowViewModel.position)
+            1 -> getFavoriteTvShowsByTitle(FavoriteTvShowViewModel.position)
+            2 -> getFavoriteTvShowsByRelease(FavoriteTvShowViewModel.position)
+            3 -> getFavoriteTvShowsByRating(FavoriteTvShowViewModel.position)
+        }
+    }
+
+    private fun setFilteringAdapter() {
+        val flexLayoutManager = FlexboxLayoutManager(requireContext())
+        flexLayoutManager.apply {
+            flexDirection = FlexDirection.ROW
+            justifyContent = JustifyContent.FLEX_START
+        }
+
+        binding.rvSortFiltering.apply {
+            layoutManager = flexLayoutManager
+            setHasFixedSize(true)
+            isNestedScrollingEnabled = true
+            adapter = sortFilteringAdapter
+        }
+    }
+
+    private fun showSortFilteringData() {
+        sortFilteringAdapter.submitList(viewModel.getSortFiltering(requireContext()))
+        sortFilteringAdapter.setDefaultSelectedItemPosition(FavoriteTvShowViewModel.position)
+    }
+
+    private fun showFilteringData(position: Int) {
+        when (position) {
+            0 -> {
+                FavoriteTvShowViewModel.position = 0
+                getAllFavoriteTvShows(FavoriteTvShowViewModel.position)
+                scrollToTopPositionItem()
             }
+            1 -> {
+                FavoriteTvShowViewModel.position = 1
+                getFavoriteTvShowsByTitle(FavoriteTvShowViewModel.position)
+                scrollToTopPositionItem()
+            }
+            2 -> {
+                FavoriteTvShowViewModel.position = 2
+                getFavoriteTvShowsByRelease(FavoriteTvShowViewModel.position)
+                scrollToTopPositionItem()
+            }
+            3 -> {
+                FavoriteTvShowViewModel.position = 3
+                getFavoriteTvShowsByRating(FavoriteTvShowViewModel.position)
+                scrollToTopPositionItem()
+            }
+        }
+        sortFilteringAdapter.setDefaultSelectedItemPosition(FavoriteTvShowViewModel.position)
+        favoriteTvShowsAdapter.setData(mapList(favoriteList), FavoriteTvShowViewModel.position)
+    }
+
+    private fun scrollToTopPositionItem() {
+        lifecycleScope.launch {
+            delay(100)
+            binding.rvDiscoverFavoriteTvShow.smoothScrollToPosition(0)
+        }
+    }
+
+    private fun getAllFavoriteTvShows(position: Int) {
+        viewModel.getAllFavoriteTvShows.observe(viewLifecycleOwner) {
+            favoriteList = it
+            showFavoriteTvShows(it, position)
+        }
+    }
+
+    private fun getFavoriteTvShowsByTitle(position: Int) {
+        viewModel.getFavoriteTvShowsByTitle.observe(viewLifecycleOwner) {
+            favoriteList = it
+            showFavoriteTvShows(it, position)
+        }
+    }
+
+    private fun getFavoriteTvShowsByRelease(position: Int) {
+        viewModel.getFavoriteTvShowsByRelease.observe(viewLifecycleOwner) {
+            favoriteList = it
+            showFavoriteTvShows(it, position)
+        }
+    }
+
+    private fun getFavoriteTvShowsByRating(position: Int) {
+        viewModel.getFavoriteTvShowsByRating.observe(viewLifecycleOwner) {
+            favoriteList = it
+            showFavoriteTvShows(it, position)
+        }
+    }
+
+    private fun showFavoriteTvShows(favoriteTvShowList: List<FavoriteTvShowEntity>?, position: Int) {
+        if (!favoriteTvShowList.isNullOrEmpty()) {
+            when (position) {
+                0, 1, 2, 3 -> favoriteTvShowsAdapter.setData(mapList(favoriteTvShowList), position)
+            }
+            showNoFavorite(false)
+        } else {
+            showNoFavorite(true)
         }
     }
 
@@ -90,7 +184,7 @@ class FavoriteTvShowsFragment : Fragment() {
             })
 
             addTextChangedListener(afterTextChanged = { p0 ->
-                favoriteTvShowsAdapter?.filter?.filter(p0.toString())
+                favoriteTvShowsAdapter.filter.filter(p0.toString())
             })
         }
     }
@@ -115,38 +209,6 @@ class FavoriteTvShowsFragment : Fragment() {
                 layoutNoFavorite.root.isVisible = false
             }
         }
-    }
-
-    private fun setFilteringAdapter() {
-        sortFilteringAdapter = SortFilteringAdapter { position ->
-            when (position) {
-                0 -> {}
-                1 -> {}
-                2 -> {}
-                3 -> {}
-                4 -> {}
-                5 -> {}
-                else -> {}
-            }
-        }
-
-        val flexLayoutManager = FlexboxLayoutManager(requireContext())
-        flexLayoutManager.apply {
-            flexDirection = FlexDirection.ROW
-            justifyContent = JustifyContent.FLEX_START
-        }
-
-        binding.rvSortFiltering.apply {
-            layoutManager = flexLayoutManager
-            setHasFixedSize(true)
-            isNestedScrollingEnabled = true
-            adapter = sortFilteringAdapter
-        }
-    }
-
-    private fun sortFilteringData() {
-        sortFilteringAdapter?.submitList(viewModel.getSortFiltering(requireContext()))
-        sortFilteringAdapter?.setDefaultSelectedItemPosition(0)
     }
 
     private fun mapList(tvShows: List<FavoriteTvShowEntity>): ArrayList<TvShowsMainResult> {
@@ -176,7 +238,9 @@ class FavoriteTvShowsFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        favoriteTvShowsAdapter = null
-        sortFilteringAdapter = null
+    }
+
+    companion object {
+        const val POSITION_KEY = "position_key"
     }
 }

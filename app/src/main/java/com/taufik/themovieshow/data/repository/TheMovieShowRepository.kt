@@ -50,7 +50,7 @@ class TheMovieShowRepository @Inject constructor(
     suspend fun addMovieToFavorite(favoriteMovieEntity: FavoriteMovieEntity) =
         localDataSource.addMovieToFavorite(favoriteMovieEntity)
 
-    fun getFavoriteMovie() = localDataSource.getFavoriteMovies()
+    fun getAllFavoriteMovie() = localDataSource.getAllFavoriteMovies()
 
     fun getFavoriteMoviesByTitle() = localDataSource.getFavoriteMoviesByTitle()
 
@@ -65,7 +65,13 @@ class TheMovieShowRepository @Inject constructor(
     suspend fun addTvShowToFavorite(favoriteTvShowEntity: FavoriteTvShowEntity) =
         localDataSource.addTvShowToFavorite(favoriteTvShowEntity)
 
-    fun getFavoriteTvShow() = localDataSource.getFavoriteTvShows()
+    fun getAllFavoriteTvShows() = localDataSource.getAllFavoriteTvShows()
+
+    fun getFavoriteTvShowsByTitle() = localDataSource.getFavoriteTvShowsByTitle()
+
+    fun getFavoriteTvShowsByRelease() = localDataSource.getFavoriteTvShowsByRelease()
+
+    fun getFavoriteTvShowsByRating() = localDataSource.getFavoriteTvShowsByRating()
 
     suspend fun checkFavoriteTvShow(tvShowId: Int) = localDataSource.checkFavoriteTvShow(tvShowId)
 
