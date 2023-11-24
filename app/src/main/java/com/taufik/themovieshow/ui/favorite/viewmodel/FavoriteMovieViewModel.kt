@@ -11,8 +11,8 @@ class FavoriteMovieViewModel @Inject constructor(
     private val favoriteTvShowRepository: TheMovieShowRepository
 ) : ViewModel() {
 
-    private val _getFavoriteMovies = favoriteTvShowRepository.getFavoriteMovie()
-    val getFavoriteMovies = _getFavoriteMovies
+    private val _getAllFavoriteMovies = favoriteTvShowRepository.getAllFavoriteMovie()
+    val getAllFavoriteMovies = _getAllFavoriteMovies
 
     private val _getFavoriteMoviesByTitle = favoriteTvShowRepository.getFavoriteMoviesByTitle()
     val getFavoriteMoviesByTitle = _getFavoriteMoviesByTitle
