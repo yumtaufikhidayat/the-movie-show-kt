@@ -20,6 +20,7 @@ import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.NetworkResult
 import com.taufik.themovieshow.databinding.FragmentDiscoverTvShowBinding
 import com.taufik.themovieshow.model.response.tvshow.discover.DiscoverTvShowsResult
+import com.taufik.themovieshow.ui.favorite.viewmodel.FavoriteTvShowViewModel
 import com.taufik.themovieshow.ui.tvshow.adapter.DiscoverTvShowsAdapter
 import com.taufik.themovieshow.ui.tvshow.viewmodel.TvShowsViewModel
 import com.taufik.themovieshow.utils.navigateToDetailTvShow
@@ -59,7 +60,7 @@ class DiscoverTvShowFragment : Fragment() {
 
     private fun initAdapter() {
         discoverTvShowsAdapter = DiscoverTvShowsAdapter {
-            navigateToDetailTvShow(it.id, it.name)
+            navigateToDetailTvShow(it.id, it.name, FavoriteTvShowViewModel.position)
         }
 
         binding.rvDiscoverTvShow.apply {
