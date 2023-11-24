@@ -135,7 +135,7 @@ class FavoriteMovieFragment : Fragment() {
     }
 
     private fun getAllFavoriteMovies(position: Int) {
-        viewModel.getFavoriteMovies.observe(viewLifecycleOwner) {
+        viewModel.getAllFavoriteMovies.observe(viewLifecycleOwner) {
             favoriteList = it
             showFavoriteMovies(it, position)
         }
