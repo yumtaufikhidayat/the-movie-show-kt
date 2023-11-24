@@ -37,8 +37,6 @@ class FavoriteTvShowsFragment : Fragment() {
     private var favoriteTvShowsAdapter: FavoriteTvShowsAdapter? = null
     private var sortFilteringAdapter: SortFilteringAdapter? = null
 
-    private var isShow: Boolean = false
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -54,7 +52,6 @@ class FavoriteTvShowsFragment : Fragment() {
         setAdapter()
         getFavoriteTvShow()
         searchData()
-        showHideSortFilter()
         setFilteringAdapter()
         sortFilteringData()
     }
@@ -117,13 +114,6 @@ class FavoriteTvShowsFragment : Fragment() {
             } else {
                 layoutNoFavorite.root.isVisible = false
             }
-        }
-    }
-
-    private fun showHideSortFilter() {
-        binding.imgSortFiltering.setOnClickListener {
-            isShow = !isShow
-            binding.groupSortFilter.isVisible = isShow
         }
     }
 
