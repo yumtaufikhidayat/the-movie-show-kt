@@ -15,7 +15,7 @@ class LocalDataSource @Inject constructor(
     suspend fun addMovieToFavorite(favoriteMovieEntity: FavoriteMovieEntity) =
         favoriteDao.addMovieToFavorite(favoriteMovieEntity)
 
-    fun getFavoriteMovies() = favoriteDao.getFavoriteMovies()
+    fun getAllFavoriteMovies() = favoriteDao.getAllFavoriteMovies()
 
     fun getFavoriteMoviesByTitle() = favoriteDao.getFavoriteMoviesByTitle()
 
@@ -30,7 +30,13 @@ class LocalDataSource @Inject constructor(
     suspend fun addTvShowToFavorite(favoriteTvShowEntity: FavoriteTvShowEntity) =
         favoriteDao.addTvShowToFavorite(favoriteTvShowEntity)
 
-    fun getFavoriteTvShows() = favoriteDao.getFavoriteTvShows()
+    fun getAllFavoriteTvShows() = favoriteDao.getAllFavoriteTvShows()
+
+    fun getFavoriteTvShowsByTitle() = favoriteDao.getFavoriteTvShowsByTitle()
+
+    fun getFavoriteTvShowsByRelease() = favoriteDao.getFavoriteTvShowsByRelease()
+
+    fun getFavoriteTvShowsByRating() = favoriteDao.getFavoriteTvShowsByRating()
 
     suspend fun checkFavoriteTvShow(tvShowId: Int) = favoriteDao.checkTvShowFavorite(tvShowId)
 
