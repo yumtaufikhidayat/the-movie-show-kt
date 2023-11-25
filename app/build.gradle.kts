@@ -93,7 +93,7 @@ dependencies {
 
     // Testing
     val junitVersion = "4.13.2"
-    val mockitoCoreVersion = "5.6.0"
+    val mockitoCoreVersion = "5.7.0"
     val espressoVersion = "3.5.1"
     val mockitoInlineVersion = "5.2.0"
     testImplementation("junit:junit:$junitVersion")
@@ -149,7 +149,7 @@ dependencies {
     kapt("com.google.dagger:hilt-compiler:$hiltVersion")
 
     // Firebase
-    val firebaseCrashlyticsVersion = "18.5.1"
+    val firebaseCrashlyticsVersion = "18.6.0"
     val firebaseCrashlyticsKtxVersion = "21.5.0"
     implementation("com.google.firebase:firebase-crashlytics-ktx:$firebaseCrashlyticsVersion")
     implementation("com.google.firebase:firebase-analytics-ktx:$firebaseCrashlyticsKtxVersion")
