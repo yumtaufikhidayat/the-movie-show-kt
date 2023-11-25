@@ -19,14 +19,8 @@ android {
 
     // APK Name
     applicationVariants.all {
-        val variant = this
-        variant.outputs
-            .map { it as com.android.build.gradle.internal.api.BaseVariantOutputImpl }
-            .forEach { output ->
-                val timestamp = SimpleDateFormat("yyyyMMddHHmm").format(Date())
-                val outputFileName = "TheMovieShow_v${variant.versionName}(${variant.versionCode})_${timestamp}_${variant.baseName}.apk"
-                output.outputFileName = outputFileName
-            }
+        val timestamp = SimpleDateFormat("yyyyMMddHHmm").format(Date())
+        setProperty("archivesBaseName", "TheMovieShow-v${versionName}(${versionCode})-${timestamp}")
     }
 
     defaultConfig {
@@ -39,9 +33,6 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "API_KEY", "\"API_KEY\"")
         vectorDrawables.useSupportLibrary = true
-
-        /*val dateFormat = new Date().format('yyyyMMddHHmm')
-        setProperty("archivesBaseName", "the-movie-show" + "_v" + versionName + "(" + versionCode + ")_" + dateFormat)*/
     }
 
     buildTypes {
@@ -102,7 +93,7 @@ dependencies {
 
     // Testing
     val junitVersion = "4.13.2"
-    val mockitoCoreVersion = "5.6.0"
+    val mockitoCoreVersion = "5.7.0"
     val espressoVersion = "3.5.1"
     val mockitoInlineVersion = "5.2.0"
     testImplementation("junit:junit:$junitVersion")
@@ -158,7 +149,7 @@ dependencies {
     kapt("com.google.dagger:hilt-compiler:$hiltVersion")
 
     // Firebase
-    val firebaseCrashlyticsVersion = "18.5.1"
+    val firebaseCrashlyticsVersion = "18.6.0"
     val firebaseCrashlyticsKtxVersion = "21.5.0"
     implementation("com.google.firebase:firebase-crashlytics-ktx:$firebaseCrashlyticsVersion")
     implementation("com.google.firebase:firebase-analytics-ktx:$firebaseCrashlyticsKtxVersion")
