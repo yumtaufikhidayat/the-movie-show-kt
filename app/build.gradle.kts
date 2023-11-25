@@ -19,14 +19,8 @@ android {
 
     // APK Name
     applicationVariants.all {
-        val variant = this
-        variant.outputs
-            .map { it as com.android.build.gradle.internal.api.BaseVariantOutputImpl }
-            .forEach { output ->
-                val timestamp = SimpleDateFormat("yyyyMMddHHmm").format(Date())
-                val outputFileName = "TheMovieShow_v${variant.versionName}(${variant.versionCode})_${timestamp}_${variant.baseName}.apk"
-                output.outputFileName = outputFileName
-            }
+        val timestamp = SimpleDateFormat("yyyyMMddHHmm").format(Date())
+        setProperty("archivesBaseName", "TheMovieShow-v${versionName}(${versionCode})-${timestamp}")
     }
 
     defaultConfig {
@@ -39,9 +33,6 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "API_KEY", "\"API_KEY\"")
         vectorDrawables.useSupportLibrary = true
-
-        /*val dateFormat = new Date().format('yyyyMMddHHmm')
-        setProperty("archivesBaseName", "the-movie-show" + "_v" + versionName + "(" + versionCode + ")_" + dateFormat)*/
     }
 
     buildTypes {
