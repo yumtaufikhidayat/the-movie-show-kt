@@ -55,22 +55,20 @@ class MovieTrendingFragment : Fragment() {
     }
 
     private fun setMovieTrendingObserver() {
-        binding.apply {
-            viewModel.getMovieTrendingDay.observe(viewLifecycleOwner) {
-                when (it) {
-                    is NetworkResult.Loading -> showLoading(true)
-                    is NetworkResult.Success -> {
-                        showLoading(false)
-                        movieTrendingAdapter?.submitList(it.data?.results?.toMutableList())
-                    }
-                    is NetworkResult.Error -> {
-                        showLoading(false)
-                        showError(it.message)
-                    }
-                    else -> {
-                        showLoading(false)
-                        showError(getString(R.string.tvOops))
-                    }
+        viewModel.getMovieTrendingDay.observe(viewLifecycleOwner) {
+            when (it) {
+                is NetworkResult.Loading -> showLoading(true)
+                is NetworkResult.Success -> {
+                    showLoading(false)
+                    movieTrendingAdapter?.submitList(it.data?.results?.toMutableList())
+                }
+                is NetworkResult.Error -> {
+                    showLoading(false)
+                    showError(it.message)
+                }
+                else -> {
+                    showLoading(false)
+                    showError(getString(R.string.tvOops))
                 }
             }
         }
