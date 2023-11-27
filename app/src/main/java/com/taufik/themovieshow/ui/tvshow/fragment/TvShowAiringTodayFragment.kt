@@ -54,22 +54,20 @@ class TvShowAiringTodayFragment : Fragment() {
     }
 
     private fun setData() {
-        binding.apply {
-            viewModel.getTvShowsAiringToday().observe(viewLifecycleOwner) {
-                when (it) {
-                    is NetworkResult.Loading -> showLoading(true)
-                    is NetworkResult.Success -> {
-                        showLoading(false)
-                        tvShowsAdapter?.submitList(it.data?.results)
-                    }
-                    is NetworkResult.Error -> {
-                        showLoading(false)
-                        showError(it.message)
-                    }
-                    else -> {
-                        showLoading(false)
-                        showError(it.message)
-                    }
+        viewModel.getTvShowsAiringToday().observe(viewLifecycleOwner) {
+            when (it) {
+                is NetworkResult.Loading -> showLoading(true)
+                is NetworkResult.Success -> {
+                    showLoading(false)
+                    tvShowsAdapter?.submitList(it.data?.results)
+                }
+                is NetworkResult.Error -> {
+                    showLoading(false)
+                    showError(it.message)
+                }
+                else -> {
+                    showLoading(false)
+                    showError(it.message)
                 }
             }
         }
