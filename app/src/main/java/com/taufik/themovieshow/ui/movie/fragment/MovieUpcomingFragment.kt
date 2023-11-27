@@ -53,22 +53,20 @@ class MovieUpcomingFragment : Fragment() {
     }
 
     private fun setData() {
-        binding.apply {
-            viewModel.getMovieUpcoming.observe(viewLifecycleOwner) {
-                when (it) {
-                    is NetworkResult.Loading -> showLoading(true)
-                    is NetworkResult.Success -> {
-                        showLoading(false)
-                        movieAdapter?.submitList(it.data?.results)
-                    }
-                    is NetworkResult.Error -> {
-                        showLoading(false)
-                        showError(it.message)
-                    }
-                    else -> {
-                        showLoading(false)
-                        showError(it.message)
-                    }
+        viewModel.getMovieUpcoming.observe(viewLifecycleOwner) {
+            when (it) {
+                is NetworkResult.Loading -> showLoading(true)
+                is NetworkResult.Success -> {
+                    showLoading(false)
+                    movieAdapter?.submitList(it.data?.results)
+                }
+                is NetworkResult.Error -> {
+                    showLoading(false)
+                    showError(it.message)
+                }
+                else -> {
+                    showLoading(false)
+                    showError(it.message)
                 }
             }
         }
