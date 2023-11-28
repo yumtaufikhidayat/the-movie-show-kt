@@ -6,9 +6,8 @@
 
 ### Overview
 The Movie Show is an Android application as catalogue movies and tv shows. It has various features:
-- Trending movies and tv shows
-- Now playing movies and upcoming movies
-- On airing today tv shows and popular tv shows
+- Trending movies, now playing movies, and upcoming movies
+- Trending tv shows, on airing today tv shows, and popular tv shows
 - Search movies and tv shows
 - Detail movies and tv shows:
     - Banner and poster
