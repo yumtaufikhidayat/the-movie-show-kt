@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="Gradle: androidx.slidingpanelayout:slidingpanelayout:1.2.0@aar">
+  <library name="Gradle: androidx.slidingpanelayout:slidingpanelayout:1.2.0@aar" external-system-id="GRADLE">
     <ANNOTATIONS>
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/50c7411db57d6a188d7c6abf39d6579b/transformed/slidingpanelayout-1.2.0/annotations.zip!/" />
     </ANNOTATIONS>
