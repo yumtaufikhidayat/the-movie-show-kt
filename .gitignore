@@ -136,7 +136,10 @@ obj/
 /out/
 
 # User-specific configurations
-.idea
+**/.idea
+.idea/
+.idea/modules/
+.idea/modules/app
 .idea/caches/
 .idea/libraries/
 .idea/libraries/*.xml
