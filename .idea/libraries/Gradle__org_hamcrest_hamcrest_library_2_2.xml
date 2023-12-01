@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="Gradle: org.hamcrest:hamcrest-library:2.2">
+  <library name="Gradle: org.hamcrest:hamcrest-library:2.2" external-system-id="GRADLE">
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.hamcrest/hamcrest-library/2.2/cf530c8a0bc993487c64e940ae639bb4a6104dc6/hamcrest-library-2.2.jar!/" />
     </CLASSES>

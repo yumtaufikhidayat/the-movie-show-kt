@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="Gradle: com.google.errorprone:error_prone_annotations:2.15.0">
+  <library name="Gradle: com.google.errorprone:error_prone_annotations:2.15.0" external-system-id="GRADLE">
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.errorprone/error_prone_annotations/2.15.0/38c8485a652f808c8c149150da4e5c2b0bd17f9a/error_prone_annotations-2.15.0.jar!/" />
     </CLASSES>
