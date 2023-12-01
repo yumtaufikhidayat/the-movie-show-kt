@@ -25,10 +25,10 @@ android {
 
     defaultConfig {
         applicationId = "com.taufik.themovieshow"
-        minSdk = 23
+        minSdk = 28
         targetSdk = 33
-        versionCode = 125
-        versionName = "1.25"
+        versionCode = 126
+        versionName = "1.26"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "API_KEY", "\"API_KEY\"")
@@ -131,14 +131,14 @@ dependencies {
     implementation("com.github.GrenderG:Toasty:$toastVersion")
 
     // Room DB
-    val roomVersion = "2.6.0"
+    val roomVersion = "2.6.1"
     implementation("androidx.room:room-runtime:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
     testImplementation("androidx.room:room-testing:$roomVersion")
     ksp("androidx.room:room-compiler:$roomVersion")
 
     // Coroutine
-    val coroutineCoreVersion = "1.7.1"
+    val coroutineCoreVersion = "1.7.3"
     val coroutineAndroidVersion = "1.7.3"
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineCoreVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutineAndroidVersion")
