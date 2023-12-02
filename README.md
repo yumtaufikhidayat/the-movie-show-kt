@@ -2,7 +2,7 @@
 
 [![Platform](https://img.shields.io/badge/platform-Android-green)](https://github.com/yumtaufikhidayat/the-movie-show-kt/blob/main/build.gradle)
 [![Language](https://img.shields.io/badge/language-Kotlin-blue)](https://github.com/yumtaufikhidayat/the-movie-show-kt/blob/main/build.gradle)
-[![MinSdk](https://img.shields.io/badge/minsdk-23-red)](https://github.com/yumtaufikhidayat/the-movie-show-kt/blob/main/build.gradle)
+[![MinSdk](https://img.shields.io/badge/minsdk-28-red)](https://github.com/yumtaufikhidayat/the-movie-show-kt/blob/main/build.gradle)
 
 ### Overview
 The Movie Show is an Android catalogue app with plenty of movies and tv shows collection. This application is implementing [The Movie Database (TMDB) API](https://www.themoviedb.org/) and have various features. That are:
