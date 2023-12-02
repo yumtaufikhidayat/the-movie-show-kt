@@ -5,7 +5,6 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.taufik.themovieshow.BuildConfig
 import com.taufik.themovieshow.data.remote.api.ApiService
-import com.taufik.themovieshow.data.remote.api.UrlEndpoint
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -33,7 +32,7 @@ object ApiModule {
 
     @Provides
     @Singleton
-    fun provideBaseUrl() = UrlEndpoint.BASE_URL
+    fun provideBaseUrl() = BuildConfig.BASE_URL
 
     @Provides
     @Singleton
