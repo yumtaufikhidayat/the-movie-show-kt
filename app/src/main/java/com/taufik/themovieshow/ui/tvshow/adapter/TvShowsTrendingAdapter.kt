@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.taufik.themovieshow.data.remote.api.UrlEndpoint
+import com.taufik.themovieshow.BuildConfig
 import com.taufik.themovieshow.databinding.ItemsMoviesTvShowBinding
 import com.taufik.themovieshow.model.response.tvshow.trending.TvShowsTrendingResult
 import com.taufik.themovieshow.utils.CommonDateFormatConstants
@@ -36,7 +36,7 @@ class TvShowsTrendingAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: TvShowsTrendingResult) {
             binding.apply {
-                imgPoster.loadImage(UrlEndpoint.IMAGE_URL + data.posterPath)
+                imgPoster.loadImage(BuildConfig.IMAGE_URL + data.posterPath)
                 tvTitle.text = data.name
                 tvReleaseDate.text = data.firstAirDate.convertDate(
                     CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
