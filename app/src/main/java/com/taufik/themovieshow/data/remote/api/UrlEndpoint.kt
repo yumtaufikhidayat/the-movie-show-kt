@@ -1,9 +1,6 @@
 package com.taufik.themovieshow.data.remote.api
 
 object UrlEndpoint {
-    const val BASE_URL = "https://api.themoviedb.org/3/"
-    const val IMAGE_URL = "https://image.tmdb.org/t/p/w780/"
-    const val THUMBNAIL_IMAGE_URL = "https://img.youtube.com/vi/"
     const val THUMBNAIL_IMAGE_JPG = "/maxresdefault.jpg"
     const val MOVIE_NOW_PLAYING = "movie/now_playing"
     const val MOVIE_UPCOMING = "movie/upcoming"
@@ -13,7 +10,6 @@ object UrlEndpoint {
     const val MOVIE_CAST = "movie/{movie_id}/credits"
     const val MOVIE_REVIEWS = "movie/{movie_id}/reviews"
     const val MOVIE_SIMILAR = "movie/{movie_id}/similar"
-    const val MOVIE_GENRE = "genre/movie/list"
     const val TV_SHOWS_POPULAR = "tv/popular"
     const val TV_SHOWS_AIRING_TODAY = "tv/airing_today"
     const val TV_SHOWS_TRENDING_DAY = "trending/tv/day"
