@@ -32,6 +32,9 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "API_KEY", "\"API_KEY\"")
+        buildConfigField("String", "BASE_URL", "\"BASE_URL\"")
+        buildConfigField("String", "IMAGE_URL", "\"IMAGE_URL\"")
+        buildConfigField("String", "THUMBNAIL_IMAGE_URL", "\"THUMBNAIL_IMAGE_URL\"")
         vectorDrawables.useSupportLibrary = true
     }
 

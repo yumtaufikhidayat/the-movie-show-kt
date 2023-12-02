@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.taufik.themovieshow.BuildConfig
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.remote.api.UrlEndpoint
 import com.taufik.themovieshow.ui.detail.movie.fragment.DetailMovieFragment
@@ -24,14 +25,14 @@ import kotlin.math.roundToInt
 
 fun ImageView.loadImage(url: String?) {
     Glide.with(this.context)
-        .load(UrlEndpoint.IMAGE_URL + url)
+        .load(BuildConfig.IMAGE_URL + url)
         .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error))
         .into(this)
 }
 
 fun ImageView.loadVideoThumbnail(url: String?) {
     Glide.with(this.context)
-        .load(UrlEndpoint.THUMBNAIL_IMAGE_URL + url + UrlEndpoint.THUMBNAIL_IMAGE_JPG)
+        .load(BuildConfig.THUMBNAIL_IMAGE_URL + url + UrlEndpoint.THUMBNAIL_IMAGE_JPG)
         .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error))
         .into(this)
 }
