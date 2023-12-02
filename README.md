@@ -31,7 +31,7 @@ The Movie Show is an Android catalogue app with plenty of movies and tv shows co
 
 | <img height="400" src="homepage.png" width="600"/></a> |
 |:------------------------------------------------------:|
-|                       *trending*                       |
+|                       *homepage*                       |
 
 | <img src=trending.png align="center" height="400" width="200" ></a> | <img src=movies.png  align="center" height="400" width="200" ></a> | <img src=tvshows.png  align="center" height="400" width="200" ></a> | <img src=detail.png  align="center" height="400" width="200" ></a> |
 |:-------------------------------------------------------------------:|:------------------------------------------------------------------:|:-------------------------------------------------------------------:|:------------------------------------------------------------------:|
