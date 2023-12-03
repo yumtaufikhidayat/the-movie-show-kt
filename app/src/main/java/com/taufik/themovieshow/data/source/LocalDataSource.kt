@@ -1,6 +1,7 @@
 package com.taufik.themovieshow.data.source
 
 import android.content.Context
+import androidx.lifecycle.LiveData
 import com.taufik.themovieshow.data.local.dao.TheMovieShowDao
 import com.taufik.themovieshow.data.local.entity.movie.FavoriteMovieEntity
 import com.taufik.themovieshow.data.local.entity.tvshow.FavoriteTvShowEntity
@@ -23,6 +24,10 @@ class LocalDataSource @Inject constructor(
 
     fun getFavoriteMoviesByRating() = favoriteDao.getFavoriteMoviesByRating()
 
+    fun getFavoriteMovies(rawQuery: RawQuery): LiveData<List<FavoriteMovieEntity>> {
+        return favoriteDao.getFavoriteMovie(rawQuery.value)
+    }
+
     suspend fun checkFavoriteMovie(movieId: Int) = favoriteDao.checkMovieFavorite(movieId)
 
     suspend fun removeMovieFromFavorite(movieId: Int) = favoriteDao.removeMovieFromFavorite(movieId)
@@ -38,6 +43,11 @@ class LocalDataSource @Inject constructor(
 
     fun getFavoriteTvShowsByRating() = favoriteDao.getFavoriteTvShowsByRating()
 
+    fun getFavoriteTvShows(rawQuery: RawQuery): LiveData<List<FavoriteMovieEntity>> {
+        return favoriteDao.getFavoriteTvShows(rawQuery.value)
+    }
+
+
     suspend fun checkFavoriteTvShow(tvShowId: Int) = favoriteDao.checkTvShowFavorite(tvShowId)
 
     suspend fun removeTvShowFromFavorite(tvShowId: Int) = favoriteDao.removeTvShowFromFavorite(tvShowId)
@@ -46,5 +56,5 @@ class LocalDataSource @Inject constructor(
 
     fun getAboutApplication(context: Context): List<About> = UtilsData.generateAboutApplicationData(context)
 
-    fun getSortFiltering(context: Context): List<SortFiltering> = UtilsData.generateSortFilteringData(context)
+    fun getSortFiltering(): List<SortFiltering> = UtilsData.generateSortFilteringData()
 }

@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.RawQuery
+import androidx.sqlite.db.SupportSQLiteQuery
 import com.taufik.themovieshow.data.local.entity.movie.FavoriteMovieEntity
 import com.taufik.themovieshow.data.local.entity.tvshow.FavoriteTvShowEntity
 import com.taufik.themovieshow.utils.CommonConstants
@@ -27,6 +29,9 @@ interface TheMovieShowDao {
     @Query("SELECT * FROM ${CommonConstants.TABLE_NAME_FAVORITE_MOVIE_ENTITY} " +
             "ORDER BY ${CommonConstants.COLUMN_NAME_RATING}")
     fun getFavoriteMoviesByRating(): LiveData<List<FavoriteMovieEntity>>
+
+    @RawQuery(observedEntities = [FavoriteMovieEntity::class])
+    fun getFavoriteMovie(rawQuery: SupportSQLiteQuery) : LiveData<List<FavoriteMovieEntity>>
 
     @Query(
         "SELECT count(*) FROM ${CommonConstants.TABLE_NAME_FAVORITE_MOVIE_ENTITY} " +
@@ -57,6 +62,10 @@ interface TheMovieShowDao {
     @Query("SELECT * FROM ${CommonConstants.TABLE_NAME_FAVORITE_TV_SHOW_ENTITY} " +
             "ORDER BY ${CommonConstants.COLUMN_NAME_RATING}")
     fun getFavoriteTvShowsByRating(): LiveData<List<FavoriteTvShowEntity>>
+
+    @RawQuery(observedEntities = [FavoriteMovieEntity::class])
+    fun getFavoriteTvShows(rawQuery: SupportSQLiteQuery) : LiveData<List<FavoriteMovieEntity>>
+
 
     @Query(
         "SELECT count(*) FROM ${CommonConstants.TABLE_NAME_FAVORITE_TV_SHOW_ENTITY} " +

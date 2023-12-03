@@ -1,10 +1,13 @@
 package com.taufik.themovieshow.data.repository
 
 import android.content.Context
+import androidx.lifecycle.LiveData
 import com.taufik.themovieshow.data.local.entity.movie.FavoriteMovieEntity
 import com.taufik.themovieshow.data.local.entity.tvshow.FavoriteTvShowEntity
 import com.taufik.themovieshow.data.source.LocalDataSource
+import com.taufik.themovieshow.data.source.RawQuery
 import com.taufik.themovieshow.data.source.RemoteDataSource
+import com.taufik.themovieshow.model.favorite.SortFiltering
 import javax.inject.Inject
 
 class TheMovieShowRepository @Inject constructor(
@@ -58,6 +61,8 @@ class TheMovieShowRepository @Inject constructor(
 
     fun getFavoriteMoviesByRating() = localDataSource.getFavoriteMoviesByRating()
 
+    fun getFavoriteMovieList(rawQuery: RawQuery) = localDataSource.getFavoriteMovies(rawQuery)
+
     suspend fun checkFavoriteMovie(movieId: Int) = localDataSource.checkFavoriteMovie(movieId)
 
     suspend fun removeMovieFromFavorite(movieId: Int) = localDataSource.removeMovieFromFavorite(movieId)
@@ -72,6 +77,9 @@ class TheMovieShowRepository @Inject constructor(
     fun getFavoriteTvShowsByRelease() = localDataSource.getFavoriteTvShowsByRelease()
 
     fun getFavoriteTvShowsByRating() = localDataSource.getFavoriteTvShowsByRating()
+    fun getFavoriteTvShows(rawQuery: RawQuery): LiveData<List<FavoriteMovieEntity>> {
+        return localDataSource.getFavoriteTvShows(rawQuery)
+    }
 
     suspend fun checkFavoriteTvShow(tvShowId: Int) = localDataSource.checkFavoriteTvShow(tvShowId)
 
@@ -81,5 +89,5 @@ class TheMovieShowRepository @Inject constructor(
 
     fun getAboutApplication(context: Context) = localDataSource.getAboutApplication(context)
 
-    fun getSortFiltering(context: Context) = localDataSource.getSortFiltering(context)
+    fun getSortFiltering(): List<SortFiltering> = localDataSource.getSortFiltering()
 }

@@ -24,11 +24,9 @@ class FavoriteTvShowsAdapter(
 ), Filterable {
 
     private var listTvShows = listOf<TvShowsMainResult>()
-    private var position: Int = 0
 
-    fun setData(list: List<TvShowsMainResult>, position: Int) {
+    fun setData(list: List<TvShowsMainResult>) {
         this.listTvShows = list
-        this.position = position
         submitList(list)
     }
 

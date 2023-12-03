@@ -52,12 +52,13 @@ object UtilsData {
         )
     }
 
-    fun generateSortFilteringData(context: Context): List<SortFiltering> {
+
+    fun generateSortFilteringData(): List<SortFiltering> {
         return mutableListOf(
-            SortFiltering(sortId = 0, sortName = context.getString(R.string.tvSortAll)),
-            SortFiltering(sortId = 1, sortName = context.getString(R.string.tvSortTitle)),
-            SortFiltering(sortId = 2, sortName = context.getString(R.string.tvSortRelease)),
-            SortFiltering(sortId = 3, sortName = context.getString(R.string.tvRating))
+            SortFiltering(sortId = 0, sortNameRes = R.string.tvSortAll),
+            SortFiltering(sortId = 1, sortNameRes = R.string.tvSortTitle),
+            SortFiltering(sortId = 2, sortNameRes = R.string.tvSortRelease),
+            SortFiltering(sortId = 3, sortNameRes = R.string.tvRating)
         )
     }
 }
