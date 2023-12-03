@@ -54,7 +54,7 @@ class SortFilteringAdapter(
                         notifyItemChanged(previousSelected)
                         notifyItemChanged(selectedItemPosition)
 
-                        onItemClickListener?.invoke(selectedItemPosition)
+                        onItemClickListener?.invoke(data.sortNameRes)
                     }
                 }
             }

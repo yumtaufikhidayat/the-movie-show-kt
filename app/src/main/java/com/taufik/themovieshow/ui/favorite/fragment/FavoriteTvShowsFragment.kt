@@ -61,6 +61,7 @@ class FavoriteTvShowsFragment : Fragment() {
         setFilteringAdapter()
         showSortFilteringData()
 
+        viewModel.setFavoriteOrder(R.string.tvSortAll)
         viewModel.getAllFavoriteTvShows.observe(viewLifecycleOwner){
             showNoFavorite(it.isEmpty())
             favoriteTvShowsAdapter.setData(mapList(it))

@@ -59,6 +59,7 @@ class FavoriteMovieFragment : Fragment() {
         setFilteringAdapter()
         showSortFilteringData()
 
+        viewModel.setFavoriteOrder(R.string.tvSortAll)
         viewModel.getFavoriteMovies.observe(viewLifecycleOwner){
             showNoFavorite(it.isEmpty())
             favoriteMovieAdapter.setData(mapList(it))
