@@ -43,7 +43,7 @@ class SortFilteringAdapter(
     inner class ViewHolder(private val binding: ItemSortFilterBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(data: SortFiltering, position: Int) {
             binding.apply {
-                tvSortFilterName.text = data.sortName
+                tvSortFilterName.text = itemView.context.getString(data.sortNameRes)
                 itemView.isSelected = position == selectedItemPosition
 
                 cardSortFiltering.setOnClickListener {
@@ -54,7 +54,7 @@ class SortFilteringAdapter(
                         notifyItemChanged(previousSelected)
                         notifyItemChanged(selectedItemPosition)
 
-                        onItemClickListener?.invoke(selectedItemPosition)
+                        onItemClickListener?.invoke(data.sortNameRes)
                     }
                 }
             }

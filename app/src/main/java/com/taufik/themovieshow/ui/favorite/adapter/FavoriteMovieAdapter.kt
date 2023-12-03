@@ -23,11 +23,9 @@ class FavoriteMovieAdapter(
 ), Filterable {
 
     private var listMovies = listOf<MovieMainResult>()
-    private var position: Int = 0
 
-    fun setData(list: List<MovieMainResult>, position: Int) {
+    fun setData(list: List<MovieMainResult>) {
         this.listMovies = list
-        this.position = position
         submitList(list)
     }
 

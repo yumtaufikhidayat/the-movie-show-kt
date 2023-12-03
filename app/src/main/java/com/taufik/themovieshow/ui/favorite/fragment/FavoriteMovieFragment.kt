@@ -42,8 +42,6 @@ class FavoriteMovieFragment : Fragment() {
         navigateToDetailMovie(it.id, it.title, FavoriteMovieViewModel.position)
     }}
 
-    private var favoriteList: List<FavoriteMovieEntity> = listOf()
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -57,10 +55,15 @@ class FavoriteMovieFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setAdapter()
-        showFavoriteMoviesByPosition(FavoriteMovieViewModel.position)
         searchData()
         setFilteringAdapter()
         showSortFilteringData()
+
+        viewModel.setFavoriteOrder(R.string.tvSortAll)
+        viewModel.getFavoriteMovies.observe(viewLifecycleOwner){
+            showNoFavorite(it.isEmpty())
+            favoriteMovieAdapter.setData(mapList(it))
+        }
     }
 
     private fun setAdapter() {
@@ -71,14 +74,6 @@ class FavoriteMovieFragment : Fragment() {
         }
     }
 
-    private fun showFavoriteMoviesByPosition(position: Int) {
-        when (position) {
-            0 -> getAllFavoriteMovies(FavoriteMovieViewModel.position)
-            1 -> getFavoriteMovieByTitle(FavoriteMovieViewModel.position)
-            2 -> getFavoriteMovieByRelease(FavoriteMovieViewModel.position)
-            3 -> getFavoriteMovieByRating(FavoriteMovieViewModel.position)
-        }
-    }
 
     private fun setFilteringAdapter() {
         val flexLayoutManager = FlexboxLayoutManager(requireContext())
@@ -96,80 +91,20 @@ class FavoriteMovieFragment : Fragment() {
     }
 
     private fun showSortFilteringData() {
-        sortFilteringAdapter.submitList(viewModel.getSortFiltering(requireContext()))
+        sortFilteringAdapter.submitList(viewModel.getSortFiltering())
         sortFilteringAdapter.setDefaultSelectedItemPosition(FavoriteMovieViewModel.position)
     }
 
-    private fun showFilteringData(position: Int) {
-        when (position) {
-            0 -> {
-                FavoriteMovieViewModel.position = 0
-                getAllFavoriteMovies(FavoriteMovieViewModel.position)
-                scrollToTopPositionItem()
-            }
-            1 -> {
-                FavoriteMovieViewModel.position = 1
-                getFavoriteMovieByTitle(FavoriteMovieViewModel.position)
-                scrollToTopPositionItem()
-            }
-            2 -> {
-                FavoriteMovieViewModel.position = 2
-                getFavoriteMovieByRelease(FavoriteMovieViewModel.position)
-                scrollToTopPositionItem()
-            }
-            3 -> {
-                FavoriteMovieViewModel.position = 3
-                getFavoriteMovieByRating(FavoriteMovieViewModel.position)
-                scrollToTopPositionItem()
-            }
-        }
-        sortFilteringAdapter.setDefaultSelectedItemPosition(FavoriteMovieViewModel.position)
-        favoriteMovieAdapter.setData(mapList(favoriteList), FavoriteMovieViewModel.position)
+    private fun showFilteringData(nameRes: Int) {
+        viewModel.setFavoriteOrder(nameRes)
+        scrollToTopPositionItem()
+        sortFilteringAdapter.setDefaultSelectedItemPosition(nameRes)
     }
 
     private fun scrollToTopPositionItem() {
         lifecycleScope.launch {
             delay(100)
             binding.rvDiscoverFavoriteMovies.smoothScrollToPosition(0)
-        }
-    }
-
-    private fun getAllFavoriteMovies(position: Int) {
-        viewModel.getAllFavoriteMovies.observe(viewLifecycleOwner) {
-            favoriteList = it
-            showFavoriteMovies(it, position)
-        }
-    }
-
-    private fun getFavoriteMovieByTitle(position: Int) {
-        viewModel.getFavoriteMoviesByTitle.observe(viewLifecycleOwner) {
-            favoriteList = it
-            showFavoriteMovies(it, position)
-        }
-    }
-
-    private fun getFavoriteMovieByRelease(position: Int) {
-        viewModel.getFavoriteMoviesByRelease.observe(viewLifecycleOwner) {
-            favoriteList = it
-            showFavoriteMovies(it, position)
-        }
-    }
-
-    private fun getFavoriteMovieByRating(position: Int) {
-        viewModel.getFavoriteMoviesByRating.observe(viewLifecycleOwner) {
-            favoriteList = it
-            showFavoriteMovies(it, position)
-        }
-    }
-
-    private fun showFavoriteMovies(favoriteMovieList: List<FavoriteMovieEntity>?, position: Int) {
-        if (!favoriteMovieList.isNullOrEmpty()) {
-            when (position) {
-                0, 1, 2, 3 -> favoriteMovieAdapter.setData(mapList(favoriteMovieList), position)
-            }
-            showNoFavorite(false)
-        } else {
-            showNoFavorite(true)
         }
     }
 

@@ -57,10 +57,15 @@ class FavoriteTvShowsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setAdapter()
-        showFavoriteTvShowsByPosition(FavoriteTvShowViewModel.position)
         searchData()
         setFilteringAdapter()
         showSortFilteringData()
+
+        viewModel.setFavoriteOrder(R.string.tvSortAll)
+        viewModel.getAllFavoriteTvShows.observe(viewLifecycleOwner){
+            showNoFavorite(it.isEmpty())
+            favoriteTvShowsAdapter.setData(mapList(it))
+        }
     }
 
     private fun setAdapter() {
@@ -71,14 +76,6 @@ class FavoriteTvShowsFragment : Fragment() {
         }
     }
 
-    private fun showFavoriteTvShowsByPosition(position: Int) {
-        when (position) {
-            0 -> getAllFavoriteTvShows(FavoriteTvShowViewModel.position)
-            1 -> getFavoriteTvShowsByTitle(FavoriteTvShowViewModel.position)
-            2 -> getFavoriteTvShowsByRelease(FavoriteTvShowViewModel.position)
-            3 -> getFavoriteTvShowsByRating(FavoriteTvShowViewModel.position)
-        }
-    }
 
     private fun setFilteringAdapter() {
         val flexLayoutManager = FlexboxLayoutManager(requireContext())
@@ -96,35 +93,15 @@ class FavoriteTvShowsFragment : Fragment() {
     }
 
     private fun showSortFilteringData() {
-        sortFilteringAdapter.submitList(viewModel.getSortFiltering(requireContext()))
+        sortFilteringAdapter.submitList(viewModel.getSortFiltering())
         sortFilteringAdapter.setDefaultSelectedItemPosition(FavoriteTvShowViewModel.position)
     }
 
-    private fun showFilteringData(position: Int) {
-        when (position) {
-            0 -> {
-                FavoriteTvShowViewModel.position = 0
-                getAllFavoriteTvShows(FavoriteTvShowViewModel.position)
-                scrollToTopPositionItem()
-            }
-            1 -> {
-                FavoriteTvShowViewModel.position = 1
-                getFavoriteTvShowsByTitle(FavoriteTvShowViewModel.position)
-                scrollToTopPositionItem()
-            }
-            2 -> {
-                FavoriteTvShowViewModel.position = 2
-                getFavoriteTvShowsByRelease(FavoriteTvShowViewModel.position)
-                scrollToTopPositionItem()
-            }
-            3 -> {
-                FavoriteTvShowViewModel.position = 3
-                getFavoriteTvShowsByRating(FavoriteTvShowViewModel.position)
-                scrollToTopPositionItem()
-            }
-        }
+    private fun showFilteringData(nameRes: Int) {
+        viewModel.setFavoriteOrder(nameRes)
+        scrollToTopPositionItem()
+        sortFilteringAdapter.setDefaultSelectedItemPosition(nameRes)
         sortFilteringAdapter.setDefaultSelectedItemPosition(FavoriteTvShowViewModel.position)
-        favoriteTvShowsAdapter.setData(mapList(favoriteList), FavoriteTvShowViewModel.position)
     }
 
     private fun scrollToTopPositionItem() {
@@ -134,44 +111,6 @@ class FavoriteTvShowsFragment : Fragment() {
         }
     }
 
-    private fun getAllFavoriteTvShows(position: Int) {
-        viewModel.getAllFavoriteTvShows.observe(viewLifecycleOwner) {
-            favoriteList = it
-            showFavoriteTvShows(it, position)
-        }
-    }
-
-    private fun getFavoriteTvShowsByTitle(position: Int) {
-        viewModel.getFavoriteTvShowsByTitle.observe(viewLifecycleOwner) {
-            favoriteList = it
-            showFavoriteTvShows(it, position)
-        }
-    }
-
-    private fun getFavoriteTvShowsByRelease(position: Int) {
-        viewModel.getFavoriteTvShowsByRelease.observe(viewLifecycleOwner) {
-            favoriteList = it
-            showFavoriteTvShows(it, position)
-        }
-    }
-
-    private fun getFavoriteTvShowsByRating(position: Int) {
-        viewModel.getFavoriteTvShowsByRating.observe(viewLifecycleOwner) {
-            favoriteList = it
-            showFavoriteTvShows(it, position)
-        }
-    }
-
-    private fun showFavoriteTvShows(favoriteTvShowList: List<FavoriteTvShowEntity>?, position: Int) {
-        if (!favoriteTvShowList.isNullOrEmpty()) {
-            when (position) {
-                0, 1, 2, 3 -> favoriteTvShowsAdapter.setData(mapList(favoriteTvShowList), position)
-            }
-            showNoFavorite(false)
-        } else {
-            showNoFavorite(true)
-        }
-    }
 
     private fun searchData() {
         binding.etSearch.apply {
