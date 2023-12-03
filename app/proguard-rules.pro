@@ -233,3 +233,8 @@
 -keep class com.taufik.themovieshow.model.response.tvshow.trending.* { *; }
 -keep class com.taufik.themovieshow.model.response.tvshow.video.* { *; }
 ##---------------Emd: proguard configuration for Classes ----------
+
+##---------------Begin: proguard configuration for SQLCipher ----------
+-keep,includedescriptorclasses class net.sqlcipher.** { *; }
+-keep,includedescriptorclasses interface net.sqlcipher.** { *; }
+##---------------End: proguard configuration for SQLCipher ----------
