@@ -13,11 +13,12 @@ object CommonConstants {
     const val COLUMN_NAME_FIRST_AIR_DATE = "first_air_date"
     const val COLUMN_NAME_RATING = "rating"
     const val TABLE_NAME_FAVORITE_TV_SHOW_ENTITY = "favorite_tv_show"
-    const val DB_NAME = "the_movie_show_db"
+    const val DB_NAME = "TheMovieShowDB"
     const val DB_VERSION = 1
     const val QUERY_API_KEY = "api_key"
     const val QUERY_Q = "query"
     const val QUERY_MOVIE_ID = "movie_id"
     const val QUERY_TV_SHOW_ID = "tv_id"
     const val API_KEY = BuildConfig.API_KEY
+    const val ENCRYPTED_DB_PASSPHRASE = ""
 }
