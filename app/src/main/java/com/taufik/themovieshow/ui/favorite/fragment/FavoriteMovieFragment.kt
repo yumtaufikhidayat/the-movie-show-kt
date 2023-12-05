@@ -36,7 +36,7 @@ class FavoriteMovieFragment : Fragment() {
     private var _binding: FragmentFavoriteMovieBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: FavoriteMovieViewModel by viewModels()
+    private val viewModel: FavoriteMovieViewModel by viewModels(ownerProducer = { requireParentFragment() })
     private val sortFilteringAdapter by lazy { SortFilteringAdapter { showFilteringData(it) }}
     private val favoriteMovieAdapter by lazy { FavoriteMovieAdapter {
         navigateToDetailMovie(it.id, it.title, FavoriteMovieViewModel.position)
@@ -59,11 +59,9 @@ class FavoriteMovieFragment : Fragment() {
         setFilteringAdapter()
         showSortFilteringData()
 
-        viewModel.setFavoriteOrder(R.string.tvSortAll)
-        viewModel.getFavoriteMovies.observe(viewLifecycleOwner){
-            showNoFavorite(it.isEmpty())
-            favoriteMovieAdapter.setData(mapList(it))
-        }
+        sortFilteringAdapter.setDefaultSelectedItemPosition(FavoriteMovieViewModel.position)
+        viewModel.setFavoriteOrder(FavoriteMovieViewModel.position)
+        showFavoriteMovieData()
     }
 
     private fun setAdapter() {
@@ -73,7 +71,6 @@ class FavoriteMovieFragment : Fragment() {
             adapter = favoriteMovieAdapter
         }
     }
-
 
     private fun setFilteringAdapter() {
         val flexLayoutManager = FlexboxLayoutManager(requireContext())
@@ -95,16 +92,24 @@ class FavoriteMovieFragment : Fragment() {
         sortFilteringAdapter.setDefaultSelectedItemPosition(FavoriteMovieViewModel.position)
     }
 
-    private fun showFilteringData(nameRes: Int) {
-        viewModel.setFavoriteOrder(nameRes)
+    private fun showFilteringData(position: Int) {
+        FavoriteMovieViewModel.position = position
+        viewModel.setFavoriteOrder(position)
         scrollToTopPositionItem()
-        sortFilteringAdapter.setDefaultSelectedItemPosition(nameRes)
+        sortFilteringAdapter.setDefaultSelectedItemPosition(FavoriteMovieViewModel.position)
     }
 
     private fun scrollToTopPositionItem() {
         lifecycleScope.launch {
             delay(100)
             binding.rvDiscoverFavoriteMovies.smoothScrollToPosition(0)
+        }
+    }
+
+    private fun showFavoriteMovieData() {
+        viewModel.getFavoriteMovies.observe(viewLifecycleOwner) {
+            showNoFavorite(it.isEmpty())
+            favoriteMovieAdapter.setData(mapList(it))
         }
     }
 

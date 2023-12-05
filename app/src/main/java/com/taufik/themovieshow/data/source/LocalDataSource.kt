@@ -16,14 +16,6 @@ class LocalDataSource @Inject constructor(
     suspend fun addMovieToFavorite(favoriteMovieEntity: FavoriteMovieEntity) =
         favoriteDao.addMovieToFavorite(favoriteMovieEntity)
 
-    fun getAllFavoriteMovies() = favoriteDao.getAllFavoriteMovies()
-
-    fun getFavoriteMoviesByTitle() = favoriteDao.getFavoriteMoviesByTitle()
-
-    fun getFavoriteMoviesByRelease() = favoriteDao.getFavoriteMoviesByRelease()
-
-    fun getFavoriteMoviesByRating() = favoriteDao.getFavoriteMoviesByRating()
-
     fun getFavoriteMovies(rawQuery: RawQuery): LiveData<List<FavoriteMovieEntity>> {
         return favoriteDao.getFavoriteMovie(rawQuery.value)
     }

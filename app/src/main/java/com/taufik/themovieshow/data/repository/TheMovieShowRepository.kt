@@ -53,14 +53,6 @@ class TheMovieShowRepository @Inject constructor(
     suspend fun addMovieToFavorite(favoriteMovieEntity: FavoriteMovieEntity) =
         localDataSource.addMovieToFavorite(favoriteMovieEntity)
 
-    fun getAllFavoriteMovie() = localDataSource.getAllFavoriteMovies()
-
-    fun getFavoriteMoviesByTitle() = localDataSource.getFavoriteMoviesByTitle()
-
-    fun getFavoriteMoviesByRelease() = localDataSource.getFavoriteMoviesByRelease()
-
-    fun getFavoriteMoviesByRating() = localDataSource.getFavoriteMoviesByRating()
-
     fun getFavoriteMovieList(rawQuery: RawQuery) = localDataSource.getFavoriteMovies(rawQuery)
 
     suspend fun checkFavoriteMovie(movieId: Int) = localDataSource.checkFavoriteMovie(movieId)
