@@ -1,5 +1,6 @@
 package com.taufik.themovieshow.ui.favorite.viewmodel
 
+import androidx.annotation.StringRes
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.switchMap
@@ -12,25 +13,17 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FavoriteMovieViewModel @Inject constructor(
-    private val favoriteTvShowRepository: TheMovieShowRepository
+    private val theMovieShowRepository: TheMovieShowRepository
 ) : ViewModel() {
 
-    private val _getAllFavoriteMovies = favoriteTvShowRepository.getAllFavoriteMovie()
-    val getAllFavoriteMovies = _getAllFavoriteMovies
-
-    private val _getFavoriteMoviesByTitle = favoriteTvShowRepository.getFavoriteMoviesByTitle()
-    val getFavoriteMoviesByTitle = _getFavoriteMoviesByTitle
-
-    private val _getFavoriteMoviesByRelease = favoriteTvShowRepository.getFavoriteMoviesByRelease()
-    val getFavoriteMoviesByRelease = _getFavoriteMoviesByRelease
-
-    private val _getFavoriteMoviesByRating = favoriteTvShowRepository.getFavoriteMoviesByRating()
-    val getFavoriteMoviesByRating = _getFavoriteMoviesByRating
+    @StringRes
+    var currentFilter: Int? = null
 
     private val _getFavoriteMovies = MutableLiveData<RawQuery>()
-    val getFavoriteMovies = _getFavoriteMovies.switchMap { favoriteTvShowRepository.getFavoriteMovieList(it) }
+    val getFavoriteMovies = _getFavoriteMovies.switchMap { theMovieShowRepository.getFavoriteMovieList(it) }
 
     fun setFavoriteOrder(nameRes: Int) {
+        currentFilter = nameRes
         val builder = RawQuery.Companion.Builder()
             .selectAll()
             .from(CommonConstants.TABLE_NAME_FAVORITE_MOVIE_ENTITY)
@@ -38,16 +31,13 @@ class FavoriteMovieViewModel @Inject constructor(
         val rawQuery = when (nameRes) {
             R.string.tvSortTitle -> builder.orderBy(CommonConstants.COLUMN_NAME_TITLE).build()
             R.string.tvSortRelease -> builder.orderBy(CommonConstants.COLUMN_NAME_RELEASE_DATE).build()
-
             R.string.tvRating -> builder.orderBy(CommonConstants.COLUMN_NAME_RATING).build()
             else -> builder.build()
         }
         _getFavoriteMovies.value = rawQuery
-
     }
 
-
-    fun getSortFiltering() = favoriteTvShowRepository.getSortFiltering()
+    fun getSortFiltering() = theMovieShowRepository.getSortFiltering()
 
     companion object {
         var position: Int = 0
