@@ -36,13 +36,11 @@ class FavoriteTvShowsFragment : Fragment() {
     private var _binding: FragmentFavoriteTvShowsBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: FavoriteTvShowViewModel by viewModels()
+    private val viewModel: FavoriteTvShowViewModel by viewModels(ownerProducer = { requireParentFragment() })
     private val sortFilteringAdapter by lazy { SortFilteringAdapter { showFilteringData(it)} }
     private val favoriteTvShowsAdapter by lazy { FavoriteTvShowsAdapter {
         navigateToDetailTvShow(it.id, it.name, FavoriteTvShowViewModel.position)
     }}
-
-    private var favoriteList: List<FavoriteTvShowEntity> = listOf()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,12 +58,8 @@ class FavoriteTvShowsFragment : Fragment() {
         searchData()
         setFilteringAdapter()
         showSortFilteringData()
-
-        viewModel.setFavoriteOrder(R.string.tvSortAll)
-        viewModel.getAllFavoriteTvShows.observe(viewLifecycleOwner){
-            showNoFavorite(it.isEmpty())
-            favoriteTvShowsAdapter.setData(mapList(it))
-        }
+        sortFilteringAdapter.setDefaultSelectedItemPosition(FavoriteTvShowViewModel.position)
+        showFavoriteTvShowData(FavoriteTvShowViewModel.position)
     }
 
     private fun setAdapter() {
@@ -97,10 +91,10 @@ class FavoriteTvShowsFragment : Fragment() {
         sortFilteringAdapter.setDefaultSelectedItemPosition(FavoriteTvShowViewModel.position)
     }
 
-    private fun showFilteringData(nameRes: Int) {
-        viewModel.setFavoriteOrder(nameRes)
+    private fun showFilteringData(position: Int) {
+        FavoriteTvShowViewModel.position = position
+        viewModel.setFavoriteOrder(position)
         scrollToTopPositionItem()
-        sortFilteringAdapter.setDefaultSelectedItemPosition(nameRes)
         sortFilteringAdapter.setDefaultSelectedItemPosition(FavoriteTvShowViewModel.position)
     }
 
@@ -111,6 +105,13 @@ class FavoriteTvShowsFragment : Fragment() {
         }
     }
 
+    private fun showFavoriteTvShowData(position: Int) {
+        viewModel.setFavoriteOrder(position)
+        viewModel.getFavoriteTvShows.observe(viewLifecycleOwner) {
+            showNoFavorite(it.isEmpty())
+            favoriteTvShowsAdapter.setData(mapList(it))
+        }
+    }
 
     private fun searchData() {
         binding.etSearch.apply {
