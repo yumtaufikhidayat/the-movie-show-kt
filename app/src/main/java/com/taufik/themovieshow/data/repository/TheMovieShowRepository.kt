@@ -62,14 +62,7 @@ class TheMovieShowRepository @Inject constructor(
     suspend fun addTvShowToFavorite(favoriteTvShowEntity: FavoriteTvShowEntity) =
         localDataSource.addTvShowToFavorite(favoriteTvShowEntity)
 
-    fun getAllFavoriteTvShows() = localDataSource.getAllFavoriteTvShows()
-
-    fun getFavoriteTvShowsByTitle() = localDataSource.getFavoriteTvShowsByTitle()
-
-    fun getFavoriteTvShowsByRelease() = localDataSource.getFavoriteTvShowsByRelease()
-
-    fun getFavoriteTvShowsByRating() = localDataSource.getFavoriteTvShowsByRating()
-    fun getFavoriteTvShows(rawQuery: RawQuery): LiveData<List<FavoriteMovieEntity>> {
+    fun getFavoriteTvShows(rawQuery: RawQuery): LiveData<List<FavoriteTvShowEntity>> {
         return localDataSource.getFavoriteTvShows(rawQuery)
     }
 

@@ -58,10 +58,8 @@ class FavoriteMovieFragment : Fragment() {
         searchData()
         setFilteringAdapter()
         showSortFilteringData()
-
         sortFilteringAdapter.setDefaultSelectedItemPosition(FavoriteMovieViewModel.position)
-        viewModel.setFavoriteOrder(FavoriteMovieViewModel.position)
-        showFavoriteMovieData()
+        showFavoriteMovieData(FavoriteMovieViewModel.position)
     }
 
     private fun setAdapter() {
@@ -106,7 +104,8 @@ class FavoriteMovieFragment : Fragment() {
         }
     }
 
-    private fun showFavoriteMovieData() {
+    private fun showFavoriteMovieData(position: Int) {
+        viewModel.setFavoriteOrder(position)
         viewModel.getFavoriteMovies.observe(viewLifecycleOwner) {
             showNoFavorite(it.isEmpty())
             favoriteMovieAdapter.setData(mapList(it))

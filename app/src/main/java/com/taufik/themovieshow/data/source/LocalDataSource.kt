@@ -27,18 +27,9 @@ class LocalDataSource @Inject constructor(
     suspend fun addTvShowToFavorite(favoriteTvShowEntity: FavoriteTvShowEntity) =
         favoriteDao.addTvShowToFavorite(favoriteTvShowEntity)
 
-    fun getAllFavoriteTvShows() = favoriteDao.getAllFavoriteTvShows()
-
-    fun getFavoriteTvShowsByTitle() = favoriteDao.getFavoriteTvShowsByTitle()
-
-    fun getFavoriteTvShowsByRelease() = favoriteDao.getFavoriteTvShowsByRelease()
-
-    fun getFavoriteTvShowsByRating() = favoriteDao.getFavoriteTvShowsByRating()
-
-    fun getFavoriteTvShows(rawQuery: RawQuery): LiveData<List<FavoriteMovieEntity>> {
+    fun getFavoriteTvShows(rawQuery: RawQuery): LiveData<List<FavoriteTvShowEntity>> {
         return favoriteDao.getFavoriteTvShows(rawQuery.value)
     }
-
 
     suspend fun checkFavoriteTvShow(tvShowId: Int) = favoriteDao.checkTvShowFavorite(tvShowId)
 
