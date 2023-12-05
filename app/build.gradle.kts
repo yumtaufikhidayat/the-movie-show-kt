@@ -167,7 +167,7 @@ dependencies {
 
     // Encryption
     val sqlCipherVersion = "4.5.3"
-    val sqliteVersion = "2.1.0"
+    val sqliteVersion = "2.4.0"
     implementation("net.zetetic:android-database-sqlcipher:$sqlCipherVersion")
     implementation("androidx.sqlite:sqlite-ktx:$sqliteVersion")
 }
