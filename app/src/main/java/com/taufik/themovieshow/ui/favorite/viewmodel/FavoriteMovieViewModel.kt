@@ -1,10 +1,8 @@
 package com.taufik.themovieshow.ui.favorite.viewmodel
 
-import androidx.annotation.StringRes
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.switchMap
-import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.repository.TheMovieShowRepository
 import com.taufik.themovieshow.data.source.RawQuery
 import com.taufik.themovieshow.utils.CommonConstants
@@ -16,22 +14,20 @@ class FavoriteMovieViewModel @Inject constructor(
     private val theMovieShowRepository: TheMovieShowRepository
 ) : ViewModel() {
 
-    @StringRes
-    var currentFilter: Int? = null
-
     private val _getFavoriteMovies = MutableLiveData<RawQuery>()
-    val getFavoriteMovies = _getFavoriteMovies.switchMap { theMovieShowRepository.getFavoriteMovieList(it) }
+    val getFavoriteMovies = _getFavoriteMovies.switchMap {
+        theMovieShowRepository.getFavoriteMovieList(it)
+    }
 
-    fun setFavoriteOrder(nameRes: Int) {
-        currentFilter = nameRes
+    fun setFavoriteOrder(position: Int) {
         val builder = RawQuery.Companion.Builder()
             .selectAll()
             .from(CommonConstants.TABLE_NAME_FAVORITE_MOVIE_ENTITY)
 
-        val rawQuery = when (nameRes) {
-            R.string.tvSortTitle -> builder.orderBy(CommonConstants.COLUMN_NAME_TITLE).build()
-            R.string.tvSortRelease -> builder.orderBy(CommonConstants.COLUMN_NAME_RELEASE_DATE).build()
-            R.string.tvRating -> builder.orderBy(CommonConstants.COLUMN_NAME_RATING).build()
+        val rawQuery = when (position) {
+            1 -> builder.orderBy(CommonConstants.COLUMN_NAME_TITLE).build()
+            2 -> builder.orderBy(CommonConstants.COLUMN_NAME_RELEASE_DATE).build()
+            3 -> builder.orderBy(CommonConstants.COLUMN_NAME_RATING).build()
             else -> builder.build()
         }
         _getFavoriteMovies.value = rawQuery
