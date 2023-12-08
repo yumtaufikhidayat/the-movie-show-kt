@@ -10,7 +10,6 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.taufik.themovieshow.data.NetworkResult
 import com.taufik.themovieshow.databinding.FragmentMovieTvShowsListBinding
-import com.taufik.themovieshow.ui.favorite.viewmodel.FavoriteTvShowViewModel
 import com.taufik.themovieshow.ui.tvshow.adapter.TvShowsAdapter
 import com.taufik.themovieshow.ui.tvshow.viewmodel.TvShowsViewModel
 import com.taufik.themovieshow.utils.navigateToDetailTvShow
@@ -43,7 +42,7 @@ class TvShowAiringTodayFragment : Fragment() {
 
     private fun setAdapter() {
         tvShowsAdapter = TvShowsAdapter {
-            navigateToDetailTvShow(it.id, it.name, FavoriteTvShowViewModel.position)
+            navigateToDetailTvShow(it.id, it.name)
         }
 
         binding.rvCommon.apply {
