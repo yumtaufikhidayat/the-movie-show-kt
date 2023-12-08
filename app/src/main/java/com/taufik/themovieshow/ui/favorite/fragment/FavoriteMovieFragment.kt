@@ -38,9 +38,7 @@ class FavoriteMovieFragment : Fragment() {
 
     private val viewModel: FavoriteMovieViewModel by viewModels(ownerProducer = { requireParentFragment() })
     private val sortFilteringAdapter by lazy { SortFilteringAdapter { showFilteringData(it) }}
-    private val favoriteMovieAdapter by lazy { FavoriteMovieAdapter {
-        navigateToDetailMovie(it.id, it.title, FavoriteMovieViewModel.position)
-    }}
+    private val favoriteMovieAdapter by lazy { FavoriteMovieAdapter { navigateToDetailMovie(it.id, it.title) }}
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -178,9 +176,5 @@ class FavoriteMovieFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    companion object {
-        const val POSITION_KEY = "position_key"
     }
 }
