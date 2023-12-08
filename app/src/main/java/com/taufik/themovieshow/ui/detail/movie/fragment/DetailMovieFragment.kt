@@ -20,7 +20,6 @@ import com.taufik.themovieshow.model.response.movie.detail.MovieDetailResponse
 import com.taufik.themovieshow.ui.detail.movie.adapter.MovieCastAdapter
 import com.taufik.themovieshow.ui.detail.movie.adapter.MovieSimilarAdapter
 import com.taufik.themovieshow.ui.detail.movie.adapter.MovieTrailerVideoAdapter
-import com.taufik.themovieshow.ui.favorite.viewmodel.FavoriteMovieViewModel
 import com.taufik.themovieshow.ui.movie.adapter.ReviewsAdapter
 import com.taufik.themovieshow.ui.movie.viewmodel.DetailMovieViewModel
 import com.taufik.themovieshow.utils.CommonDateFormatConstants
@@ -367,7 +366,7 @@ class DetailMovieFragment : Fragment() {
 
     private fun setSimilarMovieAdapter() {
         similarAdapter = MovieSimilarAdapter {
-            navigateToDetailMovie(it.id, it.title, FavoriteMovieViewModel.position)
+            navigateToDetailMovie(it.id, it.title)
         }
         binding.rvMovieSimilar.apply {
             val helper: SnapHelper = LinearSnapHelper()
