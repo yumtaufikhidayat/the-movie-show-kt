@@ -20,7 +20,6 @@ import com.taufik.themovieshow.model.response.tvshow.detail.TvShowsPopularDetail
 import com.taufik.themovieshow.ui.detail.tvshow.adapter.TvShowSimilarAdapter
 import com.taufik.themovieshow.ui.detail.tvshow.adapter.TvShowTrailerVideoAdapter
 import com.taufik.themovieshow.ui.detail.tvshow.adapter.TvShowsCastAdapter
-import com.taufik.themovieshow.ui.favorite.viewmodel.FavoriteTvShowViewModel
 import com.taufik.themovieshow.ui.movie.adapter.ReviewsAdapter
 import com.taufik.themovieshow.ui.tvshow.viewmodel.DetailTvShowViewModel
 import com.taufik.themovieshow.utils.CommonDateFormatConstants
@@ -375,7 +374,7 @@ class DetailTvShowFragment : Fragment() {
 
     private fun setSimilarAdapter() {
         similarAdapter = TvShowSimilarAdapter {
-            navigateToDetailTvShow(it.id, it.name, FavoriteTvShowViewModel.position)
+            navigateToDetailTvShow(it.id, it.name)
         }
         binding.rvTvShowSimilar.apply {
             val helper: SnapHelper = LinearSnapHelper()

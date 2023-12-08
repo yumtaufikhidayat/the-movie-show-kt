@@ -39,7 +39,7 @@ class FavoriteTvShowsFragment : Fragment() {
     private val viewModel: FavoriteTvShowViewModel by viewModels(ownerProducer = { requireParentFragment() })
     private val sortFilteringAdapter by lazy { SortFilteringAdapter { showFilteringData(it)} }
     private val favoriteTvShowsAdapter by lazy { FavoriteTvShowsAdapter {
-        navigateToDetailTvShow(it.id, it.name, FavoriteTvShowViewModel.position)
+        navigateToDetailTvShow(it.id, it.name)
     }}
 
     override fun onCreateView(
