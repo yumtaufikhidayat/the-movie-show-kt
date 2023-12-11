@@ -108,10 +108,13 @@ class DetailMovieFragment : Fragment() {
                 setDetailMovies(idMovie)
                 detailMoviesResponse.observe(viewLifecycleOwner) { response ->
                     when (response) {
-                        is NetworkResult.Loading -> {}
+                        is NetworkResult.Loading -> {
+                            // loading component not available
+                        }
                         is NetworkResult.Success -> showDetailData(response.data)
-                        is NetworkResult.Error -> {}
-                        else -> {}
+                        is NetworkResult.Error -> {
+                            // error message not available
+                        }
                     }
                 }
             }
@@ -120,11 +123,11 @@ class DetailMovieFragment : Fragment() {
 
     private fun showDetailData(data: MovieDetailResponse?) {
         binding.apply {
-            if (data != null) {
-                imgPoster.loadImage(data.posterPath.orEmpty())
-                imgBackdrop.loadImage(data.backdropPath)
-                tvTitle.text = data.title
-                val releasedDate = data.releaseDate.convertDate(
+            data?.let { movieDetailResponse ->
+                imgPoster.loadImage(movieDetailResponse.posterPath.orEmpty())
+                imgBackdrop.loadImage(movieDetailResponse.backdropPath)
+                tvTitle.text = movieDetailResponse.title
+                val releasedDate = movieDetailResponse.releaseDate.convertDate(
                     CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
                     CommonDateFormatConstants.EEE_D_MMM_YYYY_FORMAT
                 )
@@ -133,66 +136,52 @@ class DetailMovieFragment : Fragment() {
                     getString(R.string.tvReleasedOn),
                     releasedDate
                 )
-                tvStatus.text = data.status
+                tvStatus.text = movieDetailResponse.status
 
                 when {
-                    data.overview.isEmpty() -> {
+                    movieDetailResponse.overview.isEmpty() -> {
                         tvOverview.isVisible = false
                         tvNoOverview.isVisible = true
                         tvReadMore.isVisible = false
                     }
 
+                    movieDetailResponse.voteAverage.toString().isEmpty() -> tvRating.text = getString(R.string.tvNA)
+                    movieDetailResponse.originalLanguage.isEmpty() -> tvLanguage.text = getString(R.string.tvNA)
+                    movieDetailResponse.productionCountries.isEmpty() -> tvCountry.text = getString(R.string.tvNA)
+                    movieDetailResponse.runtime.toString().isEmpty() -> tvRuntime.text = getString(R.string.tvNA)
+                    movieDetailResponse.genres.isEmpty() -> showNoGenres(true)
+
                     else -> {
                         tvNoOverview.isVisible = false
                         tvOverview.apply {
                             isVisible = true
-                            text = data.overview
+                            text = movieDetailResponse.overview
                         }
-                    }
-                }
 
-                when {
-                    data.voteAverage.toString().isEmpty() -> tvRating.text = getString(R.string.tvNA)
-                    else -> tvRating.text = toRating(data.voteAverage)
-                }
+                        tvRating.text = toRating(movieDetailResponse.voteAverage)
+                        tvLanguage.text =
+                            if (movieDetailResponse.spokenLanguages.isNotEmpty())
+                                movieDetailResponse.spokenLanguages.first().englishName
+                            else
+                                movieDetailResponse.originalLanguage
 
-                when {
-                    data.originalLanguage.isEmpty() -> tvLanguage.text = getString(R.string.tvNA)
-                    else -> tvLanguage.text =
-                        if (data.spokenLanguages.isNotEmpty()) {
-                            data.spokenLanguages[0].englishName
-                        } else {
-                            data.originalLanguage
-                        }
-                }
+                        tvCountry.text = movieDetailResponse.productionCountries.joinToString { countries -> countries.iso31661 }
+                        tvRuntime.text = convertRuntime(movieDetailResponse.runtime)
 
-                when {
-                    data.productionCountries.isEmpty() -> tvCountry.text = getString(R.string.tvNA)
-                    else -> tvCountry.text = data.productionCountries.joinToString { countries -> countries.iso31661 }
-                }
-
-                when {
-                    data.runtime.toString().isEmpty() -> tvRuntime.text = getString(R.string.tvNA)
-                    else -> tvRuntime.text = convertRuntime(data.runtime)
-                }
-
-                when {
-                    data.genres.isEmpty() -> showNoGenres(true)
-                    else -> {
                         showNoGenres(false)
-                        tvGenre.text = data.genres.joinToString { genre -> genre.name }
+                        tvGenre.text = movieDetailResponse.genres.joinToString { genre -> genre.name }
                     }
                 }
 
                 checkFavoriteData(idMovie)
                 setActionFavorite(
                     idMovie,
-                    data.posterPath.orEmpty(),
+                    movieDetailResponse.posterPath.orEmpty(),
                     title,
-                    data.releaseDate,
-                    data.voteAverage
+                    movieDetailResponse.releaseDate,
+                    movieDetailResponse.voteAverage
                 )
-                shareMovie(data.homepage)
+                shareMovie(movieDetailResponse.homepage)
             }
         }
     }
@@ -288,7 +277,6 @@ class DetailMovieFragment : Fragment() {
                         }
                     }
                     is NetworkResult.Error -> showNoCast(false)
-                    else -> {}
                 }
             }
         }
@@ -324,7 +312,6 @@ class DetailMovieFragment : Fragment() {
                         }
                     }
                     is NetworkResult.Error -> showVideo(false)
-                    else -> {}
                 }
             }
         }
@@ -357,7 +344,6 @@ class DetailMovieFragment : Fragment() {
                             }
                         }
                         is NetworkResult.Error -> tvNoReviews.isVisible = false
-                        else -> {}
                     }
                 }
             }
@@ -393,7 +379,6 @@ class DetailMovieFragment : Fragment() {
                         }
                     }
                     is NetworkResult.Error -> showNoSimilarMovie(false)
-                    else -> {}
                 }
             }
         }
