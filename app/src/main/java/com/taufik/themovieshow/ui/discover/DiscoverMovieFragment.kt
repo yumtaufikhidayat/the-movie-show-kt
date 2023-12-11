@@ -70,36 +70,34 @@ class DiscoverMovieFragment : Fragment() {
     }
 
     private fun initSearch() {
-        binding.apply {
-            showNoSearch(
-                title = getString(R.string.tvNoSearchMovie),
-                description = getString(R.string.tvSearchMovie)
-            )
+        showNoSearch(
+            title = getString(R.string.tvNoSearchMovie),
+            description = getString(R.string.tvSearchMovie)
+        )
 
-            toolbarSearchMovie.etSearch.apply {
-                showKeyboard()
-                setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, _ ->
-                    if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                        hideKeyboard()
-                        return@OnEditorActionListener true
-                    }
-                    false
-                })
+        binding.toolbarSearchMovie.etSearch.apply {
+            showKeyboard()
+            setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, _ ->
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    hideKeyboard()
+                    return@OnEditorActionListener true
+                }
+                false
+            })
 
-                addTextChangedListener(object : TextWatcher {
-                    override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                        // no action before text changed
-                    }
+            addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                    // no action before text changed
+                }
 
-                    override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                        showNoResults(true, emptyList(), p0.toString())
-                    }
+                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                    showNoResults(true, emptyList(), p0.toString())
+                }
 
-                    override fun afterTextChanged(p0: Editable?) {
-                        showSearchData(p0)
-                    }
-                })
-            }
+                override fun afterTextChanged(p0: Editable?) {
+                    showSearchData(p0)
+                }
+            })
         }
     }
 
@@ -151,30 +149,28 @@ class DiscoverMovieFragment : Fragment() {
     }
 
     private fun showNoResults(isShow: Boolean, list: List<DiscoverMovieResult>?, query: String) {
-        binding.apply {
-            var textSearchTitle = ""
-            var textSearch = ""
+        var textSearchTitle = ""
+        var textSearch = ""
 
-            if (isShow) {
-                when {
-                    query.isEmpty() || query.isBlank() -> {
-                        textSearchTitle = getString(R.string.tvNoSearchMovie)
-                        textSearch = getString(R.string.tvSearchMovie)
-                    }
-                    list?.isEmpty() == true -> {
-                        textSearchTitle = getString(R.string.tvOopsNoResults)
-                        textSearch = getString(R.string.tvNoSearchData)
-                    }
+        if (isShow) {
+            when {
+                query.isEmpty() || query.isBlank() -> {
+                    textSearchTitle = getString(R.string.tvNoSearchMovie)
+                    textSearch = getString(R.string.tvSearchMovie)
                 }
-
-                discoverMovieAdapter?.submitList(list)
-                showNoSearch(
-                    title = textSearchTitle,
-                    description = textSearch
-                )
-            } else {
-                layoutNoSearch.root.isVisible = false
+                list?.isEmpty() == true -> {
+                    textSearchTitle = getString(R.string.tvOopsNoResults)
+                    textSearch = getString(R.string.tvNoSearchData)
+                }
             }
+
+            discoverMovieAdapter?.submitList(list)
+            showNoSearch(
+                title = textSearchTitle,
+                description = textSearch
+            )
+        } else {
+            binding.layoutNoSearch.root.isVisible = false
         }
     }
 
