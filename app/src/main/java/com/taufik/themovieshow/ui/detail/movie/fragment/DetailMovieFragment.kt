@@ -103,18 +103,16 @@ class DetailMovieFragment : Fragment() {
     }
 
     private fun setDetailObserver() {
-        binding.apply {
-            viewModel.apply {
-                setDetailMovies(idMovie)
-                detailMoviesResponse.observe(viewLifecycleOwner) { response ->
-                    when (response) {
-                        is NetworkResult.Loading -> {
-                            // loading component not available
-                        }
-                        is NetworkResult.Success -> showDetailData(response.data)
-                        is NetworkResult.Error -> {
-                            // error message not available
-                        }
+        viewModel.apply {
+            setDetailMovies(idMovie)
+            detailMoviesResponse.observe(viewLifecycleOwner) { response ->
+                when (response) {
+                    is NetworkResult.Loading -> {
+                        // loading component not available
+                    }
+                    is NetworkResult.Success -> showDetailData(response.data)
+                    is NetworkResult.Error -> {
+                        // error message not available
                     }
                 }
             }
