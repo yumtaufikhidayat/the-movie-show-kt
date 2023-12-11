@@ -87,7 +87,9 @@ class DiscoverMovieFragment : Fragment() {
                 })
 
                 addTextChangedListener(object : TextWatcher {
-                    override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+                    override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                        // no action before text changed
+                    }
 
                     override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                         showNoResults(true, emptyList(), p0.toString())
