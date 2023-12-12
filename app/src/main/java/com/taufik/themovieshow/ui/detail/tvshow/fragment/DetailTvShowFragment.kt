@@ -162,11 +162,10 @@ class DetailTvShowFragment : Fragment() {
 
                         tvRating.text = toRating(detailResponse.voteAverage)
                         tvLanguage.text =
-                            if (detailResponse.spokenLanguages.isNotEmpty()) {
+                            if (detailResponse.spokenLanguages.isNotEmpty())
                                 detailResponse.spokenLanguages[0].englishName
-                            } else {
+                            else
                                 detailResponse.originalLanguage
-                            }
 
                         tvCountry.text = detailResponse.originCountry.joinToString { countries -> countries }
                         tvEpisodes.text = String.format(
