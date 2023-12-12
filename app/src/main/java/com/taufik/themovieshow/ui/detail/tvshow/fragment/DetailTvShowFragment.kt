@@ -147,7 +147,7 @@ class DetailTvShowFragment : Fragment() {
                     detailResponse.genres.isEmpty() -> showNoGenres(true)
 
                     else -> {
-                        tvNetwork.text = String.format("${detailResponse.networks.first().name} (${detailResponse.networks.first().originCountry})")
+                        tvNetwork.stringFormat(detailResponse.networks.first().name, "(${detailResponse.networks.first().originCountry})")
                         tvNoOverview.isVisible = false
                         tvOverview.apply {
                             isVisible = true
