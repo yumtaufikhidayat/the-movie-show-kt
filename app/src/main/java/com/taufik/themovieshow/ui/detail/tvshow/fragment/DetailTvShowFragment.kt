@@ -132,12 +132,11 @@ class DetailTvShowFragment : Fragment() {
                     CommonDateFormatConstants.EEE_D_MMM_YYYY_FORMAT
                 )
                 tvStartedOn.stringFormat(getString(R.string.tvStartedOn), startedOn)
-
                 tvStatus.text = detailResponse.status
 
                 when {
                     detailResponse.networks.isEmpty() -> tvNetwork.text = getString(R.string.tvNA)
-                    detailResponse.networks[0].originCountry.isEmpty() -> tvNetwork.text = String.format("${detailResponse.networks[0].name} ${getString(R.string.tvNA)})")
+                    detailResponse.networks.first().originCountry.isEmpty() -> tvNetwork.text = String.format("${detailResponse.networks.first().name} ${getString(R.string.tvNA)})")
                     detailResponse.overview.isEmpty() -> {
                         tvOverview.isVisible = false
                         tvNoOverview.isVisible = true
@@ -150,7 +149,7 @@ class DetailTvShowFragment : Fragment() {
                     detailResponse.genres.isEmpty() -> showNoGenres(true)
 
                     else -> {
-                        tvNetwork.text = String.format("${detailResponse.networks[0].name} (${detailResponse.networks[0].originCountry})")
+                        tvNetwork.text = String.format("${detailResponse.networks.first().name} (${detailResponse.networks.first().originCountry})")
                         tvNoOverview.isVisible = false
                         tvOverview.apply {
                             isVisible = true
@@ -160,7 +159,7 @@ class DetailTvShowFragment : Fragment() {
                         tvRating.text = toRating(detailResponse.voteAverage)
                         tvLanguage.text =
                             if (detailResponse.spokenLanguages.isNotEmpty())
-                                detailResponse.spokenLanguages[0].englishName
+                                detailResponse.spokenLanguages.first().englishName
                             else
                                 detailResponse.originalLanguage
 
