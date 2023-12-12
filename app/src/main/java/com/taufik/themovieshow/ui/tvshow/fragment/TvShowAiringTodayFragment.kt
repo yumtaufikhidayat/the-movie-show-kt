@@ -64,10 +64,6 @@ class TvShowAiringTodayFragment : Fragment() {
                     showLoading(false)
                     showError(it.message)
                 }
-                else -> {
-                    showLoading(false)
-                    showError(it.message)
-                }
             }
         }
     }
