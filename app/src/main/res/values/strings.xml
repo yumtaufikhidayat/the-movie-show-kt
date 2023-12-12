@@ -72,6 +72,8 @@
     <string name="action_removed_from_favorite">Removed from favorite</string>
     <string name="tvInstallBrowserYouTube">Please install browser or Youtube app first.\nError: %s</string>
     <string name="tvPressBackExit">Press back again to exit</string>
+    <string name="tvOpenWith">Open with</string>
+    <string name="tvInstallBrowser">Please install browser first.\nError: %s</string>
 
     <!--Tab menu title-->
     <string name="tvMovieNowPlaying">Now Playing</string>

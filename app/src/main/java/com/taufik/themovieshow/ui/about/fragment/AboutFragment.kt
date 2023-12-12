@@ -69,7 +69,9 @@ class AboutFragment : Fragment() {
     private fun setApplicationData() {
         applicationAdapter = AboutApplicationAdapter { position ->
                 when (position) {
-                    0 -> {}
+                    0 -> {
+                        // no reaction while given clicked action
+                    }
                     1, 2 -> showToastyBasedOnType(GOOGLE_PLAY)
                     3 -> showToastyBasedOnType(EMAIL)
                 }
@@ -93,11 +95,11 @@ class AboutFragment : Fragment() {
                     startActivity(
                         Intent.createChooser(
                             intent,
-                            "Open with:"
+                            getString(R.string.tvOpenWith)
                         )
                     )
                 } catch (e: Exception) {
-                    requireContext().showSuccessToastyIcon("Please install browser app")
+                    requireContext().showSuccessToastyIcon(getString(R.string.tvInstallBrowser, e.printStackTrace()))
                 }
             }
 
