@@ -102,18 +102,16 @@ class DetailTvShowFragment : Fragment() {
     }
 
     private fun setDetailObserver() {
-        binding.apply {
-            viewModel.apply {
-                setDetailTvShowPopular(idTvShow)
-                detailTvShowPopularResponse.observe(viewLifecycleOwner) { response ->
-                    when (response) {
-                        is NetworkResult.Loading -> {
-                            // loading component not available
-                        }
-                        is NetworkResult.Success -> showDetailData(response.data)
-                        is NetworkResult.Error -> {
-                            // error message not available
-                        }
+        viewModel.apply {
+            setDetailTvShowPopular(idTvShow)
+            detailTvShowPopularResponse.observe(viewLifecycleOwner) { response ->
+                when (response) {
+                    is NetworkResult.Loading -> {
+                        // loading component not available
+                    }
+                    is NetworkResult.Success -> showDetailData(response.data)
+                    is NetworkResult.Error -> {
+                        // error message not available
                     }
                 }
             }
