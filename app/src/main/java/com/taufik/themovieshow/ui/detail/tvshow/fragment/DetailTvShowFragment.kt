@@ -30,6 +30,7 @@ import com.taufik.themovieshow.utils.popBackStack
 import com.taufik.themovieshow.utils.share
 import com.taufik.themovieshow.utils.showSuccessToastyIcon
 import com.taufik.themovieshow.utils.showTrailerVideo
+import com.taufik.themovieshow.utils.stringFormat
 import com.taufik.themovieshow.utils.toRating
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -130,17 +131,12 @@ class DetailTvShowFragment : Fragment() {
                     CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
                     CommonDateFormatConstants.EEE_D_MMM_YYYY_FORMAT
                 )
-                tvStartedOn.text = String.format(
-                    "%s %s",
-                    getString(R.string.tvStartedOn),
-                    startedOn
-                )
-
+                tvStartedOn.stringFormat(getString(R.string.tvStartedOn), startedOn)
                 tvStatus.text = detailResponse.status
 
                 when {
                     detailResponse.networks.isEmpty() -> tvNetwork.text = getString(R.string.tvNA)
-                    detailResponse.networks[0].originCountry.isEmpty() -> tvNetwork.text = String.format("${detailResponse.networks[0].name} ${getString(R.string.tvNA)})")
+                    detailResponse.networks.first().originCountry.isEmpty() -> tvNetwork.text = String.format("${detailResponse.networks.first().name} ${getString(R.string.tvNA)})")
                     detailResponse.overview.isEmpty() -> {
                         tvOverview.isVisible = false
                         tvNoOverview.isVisible = true
@@ -153,7 +149,7 @@ class DetailTvShowFragment : Fragment() {
                     detailResponse.genres.isEmpty() -> showNoGenres(true)
 
                     else -> {
-                        tvNetwork.text = String.format("${detailResponse.networks[0].name} (${detailResponse.networks[0].originCountry})")
+                        tvNetwork.text = String.format("${detailResponse.networks.first().name} (${detailResponse.networks.first().originCountry})")
                         tvNoOverview.isVisible = false
                         tvOverview.apply {
                             isVisible = true
@@ -163,16 +159,12 @@ class DetailTvShowFragment : Fragment() {
                         tvRating.text = toRating(detailResponse.voteAverage)
                         tvLanguage.text =
                             if (detailResponse.spokenLanguages.isNotEmpty())
-                                detailResponse.spokenLanguages[0].englishName
+                                detailResponse.spokenLanguages.first().englishName
                             else
                                 detailResponse.originalLanguage
 
                         tvCountry.text = detailResponse.originCountry.joinToString { countries -> countries }
-                        tvEpisodes.text = String.format(
-                            "%s %s",
-                            "${detailResponse.numberOfEpisodes}",
-                            getString(R.string.tvEps)
-                        )
+                        tvEpisodes.stringFormat(detailResponse.numberOfEpisodes.toString(), getString(R.string.tvEps))
 
                         showNoGenres(false)
                         tvGenre.text = detailResponse.genres.joinToString { genres -> genres.name }

@@ -30,6 +30,7 @@ import com.taufik.themovieshow.utils.popBackStack
 import com.taufik.themovieshow.utils.share
 import com.taufik.themovieshow.utils.showSuccessToastyIcon
 import com.taufik.themovieshow.utils.showTrailerVideo
+import com.taufik.themovieshow.utils.stringFormat
 import com.taufik.themovieshow.utils.toRating
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -129,11 +130,7 @@ class DetailMovieFragment : Fragment() {
                     CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
                     CommonDateFormatConstants.EEE_D_MMM_YYYY_FORMAT
                 )
-                tvReleasedOn.text = String.format(
-                    "%s %s",
-                    getString(R.string.tvReleasedOn),
-                    releasedDate
-                )
+                tvReleasedOn.stringFormat(getString(R.string.tvReleasedOn), releasedDate)
                 tvStatus.text = movieDetailResponse.status
 
                 when {

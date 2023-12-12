@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -101,4 +102,12 @@ fun Context.showTrailerVideo(key: String) {
     } catch (e: Exception) {
         this.showSuccessToastyIcon(getString(R.string.tvInstallBrowserYouTube, e.localizedMessage))
     }
+}
+
+fun TextView.stringFormat(data1: String, data2: String) {
+    this.text = String.format(
+        "%s %s",
+        data1,
+        data2
+    )
 }
