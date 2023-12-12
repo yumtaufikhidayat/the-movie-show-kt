@@ -30,6 +30,7 @@ import com.taufik.themovieshow.utils.popBackStack
 import com.taufik.themovieshow.utils.share
 import com.taufik.themovieshow.utils.showSuccessToastyIcon
 import com.taufik.themovieshow.utils.showTrailerVideo
+import com.taufik.themovieshow.utils.stringFormat
 import com.taufik.themovieshow.utils.toRating
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -130,11 +131,7 @@ class DetailTvShowFragment : Fragment() {
                     CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
                     CommonDateFormatConstants.EEE_D_MMM_YYYY_FORMAT
                 )
-                tvStartedOn.text = String.format(
-                    "%s %s",
-                    getString(R.string.tvStartedOn),
-                    startedOn
-                )
+                tvStartedOn.stringFormat(getString(R.string.tvStartedOn), startedOn)
 
                 tvStatus.text = detailResponse.status
 
@@ -168,11 +165,7 @@ class DetailTvShowFragment : Fragment() {
                                 detailResponse.originalLanguage
 
                         tvCountry.text = detailResponse.originCountry.joinToString { countries -> countries }
-                        tvEpisodes.text = String.format(
-                            "%s %s",
-                            "${detailResponse.numberOfEpisodes}",
-                            getString(R.string.tvEps)
-                        )
+                        tvEpisodes.stringFormat(detailResponse.numberOfEpisodes.toString(), getString(R.string.tvEps))
 
                         showNoGenres(false)
                         tvGenre.text = detailResponse.genres.joinToString { genres -> genres.name }
