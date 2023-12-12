@@ -48,36 +48,36 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService): 
         }.flowOn(dispatchersIO)
     }
 
-    suspend fun getDiscoverMovie(query: String): Flow<NetworkResult<DiscoverMovieResponse>> {
+    fun getDiscoverMovie(query: String): Flow<NetworkResult<DiscoverMovieResponse>> {
         return flow {
             emit(safeApiCall { apiService.getDiscoverMovie(apiKey, query) })
         }.flowOn(dispatchersIO)
     }
-    suspend fun getMovieVideo(movieId: Int) : Flow<NetworkResult<MovieVideoResponse>> {
+    fun getMovieVideo(movieId: Int) : Flow<NetworkResult<MovieVideoResponse>> {
         return flow {
             emit(safeApiCall { apiService.getMovieVideo(movieId, apiKey) })
         }.flowOn(dispatchersIO)
     }
 
-    suspend fun getMovieCast(movieId: Int): Flow<NetworkResult<MovieCastResponse>> {
+    fun getMovieCast(movieId: Int): Flow<NetworkResult<MovieCastResponse>> {
         return flow {
             emit(safeApiCall { apiService.getMovieCast(movieId, apiKey) })
         }.flowOn(dispatchersIO)
     }
 
-    suspend fun getDetailMovie(movieId: Int) : Flow<NetworkResult<MovieDetailResponse>> {
+    fun getDetailMovie(movieId: Int) : Flow<NetworkResult<MovieDetailResponse>> {
         return flow {
             emit(safeApiCall { apiService.getDetailMovie(movieId, apiKey) })
         }.flowOn(dispatchersIO)
     }
 
-    suspend fun getMovieReviews(movieId: Int) : Flow<NetworkResult<ReviewsResponse>> {
+    fun getMovieReviews(movieId: Int) : Flow<NetworkResult<ReviewsResponse>> {
         return flow {
             emit(safeApiCall { apiService.getReviewsMovie(movieId, apiKey) })
         }.flowOn(dispatchersIO)
     }
 
-    suspend fun getSimilarMovie(movieId: Int) : Flow<NetworkResult<MovieSimilarResponse>> {
+    fun getSimilarMovie(movieId: Int) : Flow<NetworkResult<MovieSimilarResponse>> {
         return flow {
             emit(safeApiCall { apiService.getSimilarMovie(movieId, apiKey) })
         }.flowOn(dispatchersIO)
@@ -101,37 +101,37 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService): 
         }.flowOn(dispatchersIO)
     }
 
-    suspend fun getDiscoverTvShows(query: String): Flow<NetworkResult<DiscoverTvShowsResponse>> {
+    fun getDiscoverTvShows(query: String): Flow<NetworkResult<DiscoverTvShowsResponse>> {
         return flow {
             emit(safeApiCall { apiService.getDiscoverTvShows(apiKey, query) })
         }.flowOn(dispatchersIO)
     }
 
-    suspend fun getTvShowsVideo(tvId: Int) : Flow<NetworkResult<TvShowsVideoResponse>> {
+    fun getTvShowsVideo(tvId: Int) : Flow<NetworkResult<TvShowsVideoResponse>> {
         return flow {
             emit(safeApiCall { apiService.getTvShowsVideo(tvId, apiKey) })
         }.flowOn(dispatchersIO)
     }
 
-    suspend fun getTvShowsCast(tvId: Int) : Flow<NetworkResult<TvShowsCastResponse>> {
+    fun getTvShowsCast(tvId: Int) : Flow<NetworkResult<TvShowsCastResponse>> {
         return flow {
             emit(safeApiCall { apiService.getTvShowsCast(tvId, apiKey) })
         }.flowOn(dispatchersIO)
     }
 
-    suspend fun getDetailTvShows(tvId: Int) : Flow<NetworkResult<TvShowsPopularDetailResponse>> {
+    fun getDetailTvShows(tvId: Int) : Flow<NetworkResult<TvShowsPopularDetailResponse>> {
         return flow {
             emit(safeApiCall { apiService.getDetailTvShows(tvId, apiKey) })
         }.flowOn(dispatchersIO)
     }
 
-    suspend fun getTvShowsReviews(tvId: Int): Flow<NetworkResult<ReviewsResponse>> {
+    fun getTvShowsReviews(tvId: Int): Flow<NetworkResult<ReviewsResponse>> {
         return flow {
             emit(safeApiCall { apiService.getReviewsTvShows(tvId, apiKey) })
         }.flowOn(dispatchersIO)
     }
 
-    suspend fun getSimilarTvShows(tvId: Int): Flow<NetworkResult<TvShowsSimilarResponse>> {
+    fun getSimilarTvShows(tvId: Int): Flow<NetworkResult<TvShowsSimilarResponse>> {
         return flow {
             emit(safeApiCall { apiService.getSimilarTvShows(tvId, apiKey) })
         }.flowOn(dispatchersIO)
