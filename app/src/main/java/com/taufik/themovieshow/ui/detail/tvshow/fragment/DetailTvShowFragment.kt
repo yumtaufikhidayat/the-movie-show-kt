@@ -106,9 +106,13 @@ class DetailTvShowFragment : Fragment() {
                 setDetailTvShowPopular(idTvShow)
                 detailTvShowPopularResponse.observe(viewLifecycleOwner) { response ->
                     when (response) {
-                        is NetworkResult.Loading -> {}
+                        is NetworkResult.Loading -> {
+                            // loading component not available
+                        }
                         is NetworkResult.Success -> showDetailData(response.data)
-                        is NetworkResult.Error -> {}
+                        is NetworkResult.Error -> {
+                            // error message not available
+                        }
                     }
                 }
             }
@@ -117,18 +121,12 @@ class DetailTvShowFragment : Fragment() {
 
     private fun showDetailData(data: TvShowsPopularDetailResponse?) {
         binding.apply {
-            if (data != null) {
-                imgPoster.loadImage(data.posterPath.orEmpty())
-                imgBackdrop.loadImage(data.backdropPath)
-                tvTitle.text = data.name
+            data?.let { detailResponse ->
+                imgPoster.loadImage(detailResponse.posterPath.orEmpty())
+                imgBackdrop.loadImage(detailResponse.backdropPath)
+                tvTitle.text = detailResponse.name
 
-                when {
-                    data.networks.isEmpty() -> tvNetwork.text = "(N/A)"
-                    data.networks[0].originCountry.isEmpty() -> tvNetwork.text = String.format("${data.networks[0].name} (N/A)")
-                    else -> tvNetwork.text = String.format("${data.networks[0].name} (${data.networks[0].originCountry})")
-                }
-
-                val startedOn = data.firstAirDate.convertDate(
+                val startedOn = detailResponse.firstAirDate.convertDate(
                     CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
                     CommonDateFormatConstants.EEE_D_MMM_YYYY_FORMAT
                 )
@@ -138,69 +136,59 @@ class DetailTvShowFragment : Fragment() {
                     startedOn
                 )
 
-                tvStatus.text = data.status
+                tvStatus.text = detailResponse.status
 
                 when {
-                    data.overview.isEmpty() -> {
+                    detailResponse.networks.isEmpty() -> tvNetwork.text = getString(R.string.tvNA)
+                    detailResponse.networks[0].originCountry.isEmpty() -> tvNetwork.text = String.format("${detailResponse.networks[0].name} ${getString(R.string.tvNA)})")
+                    detailResponse.overview.isEmpty() -> {
                         tvOverview.isVisible = false
                         tvNoOverview.isVisible = true
                         tvReadMore.isVisible = false
                     }
+                    detailResponse.voteAverage.toString().isEmpty() -> tvRating.text = getString(R.string.tvNA)
+                    detailResponse.originalLanguage.isEmpty() -> tvLanguage.text = getString(R.string.tvNA)
+                    detailResponse.originCountry.isEmpty() -> tvCountry.text = getString(R.string.tvNA)
+                    detailResponse.numberOfEpisodes.toString().isEmpty() -> tvEpisodes.text = getString(R.string.tvNA)
+                    detailResponse.genres.isEmpty() -> showNoGenres(true)
+
                     else -> {
+                        tvNetwork.text = String.format("${detailResponse.networks[0].name} (${detailResponse.networks[0].originCountry})")
                         tvNoOverview.isVisible = false
                         tvOverview.apply {
                             isVisible = true
-                            text = data.overview
+                            text = detailResponse.overview
                         }
-                    }
-                }
 
-                when {
-                    data.voteAverage.toString().isEmpty() -> tvRating.text = getString(R.string.tvNA)
-                    else -> tvRating.text = toRating(data.voteAverage)
-                }
+                        tvRating.text = toRating(detailResponse.voteAverage)
+                        tvLanguage.text =
+                            if (detailResponse.spokenLanguages.isNotEmpty()) {
+                                detailResponse.spokenLanguages[0].englishName
+                            } else {
+                                detailResponse.originalLanguage
+                            }
 
-                when {
-                    data.originalLanguage.isEmpty() -> tvLanguage.text = getString(R.string.tvNA)
-                    else -> tvLanguage.text =
-                        if (data.spokenLanguages.isNotEmpty()) {
-                            data.spokenLanguages[0].englishName
-                        } else {
-                            data.originalLanguage
-                        }
-                }
+                        tvCountry.text = detailResponse.originCountry.joinToString { countries -> countries }
+                        tvEpisodes.text = String.format(
+                            "%s %s",
+                            "${detailResponse.numberOfEpisodes}",
+                            getString(R.string.tvEps)
+                        )
 
-                when {
-                    data.originCountry.isEmpty() -> tvCountry.text = getString(R.string.tvNA)
-                    else -> tvCountry.text = data.originCountry.joinToString { countries -> countries }
-                }
-
-                when {
-                    data.episodeRunTime.isEmpty() -> tvEpisodes.text = getString(R.string.tvNA)
-                    else -> tvEpisodes.text = String.format(
-                        "%s %s",
-                        "${data.episodeRunTime[0]}",
-                        getString(R.string.tvEps)
-                    )
-                }
-
-                when {
-                    data.genres.isEmpty() -> showNoGenres(true)
-                    else -> {
                         showNoGenres(false)
-                        tvGenre.text = data.genres.joinToString { genres -> genres.name }
+                        tvGenre.text = detailResponse.genres.joinToString { genres -> genres.name }
                     }
                 }
 
                 checkFavoriteData(idTvShow)
                 setActionFavorite(
                     idTvShow,
-                    data.posterPath.orEmpty(),
+                    detailResponse.posterPath.orEmpty(),
                     title,
-                    data.firstAirDate,
-                    data.voteAverage
+                    detailResponse.firstAirDate,
+                    detailResponse.voteAverage
                 )
-                shareTvShow(data.homepage)
+                shareTvShow(detailResponse.homepage)
             }
         }
     }
@@ -285,7 +273,9 @@ class DetailTvShowFragment : Fragment() {
             setDetailTvShowsCast(id)
             detailTvShowCastResponse.observe(viewLifecycleOwner) { response ->
                 when (response) {
-                    is NetworkResult.Loading -> {}
+                    is NetworkResult.Loading -> {
+                        showNoCast(false)
+                    }
                     is NetworkResult.Success -> {
                         val data = response.data
                         if (data != null && data.cast.isNotEmpty()) {
@@ -295,7 +285,9 @@ class DetailTvShowFragment : Fragment() {
                             showNoCast(true)
                         }
                     }
-                    is NetworkResult.Error -> {}
+                    is NetworkResult.Error -> {
+                        showNoCast(false)
+                    }
                 }
             }
         }
@@ -320,20 +312,20 @@ class DetailTvShowFragment : Fragment() {
             setDetailTvShowVideo(id)
             detailTvShowVideoResponse.observe(viewLifecycleOwner) { response ->
                 when (response) {
-                    is NetworkResult.Loading -> {}
+                    is NetworkResult.Loading -> showVideo(false)
                     is NetworkResult.Success -> {
                         val data = response.data
-                        if (data != null) {
+                        data?.let { tvShowVideoResponse ->
                             when {
-                                data.results.isEmpty() -> showVideo(false)
+                                tvShowVideoResponse.results.isEmpty() -> showVideo(false)
                                 else -> {
                                     showVideo(true)
-                                    trailerVideoAdapter?.submitList(data.results)
+                                    trailerVideoAdapter?.submitList(tvShowVideoResponse.results)
                                 }
                             }
                         }
                     }
-                    is NetworkResult.Error -> {}
+                    is NetworkResult.Error -> showVideo(false)
                 }
             }
         }
@@ -355,7 +347,7 @@ class DetailTvShowFragment : Fragment() {
                 setDetailTvShowsReviews(id)
                 detailTvShowReviewsResponse.observe(viewLifecycleOwner) { response ->
                     when (response) {
-                        is NetworkResult.Loading -> {}
+                        is NetworkResult.Loading -> tvNoReviews.isVisible = false
                         is NetworkResult.Success -> {
                             val data = response.data
                             if (data != null && data.results.isNotEmpty()) {
@@ -365,7 +357,7 @@ class DetailTvShowFragment : Fragment() {
                                 tvNoReviews.isVisible = true
                             }
                         }
-                        is NetworkResult.Error -> {}
+                        is NetworkResult.Error -> tvNoReviews.isVisible = false
                     }
                 }
             }
@@ -390,7 +382,7 @@ class DetailTvShowFragment : Fragment() {
             setDetailTvShowsSimilar(id)
             detailTvShowSimilarResponse.observe(viewLifecycleOwner) { response ->
                 when (response) {
-                    is NetworkResult.Loading -> {}
+                    is NetworkResult.Loading -> showNoSimilarTvShow(false)
                     is NetworkResult.Success -> {
                         val results = response.data?.results
                         if (results.isNullOrEmpty()) {
@@ -400,7 +392,7 @@ class DetailTvShowFragment : Fragment() {
                             similarAdapter?.submitList(results)
                         }
                     }
-                    is NetworkResult.Error -> {}
+                    is NetworkResult.Error -> showNoSimilarTvShow(false)
                 }
             }
         }
