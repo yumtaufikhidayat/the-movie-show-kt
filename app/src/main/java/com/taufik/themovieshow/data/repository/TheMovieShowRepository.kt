@@ -20,17 +20,17 @@ class TheMovieShowRepository @Inject constructor(
 
     fun getMovieUpcoming() = remoteDataSource.getMovieUpcoming()
 
-    suspend fun getDiscoverMovie(query: String) = remoteDataSource.getDiscoverMovie(query)
+    fun getDiscoverMovie(query: String) = remoteDataSource.getDiscoverMovie(query)
 
-    suspend fun getMovieVideo(movieId: Int) = remoteDataSource.getMovieVideo(movieId)
+    fun getMovieVideo(movieId: Int) = remoteDataSource.getMovieVideo(movieId)
 
-    suspend fun getMovieCast(movieId: Int) = remoteDataSource.getMovieCast(movieId)
+    fun getMovieCast(movieId: Int) = remoteDataSource.getMovieCast(movieId)
 
-    suspend fun getDetailMovie(movieId: Int) = remoteDataSource.getDetailMovie(movieId)
+    fun getDetailMovie(movieId: Int) = remoteDataSource.getDetailMovie(movieId)
 
-    suspend fun getMovieReviews(movieId: Int) = remoteDataSource.getMovieReviews(movieId)
+    fun getMovieReviews(movieId: Int) = remoteDataSource.getMovieReviews(movieId)
 
-    suspend fun getSimilarMovie(movieId: Int) = remoteDataSource.getSimilarMovie(movieId)
+    fun getSimilarMovie(movieId: Int) = remoteDataSource.getSimilarMovie(movieId)
 
     fun getTvShowsAiringToday() = remoteDataSource.getTvShowsAiringToday()
 
@@ -38,17 +38,17 @@ class TheMovieShowRepository @Inject constructor(
 
     fun getTvShowsTrending() = remoteDataSource.getTvShowsTrending()
 
-    suspend fun getDiscoverTvShows(query: String) = remoteDataSource.getDiscoverTvShows(query)
+    fun getDiscoverTvShows(query: String) = remoteDataSource.getDiscoverTvShows(query)
 
-    suspend fun getTvShowsVideo(tvId: Int) = remoteDataSource.getTvShowsVideo(tvId)
+    fun getTvShowsVideo(tvId: Int) = remoteDataSource.getTvShowsVideo(tvId)
 
-    suspend fun getTvShowsCast(tvId: Int) = remoteDataSource.getTvShowsCast(tvId)
+    fun getTvShowsCast(tvId: Int) = remoteDataSource.getTvShowsCast(tvId)
 
-    suspend fun getDetailTvShows(tvId: Int) = remoteDataSource.getDetailTvShows(tvId)
+    fun getDetailTvShows(tvId: Int) = remoteDataSource.getDetailTvShows(tvId)
 
-    suspend fun getTvShowsReviews(tvId: Int) = remoteDataSource.getTvShowsReviews(tvId)
+    fun getTvShowsReviews(tvId: Int) = remoteDataSource.getTvShowsReviews(tvId)
 
-    suspend fun getSimilarTvShows(tvId: Int) = remoteDataSource.getSimilarTvShows(tvId)
+    fun getSimilarTvShows(tvId: Int) = remoteDataSource.getSimilarTvShows(tvId)
 
     suspend fun addMovieToFavorite(favoriteMovieEntity: FavoriteMovieEntity) =
         localDataSource.addMovieToFavorite(favoriteMovieEntity)
