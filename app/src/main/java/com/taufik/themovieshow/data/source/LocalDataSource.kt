@@ -9,7 +9,9 @@ import com.taufik.themovieshow.model.favorite.SortFiltering
 import com.taufik.themovieshow.model.response.about.About
 import com.taufik.themovieshow.utils.UtilsData
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class LocalDataSource @Inject constructor(
     private val favoriteDao: TheMovieShowDao
 ) {

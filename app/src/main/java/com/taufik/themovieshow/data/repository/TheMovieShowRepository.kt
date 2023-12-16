@@ -9,7 +9,9 @@ import com.taufik.themovieshow.data.source.RawQuery
 import com.taufik.themovieshow.data.source.RemoteDataSource
 import com.taufik.themovieshow.model.favorite.SortFiltering
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class TheMovieShowRepository @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource
