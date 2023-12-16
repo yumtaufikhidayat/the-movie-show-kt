@@ -14,6 +14,7 @@ import com.taufik.themovieshow.databinding.FragmentAboutBinding
 import com.taufik.themovieshow.ui.about.adapter.AboutApplicationAdapter
 import com.taufik.themovieshow.ui.about.adapter.AboutAuthorAdapter
 import com.taufik.themovieshow.ui.about.viewmodel.AboutViewModel
+import com.taufik.themovieshow.utils.CommonConstants
 import com.taufik.themovieshow.utils.showSuccessToastyIcon
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -89,9 +90,8 @@ class AboutFragment : Fragment() {
     private fun showToastyBasedOnType(type: String) {
         when (type) {
             LINKEDIN -> {
-                val urlLink = "https://linkedin.com/in/taufik-hidayat"
                 try {
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(urlLink))
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(CommonConstants.LINKEDIN_URL_LINK))
                     startActivity(
                         Intent.createChooser(
                             intent,
@@ -104,9 +104,8 @@ class AboutFragment : Fragment() {
             }
 
             GOOGLE_PLAY -> {
-                val versionLink = "https://play.google.com/store/apps/details?id=com.taufik.themovieshow"
                 try {
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(versionLink))
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(CommonConstants.GOOGLE_PLAY_URL_LINK))
                     startActivity(
                         Intent.createChooser(
                             intent,
@@ -119,9 +118,8 @@ class AboutFragment : Fragment() {
             }
 
             GITHUB -> {
-                val githubLink = "https://github.com/yumtaufikhidayat/the-movie-show-kt"
                 try {
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(githubLink))
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(CommonConstants.GITHUB_URL_LINK))
                     startActivity(
                         Intent.createChooser(
                             intent,
@@ -134,7 +132,7 @@ class AboutFragment : Fragment() {
             }
 
             EMAIL -> {
-                val email = "yumtaufikhidayat@gmail.com"
+                val email = CommonConstants.EMAIL
                 try {
                     val intentEmail = Intent(
                         Intent.ACTION_SENDTO,
