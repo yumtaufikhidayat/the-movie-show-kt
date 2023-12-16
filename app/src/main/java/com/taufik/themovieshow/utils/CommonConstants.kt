@@ -21,4 +21,12 @@ object CommonConstants {
     const val QUERY_TV_SHOW_ID = "tv_id"
     const val API_KEY = BuildConfig.API_KEY
     const val ENCRYPTED_DB_PASSPHRASE = ""
+    const val LINKEDIN = "linkedIn"
+    const val GOOGLE_PLAY = "google_play"
+    const val GITHUB = "github"
+    const val EMAIL = "email"
+    const val LINKEDIN_URL_LINK = "https://linkedin.com/in/taufik-hidayat"
+    const val GOOGLE_PLAY_URL_LINK = "https://play.google.com/store/apps/details?id=com.taufik.themovieshow"
+    const val GITHUB_URL_LINK = "https://github.com/yumtaufikhidayat/the-movie-show-kt"
+    const val EMAIL_ADDRESS = "yumtaufikhidayat@gmail.com"
 }

@@ -14,6 +14,7 @@ import com.taufik.themovieshow.databinding.FragmentAboutBinding
 import com.taufik.themovieshow.ui.about.adapter.AboutApplicationAdapter
 import com.taufik.themovieshow.ui.about.adapter.AboutAuthorAdapter
 import com.taufik.themovieshow.ui.about.viewmodel.AboutViewModel
+import com.taufik.themovieshow.utils.CommonConstants
 import com.taufik.themovieshow.utils.showSuccessToastyIcon
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -51,9 +52,9 @@ class AboutFragment : Fragment() {
     private fun setAuthorData() {
         authorAdapter = AboutAuthorAdapter { position ->
             when (position) {
-                0 -> showToastyBasedOnType(LINKEDIN)
-                1 -> showToastyBasedOnType(GITHUB)
-                2 -> showToastyBasedOnType(EMAIL)
+                0 -> showToastyBasedOnType(CommonConstants.LINKEDIN)
+                1 -> showToastyBasedOnType(CommonConstants.GITHUB)
+                2 -> showToastyBasedOnType(CommonConstants.EMAIL)
             }
         }
 
@@ -72,8 +73,8 @@ class AboutFragment : Fragment() {
                     0 -> {
                         // no reaction while given clicked action
                     }
-                    1, 2 -> showToastyBasedOnType(GOOGLE_PLAY)
-                    3 -> showToastyBasedOnType(EMAIL)
+                    1, 2 -> showToastyBasedOnType(CommonConstants.GOOGLE_PLAY)
+                    3 -> showToastyBasedOnType(CommonConstants.EMAIL)
                 }
             }
 
@@ -88,71 +89,55 @@ class AboutFragment : Fragment() {
 
     private fun showToastyBasedOnType(type: String) {
         when (type) {
-            LINKEDIN -> {
-                val urlLink = "https://linkedin.com/in/taufik-hidayat"
-                try {
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(urlLink))
-                    startActivity(
-                        Intent.createChooser(
-                            intent,
-                            getString(R.string.tvOpenWith)
-                        )
-                    )
-                } catch (e: Exception) {
-                    requireContext().showSuccessToastyIcon(getString(R.string.tvInstallBrowser, e.printStackTrace()))
-                }
-            }
+            CommonConstants.LINKEDIN -> goToIntent(Intent.ACTION_VIEW, CommonConstants.LINKEDIN_URL_LINK)
+            CommonConstants.GOOGLE_PLAY -> goToIntent(Intent.ACTION_VIEW, CommonConstants.GOOGLE_PLAY_URL_LINK)
+            CommonConstants.GITHUB -> goToIntent(Intent.ACTION_VIEW, CommonConstants.GITHUB_URL_LINK)
+            CommonConstants.EMAIL -> goToIntent(
+                Intent.ACTION_SENDTO,
+                CommonConstants.GITHUB_URL_LINK,
+                CommonConstants.EMAIL_ADDRESS
+            )
+        }
+    }
 
-            GOOGLE_PLAY -> {
-                val versionLink = "https://play.google.com/store/apps/details?id=com.taufik.themovieshow"
-                try {
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(versionLink))
-                    startActivity(
-                        Intent.createChooser(
-                            intent,
-                            "Open with:"
-                        )
-                    )
-                } catch (e: Exception) {
-                    requireContext().showSuccessToastyIcon("Please install browser app")
+    private fun goToIntent(
+        action: String,
+        urlString: String,
+        email: String = ""
+    ) {
+        if (action == Intent.ACTION_SENDTO) {
+            try {
+                val intentEmail = Intent(
+                    Intent.ACTION_SENDTO,
+                    Uri.fromParts("mailto", email, null)
+                ).apply {
+                    putExtra(Intent.EXTRA_EMAIL, email)
+                    putExtra(Intent.EXTRA_SUBJECT, "")
+                    putExtra(Intent.EXTRA_TEXT, "")
                 }
+                startActivity(
+                    Intent.createChooser(
+                        intentEmail,
+                        getString(R.string.tvSendTo)
+                    )
+                )
+            } catch (e: Exception) {
+                requireContext().showSuccessToastyIcon(getString(R.string.tvInstallEmailApp))
             }
-
-            GITHUB -> {
-                val githubLink = "https://github.com/yumtaufikhidayat/the-movie-show-kt"
-                try {
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(githubLink))
-                    startActivity(
-                        Intent.createChooser(
-                            intent,
-                            "Open with:"
-                        )
+        } else {
+            try {
+                val intent = Intent(action, Uri.parse(urlString))
+                startActivity(
+                    Intent.createChooser(
+                        intent,
+                        getString(R.string.tvOpenWith)
                     )
-                } catch (e: Exception) {
-                    requireContext().showSuccessToastyIcon("Please install browser app")
-                }
-            }
-
-            EMAIL -> {
-                val email = "yumtaufikhidayat@gmail.com"
-                try {
-                    val intentEmail = Intent(
-                        Intent.ACTION_SENDTO,
-                        Uri.fromParts("mailto", email, null)
-                    ).apply {
-                        putExtra(Intent.EXTRA_EMAIL, email)
-                        putExtra(Intent.EXTRA_SUBJECT, "")
-                        putExtra(Intent.EXTRA_TEXT, "")
-                    }
-                    startActivity(
-                        Intent.createChooser(
-                            intentEmail,
-                            "Send email"
-                        )
-                    )
-                } catch (e: Exception) {
-                    requireContext().showSuccessToastyIcon("Please install email app")
-                }
+                )
+            } catch (e: Exception) {
+                requireContext().showSuccessToastyIcon(getString(
+                    R.string.tvInstallBrowser,
+                    e.printStackTrace())
+                )
             }
         }
     }
@@ -161,12 +146,5 @@ class AboutFragment : Fragment() {
         super.onDestroyView()
         _binding = null
         applicationAdapter = null
-    }
-
-    companion object {
-        const val LINKEDIN = "linkedIn"
-        const val GOOGLE_PLAY = "google_play"
-        const val GITHUB = "github"
-        const val EMAIL = "email"
     }
 }
