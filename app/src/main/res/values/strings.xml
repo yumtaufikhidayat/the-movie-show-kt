@@ -74,6 +74,8 @@
     <string name="tvPressBackExit">Press back again to exit</string>
     <string name="tvOpenWith">Open with</string>
     <string name="tvInstallBrowser">Please install browser first.\nError: %s</string>
+    <string name="tvSendTo">Send to</string>
+    <string name="tvInstallEmailApp">"Please install email app"</string>
 
     <!--Tab menu title-->
     <string name="tvMovieNowPlaying">Now Playing</string>
