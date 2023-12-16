@@ -52,9 +52,9 @@ class AboutFragment : Fragment() {
     private fun setAuthorData() {
         authorAdapter = AboutAuthorAdapter { position ->
             when (position) {
-                0 -> showToastyBasedOnType(LINKEDIN)
-                1 -> showToastyBasedOnType(GITHUB)
-                2 -> showToastyBasedOnType(EMAIL)
+                0 -> showToastyBasedOnType(CommonConstants.LINKEDIN)
+                1 -> showToastyBasedOnType(CommonConstants.GITHUB)
+                2 -> showToastyBasedOnType(CommonConstants.EMAIL)
             }
         }
 
@@ -73,8 +73,8 @@ class AboutFragment : Fragment() {
                     0 -> {
                         // no reaction while given clicked action
                     }
-                    1, 2 -> showToastyBasedOnType(GOOGLE_PLAY)
-                    3 -> showToastyBasedOnType(EMAIL)
+                    1, 2 -> showToastyBasedOnType(CommonConstants.GOOGLE_PLAY)
+                    3 -> showToastyBasedOnType(CommonConstants.EMAIL)
                 }
             }
 
@@ -89,7 +89,7 @@ class AboutFragment : Fragment() {
 
     private fun showToastyBasedOnType(type: String) {
         when (type) {
-            LINKEDIN -> {
+            CommonConstants.LINKEDIN -> {
                 try {
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(CommonConstants.LINKEDIN_URL_LINK))
                     startActivity(
@@ -103,7 +103,7 @@ class AboutFragment : Fragment() {
                 }
             }
 
-            GOOGLE_PLAY -> {
+            CommonConstants.GOOGLE_PLAY -> {
                 try {
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(CommonConstants.GOOGLE_PLAY_URL_LINK))
                     startActivity(
@@ -117,7 +117,7 @@ class AboutFragment : Fragment() {
                 }
             }
 
-            GITHUB -> {
+            CommonConstants.GITHUB -> {
                 try {
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(CommonConstants.GITHUB_URL_LINK))
                     startActivity(
@@ -131,8 +131,8 @@ class AboutFragment : Fragment() {
                 }
             }
 
-            EMAIL -> {
-                val email = CommonConstants.EMAIL
+            CommonConstants.EMAIL -> {
+                val email = CommonConstants.EMAIL_ADDRESS
                 try {
                     val intentEmail = Intent(
                         Intent.ACTION_SENDTO,
@@ -159,12 +159,5 @@ class AboutFragment : Fragment() {
         super.onDestroyView()
         _binding = null
         applicationAdapter = null
-    }
-
-    companion object {
-        const val LINKEDIN = "linkedIn"
-        const val GOOGLE_PLAY = "google_play"
-        const val GITHUB = "github"
-        const val EMAIL = "email"
     }
 }
