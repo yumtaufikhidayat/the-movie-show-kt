@@ -158,7 +158,7 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics-ktx:$firebaseCrashlyticsKtxVersion")
 
     // Lottie
-    val lottieVersion = "6.1.0"
+    val lottieVersion = "6.2.0"
     implementation("com.airbnb.android:lottie:$lottieVersion")
 
     // FlexboxLayout
