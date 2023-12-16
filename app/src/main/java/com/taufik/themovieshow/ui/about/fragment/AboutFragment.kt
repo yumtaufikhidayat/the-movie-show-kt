@@ -89,68 +89,55 @@ class AboutFragment : Fragment() {
 
     private fun showToastyBasedOnType(type: String) {
         when (type) {
-            CommonConstants.LINKEDIN -> {
-                try {
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(CommonConstants.LINKEDIN_URL_LINK))
-                    startActivity(
-                        Intent.createChooser(
-                            intent,
-                            getString(R.string.tvOpenWith)
-                        )
-                    )
-                } catch (e: Exception) {
-                    requireContext().showSuccessToastyIcon(getString(R.string.tvInstallBrowser, e.printStackTrace()))
-                }
-            }
+            CommonConstants.LINKEDIN -> goToIntent(Intent.ACTION_VIEW, CommonConstants.LINKEDIN_URL_LINK)
+            CommonConstants.GOOGLE_PLAY -> goToIntent(Intent.ACTION_VIEW, CommonConstants.GOOGLE_PLAY_URL_LINK)
+            CommonConstants.GITHUB -> goToIntent(Intent.ACTION_VIEW, CommonConstants.GITHUB_URL_LINK)
+            CommonConstants.EMAIL -> goToIntent(
+                Intent.ACTION_SENDTO,
+                CommonConstants.GITHUB_URL_LINK,
+                CommonConstants.EMAIL_ADDRESS
+            )
+        }
+    }
 
-            CommonConstants.GOOGLE_PLAY -> {
-                try {
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(CommonConstants.GOOGLE_PLAY_URL_LINK))
-                    startActivity(
-                        Intent.createChooser(
-                            intent,
-                            "Open with:"
-                        )
-                    )
-                } catch (e: Exception) {
-                    requireContext().showSuccessToastyIcon("Please install browser app")
+    private fun goToIntent(
+        action: String,
+        urlString: String,
+        email: String = ""
+    ) {
+        if (action == Intent.ACTION_SENDTO) {
+            try {
+                val intentEmail = Intent(
+                    Intent.ACTION_SENDTO,
+                    Uri.fromParts("mailto", email, null)
+                ).apply {
+                    putExtra(Intent.EXTRA_EMAIL, email)
+                    putExtra(Intent.EXTRA_SUBJECT, "")
+                    putExtra(Intent.EXTRA_TEXT, "")
                 }
+                startActivity(
+                    Intent.createChooser(
+                        intentEmail,
+                        getString(R.string.tvSendTo)
+                    )
+                )
+            } catch (e: Exception) {
+                requireContext().showSuccessToastyIcon(getString(R.string.tvInstallEmailApp))
             }
-
-            CommonConstants.GITHUB -> {
-                try {
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(CommonConstants.GITHUB_URL_LINK))
-                    startActivity(
-                        Intent.createChooser(
-                            intent,
-                            "Open with:"
-                        )
+        } else {
+            try {
+                val intent = Intent(action, Uri.parse(urlString))
+                startActivity(
+                    Intent.createChooser(
+                        intent,
+                        getString(R.string.tvOpenWith)
                     )
-                } catch (e: Exception) {
-                    requireContext().showSuccessToastyIcon("Please install browser app")
-                }
-            }
-
-            CommonConstants.EMAIL -> {
-                val email = CommonConstants.EMAIL_ADDRESS
-                try {
-                    val intentEmail = Intent(
-                        Intent.ACTION_SENDTO,
-                        Uri.fromParts("mailto", email, null)
-                    ).apply {
-                        putExtra(Intent.EXTRA_EMAIL, email)
-                        putExtra(Intent.EXTRA_SUBJECT, "")
-                        putExtra(Intent.EXTRA_TEXT, "")
-                    }
-                    startActivity(
-                        Intent.createChooser(
-                            intentEmail,
-                            "Send email"
-                        )
-                    )
-                } catch (e: Exception) {
-                    requireContext().showSuccessToastyIcon("Please install email app")
-                }
+                )
+            } catch (e: Exception) {
+                requireContext().showSuccessToastyIcon(getString(
+                    R.string.tvInstallBrowser,
+                    e.printStackTrace())
+                )
             }
         }
     }
