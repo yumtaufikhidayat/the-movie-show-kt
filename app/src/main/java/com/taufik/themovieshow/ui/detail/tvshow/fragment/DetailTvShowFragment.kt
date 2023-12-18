@@ -51,7 +51,7 @@ class DetailTvShowFragment : Fragment() {
     private var title = ""
     private var isChecked = false
 
-    private val backPressedCallback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
+    private val backPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
             this@DetailTvShowFragment.popBackStack()
         }
@@ -132,9 +132,15 @@ class DetailTvShowFragment : Fragment() {
                 tvStartedOn.stringFormat(getString(R.string.tvStartedOn), startedOn)
                 tvStatus.text = detailResponse.status
 
+                val networkFirst = detailResponse.networks.first()
+                if (detailResponse.networks.isEmpty())
+                    tvNetwork.text = getString(R.string.tvNA)
+                else if (detailResponse.networks.first().originCountry.isEmpty())
+                    tvNetwork.stringFormat(networkFirst.name, "(${getString(R.string.tvNA)})")
+                else
+                    tvNetwork.stringFormat(networkFirst.name, "(${networkFirst.originCountry})")
+
                 when {
-                    detailResponse.networks.isEmpty() -> tvNetwork.text = getString(R.string.tvNA)
-                    detailResponse.networks.first().originCountry.isEmpty() -> tvNetwork.text = String.format("${detailResponse.networks.first().name} ${getString(R.string.tvNA)})")
                     detailResponse.overview.isEmpty() -> {
                         tvOverview.isVisible = false
                         tvNoOverview.isVisible = true
@@ -147,7 +153,6 @@ class DetailTvShowFragment : Fragment() {
                     detailResponse.genres.isEmpty() -> showNoGenres(true)
 
                     else -> {
-                        tvNetwork.stringFormat(detailResponse.networks.first().name, "(${detailResponse.networks.first().originCountry})")
                         tvNoOverview.isVisible = false
                         tvOverview.apply {
                             isVisible = true
@@ -204,22 +209,20 @@ class DetailTvShowFragment : Fragment() {
         firstAirDate: String,
         voteAverage: Double
     ) {
-        binding.apply {
-            toolbarDetailTvShow.toggleFavorite.setOnClickListener {
-                isChecked = !isChecked
-                if (isChecked) {
-                    viewModel.addTvShowFavorite(
-                        id,
-                        posterPath,
-                        title,
-                        firstAirDate,
-                        voteAverage
-                    )
-                    requireContext().showSuccessToastyIcon(getString(R.string.action_added_to_favorite))
-                } else {
-                    viewModel.removeTvShowFromFavorite(id)
-                    requireContext().showSuccessToastyIcon(getString(R.string.action_removed_from_favorite))
-                }
+        binding.toolbarDetailTvShow.toggleFavorite.setOnClickListener {
+            isChecked = !isChecked
+            if (isChecked) {
+                viewModel.addTvShowFavorite(
+                    id,
+                    posterPath,
+                    title,
+                    firstAirDate,
+                    voteAverage
+                )
+                requireContext().showSuccessToastyIcon(getString(R.string.action_added_to_favorite))
+            } else {
+                viewModel.removeTvShowFromFavorite(id)
+                requireContext().showSuccessToastyIcon(getString(R.string.action_removed_from_favorite))
             }
         }
     }
