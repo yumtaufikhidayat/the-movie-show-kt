@@ -73,13 +73,18 @@ android {
 dependencies {
 
     // Kotlin
-    implementation("androidx.core:core-ktx:1.9.0")
+    val coreKtxVersion = "1.9.0"
+    implementation("androidx.core:core-ktx:$coreKtxVersion")
 
     // UI
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.10.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("androidx.legacy:legacy-support-v4:1.0.0")
+    val appCompatVersion = "1.6.1"
+    val materialVersion = "1.10.0"
+    val constraintLayoutVersion = "2.1.4"
+    val legacySupportVersion = "1.0.0"
+    implementation("androidx.appcompat:appcompat:$appCompatVersion")
+    implementation("com.google.android.material:material:$materialVersion")
+    implementation("androidx.constraintlayout:constraintlayout:$constraintLayoutVersion")
+    implementation("androidx.legacy:legacy-support-v4:$legacySupportVersion")
 
     // Glide
     val glideVersion = "4.16.0"
@@ -99,6 +104,7 @@ dependencies {
     val mockitoCoreVersion = "5.7.0"
     val espressoVersion = "3.5.1"
     val mockitoInlineVersion = "5.2.0"
+    val coreTestingVersion = "2.2.0"
     testImplementation("junit:junit:$junitVersion")
     androidTestImplementation("junit:junit:$junitVersion")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
@@ -106,7 +112,7 @@ dependencies {
     androidTestImplementation("androidx.test:rules:1.5.0")
     androidTestImplementation("androidx.test.espresso:espresso-core:$espressoVersion")
     androidTestImplementation("androidx.test.espresso:espresso-contrib:$espressoVersion")
-    testImplementation("androidx.arch.core:core-testing:2.2.0")
+    testImplementation("androidx.arch.core:core-testing:$coreTestingVersion")
     testImplementation("org.mockito:mockito-core:$mockitoCoreVersion")
     testImplementation("org.mockito:mockito-inline:$mockitoInlineVersion")
 
