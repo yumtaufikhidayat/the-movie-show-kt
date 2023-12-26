@@ -86,7 +86,7 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:$glideVersion")
 
     // Navigation component
-    val navKTXVersion = "2.7.5"
+    val navKTXVersion = "2.7.6"
     implementation("androidx.navigation:navigation-fragment-ktx:$navKTXVersion")
     implementation("androidx.navigation:navigation-ui-ktx:$navKTXVersion")
 
