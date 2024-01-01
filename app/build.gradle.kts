@@ -27,8 +27,8 @@ android {
         applicationId = "com.taufik.themovieshow"
         minSdk = 28
         targetSdk = 33
-        versionCode = 126
-        versionName = "1.26"
+        versionCode = 127
+        versionName = "1.27"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "API_KEY", "\"API_KEY\"")
@@ -78,7 +78,7 @@ dependencies {
 
     // UI
     val appCompatVersion = "1.6.1"
-    val materialVersion = "1.10.0"
+    val materialVersion = "1.11.0"
     val constraintLayoutVersion = "2.1.4"
     val legacySupportVersion = "1.0.0"
     implementation("androidx.appcompat:appcompat:$appCompatVersion")
@@ -153,7 +153,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutineAndroidVersion")
 
     // Hilt
-    val hiltVersion = "2.48.1"
+    val hiltVersion = "2.50"
     implementation("com.google.dagger:hilt-android:$hiltVersion")
     kapt("com.google.dagger:hilt-compiler:$hiltVersion")
 
