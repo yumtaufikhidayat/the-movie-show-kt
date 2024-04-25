@@ -91,7 +91,7 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:$glideVersion")
 
     // Navigation component
-    val navKTXVersion = "2.7.6"
+    val navKTXVersion = "2.7.7"
     implementation("androidx.navigation:navigation-fragment-ktx:$navKTXVersion")
     implementation("androidx.navigation:navigation-ui-ktx:$navKTXVersion")
 
@@ -122,13 +122,13 @@ dependencies {
 
     // View Model
     val lifeCycleVersion = "2.2.0"
-    val lifeCycleKtxVersion = "2.6.2"
+    val lifeCycleKtxVersion = "2.7.0"
     implementation("androidx.lifecycle:lifecycle-extensions:$lifeCycleVersion")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifeCycleKtxVersion")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifeCycleKtxVersion")
 
     // Network
-    val retrofitVersion = "2.9.0"
+    val retrofitVersion = "2.11.0"
     val okHttpVersion = "4.12.0"
     implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
     implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
@@ -147,24 +147,24 @@ dependencies {
     ksp("androidx.room:room-compiler:$roomVersion")
 
     // Coroutine
-    val coroutineCoreVersion = "1.7.3"
-    val coroutineAndroidVersion = "1.7.3"
+    val coroutineCoreVersion = "1.8.0"
+    val coroutineAndroidVersion = "1.8.0"
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineCoreVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutineAndroidVersion")
 
     // Hilt
-    val hiltVersion = "2.50"
+    val hiltVersion = "2.51"
     implementation("com.google.dagger:hilt-android:$hiltVersion")
     kapt("com.google.dagger:hilt-compiler:$hiltVersion")
 
     // Firebase
-    val firebaseCrashlyticsVersion = "18.6.0"
-    val firebaseCrashlyticsKtxVersion = "21.5.0"
+    val firebaseCrashlyticsVersion = "18.6.4"
+    val firebaseCrashlyticsKtxVersion = "21.6.2"
     implementation("com.google.firebase:firebase-crashlytics-ktx:$firebaseCrashlyticsVersion")
     implementation("com.google.firebase:firebase-analytics-ktx:$firebaseCrashlyticsKtxVersion")
 
     // Lottie
-    val lottieVersion = "6.2.0"
+    val lottieVersion = "6.4.0"
     implementation("com.airbnb.android:lottie:$lottieVersion")
 
     // FlexboxLayout
