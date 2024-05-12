@@ -75,7 +75,7 @@ class DetailTvShowFragment : Fragment() {
         )
         getBundleData()
         showToolbarData()
-        setDetailObserver()
+        setDetailObserver(idTvShow)
         setCastAdapter()
         setCastObserver(idTvShow)
         setTrailerVideoAdapter()
@@ -101,9 +101,9 @@ class DetailTvShowFragment : Fragment() {
         }
     }
 
-    private fun setDetailObserver() {
+    private fun setDetailObserver(id: Int) {
         viewModel.apply {
-            setDetailTvShowPopular(idTvShow)
+            setDetailTvShowPopular(id)
             detailTvShowPopularResponse.observe(viewLifecycleOwner) { response ->
                 when (response) {
                     is NetworkResult.Loading -> {
