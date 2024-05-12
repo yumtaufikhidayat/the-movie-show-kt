@@ -19,6 +19,9 @@ import javax.inject.Inject
 @HiltViewModel
 class DetailMovieViewModel @Inject constructor(private val repository: TheMovieShowRepository) : ViewModel() {
 
+    var idMovie = 0
+    var titleMovie = ""
+
     private val _detailMoviesResponse: MutableLiveData<NetworkResult<MovieDetailResponse>> = MutableLiveData()
     val detailMoviesResponse: LiveData<NetworkResult<MovieDetailResponse>> = _detailMoviesResponse
 
