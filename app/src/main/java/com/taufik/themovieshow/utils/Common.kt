@@ -3,10 +3,10 @@ package com.taufik.themovieshow.utils
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -60,18 +60,18 @@ fun Context.showSuccessToasty(message: String) {
 }
 
 fun Fragment.navigateToDetailMovie(id: Int, title: String) {
-    val bundle = Bundle().apply {
-        putInt(DetailMovieFragment.EXTRA_ID, id)
-        putString(DetailMovieFragment.EXTRA_TITLE, title)
-    }
+    val bundle = bundleOf(
+        DetailMovieFragment.EXTRA_ID to id,
+        DetailMovieFragment.EXTRA_TITLE to title
+    )
     this.findNavController().navigate(R.id.detailMovieFragment, bundle)
 }
 
 fun Fragment.navigateToDetailTvShow(id: Int, title: String) {
-    val bundle = Bundle().apply {
-        putInt(DetailTvShowFragment.EXTRA_ID, id)
-        putString(DetailTvShowFragment.EXTRA_TITLE, title)
-    }
+    val bundle = bundleOf(
+        DetailTvShowFragment.EXTRA_ID to id,
+        DetailTvShowFragment.EXTRA_TITLE to title
+    )
     this.findNavController().navigate(R.id.detailTvShowFragment, bundle)
 }
 
