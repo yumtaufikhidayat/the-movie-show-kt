@@ -10,7 +10,9 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.taufik.themovieshow.data.NetworkResult
 import com.taufik.themovieshow.databinding.FragmentMovieTvShowsListBinding
+import com.taufik.themovieshow.ui.movie.viewmodel.DetailMovieViewModel
 import com.taufik.themovieshow.ui.tvshow.adapter.TvShowsAdapter
+import com.taufik.themovieshow.ui.tvshow.viewmodel.DetailTvShowViewModel
 import com.taufik.themovieshow.ui.tvshow.viewmodel.TvShowsViewModel
 import com.taufik.themovieshow.utils.navigateToDetailTvShow
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,6 +24,7 @@ class TVShowsPopularFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel by viewModels<TvShowsViewModel>()
+    private val detailTvShowViewModel by viewModels<DetailTvShowViewModel>()
     private var tvShowsAdapter: TvShowsAdapter? = null
 
     override fun onCreateView(
@@ -42,7 +45,11 @@ class TVShowsPopularFragment : Fragment() {
 
     private fun setAdapter() {
         tvShowsAdapter = TvShowsAdapter {
-            navigateToDetailTvShow(it.id, it.name)
+            detailTvShowViewModel.apply {
+                idTvShow = it.id
+                titleTvShow = it.name
+            }
+            navigateToDetailTvShow(detailTvShowViewModel.idTvShow, detailTvShowViewModel.titleTvShow)
         }
 
         binding.rvCommon.apply {

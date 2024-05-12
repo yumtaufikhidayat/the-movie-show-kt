@@ -21,6 +21,7 @@ import com.taufik.themovieshow.data.NetworkResult
 import com.taufik.themovieshow.databinding.FragmentDiscoverTvShowBinding
 import com.taufik.themovieshow.model.response.tvshow.discover.DiscoverTvShowsResult
 import com.taufik.themovieshow.ui.tvshow.adapter.DiscoverTvShowsAdapter
+import com.taufik.themovieshow.ui.tvshow.viewmodel.DetailTvShowViewModel
 import com.taufik.themovieshow.ui.tvshow.viewmodel.TvShowsViewModel
 import com.taufik.themovieshow.utils.navigateToDetailTvShow
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,6 +33,7 @@ class DiscoverTvShowFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel by viewModels<TvShowsViewModel>()
+    private val detailTvShowViewModel by viewModels<DetailTvShowViewModel>()
     private var discoverTvShowsAdapter: DiscoverTvShowsAdapter? = null
 
     override fun onCreateView(
@@ -59,7 +61,11 @@ class DiscoverTvShowFragment : Fragment() {
 
     private fun initAdapter() {
         discoverTvShowsAdapter = DiscoverTvShowsAdapter {
-            navigateToDetailTvShow(it.id, it.name)
+            detailTvShowViewModel.apply {
+                idTvShow = it.id
+                titleTvShow = it.name
+            }
+            navigateToDetailTvShow(detailTvShowViewModel.idTvShow, detailTvShowViewModel.titleTvShow)
         }
 
         binding.rvDiscoverTvShow.apply {

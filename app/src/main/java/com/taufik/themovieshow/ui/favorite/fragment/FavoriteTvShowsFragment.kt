@@ -25,6 +25,7 @@ import com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsM
 import com.taufik.themovieshow.ui.favorite.adapter.FavoriteTvShowsAdapter
 import com.taufik.themovieshow.ui.favorite.adapter.SortFilteringAdapter
 import com.taufik.themovieshow.ui.favorite.viewmodel.FavoriteTvShowViewModel
+import com.taufik.themovieshow.ui.tvshow.viewmodel.DetailTvShowViewModel
 import com.taufik.themovieshow.utils.navigateToDetailTvShow
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
@@ -37,10 +38,20 @@ class FavoriteTvShowsFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: FavoriteTvShowViewModel by viewModels(ownerProducer = { requireParentFragment() })
-    private val sortFilteringAdapter by lazy { SortFilteringAdapter { showFilteringData(it)} }
-    private val favoriteTvShowsAdapter by lazy { FavoriteTvShowsAdapter {
-        navigateToDetailTvShow(it.id, it.name)
-    }}
+    private val detailTvShowViewModel by viewModels<DetailTvShowViewModel>()
+    private val sortFilteringAdapter by lazy { SortFilteringAdapter { showFilteringData(it) } }
+    private val favoriteTvShowsAdapter by lazy {
+        FavoriteTvShowsAdapter {
+            detailTvShowViewModel.apply {
+                idTvShow = it.id
+                titleTvShow = it.name
+            }
+            navigateToDetailTvShow(
+                detailTvShowViewModel.idTvShow,
+                detailTvShowViewModel.titleTvShow
+            )
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -170,7 +181,8 @@ class FavoriteTvShowsFragment : Fragment() {
     private fun hideKeyboard() {
         binding.apply {
             etSearch.clearFocus()
-            val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            val imm =
+                requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(etSearch.windowToken, 0)
         }
     }
@@ -178,9 +190,5 @@ class FavoriteTvShowsFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    companion object {
-        const val POSITION_KEY = "position_key"
     }
 }
