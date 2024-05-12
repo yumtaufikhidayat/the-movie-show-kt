@@ -75,7 +75,7 @@ class DetailMovieFragment : Fragment() {
         )
         getBundleData()
         showToolbarData()
-        setDetailObserver()
+        setDetailObserver(idMovie)
         setCastAdapter()
         setCastObserver(idMovie)
         setTrailerVideoAdapter()
@@ -103,9 +103,9 @@ class DetailMovieFragment : Fragment() {
         }
     }
 
-    private fun setDetailObserver() {
+    private fun setDetailObserver(id: Int) {
         viewModel.apply {
-            setDetailMovies(idMovie)
+            setDetailMovies(id)
             detailMoviesResponse.observe(viewLifecycleOwner) { response ->
                 when (response) {
                     is NetworkResult.Loading -> {
