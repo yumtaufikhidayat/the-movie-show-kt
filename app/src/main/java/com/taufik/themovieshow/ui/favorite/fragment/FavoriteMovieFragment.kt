@@ -25,6 +25,7 @@ import com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMain
 import com.taufik.themovieshow.ui.favorite.adapter.FavoriteMovieAdapter
 import com.taufik.themovieshow.ui.favorite.adapter.SortFilteringAdapter
 import com.taufik.themovieshow.ui.favorite.viewmodel.FavoriteMovieViewModel
+import com.taufik.themovieshow.ui.movie.viewmodel.DetailMovieViewModel
 import com.taufik.themovieshow.utils.navigateToDetailMovie
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
@@ -37,8 +38,15 @@ class FavoriteMovieFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: FavoriteMovieViewModel by viewModels(ownerProducer = { requireParentFragment() })
+    private val detailMovieViewModel by viewModels<DetailMovieViewModel>()
     private val sortFilteringAdapter by lazy { SortFilteringAdapter { showFilteringData(it) }}
-    private val favoriteMovieAdapter by lazy { FavoriteMovieAdapter { navigateToDetailMovie(it.id, it.title) }}
+    private val favoriteMovieAdapter by lazy { FavoriteMovieAdapter {
+        detailMovieViewModel.apply {
+            idMovie = it.id
+            titleMovie = it.title
+        }
+        navigateToDetailMovie(detailMovieViewModel.idMovie, detailMovieViewModel.titleMovie)
+    }}
 
     override fun onCreateView(
         inflater: LayoutInflater,

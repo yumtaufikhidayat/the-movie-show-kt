@@ -21,6 +21,7 @@ import com.taufik.themovieshow.data.NetworkResult
 import com.taufik.themovieshow.databinding.FragmentDiscoverMovieBinding
 import com.taufik.themovieshow.model.response.movie.discover.DiscoverMovieResult
 import com.taufik.themovieshow.ui.movie.adapter.DiscoverMovieAdapter
+import com.taufik.themovieshow.ui.movie.viewmodel.DetailMovieViewModel
 import com.taufik.themovieshow.ui.movie.viewmodel.MovieViewModel
 import com.taufik.themovieshow.utils.navigateToDetailMovie
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,6 +33,7 @@ class DiscoverMovieFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel by viewModels<MovieViewModel>()
+    private val detailMovieViewModel by viewModels<DetailMovieViewModel>()
     private var discoverMovieAdapter: DiscoverMovieAdapter? = null
 
     override fun onCreateView(
@@ -59,7 +61,11 @@ class DiscoverMovieFragment : Fragment() {
 
     private fun initAdapter() {
         discoverMovieAdapter = DiscoverMovieAdapter {
-            navigateToDetailMovie(it.id, it.title)
+            detailMovieViewModel.apply {
+                idMovie = it.id
+                titleMovie = it.title
+            }
+            navigateToDetailMovie(detailMovieViewModel.idMovie, detailMovieViewModel.titleMovie)
         }
 
         binding.rvDiscoverMovie.apply {

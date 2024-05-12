@@ -12,6 +12,7 @@ import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.NetworkResult
 import com.taufik.themovieshow.databinding.FragmentMovieTvShowsListBinding
 import com.taufik.themovieshow.ui.movie.adapter.MovieTrendingAdapter
+import com.taufik.themovieshow.ui.movie.viewmodel.DetailMovieViewModel
 import com.taufik.themovieshow.ui.movie.viewmodel.MovieViewModel
 import com.taufik.themovieshow.utils.navigateToDetailMovie
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,6 +24,7 @@ class MovieTrendingFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel by viewModels<MovieViewModel>()
+    private val detailMovieViewModel by viewModels<DetailMovieViewModel>()
     private var movieTrendingAdapter: MovieTrendingAdapter? = null
 
     override fun onCreateView(
@@ -43,7 +45,11 @@ class MovieTrendingFragment : Fragment() {
 
     private fun initAdapter() {
         movieTrendingAdapter = MovieTrendingAdapter {
-            navigateToDetailMovie(it.id, it.title)
+            detailMovieViewModel.apply {
+                idMovie = it.id
+                titleMovie = it.title
+            }
+            navigateToDetailMovie(detailMovieViewModel.idMovie, detailMovieViewModel.titleMovie)
         }
 
         binding.rvCommon.apply {
