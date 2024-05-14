@@ -96,7 +96,7 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:$navKTXVersion")
 
     // Fragment KTX
-    val fragmentKTXVersion = "1.6.2"
+    val fragmentKTXVersion = "1.7.0"
     implementation("androidx.fragment:fragment-ktx:$fragmentKTXVersion")
 
     // Testing
@@ -158,8 +158,8 @@ dependencies {
     kapt("com.google.dagger:hilt-compiler:$hiltVersion")
 
     // Firebase
-    val firebaseCrashlyticsVersion = "18.6.4"
-    val firebaseCrashlyticsKtxVersion = "21.6.2"
+    val firebaseCrashlyticsVersion = "19.0.0"
+    val firebaseCrashlyticsKtxVersion = "22.0.0"
     implementation("com.google.firebase:firebase-crashlytics-ktx:$firebaseCrashlyticsVersion")
     implementation("com.google.firebase:firebase-analytics-ktx:$firebaseCrashlyticsKtxVersion")
 
