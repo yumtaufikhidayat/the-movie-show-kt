@@ -96,7 +96,7 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:$navKTXVersion")
 
     // Fragment KTX
-    val fragmentKTXVersion = "1.7.0"
+    val fragmentKTXVersion = "1.7.1"
     implementation("androidx.fragment:fragment-ktx:$fragmentKTXVersion")
 
     // Testing
@@ -122,7 +122,7 @@ dependencies {
 
     // View Model
     val lifeCycleVersion = "2.2.0"
-    val lifeCycleKtxVersion = "2.7.0"
+    val lifeCycleKtxVersion = "2.8.0"
     implementation("androidx.lifecycle:lifecycle-extensions:$lifeCycleVersion")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifeCycleKtxVersion")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifeCycleKtxVersion")
