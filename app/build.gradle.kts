@@ -26,7 +26,7 @@ android {
     defaultConfig {
         applicationId = "com.taufik.themovieshow"
         minSdk = 28
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 127
         versionName = "1.27"
 
@@ -96,20 +96,22 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:$navKTXVersion")
 
     // Fragment KTX
-    val fragmentKTXVersion = "1.7.1"
+    val fragmentKTXVersion = "1.8.1"
     implementation("androidx.fragment:fragment-ktx:$fragmentKTXVersion")
 
     // Testing
     val junitVersion = "4.13.2"
-    val mockitoCoreVersion = "5.7.0"
-    val espressoVersion = "3.5.1"
+    val mockitoCoreVersion = "5.12.0"
+    val espressoVersion = "3.6.1"
     val mockitoInlineVersion = "5.2.0"
     val coreTestingVersion = "2.2.0"
+    val testExtVersion = "1.2.1"
+    val testRunnerVersion = "1.6.1"
     testImplementation("junit:junit:$junitVersion")
     androidTestImplementation("junit:junit:$junitVersion")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test:runner:1.5.2")
-    androidTestImplementation("androidx.test:rules:1.5.0")
+    androidTestImplementation("androidx.test.ext:junit:$testExtVersion")
+    androidTestImplementation("androidx.test:runner:$testRunnerVersion")
+    androidTestImplementation("androidx.test:rules:$testRunnerVersion")
     androidTestImplementation("androidx.test.espresso:espresso-core:$espressoVersion")
     androidTestImplementation("androidx.test.espresso:espresso-contrib:$espressoVersion")
     testImplementation("androidx.arch.core:core-testing:$coreTestingVersion")
@@ -122,7 +124,7 @@ dependencies {
 
     // View Model
     val lifeCycleVersion = "2.2.0"
-    val lifeCycleKtxVersion = "2.8.0"
+    val lifeCycleKtxVersion = "2.8.3"
     implementation("androidx.lifecycle:lifecycle-extensions:$lifeCycleVersion")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifeCycleKtxVersion")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifeCycleKtxVersion")
@@ -153,13 +155,13 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutineAndroidVersion")
 
     // Hilt
-    val hiltVersion = "2.51"
+    val hiltVersion = "2.51.1"
     implementation("com.google.dagger:hilt-android:$hiltVersion")
     kapt("com.google.dagger:hilt-compiler:$hiltVersion")
 
     // Firebase
-    val firebaseCrashlyticsVersion = "19.0.0"
-    val firebaseCrashlyticsKtxVersion = "22.0.0"
+    val firebaseCrashlyticsVersion = "19.0.2"
+    val firebaseCrashlyticsKtxVersion = "22.0.2"
     implementation("com.google.firebase:firebase-crashlytics-ktx:$firebaseCrashlyticsVersion")
     implementation("com.google.firebase:firebase-analytics-ktx:$firebaseCrashlyticsKtxVersion")
 
