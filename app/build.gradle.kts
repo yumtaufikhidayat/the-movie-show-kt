@@ -77,8 +77,8 @@ dependencies {
     implementation("androidx.core:core-ktx:$coreKtxVersion")
 
     // UI
-    val appCompatVersion = "1.6.1"
-    val materialVersion = "1.11.0"
+    val appCompatVersion = "1.7.0"
+    val materialVersion = "1.12.0"
     val constraintLayoutVersion = "2.1.4"
     val legacySupportVersion = "1.0.0"
     implementation("androidx.appcompat:appcompat:$appCompatVersion")
@@ -91,22 +91,22 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:$glideVersion")
 
     // Navigation component
-    val navKTXVersion = "2.7.7"
+    val navKTXVersion = "2.8.0"
     implementation("androidx.navigation:navigation-fragment-ktx:$navKTXVersion")
     implementation("androidx.navigation:navigation-ui-ktx:$navKTXVersion")
 
     // Fragment KTX
-    val fragmentKTXVersion = "1.8.1"
+    val fragmentKTXVersion = "1.8.3"
     implementation("androidx.fragment:fragment-ktx:$fragmentKTXVersion")
 
     // Testing
     val junitVersion = "4.13.2"
-    val mockitoCoreVersion = "5.12.0"
+    val mockitoCoreVersion = "5.13.0"
     val espressoVersion = "3.6.1"
     val mockitoInlineVersion = "5.2.0"
     val coreTestingVersion = "2.2.0"
     val testExtVersion = "1.2.1"
-    val testRunnerVersion = "1.6.1"
+    val testRunnerVersion = "1.6.2"
     testImplementation("junit:junit:$junitVersion")
     androidTestImplementation("junit:junit:$junitVersion")
     androidTestImplementation("androidx.test.ext:junit:$testExtVersion")
@@ -124,7 +124,7 @@ dependencies {
 
     // View Model
     val lifeCycleVersion = "2.2.0"
-    val lifeCycleKtxVersion = "2.8.3"
+    val lifeCycleKtxVersion = "2.8.5"
     implementation("androidx.lifecycle:lifecycle-extensions:$lifeCycleVersion")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifeCycleKtxVersion")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifeCycleKtxVersion")
@@ -150,23 +150,23 @@ dependencies {
 
     // Coroutine
     val coroutineCoreVersion = "1.8.0"
-    val coroutineAndroidVersion = "1.8.0"
+    val coroutineAndroidVersion = "1.8.1"
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineCoreVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutineAndroidVersion")
 
     // Hilt
-    val hiltVersion = "2.51.1"
+    val hiltVersion = "2.52"
     implementation("com.google.dagger:hilt-android:$hiltVersion")
     kapt("com.google.dagger:hilt-compiler:$hiltVersion")
 
     // Firebase
-    val firebaseCrashlyticsVersion = "19.0.2"
-    val firebaseCrashlyticsKtxVersion = "22.0.2"
+    val firebaseCrashlyticsVersion = "19.0.3"
+    val firebaseCrashlyticsKtxVersion = "22.1.0"
     implementation("com.google.firebase:firebase-crashlytics-ktx:$firebaseCrashlyticsVersion")
     implementation("com.google.firebase:firebase-analytics-ktx:$firebaseCrashlyticsKtxVersion")
 
     // Lottie
-    val lottieVersion = "6.4.0"
+    val lottieVersion = "6.4.1"
     implementation("com.airbnb.android:lottie:$lottieVersion")
 
     // FlexboxLayout
@@ -174,7 +174,7 @@ dependencies {
     implementation("com.google.android.flexbox:flexbox:$flexboxVersion")
 
     // Encryption
-    val sqlCipherVersion = "4.5.3"
+    val sqlCipherVersion = "4.5.4"
     val sqliteVersion = "2.4.0"
     implementation("net.zetetic:android-database-sqlcipher:$sqlCipherVersion")
     implementation("androidx.sqlite:sqlite-ktx:$sqliteVersion")
