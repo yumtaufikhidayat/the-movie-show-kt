@@ -160,7 +160,7 @@ dependencies {
     kapt("com.google.dagger:hilt-compiler:$hiltVersion")
 
     // Firebase
-    val firebaseCrashlyticsVersion = "19.0.3"
+    val firebaseCrashlyticsVersion = "19.1.0"
     val firebaseCrashlyticsKtxVersion = "22.1.0"
     implementation("com.google.firebase:firebase-crashlytics-ktx:$firebaseCrashlyticsVersion")
     implementation("com.google.firebase:firebase-analytics-ktx:$firebaseCrashlyticsKtxVersion")
