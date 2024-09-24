@@ -2,15 +2,15 @@ import java.text.SimpleDateFormat
 import java.util.Date
 
 plugins {
-    id("com.android.application")
-    id("kotlin-android")
-    id("kotlin-parcelize")
-    id("kotlin-kapt")
-    id("androidx.navigation.safeargs")
-    id("dagger.hilt.android.plugin")
-    id("com.google.gms.google-services")
-    id("com.google.firebase.crashlytics")
-    id("com.google.devtools.ksp")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.navigation.safe.args)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.google.services)
+    alias(libs.plugins.firebase.crashlytics)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -73,111 +73,80 @@ android {
 dependencies {
 
     // Kotlin
-    val coreKtxVersion = "1.9.0"
-    implementation("androidx.core:core-ktx:$coreKtxVersion")
+    implementation(libs.core.ktx)
 
     // UI
-    val appCompatVersion = "1.7.0"
-    val materialVersion = "1.12.0"
-    val constraintLayoutVersion = "2.1.4"
-    val legacySupportVersion = "1.0.0"
-    implementation("androidx.appcompat:appcompat:$appCompatVersion")
-    implementation("com.google.android.material:material:$materialVersion")
-    implementation("androidx.constraintlayout:constraintlayout:$constraintLayoutVersion")
-    implementation("androidx.legacy:legacy-support-v4:$legacySupportVersion")
+    implementation(libs.appcompat)
+    implementation(libs.material)
+    implementation(libs.constraintlayout)
+    implementation(libs.legacy.support)
 
     // Glide
-    val glideVersion = "4.16.0"
-    implementation("com.github.bumptech.glide:glide:$glideVersion")
+    implementation(libs.glide)
 
     // Navigation component
-    val navKTXVersion = "2.8.0"
-    implementation("androidx.navigation:navigation-fragment-ktx:$navKTXVersion")
-    implementation("androidx.navigation:navigation-ui-ktx:$navKTXVersion")
+    implementation(libs.nav.fragment.ktx)
+    implementation(libs.nav.ui.ktx)
 
     // Fragment KTX
-    val fragmentKTXVersion = "1.8.3"
-    implementation("androidx.fragment:fragment-ktx:$fragmentKTXVersion")
+    implementation(libs.fragment.ktx)
 
     // Testing
-    val junitVersion = "4.13.2"
-    val mockitoCoreVersion = "5.13.0"
-    val espressoVersion = "3.6.1"
-    val mockitoInlineVersion = "5.2.0"
-    val coreTestingVersion = "2.2.0"
-    val testExtVersion = "1.2.1"
-    val testRunnerVersion = "1.6.2"
-    testImplementation("junit:junit:$junitVersion")
-    androidTestImplementation("junit:junit:$junitVersion")
-    androidTestImplementation("androidx.test.ext:junit:$testExtVersion")
-    androidTestImplementation("androidx.test:runner:$testRunnerVersion")
-    androidTestImplementation("androidx.test:rules:$testRunnerVersion")
-    androidTestImplementation("androidx.test.espresso:espresso-core:$espressoVersion")
-    androidTestImplementation("androidx.test.espresso:espresso-contrib:$espressoVersion")
-    testImplementation("androidx.arch.core:core-testing:$coreTestingVersion")
-    testImplementation("org.mockito:mockito-core:$mockitoCoreVersion")
-    testImplementation("org.mockito:mockito-inline:$mockitoInlineVersion")
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.runner)
+    androidTestImplementation(libs.androidx.rules)
+    androidTestImplementation(libs.espresso.core)
+    androidTestImplementation(libs.espresso.contrib)
+    testImplementation(libs.androidx.core.testing)
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.inline)
 
     // Justified text view
-    val justifiedTextVersion = "1.1.0"
-    implementation("com.codesgood:justifiedtextview:$justifiedTextVersion")
+    implementation(libs.justifiedtextview)
 
     // View Model
-    val lifeCycleVersion = "2.2.0"
-    val lifeCycleKtxVersion = "2.8.5"
-    implementation("androidx.lifecycle:lifecycle-extensions:$lifeCycleVersion")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifeCycleKtxVersion")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifeCycleKtxVersion")
+    implementation(libs.lifecycle.extensions)
+    implementation(libs.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
 
     // Network
-    val retrofitVersion = "2.11.0"
-    val okHttpVersion = "4.12.0"
-    implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
-    implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
-    implementation("com.squareup.okhttp3:okhttp:$okHttpVersion")
-    implementation("com.squareup.okhttp3:logging-interceptor:$okHttpVersion")
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.okhttp)
+    implementation(libs.logging.interceptor)
 
     // Toasty
-    val toastVersion = "1.5.2"
-    implementation("com.github.GrenderG:Toasty:$toastVersion")
+    implementation(libs.toasty)
 
     // Room DB
-    val roomVersion = "2.6.1"
-    implementation("androidx.room:room-runtime:$roomVersion")
-    implementation("androidx.room:room-ktx:$roomVersion")
-    testImplementation("androidx.room:room-testing:$roomVersion")
-    ksp("androidx.room:room-compiler:$roomVersion")
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    testImplementation(libs.androidx.room.testing)
+    ksp(libs.androidx.room.compiler)
 
     // Coroutine
-    val coroutineCoreVersion = "1.8.0"
-    val coroutineAndroidVersion = "1.8.1"
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineCoreVersion")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutineAndroidVersion")
+    implementation(libs.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
 
     // Hilt
-    val hiltVersion = "2.52"
-    implementation("com.google.dagger:hilt-android:$hiltVersion")
-    kapt("com.google.dagger:hilt-compiler:$hiltVersion")
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
 
     // Firebase
-    val firebaseCrashlyticsVersion = "19.1.0"
-    val firebaseCrashlyticsKtxVersion = "22.1.0"
-    implementation("com.google.firebase:firebase-crashlytics-ktx:$firebaseCrashlyticsVersion")
-    implementation("com.google.firebase:firebase-analytics-ktx:$firebaseCrashlyticsKtxVersion")
+    implementation(libs.firebase.crashlytics.ktx)
+    implementation(libs.firebase.analytics.ktx)
 
     // Lottie
-    val lottieVersion = "6.4.1"
-    implementation("com.airbnb.android:lottie:$lottieVersion")
+    implementation(libs.lottie)
 
     // FlexboxLayout
-    val flexboxVersion = "3.0.0"
-    implementation("com.google.android.flexbox:flexbox:$flexboxVersion")
+    implementation(libs.flexbox)
 
     // Encryption
-    val sqlCipherVersion = "4.5.4"
-    val sqliteVersion = "2.4.0"
-    implementation("net.zetetic:android-database-sqlcipher:$sqlCipherVersion")
-    implementation("androidx.sqlite:sqlite-ktx:$sqliteVersion")
+    implementation(libs.android.database.sqlcipher)
+    implementation(libs.androidx.sqlite.ktx)
 }
 
 kapt {
