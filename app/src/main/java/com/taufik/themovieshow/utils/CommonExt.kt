@@ -46,6 +46,40 @@ fun String.convertDate(inputFormat: String, outputFormat: String): String {
     return newOutputFormat.format(formatParser)
 }
 
+inline fun <T> List<T>.filterAndSortByDate(
+    crossinline getDate: (T) -> String?,
+    dateThreshold: String,
+    inputFormat: String,
+    thresholdFormat: String
+): List<T> {
+    val dateThresholdParsed = SimpleDateFormat(thresholdFormat, Locale.US).parse(dateThreshold)
+
+    return this.filter { item ->
+        try {
+            val dateString = getDate(item)
+            if (dateString != null) {
+                val itemDate = SimpleDateFormat(inputFormat, Locale.US).parse(dateString)
+                itemDate != null && (itemDate.after(dateThresholdParsed) || itemDate == dateThresholdParsed)
+            } else {
+                false
+            }
+        } catch (e: Exception) {
+            false
+        }
+    }.sortedByDescending { item ->
+        try {
+            val dateString = getDate(item)
+            if (dateString != null) {
+                SimpleDateFormat(inputFormat, Locale.US).parse(dateString)
+            } else {
+                Date(0) // Default to the earliest possible date if parsing fails
+            }
+        } catch (e: Exception) {
+            Date(0) // Default to the earliest possible date if parsing fails
+        }
+    }
+}
+
 fun toRating(data: Double): String {
     val tenDouble = 10.0
     return ((data * tenDouble).roundToInt() / tenDouble).toString()

@@ -14,6 +14,8 @@ import com.taufik.themovieshow.databinding.FragmentMovieTvShowsListBinding
 import com.taufik.themovieshow.ui.movie.adapter.MovieTrendingAdapter
 import com.taufik.themovieshow.ui.movie.viewmodel.DetailMovieViewModel
 import com.taufik.themovieshow.ui.movie.viewmodel.MovieViewModel
+import com.taufik.themovieshow.utils.CommonDateFormatConstants
+import com.taufik.themovieshow.utils.filterAndSortByDate
 import com.taufik.themovieshow.utils.navigateToDetailMovie
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,7 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MovieTrendingFragment : Fragment() {
 
     private var _binding: FragmentMovieTvShowsListBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding
 
     private val viewModel by viewModels<MovieViewModel>()
     private val detailMovieViewModel by viewModels<DetailMovieViewModel>()
@@ -31,9 +33,9 @@ class MovieTrendingFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         _binding = FragmentMovieTvShowsListBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,7 +54,7 @@ class MovieTrendingFragment : Fragment() {
             navigateToDetailMovie(detailMovieViewModel.idMovie, detailMovieViewModel.titleMovie)
         }
 
-        binding.rvCommon.apply {
+        binding?.rvCommon?.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
             adapter = movieTrendingAdapter
@@ -65,7 +67,13 @@ class MovieTrendingFragment : Fragment() {
                 is NetworkResult.Loading -> showLoading(true)
                 is NetworkResult.Success -> {
                     showLoading(false)
-                    movieTrendingAdapter?.submitList(it.data?.results?.toMutableList())
+                    val filteredAndSortedMovies = it.data?.results?.filterAndSortByDate(
+                        getDate = { movie -> movie.releaseDate },
+                        dateThreshold = "01-01-2010",
+                        inputFormat = CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
+                        thresholdFormat = CommonDateFormatConstants.DD_MM_YYYY_FORMAT
+                    )
+                    movieTrendingAdapter?.submitList(filteredAndSortedMovies)
                 }
                 is NetworkResult.Error -> {
                     showLoading(false)
@@ -80,11 +88,11 @@ class MovieTrendingFragment : Fragment() {
     }
 
     private fun showLoading(isShow: Boolean) {
-        binding.pbLoading.visibility = if (isShow) View.VISIBLE else View.GONE
+        binding?.pbLoading?.isVisible = isShow
     }
 
     private fun showError(message: String?) {
-        binding.layoutError.apply {
+        binding?.layoutError?.apply {
             root.isVisible = true
             tvErrorDesc.text = message
         }
