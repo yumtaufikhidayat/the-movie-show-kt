@@ -97,6 +97,8 @@
     <string name="tvDescForkOnGithub">Fork this app on Github</string>
     <string name="tvTitleSendEmail">Send an email</string>
     <string name="tvDescSendEmail">yumtaufikhidayat@gmail.com</string>
+    <string name="tvTitleSettings">Settings</string>
+    <string name="tvDescSettings">Set notification and other settings</string>
     <string name="tvTitleCopyright">Copyright</string>
     <string name="tvDescCopyright">Copyright &#169; 2021–2024 Taufik Hidayat</string>
     <string name="tvTitleVersion">Version</string>
