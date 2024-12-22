@@ -30,6 +30,21 @@ object UtilsData {
     fun generateAboutApplicationData(context: Context): List<About> {
         return mutableListOf(
             About(
+                R.drawable.ic_settings,
+                context.getString(R.string.tvTitleSettings),
+                context.getString(R.string.tvDescSettings)
+            ),
+            About(
+                R.drawable.ic_outline_bug,
+                context.getString(R.string.tvTitleReportIssue),
+                context.getString(R.string.tvDescReportIssue)
+            ),
+            About(
+                R.drawable.ic_outline_rate,
+                context.getString(R.string.tvTitleRateThisApp),
+                context.getString(R.string.tvDescRateThisApp)
+            ),
+            About(
                 R.drawable.ic_outline_copyright,
                 context.getString(R.string.tvTitleCopyright),
                 context.getString(R.string.tvDescCopyright)
@@ -39,16 +54,6 @@ object UtilsData {
                 context.getString(R.string.tvTitleVersion),
                 BuildConfig.VERSION_NAME
             ),
-            About(
-                R.drawable.ic_outline_rate,
-                context.getString(R.string.tvTitleRateThisApp),
-                context.getString(R.string.tvDescRateThisApp)
-            ),
-            About(
-                R.drawable.ic_outline_bug,
-                context.getString(R.string.tvTitleReportIssue),
-                context.getString(R.string.tvDescReportIssue)
-            )
         )
     }
 

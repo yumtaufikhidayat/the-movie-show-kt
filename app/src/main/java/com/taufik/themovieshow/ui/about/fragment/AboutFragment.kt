@@ -71,10 +71,11 @@ class AboutFragment : Fragment() {
         applicationAdapter = AboutApplicationAdapter { position ->
                 when (position) {
                     0 -> {
-                        // no reaction while given clicked action
+                        // TODO: Open setting fragment
                     }
-                    1, 2 -> showToastyBasedOnType(CommonConstants.GOOGLE_PLAY)
-                    3 -> showToastyBasedOnType(CommonConstants.EMAIL)
+                    1 -> showToastyBasedOnType(CommonConstants.EMAIL)
+                    2 -> showToastyBasedOnType(CommonConstants.GOOGLE_PLAY)
+                    3, 4 -> { /* Nothing to click */}
                 }
             }
 
