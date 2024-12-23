@@ -69,7 +69,6 @@ class MovieTrendingFragment : Fragment() {
                     showLoading(false)
                     val filteredAndSortedMovies = it.data?.results?.filterAndSortByDate(
                         getDate = { movie -> movie.releaseDate },
-                        dateThreshold = "01-01-2010",
                         inputFormat = CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
                         thresholdFormat = CommonDateFormatConstants.DD_MM_YYYY_FORMAT
                     )

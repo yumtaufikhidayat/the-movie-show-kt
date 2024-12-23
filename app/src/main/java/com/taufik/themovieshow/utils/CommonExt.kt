@@ -48,7 +48,7 @@ fun String.convertDate(inputFormat: String, outputFormat: String): String {
 
 inline fun <T> List<T>.filterAndSortByDate(
     crossinline getDate: (T) -> String?,
-    dateThreshold: String,
+    dateThreshold: String = "01-01-2010",
     inputFormat: String,
     thresholdFormat: String
 ): List<T> {
