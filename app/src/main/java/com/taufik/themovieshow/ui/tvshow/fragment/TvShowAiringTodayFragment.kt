@@ -13,6 +13,8 @@ import com.taufik.themovieshow.databinding.FragmentMovieTvShowsListBinding
 import com.taufik.themovieshow.ui.tvshow.adapter.TvShowsAdapter
 import com.taufik.themovieshow.ui.tvshow.viewmodel.DetailTvShowViewModel
 import com.taufik.themovieshow.ui.tvshow.viewmodel.TvShowsViewModel
+import com.taufik.themovieshow.utils.CommonDateFormatConstants
+import com.taufik.themovieshow.utils.filterAndSortByDate
 import com.taufik.themovieshow.utils.navigateToDetailTvShow
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -67,7 +69,12 @@ class TvShowAiringTodayFragment : Fragment() {
                 is NetworkResult.Loading -> showLoading(true)
                 is NetworkResult.Success -> {
                     showLoading(false)
-                    tvShowsAdapter?.submitList(it.data?.results)
+                    val filteredAndSortedTvShows = it.data?.results?.filterAndSortByDate(
+                        getDate = { tvShow -> tvShow.firstAirDate },
+                        inputFormat = CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
+                        thresholdFormat = CommonDateFormatConstants.DD_MM_YYYY_FORMAT
+                    )
+                    tvShowsAdapter?.submitList(filteredAndSortedTvShows)
                 }
 
                 is NetworkResult.Error -> {
