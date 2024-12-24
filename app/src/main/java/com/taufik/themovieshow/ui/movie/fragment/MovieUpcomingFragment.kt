@@ -13,14 +13,18 @@ import com.taufik.themovieshow.databinding.FragmentMovieTvShowsListBinding
 import com.taufik.themovieshow.ui.movie.adapter.MovieAdapter
 import com.taufik.themovieshow.ui.movie.viewmodel.DetailMovieViewModel
 import com.taufik.themovieshow.ui.movie.viewmodel.MovieViewModel
+import com.taufik.themovieshow.utils.CommonDateFormatConstants
+import com.taufik.themovieshow.utils.filterAndSortByDate
+import com.taufik.themovieshow.utils.hideLoading
 import com.taufik.themovieshow.utils.navigateToDetailMovie
+import com.taufik.themovieshow.utils.showLoading
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MovieUpcomingFragment : Fragment() {
 
     private var _binding : FragmentMovieTvShowsListBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding
 
     private val viewModel by viewModels<MovieViewModel>()
     private val detailMovieViewModel by viewModels<DetailMovieViewModel>()
@@ -30,9 +34,9 @@ class MovieUpcomingFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         _binding = FragmentMovieTvShowsListBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -50,7 +54,7 @@ class MovieUpcomingFragment : Fragment() {
             }
             navigateToDetailMovie(detailMovieViewModel.idMovie, detailMovieViewModel.titleMovie)
         }
-        binding.rvCommon.apply {
+        binding?.rvCommon?.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
             adapter = movieAdapter
@@ -58,27 +62,31 @@ class MovieUpcomingFragment : Fragment() {
     }
 
     private fun setData() {
-        viewModel.getMovieUpcoming.observe(viewLifecycleOwner) {
-            when (it) {
-                is NetworkResult.Loading -> showLoading(true)
-                is NetworkResult.Success -> {
-                    showLoading(false)
-                    movieAdapter?.submitList(it.data?.results)
-                }
-                is NetworkResult.Error -> {
-                    showLoading(false)
-                    showError(it.message)
+        binding?.apply {
+            viewModel.getMovieUpcoming.observe(viewLifecycleOwner) {
+                when (it) {
+                    is NetworkResult.Loading -> pbLoading.showLoading()
+                    is NetworkResult.Success -> {
+                        pbLoading.hideLoading()
+                        val filteredAndSortedMovies = it.data?.results?.filterAndSortByDate(
+                            getDate = { movie -> movie.releaseDate },
+                            inputFormat = CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
+                            thresholdFormat = CommonDateFormatConstants.DD_MM_YYYY_FORMAT
+                        )
+                        movieAdapter?.submitList(filteredAndSortedMovies)
+                    }
+
+                    is NetworkResult.Error -> {
+                        pbLoading.hideLoading()
+                        showError(it.message)
+                    }
                 }
             }
         }
     }
 
-    private fun showLoading(isShow: Boolean) {
-        binding.pbLoading.visibility = if (isShow) View.VISIBLE else View.GONE
-    }
-
     private fun showError(message: String?) {
-        binding.layoutError.apply {
+        binding?.layoutError?.apply {
             root.isVisible = true
             tvErrorDesc.text = message
         }

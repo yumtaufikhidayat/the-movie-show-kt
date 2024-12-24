@@ -8,7 +8,6 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.NetworkResult
 import com.taufik.themovieshow.databinding.FragmentMovieTvShowsListBinding
 import com.taufik.themovieshow.ui.movie.adapter.MovieTrendingAdapter
@@ -16,7 +15,9 @@ import com.taufik.themovieshow.ui.movie.viewmodel.DetailMovieViewModel
 import com.taufik.themovieshow.ui.movie.viewmodel.MovieViewModel
 import com.taufik.themovieshow.utils.CommonDateFormatConstants
 import com.taufik.themovieshow.utils.filterAndSortByDate
+import com.taufik.themovieshow.utils.hideLoading
 import com.taufik.themovieshow.utils.navigateToDetailMovie
+import com.taufik.themovieshow.utils.showLoading
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -62,32 +63,27 @@ class MovieTrendingFragment : Fragment() {
     }
 
     private fun setMovieTrendingObserver() {
-        viewModel.getMovieTrendingDay.observe(viewLifecycleOwner) {
-            when (it) {
-                is NetworkResult.Loading -> showLoading(true)
-                is NetworkResult.Success -> {
-                    showLoading(false)
-                    val filteredAndSortedMovies = it.data?.results?.filterAndSortByDate(
-                        getDate = { movie -> movie.releaseDate },
-                        inputFormat = CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
-                        thresholdFormat = CommonDateFormatConstants.DD_MM_YYYY_FORMAT
-                    )
-                    movieTrendingAdapter?.submitList(filteredAndSortedMovies)
-                }
-                is NetworkResult.Error -> {
-                    showLoading(false)
-                    showError(it.message)
-                }
-                else -> {
-                    showLoading(false)
-                    showError(getString(R.string.tvOops))
+        binding?.apply {
+            viewModel.getMovieTrendingDay.observe(viewLifecycleOwner) {
+                when (it) {
+                    is NetworkResult.Loading -> pbLoading.showLoading()
+                    is NetworkResult.Success -> {
+                        pbLoading.hideLoading()
+                        val filteredAndSortedMovies = it.data?.results?.filterAndSortByDate(
+                            getDate = { movie -> movie.releaseDate },
+                            inputFormat = CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
+                            thresholdFormat = CommonDateFormatConstants.DD_MM_YYYY_FORMAT
+                        )
+                        movieTrendingAdapter?.submitList(filteredAndSortedMovies)
+                    }
+
+                    is NetworkResult.Error -> {
+                        pbLoading.hideLoading()
+                        showError(it.message)
+                    }
                 }
             }
         }
-    }
-
-    private fun showLoading(isShow: Boolean) {
-        binding?.pbLoading?.isVisible = isShow
     }
 
     private fun showError(message: String?) {
