@@ -24,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class TvShowAiringTodayFragment : Fragment() {
 
     private var _binding: FragmentMovieTvShowsListBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding
 
     private val viewModel by viewModels<TvShowsViewModel>()
     private val detailTvShowViewModel by viewModels<DetailTvShowViewModel>()
@@ -34,9 +34,9 @@ class TvShowAiringTodayFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         _binding = FragmentMovieTvShowsListBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -58,7 +58,7 @@ class TvShowAiringTodayFragment : Fragment() {
             )
         }
 
-        binding.rvCommon.apply {
+        binding?.rvCommon?.apply {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
             adapter = tvShowsAdapter
@@ -66,7 +66,7 @@ class TvShowAiringTodayFragment : Fragment() {
     }
 
     private fun setData() {
-        binding.apply {
+        binding?.apply {
             viewModel.getTvShowsAiringToday().observe(viewLifecycleOwner) {
                 when (it) {
                     is NetworkResult.Loading -> pbLoading.showLoading()
@@ -90,7 +90,7 @@ class TvShowAiringTodayFragment : Fragment() {
     }
 
     private fun showError(message: String?) {
-        binding.layoutError.apply {
+        binding?.layoutError?.apply {
             root.isVisible = true
             tvErrorDesc.text = message
         }
