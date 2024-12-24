@@ -14,10 +14,10 @@ import com.taufik.themovieshow.ui.tvshow.viewmodel.DetailTvShowViewModel
 import com.taufik.themovieshow.ui.tvshow.viewmodel.TvShowsViewModel
 import com.taufik.themovieshow.utils.CommonDateFormatConstants
 import com.taufik.themovieshow.utils.filterAndSortByDate
-import com.taufik.themovieshow.utils.hideLoading
+import com.taufik.themovieshow.utils.hideView
 import com.taufik.themovieshow.utils.navigateToDetailTvShow
 import com.taufik.themovieshow.utils.showError
-import com.taufik.themovieshow.utils.showLoading
+import com.taufik.themovieshow.utils.showView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -66,9 +66,9 @@ class TVShowsPopularFragment : Fragment() {
         binding?.apply {
             viewModel.getTvShowsPopular().observe(viewLifecycleOwner) {
                 when (it) {
-                    is NetworkResult.Loading -> pbLoading.showLoading()
+                    is NetworkResult.Loading -> pbLoading.showView()
                     is NetworkResult.Success -> {
-                        pbLoading.hideLoading()
+                        pbLoading.hideView()
                         val filteredAndSortedTvShows = it.data?.results?.filterAndSortByDate(
                             getDate = { tvShow -> tvShow.firstAirDate },
                             inputFormat = CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
@@ -78,7 +78,7 @@ class TVShowsPopularFragment : Fragment() {
                     }
 
                     is NetworkResult.Error -> {
-                        pbLoading.hideLoading()
+                        pbLoading.hideView()
                         layoutError.showError(it.message)
                     }
                 }

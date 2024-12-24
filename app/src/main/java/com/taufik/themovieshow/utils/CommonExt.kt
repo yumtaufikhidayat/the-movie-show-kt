@@ -149,11 +149,11 @@ fun TextView.stringFormat(data1: String, data2: String) {
     )
 }
 
-fun View.showLoading() {
+fun View.showView() {
     this.isVisible = true
 }
 
-fun View.hideLoading() {
+fun View.hideView() {
     this.isVisible = false
 }
 

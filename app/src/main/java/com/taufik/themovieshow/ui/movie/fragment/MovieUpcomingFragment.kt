@@ -14,10 +14,10 @@ import com.taufik.themovieshow.ui.movie.viewmodel.DetailMovieViewModel
 import com.taufik.themovieshow.ui.movie.viewmodel.MovieViewModel
 import com.taufik.themovieshow.utils.CommonDateFormatConstants
 import com.taufik.themovieshow.utils.filterAndSortByDate
-import com.taufik.themovieshow.utils.hideLoading
+import com.taufik.themovieshow.utils.hideView
 import com.taufik.themovieshow.utils.navigateToDetailMovie
 import com.taufik.themovieshow.utils.showError
-import com.taufik.themovieshow.utils.showLoading
+import com.taufik.themovieshow.utils.showView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -65,9 +65,9 @@ class MovieUpcomingFragment : Fragment() {
         binding?.apply {
             viewModel.getMovieUpcoming.observe(viewLifecycleOwner) {
                 when (it) {
-                    is NetworkResult.Loading -> pbLoading.showLoading()
+                    is NetworkResult.Loading -> pbLoading.showView()
                     is NetworkResult.Success -> {
-                        pbLoading.hideLoading()
+                        pbLoading.hideView()
                         val filteredAndSortedMovies = it.data?.results?.filterAndSortByDate(
                             getDate = { movie -> movie.releaseDate },
                             inputFormat = CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
@@ -77,7 +77,7 @@ class MovieUpcomingFragment : Fragment() {
                     }
 
                     is NetworkResult.Error -> {
-                        pbLoading.hideLoading()
+                        pbLoading.hideView()
                         layoutError.showError(it.message)
                     }
                 }
