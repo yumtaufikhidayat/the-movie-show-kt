@@ -15,7 +15,9 @@ import com.taufik.themovieshow.ui.tvshow.viewmodel.DetailTvShowViewModel
 import com.taufik.themovieshow.ui.tvshow.viewmodel.TvShowsViewModel
 import com.taufik.themovieshow.utils.CommonDateFormatConstants
 import com.taufik.themovieshow.utils.filterAndSortByDate
+import com.taufik.themovieshow.utils.hideLoading
 import com.taufik.themovieshow.utils.navigateToDetailTvShow
+import com.taufik.themovieshow.utils.showLoading
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -64,29 +66,27 @@ class TvShowAiringTodayFragment : Fragment() {
     }
 
     private fun setData() {
-        viewModel.getTvShowsAiringToday().observe(viewLifecycleOwner) {
-            when (it) {
-                is NetworkResult.Loading -> showLoading(true)
-                is NetworkResult.Success -> {
-                    showLoading(false)
-                    val filteredAndSortedTvShows = it.data?.results?.filterAndSortByDate(
-                        getDate = { tvShow -> tvShow.firstAirDate },
-                        inputFormat = CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
-                        thresholdFormat = CommonDateFormatConstants.DD_MM_YYYY_FORMAT
-                    )
-                    tvShowsAdapter?.submitList(filteredAndSortedTvShows)
-                }
+        binding.apply {
+            viewModel.getTvShowsAiringToday().observe(viewLifecycleOwner) {
+                when (it) {
+                    is NetworkResult.Loading -> pbLoading.showLoading()
+                    is NetworkResult.Success -> {
+                        pbLoading.hideLoading()
+                        val filteredAndSortedTvShows = it.data?.results?.filterAndSortByDate(
+                            getDate = { tvShow -> tvShow.firstAirDate },
+                            inputFormat = CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
+                            thresholdFormat = CommonDateFormatConstants.DD_MM_YYYY_FORMAT
+                        )
+                        tvShowsAdapter?.submitList(filteredAndSortedTvShows)
+                    }
 
-                is NetworkResult.Error -> {
-                    showLoading(false)
-                    showError(it.message)
+                    is NetworkResult.Error -> {
+                        pbLoading.hideLoading()
+                        showError(it.message)
+                    }
                 }
             }
         }
-    }
-
-    private fun showLoading(isShow: Boolean) {
-        binding.pbLoading.visibility = if (isShow) View.VISIBLE else View.GONE
     }
 
     private fun showError(message: String?) {
