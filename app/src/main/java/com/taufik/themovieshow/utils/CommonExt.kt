@@ -3,10 +3,12 @@ package com.taufik.themovieshow.utils
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -144,4 +146,12 @@ fun TextView.stringFormat(data1: String, data2: String) {
         data1,
         data2
     )
+}
+
+fun View.showLoading() {
+    this.isVisible = true
+}
+
+fun View.hideLoading() {
+    this.isVisible = false
 }
