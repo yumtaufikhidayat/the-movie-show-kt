@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,6 +16,7 @@ import com.taufik.themovieshow.utils.CommonDateFormatConstants
 import com.taufik.themovieshow.utils.filterAndSortByDate
 import com.taufik.themovieshow.utils.hideLoading
 import com.taufik.themovieshow.utils.navigateToDetailTvShow
+import com.taufik.themovieshow.utils.showError
 import com.taufik.themovieshow.utils.showLoading
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -79,17 +79,10 @@ class TVShowsPopularFragment : Fragment() {
 
                     is NetworkResult.Error -> {
                         pbLoading.hideLoading()
-                        showError(it.message)
+                        layoutError.showError(it.message)
                     }
                 }
             }
-        }
-    }
-
-    private fun showError(message: String?) {
-        binding?.layoutError?.apply {
-            root.isVisible = true
-            tvErrorDesc.text = message
         }
     }
 

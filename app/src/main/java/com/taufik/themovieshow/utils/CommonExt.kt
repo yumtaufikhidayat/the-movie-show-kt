@@ -16,6 +16,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.taufik.themovieshow.BuildConfig
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.remote.api.UrlEndpoint
+import com.taufik.themovieshow.databinding.LayoutErrorBinding
 import com.taufik.themovieshow.ui.detail.movie.fragment.DetailMovieFragment
 import com.taufik.themovieshow.ui.detail.tvshow.fragment.DetailTvShowFragment
 import es.dmoral.toasty.Toasty
@@ -154,4 +155,9 @@ fun View.showLoading() {
 
 fun View.hideLoading() {
     this.isVisible = false
+}
+
+fun LayoutErrorBinding.showError(message: String?) {
+    root.isVisible = true
+    tvErrorDesc.text = message
 }
