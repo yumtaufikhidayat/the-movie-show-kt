@@ -25,9 +25,9 @@ class FavoriteMovieViewModel @Inject constructor(
             .from(CommonConstants.TABLE_NAME_FAVORITE_MOVIE_ENTITY)
 
         val rawQuery = when (position) {
-            1 -> builder.orderBy(CommonConstants.COLUMN_NAME_TITLE).build()
-            2 -> builder.orderBy(CommonConstants.COLUMN_NAME_RELEASE_DATE).build()
-            3 -> builder.orderBy(CommonConstants.COLUMN_NAME_RATING).build()
+            1 -> builder.orderBy(CommonConstants.COLUMN_NAME_TITLE, true).build()
+            2 -> builder.orderBy(CommonConstants.COLUMN_NAME_RELEASE_DATE, false).build()
+            3 -> builder.orderBy(CommonConstants.COLUMN_NAME_RATING, false).build()
             else -> builder.build()
         }
         _getFavoriteMovies.value = rawQuery

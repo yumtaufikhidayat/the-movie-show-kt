@@ -22,11 +22,12 @@ class RawQuery private constructor(val value: SupportSQLiteQuery){
                 return this
             }
 
-            fun orderBy(columnName: String): Builder {
+            fun orderBy(columnName: String, isAscending: Boolean = true): Builder {
                 query
                     .append("ORDER BY ")
                     .append(columnName)
                     .append(" ")
+                    .append(if (isAscending) "ASC" else "DESC")
                 return this
             }
 
