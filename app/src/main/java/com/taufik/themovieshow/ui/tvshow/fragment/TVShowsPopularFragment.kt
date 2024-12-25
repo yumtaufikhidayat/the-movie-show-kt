@@ -13,11 +13,11 @@ import com.taufik.themovieshow.ui.tvshow.adapter.TvShowsAdapter
 import com.taufik.themovieshow.ui.tvshow.viewmodel.DetailTvShowViewModel
 import com.taufik.themovieshow.ui.tvshow.viewmodel.TvShowsViewModel
 import com.taufik.themovieshow.utils.CommonDateFormatConstants
-import com.taufik.themovieshow.utils.filterAndSortByDate
-import com.taufik.themovieshow.utils.hideView
-import com.taufik.themovieshow.utils.navigateToDetailTvShow
-import com.taufik.themovieshow.utils.showError
-import com.taufik.themovieshow.utils.showView
+import com.taufik.themovieshow.utils.extensions.filterAndSortByDate
+import com.taufik.themovieshow.utils.extensions.hideView
+import com.taufik.themovieshow.utils.extensions.navigateToDetailTvShow
+import com.taufik.themovieshow.utils.extensions.showError
+import com.taufik.themovieshow.utils.extensions.showView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

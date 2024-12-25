@@ -23,15 +23,15 @@ import com.taufik.themovieshow.ui.detail.movie.adapter.MovieTrailerVideoAdapter
 import com.taufik.themovieshow.ui.movie.adapter.ReviewsAdapter
 import com.taufik.themovieshow.ui.movie.viewmodel.DetailMovieViewModel
 import com.taufik.themovieshow.utils.CommonDateFormatConstants
-import com.taufik.themovieshow.utils.convertDate
-import com.taufik.themovieshow.utils.loadImage
-import com.taufik.themovieshow.utils.navigateToDetailMovie
-import com.taufik.themovieshow.utils.popBackStack
-import com.taufik.themovieshow.utils.share
-import com.taufik.themovieshow.utils.showSuccessToastyIcon
-import com.taufik.themovieshow.utils.showTrailerVideo
-import com.taufik.themovieshow.utils.stringFormat
-import com.taufik.themovieshow.utils.toRating
+import com.taufik.themovieshow.utils.extensions.convertDate
+import com.taufik.themovieshow.utils.extensions.loadImage
+import com.taufik.themovieshow.utils.extensions.navigateToDetailMovie
+import com.taufik.themovieshow.utils.extensions.popBackStack
+import com.taufik.themovieshow.utils.extensions.share
+import com.taufik.themovieshow.utils.extensions.showSuccessToastyIcon
+import com.taufik.themovieshow.utils.extensions.showTrailerVideo
+import com.taufik.themovieshow.utils.extensions.stringFormat
+import com.taufik.themovieshow.utils.extensions.toRating
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -153,7 +153,7 @@ class DetailMovieFragment : Fragment() {
                             text = movieDetailResponse.overview
                         }
 
-                        tvRating.text = toRating(movieDetailResponse.voteAverage)
+                        tvRating.text = movieDetailResponse.voteAverage.toRating()
                         tvLanguage.text =
                             if (movieDetailResponse.spokenLanguages.isNotEmpty())
                                 movieDetailResponse.spokenLanguages.first().englishName
