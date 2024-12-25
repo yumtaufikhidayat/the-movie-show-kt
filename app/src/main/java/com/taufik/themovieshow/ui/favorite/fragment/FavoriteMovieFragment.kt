@@ -35,7 +35,7 @@ import kotlinx.coroutines.launch
 class FavoriteMovieFragment : Fragment() {
 
     private var _binding: FragmentFavoriteMovieBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding
 
     private val viewModel: FavoriteMovieViewModel by viewModels(ownerProducer = { requireParentFragment() })
     private val detailMovieViewModel by viewModels<DetailMovieViewModel>()
@@ -52,9 +52,9 @@ class FavoriteMovieFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         _binding = FragmentFavoriteMovieBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -69,7 +69,7 @@ class FavoriteMovieFragment : Fragment() {
     }
 
     private fun setAdapter() {
-        binding.rvDiscoverFavoriteMovies.apply {
+        binding?.rvDiscoverFavoriteMovies?.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
             adapter = favoriteMovieAdapter
@@ -83,7 +83,7 @@ class FavoriteMovieFragment : Fragment() {
             justifyContent = JustifyContent.FLEX_START
         }
 
-        binding.rvSortFiltering.apply {
+        binding?.rvSortFiltering?.apply {
             layoutManager = flexLayoutManager
             setHasFixedSize(true)
             isNestedScrollingEnabled = true
@@ -106,7 +106,7 @@ class FavoriteMovieFragment : Fragment() {
     private fun scrollToTopPositionItem() {
         lifecycleScope.launch {
             delay(100)
-            binding.rvDiscoverFavoriteMovies.smoothScrollToPosition(0)
+            binding?.rvDiscoverFavoriteMovies?.smoothScrollToPosition(0)
         }
     }
 
@@ -119,7 +119,7 @@ class FavoriteMovieFragment : Fragment() {
     }
 
     private fun searchData() {
-        binding.etSearch.apply {
+        binding?.etSearch?.apply {
             setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     hideKeyboard()
@@ -135,7 +135,7 @@ class FavoriteMovieFragment : Fragment() {
     }
 
     private fun showNoFavorite(isShow: Boolean) {
-        binding.apply {
+        binding?.apply {
             if (isShow) {
                 layoutNoFavorite.apply {
                     root.isVisible = true
@@ -174,10 +174,10 @@ class FavoriteMovieFragment : Fragment() {
     }
 
     private fun hideKeyboard() {
-        binding.apply {
-            etSearch.clearFocus()
+        binding?.etSearch?.apply {
+            clearFocus()
             val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(etSearch.windowToken, 0)
+            imm.hideSoftInputFromWindow(windowToken, 0)
         }
     }
 

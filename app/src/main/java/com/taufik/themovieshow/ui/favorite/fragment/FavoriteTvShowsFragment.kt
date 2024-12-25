@@ -35,7 +35,7 @@ import kotlinx.coroutines.launch
 class FavoriteTvShowsFragment : Fragment() {
 
     private var _binding: FragmentFavoriteTvShowsBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding
 
     private val viewModel: FavoriteTvShowViewModel by viewModels(ownerProducer = { requireParentFragment() })
     private val detailTvShowViewModel by viewModels<DetailTvShowViewModel>()
@@ -57,9 +57,9 @@ class FavoriteTvShowsFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         _binding = FragmentFavoriteTvShowsBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -74,7 +74,7 @@ class FavoriteTvShowsFragment : Fragment() {
     }
 
     private fun setAdapter() {
-        binding.rvDiscoverFavoriteTvShow.apply {
+        binding?.rvDiscoverFavoriteTvShow?.apply {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
             adapter = favoriteTvShowsAdapter
@@ -89,7 +89,7 @@ class FavoriteTvShowsFragment : Fragment() {
             justifyContent = JustifyContent.FLEX_START
         }
 
-        binding.rvSortFiltering.apply {
+        binding?.rvSortFiltering?.apply {
             layoutManager = flexLayoutManager
             setHasFixedSize(true)
             isNestedScrollingEnabled = true
@@ -112,7 +112,7 @@ class FavoriteTvShowsFragment : Fragment() {
     private fun scrollToTopPositionItem() {
         lifecycleScope.launch {
             delay(100)
-            binding.rvDiscoverFavoriteTvShow.smoothScrollToPosition(0)
+            binding?.rvDiscoverFavoriteTvShow?.smoothScrollToPosition(0)
         }
     }
 
@@ -125,7 +125,7 @@ class FavoriteTvShowsFragment : Fragment() {
     }
 
     private fun searchData() {
-        binding.etSearch.apply {
+        binding?.etSearch?.apply {
             setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     hideKeyboard()
@@ -141,7 +141,7 @@ class FavoriteTvShowsFragment : Fragment() {
     }
 
     private fun showNoFavorite(isShow: Boolean) {
-        binding.apply {
+        binding?.apply {
             if (isShow) {
                 layoutNoFavorite.apply {
                     root.isVisible = true
@@ -179,11 +179,10 @@ class FavoriteTvShowsFragment : Fragment() {
     }
 
     private fun hideKeyboard() {
-        binding.apply {
-            etSearch.clearFocus()
-            val imm =
-                requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(etSearch.windowToken, 0)
+        binding?.etSearch?.apply {
+            clearFocus()
+            val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(windowToken, 0)
         }
     }
 
