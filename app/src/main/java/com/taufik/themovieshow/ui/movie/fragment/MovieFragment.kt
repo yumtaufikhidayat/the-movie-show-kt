@@ -13,7 +13,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.databinding.FragmentMovieBinding
 import com.taufik.themovieshow.ui.common.adapter.TabPagerAdapter
-import com.taufik.themovieshow.utils.showSuccessToasty
+import com.taufik.themovieshow.utils.extensions.showSuccessToasty
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

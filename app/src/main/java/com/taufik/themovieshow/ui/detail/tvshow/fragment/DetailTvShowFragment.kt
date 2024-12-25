@@ -24,12 +24,14 @@ import com.taufik.themovieshow.ui.movie.adapter.ReviewsAdapter
 import com.taufik.themovieshow.ui.tvshow.viewmodel.DetailTvShowViewModel
 import com.taufik.themovieshow.utils.CommonDateFormatConstants
 import com.taufik.themovieshow.utils.extensions.convertDate
+import com.taufik.themovieshow.utils.extensions.hideView
 import com.taufik.themovieshow.utils.extensions.loadImage
 import com.taufik.themovieshow.utils.extensions.navigateToDetailTvShow
 import com.taufik.themovieshow.utils.extensions.popBackStack
 import com.taufik.themovieshow.utils.extensions.share
 import com.taufik.themovieshow.utils.extensions.showSuccessToastyIcon
 import com.taufik.themovieshow.utils.extensions.showTrailerVideo
+import com.taufik.themovieshow.utils.extensions.showView
 import com.taufik.themovieshow.utils.extensions.stringFormat
 import com.taufik.themovieshow.utils.extensions.toRating
 import dagger.hilt.android.AndroidEntryPoint
@@ -140,37 +142,56 @@ class DetailTvShowFragment : Fragment() {
                 else
                     tvNetwork.stringFormat(networkFirst.name, "(${networkFirst.originCountry})")
 
-                when {
-                    detailResponse.overview.isEmpty() -> {
-                        tvOverview.isVisible = false
-                        tvNoOverview.isVisible = true
-                        tvReadMore.isVisible = false
+                // Handle Overview
+                if (detailResponse.overview.isEmpty()) {
+                    tvOverview.hideView()
+                    tvNoOverview.showView()
+                    tvReadMore.hideView()
+                } else {
+                    tvNoOverview.hideView()
+                    tvOverview.apply {
+                        showView()
+                        text = detailResponse.overview
                     }
-                    detailResponse.voteAverage.toString().isEmpty() -> tvRating.text = getString(R.string.tvNA)
-                    detailResponse.originalLanguage.isEmpty() -> tvLanguage.text = getString(R.string.tvNA)
-                    detailResponse.originCountry.isEmpty() -> tvCountry.text = getString(R.string.tvNA)
-                    detailResponse.numberOfEpisodes.toString().isEmpty() -> tvEpisodes.text = getString(R.string.tvNA)
-                    detailResponse.genres.isEmpty() -> showNoGenres(true)
+                    tvReadMore.showView()
+                }
 
-                    else -> {
-                        tvNoOverview.isVisible = false
-                        tvOverview.apply {
-                            isVisible = true
-                            text = detailResponse.overview
-                        }
+                // Handle Rating
+                tvRating.text = if (detailResponse.voteAverage.toString().isEmpty())
+                    getString(R.string.tvNA)
+                else
+                    detailResponse.voteAverage.toRating()
 
-                        tvRating.text = detailResponse.voteAverage.toRating()
-                        tvLanguage.text =
-                            if (detailResponse.spokenLanguages.isNotEmpty())
-                                detailResponse.spokenLanguages.first().englishName
-                            else
-                                detailResponse.originalLanguage
+                // Handle Language
+                tvLanguage.text = when {
+                    detailResponse.spokenLanguages.isNotEmpty() -> detailResponse.spokenLanguages.first().englishName
+                    detailResponse.originalLanguage.isNotEmpty() -> detailResponse.originalLanguage
+                    else -> getString(R.string.tvNA)
+                }
 
-                        tvCountry.text = detailResponse.originCountry.joinToString { countries -> countries }
-                        tvEpisodes.stringFormat(detailResponse.numberOfEpisodes.toString(), getString(R.string.tvEps))
+                // Handle Country
+                tvCountry.text = if (detailResponse.originCountry.isNotEmpty())
+                    detailResponse.originCountry.joinToString { it }
+                else
+                    getString(R.string.tvNA)
 
-                        showNoGenres(false)
-                        tvGenre.text = detailResponse.genres.joinToString { genres -> genres.name }
+                // Handle Episodes
+                if (detailResponse.numberOfEpisodes.toString().isEmpty())
+                    tvEpisodes.text = getString(R.string.tvNA)
+                else tvEpisodes.stringFormat(
+                    detailResponse.numberOfEpisodes.toString(),
+                    getString(R.string.tvEps)
+                )
+
+                // Handle Genres
+                if (detailResponse.genres.isEmpty()) {
+                    tvNoGenres.showView()
+                    tvGenre.hideView()
+                } else {
+                    tvNoGenres.hideView()
+                    tvGenre.apply {
+                        showView()
+                        text = detailResponse.genres.joinToString { it.name }
                     }
                 }
 
@@ -191,13 +212,8 @@ class DetailTvShowFragment : Fragment() {
         binding.apply {
             lifecycleScope.launch {
                 val count = viewModel.checkFavoriteTvShow(id)
-                if (count > 0) {
-                    toolbarDetailTvShow.toggleFavorite.isChecked = true
-                    isChecked = true
-                } else {
-                    toolbarDetailTvShow.toggleFavorite.isChecked = false
-                    isChecked = false
-                }
+                toolbarDetailTvShow.toggleFavorite.isChecked = count > 0
+                isChecked = count > 0
             }
         }
     }
@@ -261,24 +277,25 @@ class DetailTvShowFragment : Fragment() {
     }
 
     private fun setCastObserver(id: Int) {
-        viewModel.apply {
-            setDetailTvShowsCast(id)
-            detailTvShowCastResponse.observe(viewLifecycleOwner) { response ->
-                when (response) {
-                    is NetworkResult.Loading -> {
-                        showNoCast(false)
-                    }
-                    is NetworkResult.Success -> {
-                        val data = response.data
-                        if (data != null && data.cast.isNotEmpty()) {
-                            castAdapter.submitList(data.cast)
-                            showNoCast(false)
-                        } else {
-                            showNoCast(true)
+        binding.apply {
+            viewModel.apply {
+                setDetailTvShowsCast(id)
+                detailTvShowCastResponse.observe(viewLifecycleOwner) { response ->
+                    when (response) {
+                        is NetworkResult.Loading -> tvNoCast.hideView()
+                        is NetworkResult.Success -> {
+                            val data = response.data
+                            if (data != null && data.cast.isNotEmpty()) {
+                                castAdapter.submitList(data.cast)
+                                tvNoCast.hideView()
+                            } else {
+                                tvNoCast.showView()
+                            }
                         }
-                    }
-                    is NetworkResult.Error -> {
-                        showNoCast(false)
+
+                        is NetworkResult.Error -> {
+                            tvNoCast.hideView()
+                        }
                     }
                 }
             }
@@ -402,19 +419,10 @@ class DetailTvShowFragment : Fragment() {
         }
     }
 
-    private fun showNoGenres(isShow: Boolean) = binding.tvNoGenres.isVisible == isShow
-
-    private fun showNoCast(isShow: Boolean) = binding.tvNoCast.isVisible == isShow
-
     private fun showNoSimilarTvShow(isShow: Boolean) {
         binding.apply {
-            if (isShow) {
-                rvTvShowSimilar.isVisible = false
-                tvNoSimilar.isVisible = true
-            } else {
-                rvTvShowSimilar.isVisible = true
-                tvNoSimilar.isVisible = false
-            }
+            rvTvShowSimilar.isVisible = !isShow
+            tvNoSimilar.isVisible = isShow
         }
     }
 

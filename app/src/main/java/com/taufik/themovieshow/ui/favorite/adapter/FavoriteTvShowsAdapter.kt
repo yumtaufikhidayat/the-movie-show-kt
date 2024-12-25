@@ -7,14 +7,13 @@ import android.widget.Filterable
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.taufik.themovieshow.BuildConfig
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.databinding.ItemsMoviesTvShowBinding
 import com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResult
 import com.taufik.themovieshow.utils.CommonDateFormatConstants
-import com.taufik.themovieshow.utils.convertDate
-import com.taufik.themovieshow.utils.loadImage
-import com.taufik.themovieshow.utils.toRating
+import com.taufik.themovieshow.utils.extensions.convertDate
+import com.taufik.themovieshow.utils.extensions.loadImage
+import com.taufik.themovieshow.utils.extensions.toRating
 import java.util.Locale
 
 class FavoriteTvShowsAdapter(
@@ -44,13 +43,13 @@ class FavoriteTvShowsAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: TvShowsMainResult) {
             with(binding) {
-                imgPoster.loadImage(BuildConfig.IMAGE_URL + data.posterPath)
+                imgPoster.loadImage(data.posterPath)
                 tvTitle.text = data.name
                 tvReleaseDate.text = data.firstAirDate?.convertDate(
                     CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
                     CommonDateFormatConstants.EEE_D_MMM_YYYY_FORMAT
                 ) ?: root.context.getString(R.string.tvNA)
-                tvRating.text = toRating(data.voteAverage)
+                tvRating.text = data.voteAverage.toRating()
 
                 cardMoviesTvShow.setOnClickListener {
                     onItemClickListener(data)

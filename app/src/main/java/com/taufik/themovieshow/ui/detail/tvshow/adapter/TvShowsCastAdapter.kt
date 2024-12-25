@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.databinding.ItemCastBinding
 import com.taufik.themovieshow.model.response.tvshow.cast.TvShowsCast
-import com.taufik.themovieshow.utils.loadImage
+import com.taufik.themovieshow.utils.extensions.loadImage
 
 class TvShowsCastAdapter : ListAdapter<TvShowsCast, TvShowsCastAdapter.MovieViewHolder>(TV_SHOW_CAST_DIFF_CALLBACK) {
 

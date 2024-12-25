@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.taufik.themovieshow.databinding.ItemTrailerVideoBinding
 import com.taufik.themovieshow.model.response.tvshow.video.TvShowsVideoResult
-import com.taufik.themovieshow.utils.loadVideoThumbnail
+import com.taufik.themovieshow.utils.extensions.loadVideoThumbnail
 
 class TvShowTrailerVideoAdapter(
     private val onItemClickListener: (TvShowsVideoResult) -> Unit

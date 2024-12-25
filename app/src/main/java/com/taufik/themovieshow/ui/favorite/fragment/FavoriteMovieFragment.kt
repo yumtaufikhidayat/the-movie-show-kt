@@ -26,7 +26,7 @@ import com.taufik.themovieshow.ui.favorite.adapter.FavoriteMovieAdapter
 import com.taufik.themovieshow.ui.favorite.adapter.SortFilteringAdapter
 import com.taufik.themovieshow.ui.favorite.viewmodel.FavoriteMovieViewModel
 import com.taufik.themovieshow.ui.movie.viewmodel.DetailMovieViewModel
-import com.taufik.themovieshow.utils.navigateToDetailMovie
+import com.taufik.themovieshow.utils.extensions.navigateToDetailMovie
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

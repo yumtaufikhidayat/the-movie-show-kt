@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.taufik.themovieshow.databinding.ItemSimilarBinding
 import com.taufik.themovieshow.model.response.tvshow.similar.TvShowsSimilarResultsItem
 import com.taufik.themovieshow.utils.CommonDateFormatConstants
-import com.taufik.themovieshow.utils.convertDate
-import com.taufik.themovieshow.utils.loadImage
+import com.taufik.themovieshow.utils.extensions.convertDate
+import com.taufik.themovieshow.utils.extensions.loadImage
 
 class TvShowSimilarAdapter(
     private val onItemClickListener: (TvShowsSimilarResultsItem) -> Unit

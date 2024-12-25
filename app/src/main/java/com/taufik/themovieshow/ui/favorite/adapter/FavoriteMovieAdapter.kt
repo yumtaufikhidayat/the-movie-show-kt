@@ -11,9 +11,9 @@ import com.taufik.themovieshow.R
 import com.taufik.themovieshow.databinding.ItemsMoviesTvShowBinding
 import com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult
 import com.taufik.themovieshow.utils.CommonDateFormatConstants
-import com.taufik.themovieshow.utils.convertDate
-import com.taufik.themovieshow.utils.loadImage
-import com.taufik.themovieshow.utils.toRating
+import com.taufik.themovieshow.utils.extensions.convertDate
+import com.taufik.themovieshow.utils.extensions.loadImage
+import com.taufik.themovieshow.utils.extensions.toRating
 import java.util.Locale
 
 class FavoriteMovieAdapter(
@@ -53,7 +53,7 @@ class FavoriteMovieAdapter(
                     CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
                     CommonDateFormatConstants.EEE_D_MMM_YYYY_FORMAT
                 ) ?: root.context.getString(R.string.tvNA)
-                tvRating.text = toRating(data.voteAverage)
+                tvRating.text = data.voteAverage.toRating()
 
                 cardMoviesTvShow.setOnClickListener {
                     onItemClickListener(data)

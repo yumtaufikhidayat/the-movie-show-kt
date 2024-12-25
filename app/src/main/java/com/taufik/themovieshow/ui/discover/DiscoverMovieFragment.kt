@@ -23,7 +23,7 @@ import com.taufik.themovieshow.model.response.movie.discover.DiscoverMovieResult
 import com.taufik.themovieshow.ui.movie.adapter.DiscoverMovieAdapter
 import com.taufik.themovieshow.ui.movie.viewmodel.DetailMovieViewModel
 import com.taufik.themovieshow.ui.movie.viewmodel.MovieViewModel
-import com.taufik.themovieshow.utils.navigateToDetailMovie
+import com.taufik.themovieshow.utils.extensions.navigateToDetailMovie
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

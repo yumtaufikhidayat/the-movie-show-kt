@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.taufik.themovieshow.databinding.ItemsMoviesTvShowBinding
 import com.taufik.themovieshow.model.response.movie.trending.MovieTrendingResult
 import com.taufik.themovieshow.utils.CommonDateFormatConstants
-import com.taufik.themovieshow.utils.convertDate
-import com.taufik.themovieshow.utils.loadImage
-import com.taufik.themovieshow.utils.toRating
+import com.taufik.themovieshow.utils.extensions.convertDate
+import com.taufik.themovieshow.utils.extensions.loadImage
+import com.taufik.themovieshow.utils.extensions.toRating
 
 class MovieTrendingAdapter(
     private val onItemClickListener: (MovieTrendingResult) -> Unit
@@ -41,7 +41,7 @@ class MovieTrendingAdapter(
                     CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
                     CommonDateFormatConstants.EEE_D_MMM_YYYY_FORMAT
                 )
-                tvRating.text = toRating(data.voteAverage)
+                tvRating.text = data.voteAverage.toRating()
 
                 itemView.setOnClickListener {
                     onItemClickListener(data)

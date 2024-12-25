@@ -10,9 +10,9 @@ import com.taufik.themovieshow.databinding.ItemsMoviesTvShowBinding
 import com.taufik.themovieshow.model.response.tvshow.discover.DiscoverTvShowsResult
 import com.taufik.themovieshow.utils.CommonDateFormatConstants.EEE_D_MMM_YYYY_FORMAT
 import com.taufik.themovieshow.utils.CommonDateFormatConstants.YYYY_MM_DD_FORMAT
-import com.taufik.themovieshow.utils.convertDate
-import com.taufik.themovieshow.utils.loadImage
-import com.taufik.themovieshow.utils.toRating
+import com.taufik.themovieshow.utils.extensions.convertDate
+import com.taufik.themovieshow.utils.extensions.loadImage
+import com.taufik.themovieshow.utils.extensions.toRating
 
 class DiscoverTvShowsAdapter(
     private val onItemClickListener: (DiscoverTvShowsResult) -> Unit
@@ -38,7 +38,7 @@ class DiscoverTvShowsAdapter(
                 tvReleaseDate.text =
                     data.firstAirDate?.convertDate(YYYY_MM_DD_FORMAT, EEE_D_MMM_YYYY_FORMAT)
                         ?: root.context.getString(R.string.tvNA)
-                tvRating.text = toRating(data.voteAverage)
+                tvRating.text = data.voteAverage.toRating()
 
                 cardMoviesTvShow.setOnClickListener {
                     onItemClickListener(data)

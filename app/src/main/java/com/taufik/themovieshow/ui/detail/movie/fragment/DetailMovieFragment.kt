@@ -24,12 +24,14 @@ import com.taufik.themovieshow.ui.movie.adapter.ReviewsAdapter
 import com.taufik.themovieshow.ui.movie.viewmodel.DetailMovieViewModel
 import com.taufik.themovieshow.utils.CommonDateFormatConstants
 import com.taufik.themovieshow.utils.extensions.convertDate
+import com.taufik.themovieshow.utils.extensions.hideView
 import com.taufik.themovieshow.utils.extensions.loadImage
 import com.taufik.themovieshow.utils.extensions.navigateToDetailMovie
 import com.taufik.themovieshow.utils.extensions.popBackStack
 import com.taufik.themovieshow.utils.extensions.share
 import com.taufik.themovieshow.utils.extensions.showSuccessToastyIcon
 import com.taufik.themovieshow.utils.extensions.showTrailerVideo
+import com.taufik.themovieshow.utils.extensions.showView
 import com.taufik.themovieshow.utils.extensions.stringFormat
 import com.taufik.themovieshow.utils.extensions.toRating
 import dagger.hilt.android.AndroidEntryPoint
@@ -144,7 +146,7 @@ class DetailMovieFragment : Fragment() {
                     movieDetailResponse.originalLanguage.isEmpty() -> tvLanguage.text = getString(R.string.tvNA)
                     movieDetailResponse.productionCountries.isEmpty() -> tvCountry.text = getString(R.string.tvNA)
                     movieDetailResponse.runtime.toString().isEmpty() -> tvRuntime.text = getString(R.string.tvNA)
-                    movieDetailResponse.genres.isEmpty() -> showNoGenres(true)
+                    movieDetailResponse.genres.isEmpty() -> binding.tvNoGenres.showView()
 
                     else -> {
                         tvNoOverview.isVisible = false
@@ -163,7 +165,7 @@ class DetailMovieFragment : Fragment() {
                         tvCountry.text = movieDetailResponse.productionCountries.joinToString { countries -> countries.iso31661 }
                         tvRuntime.text = convertRuntime(movieDetailResponse.runtime)
 
-                        showNoGenres(false)
+                        binding.tvNoGenres.hideView()
                         tvGenre.text = movieDetailResponse.genres.joinToString { genre -> genre.name }
                     }
                 }
@@ -257,21 +259,24 @@ class DetailMovieFragment : Fragment() {
     }
 
     private fun setCastObserver(id: Int) {
-        viewModel.apply {
-            setDetailMovieCast(id)
-            detailMoviesCastResponse.observe(viewLifecycleOwner) { response ->
-                when (response) {
-                    is NetworkResult.Loading -> showNoCast(false)
-                    is NetworkResult.Success -> {
-                        val cast = response.data?.cast
-                        if (cast.isNullOrEmpty()) {
-                            showNoCast(true)
-                        } else {
-                            showNoCast(false)
-                            castAdapter.submitList(cast)
+        binding.apply {
+            viewModel.apply {
+                setDetailMovieCast(id)
+                detailMoviesCastResponse.observe(viewLifecycleOwner) { response ->
+                    when (response) {
+                        is NetworkResult.Loading -> tvNoCast.hideView()
+                        is NetworkResult.Success -> {
+                            val cast = response.data?.cast
+                            if (cast.isNullOrEmpty()) {
+                                tvNoCast.showView()
+                            } else {
+                                tvNoCast.hideView()
+                                castAdapter.submitList(cast)
+                            }
                         }
+
+                        is NetworkResult.Error -> tvNoCast.hideView()
                     }
-                    is NetworkResult.Error -> showNoCast(false)
                 }
             }
         }
@@ -397,19 +402,10 @@ class DetailMovieFragment : Fragment() {
         }
     }
 
-    private fun showNoGenres(isShow: Boolean) = binding.tvNoGenres.isVisible == isShow
-
-    private fun showNoCast(isShow: Boolean) = binding.tvNoCast.isVisible == isShow
-
     private fun showNoSimilarMovie(isShow: Boolean) {
         binding.apply {
-            if (isShow) {
-                rvMovieSimilar.isVisible = false
-                tvNoSimilar.isVisible = true
-            } else {
-                rvMovieSimilar.isVisible = true
-                tvNoSimilar.isVisible = false
-            }
+            rvMovieSimilar.isVisible = !isShow
+            tvNoSimilar.isVisible = isShow
         }
     }
 
