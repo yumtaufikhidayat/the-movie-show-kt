@@ -1,12 +1,10 @@
 package com.taufik.themovieshow.ui.favorite.fragment
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -26,6 +24,7 @@ import com.taufik.themovieshow.ui.favorite.adapter.FavoriteMovieAdapter
 import com.taufik.themovieshow.ui.favorite.adapter.SortFilteringAdapter
 import com.taufik.themovieshow.ui.favorite.viewmodel.FavoriteMovieViewModel
 import com.taufik.themovieshow.ui.movie.viewmodel.DetailMovieViewModel
+import com.taufik.themovieshow.utils.extensions.hideKeyboard
 import com.taufik.themovieshow.utils.extensions.navigateToDetailMovie
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
@@ -122,7 +121,7 @@ class FavoriteMovieFragment : Fragment() {
         binding?.etSearch?.apply {
             setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    hideKeyboard()
+                    hideKeyboard(requireContext())
                     return@OnEditorActionListener true
                 }
                 false
@@ -171,14 +170,6 @@ class FavoriteMovieFragment : Fragment() {
         }
 
         return listMovies
-    }
-
-    private fun hideKeyboard() {
-        binding?.etSearch?.apply {
-            clearFocus()
-            val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(windowToken, 0)
-        }
     }
 
     override fun onDestroyView() {
