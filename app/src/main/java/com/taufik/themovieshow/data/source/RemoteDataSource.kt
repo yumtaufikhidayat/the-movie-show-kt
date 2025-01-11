@@ -1,5 +1,6 @@
 package com.taufik.themovieshow.data.source
 
+import com.taufik.themovieshow.BuildConfig
 import com.taufik.themovieshow.data.BaseApiResponse
 import com.taufik.themovieshow.data.NetworkResult
 import com.taufik.themovieshow.data.remote.api.ApiService
@@ -30,7 +31,9 @@ import javax.inject.Singleton
 class RemoteDataSource @Inject constructor(private val apiService: ApiService): BaseApiResponse() {
 
     private val dispatchersIO = Dispatchers.IO
-    private val apiKey = CommonConstants.API_KEY
+    private val apiKey =
+        if (BuildConfig.API_KEY.isEmpty()) "API_KEY is not set in BuildConfig."
+        else CommonConstants.API_KEY
 
     fun getMovieTrendingDay(): Flow<NetworkResult<MovieTrendingResponse>> {
         return flow {

@@ -32,7 +32,9 @@ object ApiModule {
 
     @Provides
     @Singleton
-    fun provideBaseUrl() = BuildConfig.BASE_URL
+    fun provideBaseUrl() =
+        if (BuildConfig.BASE_URL.isBlank()) "BASE URL is not set in BuildConfig."
+        else BuildConfig.BASE_URL
 
     @Provides
     @Singleton
