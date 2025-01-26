@@ -14,7 +14,7 @@
           <stringArguments>
             <stringArg name="destination" arg="$MODULE_DIR$/../../../app/build/tmp/kotlin-classes/debugUnitTest" />
             <stringArg name="jvmTarget" arg="17" />
-            <stringArg name="moduleName" arg="TheMovieShow-v1.28(128)-202501120613_debugUnitTest" />
+            <stringArg name="moduleName" arg="TheMovieShow-v1.28(128)-202501150720_debugUnitTest" />
             <stringArg name="apiVersion" arg="1.9" />
             <stringArg name="languageVersion" arg="1.9" />
           </stringArguments>
@@ -56,8 +56,12 @@
     <content url="file://$MODULE_DIR$/../../../app/build/generated/ksp/debugUnitTest/kotlin" />
     <content url="file://$MODULE_DIR$/../../../app/build/generated/source/kapt/debugUnitTest">
       <sourceFolder url="file://$MODULE_DIR$/../../../app/build/generated/source/kapt/debugUnitTest" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../app/build/generated/source/kapt/debugUnitTest" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../app/build/generated/source/kapt/debugUnitTest" isTestSource="true" generated="true" />
     </content>
     <content url="file://$MODULE_DIR$/../../../app/build/generated/source/kaptKotlin/debugUnitTest">
+      <sourceFolder url="file://$MODULE_DIR$/../../../app/build/generated/source/kaptKotlin/debugUnitTest" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../app/build/generated/source/kaptKotlin/debugUnitTest" isTestSource="true" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/../../../app/build/generated/source/kaptKotlin/debugUnitTest" isTestSource="true" generated="true" />
     </content>
     <content url="file://$MODULE_DIR$/../../../app/src/test" />
@@ -74,14 +78,15 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" scope="TEST" name="Gradle: androidx.databinding:viewbinding:8.6.1@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: androidx.databinding:viewbinding:8.7.2@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.github.chuckerteam.chucker:library:4.1.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.core:core-ktx:1.13.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.core:core:1.13.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.annotation:annotation-experimental:1.4.1@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.lifecycle:lifecycle-runtime-android:2.8.7@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.versionedparcelable:versionedparcelable:1.1.1@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.appcompat:appcompat:1.7.0@aar" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: androidx.activity:activity:1.8.1@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: androidx.activity:activity:1.9.3@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.lifecycle:lifecycle-viewmodel-android:2.8.7@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.lifecycle:lifecycle-viewmodel-savedstate:2.8.7@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.lifecycle:lifecycle-livedata-core:2.8.7@aar" level="project" />
@@ -124,7 +129,7 @@
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.navigation:navigation-fragment-ktx:2.8.5@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.navigation:navigation-fragment:2.8.5@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.fragment:fragment-ktx:1.8.5@aar" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: androidx.activity:activity-ktx:1.8.1@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: androidx.activity:activity-ktx:1.9.3@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.lifecycle:lifecycle-runtime-ktx-android:2.8.7@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.savedstate:savedstate-ktx:1.2.1@aar" level="project" />
@@ -183,8 +188,12 @@
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.arch.core:core-testing:2.2.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.room:room-testing:2.6.1@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.annotation:annotation-jvm:1.8.1" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:2.0.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:2.0.21" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains:annotations:23.0.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.squareup.okhttp3:okhttp:4.12.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.squareup.okio:okio-jvm:3.6.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.10" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.10" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlin:kotlin-parcelize-runtime:1.9.24" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlin:kotlin-android-extensions-runtime:1.9.24" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.arch.core:core-common:2.2.0" level="project" />
@@ -197,12 +206,9 @@
     <orderEntry type="library" scope="TEST" name="Gradle: com.github.bumptech.glide:annotations:4.16.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.collection:collection-ktx:1.4.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.squareup.retrofit2:retrofit:2.11.0" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: com.squareup.okhttp3:okhttp:4.12.0" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: com.squareup.okio:okio-jvm:3.6.0" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.10" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.10" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.squareup.retrofit2:converter-gson:2.11.0" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: com.google.code.gson:gson:2.10.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.google.code.gson:gson:2.11.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.google.errorprone:error_prone_annotations:2.27.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.squareup.okhttp3:logging-interceptor:4.12.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.room:room-common:2.6.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.datastore:datastore-preferences-core-jvm:1.1.1" level="project" />
@@ -219,7 +225,6 @@
     <orderEntry type="library" scope="TEST" name="Gradle: com.google.guava:guava:31.1-android" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.google.guava:failureaccess:1.0.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.checkerframework:checker-qual:3.12.0" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: com.google.errorprone:error_prone_annotations:2.26.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.google.j2objc:j2objc-annotations:1.3" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: junit:junit:4.13.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.hamcrest:hamcrest-core:1.3" level="project" />
