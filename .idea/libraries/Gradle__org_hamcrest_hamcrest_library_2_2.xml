@@ -1,5 +1,6 @@
 <component name="libraryTable">
-  <library name="Gradle: org.hamcrest:hamcrest-library:2.2" external-system-id="GRADLE">
+  <library name="Gradle: org.hamcrest:hamcrest-library:2.2" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="org.hamcrest" artifactId="hamcrest-library" version="2.2" />
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.hamcrest/hamcrest-library/2.2/cf530c8a0bc993487c64e940ae639bb4a6104dc6/hamcrest-library-2.2.jar!/" />
     </CLASSES>
