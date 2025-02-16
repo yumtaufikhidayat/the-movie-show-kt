@@ -238,3 +238,8 @@
 -keep,includedescriptorclasses class net.sqlcipher.** { *; }
 -keep,includedescriptorclasses interface net.sqlcipher.** { *; }
 ##---------------End: proguard configuration for SQLCipher ----------
+
+##---------------Begin: proguard configuration for Chucker ----------
+-keep class com.chuckerteam.chucker.** { *; }
+-dontwarn com.chuckerteam.chucker.**
+##---------------End: proguard configuration for Chucker
