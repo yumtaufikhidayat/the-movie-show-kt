@@ -5,7 +5,6 @@ core-ktx = "1.9.0"
 appcompat = "1.7.0"
 core-testing = "2.2.0"
 coroutine-android = "1.9.0"
-firebase-crashlytics-ktx = "22.1.2"
 flexbox = "3.0.0"
 justified-text = "1.1.0"
 chucker = "4.1.0"
@@ -32,12 +31,13 @@ toasty = "1.5.2"
 room = "2.6.1"
 coroutines-core = "1.9.0"
 hilt = "2.52"
-firebase-crashlytics = "19.4.1"
+firebase-analytics-ktx = "22.3.0"
+firebase-crashlytics-ktx = "22.3.0"
+crashlytics = "3.0.3"
 lottie = "6.5.2"
 navigation = "2.8.4"
 google-services = "4.4.2"
 ksp = "1.9.0-1.0.13"
-crashlytics = "3.0.2"
 datastore = "1.1.1"
 datastorePreferences = "1.0.0"
 
@@ -52,8 +52,8 @@ androidx-rules = { module = "androidx.test:rules", version.ref = "test-rule" }
 androidx-runner = { module = "androidx.test:runner", version.ref = "test-runner" }
 androidx-sqlite-ktx = { module = "androidx.sqlite:sqlite-ktx", version.ref = "sqlite" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
-firebase-analytics-ktx = { module = "com.google.firebase:firebase-analytics-ktx", version.ref = "firebase-crashlytics-ktx" }
-firebase-crashlytics-ktx = { module = "com.google.firebase:firebase-crashlytics-ktx", version.ref = "firebase-crashlytics" }
+firebase-analytics-ktx = { module = "com.google.firebase:firebase-analytics-ktx", version.ref = "firebase-analytics-ktx" }
+firebase-crashlytics-ktx = { module = "com.google.firebase:firebase-crashlytics-ktx", version.ref = "firebase-crashlytics-ktx" }
 flexbox = { module = "com.google.android.flexbox:flexbox", version.ref = "flexbox" }
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
 justifiedtextview = { module = "com.codesgood:justifiedtextview", version.ref = "justified-text" }
