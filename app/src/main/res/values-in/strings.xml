@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">The Movie Show</string>
+    <string name="tvPoster">Poster</string>
+    <string name="tvBanner">Banner</string>
+    <string name="tvAppVersion">1.0</string>
+    <string name="tvTrending">Trending</string>
+    <string name="tvMovies">Film</string>
+    <string name="tvShows">Acara TV</string>
+    <string name="tvTitle">Judul</string>
+    <string name="tvRating">Rating</string>
+    <string name="tvNetwork">Jaringan</string>
+    <string name="tvReleaseDate">Tanggal Rilis:</string>
+    <string name="tvReleasedOn">Rilis pada:</string>
+    <string name="tvStartedOn">Mulai pada:</string>
+    <string name="tvStatus">Status</string>
+    <string name="tvLanguage">Bahasa</string>
+    <string name="tvBullet">\u2022</string>
+    <string name="tvRuntime">Lama</string>
+    <string name="tvCountry">Negara</string>
+    <string name="tvGenre">Genre</string>
+    <string name="tvEpisodes">Episode</string>
+    <string name="tvEps">Eps</string>
+    <string name="tvOtherMenus">Menu Lainnya</string>
+    <string name="tvShare">Bagikan</string>
+    <string name="tvOpenInBrowser">Buka di browser</string>
+    <string name="tvReadMore">Lebih Banyak</string>
+    <string name="tvReadLess">Lebih Sedikit</string>
+    <string name="tvDiscoverMovie">Temukan Film</string>
+    <string name="tvDiscoverTvShows">Temukan Acara TV</string>
+    <string name="tvDiscover">Temukan</string>
+    <string name="tvTrailer">Cuplikan Video</string>
+    <string name="tvOverview">Ringkasan</string>
+    <string name="tvCast">Pemeran</string>
+    <string name="tvAuthor">Penulis</string>
+    <string name="tvApplication">Aplikasi</string>
+    <string name="tvUpdate">Pembaruan</string>
+    <string name="tvSearch">Cari…</string>
+    <string name="tvNoSearchMovie">Oops!. Belum ada film yang kamu cari……</string>
+    <string name="tvSearchMovie"> Temukan film favoritmu di sini</string>
+    <string name="tvNoSearchTvShow">Oops!. Kamu belum mencari Acara TV…</string>
+    <string name="tvSearchTvShow">Cari Acara TV favoritmu untuk melihatnya</string>
+    <string name="tvReviews">Ulasan</string>
+    <string name="tvSimilarMovie">Film Lainnya</string>
+    <string name="tvSimilarTvShows">Acara TV Lainnya</string>
+    <string name="tvRuntimeInTime">%dh %dm</string>
+    <string name="tvNoOverview">Tidak ada ringkasan</string>
+    <string name="tvNoGenres">Tidak ada genre tersedia</string>
+    <string name="tvNoCast">Tidak ada cast tersedia</string>
+    <string name="tvNoReviews">Tidak ada ulasan tersedia</string>
+    <string name="tvNoSimilarMovie">Tidak ada film lain tersedia</string>
+    <string name="tvNoSimilarTvShows">Tidak ada acara TV lain tersedia</string>
+    <string name="tvNoVideo">Tidak ada video tersedia</string>
+    <string name="tvNA">N/A</string>
+    <string name="tvNoFavoriteData">Oops! Belum ada data favorit…</string>
+    <string name="tvSaveFavoriteMovie">Belum ada film favorit. Tambahkan film favoritmu di sini.</string>
+    <string name="tvSaveFavoriteTvShows">Belum ada acara TV favorit. Tambahkan acara TV favoritmu di sini.</string>
+    <string name="tvOopsNoResults">Oops! Tidak ada hasil ditemukan…</string>
+    <string name="tvNoSearchData">Tidak ditemukan hasil pencarian. Coba kata kunci lain.</string>
+    <string name="tvShareWith">Bagikan dengan:</string>
+    <string name="tvOops">Oops! Terjadi kesalahan…</string>
+    <string name="tvUnableLoadData">Tidak dapat memuat data. Coba lagi nanti.</string>
+    <string name="tvVisitMovie">Kunjungi Film ini</string>
+    <string name="tvVisitTvShow">Kunjungi Acara TV ini</string>
+    <string name="tvNameCharacter">%s \n (%s)</string>
+    <string name="tvRetry">Coba Lagi</string>
+    <string name="action_added_to_favorite">Ditambahkan ke favorit</string>
+    <string name="action_removed_from_favorite">Hapus dari favorit</string>
+    <string name="tvInstallBrowserYouTube">Silakan install browser atau aplikasi YouTube terlebih dahulu.\nError: %s</string>
+    <string name="tvPressBackExit">Tekan tombol sekali lagi untuk keluar</string>
+    <string name="tvOpenWith">Buka dengan</string>
+    <string name="tvInstallBrowser">Silakan install browser terlebih dahulu.\nError: %s</string>
+    <string name="tvSendTo">Kirim ke</string>
+    <string name="tvInstallEmailApp">Silakan install aplikasi email terlebih dahulu.</string>
+
+    <!--Tab menu title-->
+    <string name="tvMovieNowPlaying">Tayang Sekarang</string>
+    <string name="tvMovieUpcoming">Akan Datang</string>
+    <string name="tvTvShowPopular">Populer</string>
+    <string name="tvTvShowAiringToday">Ditayangkan Hari Ini</string>
+
+    <!--Bottom nav menu-->
+    <string name="icTrending">Trending</string>
+    <string name="icMovies">Film</string>
+    <string name="icTVShows">Acara TV</string>
+    <string name="icFavorite">Favorit</string>
+    <string name="icAbout">Tentang</string>
+
+    <!--About-->
+    <string name="tvTitleLetsGreet">Mari Bersapa</string>
+    <string name="tvDescLetsGreet">Taufik Hidayat</string>
+    <string name="tvTitleForkOnGithub">Fork di Github</string>
+    <string name="tvDescForkOnGithub">Fork aplikasi di Github</string>
+    <string name="tvTitleSendEmail">Kirim email</string>
+    <string name="tvDescSendEmail">yumtaufikhidayat@gmail.com</string>
+    <string name="tvDescLanguage">Pilih bahasa</string>
+    <string name="tvTitleCopyright">Hak Cipta</string>
+    <string name="tvDescCopyright">Hak Cipta &#169; 2021–2025 Taufik Hidayat</string>
+    <string name="tvTitleVersion">Versi</string>
+    <string name="tvTitleRateThisApp">Beri nilai aplikasi ini</string>
+    <string name="tvDescRateThisApp">Suka aplikasi ini? Beri 5 bintang</string>
+    <string name="tvTitleReportIssue">Laporkan masalah</string>
+    <string name="tvDescReportIssue">Punya masalah? Lapor disini</string>
+
+    <!--Sort & Filtering-->
+    <string name="tvSortFilter">Urutkan &amp; Saring</string>
+    <string name="tvSortAll">Semua</string>
+    <string name="tvSortRelease">Rilis</string>
+    <string name="tvSortTitle">Judul</string>
+</resources>

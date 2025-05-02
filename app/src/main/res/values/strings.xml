@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">The Movie Show</string>
     <string name="tvPoster">Poster</string>
@@ -14,24 +15,19 @@
     <string name="tvStartedOn">Started on:</string>
     <string name="tvStatus">Status</string>
     <string name="tvLanguage">Language</string>
-    <string name="tvLoremIpsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    </string>
     <string name="tvBullet">\u2022</string>
     <string name="tvRuntime">Runtime</string>
     <string name="tvCountry">Country</string>
     <string name="tvGenre">Genre(s)</string>
     <string name="tvEpisodes">Episodes</string>
     <string name="tvEps">Eps</string>
-    <string name="tvOtherMenus">Menu Lainnya</string>
+    <string name="tvOtherMenus">Other Menus</string>
     <string name="tvShare">Share</string>
     <string name="tvOpenInBrowser">Open in browser</string>
-    <string name="tvReadMore">Read More</string>
-    <string name="tvReadLess">Read Less</string>
-    <string name="tvDiscoverMovie">Discover Movies</string>
-    <string name="tvDiscoverTvShows">Discover TV Shows</string>
+    <string name="tvReadMore">Show More</string>
+    <string name="tvReadLess">Show Less</string>
+    <string name="tvDiscoverMovie">Explore Movies</string>
+    <string name="tvDiscoverTvShows">Explore TV Shows</string>
     <string name="tvDiscover">Discover</string>
     <string name="tvTrailer">Trailer Video</string>
     <string name="tvOverview">Overview</string>
@@ -40,42 +36,42 @@
     <string name="tvApplication">Application</string>
     <string name="tvUpdate">Update</string>
     <string name="tvSearch">Search…</string>
-    <string name="tvNoSearchMovie">Oops!. You Haven\'t Search a Movie…</string>
-    <string name="tvSearchMovie">Search your favorite movie to show them</string>
-    <string name="tvNoSearchTvShow">Oops!. You Haven\'t Search a TV Show…</string>
-    <string name="tvSearchTvShow">Search your favorite TV show to show them</string>
+    <string name="tvNoSearchMovie">Oops!. You Haven\'t Searched for a Movie…</string>
+    <string name="tvSearchMovie">Search for your favorite movie to see the results</string>
+    <string name="tvNoSearchTvShow">Oops!. You Haven\'t Searched for a TV Show…</string>
+    <string name="tvSearchTvShow">Search for your favorite TV show to see the results</string>
     <string name="tvReviews">Reviews</string>
     <string name="tvSimilarMovie">Similar Movies</string>
     <string name="tvSimilarTvShows">Similar TV Shows</string>
     <string name="tvRuntimeInTime">%dh %dm</string>
-    <string name="tvNoOverview">No overview available</string>
-    <string name="tvNoGenres">No genres available</string>
-    <string name="tvNoCast">No cast available</string>
-    <string name="tvNoReviews">No reviews available</string>
-    <string name="tvNoSimilarMovie">No similar movies available</string>
-    <string name="tvNoSimilarTvShows">No similar TV Shows available</string>
-    <string name="tvNoVideo">No trailer video available</string>
+    <string name="tvNoOverview">Overview not available</string>
+    <string name="tvNoGenres">Genres not available</string>
+    <string name="tvNoCast">Cast information not available</string>
+    <string name="tvNoReviews">Reviews not available</string>
+    <string name="tvNoSimilarMovie">No similar movies found</string>
+    <string name="tvNoSimilarTvShows">No similar TV shows found</string>
+    <string name="tvNoVideo">No trailer available</string>
     <string name="tvNA">N/A</string>
-    <string name="tvNoFavoriteData">Oops!. No Favorite Data…</string>
-    <string name="tvSaveFavoriteMovie">You don\'t have favorite movie. Save your favorite movie to show them.</string>
-    <string name="tvSaveFavoriteTvShows">You don\'t have favorite TV shows. Save your favorite TV shows to show them.</string>
-    <string name="tvOopsNoResults">Oops!. No Results Found…</string>
+    <string name="tvNoFavoriteData">Oops! No favorite data found…</string>
+    <string name="tvSaveFavoriteMovie">You haven\'t added any favorite movies. Save one to see it here.</string>
+    <string name="tvSaveFavoriteTvShows">You haven\'t added any favorite TV shows. Save one to see it here.</string>
+    <string name="tvOopsNoResults">Oops! No results found…</string>
     <string name="tvNoSearchData">No results found for this query. Please use another query.</string>
     <string name="tvShareWith">Share with:</string>
-    <string name="tvOops">Oops!. Something Went Wrong…</string>
+    <string name="tvOops">Oops! Something went wrong…</string>
     <string name="tvUnableLoadData">Unable to load data. Please try again.</string>
-    <string name="tvVisitMovie">Visit this awesome movies</string>
-    <string name="tvVisitTvShow">Visit this awesome Tv shows</string>
+    <string name="tvVisitMovie">Check out this awesome movie</string>
+    <string name="tvVisitTvShow">Check out this awesome TV show</string>
     <string name="tvNameCharacter">%s \n (%s)</string>
     <string name="tvRetry">Retry</string>
-    <string name="action_added_to_favorite">Added to favorite</string>
-    <string name="action_removed_from_favorite">Removed from favorite</string>
-    <string name="tvInstallBrowserYouTube">Please install browser or Youtube app first.\nError: %s</string>
-    <string name="tvPressBackExit">Press back again to exit</string>
+    <string name="action_added_to_favorite">Added to favorites</string>
+    <string name="action_removed_from_favorite">Removed from favorites</string>
+    <string name="tvInstallBrowserYouTube">Please install a browser or the YouTube app first.\nError: %s</string>
+    <string name="tvPressBackExit">Press back again to exit the app</string>
     <string name="tvOpenWith">Open with</string>
-    <string name="tvInstallBrowser">Please install browser first.\nError: %s</string>
+    <string name="tvInstallBrowser">Please install a browser first.\nError: %s</string>
     <string name="tvSendTo">Send to</string>
-    <string name="tvInstallEmailApp">"Please install email app"</string>
+    <string name="tvInstallEmailApp">Please install an email app first</string>
 
     <!--Tab menu title-->
     <string name="tvMovieNowPlaying">Now Playing</string>
@@ -97,15 +93,14 @@
     <string name="tvDescForkOnGithub">Fork this app on Github</string>
     <string name="tvTitleSendEmail">Send an email</string>
     <string name="tvDescSendEmail">yumtaufikhidayat@gmail.com</string>
-    <string name="tvTitleSettings">Settings</string>
-    <string name="tvDescSettings">Set notification and other settings</string>
+    <string name="tvDescLanguage">Select preferred language</string>
     <string name="tvTitleCopyright">Copyright</string>
-    <string name="tvDescCopyright">Copyright &#169; 2021–2024 Taufik Hidayat</string>
+    <string name="tvDescCopyright">Copyright &#169; 2021–2025 Taufik Hidayat</string>
     <string name="tvTitleVersion">Version</string>
     <string name="tvTitleRateThisApp">Rate this app</string>
-    <string name="tvDescRateThisApp">Like this app? Rate 5 stars</string>
+    <string name="tvDescRateThisApp">Enjoying the app? Give it 5 stars!</string>
     <string name="tvTitleReportIssue">Report an issue</string>
-    <string name="tvDescReportIssue">Having an issue? Report in here</string>
+    <string name="tvDescReportIssue">Encountered an issue? Report it here</string>
 
     <!--Sort & Filtering-->
     <string name="tvSortFilter">Sort &amp; Filter</string>
