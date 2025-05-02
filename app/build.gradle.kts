@@ -4,18 +4,18 @@ import java.util.Date
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.navigation.safe.args)
     alias(libs.plugins.hilt)
     alias(libs.plugins.google.services)
     alias(libs.plugins.firebase.crashlytics)
     alias(libs.plugins.ksp)
+    id("kotlin-parcelize")
 }
 
 android {
     namespace = "com.taufik.themovieshow"
-    compileSdk = 34
+    compileSdk = 35
 
     // APK Name
     applicationVariants.all {
@@ -26,7 +26,7 @@ android {
     defaultConfig {
         applicationId = "com.taufik.themovieshow"
         minSdk = 28
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 128
         versionName = "1.28"
 
@@ -57,6 +57,29 @@ android {
             )
         }
     }
+
+    flavorDimensions += "version"
+    productFlavors {
+        create("dev") {
+            dimension = "version"
+            applicationIdSuffix = ".debug"
+            versionNameSuffix = "-debug"
+
+            buildConfigField("String", "API_KEY", "\"YOUR_API_KEY_HERE\"")
+            buildConfigField("String", "BASE_URL", "\"https://api.themoviedb.org/3/\"")
+            buildConfigField("String", "IMAGE_URL", "\"https://image.tmdb.org/t/p/w780/\"")
+            buildConfigField("String", "THUMBNAIL_IMAGE_URL", "\"https://img.youtube.com/vi/\"")
+        }
+        create("prod") {
+            dimension = "version"
+
+            buildConfigField("String", "API_KEY", "\"YOUR_API_KEY_HERE\"")
+            buildConfigField("String", "BASE_URL", "\"https://api.themoviedb.org/3/\"")
+            buildConfigField("String", "IMAGE_URL", "\"https://image.tmdb.org/t/p/w780/\"")
+            buildConfigField("String", "THUMBNAIL_IMAGE_URL", "\"https://img.youtube.com/vi/\"")
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
