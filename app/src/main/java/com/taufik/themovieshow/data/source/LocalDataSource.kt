@@ -8,12 +8,15 @@ import com.taufik.themovieshow.data.local.entity.tvshow.FavoriteTvShowEntity
 import com.taufik.themovieshow.model.favorite.SortFiltering
 import com.taufik.themovieshow.model.response.about.About
 import com.taufik.themovieshow.utils.UtilsData
+import com.taufik.themovieshow.utils.UtilsData.generateAboutApplicationData
+import com.taufik.themovieshow.utils.UtilsData.generateAboutAuthorData
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class LocalDataSource @Inject constructor(
-    private val favoriteDao: TheMovieShowDao
+    private val context: Context,
+    private val favoriteDao: TheMovieShowDao,
 ) {
     suspend fun addMovieToFavorite(favoriteMovieEntity: FavoriteMovieEntity) =
         favoriteDao.addMovieToFavorite(favoriteMovieEntity)
@@ -37,9 +40,9 @@ class LocalDataSource @Inject constructor(
 
     suspend fun removeTvShowFromFavorite(tvShowId: Int) = favoriteDao.removeTvShowFromFavorite(tvShowId)
 
-    fun getAboutAuthor(context: Context): List<About> = UtilsData.generateAboutAuthorData(context)
+    fun getAboutAuthor(): List<About> = context.generateAboutAuthorData()
 
-    fun getAboutApplication(context: Context): List<About> = UtilsData.generateAboutApplicationData(context)
+    fun getAboutApplication(): List<About> = context.generateAboutApplicationData()
 
     fun getSortFiltering(): List<SortFiltering> = UtilsData.generateSortFilteringData()
 }
