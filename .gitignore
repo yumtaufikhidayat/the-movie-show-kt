@@ -40,9 +40,11 @@ gen/
 out/
 
 # Gradle files
+# Ignore gradle generated files
 .gradle/
 .gradle/buildOutputCleanup
 build/
+**/build/
 
 # Local configuration file (sdk path, etc)
 local.properties
@@ -57,14 +59,35 @@ proguard/
 captures/
 
 # IntelliJ
+# Ignore all .iml files
 *.iml
-.idea/workspace.xml
 .idea/tasks.xml
-.idea/gradle.xml
 .idea/assetWizardSettings.xml
 .idea/dictionaries
 .idea/libraries
 .idea/caches
+# Ignore all .idea files except modules (optional)
+.idea/
+!.idea/codeStyles/
+!.idea/runConfigurations/
+# User-specific or generated IntelliJ files
+.idea/workspace.xml
+.idea/misc.xml
+.idea/vcs.xml
+.idea/caches/
+.idea/libraries/
+.idea/navEditor.xml
+.idea/gradle.xml
+.idea/kotlinc.xml
+.idea/runConfigurations.xml
+.idea/modules/
+.idea/material_theme_project_new.xml
+.idea/.name
+.idea/appInsightsSettings.xml
+.idea/deploymentTargetSelector.xml
+.idea/git_toolbox_*.xml
+.idea/render.experimental.xml
+
 
 # Keystore files
 # Uncomment the following lines if you do not want to check your keystore files in.
@@ -338,5 +361,10 @@ $RECYCLE.BIN/
 *.lock
 *.bin
 *.probe
+
+# gitattributes
+*.iml text eol=lf
+.idea/* text eol=lf
+*.xml text
 
 # End of https://www.gitignore.io/api/java,linux,macos,windows,android,intellij,androidstudio

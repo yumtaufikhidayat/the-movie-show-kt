@@ -1,6 +1,9 @@
 package com.taufik.themovieshow.di
 
 import android.content.Context
+import android.util.Log
+import com.chuckerteam.chucker.api.ChuckerCollector
+import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.taufik.themovieshow.BuildConfig
@@ -29,6 +32,7 @@ object ApiModule {
     private const val WRITE_TIMEOUT = 30
     private const val CONNECTION_TIMEOUT = 10
     private const val CACHE_SIZE_BYTES = 10 * 1024 * 1024L // 10 MB
+    private const val MAX_CONTENT_LENGTH = 250_000L
 
     @Provides
     @Singleton
@@ -46,7 +50,7 @@ object ApiModule {
 
     @Provides
     @Singleton
-    fun provideHttpClient(cache: Cache) = if (BuildConfig.DEBUG) {
+    fun provideHttpClient(@ApplicationContext context: Context, cache: Cache) = if (BuildConfig.DEBUG) {
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS)
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
@@ -65,6 +69,17 @@ object ApiModule {
             return@Interceptor chain.proceed(request)
         }
 
+        val chuckerInterceptor = ChuckerInterceptor.Builder(context.applicationContext)
+            .collector(
+                ChuckerCollector(
+                    context.applicationContext,
+                    showNotification = true
+                )
+            )
+            .maxContentLength(MAX_CONTENT_LENGTH)
+            .alwaysReadResponseBody(true)
+            .build()
+
         val okHttpClientBuilder = OkHttpClient.Builder()
             .connectTimeout(CONNECTION_TIMEOUT.toLong(), TimeUnit.SECONDS)
             .readTimeout(READ_TIMEOUT.toLong(), TimeUnit.SECONDS)
@@ -72,6 +87,7 @@ object ApiModule {
             .cache(cache)
             .addInterceptor(requestInterceptor)
             .addInterceptor(loggingInterceptor)
+            .addInterceptor(chuckerInterceptor)
         okHttpClientBuilder.build()
     } else OkHttpClient.Builder().build()
 
@@ -94,7 +110,7 @@ object ApiModule {
         client: OkHttpClient
     ): ApiService = Retrofit.Builder()
         .baseUrl(baseUrl)
-        .client(client)
+        .client(client.also { Log.d("OkHttpClient", "Retrofit is using provided OkHttpClient") })
         .addConverterFactory(GsonConverterFactory.create(gson))
         .build()
         .create(ApiService::class.java)
