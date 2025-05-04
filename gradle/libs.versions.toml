@@ -1,20 +1,20 @@
 [versions]
 android-gradle-plugin = "8.6.1"
-kotlin = "1.9.24"
-core-ktx = "1.9.0"
+kotlin = "2.1.20"
+core-ktx = "1.16.0"
 appcompat = "1.7.0"
 coroutine-android = "1.9.0"
 flexbox = "3.0.0"
 justified-text = "1.1.0"
 chucker = "4.1.0"
 material = "1.12.0"
-constraintlayout = "2.2.0"
+constraintlayout = "2.2.1"
 legacy-support = "1.0.0"
 glide = "4.16.0"
 mockito-inline = "5.2.0"
-nav-ktx = "2.8.5"
-navigation = "2.8.4"
-fragment-ktx = "1.8.5"
+nav-ktx = "2.8.9"
+navigation = "2.8.9"
+fragment-ktx = "1.8.6"
 junit = "4.13.2"
 mockito-core = "5.14.1"
 espresso = "3.6.1"
@@ -28,18 +28,19 @@ test-ext = "1.2.1"
 test-rule = "1.6.1"
 test-runner = "1.6.2"
 toasty = "1.5.2"
-room = "2.6.1"
-sqlite = "2.4.0"
+room = "2.7.1"
+sqlite = "2.5.0"
 coroutines-core = "1.9.0"
 hilt = "2.52"
-firebase-analytics-ktx = "22.1.2"
-firebase-crashlytics-ktx = "19.4.1"
+firebase-analytics-ktx = "22.4.0"
+firebase-crashlytics-ktx = "19.4.3"
 crashlytics = "3.0.3"
-lottie = "6.5.2"
+lottie = "6.6.4"
 google-services = "4.4.2"
-ksp = "1.9.0-1.0.13"
-datastore = "1.1.1"
-datastorePreferences = "1.0.0"
+ksp = "2.1.20-2.0.0"
+datastore = "1.1.5"
+datastorePreferences = "1.1.5"
+preference = "1.2.1"
 
 [libraries]
 android-database-sqlcipher = { module = "net.zetetic:android-database-sqlcipher", version.ref = "sql-cipher" }
@@ -96,6 +97,5 @@ hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 google-services = { id = "com.google.gms.google-services", version.ref = "google-services" }
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "crashlytics" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
-kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin"}
+kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 navigation-safe-args = { id = "androidx.navigation.safeargs", version.ref = "navigation" }
