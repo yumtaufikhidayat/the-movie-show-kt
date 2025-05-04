@@ -31,10 +31,6 @@ android {
         versionName = "1.28"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "API_KEY", "\"API_KEY\"")
-        buildConfigField("String", "BASE_URL", "\"BASE_URL\"")
-        buildConfigField("String", "IMAGE_URL", "\"IMAGE_URL\"")
-        buildConfigField("String", "THUMBNAIL_IMAGE_URL", "\"THUMBNAIL_IMAGE_URL\"")
         vectorDrawables.useSupportLibrary = true
     }
 
@@ -113,6 +109,7 @@ dependencies {
 
     // Fragment KTX
     implementation(libs.fragment.ktx)
+    implementation(libs.androidx.preference)
 
     // Testing
     testImplementation(libs.junit)
@@ -149,6 +146,10 @@ dependencies {
     testImplementation(libs.androidx.room.testing)
     ksp(libs.androidx.room.compiler)
 
+    // DataStore
+    implementation(libs.datastore)
+    implementation(libs.androidx.datastore.preferences)
+
     // Coroutine
     implementation(libs.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
@@ -170,6 +171,10 @@ dependencies {
     // Encryption
     implementation(libs.android.database.sqlcipher)
     implementation(libs.androidx.sqlite.ktx)
+
+    // Chucker
+    debugImplementation(libs.chucker)
+    releaseImplementation(libs.chucker.no.op)
 }
 
 kapt {

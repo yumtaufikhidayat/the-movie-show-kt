@@ -89,6 +89,7 @@ hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref
 lottie = { group = "com.airbnb.android", name = "lottie", version.ref = "lottie" }
 datastore = { group = "androidx.datastore", name = "datastore-preferences-core", version.ref = "datastore" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
+androidx-preference = { group = "androidx.preference", name = "preference", version.ref = "preference" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }
