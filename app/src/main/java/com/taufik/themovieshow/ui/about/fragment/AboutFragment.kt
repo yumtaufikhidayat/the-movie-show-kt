@@ -7,18 +7,18 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.databinding.FragmentAboutBinding
-import com.taufik.themovieshow.ui.about.adapter.AboutApplicationAdapter
-import com.taufik.themovieshow.ui.about.adapter.AboutAuthorAdapter
+import com.taufik.themovieshow.model.response.about.AboutAction
+import com.taufik.themovieshow.ui.about.adapter.AboutParentAdapter
 import com.taufik.themovieshow.ui.about.viewmodel.AboutViewModel
 import com.taufik.themovieshow.utils.CommonConstants
 import com.taufik.themovieshow.utils.extensions.showSuccessToastyIcon
 import dagger.hilt.android.AndroidEntryPoint
-import androidx.core.net.toUri
 
 @AndroidEntryPoint
 class AboutFragment : Fragment() {
@@ -27,8 +27,7 @@ class AboutFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: AboutViewModel by viewModels()
-    private var authorAdapter: AboutAuthorAdapter? = null
-    private var applicationAdapter: AboutApplicationAdapter? = null
+    private var aboutParentAdapter: AboutParentAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,7 +43,6 @@ class AboutFragment : Fragment() {
 
         setToolbar()
         setAuthorData()
-        setApplicationData()
     }
 
     private fun setToolbar() {
@@ -52,42 +50,28 @@ class AboutFragment : Fragment() {
     }
 
     private fun setAuthorData() {
-        authorAdapter = AboutAuthorAdapter { position ->
-            when (position) {
-                0 -> showToastyBasedOnType(CommonConstants.LINKEDIN)
-                1 -> showToastyBasedOnType(CommonConstants.GITHUB)
-                2 -> showToastyBasedOnType(CommonConstants.EMAIL)
-            }
-        }
-
-        binding.rvAuthorAbout.apply {
-            layoutManager = LinearLayoutManager(context)
-            setHasFixedSize(true)
-            adapter = authorAdapter
-        }
-
-        authorAdapter?.submitList(viewModel.getAboutAuthor())
-    }
-
-    private fun setApplicationData() {
-        applicationAdapter = AboutApplicationAdapter { position ->
-                when (position) {
-                    0 -> {
-                        // TODO: Open setting fragment
-                    }
-                    1 -> showToastyBasedOnType(CommonConstants.EMAIL)
-                    2 -> showToastyBasedOnType(CommonConstants.GOOGLE_PLAY)
-                    3, 4 -> { /* Nothing to click */}
+        aboutParentAdapter = AboutParentAdapter { about ->
+            when (about.id) {
+                AboutAction.LinkedIn -> showToastyBasedOnType(CommonConstants.LINKEDIN)
+                AboutAction.GitHub -> showToastyBasedOnType(CommonConstants.GITHUB)
+                AboutAction.Email -> showToastyBasedOnType(CommonConstants.EMAIL)
+                AboutAction.GooglePlay -> showToastyBasedOnType(CommonConstants.GOOGLE_PLAY)
+                AboutAction.LanguageSetting -> {
+                    // TODO: open language setting
+                }
+                AboutAction.NoOp -> {
+                    // No-op
                 }
             }
-
-        binding.rvApplicationAbout.apply {
-            layoutManager = LinearLayoutManager(context)
-            setHasFixedSize(true)
-            adapter = applicationAdapter
         }
 
-        applicationAdapter?.submitList(viewModel.getAboutApplication())
+        binding.rvParentAbout.apply {
+            layoutManager = LinearLayoutManager(context)
+            setHasFixedSize(true)
+            adapter = aboutParentAdapter
+        }
+
+        aboutParentAdapter?.submitList(viewModel.getAboutData())
     }
 
     private fun showToastyBasedOnType(type: String) {
@@ -149,7 +133,7 @@ class AboutFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        applicationAdapter = null
+        aboutParentAdapter = null
     }
 
     companion object {

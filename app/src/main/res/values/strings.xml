@@ -32,7 +32,7 @@
     <string name="tvTrailer">Trailer Video</string>
     <string name="tvOverview">Overview</string>
     <string name="tvCast">Cast</string>
-    <string name="tvAuthor">Author</string>
+    <string name="tvDeveloper">Developer</string>
     <string name="tvApplication">Application</string>
     <string name="tvUpdate">Update</string>
     <string name="tvSearch">Search…</string>
@@ -100,7 +100,7 @@
     <string name="tvTitleRateThisApp">Rate this app</string>
     <string name="tvDescRateThisApp">Enjoying the app? Give it 5 stars!</string>
     <string name="tvTitleReportIssue">Report an issue</string>
-    <string name="tvDescReportIssue">Encountered an issue? Report it here</string>
+    <string name="tvDescReportIssue">Encountered an issue related to app? Report it here</string>
 
     <!--Sort & Filtering-->
     <string name="tvSortFilter">Sort &amp; Filter</string>

@@ -6,8 +6,8 @@ import com.taufik.themovieshow.data.local.entity.tvshow.FavoriteTvShowEntity
 import com.taufik.themovieshow.data.source.LocalDataSource
 import com.taufik.themovieshow.data.source.RawQuery
 import com.taufik.themovieshow.data.source.RemoteDataSource
+import com.taufik.themovieshow.model.about.AboutSection
 import com.taufik.themovieshow.model.favorite.SortFiltering
-import com.taufik.themovieshow.model.response.about.About
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -68,9 +68,7 @@ class TheMovieShowRepository @Inject constructor(
 
     suspend fun removeTvShowFromFavorite(tvShowId: Int) = localDataSource.removeTvShowFromFavorite(tvShowId)
 
-    fun getAboutAuthor(): List<About> = localDataSource.getAboutAuthor()
-
-    fun getAboutApplication(): List<About> = localDataSource.getAboutApplication()
+    fun getAboutData(): List<AboutSection> = localDataSource.getAboutData()
 
     fun getSortFiltering(): List<SortFiltering> = localDataSource.getSortFiltering()
 }

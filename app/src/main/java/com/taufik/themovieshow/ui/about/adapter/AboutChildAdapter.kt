@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.taufik.themovieshow.databinding.ItemAboutBinding
 import com.taufik.themovieshow.model.response.about.About
 
-class AboutAuthorAdapter(
-    private val onItemClickListener: (Int) -> Unit
-) : ListAdapter<About, AboutAuthorAdapter.AboutViewHolder>(ABOUT_AUTHOR_DIFF_CALLBACK) {
+class AboutChildAdapter(
+    private val onItemClickListener: (About) -> Unit
+) : ListAdapter<About, AboutChildAdapter.AboutViewHolder>(ABOUT_AUTHOR_DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AboutViewHolder {
         return AboutViewHolder(
@@ -35,7 +35,7 @@ class AboutAuthorAdapter(
                 tvAboutDesc.text = about.descAbout
 
                 itemView.setOnClickListener {
-                    onItemClickListener(layoutPosition)
+                    onItemClickListener.invoke(about)
                 }
             }
         }

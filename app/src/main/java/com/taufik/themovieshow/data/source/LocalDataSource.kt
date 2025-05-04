@@ -5,11 +5,10 @@ import androidx.lifecycle.LiveData
 import com.taufik.themovieshow.data.local.dao.TheMovieShowDao
 import com.taufik.themovieshow.data.local.entity.movie.FavoriteMovieEntity
 import com.taufik.themovieshow.data.local.entity.tvshow.FavoriteTvShowEntity
+import com.taufik.themovieshow.model.about.AboutSection
 import com.taufik.themovieshow.model.favorite.SortFiltering
-import com.taufik.themovieshow.model.response.about.About
 import com.taufik.themovieshow.utils.UtilsData
-import com.taufik.themovieshow.utils.UtilsData.generateAboutApplicationData
-import com.taufik.themovieshow.utils.UtilsData.generateAboutAuthorData
+import com.taufik.themovieshow.utils.UtilsData.getAboutData
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -40,9 +39,7 @@ class LocalDataSource @Inject constructor(
 
     suspend fun removeTvShowFromFavorite(tvShowId: Int) = favoriteDao.removeTvShowFromFavorite(tvShowId)
 
-    fun getAboutAuthor(): List<About> = context.generateAboutAuthorData()
-
-    fun getAboutApplication(): List<About> = context.generateAboutApplicationData()
+    fun getAboutData(): List<AboutSection> = context.getAboutData()
 
     fun getSortFiltering(): List<SortFiltering> = UtilsData.generateSortFilteringData()
 }

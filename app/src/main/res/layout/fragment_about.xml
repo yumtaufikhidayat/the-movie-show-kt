@@ -6,105 +6,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    android:scrollbars="none"
     tools:context=".ui.about.fragment.AboutFragment">
 
     <include
         android:id="@+id/toolbarAbout"
-        layout="@layout/toolbar_main_general"/>
+        layout="@layout/toolbar_main_general" />
 
-    <ScrollView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvParentAbout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:padding="12dp"
+        android:clipToPadding="false"
+        android:scrollbars="none"
         app:layout_constraintTop_toBottomOf="@id/toolbarAbout"
-        app:layout_constraintBottom_toBottomOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp">
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardAuthor"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:cardBackgroundColor="@color/colorPrimary"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="10dp">
-
-                    <TextView
-                        android:id="@+id/tvAuthor"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="2dp"
-                        android:text="@string/tvAuthor"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/colorPrimaryAccent"
-                        app:layout_constraintTop_toTopOf="parent"/>
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvAuthorAbout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        tools:listitem="@layout/item_about"
-                        app:layout_constraintTop_toBottomOf="@+id/tvAuthor"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"/>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardApplication"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:cardBackgroundColor="@color/colorPrimary"
-                app:layout_constraintTop_toBottomOf="@+id/cardAuthor"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="10dp">
-
-                    <TextView
-                        android:id="@+id/tvApplication"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="2dp"
-                        android:text="@string/tvApplication"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/colorPrimaryAccent"
-                        app:layout_constraintTop_toTopOf="parent"/>
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvApplicationAbout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        tools:listitem="@layout/item_about"
-                        app:layout_constraintTop_toBottomOf="@+id/tvApplication"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"/>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </androidx.cardview.widget.CardView>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </ScrollView>
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:listitem="@layout/item_about_section"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

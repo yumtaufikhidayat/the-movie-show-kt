@@ -32,7 +32,7 @@
     <string name="tvTrailer">Cuplikan Video</string>
     <string name="tvOverview">Ringkasan</string>
     <string name="tvCast">Pemeran</string>
-    <string name="tvAuthor">Penulis</string>
+    <string name="tvDeveloper">Pengembang</string>
     <string name="tvApplication">Aplikasi</string>
     <string name="tvUpdate">Pembaruan</string>
     <string name="tvSearch">Cari…</string>
@@ -91,16 +91,16 @@
     <string name="tvDescLetsGreet">Taufik Hidayat</string>
     <string name="tvTitleForkOnGithub">Fork di Github</string>
     <string name="tvDescForkOnGithub">Fork aplikasi di Github</string>
-    <string name="tvTitleSendEmail">Kirim email</string>
+    <string name="tvTitleSendEmail">Kirim Email</string>
     <string name="tvDescSendEmail">yumtaufikhidayat@gmail.com</string>
-    <string name="tvDescLanguage">Pilih bahasa</string>
+    <string name="tvDescLanguage">Pilih Bahasa</string>
     <string name="tvTitleCopyright">Hak Cipta</string>
     <string name="tvDescCopyright">Hak Cipta &#169; 2021–2025 Taufik Hidayat</string>
     <string name="tvTitleVersion">Versi</string>
-    <string name="tvTitleRateThisApp">Beri nilai aplikasi ini</string>
+    <string name="tvTitleRateThisApp">Beri Nilai Aplikasi Ini</string>
     <string name="tvDescRateThisApp">Suka aplikasi ini? Beri 5 bintang</string>
-    <string name="tvTitleReportIssue">Laporkan masalah</string>
-    <string name="tvDescReportIssue">Punya masalah? Lapor disini</string>
+    <string name="tvTitleReportIssue">Laporkan Masalah</string>
+    <string name="tvDescReportIssue">Punya masalah terkait aplikasi? Lapor disini</string>
 
     <!--Sort & Filtering-->
     <string name="tvSortFilter">Urutkan &amp; Saring</string>
