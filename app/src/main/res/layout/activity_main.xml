@@ -19,7 +19,7 @@
         app:labelVisibilityMode="labeled"
         app:itemTextColor="@drawable/bottom_navigation_selector"
         app:itemIconTint="@drawable/bottom_navigation_selector"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottomInsets"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:menu="@menu/bottom_navigation_menu"
@@ -36,5 +36,12 @@
         app:layout_constraintBottom_toTopOf="@id/nav_bottom"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/bottomInsets"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,7 @@
 package com.taufik.themovieshow.ui
 
 import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.navigation.NavController
@@ -9,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.databinding.ActivityMainBinding
+import com.taufik.themovieshow.utils.extensions.applySystemBarInsets
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -29,6 +31,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        enableEdgeToEdge()
+        binding.root.applySystemBarInsets(
+            applyTop = true,
+            applyBottom = false,
+            extraBottomTarget = binding.bottomInsets
+        )
 
         setNavHost()
         setUpNavigationDestination()

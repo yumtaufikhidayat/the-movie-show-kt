@@ -25,7 +25,7 @@ android {
 
     defaultConfig {
         applicationId = "com.taufik.themovieshow"
-        minSdk = 28
+        minSdk = 30
         targetSdk = 35
         versionCode = 128
         versionName = "1.28"

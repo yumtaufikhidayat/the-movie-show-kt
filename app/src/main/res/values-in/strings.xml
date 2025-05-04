@@ -74,10 +74,10 @@
     <string name="tvInstallEmailApp">Silakan install aplikasi email terlebih dahulu.</string>
 
     <!--Tab menu title-->
-    <string name="tvMovieNowPlaying">Tayang Sekarang</string>
+    <string name="tvMovieNowPlaying">Sedang Tayang</string>
     <string name="tvMovieUpcoming">Akan Datang</string>
     <string name="tvTvShowPopular">Populer</string>
-    <string name="tvTvShowAiringToday">Ditayangkan Hari Ini</string>
+    <string name="tvTvShowAiringToday">Sedang Tayang</string>
 
     <!--Bottom nav menu-->
     <string name="icTrending">Trending</string>

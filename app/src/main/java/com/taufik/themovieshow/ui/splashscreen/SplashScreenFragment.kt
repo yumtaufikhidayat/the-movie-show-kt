@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.databinding.FragmentSplashScreenBinding
+import com.taufik.themovieshow.utils.extensions.applySystemBarBottomPadding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -32,6 +33,8 @@ class SplashScreenFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        applySystemBarBottomPadding()
+
         navigateToMovie()
         setAppVersion()
     }
