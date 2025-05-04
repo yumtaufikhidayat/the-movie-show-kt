@@ -3,6 +3,7 @@ package com.taufik.themovieshow.ui.about.fragment
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,8 +16,9 @@ import com.taufik.themovieshow.ui.about.adapter.AboutApplicationAdapter
 import com.taufik.themovieshow.ui.about.adapter.AboutAuthorAdapter
 import com.taufik.themovieshow.ui.about.viewmodel.AboutViewModel
 import com.taufik.themovieshow.utils.CommonConstants
-import com.taufik.themovieshow.utils.showSuccessToastyIcon
+import com.taufik.themovieshow.utils.extensions.showSuccessToastyIcon
 import dagger.hilt.android.AndroidEntryPoint
+import androidx.core.net.toUri
 
 @AndroidEntryPoint
 class AboutFragment : Fragment() {
@@ -64,7 +66,7 @@ class AboutFragment : Fragment() {
             adapter = authorAdapter
         }
 
-        authorAdapter?.submitList(viewModel.getAboutAuthor(requireContext()))
+        authorAdapter?.submitList(viewModel.getAboutAuthor())
     }
 
     private fun setApplicationData() {
@@ -85,7 +87,7 @@ class AboutFragment : Fragment() {
             adapter = applicationAdapter
         }
 
-        applicationAdapter?.submitList(viewModel.getAboutApplication(requireContext()))
+        applicationAdapter?.submitList(viewModel.getAboutApplication())
     }
 
     private fun showToastyBasedOnType(type: String) {
@@ -123,11 +125,12 @@ class AboutFragment : Fragment() {
                     )
                 )
             } catch (e: Exception) {
+                Log.e(TAG, "Error: ${e.localizedMessage}")
                 requireContext().showSuccessToastyIcon(getString(R.string.tvInstallEmailApp))
             }
         } else {
             try {
-                val intent = Intent(action, Uri.parse(urlString))
+                val intent = Intent(action, urlString.toUri())
                 startActivity(
                     Intent.createChooser(
                         intent,
@@ -147,5 +150,9 @@ class AboutFragment : Fragment() {
         super.onDestroyView()
         _binding = null
         applicationAdapter = null
+    }
+
+    companion object {
+        private const val TAG = "AboutFragment"
     }
 }

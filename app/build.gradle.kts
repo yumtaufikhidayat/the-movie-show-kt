@@ -42,8 +42,7 @@ android {
                 "proguard-rules.pro"
             )
 
-            // Uncomment code below to run in release variant
-//            signingConfig = signingConfigs.debug
+            signingConfig = signingConfigs.getByName("debug")
         }
         debug {
             isMinifyEnabled = true
@@ -58,8 +57,8 @@ android {
     productFlavors {
         create("dev") {
             dimension = "version"
-            applicationIdSuffix = ".debug"
-            versionNameSuffix = "-debug"
+            applicationIdSuffix = ".dev"
+            versionNameSuffix = "-dev"
 
             buildConfigField("String", "API_KEY", "\"YOUR_API_KEY_HERE\"")
             buildConfigField("String", "BASE_URL", "\"https://api.themoviedb.org/3/\"")
