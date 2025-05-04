@@ -13,6 +13,9 @@ plugins {
     id("kotlin-parcelize")
 }
 
+val enableChuckerDev = project.findProperty("enableChuckerDev") == "true"
+val enableChuckerProd = project.findProperty("enableChuckerProd") == "true"
+
 android {
     namespace = "com.taufik.themovieshow"
     compileSdk = 35
@@ -64,6 +67,11 @@ android {
             buildConfigField("String", "BASE_URL", "\"https://api.themoviedb.org/3/\"")
             buildConfigField("String", "IMAGE_URL", "\"https://image.tmdb.org/t/p/w780/\"")
             buildConfigField("String", "THUMBNAIL_IMAGE_URL", "\"https://img.youtube.com/vi/\"")
+            buildConfigField("boolean", "ENABLE_CHUCKER", "true")
+
+            if (!enableChuckerDev) {
+                logger.warn("ERROR: Chucker must be ENABLED in DEV flavor. Please set enableChuckerDev=true in gradle.properties.")
+            }
         }
         create("prod") {
             dimension = "version"
@@ -72,6 +80,11 @@ android {
             buildConfigField("String", "BASE_URL", "\"https://api.themoviedb.org/3/\"")
             buildConfigField("String", "IMAGE_URL", "\"https://image.tmdb.org/t/p/w780/\"")
             buildConfigField("String", "THUMBNAIL_IMAGE_URL", "\"https://img.youtube.com/vi/\"")
+            buildConfigField("boolean", "ENABLE_CHUCKER", "false")
+
+            if (enableChuckerProd) {
+                logger.warn("ERROR: Chucker must be disabled in PROD flavor. Please set enableChuckerProd=false in gradle.properties.")
+            }
         }
     }
 

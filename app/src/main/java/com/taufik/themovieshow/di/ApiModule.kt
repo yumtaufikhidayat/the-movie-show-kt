@@ -50,46 +50,41 @@ object ApiModule {
 
     @Provides
     @Singleton
-    fun provideHttpClient(@ApplicationContext context: Context, cache: Cache) = if (BuildConfig.DEBUG) {
+    fun provideHttpClient(@ApplicationContext context: Context, cache: Cache): OkHttpClient {
         val loggingInterceptor = HttpLoggingInterceptor()
-        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS)
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
 
         val requestInterceptor = Interceptor { chain ->
-            val url = chain.request()
-                .url
-                .newBuilder()
-                .build()
-
-            val request = chain.request()
-                .newBuilder()
-                .url(url)
-                .build()
-
-            return@Interceptor chain.proceed(request)
+            val url = chain.request().url.newBuilder().build()
+            val request = chain.request().newBuilder().url(url).build()
+            chain.proceed(request)
         }
 
-        val chuckerInterceptor = ChuckerInterceptor.Builder(context.applicationContext)
-            .collector(
-                ChuckerCollector(
-                    context.applicationContext,
-                    showNotification = true
-                )
-            )
-            .maxContentLength(MAX_CONTENT_LENGTH)
-            .alwaysReadResponseBody(true)
-            .build()
-
-        val okHttpClientBuilder = OkHttpClient.Builder()
+        return OkHttpClient.Builder()
             .connectTimeout(CONNECTION_TIMEOUT.toLong(), TimeUnit.SECONDS)
             .readTimeout(READ_TIMEOUT.toLong(), TimeUnit.SECONDS)
             .writeTimeout(WRITE_TIMEOUT.toLong(), TimeUnit.SECONDS)
             .cache(cache)
             .addInterceptor(requestInterceptor)
-            .addInterceptor(loggingInterceptor)
-            .addInterceptor(chuckerInterceptor)
-        okHttpClientBuilder.build()
-    } else OkHttpClient.Builder().build()
+            .apply {
+                if (BuildConfig.ENABLE_CHUCKER) {
+                    addInterceptor(loggingInterceptor)
+                    addInterceptor(
+                        ChuckerInterceptor.Builder(context.applicationContext)
+                            .collector(
+                                ChuckerCollector(
+                                    context.applicationContext,
+                                    showNotification = true
+                                )
+                            )
+                            .maxContentLength(MAX_CONTENT_LENGTH)
+                            .alwaysReadResponseBody(true)
+                            .build()
+                    )
+                }
+            }
+            .build()
+    }
 
     @Provides
     @Singleton
