@@ -35,6 +35,7 @@ import com.taufik.themovieshow.utils.extensions.showTrailerVideo
 import com.taufik.themovieshow.utils.extensions.showView
 import com.taufik.themovieshow.utils.extensions.stringFormat
 import com.taufik.themovieshow.utils.extensions.toRating
+import com.taufik.themovieshow.utils.extensions.toggleVisibilityIf
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -126,61 +127,62 @@ class DetailMovieFragment : Fragment() {
 
     private fun showDetailData(data: MovieDetailResponse?) {
         binding.apply {
-            data?.let { movieDetailResponse ->
-                imgPoster.loadImage(movieDetailResponse.posterPath.orEmpty())
-                imgBackdrop.loadImage(movieDetailResponse.backdropPath)
-                tvTitle.text = movieDetailResponse.title
-                val releasedDate = movieDetailResponse.releaseDate.convertDate(
-                    CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
-                    CommonDateFormatConstants.EEE_D_MMM_YYYY_FORMAT
-                )
-                tvReleasedOn.stringFormat(getString(R.string.tvReleasedOn), releasedDate)
-                tvStatus.text = movieDetailResponse.status
+            data?.let { movie ->
+                imgPoster.loadImage(movie.posterPath.orEmpty())
+                imgBackdrop.loadImage(movie.backdropPath)
 
-                when {
-                    movieDetailResponse.overview.isEmpty() -> {
-                        tvOverview.isVisible = false
-                        tvNoOverview.isVisible = true
-                        tvReadMore.isVisible = false
-                    }
+                tvTitle.text = movie.title.ifEmpty { getString(R.string.tvNA) }
 
-                    movieDetailResponse.voteAverage.toString().isEmpty() -> tvRating.text = getString(R.string.tvNA)
-                    movieDetailResponse.originalLanguage.isEmpty() -> tvLanguage.text = getString(R.string.tvNA)
-                    movieDetailResponse.productionCountries.isEmpty() -> tvCountry.text = getString(R.string.tvNA)
-                    movieDetailResponse.runtime.toString().isEmpty() -> tvRuntime.text = getString(R.string.tvNA)
-                    movieDetailResponse.genres.isEmpty() -> binding.tvNoGenres.showView()
-
-                    else -> {
-                        tvNoOverview.isVisible = false
-                        tvOverview.apply {
-                            isVisible = true
-                            text = movieDetailResponse.overview
-                        }
-
-                        tvRating.text = movieDetailResponse.voteAverage.toRating()
-                        tvLanguage.text =
-                            if (movieDetailResponse.spokenLanguages.isNotEmpty())
-                                movieDetailResponse.spokenLanguages.first().englishName
-                            else
-                                movieDetailResponse.originalLanguage
-
-                        tvCountry.text = movieDetailResponse.productionCountries.joinToString { countries -> countries.iso31661 }
-                        tvRuntime.text = convertRuntime(movieDetailResponse.runtime)
-
-                        binding.tvNoGenres.hideView()
-                        tvGenre.text = movieDetailResponse.genres.joinToString { genre -> genre.name }
-                    }
+                val formattedDate = if (movie.releaseDate.isEmpty()) {
+                    getString(R.string.tvNA)
+                } else {
+                    movie.releaseDate.convertDate(
+                        CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
+                        CommonDateFormatConstants.EEE_D_MMM_YYYY_FORMAT
+                    )
+                }
+                tvReleasedOn.apply {
+                    stringFormat(getString(R.string.tvReleasedOn), formattedDate)
+                    toggleVisibilityIf(true)
                 }
 
+                tvStatus.text = movie.status.ifEmpty { getString(R.string.tvNA) }
+
+                // Rating
+                val hasRating = movie.voteAverage != 0.0
+                tvRating.text = (if (hasRating) getString(R.string.tvRatingDesc, movie.voteAverage.toRating(), movie.voteCount.toString()) else getString(R.string.tvNA))
+
+                // Age Rating
+                tvAdults.text = (if (movie.adult) getString(R.string.tvAdults) else getString(R.string.tvAllAges))
+
+                // Runtime
+                tvRuntime.text = if (movie.runtime == 0) getString(R.string.tvNA) else convertRuntime(movie.runtime)
+
+                // Overview
+                val hasOverview = movie.overview.isNotEmpty()
+                tvOverview.apply {
+                    text = movie.overview
+                    toggleVisibilityIf(hasOverview)
+                }
+                tvNoOverview.toggleVisibilityIf(!hasOverview)
+                tvReadMore.toggleVisibilityIf(hasOverview)
+
+                // Genres
+                tvGenre.text = if (movie.genres.isNotEmpty()) movie.genres.joinToString { it.name } else getString(R.string.tvNoGenres)
+
+                // Language
+                tvLanguage.text = if (movie.spokenLanguages.isEmpty()) getString(R.string.tvNA) else movie.spokenLanguages.joinToString(", ") { it.englishName }
+
+                // Action
                 checkFavoriteData(idMovie)
                 setActionFavorite(
                     idMovie,
-                    movieDetailResponse.posterPath.orEmpty(),
-                    title,
-                    movieDetailResponse.releaseDate,
-                    movieDetailResponse.voteAverage
+                    movie.posterPath.orEmpty(),
+                    movie.title,
+                    movie.releaseDate,
+                    movie.voteAverage
                 )
-                shareMovie(movieDetailResponse.homepage)
+                shareMovie(movie.homepage)
             }
         }
     }
@@ -253,7 +255,8 @@ class DetailMovieFragment : Fragment() {
     private fun setCastAdapter() {
         binding.rvMovieCast.apply {
             val helper: SnapHelper = LinearSnapHelper()
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             helper.attachToRecyclerView(this)
             setHasFixedSize(true)
             adapter = castAdapter
@@ -291,7 +294,8 @@ class DetailMovieFragment : Fragment() {
 
         binding.rvTrailerVideo.apply {
             val helper: SnapHelper = LinearSnapHelper()
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             helper.attachToRecyclerView(this)
             setHasFixedSize(true)
             adapter = trailerVideoAdapter
@@ -313,6 +317,7 @@ class DetailMovieFragment : Fragment() {
                             trailerVideoAdapter?.submitList(results)
                         }
                     }
+
                     is NetworkResult.Error -> showVideo(false)
                 }
             }
@@ -322,7 +327,8 @@ class DetailMovieFragment : Fragment() {
     private fun setReviewsAdapter() {
         binding.rvMovieReviews.apply {
             val helper: SnapHelper = LinearSnapHelper()
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             helper.attachToRecyclerView(this)
             setHasFixedSize(true)
             adapter = reviewsAdapter
@@ -345,6 +351,7 @@ class DetailMovieFragment : Fragment() {
                                 reviewsAdapter.submitList(results)
                             }
                         }
+
                         is NetworkResult.Error -> tvNoReviews.isVisible = false
                     }
                 }
@@ -358,7 +365,8 @@ class DetailMovieFragment : Fragment() {
         }
         binding.rvMovieSimilar.apply {
             val helper: SnapHelper = LinearSnapHelper()
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             helper.attachToRecyclerView(this)
             setHasFixedSize(true)
             adapter = similarAdapter
@@ -380,6 +388,7 @@ class DetailMovieFragment : Fragment() {
                             similarAdapter?.submitList(results)
                         }
                     }
+
                     is NetworkResult.Error -> showNoSimilarMovie(false)
                 }
             }

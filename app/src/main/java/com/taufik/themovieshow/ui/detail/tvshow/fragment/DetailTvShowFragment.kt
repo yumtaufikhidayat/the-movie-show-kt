@@ -35,6 +35,7 @@ import com.taufik.themovieshow.utils.extensions.showTrailerVideo
 import com.taufik.themovieshow.utils.extensions.showView
 import com.taufik.themovieshow.utils.extensions.stringFormat
 import com.taufik.themovieshow.utils.extensions.toRating
+import com.taufik.themovieshow.utils.extensions.toggleVisibilityIf
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -124,88 +125,72 @@ class DetailTvShowFragment : Fragment() {
 
     private fun showDetailData(data: TvShowsPopularDetailResponse?) {
         binding.apply {
-            data?.let { detailResponse ->
-                imgPoster.loadImage(detailResponse.posterPath.orEmpty())
-                imgBackdrop.loadImage(detailResponse.backdropPath)
-                tvTitle.text = detailResponse.name
+            data?.let { tvShow ->
+                imgPoster.loadImage(tvShow.posterPath.orEmpty())
+                imgBackdrop.loadImage(tvShow.backdropPath)
+                tvTitle.text = tvShow.name.ifEmpty { getString(R.string.tvNA) }
 
-                val startedOn = detailResponse.firstAirDate.convertDate(
-                    CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
-                    CommonDateFormatConstants.EEE_D_MMM_YYYY_FORMAT
-                )
-                tvStartedOn.stringFormat(getString(R.string.tvStartedOn), startedOn)
-                tvStatus.text = detailResponse.status
-
-                val networkFirst = detailResponse.networks.first()
-                if (detailResponse.networks.isEmpty())
-                    tvNetwork.text = getString(R.string.tvNA)
-                else if (detailResponse.networks.first().originCountry.isEmpty())
-                    tvNetwork.stringFormat(networkFirst.name, "(${getString(R.string.tvNA)})")
-                else
-                    tvNetwork.stringFormat(networkFirst.name, "(${networkFirst.originCountry})")
-
-                // Handle Overview
-                if (detailResponse.overview.isEmpty()) {
-                    tvOverview.hideView()
-                    tvNoOverview.showView()
-                    tvReadMore.hideView()
-                } else {
-                    tvNoOverview.hideView()
-                    tvOverview.apply {
-                        showView()
-                        text = detailResponse.overview
-                    }
-                    tvReadMore.showView()
-                }
-
-                // Handle Rating
-                tvRating.text = if (detailResponse.voteAverage.toString().isEmpty())
+                val formattedDate = if (tvShow.firstAirDate.isEmpty()) {
                     getString(R.string.tvNA)
-                else
-                    detailResponse.voteAverage.toRating()
-
-                // Handle Language
-                tvLanguage.text = when {
-                    detailResponse.spokenLanguages.isNotEmpty() -> detailResponse.spokenLanguages.first().englishName
-                    detailResponse.originalLanguage.isNotEmpty() -> detailResponse.originalLanguage
-                    else -> getString(R.string.tvNA)
-                }
-
-                // Handle Country
-                tvCountry.text = if (detailResponse.originCountry.isNotEmpty())
-                    detailResponse.originCountry.joinToString { it }
-                else
-                    getString(R.string.tvNA)
-
-                // Handle Episodes
-                if (detailResponse.numberOfEpisodes.toString().isEmpty())
-                    tvEpisodes.text = getString(R.string.tvNA)
-                else tvEpisodes.stringFormat(
-                    detailResponse.numberOfEpisodes.toString(),
-                    getString(R.string.tvEps)
-                )
-
-                // Handle Genres
-                if (detailResponse.genres.isEmpty()) {
-                    tvNoGenres.showView()
-                    tvGenre.hideView()
                 } else {
-                    tvNoGenres.hideView()
-                    tvGenre.apply {
-                        showView()
-                        text = detailResponse.genres.joinToString { it.name }
-                    }
+                    tvShow.firstAirDate.convertDate(
+                        CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
+                        CommonDateFormatConstants.EEE_D_MMM_YYYY_FORMAT
+                    )
                 }
 
+                tvStartedOn.apply {
+                    stringFormat(getString(R.string.tvStartedOn), formattedDate)
+                    toggleVisibilityIf(true)
+                }
+
+                tvStatus.text = tvShow.status.ifEmpty { getString(R.string.tvNA) }
+
+                // Rating
+                val hasRating = tvShow.voteAverage != 0.0
+                tvRating.text = if (hasRating) getString(R.string.tvRatingDesc, tvShow.voteAverage.toRating(), tvShow.voteCount.toString())
+                else getString(R.string.tvNA)
+
+                // Age Rating
+                tvAdults.text = if (tvShow.adult) getString(R.string.tvAdults) else getString(R.string.tvAllAges)
+
+                // Episode
+                tvEpisodes.text = if (tvShow.numberOfEpisodes == 0) getString(R.string.tvNA)
+                else getString(R.string.tvEpsDesc, tvShow.numberOfEpisodes.toString(), getString(R.string.tvEps))
+
+                // Network
+                val networkText = when {
+                    tvShow.networks.isEmpty() -> getString(R.string.tvNA)
+                    tvShow.networks.first().originCountry.isEmpty() -> getString(R.string.tvNetworkDesc, tvShow.networks.first().name, getString(R.string.tvNA))
+                    else -> getString(R.string.tvNetworkDesc, tvShow.networks.first().name, tvShow.networks.first().originCountry)
+                }
+                tvNetwork.text = networkText
+
+                // Overview
+                val hasOverview = tvShow.overview.isNotEmpty()
+                tvOverview.apply {
+                    text = tvShow.overview
+                    toggleVisibilityIf(hasOverview)
+                }
+                tvNoOverview.toggleVisibilityIf(!hasOverview)
+                tvReadMore.toggleVisibilityIf(hasOverview)
+
+                // Genres
+                tvGenre.text = if (tvShow.genres.isNotEmpty()) tvShow.genres.joinToString { it.name } else getString(R.string.tvNoGenres)
+
+                // Language
+                tvLanguage.text = (if (tvShow.spokenLanguages.isEmpty()) getString(R.string.tvNA) else tvShow.spokenLanguages.joinToString(", ") { it.englishName })
+
+                // Action
                 checkFavoriteData(idTvShow)
                 setActionFavorite(
                     idTvShow,
-                    detailResponse.posterPath.orEmpty(),
-                    title,
-                    detailResponse.firstAirDate,
-                    detailResponse.voteAverage
+                    tvShow.posterPath.orEmpty(),
+                    tvShow.name,
+                    tvShow.firstAirDate,
+                    tvShow.voteAverage
                 )
-                shareTvShow(detailResponse.homepage)
+                shareTvShow(tvShow.homepage)
             }
         }
     }
