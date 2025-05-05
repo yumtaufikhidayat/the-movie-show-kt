@@ -4,6 +4,8 @@ package com.taufik.themovieshow.model.response.tvshow.detail
 import com.google.gson.annotations.SerializedName
 
 data class TvShowsPopularDetailResponse(
+    @SerializedName("adult")
+    val adult: Boolean,
     @SerializedName("backdrop_path")
     val backdropPath: String,
     @SerializedName("created_by")

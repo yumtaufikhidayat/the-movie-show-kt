@@ -4,7 +4,6 @@ import android.view.View
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
-import androidx.core.view.updatePadding
 
 fun View.showView() {
     this.isVisible = true
@@ -14,12 +13,21 @@ fun View.hideView() {
     this.isVisible = false
 }
 
+fun View.toggleVisibilityIf(condition: Boolean, useInvisible: Boolean = false) {
+    visibility = when {
+        condition -> View.VISIBLE
+        useInvisible -> View.INVISIBLE
+        else -> View.GONE
+    }
+}
+
+
 fun View.applySystemBarInsets(
     applyLeft: Boolean = false,
     applyTop: Boolean = false,
     applyRight: Boolean = false,
     applyBottom: Boolean = true,
-    extraBottomTarget: View? = null // optional target tambahan seperti Guideline atau dummy view
+    extraBottomTarget: View? = null
 ) {
     ViewCompat.setOnApplyWindowInsetsListener(this) { view, insets ->
         val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -39,19 +47,6 @@ fun View.applySystemBarInsets(
             systemBars.bottom
         )
 
-        insets
-    }
-}
-
-fun View.applySystemBarBottomPadding() {
-    ViewCompat.setOnApplyWindowInsetsListener(this) { view, insets ->
-        val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-        view.setPadding(
-            view.paddingLeft,
-            view.paddingTop,
-            view.paddingRight,
-            systemBars.bottom
-        )
         insets
     }
 }
