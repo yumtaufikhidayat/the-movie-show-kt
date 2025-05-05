@@ -53,6 +53,7 @@ class TvShowFragment : Fragment() {
             TabLayoutMediator(tabLayoutTvShow, viewPagerTvShow) { tabs, position ->
                 tabs.text = getString(tabsTitle[position])
             }.attach()
+            viewPagerTvShow.setCurrentItem(1, false)
         }
     }
 

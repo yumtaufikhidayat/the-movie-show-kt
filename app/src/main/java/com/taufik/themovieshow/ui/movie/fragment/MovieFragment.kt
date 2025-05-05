@@ -80,6 +80,7 @@ class MovieFragment : Fragment() {
             TabLayoutMediator(tabLayoutMovie, viewPagerMovie) { tabs, position ->
                 tabs.text = getString(tabsTitle[position])
             }.attach()
+            viewPagerMovie.setCurrentItem(1, false)
         }
     }
 
