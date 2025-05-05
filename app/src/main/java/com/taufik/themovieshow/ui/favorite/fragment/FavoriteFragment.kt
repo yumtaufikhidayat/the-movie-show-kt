@@ -6,10 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
-import com.google.android.material.tabs.TabLayoutMediator
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.databinding.FragmentFavoriteBinding
-import com.taufik.themovieshow.ui.common.adapter.TabPagerAdapter
+import com.taufik.themovieshow.utils.extensions.setupTabLayoutBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -39,17 +38,17 @@ class FavoriteFragment : Fragment() {
     }
 
     private fun setTabLayout() {
-        val listOfFragments = listOf(
-            FavoriteMovieFragment(),
-            FavoriteTvShowsFragment()
-        )
-
         binding.apply {
-            val tabPagerAdapter = TabPagerAdapter(listOfFragments, this@FavoriteFragment)
-            viewPagerFavorite.adapter = tabPagerAdapter
-            TabLayoutMediator(tabLayoutFavorite, viewPagerFavorite) { tabs, position ->
-                tabs.text = getString(tabsTitle[position])
-            }.attach()
+            setupTabLayoutBinding(
+                tabLayout = tabLayoutFavorite,
+                viewPager = viewPagerFavorite,
+                fragments = listOf(
+                    FavoriteMovieFragment(),
+                    FavoriteTvShowsFragment()
+                ),
+                tabTitles = tabsTitle,
+                defaultTabIndex = 0
+            )
         }
     }
 

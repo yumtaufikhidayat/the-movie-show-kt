@@ -1,16 +1,23 @@
 package com.taufik.themovieshow.ui.tvshow.fragment
 
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.databinding.FragmentTvShowBinding
 import com.taufik.themovieshow.ui.common.adapter.TabPagerAdapter
+import com.taufik.themovieshow.ui.movie.fragment.MovieFragment
+import com.taufik.themovieshow.utils.extensions.createCustomTabView
+import com.taufik.themovieshow.utils.extensions.setupTabLayoutBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -41,19 +48,17 @@ class TvShowFragment : Fragment() {
     }
 
     private fun setTabLayout() {
-        val listOfFragments = listOf(
-            TvShowTrendingFragment(),
-            TvShowAiringTodayFragment(),
-            TVShowsPopularFragment()
-        )
-
         binding.apply {
-            val tabPagerAdapter = TabPagerAdapter(listOfFragments, this@TvShowFragment)
-            viewPagerTvShow.adapter = tabPagerAdapter
-            TabLayoutMediator(tabLayoutTvShow, viewPagerTvShow) { tabs, position ->
-                tabs.text = getString(tabsTitle[position])
-            }.attach()
-            viewPagerTvShow.setCurrentItem(1, false)
+            setupTabLayoutBinding(
+                tabLayout = tabLayoutTvShow,
+                viewPager = viewPagerTvShow,
+                fragments = listOf(
+                    TvShowTrendingFragment(),
+                    TvShowAiringTodayFragment(),
+                    TVShowsPopularFragment()
+                ),
+                tabTitles = tabsTitle
+            )
         }
     }
 

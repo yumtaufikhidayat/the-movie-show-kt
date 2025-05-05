@@ -1,18 +1,24 @@
 package com.taufik.themovieshow.ui.movie.fragment
 
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.databinding.FragmentMovieBinding
 import com.taufik.themovieshow.ui.common.adapter.TabPagerAdapter
+import com.taufik.themovieshow.utils.extensions.createCustomTabView
+import com.taufik.themovieshow.utils.extensions.setupTabLayoutBinding
 import com.taufik.themovieshow.utils.extensions.showSuccessToasty
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
@@ -68,19 +74,17 @@ class MovieFragment : Fragment() {
     }
 
     private fun setTabLayout() {
-        val listOfFragments = listOf(
-            MovieTrendingFragment(),
-            MovieNowPlayingFragment(),
-            MovieUpcomingFragment()
-        )
-
         binding.apply {
-            val tabPagerAdapter = TabPagerAdapter(listOfFragments, this@MovieFragment)
-            viewPagerMovie.adapter = tabPagerAdapter
-            TabLayoutMediator(tabLayoutMovie, viewPagerMovie) { tabs, position ->
-                tabs.text = getString(tabsTitle[position])
-            }.attach()
-            viewPagerMovie.setCurrentItem(1, false)
+            setupTabLayoutBinding(
+                tabLayout = tabLayoutMovie,
+                viewPager = viewPagerMovie,
+                fragments = listOf(
+                    MovieTrendingFragment(),
+                    MovieNowPlayingFragment(),
+                    MovieUpcomingFragment()
+                ),
+                tabTitles = tabsTitle
+            )
         }
     }
 
