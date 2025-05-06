@@ -145,6 +145,14 @@ class DetailTvShowFragment : Fragment() {
                 }
                 tvNetwork.text = networkText
 
+                // Network
+                val networkText = when {
+                    tvShow.networks.isEmpty() -> getString(R.string.tvNA)
+                    tvShow.networks.first().originCountry.isEmpty() -> getString(R.string.tvNetworkDesc, tvShow.networks.first().name, getString(R.string.tvNA))
+                    else -> getString(R.string.tvNetworkDesc, tvShow.networks.first().name, tvShow.networks.first().originCountry)
+                }
+                tvNetwork.text = networkText
+
                 val formattedDate = if (tvShow.firstAirDate.isEmpty()) {
                     getString(R.string.tvNA)
                 } else {
@@ -160,7 +168,7 @@ class DetailTvShowFragment : Fragment() {
                     toggleVisibilityIf(true)
                 }
 
-                // Release Status
+                // Release status
                 val releaseStatus = if (tvShow.status.isEmpty()) {
                     getString(R.string.tvNA)
                 } else {
@@ -203,7 +211,7 @@ class DetailTvShowFragment : Fragment() {
                     requireContext().setTextColor(R.color.colorTextOther)
                 }
 
-                // Age Rating
+                // Age rating
                 icTxtAgeRating.apply {
                     setIcon(if (tvShow.adult) R.drawable.ic_outline_adult else R.drawable.ic_outline_no_adult)
                     requireContext().setIconColor(R.color.colorTextOther)

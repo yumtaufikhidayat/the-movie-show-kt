@@ -201,7 +201,7 @@ class DetailMovieFragment : Fragment() {
                     requireContext().setTextColor(R.color.colorTextOther)
                 }
 
-                // Age Rating
+                // Age rating
                 icTxtAgeRating.apply {
                     setIcon(if (movie.adult) R.drawable.ic_outline_adult else R.drawable.ic_outline_no_adult)
                     requireContext().setIconColor(R.color.colorTextOther)
