@@ -145,14 +145,6 @@ class DetailTvShowFragment : Fragment() {
                 }
                 tvNetwork.text = networkText
 
-                // Network
-                val networkText = when {
-                    tvShow.networks.isEmpty() -> getString(R.string.tvNA)
-                    tvShow.networks.first().originCountry.isEmpty() -> getString(R.string.tvNetworkDesc, tvShow.networks.first().name, getString(R.string.tvNA))
-                    else -> getString(R.string.tvNetworkDesc, tvShow.networks.first().name, tvShow.networks.first().originCountry)
-                }
-                tvNetwork.text = networkText
-
                 val formattedDate = if (tvShow.firstAirDate.isEmpty()) {
                     getString(R.string.tvNA)
                 } else {

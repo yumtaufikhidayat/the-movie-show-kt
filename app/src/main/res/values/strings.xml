@@ -15,7 +15,7 @@
     <string name="tvReleaseDate">Release Date</string>
     <string name="tvReleasedOn">Released on:</string>
     <string name="tvStartedOn">Started on:</string>
-    <string name="tvStatus">Release Status: </string>
+    <string name="tvStatus">Release status: </string>
     <string name="tvLanguage">Language</string>
     <string name="tvBullet">\u2022</string>
     <string name="tvAgeRating">Age Rating</string>
