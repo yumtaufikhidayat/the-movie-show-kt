@@ -15,8 +15,7 @@
     <string name="tvReleaseDate">Tanggal Rilis:</string>
     <string name="tvReleasedOn">Dirilis pada:</string>
     <string name="tvStartedOn">Dimulai pada:</string>
-    <string name="tvStatus">Status</string>
-    <string name="tvStatusDesc">Tidak ada rilis tersedia</string>
+    <string name="tvStatus">Status rilis: </string>
     <string name="tvLanguage">Bahasa</string>
     <string name="tvBullet">\u2022</string>
     <string name="tvAgeRating">Rating Usia</string>
@@ -52,7 +51,6 @@
     <string name="tvSimilarTvShows">Acara TV Lainnya</string>
     <string name="tvRuntimeInTime">%dj %dm</string>
     <string name="tvNoOverview">Tidak ada ringkasan</string>
-    <string name="tvNoProductionCompanies">Tidak ada perusahaan produksi yang tersedia</string>
     <string name="tvNoCast">Tidak ada pemeran tersedia</string>
     <string name="tvNoReviews">Tidak ada ulasan tersedia</string>
     <string name="tvNoSimilarMovie">Tidak ada film lain tersedia</string>

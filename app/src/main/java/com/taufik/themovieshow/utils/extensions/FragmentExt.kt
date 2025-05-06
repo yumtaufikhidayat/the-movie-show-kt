@@ -76,17 +76,48 @@ fun Fragment.setupTabLayoutBinding(
             super.onPageSelected(position)
             for (i in 0 until tabLayout.tabCount) {
                 val tab = tabLayout.getTabAt(i)
-                val textView = tab?.customView as? TextView
-                textView?.apply {
-                    setTypeface(null, if (i == position) Typeface.BOLD else Typeface.NORMAL)
-                    setTextColor(
-                        ContextCompat.getColor(
-                            context,
-                            if (i == position) R.color.white else R.color.colorSemiBlack
-                        )
+                val textView = tab?.customView?.findViewById<TextView>(R.id.tabText) ?: continue
+
+                val isSelected = i == position
+                textView.animate()
+                    .scaleX(if (isSelected) 1f else 0.95f)
+                    .scaleY(if (isSelected) 1f else 0.95f)
+                    .setDuration(150)
+                    .start()
+
+                textView.setTypeface(null, if (isSelected) Typeface.BOLD else Typeface.NORMAL)
+                textView.setTextColor(
+                    ContextCompat.getColor(
+                        textView.context,
+                        if (isSelected) android.R.color.white else R.color.colorSemiBlack
                     )
-                }
+                )
+
+                textView.background = ContextCompat.getDrawable(
+                    textView.context,
+                    if (isSelected) R.drawable.bg_tab else android.R.color.transparent
+                )
             }
         }
     })
+
+//    adjustTabLayoutMode(tabLayout)
+}
+
+fun Fragment.adjustTabLayoutMode(tabLayout: TabLayout) {
+    tabLayout.post {
+        val totalTabWidth = (0 until tabLayout.tabCount).sumOf { index ->
+            val tab = tabLayout.getTabAt(index)
+            val textView = tab?.customView?.findViewById<TextView>(R.id.tabText)
+            textView?.paint?.measureText(textView.text.toString())?.toInt() ?: 0
+        }
+
+        val screenWidth = resources.displayMetrics.widthPixels
+
+        tabLayout.tabMode = if (totalTabWidth > screenWidth) {
+            TabLayout.MODE_SCROLLABLE
+        } else {
+            TabLayout.MODE_FIXED
+        }
+    }
 }
