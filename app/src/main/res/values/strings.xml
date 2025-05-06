@@ -9,18 +9,19 @@
     <string name="tvShows">TV Shows</string>
     <string name="tvTitle">Title</string>
     <string name="tvRating">Rating</string>
-    <string name="tvRatingDesc">%s\n(%s)</string>
+    <string name="tvRatingDesc">%s/10 (%s votes)</string>
     <string name="tvNetwork">Network</string>
     <string name="tvNetworkDesc">%1$s (%2$s)</string>
     <string name="tvReleaseDate">Release Date</string>
     <string name="tvReleasedOn">Released on:</string>
     <string name="tvStartedOn">Started on:</string>
     <string name="tvStatus">Status</string>
+    <string name="tvStatusDesc">No release available</string>
     <string name="tvLanguage">Language</string>
     <string name="tvBullet">\u2022</string>
     <string name="tvAgeRating">Age Rating</string>
-    <string name="tvAdults">Adults (18+)</string>
-    <string name="tvAllAges">All Ages</string>
+    <string name="tvAdults">18+</string>
+    <string name="tvAllAges">G – Suitable for all ages</string>
     <string name="tvRuntime">Runtime</string>
     <string name="tvProducedBy">Produced Companies</string>
     <string name="tvGenre">Genre(s)</string>
@@ -51,7 +52,6 @@
     <string name="tvSimilarTvShows">Similar TV Shows</string>
     <string name="tvRuntimeInTime">%dh %dm</string>
     <string name="tvNoOverview">Overview not available</string>
-    <string name="tvNoGenres">Genres not available</string>
     <string name="tvNoProductionCompanies">Production companies not available</string>
     <string name="tvNoCast">Cast information not available</string>
     <string name="tvNoReviews">Reviews not available</string>
@@ -79,6 +79,7 @@
     <string name="tvInstallBrowser">Please install a browser first.\nError: %s</string>
     <string name="tvSendTo">Send to</string>
     <string name="tvInstallEmailApp">Please install an email app first</string>
+    <string name="tvZero">0</string>
 
     <!--Tab menu title-->
     <string name="tvMovieNowPlaying">Now Playing</string>

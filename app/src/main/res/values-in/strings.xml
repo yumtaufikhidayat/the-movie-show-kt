@@ -9,18 +9,19 @@
     <string name="tvShows">Acara TV</string>
     <string name="tvTitle">Judul</string>
     <string name="tvRating">Rating</string>
-    <string name="tvRatingDesc">%s\n(%s)</string>
+    <string name="tvRatingDesc">%s/10 (%s vote)</string>
     <string name="tvNetwork">Jaringan</string>
     <string name="tvNetworkDesc">%1$s (%2$s)</string>
     <string name="tvReleaseDate">Tanggal Rilis:</string>
     <string name="tvReleasedOn">Dirilis pada:</string>
     <string name="tvStartedOn">Dimulai pada:</string>
     <string name="tvStatus">Status</string>
+    <string name="tvStatusDesc">Tidak ada rilis tersedia</string>
     <string name="tvLanguage">Bahasa</string>
     <string name="tvBullet">\u2022</string>
     <string name="tvAgeRating">Rating Usia</string>
-    <string name="tvAdults">Dewasa (18+)</string>
-    <string name="tvAllAges">Semua Usia</string>
+    <string name="tvAdults">18+</string>
+    <string name="tvAllAges">SU</string>
     <string name="tvRuntime">Durasi</string>
     <string name="tvProducedBy">Perusahaan Produksi</string>
     <string name="tvGenre">Genre</string>
@@ -49,9 +50,8 @@
     <string name="tvReviews">Ulasan</string>
     <string name="tvSimilarMovie">Film Lainnya</string>
     <string name="tvSimilarTvShows">Acara TV Lainnya</string>
-    <string name="tvRuntimeInTime">%dh %dm</string>
+    <string name="tvRuntimeInTime">%dj %dm</string>
     <string name="tvNoOverview">Tidak ada ringkasan</string>
-    <string name="tvNoGenres">Tidak ada genre tersedia</string>
     <string name="tvNoProductionCompanies">Tidak ada perusahaan produksi yang tersedia</string>
     <string name="tvNoCast">Tidak ada pemeran tersedia</string>
     <string name="tvNoReviews">Tidak ada ulasan tersedia</string>
@@ -79,6 +79,7 @@
     <string name="tvInstallBrowser">Silakan install browser terlebih dahulu.\nError: %s</string>
     <string name="tvSendTo">Kirim ke</string>
     <string name="tvInstallEmailApp">Silakan install aplikasi email terlebih dahulu.</string>
+    <string name="tvZero">0</string>
 
     <!--Tab menu title-->
     <string name="tvMovieNowPlaying">Sedang Tayang</string>

@@ -10,6 +10,7 @@ import com.taufik.themovieshow.data.remote.api.UrlEndpoint
 fun ImageView.loadImage(url: String?) {
     Glide.with(this.context)
         .load(BuildConfig.IMAGE_URL + url)
+        .centerCrop()
         .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error))
         .into(this)
 }

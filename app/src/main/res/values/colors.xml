@@ -15,8 +15,8 @@
     <color name="colorPrimaryLight">#1E2746</color>
     <color name="colorTextPrimary">#CBD5ED</color>
     <color name="colorTextSecondary">#4A5B82</color>
-    <color name="colorTextOther">#FAD303</color>
     <color name="colorThemeExtra">#FF5252</color>
+    <color name="colorTextOther">#FAD303</color>
     <color name="colorYellow">#FFFF00</color>
     <color name="colorOrange">#FFA500</color>
     <color name="colorGrey">#8A8A8A</color>
