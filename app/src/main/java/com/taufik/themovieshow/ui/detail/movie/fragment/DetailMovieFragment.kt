@@ -34,6 +34,7 @@ import com.taufik.themovieshow.utils.extensions.showSuccessToastyIcon
 import com.taufik.themovieshow.utils.extensions.showTrailerVideo
 import com.taufik.themovieshow.utils.extensions.showView
 import com.taufik.themovieshow.utils.extensions.stringFormat
+import com.taufik.themovieshow.utils.extensions.stringReleaseFormat
 import com.taufik.themovieshow.utils.extensions.toRating
 import com.taufik.themovieshow.utils.extensions.toggleVisibilityIf
 import dagger.hilt.android.AndroidEntryPoint
@@ -128,11 +129,17 @@ class DetailMovieFragment : Fragment() {
     private fun showDetailData(data: MovieDetailResponse?) {
         binding.apply {
             data?.let { movie ->
+
+                // Poster
                 imgPoster.loadImage(movie.posterPath.orEmpty())
+
+                // Backdrop
                 imgBackdrop.loadImage(movie.backdropPath)
 
+                // Title
                 tvTitle.text = movie.title.ifEmpty { getString(R.string.tvNA) }
 
+                // Release date
                 val formattedDate = if (movie.releaseDate.isEmpty()) {
                     getString(R.string.tvNA)
                 } else {
@@ -146,17 +153,88 @@ class DetailMovieFragment : Fragment() {
                     toggleVisibilityIf(true)
                 }
 
-                tvStatus.text = movie.status.ifEmpty { getString(R.string.tvNA) }
+                // Release status
+                val releaseStatus = if (movie.status.isEmpty()) {
+                    getString(R.string.tvNA)
+                } else {
+                    movie.status
+                }
+                tvReleaseStatus.apply {
+                    stringReleaseFormat(getString(R.string.tvStatus), releaseStatus)
+                    toggleVisibilityIf(true)
+                }
 
                 // Rating
                 val hasRating = movie.voteAverage != 0.0
-                tvRating.text = (if (hasRating) getString(R.string.tvRatingDesc, movie.voteAverage.toRating(), movie.voteCount.toString()) else getString(R.string.tvNA))
-
-                // Age Rating
-                tvAdults.text = (if (movie.adult) getString(R.string.tvAdults) else getString(R.string.tvAllAges))
+                icTxtRating.apply {
+                    setIcon(R.drawable.ic_outline_rate)
+                    requireContext().setIconColor(R.color.colorTextOther)
+                    setText(
+                        if (hasRating) {
+                            getString(
+                                R.string.tvRatingDesc,
+                                movie.voteAverage.toRating(),
+                                movie.voteCount.toString()
+                            )
+                        } else {
+                            getString(
+                                R.string.tvRatingDesc,
+                                getString(R.string.tvZero),
+                                getString(R.string.tvZero)
+                            )
+                        }
+                    )
+                    setTextSize(TEXT_SIZE)
+                    requireContext().setTextColor(R.color.colorTextOther)
+                }
 
                 // Runtime
-                tvRuntime.text = if (movie.runtime == 0) getString(R.string.tvNA) else convertRuntime(movie.runtime)
+                val timeInZero = 0
+                icTxtRuntime.apply {
+                    setIcon(R.drawable.ic_outline_runtime)
+                    requireContext().setIconColor(R.color.colorTextOther)
+                    setText(
+                        if (movie.runtime == 0) convertRuntime(timeInZero)
+                        else convertRuntime(movie.runtime)
+                    )
+                    setTextSize(TEXT_SIZE)
+                    requireContext().setTextColor(R.color.colorTextOther)
+                }
+
+                // Age Rating
+                icTxtAgeRating.apply {
+                    setIcon(if (movie.adult) R.drawable.ic_outline_adult else R.drawable.ic_outline_no_adult)
+                    requireContext().setIconColor(R.color.colorTextOther)
+                    setText(if (movie.adult) getString(R.string.tvAdults) else getString(R.string.tvAllAges))
+                    setTextSize(TEXT_SIZE)
+                    requireContext().setTextColor(R.color.colorTextOther)
+                }
+
+                // Language
+                icTxtLanguage.apply {
+                    setIcon(R.drawable.ic_outline_general_language)
+                    requireContext().setIconColor(R.color.colorTextOther)
+                    setText(
+                        if (movie.spokenLanguages.isEmpty()) {
+                        getString(R.string.tvNA)
+                    } else {
+                        movie.spokenLanguages.joinToString(", ") { it.englishName }
+                    })
+                    setTextSize(TEXT_SIZE)
+                    requireContext().setTextColor(R.color.colorTextOther)
+                }
+
+                // Genres
+                icTxtGenre.apply {
+                    setIcon(R.drawable.ic_outline_genre)
+                    requireContext().setIconColor(R.color.colorTextOther)
+                    setText(
+                        if (movie.genres.isNotEmpty()) movie.genres.joinToString { it.name }
+                        else getString(R.string.tvNA)
+                    )
+                    setTextSize(TEXT_SIZE)
+                    requireContext().setTextColor(R.color.colorTextOther)
+                }
 
                 // Overview
                 val hasOverview = movie.overview.isNotEmpty()
@@ -166,12 +244,6 @@ class DetailMovieFragment : Fragment() {
                 }
                 tvNoOverview.toggleVisibilityIf(!hasOverview)
                 tvReadMore.toggleVisibilityIf(hasOverview)
-
-                // Genres
-                tvGenre.text = if (movie.genres.isNotEmpty()) movie.genres.joinToString { it.name } else getString(R.string.tvNoGenres)
-
-                // Language
-                tvLanguage.text = if (movie.spokenLanguages.isEmpty()) getString(R.string.tvNA) else movie.spokenLanguages.joinToString(", ") { it.englishName }
 
                 // Action
                 checkFavoriteData(idMovie)
@@ -428,6 +500,7 @@ class DetailMovieFragment : Fragment() {
     }
 
     companion object {
+        private const val TEXT_SIZE = 12f
         const val EXTRA_ID = "EXTRA_ID"
         const val EXTRA_TITLE = "EXTRA_TITLE"
         const val TIME_60 = 60

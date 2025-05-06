@@ -34,6 +34,7 @@ import com.taufik.themovieshow.utils.extensions.showSuccessToastyIcon
 import com.taufik.themovieshow.utils.extensions.showTrailerVideo
 import com.taufik.themovieshow.utils.extensions.showView
 import com.taufik.themovieshow.utils.extensions.stringFormat
+import com.taufik.themovieshow.utils.extensions.stringReleaseFormat
 import com.taufik.themovieshow.utils.extensions.toRating
 import com.taufik.themovieshow.utils.extensions.toggleVisibilityIf
 import dagger.hilt.android.AndroidEntryPoint
@@ -126,9 +127,23 @@ class DetailTvShowFragment : Fragment() {
     private fun showDetailData(data: TvShowsPopularDetailResponse?) {
         binding.apply {
             data?.let { tvShow ->
+
+                // Poster
                 imgPoster.loadImage(tvShow.posterPath.orEmpty())
+
+                // Backdrop
                 imgBackdrop.loadImage(tvShow.backdropPath)
+
+                // Title
                 tvTitle.text = tvShow.name.ifEmpty { getString(R.string.tvNA) }
+
+                // Network
+                val networkText = when {
+                    tvShow.networks.isEmpty() -> getString(R.string.tvNA)
+                    tvShow.networks.first().originCountry.isEmpty() -> getString(R.string.tvNetworkDesc, tvShow.networks.first().name, getString(R.string.tvNA))
+                    else -> getString(R.string.tvNetworkDesc, tvShow.networks.first().name, tvShow.networks.first().originCountry)
+                }
+                tvNetwork.text = networkText
 
                 val formattedDate = if (tvShow.firstAirDate.isEmpty()) {
                     getString(R.string.tvNA)
@@ -139,32 +154,87 @@ class DetailTvShowFragment : Fragment() {
                     )
                 }
 
+                // Release date
                 tvStartedOn.apply {
                     stringFormat(getString(R.string.tvStartedOn), formattedDate)
                     toggleVisibilityIf(true)
                 }
 
-                tvStatus.text = tvShow.status.ifEmpty { getString(R.string.tvNA) }
+                // Release Status
+                val releaseStatus = if (tvShow.status.isEmpty()) {
+                    getString(R.string.tvNA)
+                } else {
+                    tvShow.status
+                }
+                tvReleaseStatus.apply {
+                    stringReleaseFormat(getString(R.string.tvStatus), releaseStatus)
+                    toggleVisibilityIf(true)
+                }
 
                 // Rating
                 val hasRating = tvShow.voteAverage != 0.0
-                tvRating.text = if (hasRating) getString(R.string.tvRatingDesc, tvShow.voteAverage.toRating(), tvShow.voteCount.toString())
-                else getString(R.string.tvNA)
-
-                // Age Rating
-                tvAdults.text = if (tvShow.adult) getString(R.string.tvAdults) else getString(R.string.tvAllAges)
+                icTxtRating.apply {
+                    setIcon(R.drawable.ic_outline_rate)
+                    requireContext().setIconColor(R.color.colorTextOther)
+                    setText(
+                        if (hasRating) {
+                            getString(R.string.tvRatingDesc, tvShow.voteAverage.toRating(), tvShow.voteCount.toString())
+                        } else {
+                            getString(
+                                R.string.tvRatingDesc,
+                                getString(R.string.tvZero),
+                                getString(R.string.tvZero)
+                            )
+                        }
+                    )
+                    setTextSize(TEXT_SIZE)
+                    requireContext().setTextColor(R.color.colorTextOther)
+                }
 
                 // Episode
-                tvEpisodes.text = if (tvShow.numberOfEpisodes == 0) getString(R.string.tvNA)
-                else getString(R.string.tvEpsDesc, tvShow.numberOfEpisodes.toString(), getString(R.string.tvEps))
-
-                // Network
-                val networkText = when {
-                    tvShow.networks.isEmpty() -> getString(R.string.tvNA)
-                    tvShow.networks.first().originCountry.isEmpty() -> getString(R.string.tvNetworkDesc, tvShow.networks.first().name, getString(R.string.tvNA))
-                    else -> getString(R.string.tvNetworkDesc, tvShow.networks.first().name, tvShow.networks.first().originCountry)
+                icTxtEpisodes.apply {
+                    setIcon(R.drawable.ic_outline_episode)
+                    requireContext().setIconColor(R.color.colorTextOther)
+                    setText(
+                        if (tvShow.numberOfEpisodes == 0) getString(R.string.tvNA)
+                        else getString(R.string.tvEpsDesc, tvShow.numberOfEpisodes.toString(), getString(R.string.tvEps))
+                    )
+                    setTextSize(TEXT_SIZE)
+                    requireContext().setTextColor(R.color.colorTextOther)
                 }
-                tvNetwork.text = networkText
+
+                // Age Rating
+                icTxtAgeRating.apply {
+                    setIcon(if (tvShow.adult) R.drawable.ic_outline_adult else R.drawable.ic_outline_no_adult)
+                    requireContext().setIconColor(R.color.colorTextOther)
+                    setText(if (tvShow.adult) getString(R.string.tvAdults) else getString(R.string.tvAllAges))
+                    setTextSize(TEXT_SIZE)
+                    requireContext().setTextColor(R.color.colorTextOther)
+                }
+
+                // Language
+                icTxtLanguage.apply {
+                    setIcon(R.drawable.ic_outline_general_language)
+                    requireContext().setIconColor(R.color.colorTextOther)
+                    setText(
+                        if (tvShow.spokenLanguages.isEmpty()) getString(R.string.tvNA)
+                        else tvShow.spokenLanguages.joinToString(", ") { it.englishName }
+                    )
+                    setTextSize(TEXT_SIZE)
+                    requireContext().setTextColor(R.color.colorTextOther)
+                }
+
+                // Genres
+                icTxtGenre.apply {
+                    setIcon(R.drawable.ic_outline_genre)
+                    requireContext().setIconColor(R.color.colorTextOther)
+                    setTextSize(TEXT_SIZE)
+                    setText(
+                        if (tvShow.genres.isNotEmpty()) tvShow.genres.joinToString { it.name }
+                        else getString(R.string.tvNA)
+                    )
+                    requireContext().setTextColor(R.color.colorTextOther)
+                }
 
                 // Overview
                 val hasOverview = tvShow.overview.isNotEmpty()
@@ -174,12 +244,6 @@ class DetailTvShowFragment : Fragment() {
                 }
                 tvNoOverview.toggleVisibilityIf(!hasOverview)
                 tvReadMore.toggleVisibilityIf(hasOverview)
-
-                // Genres
-                tvGenre.text = if (tvShow.genres.isNotEmpty()) tvShow.genres.joinToString { it.name } else getString(R.string.tvNoGenres)
-
-                // Language
-                tvLanguage.text = (if (tvShow.spokenLanguages.isEmpty()) getString(R.string.tvNA) else tvShow.spokenLanguages.joinToString(", ") { it.englishName })
 
                 // Action
                 checkFavoriteData(idTvShow)
@@ -421,6 +485,7 @@ class DetailTvShowFragment : Fragment() {
     }
 
     companion object {
+        private const val TEXT_SIZE = 12f
         const val EXTRA_ID = "EXTRA_ID"
         const val EXTRA_TITLE = "EXTRA_TITLE"
     }

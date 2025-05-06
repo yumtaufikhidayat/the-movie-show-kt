@@ -30,6 +30,8 @@
                 android:layout_height="200dp"
                 android:src="@color/colorPrimaryDark"
                 android:contentDescription="@string/tvBanner"
+                android:scaleType="centerCrop"
+                app:layout_constraintDimensionRatio="16:9"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
@@ -41,26 +43,18 @@
                 android:background="@drawable/bg_gradient_black"
                 app:layout_constraintBottom_toBottomOf="@id/imgBackdrop"/>
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardPoster"
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/imgPoster"
                 android:layout_width="100dp"
                 android:layout_height="150dp"
                 android:layout_marginTop="140dp"
                 android:layout_marginStart="16dp"
-                app:cardCornerRadius="4dp"
-                app:cardElevation="0dp"
+                android:scaleType="centerCrop"
+                android:contentDescription="@string/tvPoster"
+                android:src="@drawable/ic_loading"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize5Percent"
                 app:layout_constraintTop_toTopOf="@id/imgBackdrop"
-                app:layout_constraintStart_toStartOf="@id/imgBackdrop">
-
-                <ImageView
-                    android:id="@+id/imgPoster"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:contentDescription="@string/tvPoster"
-                    android:src="@drawable/ic_loading"/>
-
-            </androidx.cardview.widget.CardView>
+                app:layout_constraintStart_toStartOf="@id/imgBackdrop"/>
 
             <TextView
                 android:id="@+id/tvTitle"
@@ -75,7 +69,7 @@
                 android:maxLines="2"
                 android:ellipsize="end"
                 app:layout_constraintTop_toBottomOf="@id/imgBackdrop"
-                app:layout_constraintStart_toEndOf="@id/cardPoster"
+                app:layout_constraintStart_toEndOf="@id/imgPoster"
                 app:layout_constraintEnd_toEndOf="parent"
                 tools:text="@string/tvTitle"/>
 
@@ -90,7 +84,7 @@
                 app:layout_constraintEnd_toEndOf="@id/tvTitle"/>
 
             <TextView
-                android:id="@+id/tvStatus"
+                android:id="@+id/tvReleaseStatus"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/holo_green_light"
@@ -99,100 +93,78 @@
                 app:layout_constraintEnd_toEndOf="@id/tvTitle"
                 tools:text="@string/tvStatus"/>
 
-            <TextView
-                android:id="@+id/tvRatingTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="36dp"
-                android:textColor="@color/colorTextOther"
-                android:textStyle="bold"
-                android:text="@string/tvRating"
-                app:layout_constraintTop_toBottomOf="@id/tvStatus"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/viewDivider1"/>
-
-            <TextView
-                android:id="@+id/tvRating"
+            <HorizontalScrollView
+                android:id="@+id/horizontalScrolling"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:textColor="@color/colorTextIcons"
-                android:gravity="center"
-                tools:text="@string/tvRating"
-                app:layout_constraintTop_toBottomOf="@id/tvRatingTitle"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/viewDivider1"/>
-
-            <View
-                android:id="@+id/viewDivider1"
-                android:layout_width="2dp"
-                android:layout_height="0dp"
-                app:layout_constraintTop_toTopOf="@id/tvRatingTitle"
-                app:layout_constraintBottom_toBottomOf="@id/tvRating"
-                app:layout_constraintStart_toEndOf="@id/tvRatingTitle"
-                app:layout_constraintEnd_toStartOf="@id/tvAdultsTitle"/>
-
-            <TextView
-                android:id="@+id/tvAdultsTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorTextOther"
-                android:textStyle="bold"
-                android:text="@string/tvAgeRating"
-                app:layout_constraintTop_toTopOf="@id/tvRatingTitle"
-                app:layout_constraintStart_toStartOf="@id/viewDivider1"
-                app:layout_constraintEnd_toStartOf="@id/viewDivider2"/>
-
-            <TextView
-                android:id="@+id/tvAdults"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:gravity="center"
-                android:textColor="@color/colorTextIcons"
-                tools:text="@string/tvAgeRating"
-                app:layout_constraintTop_toBottomOf="@id/tvAdultsTitle"
-                app:layout_constraintStart_toEndOf="@id/viewDivider1"
-                app:layout_constraintEnd_toStartOf="@id/viewDivider2"/>
-
-            <View
-                android:id="@+id/viewDivider2"
-                android:layout_width="2dp"
-                android:layout_height="0dp"
-                app:layout_constraintTop_toTopOf="@id/tvRatingTitle"
-                app:layout_constraintBottom_toBottomOf="@id/tvRating"
-                app:layout_constraintStart_toEndOf="@id/tvAdultsTitle"
-                app:layout_constraintEnd_toStartOf="@id/tvRuntimeTitle"/>
-
-            <TextView
-                android:id="@+id/tvRuntimeTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorTextOther"
-                android:textStyle="bold"
-                android:text="@string/tvRuntime"
-                app:layout_constraintTop_toTopOf="@id/tvRatingTitle"
-                app:layout_constraintStart_toEndOf="@id/viewDivider2"
-                app:layout_constraintEnd_toEndOf="parent"/>
-
-            <TextView
-                android:id="@+id/tvRuntime"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:gravity="center"
-                android:textColor="@color/colorTextIcons"
-                tools:text="@string/tvRuntime"
-                app:layout_constraintTop_toBottomOf="@id/tvRuntimeTitle"
-                app:layout_constraintStart_toEndOf="@id/viewDivider2"
-                app:layout_constraintEnd_toEndOf="parent"/>
-
-            <Space
-                android:id="@+id/spaceAround"
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                app:layout_constraintTop_toBottomOf="@id/tvRating"/>
+                android:scrollbars="none"
+                app:layout_constraintTop_toBottomOf="@id/imgPoster"
+                app:layout_constraintStart_toStartOf="@id/imgPoster"
+                app:layout_constraintEnd_toEndOf="@id/tvReleaseStatus">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="10dp">
+
+                    <com.taufik.themovieshow.utils.IconTextView
+                        android:id="@+id/icTxtRating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:iconSrc="@drawable/ic_outline_rate_yellow"
+                        app:text="@string/tvRating"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <com.taufik.themovieshow.utils.IconTextView
+                        android:id="@+id/icTxtRuntime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        app:iconSrc="@drawable/ic_outline_runtime"
+                        app:text="@string/tvRuntime"
+                        app:layout_constraintTop_toTopOf="@id/icTxtRating"
+                        app:layout_constraintBottom_toBottomOf="@id/icTxtRating"
+                        app:layout_constraintStart_toEndOf="@id/icTxtRating" />
+
+                    <com.taufik.themovieshow.utils.IconTextView
+                        android:id="@+id/icTxtAgeRating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        app:iconSrc="@drawable/ic_outline_no_adult"
+                        app:text="@string/tvAgeRating"
+                        app:layout_constraintTop_toTopOf="@id/icTxtRating"
+                        app:layout_constraintBottom_toBottomOf="@id/icTxtRating"
+                        app:layout_constraintStart_toEndOf="@id/icTxtRuntime" />
+
+                    <com.taufik.themovieshow.utils.IconTextView
+                        android:id="@+id/icTxtLanguage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        app:iconSrc="@drawable/ic_outline_general_language"
+                        app:text="@string/tvLanguage"
+                        app:layout_constraintTop_toTopOf="@id/icTxtRating"
+                        app:layout_constraintBottom_toBottomOf="@id/icTxtRating"
+                        app:layout_constraintStart_toEndOf="@id/icTxtAgeRating" />
+
+                    <com.taufik.themovieshow.utils.IconTextView
+                        android:id="@+id/icTxtGenre"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        app:iconSrc="@drawable/ic_outline_genre"
+                        app:text="@string/tvGenre"
+                        app:layout_constraintTop_toTopOf="@id/icTxtRating"
+                        app:layout_constraintBottom_toBottomOf="@id/icTxtRating"
+                        app:layout_constraintStart_toEndOf="@id/icTxtLanguage" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </HorizontalScrollView>
 
             <TextView
                 android:id="@+id/tvOverviewTitle"
@@ -204,8 +176,8 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:textColor="@color/colorOrange"
-                app:layout_constraintStart_toStartOf="@id/cardPoster"
-                app:layout_constraintTop_toBottomOf="@id/spaceAround"/>
+                app:layout_constraintStart_toStartOf="@id/imgPoster"
+                app:layout_constraintTop_toBottomOf="@id/horizontalScrolling"/>
 
             <TextView
                 android:id="@+id/tvNoOverview"
@@ -225,7 +197,7 @@
                 android:ellipsize="end"
                 android:maxLines="4"
                 app:layout_constraintTop_toBottomOf="@id/tvNoOverview"
-                app:layout_constraintStart_toStartOf="@id/cardPoster"
+                app:layout_constraintStart_toStartOf="@id/imgPoster"
                 app:layout_constraintEnd_toEndOf="@id/tvTitle"
                 tools:text="@tools:sample/lorem/random"/>
 
@@ -239,58 +211,8 @@
                 android:text="@string/tvReadMore"
                 android:textStyle="bold"
                 android:textColor="@color/colorPrimaryAccent"
-                app:layout_constraintStart_toStartOf="@id/cardPoster"
+                app:layout_constraintStart_toStartOf="@id/imgPoster"
                 app:layout_constraintTop_toBottomOf="@id/tvOverview"/>
-
-            <TextView
-                android:id="@+id/tvGenreTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:includeFontPadding="false"
-                android:text="@string/tvGenre"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@color/colorOrange"
-                app:layout_constraintTop_toBottomOf="@id/tvReadMore"
-                app:layout_constraintStart_toStartOf="@id/cardPoster"/>
-
-            <TextView
-                android:id="@+id/tvGenre"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:textColor="@color/white"
-                tools:text="@string/tvGenre"
-                app:layout_constraintTop_toBottomOf="@id/tvGenreTitle"
-                app:layout_constraintStart_toStartOf="@id/cardPoster"
-                app:layout_constraintEnd_toEndOf="@id/tvOverview"/>
-
-            <TextView
-                android:id="@+id/tvLanguageTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:includeFontPadding="false"
-                android:text="@string/tvLanguage"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@color/colorOrange"
-                app:layout_constraintTop_toBottomOf="@id/tvGenre"
-                app:layout_constraintStart_toStartOf="@id/cardPoster"/>
-
-            <com.codesgood.views.JustifiedTextView
-                android:id="@+id/tvLanguage"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:textColor="@color/white"
-                android:ellipsize="end"
-                android:maxLines="4"
-                tools:text="@string/tvLanguage"
-                app:layout_constraintTop_toBottomOf="@id/tvLanguageTitle"
-                app:layout_constraintStart_toStartOf="@id/cardPoster"
-                app:layout_constraintEnd_toEndOf="@id/tvOverview"/>
 
             <TextView
                 android:id="@+id/tvCast"
@@ -302,8 +224,8 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:textColor="@color/colorOrange"
-                app:layout_constraintStart_toStartOf="@id/cardPoster"
-                app:layout_constraintTop_toBottomOf="@id/tvLanguage"/>
+                app:layout_constraintStart_toStartOf="@id/imgPoster"
+                app:layout_constraintTop_toBottomOf="@id/tvReadMore"/>
 
             <TextView
                 android:id="@+id/tvNoCast"
@@ -327,7 +249,7 @@
                 tools:itemCount="1"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintTop_toBottomOf="@id/tvNoCast"
-                app:layout_constraintStart_toStartOf="@id/cardPoster"
+                app:layout_constraintStart_toStartOf="@id/imgPoster"
                 app:layout_constraintEnd_toEndOf="@id/tvTitle"/>
 
             <TextView
@@ -340,7 +262,7 @@
                 android:textColor="@color/colorOrange"
                 android:textStyle="bold"
                 android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@id/cardPoster"
+                app:layout_constraintStart_toStartOf="@id/imgPoster"
                 app:layout_constraintTop_toBottomOf="@id/rvMovieCast"/>
 
             <TextView
@@ -376,7 +298,7 @@
                 android:text="@string/tvReviews"
                 android:textStyle="bold"
                 android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@id/cardPoster"
+                app:layout_constraintStart_toStartOf="@id/imgPoster"
                 app:layout_constraintTop_toBottomOf="@id/rvTrailerVideo" />
 
             <TextView
@@ -397,7 +319,7 @@
                 android:layout_marginTop="6dp"
                 tools:listitem="@layout/item_reviews"
                 tools:itemCount="1"
-                app:layout_constraintStart_toStartOf="@id/cardPoster"
+                app:layout_constraintStart_toStartOf="@id/imgPoster"
                 app:layout_constraintEnd_toEndOf="@id/tvTitle"
                 app:layout_constraintTop_toBottomOf="@id/tvNoReviews"/>
 
@@ -411,7 +333,7 @@
                 android:text="@string/tvSimilarMovie"
                 android:textStyle="bold"
                 android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@id/cardPoster"
+                app:layout_constraintStart_toStartOf="@id/imgPoster"
                 app:layout_constraintTop_toBottomOf="@id/rvMovieReviews" />
 
             <TextView
