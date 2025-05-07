@@ -65,8 +65,8 @@
     <string name="tvShareWith">Bagikan dengan:</string>
     <string name="tvOops">Oops! Terjadi kesalahan…</string>
     <string name="tvUnableLoadData">Tidak dapat memuat data. Coba lagi nanti.</string>
-    <string name="tvVisitMovie">Kunjungi Film ini</string>
-    <string name="tvVisitTvShow">Kunjungi Acara TV ini</string>
+    <string name="tvVisitMovie">Kunjungi Film ini\n</string>
+    <string name="tvVisitTvShow">Kunjungi Acara TV ini\n</string>
     <string name="tvNameCharacter">%s \n (%s)</string>
     <string name="tvRetry">Coba Lagi</string>
     <string name="action_added_to_favorite">Ditambahkan ke favorit</string>

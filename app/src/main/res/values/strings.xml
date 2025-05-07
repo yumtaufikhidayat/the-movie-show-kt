@@ -65,8 +65,8 @@
     <string name="tvShareWith">Share with:</string>
     <string name="tvOops">Oops! Something went wrong…</string>
     <string name="tvUnableLoadData">Unable to load data. Please try again.</string>
-    <string name="tvVisitMovie">Check out this awesome movie</string>
-    <string name="tvVisitTvShow">Check out this awesome TV show</string>
+    <string name="tvVisitMovie">Check out this awesome movie\n</string>
+    <string name="tvVisitTvShow">Check out this awesome TV show\n</string>
     <string name="tvNameCharacter">%s \n (%s)</string>
     <string name="tvRetry">Retry</string>
     <string name="action_added_to_favorite">Added to favorites</string>
