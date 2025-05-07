@@ -36,9 +36,13 @@ object ApiModule {
 
     @Provides
     @Singleton
-    fun provideBaseUrl() =
-        if (BuildConfig.BASE_URL.isBlank()) "BASE URL is not set in BuildConfig."
-        else BuildConfig.BASE_URL
+    fun provideBaseUrl(): String {
+        if (BuildConfig.BASE_URL.isBlank()) {
+            throw IllegalStateException("BASE_URL is missing. Please define it in your build.gradle file.")
+        }
+        return BuildConfig.BASE_URL
+    }
+
 
     @Provides
     @Singleton
