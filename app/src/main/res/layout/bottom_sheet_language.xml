@@ -13,8 +13,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/tvDescLanguage"
+        android:textSize="18sp"
+        android:textStyle="bold"
         android:textAlignment="center"
-        android:textColor="@color/colorOrange"
+        android:textColor="@color/colorPrimaryAccent"
         android:paddingBottom="8dp" />
 
     <View
