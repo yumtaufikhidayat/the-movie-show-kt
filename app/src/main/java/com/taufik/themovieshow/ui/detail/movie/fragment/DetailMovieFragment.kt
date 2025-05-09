@@ -263,13 +263,8 @@ class DetailMovieFragment : Fragment() {
         binding.apply {
             lifecycleScope.launch {
                 val count = viewModel.checkFavoriteMovie(id)
-                if (count > 0) {
-                    toolbarDetailMovie.toggleFavorite.isChecked = true
-                    isChecked = true
-                } else {
-                    toolbarDetailMovie.toggleFavorite.isChecked = false
-                    isChecked = false
-                }
+                toolbarDetailMovie.toggleFavorite.isChecked = count > 0
+                isChecked = count > 0
             }
         }
     }
