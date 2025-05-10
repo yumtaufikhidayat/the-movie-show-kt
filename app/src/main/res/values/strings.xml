@@ -101,7 +101,7 @@
     <string name="tvDescSendEmail">yumtaufikhidayat@gmail.com</string>
     <string name="tvDescLanguage">Select Language</string>
     <string name="tvTitleCopyright">Copyright</string>
-    <string name="tvDescCopyright">Copyright &#169; 2021–2025 Taufik Hidayat</string>
+    <string name="tvDescCopyright">&#169; 2021–2025 Taufik Hidayat</string>
     <string name="tvTitleVersion">Version</string>
     <string name="tvTitleRateThisApp">Rate this app</string>
     <string name="tvDescRateThisApp">Enjoying the app? Give it 5 stars!</string>
