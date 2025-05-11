@@ -113,4 +113,9 @@
     <string name="tvSortAll">All</string>
     <string name="tvSortRelease">Release</string>
     <string name="tvSortTitle">Title</string>
+    
+    <!--Language-->
+    <string name="tvLanguageIndonesia">Indonesia (ID)</string>"
+    <string name="tvLanguageEnglish">English (EN)</string>"
+    <string name="tvSuccesfullyChangedLanguage">Successfully Changed Language</string>
 </resources>

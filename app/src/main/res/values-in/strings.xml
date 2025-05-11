@@ -113,4 +113,9 @@
     <string name="tvSortAll">Semua</string>
     <string name="tvSortRelease">Rilis</string>
     <string name="tvSortTitle">Judul</string>
+
+    <!--Language-->
+    <string name="tvLanguageIndonesia">Bahasa Indonesia (ID)</string>"
+    <string name="tvLanguageEnglish">Bahasa Inggris (EN)</string>"
+    <string name="tvSuccesfullyChangedLanguage">Successfully Changed Language</string>
 </resources>
