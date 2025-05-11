@@ -7,72 +7,85 @@ import com.taufik.themovieshow.model.about.AboutSection
 import com.taufik.themovieshow.model.favorite.SortFiltering
 import com.taufik.themovieshow.model.response.about.About
 import com.taufik.themovieshow.model.response.about.AboutAction
+import com.taufik.themovieshow.utils.language.LANGUAGE
+import com.taufik.themovieshow.utils.language.LanguageCache
 
 object UtilsData {
-    fun Context.getAboutData(): List<AboutSection> = mutableListOf(
+    fun getGeneratedAboutData(context: Context): List<AboutSection> = mutableListOf(
         AboutSection.AuthorSection(
-            this.getString(R.string.tvDeveloper),
-            this.generateAboutAuthorData()
+            context.getString(R.string.tvDeveloper),
+            generateAboutAuthorData(context)
         ),
         AboutSection.ApplicationSection(
-            this.getString(R.string.tvApplication),
-            this.generateAboutApplicationData()
+            context.getString(R.string.tvApplication),
+            generateAboutApplicationData(context)
         )
     )
 
-    private fun Context.generateAboutAuthorData(): List<About> = mutableListOf(
+    private fun generateAboutAuthorData(context: Context): List<About> = mutableListOf(
         About(
             AboutAction.LinkedIn,
             R.drawable.ic_outline_profile,
-            this.getString(R.string.tvTitleLetsGreet),
-            this.getString(R.string.tvDescLetsGreet)
+            context.getString(R.string.tvTitleLetsGreet),
+            context.getString(R.string.tvDescLetsGreet)
         ),
         About(
             AboutAction.GitHub,
             R.drawable.github,
-            this.getString(R.string.tvTitleForkOnGithub),
-            this.getString(R.string.tvDescForkOnGithub),
+            context.getString(R.string.tvTitleForkOnGithub),
+            context.getString(R.string.tvDescForkOnGithub),
         ),
         About(
             AboutAction.Email,
             R.drawable.ic_outline_email,
-            this.getString(R.string.tvTitleSendEmail),
-            this.getString(R.string.tvDescSendEmail),
+            context.getString(R.string.tvTitleSendEmail),
+            context.getString(R.string.tvDescSendEmail),
         )
     )
 
-    private fun Context.generateAboutApplicationData(): List<About> = mutableListOf(
-        About(
-            AboutAction.LanguageSetting,
-            R.drawable.ic_language,
-            this.getString(R.string.tvLanguage),
-            this.getString(R.string.tvDescLanguage)
-        ),
-        About(
-            AboutAction.Email,
-            R.drawable.ic_outline_bug,
-            this.getString(R.string.tvTitleReportIssue),
-            this.getString(R.string.tvDescReportIssue)
-        ),
-        About(
-            AboutAction.GooglePlay,
-            R.drawable.ic_outline_rate,
-            this.getString(R.string.tvTitleRateThisApp),
-            this.getString(R.string.tvDescRateThisApp)
-        ),
-        About(
-            AboutAction.NoOp,
-            R.drawable.ic_outline_copyright,
-            this.getString(R.string.tvTitleCopyright),
-            this.getString(R.string.tvDescCopyright)
-        ),
-        About(
-            AboutAction.NoOp,
-            R.drawable.ic_update,
-            this.getString(R.string.tvTitleVersion),
-            BuildConfig.VERSION_NAME
-        ),
-    )
+    private fun generateAboutApplicationData(context: Context): List<About> {
+        val currentLanguageCode = LanguageCache.get(context)
+        val languageText: String = when (currentLanguageCode) {
+            LANGUAGE.INDONESIA.code -> context.getString(R.string.tvLanguageIndonesia)
+            LANGUAGE.ENGLISH.code -> context.getString(R.string.tvLanguageEnglish)
+            else -> context.getString(R.string.tvLanguageEnglish)
+        }
+
+        val aboutList = mutableListOf(
+            About(
+                AboutAction.LanguageSetting,
+                R.drawable.ic_language,
+                context.getString(R.string.tvLanguage),
+                languageText
+            ),
+            About(
+                AboutAction.Email,
+                R.drawable.ic_outline_bug,
+                context.getString(R.string.tvTitleReportIssue),
+                context.getString(R.string.tvDescReportIssue)
+            ),
+            About(
+                AboutAction.GooglePlay,
+                R.drawable.ic_outline_rate,
+                context.getString(R.string.tvTitleRateThisApp),
+                context.getString(R.string.tvDescRateThisApp)
+            ),
+            About(
+                AboutAction.NoOp,
+                R.drawable.ic_outline_copyright,
+                context.getString(R.string.tvTitleCopyright),
+                context.getString(R.string.tvDescCopyright)
+            ),
+            About(
+                AboutAction.NoOp,
+                R.drawable.ic_update,
+                context.getString(R.string.tvTitleVersion),
+                BuildConfig.VERSION_NAME
+            ),
+        )
+
+        return aboutList
+    }
 
     fun generateSortFilteringData(): List<SortFiltering> {
         return mutableListOf(
