@@ -1,7 +1,7 @@
 package com.taufik.themovieshow.utils.extensions
 
+import android.util.Log
 import java.text.SimpleDateFormat
-import java.util.Date
 import java.util.Locale
 
 inline fun <T> List<T>.filterAndSortByDate(
@@ -10,30 +10,31 @@ inline fun <T> List<T>.filterAndSortByDate(
     inputFormat: String,
     thresholdFormat: String
 ): List<T> {
-    val dateThresholdParsed = SimpleDateFormat(thresholdFormat, Locale.US).parse(dateThreshold)
+    val inputFormatter = SimpleDateFormat(inputFormat, Locale.US)
+    val thresholdFormatter = SimpleDateFormat(thresholdFormat, Locale.US)
 
-    return this.filter { item ->
-        try {
-            val dateString = getDate(item)
-            if (dateString != null) {
-                val itemDate = SimpleDateFormat(inputFormat, Locale.US).parse(dateString)
-                itemDate != null && (itemDate.after(dateThresholdParsed) || itemDate == dateThresholdParsed)
-            } else {
-                false
-            }
+    val parsedThresholdDate = try {
+        thresholdFormatter.parse(dateThreshold)
+    } catch (e: Exception) {
+        Log.e("TAG Filter", "filterAndSortByDateError: ${e.localizedMessage}")
+        null
+    } ?: return emptyList()
+
+    return this.mapNotNull { item ->
+        val dateStr = getDate(item)
+        val parsedDate = try {
+            dateStr?.let { inputFormatter.parse(it) }
         } catch (e: Exception) {
-            false
+            Log.e("TAG Filter", "filterAndSortByDateError: ${e.localizedMessage}")
+            null
         }
-    }.sortedByDescending { item ->
-        try {
-            val dateString = getDate(item)
-            if (dateString != null) {
-                SimpleDateFormat(inputFormat, Locale.US).parse(dateString)
-            } else {
-                Date(0) // Default to the earliest possible date if parsing fails
-            }
-        } catch (e: Exception) {
-            Date(0) // Default to the earliest possible date if parsing fails
-        }
+
+        if (parsedDate != null && (parsedDate >= parsedThresholdDate)) {
+            item to parsedDate
+        } else null
+    }.sortedByDescending {
+        it.second
+    }.map {
+        it.first
     }
 }

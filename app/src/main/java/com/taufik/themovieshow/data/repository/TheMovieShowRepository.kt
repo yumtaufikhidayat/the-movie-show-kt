@@ -1,5 +1,6 @@
 package com.taufik.themovieshow.data.repository
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import com.taufik.themovieshow.data.local.entity.movie.FavoriteMovieEntity
 import com.taufik.themovieshow.data.local.entity.tvshow.FavoriteTvShowEntity
@@ -8,6 +9,7 @@ import com.taufik.themovieshow.data.source.RawQuery
 import com.taufik.themovieshow.data.source.RemoteDataSource
 import com.taufik.themovieshow.model.about.AboutSection
 import com.taufik.themovieshow.model.favorite.SortFiltering
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -16,6 +18,8 @@ class TheMovieShowRepository @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource
 ) {
+    val languageFlow: Flow<String> = localDataSource.languageFlow
+
     fun getMovieTrendingDay() = remoteDataSource.getMovieTrendingDay()
 
     fun getMovieNowPlaying() = remoteDataSource.getMovieNowPlaying()
@@ -68,7 +72,11 @@ class TheMovieShowRepository @Inject constructor(
 
     suspend fun removeTvShowFromFavorite(tvShowId: Int) = localDataSource.removeTvShowFromFavorite(tvShowId)
 
-    fun getAboutData(): List<AboutSection> = localDataSource.getAboutData()
+    fun getAboutData(context: Context): List<AboutSection> = localDataSource.getAboutData(context)
 
     fun getSortFiltering(): List<SortFiltering> = localDataSource.getSortFiltering()
+
+    suspend fun setLanguage(code: String) = localDataSource.setLanguage(code)
+
+    suspend fun getLanguage(): String = localDataSource.getLanguage()
 }

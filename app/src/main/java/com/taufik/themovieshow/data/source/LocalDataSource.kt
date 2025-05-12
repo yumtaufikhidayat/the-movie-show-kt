@@ -5,18 +5,23 @@ import androidx.lifecycle.LiveData
 import com.taufik.themovieshow.data.local.dao.TheMovieShowDao
 import com.taufik.themovieshow.data.local.entity.movie.FavoriteMovieEntity
 import com.taufik.themovieshow.data.local.entity.tvshow.FavoriteTvShowEntity
+import com.taufik.themovieshow.data.local.preferences.language.LanguagePreference
 import com.taufik.themovieshow.model.about.AboutSection
 import com.taufik.themovieshow.model.favorite.SortFiltering
 import com.taufik.themovieshow.utils.UtilsData
-import com.taufik.themovieshow.utils.UtilsData.getAboutData
+import com.taufik.themovieshow.utils.UtilsData.getGeneratedAboutData
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class LocalDataSource @Inject constructor(
-    private val context: Context,
     private val favoriteDao: TheMovieShowDao,
+    private val languagePreference: LanguagePreference
 ) {
+
+    val languageFlow: Flow<String> = languagePreference.languageFlow
+
     suspend fun addMovieToFavorite(favoriteMovieEntity: FavoriteMovieEntity) =
         favoriteDao.addMovieToFavorite(favoriteMovieEntity)
 
@@ -39,7 +44,11 @@ class LocalDataSource @Inject constructor(
 
     suspend fun removeTvShowFromFavorite(tvShowId: Int) = favoriteDao.removeTvShowFromFavorite(tvShowId)
 
-    fun getAboutData(): List<AboutSection> = context.getAboutData()
+    fun getAboutData(context: Context): List<AboutSection> = getGeneratedAboutData(context)
 
     fun getSortFiltering(): List<SortFiltering> = UtilsData.generateSortFilteringData()
+
+    suspend fun setLanguage(code: String) = languagePreference.setLanguage(code)
+
+    suspend fun getLanguage(): String = languagePreference.getLanguage()
 }
