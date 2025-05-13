@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.databinding.FragmentFavoriteBinding
+import com.taufik.themovieshow.ui.tablayout.FavoriteTabViewModel
 import com.taufik.themovieshow.utils.extensions.setupTabLayoutBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -16,6 +18,7 @@ class FavoriteFragment : Fragment() {
 
     private var _binding: FragmentFavoriteBinding? = null
     private val binding get() = _binding!!
+    private val favoriteTabViewModel: FavoriteTabViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,7 +50,10 @@ class FavoriteFragment : Fragment() {
                     FavoriteTvShowsFragment()
                 ),
                 tabTitles = tabsTitle,
-                defaultTabIndex = 0
+                selectedIndex = favoriteTabViewModel.selectedTabIndex,
+                onTabChanged = { position ->
+                    favoriteTabViewModel.selectedTabIndex = position
+                }
             )
         }
     }

@@ -1,22 +1,22 @@
 package com.taufik.themovieshow.utils.extensions
 
+import android.graphics.Typeface
 import android.view.View
+import android.widget.TextView
+import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import com.taufik.themovieshow.R
+import com.taufik.themovieshow.ui.common.adapter.TabPagerAdapter
 import com.taufik.themovieshow.ui.detail.movie.fragment.DetailMovieFragment
 import com.taufik.themovieshow.ui.detail.tvshow.fragment.DetailTvShowFragment
-import android.graphics.Typeface
-import android.widget.TextView
-import androidx.annotation.StringRes
-import androidx.core.content.ContextCompat
-import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.tabs.TabLayoutMediator
-import com.taufik.themovieshow.ui.common.adapter.TabPagerAdapter
 
 fun Fragment.navigateToDetailMovie(id: Int, title: String) {
     val bundle = bundleOf(
@@ -59,21 +59,24 @@ fun Fragment.setupTabLayoutBinding(
     viewPager: ViewPager2,
     fragments: List<Fragment>,
     @StringRes tabTitles: IntArray,
-    defaultTabIndex: Int = 1
+    selectedIndex: Int,
+    onTabChanged: (Int) -> Unit
 ) {
     viewPager.adapter = TabPagerAdapter(fragments, this)
 
     TabLayoutMediator(tabLayout, viewPager) { tab, position ->
         tab.customView = requireContext().createCustomTabView(
             titleRes = tabTitles[position],
-            isSelected = position == defaultTabIndex
+            isSelected = position == selectedIndex
         )
     }.attach()
 
-    viewPager.setCurrentItem(defaultTabIndex, false)
+    viewPager.setCurrentItem(selectedIndex, false)
+
     viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
         override fun onPageSelected(position: Int) {
-            super.onPageSelected(position)
+            onTabChanged(position)
+
             for (i in 0 until tabLayout.tabCount) {
                 val tab = tabLayout.getTabAt(i)
                 val textView = tab?.customView?.findViewById<TextView>(R.id.tabText) ?: continue
@@ -100,9 +103,8 @@ fun Fragment.setupTabLayoutBinding(
             }
         }
     })
-
-//    adjustTabLayoutMode(tabLayout)
 }
+
 
 fun Fragment.adjustTabLayoutMode(tabLayout: TabLayout) {
     tabLayout.post {

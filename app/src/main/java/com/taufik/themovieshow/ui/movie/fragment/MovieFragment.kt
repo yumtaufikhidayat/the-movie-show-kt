@@ -1,23 +1,18 @@
 package com.taufik.themovieshow.ui.movie.fragment
 
-import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.StringRes
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.tabs.TabLayoutMediator
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.databinding.FragmentMovieBinding
-import com.taufik.themovieshow.ui.common.adapter.TabPagerAdapter
-import com.taufik.themovieshow.utils.extensions.createCustomTabView
+import com.taufik.themovieshow.ui.tablayout.MovieTvShowTabViewModel
 import com.taufik.themovieshow.utils.extensions.setupTabLayoutBinding
 import com.taufik.themovieshow.utils.extensions.showSuccessToasty
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,6 +26,7 @@ class MovieFragment : Fragment() {
     private var _binding: FragmentMovieBinding? = null
     private val binding get() = _binding!!
     private var doubleBackToExitPressedOnce = false
+    private val movieTvShowTabViewModel: MovieTvShowTabViewModel by viewModels()
 
     private val backPressedCallback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
@@ -83,7 +79,11 @@ class MovieFragment : Fragment() {
                     MovieNowPlayingFragment(),
                     MovieUpcomingFragment()
                 ),
-                tabTitles = tabsTitle
+                tabTitles = tabsTitle,
+                selectedIndex = movieTvShowTabViewModel.selectedTabIndex,
+                onTabChanged = { position ->
+                    movieTvShowTabViewModel.selectedTabIndex = position
+                }
             )
         }
     }
