@@ -367,4 +367,8 @@ $RECYCLE.BIN/
 .idea/* text eol=lf
 *.xml text
 
+# Sensitive keystore folder and gradle.properties
+/keystore/
+/gradle.properties
+
 # End of https://www.gitignore.io/api/java,linux,macos,windows,android,intellij,androidstudio
