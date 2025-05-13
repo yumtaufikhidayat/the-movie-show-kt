@@ -3,6 +3,7 @@ package com.taufik.themovieshow.data.local.dao
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.RawQuery
 import androidx.sqlite.db.SupportSQLiteQuery
@@ -12,7 +13,7 @@ import com.taufik.themovieshow.utils.CommonConstants
 
 @Dao
 interface TheMovieShowDao {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addMovieToFavorite(favoriteMovieEntity: FavoriteMovieEntity)
 
     @RawQuery(observedEntities = [FavoriteMovieEntity::class])
@@ -30,7 +31,7 @@ interface TheMovieShowDao {
     )
     suspend fun removeMovieFromFavorite(movieId: Int): Int
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addTvShowToFavorite(favoriteTvShowEntity: FavoriteTvShowEntity)
 
     @RawQuery(observedEntities = [FavoriteTvShowEntity::class])
