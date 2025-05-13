@@ -117,5 +117,5 @@
     <!--Language-->
     <string name="tvLanguageIndonesia">Bahasa Indonesia (ID)</string>"
     <string name="tvLanguageEnglish">Bahasa Inggris (EN)</string>"
-    <string name="tvSuccesfullyChangedLanguage">Successfully Changed Language</string>
+    <string name="tvSuccesfullyChangedLanguage">Berhasil Mengubah Bahasa</string>
 </resources>
