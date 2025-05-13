@@ -37,6 +37,15 @@ android {
         vectorDrawables.useSupportLibrary = true
     }
 
+    signingConfigs {
+        create("release") {
+            storeFile = file("${rootDir}/${project.property("RELEASE_STORE_FILE")}")
+            storePassword = project.property("RELEASE_STORE_PASSWORD") as String
+            keyAlias = project.property("RELEASE_KEY_ALIAS") as String
+            keyPassword = project.property("RELEASE_KEY_PASSWORD") as String
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = true
@@ -45,7 +54,7 @@ android {
                 "proguard-rules.pro"
             )
 
-            signingConfig = signingConfigs.getByName("debug")
+            signingConfig = signingConfigs.getByName("release")
         }
         debug {
             isMinifyEnabled = true
@@ -53,6 +62,8 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
 
@@ -63,7 +74,7 @@ android {
             applicationIdSuffix = ".dev"
             versionNameSuffix = "-dev"
 
-            buildConfigField("String", "API_KEY", "\"YOUR_API_KEY_HERE\"")
+            buildConfigField("String", "API_KEY", "\"${project.properties["TMDB_API_KEY"] as String}\"")
             buildConfigField("String", "BASE_URL", "\"https://api.themoviedb.org/3/\"")
             buildConfigField("String", "IMAGE_URL", "\"https://image.tmdb.org/t/p/w780/\"")
             buildConfigField("String", "THUMBNAIL_IMAGE_URL", "\"https://img.youtube.com/vi/\"")
