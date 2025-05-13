@@ -24,7 +24,6 @@ import com.taufik.themovieshow.ui.about.viewmodel.AboutViewModel
 import com.taufik.themovieshow.ui.language.bottomsheet.LanguageBottomSheetDialog
 import com.taufik.themovieshow.utils.CommonConstants
 import com.taufik.themovieshow.utils.extensions.restartAppWithLanguageChange
-import com.taufik.themovieshow.utils.extensions.showSuccessToasty
 import com.taufik.themovieshow.utils.extensions.showSuccessToastyIcon
 import com.taufik.themovieshow.utils.language.LANGUAGE
 import dagger.hilt.android.AndroidEntryPoint
@@ -103,7 +102,6 @@ class AboutFragment : Fragment() {
                 val dialog = LanguageBottomSheetDialog.newInstance(languageList, currentLang)
                 dialog.setListener {
                     requireActivity().let {
-                        it.showSuccessToasty(getString(R.string.tvSuccesfullyChangedLanguage))
                         if (it is MainActivity) {
                             it.restartAppWithLanguageChange(requireContext(), MainActivity::class.java)
                         }

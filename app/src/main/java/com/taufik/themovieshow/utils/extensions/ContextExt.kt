@@ -16,7 +16,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import com.taufik.themovieshow.R
-import com.taufik.themovieshow.ui.language.bottomsheet.LanguageBottomSheetDialog.Companion.LANGUAGE_CHANGED
+import com.taufik.themovieshow.ui.language.bottomsheet.LanguageBottomSheetDialog.Companion.SUCCESS_CHANGE_LANGUAGE
 import es.dmoral.toasty.Toasty
 
 val Context.languageDataStore: DataStore<Preferences> by preferencesDataStore(name = "settings.preferences_pb")
@@ -80,7 +80,7 @@ fun Context.createCustomTabView(@StringRes titleRes: Int, isSelected: Boolean): 
 
 fun Context.restartAppWithLanguageChange(context: Context, activity: Class<out Activity>) {
     val intent = Intent(context, activity).apply {
-        putExtra(LANGUAGE_CHANGED, true)
+        putExtra(SUCCESS_CHANGE_LANGUAGE, true)
         flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
     }
 

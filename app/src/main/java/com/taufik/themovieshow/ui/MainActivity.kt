@@ -14,7 +14,9 @@ import com.taufik.themovieshow.R
 import com.taufik.themovieshow.base.BaseActivity
 import com.taufik.themovieshow.databinding.ActivityMainBinding
 import com.taufik.themovieshow.ui.language.bottomsheet.LanguageBottomSheetDialog.Companion.LANGUAGE_CHANGED
+import com.taufik.themovieshow.ui.language.bottomsheet.LanguageBottomSheetDialog.Companion.SUCCESS_CHANGE_LANGUAGE
 import com.taufik.themovieshow.utils.extensions.applySystemBarInsets
+import com.taufik.themovieshow.utils.extensions.showSuccessToasty
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -37,7 +39,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (intent.getBooleanExtra("RESTART_AFTER_LANGUAGE_CHANGE", false)) {
+        if (intent.getBooleanExtra(SUCCESS_CHANGE_LANGUAGE, false)) {
+            showSuccessToasty(getString(R.string.tvSuccesfullyChangedLanguage))
+            intent.removeExtra(SUCCESS_CHANGE_LANGUAGE)
             lifecycleScope.launch {
                 delay(100)
                 navController?.navigate(R.id.movieFragment)
