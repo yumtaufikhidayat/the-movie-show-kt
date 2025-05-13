@@ -16,6 +16,9 @@ plugins {
 val enableChuckerDev = project.findProperty("enableChuckerDev") == "true"
 val enableChuckerProd = project.findProperty("enableChuckerProd") == "true"
 
+fun getStringProp(key: String, fallback: String? = null, message: String = ""): String =
+    project.findProperty(key)?.toString() ?: fallback ?: throw GradleException("Missing property: $key. $message")
+
 android {
     namespace = "com.taufik.themovieshow"
     compileSdk = 35
@@ -74,23 +77,24 @@ android {
             applicationIdSuffix = ".dev"
             versionNameSuffix = "-dev"
 
-            buildConfigField("String", "API_KEY", "\"${project.properties["TMDB_API_KEY"] as String}\"")
-            buildConfigField("String", "BASE_URL", "\"https://api.themoviedb.org/3/\"")
-            buildConfigField("String", "IMAGE_URL", "\"https://image.tmdb.org/t/p/w780/\"")
-            buildConfigField("String", "THUMBNAIL_IMAGE_URL", "\"https://img.youtube.com/vi/\"")
+            buildConfigField("String", "BASE_URL", "\"${getStringProp("BASE_URL", "https://api.themoviedb.org/3/", "ERROR: BASE_URL is missing")}\"")
+            buildConfigField("String", "API_KEY", "\"${getStringProp("API_KEY", "YOUR_API_KEY", "ERROR: API_KEY is missing")}\"")
+            buildConfigField("String", "IMAGE_URL", "\"${getStringProp("IMAGE_URL", "https://image.tmdb.org/t/p/w780/", "ERROR: IMAGE_URL is missing")}\"")
+            buildConfigField("String", "THUMBNAIL_IMAGE_URL", "\"${getStringProp("THUMBNAIL_IMAGE_URL", "https://img.youtube.com/vi/", "ERROR: THUMBNAIL_IMAGE_URL is missing")}\"")
             buildConfigField("boolean", "ENABLE_CHUCKER", "true")
 
             if (!enableChuckerDev) {
                 logger.warn("ERROR: Chucker must be ENABLED in DEV flavor. Please set enableChuckerDev=true in gradle.properties.")
             }
         }
+
         create("prod") {
             dimension = "version"
 
-            buildConfigField("String", "API_KEY", "\"${project.properties["TMDB_API_KEY"] as String}\"")
-            buildConfigField("String", "BASE_URL", "\"https://api.themoviedb.org/3/\"")
-            buildConfigField("String", "IMAGE_URL", "\"https://image.tmdb.org/t/p/w780/\"")
-            buildConfigField("String", "THUMBNAIL_IMAGE_URL", "\"https://img.youtube.com/vi/\"")
+            buildConfigField("String", "BASE_URL", "\"${getStringProp("BASE_URL", "https://api.themoviedb.org/3/", "ERROR: BASE_URL is missing")}\"")
+            buildConfigField("String", "API_KEY", "\"${getStringProp("API_KEY", "YOUR_API_KEY", "ERROR: API_KEY is missing")}\"")
+            buildConfigField("String", "IMAGE_URL", "\"${getStringProp("IMAGE_URL", "https://image.tmdb.org/t/p/w780/", "ERROR: IMAGE_URL is missing")}\"")
+            buildConfigField("String", "THUMBNAIL_IMAGE_URL", "\"${getStringProp("THUMBNAIL_IMAGE_URL", "https://img.youtube.com/vi/", "ERROR: THUMBNAIL_IMAGE_URL is missing")}\"")
             buildConfigField("boolean", "ENABLE_CHUCKER", "false")
 
             if (enableChuckerProd) {
