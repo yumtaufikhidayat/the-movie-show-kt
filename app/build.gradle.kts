@@ -87,7 +87,7 @@ android {
         create("prod") {
             dimension = "version"
 
-            buildConfigField("String", "API_KEY", "\"YOUR_API_KEY_HERE\"")
+            buildConfigField("String", "API_KEY", "\"${project.properties["TMDB_API_KEY"] as String}\"")
             buildConfigField("String", "BASE_URL", "\"https://api.themoviedb.org/3/\"")
             buildConfigField("String", "IMAGE_URL", "\"https://image.tmdb.org/t/p/w780/\"")
             buildConfigField("String", "THUMBNAIL_IMAGE_URL", "\"https://img.youtube.com/vi/\"")
