@@ -212,7 +212,7 @@ class DetailMovieFragment : Fragment() {
 
                 // Language
                 icTxtLanguage.apply {
-                    setIcon(R.drawable.ic_outline_general_language)
+                    setIcon(R.drawable.ic_outline_spoken_language)
                     requireContext().setIconColor(R.color.colorTextOther)
                     setText(
                         if (movie.spokenLanguages.isEmpty()) {

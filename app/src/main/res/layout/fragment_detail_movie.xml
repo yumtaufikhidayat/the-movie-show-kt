@@ -145,7 +145,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        app:iconSrc="@drawable/ic_outline_general_language"
+                        app:iconSrc="@drawable/ic_outline_spoken_language"
                         app:text="@string/tvLanguage"
                         app:layout_constraintTop_toTopOf="@id/icTxtRating"
                         app:layout_constraintBottom_toBottomOf="@id/icTxtRating"
