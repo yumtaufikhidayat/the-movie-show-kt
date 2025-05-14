@@ -88,12 +88,6 @@ captures/
 .idea/git_toolbox_*.xml
 .idea/render.experimental.xml
 
-
-# Keystore files
-# Uncomment the following lines if you do not want to check your keystore files in.
-#*.jks
-#*.keystore
-
 # External native build folder generated in Android Studio 2.2 and later
 .externalNativeBuild
 
@@ -367,8 +361,11 @@ $RECYCLE.BIN/
 .idea/* text eol=lf
 *.xml text
 
+# Keystore files
 # Sensitive keystore folder and gradle.properties
 /keystore/
 /gradle.properties
+*.jks
+*.keystore
 
-# End of https://www.gitignore.io/api/java,linux,macos,windows,android,intellij,androidstudio
+# End of https://www.gitignore.io/api/java,linux,macos,windows,android,intellij,androidstudiogradle.properties
