@@ -1,46 +1,61 @@
 [versions]
+# Android Core & Compatibility
 android-gradle-plugin = "8.6.1"
 kotlin = "2.0.0"
 core-ktx = "1.16.0"
 appcompat = "1.7.0"
-coroutine-android = "1.9.0"
-flexbox = "3.0.0"
-justified-text = "1.1.0"
-chucker = "4.1.0"
-material = "1.12.0"
 constraintlayout = "2.2.1"
-legacy-support = "1.0.0"
-glide = "4.16.0"
-mockito-inline = "5.2.0"
-nav-ktx = "2.8.9"
-navigation = "2.8.9"
 fragment-ktx = "1.8.6"
-junit = "4.13.2"
-mockito-core = "5.14.1"
-espresso = "3.6.1"
-sql-cipher = "4.5.4"
-lifecycle-ext = "2.2.0"
-lifecycle-ktx = "2.8.7"
+material = "1.12.0"
+legacy-support = "1.0.0"
+preference = "1.2.1"
+flexbox = "3.0.0"
+
+# Jetpack Components
+lifecycle-ktx = "2.9.0"
+lifecycle-ext = "2.9.0"
+navigation = "2.9.0"
+nav-ktx = "2.9.0"
+datastore = "1.1.4"
+datastorePreferences = "1.1.4"
+room = "2.7.1"
+
+# Dependency Injection
+hilt = "2.51.1"
+ksp = "2.0.0-1.0.22"
+
+# Network & API
 retrofit = "2.11.0"
 okhttp = "4.12.0"
+
+# Database & Encryption
+sql-cipher = "4.5.4"
+sqlite = "2.5.0"
+
+# Asynchronous & Coroutines
+coroutines-core = "1.9.0"
+coroutine-android = "1.9.0"
+
+# Firebase Service
+firebase-analytics-ktx = "22.4.0"
+firebase-crashlytics-ktx= "19.4.3"
+crashlytics = "3.0.3"
+google-services = "4.4.2"
+
+# Testing
+junit = "4.13.2"
+mockito-inline = "5.2.0"
 core-testing = "2.2.0"
 test-ext = "1.2.1"
 test-rule = "1.6.1"
 test-runner = "1.6.2"
-toasty = "1.5.2"
-room = "2.7.1"
-sqlite = "2.5.0"
-coroutines-core = "1.9.0"
-hilt = "2.51.1"
-firebase-analytics-ktx = "22.4.0"
-firebase-crashlytics-ktx = "19.4.3"
-crashlytics = "3.0.3"
+
+# UI Enhancement & Utilities
+glide = "4.16.0"
 lottie = "6.6.4"
-google-services = "4.4.2"
-ksp = "2.0.0-1.0.22"
-datastore = "1.1.4"
-datastorePreferences = "1.1.4"
-preference = "1.2.1"
+justified-text = "1.1.0"
+toasty = "1.5.2"
+chucker = "4.1.0"
 
 [libraries]
 android-database-sqlcipher = { module = "net.zetetic:android-database-sqlcipher", version.ref = "sql-cipher" }
@@ -74,9 +89,9 @@ nav-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-
 nav-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "nav-ktx" }
 fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragment-ktx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
-mockito-core = { group = "org.mockito", name = "mockito-core", version.ref = "mockito-core" }
-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso" }
-espresso-contrib = { group = "androidx.test.espresso", name = "espresso-contrib", version.ref = "espresso" }
+#mockito-core = { group = "org.mockito", name = "mockito-core", version.ref = "mockito-core" }
+#espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso" }
+#espresso-contrib = { group = "androidx.test.espresso", name = "espresso-contrib", version.ref = "espresso" }
 lifecycle-extensions = { group = "androidx.lifecycle", name = "lifecycle-extensions", version.ref = "lifecycle-ext" }
 lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle-ktx" }
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
