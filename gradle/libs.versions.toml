@@ -12,10 +12,10 @@ preference = "1.2.1"
 flexbox = "3.0.0"
 
 # Jetpack Components
-lifecycle-ktx = "2.9.0"
-lifecycle-ext = "2.9.0"
-navigation = "2.9.0"
-nav-ktx = "2.9.0"
+lifecycle-ktx = "2.6.2"
+lifecycle-ext = "2.2.0"
+navigation = "2.8.9"
+nav-ktx = "2.8.9"
 datastore = "1.1.4"
 datastorePreferences = "1.1.4"
 room = "2.7.1"
@@ -58,50 +58,67 @@ toasty = "1.5.2"
 chucker = "4.1.0"
 
 [libraries]
-android-database-sqlcipher = { module = "net.zetetic:android-database-sqlcipher", version.ref = "sql-cipher" }
-androidx-core-testing = { module = "androidx.arch.core:core-testing", version.ref = "core-testing" }
-androidx-junit = { module = "androidx.test.ext:junit", version.ref = "test-ext" }
-androidx-lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycle-ktx" }
-androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
-androidx-room-testing = { module = "androidx.room:room-testing", version.ref = "room" }
-androidx-rules = { module = "androidx.test:rules", version.ref = "test-rule" }
-androidx-runner = { module = "androidx.test:runner", version.ref = "test-runner" }
-androidx-sqlite-ktx = { module = "androidx.sqlite:sqlite-ktx", version.ref = "sqlite" }
-converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
-firebase-analytics-ktx = { module = "com.google.firebase:firebase-analytics-ktx", version.ref = "firebase-analytics-ktx" }
-firebase-crashlytics-ktx = { module = "com.google.firebase:firebase-crashlytics-ktx", version.ref = "firebase-crashlytics-ktx" }
-flexbox = { module = "com.google.android.flexbox:flexbox", version.ref = "flexbox" }
-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
-justifiedtextview = { module = "com.codesgood:justifiedtextview", version.ref = "justified-text" }
-kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutine-android" }
-chucker = { module = "com.github.chuckerteam.chucker:library", version.ref = "chucker" }
-chucker-no-op = { module = "com.github.chuckerteam.chucker:library-no-op", version.ref = "chucker" }
-logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp" }
-mockito-inline = { module = "org.mockito:mockito-inline", version.ref = "mockito-inline" }
-navigation-safe-args = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navigation" }
+# Android Core & Compatibility
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 legacy-support = { group = "androidx.legacy", name = "legacy-support-v4", version.ref = "legacy-support" }
-glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
+fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragment-ktx" }
+flexbox = { module = "com.google.android.flexbox:flexbox", version.ref = "flexbox" }
+
+# Jetpack Components
+lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle-ktx" }
+lifecycle-extensions = { group = "androidx.lifecycle", name = "lifecycle-extensions", version.ref = "lifecycle-ext" }
+androidx-lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycle-ktx" }
 nav-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "nav-ktx" }
 nav-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "nav-ktx" }
-fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragment-ktx" }
-junit = { group = "junit", name = "junit", version.ref = "junit" }
-lifecycle-extensions = { group = "androidx.lifecycle", name = "lifecycle-extensions", version.ref = "lifecycle-ext" }
-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle-ktx" }
-retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
-okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
-toasty = { group = "com.github.GrenderG", name = "Toasty", version.ref = "toasty" }
-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines-core" }
-hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
-lottie = { group = "com.airbnb.android", name = "lottie", version.ref = "lottie" }
+navigation-safe-args = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navigation" }
 datastore = { group = "androidx.datastore", name = "datastore-preferences-core", version.ref = "datastore" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
 androidx-preference = { group = "androidx.preference", name = "preference", version.ref = "preference" }
+room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+androidx-room-testing = { module = "androidx.room:room-testing", version.ref = "room" }
+
+# Dependency Injection
+hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
+hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
+
+# Network & API
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
+logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp" }
+
+# Database & Encryption
+android-database-sqlcipher = { module = "net.zetetic:android-database-sqlcipher", version.ref = "sql-cipher" }
+androidx-sqlite-ktx = { module = "androidx.sqlite:sqlite-ktx", version.ref = "sqlite" }
+
+# Asynchronous & Coroutines
+coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines-core" }
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutine-android" }
+
+# Firebase Service
+firebase-analytics-ktx = { module = "com.google.firebase:firebase-analytics-ktx", version.ref = "firebase-analytics-ktx" }
+firebase-crashlytics-ktx = { module = "com.google.firebase:firebase-crashlytics-ktx", version.ref = "firebase-crashlytics-ktx" }
+
+# Testing
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+mockito-inline = { module = "org.mockito:mockito-inline", version.ref = "mockito-inline" }
+androidx-core-testing = { module = "androidx.arch.core:core-testing", version.ref = "core-testing" }
+androidx-junit = { module = "androidx.test.ext:junit", version.ref = "test-ext" }
+androidx-rules = { module = "androidx.test:rules", version.ref = "test-rule" }
+androidx-runner = { module = "androidx.test:runner", version.ref = "test-runner" }
+
+# UI Enhancement & Utilities
+glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
+lottie = { group = "com.airbnb.android", name = "lottie", version.ref = "lottie" }
+justifiedtextview = { module = "com.codesgood:justifiedtextview", version.ref = "justified-text" }
+toasty = { group = "com.github.GrenderG", name = "Toasty", version.ref = "toasty" }
+chucker = { module = "com.github.chuckerteam.chucker:library", version.ref = "chucker" }
+chucker-no-op = { module = "com.github.chuckerteam.chucker:library-no-op", version.ref = "chucker" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }
