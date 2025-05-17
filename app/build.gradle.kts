@@ -144,10 +144,7 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.runner)
     androidTestImplementation(libs.androidx.rules)
-    androidTestImplementation(libs.espresso.core)
-    androidTestImplementation(libs.espresso.contrib)
     testImplementation(libs.androidx.core.testing)
-    testImplementation(libs.mockito.core)
     testImplementation(libs.mockito.inline)
 
     // Justified text view
