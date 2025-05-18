@@ -16,6 +16,7 @@ import com.taufik.themovieshow.databinding.ActivityMainBinding
 import com.taufik.themovieshow.ui.language.bottomsheet.LanguageBottomSheetDialog.Companion.LANGUAGE_CHANGED
 import com.taufik.themovieshow.ui.language.bottomsheet.LanguageBottomSheetDialog.Companion.SUCCESS_CHANGE_LANGUAGE
 import com.taufik.themovieshow.utils.extensions.applySystemBarInsets
+import com.taufik.themovieshow.utils.extensions.navigateReplacingSplash
 import com.taufik.themovieshow.utils.extensions.showSuccessToasty
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
@@ -35,16 +36,22 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             else -> showBottomNavigation(true)
         }
     }
+    private var hasHandledLanguageChange = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (intent.getBooleanExtra(SUCCESS_CHANGE_LANGUAGE, false)) {
+        if (!hasHandledLanguageChange && intent.getBooleanExtra(SUCCESS_CHANGE_LANGUAGE, false)) {
+            hasHandledLanguageChange = true
+
             showSuccessToasty(getString(R.string.tvSuccesfullyChangedLanguage))
+
+            // Prevent future execution
             intent.removeExtra(SUCCESS_CHANGE_LANGUAGE)
+
             lifecycleScope.launch {
-                delay(100)
-                navController?.navigate(R.id.movieFragment)
+                delay(NAVIGATION_DELAY)
+                navController?.navigateReplacingSplash(R.id.movieFragment)
             }
         }
     }
@@ -65,6 +72,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         setUpNavigationDestination()
 
         if (intent.getBooleanExtra(LANGUAGE_CHANGED, false)) {
+            intent.removeExtra(LANGUAGE_CHANGED)
             lifecycleScope.launch {
                 delay(100)
                 navController?.navigate(R.id.movieFragment)
@@ -103,5 +111,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         navController?.removeOnDestinationChangedListener(navControllerDestination)
         navController = null
         super.onDestroy()
+    }
+
+    companion object {
+        const val NAVIGATION_DELAY = 100L
     }
 }
