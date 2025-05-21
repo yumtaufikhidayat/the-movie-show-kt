@@ -11,10 +11,11 @@
         android:id="@+id/toolbarDetailMovie"
         layout="@layout/toolbar_detail_general" />
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:overScrollMode="never"
+        android:fillViewport="true"
         app:layout_constraintTop_toBottomOf="@id/toolbarDetailMovie"
         app:layout_constraintBottom_toBottomOf="parent">
 
@@ -328,6 +329,7 @@
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="6dp"
                 android:scrollbars="none"
+                android:nestedScrollingEnabled="false"
                 tools:itemCount="1"
                 tools:listitem="@layout/item_similar_movie_and_cast"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -388,7 +390,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="6dp"
-                android:orientation="horizontal"
+                android:nestedScrollingEnabled="false"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintTop_toBottomOf="@id/tvNoVideo"
                 tools:itemCount="2"
@@ -447,6 +449,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="6dp"
+                android:nestedScrollingEnabled="false"
                 tools:itemCount="1"
                 tools:listitem="@layout/item_reviews"
                 app:layout_constraintEnd_toEndOf="@id/tvReviewsTitle"
@@ -528,15 +531,15 @@
                 android:layout_marginTop="6dp"
                 android:layout_marginBottom="12dp"
                 android:scrollbars="none"
+                android:nestedScrollingEnabled="false"
                 tools:itemCount="1"
                 tools:listitem="@layout/item_similar_movie_and_cast"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvNoSimilar" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
     <include
         android:id="@+id/layoutError"
