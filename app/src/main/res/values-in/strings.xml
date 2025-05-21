@@ -57,9 +57,10 @@
     <string name="tvNoSimilarTvShows">Tidak ada acara TV lain tersedia</string>
     <string name="tvNoVideo">Tidak ada cuplikan video tersedia</string>
     <string name="tvNA">N/A</string>
-    <string name="tvNoFavoriteData">Oops! Belum ada data favorit…</string>
-    <string name="tvSaveFavoriteMovie">Belum ada film favorit. Tambahkan film favoritmu di sini.</string>
-    <string name="tvSaveFavoriteTvShows">Belum ada acara TV favorit. Tambahkan acara TV favoritmu di sini.</string>
+    <string name="tvNoFavoriteMovie">Oops! Belum ada film favorit…</string>
+    <string name="tvNoFavoriteTvShow">Oops! Belum ada acara TV favorit…</string>
+    <string name="tvSaveFavoriteMovie">Film favorit yang disimpan akan muncul disini</string>
+    <string name="tvSaveFavoriteTvShows">Acara TV favorit yang disimpan akan muncul disini</string>
     <string name="tvOopsNoResults">Oops! Tidak ada hasil ditemukan…</string>
     <string name="tvNoSearchData">Tidak ditemukan hasil pencarian. Coba kata kunci lain.</string>
     <string name="tvShareWith">Bagikan dengan:</string>

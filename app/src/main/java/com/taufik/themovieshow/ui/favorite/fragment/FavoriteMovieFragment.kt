@@ -140,7 +140,7 @@ class FavoriteMovieFragment : Fragment() {
                     root.isVisible = true
                     tvErrorTitle.apply {
                         isVisible = true
-                        text = getString(R.string.tvNoFavoriteData)
+                        text = getString(R.string.tvNoFavoriteMovie)
                         setTextColor(ContextCompat.getColor(requireContext(), R.color.colorOrange))
                     }
                     tvErrorDesc.apply {
