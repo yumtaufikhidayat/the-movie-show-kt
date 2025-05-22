@@ -17,9 +17,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.ui.common.adapter.TabPagerAdapter
-import com.taufik.themovieshow.ui.detail.movie.fragment.DetailMovieFragment
 import com.taufik.themovieshow.ui.detail.movie_tvshow.fragment.DetailMovieTvShowBindingFragment
-import com.taufik.themovieshow.ui.detail.tvshow.fragment.DetailTvShowFragment
 import com.taufik.themovieshow.utils.enums.FROM
 
 fun Fragment.navigateToDetailMovieTvShow(id: Int, title: String, from: FROM) {
@@ -37,22 +35,6 @@ fun Fragment.navigateToDetailMovieTvShow(id: Int, title: String, from: FROM) {
             }
         }
     )
-}
-
-fun Fragment.navigateToDetailMovie(id: Int, title: String) {
-    val bundle = bundleOf(
-        DetailMovieFragment.EXTRA_ID to id,
-        DetailMovieFragment.EXTRA_TITLE to title
-    )
-    this.findNavController().navigate(R.id.detailMovieFragment, bundle)
-}
-
-fun Fragment.navigateToDetailTvShow(id: Int, title: String) {
-    val bundle = bundleOf(
-        DetailTvShowFragment.EXTRA_ID to id,
-        DetailTvShowFragment.EXTRA_TITLE to title
-    )
-    this.findNavController().navigate(R.id.detailTvShowFragment, bundle)
 }
 
 fun Fragment.popBackStack() = findNavController().popBackStack()
