@@ -30,8 +30,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     private val navControllerDestination = NavController.OnDestinationChangedListener { _, destination, _ ->
         when (destination.id) {
             R.id.splashScreenFragment,
-            R.id.detailMovieFragment,
-            R.id.detailTvShowFragment,
             R.id.discoverMovieFragment,
             R.id.discoverTvShowFragment,
             R.id.detailMovieTvShowFragment -> showBottomNavigation(false)
