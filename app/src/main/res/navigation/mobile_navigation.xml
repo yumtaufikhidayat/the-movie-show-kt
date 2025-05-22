@@ -35,11 +35,8 @@
         android:label="Movies"
         tools:layout="@layout/fragment_movie" >
         <action
-            android:id="@+id/action_movieFragment_to_detailMovieFragment"
-            app:destination="@id/detailMovieFragment" />
-        <action
-            android:id="@+id/action_movieFragment_to_detailMovieFragment2"
-            app:destination="@id/detailMovieFragment" />
+            android:id="@+id/action_movieFragment_to_detailMovieTvShowFragment"
+            app:destination="@id/detailMovieTvShowFragment" />
     </fragment>
     <fragment
         android:id="@+id/tvShowFragment"
@@ -47,28 +44,23 @@
         android:label="TV Shows"
         tools:layout="@layout/fragment_tv_show" >
         <action
-            android:id="@+id/action_tvShowFragment_to_detailTvShowFragment"
-            app:destination="@id/detailTvShowFragment" />
+            android:id="@+id/action_tvShowFragment_to_detailMovieTvShowFragment"
+            app:destination="@id/detailMovieTvShowFragment" />
     </fragment>
     <fragment
         android:id="@+id/favoriteFragment"
         android:name="com.taufik.themovieshow.ui.favorite.fragment.FavoriteFragment"
         android:label="Favorite"
-        tools:layout="@layout/fragment_favorite" />
+        tools:layout="@layout/fragment_favorite">
+        <action
+            android:id="@+id/action_favoriteFragment_to_detailMovieTvShowFragment"
+            app:destination="@id/detailMovieTvShowFragment" />
+    </fragment>
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.taufik.themovieshow.ui.about.fragment.AboutFragment"
         android:label="About"
         tools:layout="@layout/fragment_about" />
-    <fragment
-        android:id="@+id/detailTvShowFragment"
-        android:name="com.taufik.themovieshow.ui.detail.tvshow.fragment.DetailTvShowFragment"
-        tools:layout="@layout/fragment_detail_tv_show" />
-    <fragment
-        android:id="@+id/detailMovieFragment"
-        android:name="com.taufik.themovieshow.ui.detail.movie.fragment.DetailMovieFragment"
-        android:label="fragment_detail_movie"
-        tools:layout="@layout/fragment_detail_movie" />
     <fragment
         android:id="@+id/detailMovieTvShowFragment"
         android:name="com.taufik.themovieshow.ui.detail.movie_tvshow.fragment.DetailMovieTvShowBindingFragment"
@@ -80,8 +72,8 @@
         android:label="fragment_discover_movie"
         tools:layout="@layout/fragment_discover_movie" >
         <action
-            android:id="@+id/action_discoverMovieFragment_to_detailMovieFragment"
-            app:destination="@id/detailMovieFragment" />
+            android:id="@+id/action_discoverMovieFragment_to_detailMovieTvShowFragment"
+            app:destination="@id/detailMovieTvShowFragment" />
     </fragment>
     <fragment
         android:id="@+id/discoverTvShowFragment"
@@ -89,8 +81,26 @@
         android:label="fragment_discover_tv_show"
         tools:layout="@layout/fragment_discover_tv_show" >
         <action
-            android:id="@+id/action_discoverTvShowFragment_to_detailTvShowFragment"
-            app:destination="@id/detailTvShowFragment" />
+            android:id="@+id/action_discoverTvShowFragment_to_detailMovieTvShowFragment"
+            app:destination="@id/detailMovieTvShowFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoriteMovieFragment"
+        android:name="com.taufik.themovieshow.ui.favorite.fragment.FavoriteMovieFragment"
+        android:label="fragment_favorite_movie"
+        tools:layout="@layout/fragment_favorite_movie" >
+        <action
+            android:id="@+id/action_favoriteMovieFragment_to_detailMovieTvShowFragment"
+            app:destination="@id/detailMovieTvShowFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoriteTvShowsFragment"
+        android:name="com.taufik.themovieshow.ui.favorite.fragment.FavoriteTvShowsFragment"
+        android:label="fragment_favorite_tv_shows"
+        tools:layout="@layout/fragment_favorite_tv_shows" >
+        <action
+            android:id="@+id/action_favoriteTvShowsFragment_to_detailMovieTvShowFragment"
+            app:destination="@id/detailMovieTvShowFragment" />
     </fragment>
 
 </navigation>
