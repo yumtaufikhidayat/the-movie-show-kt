@@ -3,12 +3,11 @@ package com.taufik.themovieshow.ui.splashscreen
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.taufik.themovieshow.R
+import com.taufik.themovieshow.base.BaseFragment
 import com.taufik.themovieshow.databinding.FragmentSplashScreenBinding
 import com.taufik.themovieshow.utils.extensions.applySystemBarBottomPadding
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,24 +16,15 @@ import kotlinx.coroutines.launch
 import kotlin.time.Duration.Companion.seconds
 
 @AndroidEntryPoint
-class SplashScreenFragment : Fragment() {
+class SplashScreenFragment : BaseFragment<FragmentSplashScreenBinding>() {
 
-    private var _binding: FragmentSplashScreenBinding? = null
-    private val binding get() = _binding!!
-
-    override fun onCreateView(
+    override fun inflateBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentSplashScreenBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+        container: ViewGroup?
+    ): FragmentSplashScreenBinding = FragmentSplashScreenBinding.inflate(inflater, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onFragmentReady(savedInstanceState: Bundle?) {
         applySystemBarBottomPadding()
-
         navigateToMovie()
         setAppVersion()
     }
@@ -57,10 +47,5 @@ class SplashScreenFragment : Fragment() {
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

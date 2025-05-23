@@ -2,11 +2,10 @@ package com.taufik.themovieshow.ui.movie.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.taufik.themovieshow.base.BaseFragment
 import com.taufik.themovieshow.data.NetworkResult
 import com.taufik.themovieshow.databinding.FragmentMovieTvShowsListBinding
 import com.taufik.themovieshow.ui.movie.adapter.MovieTrendingAdapter
@@ -21,27 +20,18 @@ import com.taufik.themovieshow.utils.extensions.showView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MovieTrendingFragment : Fragment() {
-
-    private var _binding: FragmentMovieTvShowsListBinding? = null
-    private val binding get() = _binding
+class MovieTrendingFragment : BaseFragment<FragmentMovieTvShowsListBinding>() {
 
     private val viewModel by viewModels<MovieViewModel>()
     private val detailMovieViewModel by viewModels<DetailMovieViewModel>()
     private var movieTrendingAdapter: MovieTrendingAdapter? = null
 
-    override fun onCreateView(
+    override fun inflateBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentMovieTvShowsListBinding.inflate(inflater, container, false)
-        return binding?.root
-    }
+        container: ViewGroup?
+    ): FragmentMovieTvShowsListBinding = FragmentMovieTvShowsListBinding.inflate(inflater, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun onFragmentReady(savedInstanceState: Bundle?) {
         initAdapter()
         setMovieTrendingObserver()
     }
@@ -55,7 +45,7 @@ class MovieTrendingFragment : Fragment() {
             navigateToDetailMovie(detailMovieViewModel.idMovie, detailMovieViewModel.titleMovie)
         }
 
-        binding?.rvCommon?.apply {
+        binding.rvCommon.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
             adapter = movieTrendingAdapter
@@ -63,7 +53,7 @@ class MovieTrendingFragment : Fragment() {
     }
 
     private fun setMovieTrendingObserver() {
-        binding?.apply {
+        binding.apply {
             viewModel.getMovieTrendingDay.observe(viewLifecycleOwner) {
                 when (it) {
                     is NetworkResult.Loading -> pbLoading.showView()
@@ -88,7 +78,6 @@ class MovieTrendingFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
         movieTrendingAdapter = null
     }
 }

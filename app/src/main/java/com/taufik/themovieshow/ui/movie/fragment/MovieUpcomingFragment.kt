@@ -2,11 +2,10 @@ package com.taufik.themovieshow.ui.movie.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.taufik.themovieshow.base.BaseFragment
 import com.taufik.themovieshow.data.NetworkResult
 import com.taufik.themovieshow.databinding.FragmentMovieTvShowsListBinding
 import com.taufik.themovieshow.ui.movie.adapter.MovieAdapter
@@ -21,27 +20,18 @@ import com.taufik.themovieshow.utils.extensions.showView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MovieUpcomingFragment : Fragment() {
-
-    private var _binding : FragmentMovieTvShowsListBinding? = null
-    private val binding get() = _binding
+class MovieUpcomingFragment : BaseFragment<FragmentMovieTvShowsListBinding>() {
 
     private val viewModel by viewModels<MovieViewModel>()
     private val detailMovieViewModel by viewModels<DetailMovieViewModel>()
     private var movieAdapter: MovieAdapter? = null
 
-    override fun onCreateView(
+    override fun inflateBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentMovieTvShowsListBinding.inflate(inflater, container, false)
-        return binding?.root
-    }
+        container: ViewGroup?
+    ): FragmentMovieTvShowsListBinding = FragmentMovieTvShowsListBinding.inflate(inflater, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun onFragmentReady(savedInstanceState: Bundle?) {
         setAdapter()
         setData()
     }
@@ -54,7 +44,7 @@ class MovieUpcomingFragment : Fragment() {
             }
             navigateToDetailMovie(detailMovieViewModel.idMovie, detailMovieViewModel.titleMovie)
         }
-        binding?.rvCommon?.apply {
+        binding.rvCommon.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
             adapter = movieAdapter
@@ -62,7 +52,7 @@ class MovieUpcomingFragment : Fragment() {
     }
 
     private fun setData() {
-        binding?.apply {
+        binding.apply {
             viewModel.getMovieUpcoming.observe(viewLifecycleOwner) {
                 when (it) {
                     is NetworkResult.Loading -> pbLoading.showView()
@@ -87,7 +77,6 @@ class MovieUpcomingFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
         movieAdapter = null
     }
 }

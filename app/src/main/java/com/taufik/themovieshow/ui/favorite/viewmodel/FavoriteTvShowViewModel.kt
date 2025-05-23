@@ -36,5 +36,6 @@ class FavoriteTvShowViewModel @Inject constructor(
 
     companion object {
         var position = 0
+        const val DELAY_SCROLL_TO_TOP_POSITION = 100L
     }
 }

@@ -5,18 +5,17 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.taufik.themovieshow.R
+import com.taufik.themovieshow.base.BaseFragment
 import com.taufik.themovieshow.data.NetworkResult
 import com.taufik.themovieshow.databinding.FragmentDiscoverMovieBinding
 import com.taufik.themovieshow.model.response.movie.discover.DiscoverMovieResult
@@ -27,27 +26,18 @@ import com.taufik.themovieshow.utils.extensions.navigateToDetailMovie
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class DiscoverMovieFragment : Fragment() {
-
-    private var _binding: FragmentDiscoverMovieBinding? = null
-    private val binding get() = _binding!!
+class DiscoverMovieFragment : BaseFragment<FragmentDiscoverMovieBinding>() {
 
     private val viewModel by viewModels<MovieViewModel>()
     private val detailMovieViewModel by viewModels<DetailMovieViewModel>()
     private var discoverMovieAdapter: DiscoverMovieAdapter? = null
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        // Inflate the layout for this fragment
-        _binding = FragmentDiscoverMovieBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+    override fun inflateBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentDiscoverMovieBinding = FragmentDiscoverMovieBinding.inflate(inflater, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun onFragmentReady(savedInstanceState: Bundle?) {
         initToolbar()
         initAdapter()
         initSearch()
@@ -198,10 +188,5 @@ class DiscoverMovieFragment : Fragment() {
                 setTextColor(ContextCompat.getColor(requireContext(), R.color.colorOrange))
             }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

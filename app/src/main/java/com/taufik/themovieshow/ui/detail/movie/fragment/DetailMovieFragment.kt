@@ -3,17 +3,16 @@ package com.taufik.themovieshow.ui.detail.movie.fragment
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.SnapHelper
 import com.taufik.themovieshow.R
+import com.taufik.themovieshow.base.BaseFragment
 import com.taufik.themovieshow.data.NetworkResult
 import com.taufik.themovieshow.databinding.FragmentDetailMovieBinding
 import com.taufik.themovieshow.model.response.movie.detail.MovieDetailResponse
@@ -41,10 +40,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class DetailMovieFragment : Fragment() {
-
-    private var _binding: FragmentDetailMovieBinding? = null
-    private val binding get() = _binding!!
+class DetailMovieFragment : BaseFragment<FragmentDetailMovieBinding>() {
 
     private val viewModel: DetailMovieViewModel by viewModels()
     private val castAdapter by lazy { MovieCastAdapter() }
@@ -62,17 +58,12 @@ class DetailMovieFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
+    override fun inflateBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentDetailMovieBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+        container: ViewGroup?
+    ): FragmentDetailMovieBinding = FragmentDetailMovieBinding.inflate(inflater, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onFragmentReady(savedInstanceState: Bundle?) {
         applySystemBarBottomPadding()
 
         requireActivity().onBackPressedDispatcher.addCallback(
@@ -489,7 +480,6 @@ class DetailMovieFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
         trailerVideoAdapter = null
         similarAdapter = null
     }

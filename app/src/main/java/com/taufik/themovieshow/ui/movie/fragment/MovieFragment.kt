@@ -2,15 +2,14 @@ package com.taufik.themovieshow.ui.movie.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.StringRes
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.taufik.themovieshow.R
+import com.taufik.themovieshow.base.BaseFragment
 import com.taufik.themovieshow.databinding.FragmentMovieBinding
 import com.taufik.themovieshow.ui.tablayout.MovieTvShowTabViewModel
 import com.taufik.themovieshow.utils.extensions.setupTabLayoutBinding
@@ -21,10 +20,8 @@ import kotlinx.coroutines.launch
 import kotlin.time.Duration.Companion.seconds
 
 @AndroidEntryPoint
-class MovieFragment : Fragment() {
+class MovieFragment : BaseFragment<FragmentMovieBinding>() {
 
-    private var _binding: FragmentMovieBinding? = null
-    private val binding get() = _binding!!
     private var doubleBackToExitPressedOnce = false
     private val movieTvShowTabViewModel: MovieTvShowTabViewModel by viewModels()
 
@@ -45,21 +42,17 @@ class MovieFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
+    override fun inflateBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentMovieBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+        container: ViewGroup?
+    ): FragmentMovieBinding = FragmentMovieBinding.inflate(inflater, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onFragmentReady(savedInstanceState: Bundle?) {
         requireActivity().onBackPressedDispatcher.addCallback(
             viewLifecycleOwner,
             backPressedCallback
         )
+
         setToolbar()
         setTabLayout()
         setActionClick()
@@ -92,11 +85,6 @@ class MovieFragment : Fragment() {
         binding.fabMovie.setOnClickListener {
             findNavController().navigate(R.id.discoverMovieFragment)
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     companion object {

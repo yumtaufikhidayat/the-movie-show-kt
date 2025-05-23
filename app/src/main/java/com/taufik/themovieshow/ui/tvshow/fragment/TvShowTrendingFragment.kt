@@ -2,11 +2,10 @@ package com.taufik.themovieshow.ui.tvshow.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.taufik.themovieshow.base.BaseFragment
 import com.taufik.themovieshow.data.NetworkResult
 import com.taufik.themovieshow.databinding.FragmentMovieTvShowsListBinding
 import com.taufik.themovieshow.ui.tvshow.adapter.TvShowsTrendingAdapter
@@ -21,27 +20,18 @@ import com.taufik.themovieshow.utils.extensions.showView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class TvShowTrendingFragment : Fragment() {
-
-    private var _binding: FragmentMovieTvShowsListBinding? = null
-    private val binding get() = _binding
+class TvShowTrendingFragment : BaseFragment<FragmentMovieTvShowsListBinding>() {
 
     private val viewModel by viewModels<TvShowsViewModel>()
     private val detailTvShowViewModel by viewModels<DetailTvShowViewModel>()
     private var tvShowsTrendingAdapter: TvShowsTrendingAdapter? = null
 
-    override fun onCreateView(
+    override fun inflateBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentMovieTvShowsListBinding.inflate(inflater, container, false)
-        return binding?.root
-    }
+        container: ViewGroup?
+    ): FragmentMovieTvShowsListBinding = FragmentMovieTvShowsListBinding.inflate(inflater, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun onFragmentReady(savedInstanceState: Bundle?) {
         setAdapter()
         setData()
     }
@@ -58,7 +48,7 @@ class TvShowTrendingFragment : Fragment() {
             )
         }
 
-        binding?.rvCommon?.apply {
+        binding.rvCommon.apply {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
             adapter = tvShowsTrendingAdapter
@@ -66,7 +56,7 @@ class TvShowTrendingFragment : Fragment() {
     }
 
     private fun setData() {
-        binding?.apply {
+        binding.apply {
             viewModel.getTvShowsTrending().observe(viewLifecycleOwner) {
                 when (it) {
                     is NetworkResult.Loading -> pbLoading.showView()
@@ -91,7 +81,6 @@ class TvShowTrendingFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
         tvShowsTrendingAdapter = null
     }
 }
