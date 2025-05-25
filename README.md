@@ -19,6 +19,7 @@ The Movie Show is an Android catalogue app with plenty of movies and tv shows co
     - Video trailer/video teaser
     - Rating
     - Genre
+    - Age rating
     - Runtime
     - Episodes
     - Language
