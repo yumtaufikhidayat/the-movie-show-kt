@@ -20,7 +20,7 @@
     <string name="tvBullet">\u2022</string>
     <string name="tvAgeRating">Age Rating</string>
     <string name="tvAdults">18+</string>
-    <string name="tvAllAges">G – Suitable for all ages</string>
+    <string name="tvAllAges">G – All ages admitted</string>
     <string name="tvRuntime">Runtime</string>
     <string name="tvProducedBy">Produced Companies</string>
     <string name="tvGenre">Genre(s)</string>
