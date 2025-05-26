@@ -17,7 +17,7 @@ data class TvShowsSimilarResultsItem(
     val genreIds: List<Int>,
 
     @SerializedName("poster_path")
-    val posterPath: String,
+    val posterPath: String? = null,
 
     @SerializedName("origin_country")
     val originCountry: List<String>,

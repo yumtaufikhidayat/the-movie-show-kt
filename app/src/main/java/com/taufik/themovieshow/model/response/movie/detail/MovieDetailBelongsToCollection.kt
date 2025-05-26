@@ -11,5 +11,5 @@ data class MovieDetailBelongsToCollection(
     @SerializedName("name")
     val name: String,
     @SerializedName("poster_path")
-    val posterPath: String
+    val posterPath: String? = null
 )
