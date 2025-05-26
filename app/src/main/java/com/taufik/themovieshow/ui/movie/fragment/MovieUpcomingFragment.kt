@@ -5,16 +5,17 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.taufik.themovieshow.base.BaseFragment
+import com.taufik.themovieshow.base.fragment.BaseFragment
 import com.taufik.themovieshow.data.NetworkResult
 import com.taufik.themovieshow.databinding.FragmentMovieTvShowsListBinding
+import com.taufik.themovieshow.ui.detail.movie_tvshow.fragment.DetailMovieTvShowBindingFragment.Companion.FROM
+import com.taufik.themovieshow.ui.detail.movie_tvshow.viewmodel.DetailMovieTvShowViewModel
 import com.taufik.themovieshow.ui.movie.adapter.MovieAdapter
-import com.taufik.themovieshow.ui.movie.viewmodel.DetailMovieViewModel
 import com.taufik.themovieshow.ui.movie.viewmodel.MovieViewModel
 import com.taufik.themovieshow.utils.CommonDateFormatConstants
 import com.taufik.themovieshow.utils.extensions.filterAndSortByDate
 import com.taufik.themovieshow.utils.extensions.hideView
-import com.taufik.themovieshow.utils.extensions.navigateToDetailMovie
+import com.taufik.themovieshow.utils.extensions.navigateToDetailMovieTvShow
 import com.taufik.themovieshow.utils.extensions.showError
 import com.taufik.themovieshow.utils.extensions.showView
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MovieUpcomingFragment : BaseFragment<FragmentMovieTvShowsListBinding>() {
 
     private val viewModel by viewModels<MovieViewModel>()
-    private val detailMovieViewModel by viewModels<DetailMovieViewModel>()
+    private val detailMovieTvShowViewModel by viewModels<DetailMovieTvShowViewModel>()
     private var movieAdapter: MovieAdapter? = null
 
     override fun inflateBinding(
@@ -38,11 +39,15 @@ class MovieUpcomingFragment : BaseFragment<FragmentMovieTvShowsListBinding>() {
 
     private fun setAdapter() {
         movieAdapter = MovieAdapter {
-            detailMovieViewModel.apply {
-                idMovie = it.id
-                titleMovie = it.title
+            detailMovieTvShowViewModel.apply {
+                idMovieTvShow = it.id
+                titleMovieTvShow = it.title
             }
-            navigateToDetailMovie(detailMovieViewModel.idMovie, detailMovieViewModel.titleMovie)
+            navigateToDetailMovieTvShow(
+                detailMovieTvShowViewModel.idMovieTvShow,
+                detailMovieTvShowViewModel.titleMovieTvShow,
+                FROM.MOVIE
+            )
         }
         binding.rvCommon.apply {
             layoutManager = LinearLayoutManager(requireContext())

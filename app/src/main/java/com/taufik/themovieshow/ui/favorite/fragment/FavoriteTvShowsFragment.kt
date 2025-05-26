@@ -15,17 +15,17 @@ import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import com.taufik.themovieshow.R
-import com.taufik.themovieshow.base.BaseFragment
+import com.taufik.themovieshow.base.fragment.BaseFragment
 import com.taufik.themovieshow.data.local.entity.tvshow.FavoriteTvShowEntity
 import com.taufik.themovieshow.databinding.FragmentFavoriteTvShowsBinding
 import com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResult
+import com.taufik.themovieshow.ui.detail.movie_tvshow.fragment.DetailMovieTvShowBindingFragment.Companion.FROM
+import com.taufik.themovieshow.ui.detail.movie_tvshow.viewmodel.DetailMovieTvShowViewModel
 import com.taufik.themovieshow.ui.favorite.adapter.FavoriteTvShowsAdapter
 import com.taufik.themovieshow.ui.favorite.adapter.SortFilteringAdapter
 import com.taufik.themovieshow.ui.favorite.viewmodel.FavoriteTvShowViewModel
-import com.taufik.themovieshow.ui.favorite.viewmodel.FavoriteTvShowViewModel.Companion.DELAY_SCROLL_TO_TOP_POSITION
-import com.taufik.themovieshow.ui.tvshow.viewmodel.DetailTvShowViewModel
 import com.taufik.themovieshow.utils.extensions.hideKeyboard
-import com.taufik.themovieshow.utils.extensions.navigateToDetailTvShow
+import com.taufik.themovieshow.utils.extensions.navigateToDetailMovieTvShow
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -34,17 +34,18 @@ import kotlinx.coroutines.launch
 class FavoriteTvShowsFragment : BaseFragment<FragmentFavoriteTvShowsBinding>() {
 
     private val viewModel: FavoriteTvShowViewModel by viewModels(ownerProducer = { requireParentFragment() })
-    private val detailTvShowViewModel by viewModels<DetailTvShowViewModel>()
+    private val detailMovieTvShowViewModel by viewModels<DetailMovieTvShowViewModel>()
     private val sortFilteringAdapter by lazy { SortFilteringAdapter { showFilteringData(it) } }
     private val favoriteTvShowsAdapter by lazy {
         FavoriteTvShowsAdapter {
-            detailTvShowViewModel.apply {
-                idTvShow = it.id
-                titleTvShow = it.name
+            detailMovieTvShowViewModel.apply {
+                idMovieTvShow = it.id
+                titleMovieTvShow = it.name
             }
-            navigateToDetailTvShow(
-                detailTvShowViewModel.idTvShow,
-                detailTvShowViewModel.titleTvShow
+            navigateToDetailMovieTvShow(
+                detailMovieTvShowViewModel.idMovieTvShow,
+                detailMovieTvShowViewModel.titleMovieTvShow,
+                FROM.TV_SHOW
             )
         }
     }
@@ -79,7 +80,7 @@ class FavoriteTvShowsFragment : BaseFragment<FragmentFavoriteTvShowsBinding>() {
             justifyContent = JustifyContent.FLEX_START
         }
 
-        binding.rvSortFiltering?.apply {
+        binding.rvSortFiltering.apply {
             layoutManager = flexLayoutManager
             setHasFixedSize(true)
             isNestedScrollingEnabled = true
@@ -101,8 +102,8 @@ class FavoriteTvShowsFragment : BaseFragment<FragmentFavoriteTvShowsBinding>() {
 
     private fun scrollToTopPositionItem() {
         lifecycleScope.launch {
-            delay(DELAY_SCROLL_TO_TOP_POSITION)
-            binding.rvDiscoverFavoriteTvShow?.smoothScrollToPosition(0)
+            delay(DetailMovieTvShowViewModel.DELAY_SCROLL_TO_TOP_POSITION)
+            binding.rvDiscoverFavoriteTvShow.smoothScrollToPosition(0)
         }
     }
 

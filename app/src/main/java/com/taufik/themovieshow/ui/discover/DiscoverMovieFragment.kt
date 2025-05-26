@@ -15,21 +15,22 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.taufik.themovieshow.R
-import com.taufik.themovieshow.base.BaseFragment
+import com.taufik.themovieshow.base.fragment.BaseFragment
 import com.taufik.themovieshow.data.NetworkResult
 import com.taufik.themovieshow.databinding.FragmentDiscoverMovieBinding
 import com.taufik.themovieshow.model.response.movie.discover.DiscoverMovieResult
+import com.taufik.themovieshow.ui.detail.movie_tvshow.fragment.DetailMovieTvShowBindingFragment.Companion.FROM
+import com.taufik.themovieshow.ui.detail.movie_tvshow.viewmodel.DetailMovieTvShowViewModel
 import com.taufik.themovieshow.ui.movie.adapter.DiscoverMovieAdapter
-import com.taufik.themovieshow.ui.movie.viewmodel.DetailMovieViewModel
 import com.taufik.themovieshow.ui.movie.viewmodel.MovieViewModel
-import com.taufik.themovieshow.utils.extensions.navigateToDetailMovie
+import com.taufik.themovieshow.utils.extensions.navigateToDetailMovieTvShow
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class DiscoverMovieFragment : BaseFragment<FragmentDiscoverMovieBinding>() {
 
     private val viewModel by viewModels<MovieViewModel>()
-    private val detailMovieViewModel by viewModels<DetailMovieViewModel>()
+    private val detailMovieTvShowViewModel by viewModels<DetailMovieTvShowViewModel>()
     private var discoverMovieAdapter: DiscoverMovieAdapter? = null
 
     override fun inflateBinding(
@@ -51,11 +52,15 @@ class DiscoverMovieFragment : BaseFragment<FragmentDiscoverMovieBinding>() {
 
     private fun initAdapter() {
         discoverMovieAdapter = DiscoverMovieAdapter {
-            detailMovieViewModel.apply {
-                idMovie = it.id
-                titleMovie = it.title
+            detailMovieTvShowViewModel.apply {
+                idMovieTvShow = it.id
+                titleMovieTvShow = it.title
             }
-            navigateToDetailMovie(detailMovieViewModel.idMovie, detailMovieViewModel.titleMovie)
+            navigateToDetailMovieTvShow(
+                detailMovieTvShowViewModel.idMovieTvShow,
+                detailMovieTvShowViewModel.titleMovieTvShow,
+                FROM.MOVIE
+            )
         }
 
         binding.rvDiscoverMovie.apply {
