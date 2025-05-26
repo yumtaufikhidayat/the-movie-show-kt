@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.taufik.themovieshow.R
-import com.taufik.themovieshow.base.BaseFragment
+import com.taufik.themovieshow.base.fragment.BaseFragment
 import com.taufik.themovieshow.databinding.FragmentSplashScreenBinding
 import com.taufik.themovieshow.utils.extensions.applySystemBarBottomPadding
 import dagger.hilt.android.AndroidEntryPoint

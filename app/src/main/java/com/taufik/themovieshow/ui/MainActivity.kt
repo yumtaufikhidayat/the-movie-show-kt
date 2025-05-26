@@ -13,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.taufik.themovieshow.R
-import com.taufik.themovieshow.base.BaseActivity
+import com.taufik.themovieshow.base.activity.BaseActivity
 import com.taufik.themovieshow.databinding.ActivityMainBinding
 import com.taufik.themovieshow.ui.language.bottomsheet.LanguageBottomSheetDialog.Companion.SUCCESS_CHANGE_LANGUAGE
 import com.taufik.themovieshow.utils.extensions.applySystemBarInsets
@@ -33,7 +33,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             R.id.detailMovieFragment,
             R.id.detailTvShowFragment,
             R.id.discoverMovieFragment,
-            R.id.discoverTvShowFragment -> showBottomNavigation(false)
+            R.id.discoverTvShowFragment,
+            R.id.detailMovieTvShowFragment -> showBottomNavigation(false)
             else -> showBottomNavigation(true)
         }
     }

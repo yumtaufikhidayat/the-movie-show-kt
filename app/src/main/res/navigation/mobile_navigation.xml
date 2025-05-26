@@ -70,6 +70,11 @@
         android:label="fragment_detail_movie"
         tools:layout="@layout/fragment_detail_movie" />
     <fragment
+        android:id="@+id/detailMovieTvShowFragment"
+        android:name="com.taufik.themovieshow.ui.detail.movie_tvshow.fragment.DetailMovieTvShowBindingFragment"
+        android:label="fragment_detail_movie_tv_show"
+        tools:layout="@layout/fragment_detail_movie_tv_show" />
+    <fragment
         android:id="@+id/discoverMovieFragment"
         android:name="com.taufik.themovieshow.ui.discover.DiscoverMovieFragment"
         android:label="fragment_discover_movie"

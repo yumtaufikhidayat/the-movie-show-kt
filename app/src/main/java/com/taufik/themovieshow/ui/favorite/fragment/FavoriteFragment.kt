@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.annotation.StringRes
 import androidx.fragment.app.viewModels
 import com.taufik.themovieshow.R
-import com.taufik.themovieshow.base.BaseFragment
+import com.taufik.themovieshow.base.fragment.BaseFragment
 import com.taufik.themovieshow.databinding.FragmentFavoriteBinding
 import com.taufik.themovieshow.ui.tablayout.FavoriteTabViewModel
 import com.taufik.themovieshow.utils.extensions.setupTabLayoutBinding

@@ -15,17 +15,17 @@ import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import com.taufik.themovieshow.R
-import com.taufik.themovieshow.base.BaseFragment
+import com.taufik.themovieshow.base.fragment.BaseFragment
 import com.taufik.themovieshow.data.local.entity.movie.FavoriteMovieEntity
 import com.taufik.themovieshow.databinding.FragmentFavoriteMovieBinding
 import com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult
+import com.taufik.themovieshow.ui.detail.movie_tvshow.fragment.DetailMovieTvShowBindingFragment.Companion.FROM
+import com.taufik.themovieshow.ui.detail.movie_tvshow.viewmodel.DetailMovieTvShowViewModel
 import com.taufik.themovieshow.ui.favorite.adapter.FavoriteMovieAdapter
 import com.taufik.themovieshow.ui.favorite.adapter.SortFilteringAdapter
 import com.taufik.themovieshow.ui.favorite.viewmodel.FavoriteMovieViewModel
-import com.taufik.themovieshow.ui.movie.viewmodel.DetailMovieViewModel
-import com.taufik.themovieshow.ui.movie.viewmodel.DetailMovieViewModel.Companion.DELAY_SCROLL_TO_TOP_POSITION
 import com.taufik.themovieshow.utils.extensions.hideKeyboard
-import com.taufik.themovieshow.utils.extensions.navigateToDetailMovie
+import com.taufik.themovieshow.utils.extensions.navigateToDetailMovieTvShow
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -34,14 +34,18 @@ import kotlinx.coroutines.launch
 class FavoriteMovieFragment : BaseFragment<FragmentFavoriteMovieBinding>() {
 
     private val viewModel: FavoriteMovieViewModel by viewModels(ownerProducer = { requireParentFragment() })
-    private val detailMovieViewModel by viewModels<DetailMovieViewModel>()
+    private val detailMovieTvShowViewModel by viewModels<DetailMovieTvShowViewModel>()
     private val sortFilteringAdapter by lazy { SortFilteringAdapter { showFilteringData(it) }}
     private val favoriteMovieAdapter by lazy { FavoriteMovieAdapter {
-        detailMovieViewModel.apply {
-            idMovie = it.id
-            titleMovie = it.title
+        detailMovieTvShowViewModel.apply {
+            idMovieTvShow = it.id
+            titleMovieTvShow = it.title
         }
-        navigateToDetailMovie(detailMovieViewModel.idMovie, detailMovieViewModel.titleMovie)
+        navigateToDetailMovieTvShow(
+            detailMovieTvShowViewModel.idMovieTvShow,
+            detailMovieTvShowViewModel.titleMovieTvShow,
+            FROM.MOVIE
+        )
     }}
 
     override fun inflateBinding(
@@ -95,7 +99,7 @@ class FavoriteMovieFragment : BaseFragment<FragmentFavoriteMovieBinding>() {
 
     private fun scrollToTopPositionItem() {
         lifecycleScope.launch {
-            delay(DELAY_SCROLL_TO_TOP_POSITION)
+            delay(DetailMovieTvShowViewModel.DELAY_SCROLL_TO_TOP_POSITION)
             binding.rvDiscoverFavoriteMovies.smoothScrollToPosition(0)
         }
     }

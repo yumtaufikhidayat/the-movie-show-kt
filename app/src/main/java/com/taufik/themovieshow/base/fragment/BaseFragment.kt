@@ -1,4 +1,4 @@
-package com.taufik.themovieshow.base
+package com.taufik.themovieshow.base.fragment
 
 import android.content.Context
 import android.os.Bundle
@@ -38,6 +38,6 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
     }
 
     override fun onAttach(context: Context) {
-        super.onAttach(ContextUtils.updateLocale(context, LanguageUtil.getCurrentLocaleBlocking(context)))
+        super.onAttach(ContextUtils.Companion.updateLocale(context, LanguageUtil.getCurrentLocaleBlocking(context)))
     }
 }

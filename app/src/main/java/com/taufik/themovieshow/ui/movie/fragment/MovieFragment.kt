@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.taufik.themovieshow.R
-import com.taufik.themovieshow.base.BaseFragment
+import com.taufik.themovieshow.base.fragment.BaseFragment
 import com.taufik.themovieshow.databinding.FragmentMovieBinding
 import com.taufik.themovieshow.ui.tablayout.MovieTvShowTabViewModel
 import com.taufik.themovieshow.utils.extensions.setupTabLayoutBinding

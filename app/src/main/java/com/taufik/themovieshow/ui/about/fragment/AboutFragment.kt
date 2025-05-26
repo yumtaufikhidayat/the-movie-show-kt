@@ -13,7 +13,7 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.taufik.themovieshow.R
-import com.taufik.themovieshow.base.BaseFragment
+import com.taufik.themovieshow.base.fragment.BaseFragment
 import com.taufik.themovieshow.databinding.FragmentAboutBinding
 import com.taufik.themovieshow.model.language.LanguageOption
 import com.taufik.themovieshow.model.response.about.AboutAction
