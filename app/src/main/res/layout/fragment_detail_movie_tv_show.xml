@@ -30,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-                tools:visibility="gone"
+                tools:visibility="visible"
                 app:constraint_referenced_ids="imgBackdrop, viewGradientBackground, imgPoster,
                 tvTitle, tvNetwork, tvReleasedOn, tvStartedOn, tvReleaseStatus, horizontalScrolling,
                 tvOverviewTitle, tvOverview, tvReadMore"/>
@@ -169,7 +169,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
                             android:visibility="gone"
-                            tools:visibility="gone"
+                            tools:visibility="visible"
                             app:iconSrc="@drawable/ic_outline_runtime"
                             app:text="@string/tvRuntime"/>
 
@@ -274,7 +274,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-                tools:visibility="gone"
+                tools:visibility="visible"
                 app:constraint_referenced_ids="tvCast, tvNoCast, rvMovieCast"/>
 
             <TextView
@@ -322,7 +322,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-                tools:visibility="gone"
+                tools:visibility="visible"
                 app:constraint_referenced_ids="tvTrailer, tvNoVideo, rvTrailerVideo"/>
 
             <TextView
@@ -368,7 +368,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-                tools:visibility="gone"
+                tools:visibility="visible"
                 app:constraint_referenced_ids="tvReviewsTitle, tvNoReviews, rvMovieReviews"/>
 
             <TextView

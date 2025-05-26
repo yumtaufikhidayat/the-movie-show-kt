@@ -409,11 +409,12 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
     private fun shareAwesomeMovieOrTvShow(link: String) {
         binding.toolbarDetailMovie.imgShare.setOnClickListener {
             requireContext().share(
-                if (from == FROM.MOVIE) {
-                    getString(R.string.tvVisitMovie)
-                } else {
-                    getString(R.string.tvVisitTvShow)
-                },
+                getString(
+                    when (from) {
+                        FROM.MOVIE -> R.string.tvVisitMovie
+                        FROM.TV_SHOW -> R.string.tvVisitTvShow
+                    }
+                ),
                 link
             )
         }
@@ -439,8 +440,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
     private fun setCastAdapter() {
         binding.rvMovieCast.apply {
             val helper: SnapHelper = LinearSnapHelper()
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             helper.attachToRecyclerView(this)
             setHasFixedSize(true)
             adapter = castAdapter
@@ -525,8 +525,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
 
         binding.rvTrailerVideo.apply {
             val helper: SnapHelper = LinearSnapHelper()
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             helper.attachToRecyclerView(this)
             setHasFixedSize(true)
             adapter = trailerVideoAdapter
@@ -597,8 +596,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
     private fun setReviewsAdapter() {
         binding.rvMovieReviews.apply {
             val helper: SnapHelper = LinearSnapHelper()
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             helper.attachToRecyclerView(this)
             setHasFixedSize(true)
             adapter = reviewsAdapter
@@ -676,8 +674,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
 
         binding.rvMovieSimilar.apply {
             val helper: SnapHelper = LinearSnapHelper()
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             helper.attachToRecyclerView(this)
             setHasFixedSize(true)
             adapter = similarAdapter
