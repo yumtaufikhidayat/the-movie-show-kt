@@ -43,6 +43,7 @@ import com.taufik.themovieshow.utils.extensions.toMovieBaseVideoItemList
 import com.taufik.themovieshow.utils.extensions.toRating
 import com.taufik.themovieshow.utils.extensions.toTvShowBaseVideoItemList
 import com.taufik.themovieshow.utils.extensions.toggleVisibilityIf
+import com.taufik.themovieshow.utils.helper.DynamicSnapHelper
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -439,11 +440,13 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
 
     private fun setCastAdapter() {
         binding.rvMovieCast.apply {
-            val helper: SnapHelper = LinearSnapHelper()
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            helper.attachToRecyclerView(this)
-            setHasFixedSize(true)
+            clipToPadding = false
+            clipChildren = false
             adapter = castAdapter
+
+            val snapHelper = DynamicSnapHelper()
+            snapHelper.attachToRecyclerView(this)
         }
     }
 
@@ -524,11 +527,14 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
         }
 
         binding.rvTrailerVideo.apply {
-            val helper: SnapHelper = LinearSnapHelper()
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            helper.attachToRecyclerView(this)
+            clipToPadding = false
+            clipChildren = false
             setHasFixedSize(true)
             adapter = trailerVideoAdapter
+
+            val snapHelper = DynamicSnapHelper()
+            snapHelper.attachToRecyclerView(this)
         }
     }
 
@@ -595,11 +601,11 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
 
     private fun setReviewsAdapter() {
         binding.rvMovieReviews.apply {
-            val helper: SnapHelper = LinearSnapHelper()
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            helper.attachToRecyclerView(this)
-            setHasFixedSize(true)
             adapter = reviewsAdapter
+
+            val helper: SnapHelper = LinearSnapHelper()
+            helper.attachToRecyclerView(this)
         }
     }
 
@@ -673,11 +679,14 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
         }
 
         binding.rvMovieSimilar.apply {
-            val helper: SnapHelper = LinearSnapHelper()
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            helper.attachToRecyclerView(this)
             setHasFixedSize(true)
+            clipToPadding = false
+            clipChildren = false
             adapter = similarAdapter
+
+            val snapHelper = DynamicSnapHelper()
+            snapHelper.attachToRecyclerView(this)
         }
     }
 

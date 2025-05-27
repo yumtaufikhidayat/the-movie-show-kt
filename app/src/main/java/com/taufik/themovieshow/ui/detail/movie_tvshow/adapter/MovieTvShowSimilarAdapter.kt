@@ -6,9 +6,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.taufik.themovieshow.base.helper.BaseSimilarItem
-import com.taufik.themovieshow.databinding.ItemSimilarBinding
+import com.taufik.themovieshow.databinding.ItemSimilarMovieAndCastBinding
 import com.taufik.themovieshow.utils.CommonDateFormatConstants
+import com.taufik.themovieshow.utils.extensions.applyMiddleMargins
 import com.taufik.themovieshow.utils.extensions.convertDate
+import com.taufik.themovieshow.utils.extensions.convertDpToPx
 import com.taufik.themovieshow.utils.extensions.loadImage
 
 class MovieTvShowSimilarAdapter(
@@ -17,7 +19,7 @@ class MovieTvShowSimilarAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SimilarViewHolder {
         return SimilarViewHolder(
-            ItemSimilarBinding.inflate(
+            ItemSimilarMovieAndCastBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -26,21 +28,32 @@ class MovieTvShowSimilarAdapter(
     }
 
     override fun onBindViewHolder(holder: SimilarViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), position, currentList.size)
     }
 
-    inner class SimilarViewHolder(private val binding: ItemSimilarBinding) :
+    inner class SimilarViewHolder(private val binding: ItemSimilarMovieAndCastBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: BaseSimilarItem) {
+        fun bind(data: BaseSimilarItem, position: Int, itemCount: Int) {
             binding.apply {
                 imgPoster.loadImage(data.posterPath)
                 val releaseYear = data.releaseDateText.convertDate(
                     CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
                     CommonDateFormatConstants.YYYY_FORMAT
                 )
-                tvMovieName.text = StringBuilder(data.titleText).append("\n").append("($releaseYear)")
-                cardPoster.setOnClickListener {
-                    onItemClickListener(data)
+                tvMovieOrCastName.text = StringBuilder(data.titleText).append("\n").append("($releaseYear)")
+
+                layoutSimilarMovieOrCast.apply {
+                    val marginParam = layoutParams as ViewGroup.MarginLayoutParams
+                    marginParam.applyMiddleMargins(
+                        position = position,
+                        itemCount = itemCount,
+                        middle = 4,
+                        convertDpToPx = ::convertDpToPx
+                    )
+
+                    setOnClickListener {
+                        onItemClickListener(data)
+                    }
                 }
             }
         }

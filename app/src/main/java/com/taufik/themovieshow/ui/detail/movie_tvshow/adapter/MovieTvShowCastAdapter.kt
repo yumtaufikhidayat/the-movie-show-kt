@@ -7,14 +7,16 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.base.helper.BaseCastItem
-import com.taufik.themovieshow.databinding.ItemCastBinding
+import com.taufik.themovieshow.databinding.ItemSimilarMovieAndCastBinding
+import com.taufik.themovieshow.utils.extensions.applyMiddleMargins
+import com.taufik.themovieshow.utils.extensions.convertDpToPx
 import com.taufik.themovieshow.utils.extensions.loadImage
 
 class MovieTvShowCastAdapter : ListAdapter<BaseCastItem, MovieTvShowCastAdapter.CastViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CastViewHolder {
         return CastViewHolder(
-            ItemCastBinding.inflate(
+            ItemSimilarMovieAndCastBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -23,21 +25,31 @@ class MovieTvShowCastAdapter : ListAdapter<BaseCastItem, MovieTvShowCastAdapter.
     }
 
     override fun onBindViewHolder(holder: CastViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), position, currentList.size)
     }
 
-    inner class CastViewHolder(private val binding: ItemCastBinding) :
+    inner class CastViewHolder(private val binding: ItemSimilarMovieAndCastBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: BaseCastItem) {
+        fun bind(data: BaseCastItem, position: Int, itemCount: Int) {
             binding.apply {
                 imgPoster.loadImage(data.profilePath)
-                tvCastName.text = if (data.character.isNotEmpty()) {
+                tvMovieOrCastName.text = if (data.character.isNotEmpty()) {
                     root.context.getString(R.string.tvNameCharacter, data.name, data.character)
                 } else {
                     root.context.getString(
                         R.string.tvNameCharacter,
                         data.name,
                         root.context.getString(R.string.tvNA)
+                    )
+                }
+
+                layoutSimilarMovieOrCast.apply {
+                    val marginParam = layoutParams as ViewGroup.MarginLayoutParams
+                    marginParam.applyMiddleMargins(
+                        position = position,
+                        itemCount = itemCount,
+                        middle = 4,
+                        convertDpToPx = ::convertDpToPx
                     )
                 }
             }
