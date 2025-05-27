@@ -443,6 +443,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             clipToPadding = false
             clipChildren = false
+            setHasFixedSize(false)
             adapter = castAdapter
 
             val snapHelper = DynamicSnapHelper()
@@ -602,6 +603,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
     private fun setReviewsAdapter() {
         binding.rvMovieReviews.apply {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            setHasFixedSize(true)
             adapter = reviewsAdapter
 
             val helper: SnapHelper = LinearSnapHelper()
@@ -680,9 +682,9 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
 
         binding.rvMovieSimilar.apply {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            setHasFixedSize(true)
             clipToPadding = false
             clipChildren = false
+            setHasFixedSize(false)
             adapter = similarAdapter
 
             val snapHelper = DynamicSnapHelper()
@@ -699,18 +701,14 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                         detailMovieSimilarResponse.observeNetworkResult(
                             lifecycleOwner = viewLifecycleOwner,
                             onLoading = {
-                                groupSimilar.hideView()
+                                updateSimilarSectionState(isLoading = true)
                             },
                             onSuccess = { response ->
-                                groupSimilar.showView()
-                                showNoSimilarMovie(false)
-                                tvMovieSimilar.toggleVisibilityIf(from == FROM.MOVIE)
-
                                 val results = response.results
-                                if (results.isEmpty()) {
-                                    showNoSimilarMovie(true)
-                                    return@observeNetworkResult
-                                }
+                                val isResultsEmpty = results.isEmpty()
+                                updateSimilarSectionState(isLoading = false, isShowEmpty = isResultsEmpty)
+
+                                if (isResultsEmpty) return@observeNetworkResult
 
                                 val mappedList = results.map {
                                     BaseSimilarItemImpl(
@@ -723,7 +721,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                                 similarAdapter?.submitList(mappedList)
                             },
                             onError = {
-                                showNoSimilarMovie(false)
+                                updateSimilarSectionState(isLoading = false, isShowEmpty = false)
 
                                 // TODO: create a layout to display error information and binding information on it
                             }
@@ -735,18 +733,14 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                         detailTvShowSimilarResponse.observeNetworkResult(
                             lifecycleOwner = viewLifecycleOwner,
                             onLoading = {
-                                groupSimilar.hideView()
+                                updateSimilarSectionState(isLoading = true)
                             },
                             onSuccess = { response ->
-                                groupSimilar.showView()
-                                showNoSimilarTvShow(false)
-                                tvTvShowSimilar.toggleVisibilityIf(from == FROM.TV_SHOW)
-
                                 val results = response.results
-                                if (results.isEmpty()) {
-                                    showNoSimilarTvShow(true)
-                                    return@observeNetworkResult
-                                }
+                                val isResultsEmpty = results.isEmpty()
+                                updateSimilarSectionState(isLoading = false, isShowEmpty = isResultsEmpty)
+
+                                if (isResultsEmpty) return@observeNetworkResult
 
                                 val mappedList = results.map {
                                     BaseSimilarItemImpl(
@@ -759,7 +753,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                                 similarAdapter?.submitList(mappedList)
                             },
                             onError = {
-                                showNoSimilarTvShow(false)
+                                updateSimilarSectionState(isLoading = false, isShowEmpty = false)
 
                                 // TODO: create a layout to display error information and binding information on it
                             }
@@ -783,17 +777,24 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
         }
     }
 
-    private fun showNoSimilarMovie(isShow: Boolean) {
+    private fun updateSimilarSectionState(
+        isLoading: Boolean = false,
+        isShowEmpty: Boolean = false
+    ) {
         binding.apply {
-            rvMovieSimilar.toggleVisibilityIf(!isShow)
-            tvNoSimilar.toggleVisibilityIf(isShow)
-        }
-    }
+            if (isLoading) {
+                groupSimilar.hideView()
+                rvMovieSimilar.hideView()
+                tvNoSimilar.hideView()
+                return
+            }
 
-    private fun showNoSimilarTvShow(isShow: Boolean) {
-        binding.apply {
-            tvTvShowSimilar.toggleVisibilityIf(!isShow)
-            tvNoSimilar.toggleVisibilityIf(isShow)
+            groupSimilar.showView()
+            tvMovieSimilar.toggleVisibilityIf(from == FROM.MOVIE)
+            tvTvShowSimilar.toggleVisibilityIf(from == FROM.TV_SHOW)
+
+            tvNoSimilar.toggleVisibilityIf(isShowEmpty)
+            rvMovieSimilar.toggleVisibilityIf(!isShowEmpty)
         }
     }
 

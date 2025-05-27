@@ -2,6 +2,7 @@ package com.taufik.themovieshow.utils.extensions
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.taufik.themovieshow.BuildConfig
 import com.taufik.themovieshow.data.NetworkResult
 
@@ -20,14 +21,29 @@ fun <T> LiveData<NetworkResult<T>>.observeNetworkResult(
                 if (data != null) {
                     onSuccess(data)
                 } else {
+                    val message = "Success received but data is null."
+                    FirebaseCrashlytics.getInstance().apply {
+                        log(message)
+                        setCustomKey("response_data", "null")
+                        recordException(IllegalStateException(message))
+                    }
+
                     if (isDebug) {
-                        throw IllegalStateException("Success received but data is null. Data: $data")
+                        throw IllegalStateException(message)
                     } else {
                         onError?.invoke("Received empty data on success response")
                     }
                 }
             }
-            is NetworkResult.Error -> onError?.invoke(response.message.orEmpty())
+            is NetworkResult.Error -> {
+                val errorMessage = response.message.orEmpty()
+                FirebaseCrashlytics.getInstance().apply {
+                    log(errorMessage)
+                    setCustomKey("error_message", errorMessage)
+                    recordException(RuntimeException("NetworkResult.Error: $errorMessage"))
+                }
+                onError?.invoke(errorMessage)
+            }
         }
     }
 }
