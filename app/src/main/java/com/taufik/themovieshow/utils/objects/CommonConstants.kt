@@ -1,4 +1,4 @@
-package com.taufik.themovieshow.utils
+package com.taufik.themovieshow.utils.objects
 
 import com.taufik.themovieshow.BuildConfig
 

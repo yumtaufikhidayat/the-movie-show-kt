@@ -24,7 +24,8 @@ import com.taufik.themovieshow.ui.detail.movie_tvshow.adapter.MovieTvShowTrailer
 import com.taufik.themovieshow.ui.detail.movie_tvshow.viewmodel.DetailMovieTvShowViewModel
 import com.taufik.themovieshow.ui.favorite.helper.FavoriteAction
 import com.taufik.themovieshow.ui.movie.adapter.ReviewsAdapter
-import com.taufik.themovieshow.utils.CommonDateFormatConstants
+import com.taufik.themovieshow.utils.objects.CommonDateFormatConstants
+import com.taufik.themovieshow.utils.enums.FROM
 import com.taufik.themovieshow.utils.extensions.applySystemBarBottomPadding
 import com.taufik.themovieshow.utils.extensions.convertDate
 import com.taufik.themovieshow.utils.extensions.hideView
@@ -879,9 +880,5 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
         const val EXTRA_TITLE = "EXTRA_TITLE"
         const val EXTRA_FROM = "EXTRA_FROM"
         const val TIME_60 = 60
-
-        enum class FROM {
-            MOVIE, TV_SHOW
-        }
     }
 }

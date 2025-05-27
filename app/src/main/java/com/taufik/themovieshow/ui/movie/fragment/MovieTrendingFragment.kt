@@ -12,7 +12,7 @@ import com.taufik.themovieshow.ui.detail.movie_tvshow.fragment.DetailMovieTvShow
 import com.taufik.themovieshow.ui.detail.movie_tvshow.viewmodel.DetailMovieTvShowViewModel
 import com.taufik.themovieshow.ui.movie.adapter.MovieTrendingAdapter
 import com.taufik.themovieshow.ui.movie.viewmodel.MovieViewModel
-import com.taufik.themovieshow.utils.CommonDateFormatConstants
+import com.taufik.themovieshow.utils.objects.CommonDateFormatConstants
 import com.taufik.themovieshow.utils.extensions.filterAndSortByDate
 import com.taufik.themovieshow.utils.extensions.hideView
 import com.taufik.themovieshow.utils.extensions.navigateToDetailMovieTvShow

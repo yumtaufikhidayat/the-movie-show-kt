@@ -1,5 +1,7 @@
 package com.taufik.themovieshow.utils
 
+import com.taufik.themovieshow.utils.enums.Status
+
 data class Resource<out T>(val status: Status, val data: T?, val message: String?) {
 
     companion object {

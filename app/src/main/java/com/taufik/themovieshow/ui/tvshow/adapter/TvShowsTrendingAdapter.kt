@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.taufik.themovieshow.databinding.ItemsMoviesTvShowBinding
 import com.taufik.themovieshow.model.response.tvshow.trending.TvShowsTrendingResult
-import com.taufik.themovieshow.utils.CommonDateFormatConstants
+import com.taufik.themovieshow.utils.objects.CommonDateFormatConstants
 import com.taufik.themovieshow.utils.extensions.convertDate
 import com.taufik.themovieshow.utils.extensions.loadImage
 import com.taufik.themovieshow.utils.extensions.toRating

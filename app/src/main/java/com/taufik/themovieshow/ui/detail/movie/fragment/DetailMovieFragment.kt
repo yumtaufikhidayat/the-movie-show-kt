@@ -21,7 +21,7 @@ import com.taufik.themovieshow.ui.detail.movie.adapter.MovieSimilarAdapter
 import com.taufik.themovieshow.ui.detail.movie.adapter.MovieTrailerVideoAdapter
 import com.taufik.themovieshow.ui.movie.adapter.ReviewsAdapter
 import com.taufik.themovieshow.ui.movie.viewmodel.DetailMovieViewModel
-import com.taufik.themovieshow.utils.CommonDateFormatConstants
+import com.taufik.themovieshow.utils.objects.CommonDateFormatConstants
 import com.taufik.themovieshow.utils.extensions.applySystemBarBottomPadding
 import com.taufik.themovieshow.utils.extensions.convertDate
 import com.taufik.themovieshow.utils.extensions.hideView

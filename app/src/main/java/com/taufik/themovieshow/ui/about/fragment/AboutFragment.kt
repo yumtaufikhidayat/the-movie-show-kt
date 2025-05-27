@@ -21,7 +21,7 @@ import com.taufik.themovieshow.ui.MainActivity
 import com.taufik.themovieshow.ui.about.adapter.AboutParentAdapter
 import com.taufik.themovieshow.ui.about.viewmodel.AboutViewModel
 import com.taufik.themovieshow.ui.language.bottomsheet.LanguageBottomSheetDialog
-import com.taufik.themovieshow.utils.CommonConstants
+import com.taufik.themovieshow.utils.objects.CommonConstants
 import com.taufik.themovieshow.utils.extensions.restartAppWithLanguageChange
 import com.taufik.themovieshow.utils.extensions.showSuccessToastyIcon
 import com.taufik.themovieshow.utils.language.LANGUAGE

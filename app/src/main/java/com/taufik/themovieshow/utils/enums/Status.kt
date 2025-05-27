@@ -1,4 +1,4 @@
-package com.taufik.themovieshow.utils
+package com.taufik.themovieshow.utils.enums
 
 enum class Status {
     SUCCESS,

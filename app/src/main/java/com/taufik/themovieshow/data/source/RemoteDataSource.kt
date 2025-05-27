@@ -19,7 +19,7 @@ import com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsM
 import com.taufik.themovieshow.model.response.tvshow.similar.TvShowsSimilarResponse
 import com.taufik.themovieshow.model.response.tvshow.trending.TvShowsTrendingResponse
 import com.taufik.themovieshow.model.response.tvshow.video.TvShowsVideoResponse
-import com.taufik.themovieshow.utils.CommonConstants
+import com.taufik.themovieshow.utils.objects.CommonConstants
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

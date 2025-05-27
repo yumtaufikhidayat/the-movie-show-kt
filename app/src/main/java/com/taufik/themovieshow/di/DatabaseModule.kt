@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.taufik.themovieshow.data.local.dao.TheMovieShowDao
 import com.taufik.themovieshow.data.local.room.TheMovieShowDatabase
-import com.taufik.themovieshow.utils.CommonConstants
+import com.taufik.themovieshow.utils.objects.CommonConstants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
