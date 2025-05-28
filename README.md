@@ -27,7 +27,7 @@ The Movie Show is an Android catalogue app with plenty of movies and tv shows co
     - Reviews
     - Similar movies/TV shows
 - Favorite
-- About author and about application
+- About author, settings (bilingual), and about application
 
 
 | <img height="400" src="homepage.png" width="600"/></a> |
