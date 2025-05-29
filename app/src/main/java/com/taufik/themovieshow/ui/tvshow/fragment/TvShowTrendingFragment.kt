@@ -8,10 +8,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.taufik.themovieshow.base.fragment.BaseFragment
 import com.taufik.themovieshow.data.NetworkResult
 import com.taufik.themovieshow.databinding.FragmentMovieTvShowsListBinding
-import com.taufik.themovieshow.ui.detail.movie_tvshow.fragment.DetailMovieTvShowBindingFragment.Companion.FROM
 import com.taufik.themovieshow.ui.detail.movie_tvshow.viewmodel.DetailMovieTvShowViewModel
 import com.taufik.themovieshow.ui.tvshow.adapter.TvShowsTrendingAdapter
 import com.taufik.themovieshow.ui.tvshow.viewmodel.TvShowsViewModel
+import com.taufik.themovieshow.utils.enums.FROM
 import com.taufik.themovieshow.utils.objects.CommonDateFormatConstants
 import com.taufik.themovieshow.utils.extensions.filterAndSortByDate
 import com.taufik.themovieshow.utils.extensions.hideView

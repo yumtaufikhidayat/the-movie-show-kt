@@ -1,4 +1,4 @@
-package com.taufik.themovieshow.utils.custom_view
+package com.taufik.themovieshow.utils.customview
 
 import android.content.Context
 import android.util.AttributeSet

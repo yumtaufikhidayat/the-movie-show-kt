@@ -19,11 +19,11 @@ import com.taufik.themovieshow.base.fragment.BaseFragment
 import com.taufik.themovieshow.data.local.entity.tvshow.FavoriteTvShowEntity
 import com.taufik.themovieshow.databinding.FragmentFavoriteTvShowsBinding
 import com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResult
-import com.taufik.themovieshow.ui.detail.movie_tvshow.fragment.DetailMovieTvShowBindingFragment.Companion.FROM
 import com.taufik.themovieshow.ui.detail.movie_tvshow.viewmodel.DetailMovieTvShowViewModel
 import com.taufik.themovieshow.ui.favorite.adapter.FavoriteTvShowsAdapter
 import com.taufik.themovieshow.ui.favorite.adapter.SortFilteringAdapter
 import com.taufik.themovieshow.ui.favorite.viewmodel.FavoriteTvShowViewModel
+import com.taufik.themovieshow.utils.enums.FROM
 import com.taufik.themovieshow.utils.extensions.hideKeyboard
 import com.taufik.themovieshow.utils.extensions.navigateToDetailMovieTvShow
 import dagger.hilt.android.AndroidEntryPoint

@@ -8,7 +8,7 @@
     android:background="@color/colorPrimary"
     tools:context=".ui.favorite.fragment.FavoriteTvShowsFragment">
 
-    <com.taufik.themovieshow.utils.CustomEditText
+    <com.taufik.themovieshow.utils.customview.CustomEditText
         android:id="@+id/etSearch"
         android:layout_width="0dp"
         android:layout_height="40dp"

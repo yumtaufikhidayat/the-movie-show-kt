@@ -19,10 +19,10 @@ import com.taufik.themovieshow.base.fragment.BaseFragment
 import com.taufik.themovieshow.data.NetworkResult
 import com.taufik.themovieshow.databinding.FragmentDiscoverMovieBinding
 import com.taufik.themovieshow.model.response.movie.discover.DiscoverMovieResult
-import com.taufik.themovieshow.ui.detail.movie_tvshow.fragment.DetailMovieTvShowBindingFragment.Companion.FROM
 import com.taufik.themovieshow.ui.detail.movie_tvshow.viewmodel.DetailMovieTvShowViewModel
 import com.taufik.themovieshow.ui.movie.adapter.DiscoverMovieAdapter
 import com.taufik.themovieshow.ui.movie.viewmodel.MovieViewModel
+import com.taufik.themovieshow.utils.enums.FROM
 import com.taufik.themovieshow.utils.extensions.navigateToDetailMovieTvShow
 import dagger.hilt.android.AndroidEntryPoint
 
