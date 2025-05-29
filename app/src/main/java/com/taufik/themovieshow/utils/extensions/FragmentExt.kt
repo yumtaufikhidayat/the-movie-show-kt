@@ -12,14 +12,15 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.ui.common.adapter.TabPagerAdapter
 import com.taufik.themovieshow.ui.detail.movie.fragment.DetailMovieFragment
 import com.taufik.themovieshow.ui.detail.movie_tvshow.fragment.DetailMovieTvShowBindingFragment
-import com.taufik.themovieshow.ui.detail.movie_tvshow.fragment.DetailMovieTvShowBindingFragment.Companion.FROM
 import com.taufik.themovieshow.ui.detail.tvshow.fragment.DetailTvShowFragment
+import com.taufik.themovieshow.utils.enums.FROM
 
 fun Fragment.navigateToDetailMovieTvShow(id: Int, title: String, from: FROM) {
     val bundle = bundleOf(
@@ -142,4 +143,12 @@ fun Fragment.adjustTabLayoutMode(tabLayout: TabLayout) {
             TabLayout.MODE_FIXED
         }
     }
+}
+
+fun Fragment.showSnackBar(message: String, actionText: String? = null, action: (() -> Unit)? = null) {
+    val snackbar = Snackbar.make(requireView(), message, Snackbar.LENGTH_LONG)
+    if (actionText != null && action != null) {
+        snackbar.setAction(actionText) { action() }
+    }
+    snackbar.show()
 }

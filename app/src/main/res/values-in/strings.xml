@@ -69,9 +69,7 @@
     <string name="tvVisitMovie">Kunjungi Film ini\n</string>
     <string name="tvVisitTvShow">Kunjungi Acara TV ini\n</string>
     <string name="tvNameCharacter">%s \n (%s)</string>
-    <string name="tvRetry">Coba Lagi</string>
-    <string name="action_added_to_favorite">Ditambahkan ke favorit</string>
-    <string name="action_removed_from_favorite">Hapus dari favorit</string>
+
     <string name="tvInstallBrowserYouTube">Silakan install browser atau aplikasi YouTube terlebih dahulu.\nError: %s</string>
     <string name="tvPressBackExit">Tekan tombol sekali lagi untuk keluar</string>
     <string name="tvOpenWith">Buka dengan</string>
@@ -120,4 +118,9 @@
     <string name="tvLanguageIndonesia">Bahasa Indonesia (ID)</string>"
     <string name="tvLanguageEnglish">Bahasa Inggris (EN)</string>"
     <string name="tvSuccesfullyChangedLanguage">Berhasil Mengubah Bahasa</string>
+
+    <!--Action-->
+    <string name="action_added_to_favorite">Ditambahkan ke favorit</string>
+    <string name="action_removed_from_favorite">Hapus dari favorit</string>
+    <string name="action_retry">Coba Lagi</string>
 </resources>

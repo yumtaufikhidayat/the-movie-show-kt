@@ -69,9 +69,6 @@
     <string name="tvVisitMovie">Check out this awesome movie\n</string>
     <string name="tvVisitTvShow">Check out this awesome TV show\n</string>
     <string name="tvNameCharacter">%s \n (%s)</string>
-    <string name="tvRetry">Retry</string>
-    <string name="action_added_to_favorite">Added to favorites</string>
-    <string name="action_removed_from_favorite">Removed from favorites</string>
     <string name="tvInstallBrowserYouTube">Please install a browser or the YouTube app first.\nError: %s</string>
     <string name="tvPressBackExit">Press back again to exit the app</string>
     <string name="tvOpenWith">Open with</string>
@@ -120,4 +117,9 @@
     <string name="tvLanguageIndonesia">Indonesia (ID)</string>"
     <string name="tvLanguageEnglish">English (EN)</string>"
     <string name="tvSuccesfullyChangedLanguage">Successfully Changed Language</string>
+
+    <!--Action-->
+    <string name="action_added_to_favorite">Added to favorites</string>
+    <string name="action_removed_from_favorite">Removed from favorites</string>
+    <string name="action_retry">Retry</string>
 </resources>

@@ -44,5 +44,24 @@
         app:layout_constraintTop_toBottomOf="@id/tvErrorTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
+    
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnRetry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:stateListAnimator="@null"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:background="@drawable/button_error_rounded_corner"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:text="@string/action_retry"
+        app:layout_constraintTop_toBottomOf="@id/tvErrorDesc"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

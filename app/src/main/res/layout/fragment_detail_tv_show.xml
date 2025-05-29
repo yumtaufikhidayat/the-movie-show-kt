@@ -120,7 +120,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="10dp">
 
-                    <com.taufik.themovieshow.utils.custom_view.IconTextView
+                    <com.taufik.themovieshow.utils.customview.IconTextView
                         android:id="@+id/icTxtRating"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -130,7 +130,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent" />
 
-                    <com.taufik.themovieshow.utils.custom_view.IconTextView
+                    <com.taufik.themovieshow.utils.customview.IconTextView
                         android:id="@+id/icTxtEpisodes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -141,7 +141,7 @@
                         app:layout_constraintBottom_toBottomOf="@id/icTxtRating"
                         app:layout_constraintStart_toEndOf="@id/icTxtRating" />
 
-                    <com.taufik.themovieshow.utils.custom_view.IconTextView
+                    <com.taufik.themovieshow.utils.customview.IconTextView
                         android:id="@+id/icTxtAgeRating"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -152,7 +152,7 @@
                         app:layout_constraintBottom_toBottomOf="@id/icTxtRating"
                         app:layout_constraintStart_toEndOf="@id/icTxtEpisodes" />
 
-                    <com.taufik.themovieshow.utils.custom_view.IconTextView
+                    <com.taufik.themovieshow.utils.customview.IconTextView
                         android:id="@+id/icTxtLanguage"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -163,7 +163,7 @@
                         app:layout_constraintBottom_toBottomOf="@id/icTxtRating"
                         app:layout_constraintStart_toEndOf="@id/icTxtAgeRating" />
 
-                    <com.taufik.themovieshow.utils.custom_view.IconTextView
+                    <com.taufik.themovieshow.utils.customview.IconTextView
                         android:id="@+id/icTxtGenre"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

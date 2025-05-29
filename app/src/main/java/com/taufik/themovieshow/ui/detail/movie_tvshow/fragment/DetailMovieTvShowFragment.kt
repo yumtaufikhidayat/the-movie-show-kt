@@ -6,25 +6,29 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.SnapHelper
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.base.fragment.BaseFragment
-import com.taufik.themovieshow.base.helper.BaseCastItemImpl
 import com.taufik.themovieshow.base.helper.BaseDetailData
-import com.taufik.themovieshow.base.helper.BaseSimilarItemImpl
 import com.taufik.themovieshow.base.helper.MovieDetailWrapper
 import com.taufik.themovieshow.base.helper.TvShowDetailWrapper
+import com.taufik.themovieshow.base.helper.toBaseReviewItem
+import com.taufik.themovieshow.base.helper.toCastItem
+import com.taufik.themovieshow.base.helper.toMovieBaseSimilarItem
+import com.taufik.themovieshow.base.helper.toTvShowSimilarItem
 import com.taufik.themovieshow.databinding.FragmentDetailMovieTvShowBinding
 import com.taufik.themovieshow.ui.detail.movie_tvshow.adapter.MovieTvShowCastAdapter
+import com.taufik.themovieshow.ui.detail.movie_tvshow.adapter.MovieTvShowReviewsAdapter
 import com.taufik.themovieshow.ui.detail.movie_tvshow.adapter.MovieTvShowSimilarAdapter
 import com.taufik.themovieshow.ui.detail.movie_tvshow.adapter.MovieTvShowTrailerVideoAdapter
 import com.taufik.themovieshow.ui.detail.movie_tvshow.viewmodel.DetailMovieTvShowViewModel
 import com.taufik.themovieshow.ui.favorite.helper.FavoriteAction
-import com.taufik.themovieshow.ui.movie.adapter.ReviewsAdapter
-import com.taufik.themovieshow.utils.objects.CommonDateFormatConstants
+import com.taufik.themovieshow.utils.enums.DetailTypeEnum
 import com.taufik.themovieshow.utils.enums.FROM
 import com.taufik.themovieshow.utils.extensions.applySystemBarBottomPadding
 import com.taufik.themovieshow.utils.extensions.convertDate
@@ -34,6 +38,8 @@ import com.taufik.themovieshow.utils.extensions.navigateToDetailMovieTvShow
 import com.taufik.themovieshow.utils.extensions.observeNetworkResult
 import com.taufik.themovieshow.utils.extensions.popBackStack
 import com.taufik.themovieshow.utils.extensions.share
+import com.taufik.themovieshow.utils.extensions.showError
+import com.taufik.themovieshow.utils.extensions.showSnackBar
 import com.taufik.themovieshow.utils.extensions.showSuccessToastyIcon
 import com.taufik.themovieshow.utils.extensions.showTrailerVideo
 import com.taufik.themovieshow.utils.extensions.showView
@@ -43,7 +49,9 @@ import com.taufik.themovieshow.utils.extensions.toMovieBaseVideoItemList
 import com.taufik.themovieshow.utils.extensions.toRating
 import com.taufik.themovieshow.utils.extensions.toTvShowBaseVideoItemList
 import com.taufik.themovieshow.utils.extensions.toggleVisibilityIf
+import com.taufik.themovieshow.utils.extensions.tryOpenBrowser
 import com.taufik.themovieshow.utils.helper.DynamicSnapHelper
+import com.taufik.themovieshow.utils.objects.CommonDateFormatConstants
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -52,10 +60,32 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
 
     private val detailMovieTvShowViewModel: DetailMovieTvShowViewModel by viewModels()
 
-    private val reviewsAdapter by lazy { ReviewsAdapter() }
     private val castAdapter by lazy { MovieTvShowCastAdapter() }
-    private var trailerVideoAdapter: MovieTvShowTrailerVideoAdapter? = null
-    private var similarAdapter: MovieTvShowSimilarAdapter? = null
+    private val trailerVideoAdapter by lazy {
+        MovieTvShowTrailerVideoAdapter {
+            if (!isAdded) return@MovieTvShowTrailerVideoAdapter
+            context?.showTrailerVideo(it.key)
+        }
+    }
+
+    private val reviewsAdapter by lazy {
+        MovieTvShowReviewsAdapter {
+            context?.tryOpenBrowser(it)
+        }
+    }
+
+    private val similarAdapter by lazy {
+        MovieTvShowSimilarAdapter {
+            navigateToDetailMovieTvShow(
+                id = it.id,
+                title = it.titleText,
+                from = from
+            )
+        }
+    }
+
+    private val idMovieTvShow by lazy { arguments?.getInt(EXTRA_ID, 0) ?: 0 }
+    private val title by lazy { arguments?.getString(EXTRA_TITLE).orEmpty() }
 
     private val from: FROM by lazy {
         val fromString = arguments?.getString(EXTRA_FROM)
@@ -99,8 +129,6 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
         }
     }
 
-    private var idMovieTvShow = 0
-    private var title = ""
     private var isChecked = false
 
     override fun inflateBinding(
@@ -112,33 +140,27 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
         applySystemBarBottomPadding()
 
         requireActivity().onBackPressedDispatcher.addCallback(
-            viewLifecycleOwner, backPressedCallback
+            viewLifecycleOwner,
+            backPressedCallback
         )
+
         getBundleData()
         showToolbarData()
         setDetailObserver(idMovieTvShow)
         setCastAdapter()
-        setCastObserver(idMovieTvShow)
         setTrailerVideoAdapter()
-        showTrailerVideoObserver(idMovieTvShow)
         setReviewsAdapter()
-        showReviewsObserver(idMovieTvShow)
         setSimilarMovieAdapter()
-        showSimilarMovieOrTvShow(idMovieTvShow)
     }
 
     private fun getBundleData() {
-        idMovieTvShow = arguments?.getInt(EXTRA_ID, 0) ?: 0
-        title = arguments?.getString(EXTRA_TITLE).orEmpty()
     }
 
     private fun showToolbarData() {
-        binding.apply {
-            toolbarDetailMovie.apply {
-                tvToolbar.text = title
-                imgBack.setOnClickListener {
-                    this@DetailMovieTvShowBindingFragment.popBackStack()
-                }
+        binding.toolbarDetailMovie.apply {
+            tvToolbar.text = title
+            imgBack.setOnClickListener {
+                this@DetailMovieTvShowBindingFragment.popBackStack()
             }
         }
     }
@@ -149,20 +171,40 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                 when (from) {
                     FROM.MOVIE -> {
                         setDetailMovies(id)
+
                         detailMoviesResponse.observeNetworkResult(
                             lifecycleOwner = viewLifecycleOwner,
                             onLoading = {
+                                showShimmer(isLoading = true, type = DetailTypeEnum.OVERVIEW)
                                 updateDetailInformationState(isLoading = true)
                             },
                             onSuccess = { response ->
+                                showShimmer(isLoading = false, type = DetailTypeEnum.OVERVIEW)
+
                                 val hasOverview = response.overview.isNotEmpty()
-                                updateDetailInformationState(isLoading = false, isShowEmpty = !hasOverview)
+                                updateDetailInformationState(
+                                    isLoading = false,
+                                    isShowEmpty = !hasOverview
+                                )
 
                                 setReadMore()
                                 showDetailData(MovieDetailWrapper(response))
+
+                                setCastObserver(id)
                             },
                             onError = {
-                                // TODO: create a layout to display error information and binding information on it
+                                showShimmer(isLoading = false, type = DetailTypeEnum.OVERVIEW)
+                                updateDetailInformationState(isLoading = false, isShowEmpty = false)
+
+                                layoutError.showError(
+                                    context = requireContext(),
+                                    message = it,
+                                    retryAction = {
+                                        // TODO: skip this until using flow instead of livedata
+                                        // Reload data
+//                                        setDetailObserver(id)
+                                    }
+                                )
                             }
                         )
                     }
@@ -172,17 +214,35 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                         detailTvShowResponse.observeNetworkResult(
                             lifecycleOwner = viewLifecycleOwner,
                             onLoading = {
+                                showShimmer(isLoading = true, type = DetailTypeEnum.OVERVIEW)
                                 updateDetailInformationState(isLoading = true)
                             },
                             onSuccess = { response ->
+                                showShimmer(isLoading = false, type = DetailTypeEnum.OVERVIEW)
+
                                 val hasOverview = response.overview.isNotEmpty()
-                                updateDetailInformationState(isLoading = false, isShowEmpty = !hasOverview)
+                                updateDetailInformationState(
+                                    isLoading = false,
+                                    isShowEmpty = !hasOverview
+                                )
 
                                 setReadMore()
                                 showDetailData(TvShowDetailWrapper(response))
+
+                                setCastObserver(id)
                             },
                             onError = {
-                                // TODO: create a layout to display error information and binding information on it
+                                showShimmer(isLoading = false, type = DetailTypeEnum.OVERVIEW)
+                                updateDetailInformationState(isLoading = false, isShowEmpty = false)
+                                layoutError.showError(
+                                    context = requireContext(),
+                                    message = it,
+                                    retryAction = {
+                                        // TODO: skip this until using flow instead of livedata
+                                        // Reload data
+//                                        setDetailObserver(id)
+                                    }
+                                )
                             }
                         )
                     }
@@ -192,6 +252,8 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
     }
 
     private fun showDetailData(data: BaseDetailData) {
+        if (!isAdded) return
+
         binding.apply {
             // Poster
             imgPoster.loadImage(data.posterPath.orEmpty())
@@ -243,7 +305,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
             val hasRating = data.voteAverage != 0.0
             icTxtRating.apply {
                 setIcon(R.drawable.ic_outline_rate)
-                requireContext().setIconColor(R.color.colorTextOther)
+                context?.setIconColor(R.color.colorTextOther)
                 setText(
                     if (hasRating) {
                         getString(
@@ -260,7 +322,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                     }
                 )
                 setTextSize(TEXT_SIZE)
-                requireContext().setTextColor(R.color.colorTextOther)
+                context?.setTextColor(R.color.colorTextOther)
             }
 
             // Runtime or Episodes
@@ -269,14 +331,16 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                     val movie = (data as MovieDetailWrapper).movie
                     icTxtRuntime.apply {
                         toggleVisibilityIf(from == FROM.MOVIE)
+                        icTxtEpisodes.hideView()
+
                         setIcon(R.drawable.ic_outline_runtime)
-                        requireContext().setIconColor(R.color.colorTextOther)
+                        context?.setIconColor(R.color.colorTextOther)
                         setText(
                             if (movie.runtime == 0) convertRuntime(0)
                             else convertRuntime(movie.runtime)
                         )
                         setTextSize(TEXT_SIZE)
-                        requireContext().setTextColor(R.color.colorTextOther)
+                        context?.setTextColor(R.color.colorTextOther)
                     }
                 }
 
@@ -284,8 +348,10 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                     val tvShow = (data as TvShowDetailWrapper).tvShow
                     icTxtEpisodes.apply {
                         toggleVisibilityIf(from == FROM.TV_SHOW)
+                        icTxtRuntime.hideView()
+
                         setIcon(R.drawable.ic_outline_episode)
-                        requireContext().setIconColor(R.color.colorTextOther)
+                        context?.setIconColor(R.color.colorTextOther)
                         setText(
                             if (tvShow.numberOfEpisodes == 0) getString(R.string.tvNA)
                             else getString(
@@ -295,7 +361,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                             )
                         )
                         setTextSize(TEXT_SIZE)
-                        requireContext().setTextColor(R.color.colorTextOther)
+                        context?.setTextColor(R.color.colorTextOther)
                     }
 
                     val networkText = when {
@@ -319,34 +385,34 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
             // Age Rating
             icTxtAgeRating.apply {
                 setIcon(if (data.isAdult) R.drawable.ic_outline_adult else R.drawable.ic_outline_no_adult)
-                requireContext().setIconColor(R.color.colorTextOther)
+                context?.setIconColor(R.color.colorTextOther)
                 setText(if (data.isAdult) getString(R.string.tvAdults) else getString(R.string.tvAllAges))
                 setTextSize(TEXT_SIZE)
-                requireContext().setTextColor(R.color.colorTextOther)
+                context?.setTextColor(R.color.colorTextOther)
             }
 
             // Language
             icTxtLanguage.apply {
                 setIcon(R.drawable.ic_outline_spoken_language)
-                requireContext().setIconColor(R.color.colorTextOther)
+                context?.setIconColor(R.color.colorTextOther)
                 setText(
                     if (data.spokenLanguages.isEmpty()) getString(R.string.tvNA)
                     else data.spokenLanguages.joinToString(", ")
                 )
                 setTextSize(TEXT_SIZE)
-                requireContext().setTextColor(R.color.colorTextOther)
+                context?.setTextColor(R.color.colorTextOther)
             }
 
             // Genres
             icTxtGenre.apply {
                 setIcon(R.drawable.ic_outline_genre)
-                requireContext().setIconColor(R.color.colorTextOther)
+                context?.setIconColor(R.color.colorTextOther)
                 setText(
                     if (data.genres.isEmpty()) getString(R.string.tvNA)
                     else data.genres.joinToString()
                 )
                 setTextSize(TEXT_SIZE)
-                requireContext().setTextColor(R.color.colorTextOther)
+                context?.setTextColor(R.color.colorTextOther)
             }
 
             // Overview
@@ -376,14 +442,16 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
 
     private fun checkFavoriteData(id: Int) {
         binding.apply {
-            lifecycleScope.launch {
-                var count = 0
-                count = when (from) {
-                    FROM.MOVIE -> detailMovieTvShowViewModel.checkFavoriteMovie(id)
-                    FROM.TV_SHOW -> detailMovieTvShowViewModel.checkFavoriteTvShow(id)
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    var count = 0
+                    count = when (from) {
+                        FROM.MOVIE -> detailMovieTvShowViewModel.checkFavoriteMovie(id)
+                        FROM.TV_SHOW -> detailMovieTvShowViewModel.checkFavoriteTvShow(id)
+                    }
+                    toolbarDetailMovie.toggleFavorite.isChecked = count > 0
+                    isChecked = count > 0
                 }
-                toolbarDetailMovie.toggleFavorite.isChecked = count > 0
-                isChecked = count > 0
             }
         }
     }
@@ -395,6 +463,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
         releaseDate: String,
         voteAverage: Double
     ) {
+        if (!isAdded) return
         binding.apply {
             toolbarDetailMovie.toggleFavorite.setOnClickListener {
                 isChecked = !isChecked
@@ -403,18 +472,19 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
 
                 if (isChecked) {
                     action.addFavorite(id, posterPath, title, releaseDate, voteAverage)
-                    requireContext().showSuccessToastyIcon(getString(R.string.action_added_to_favorite))
+                    context?.showSuccessToastyIcon(getString(R.string.action_added_to_favorite))
                 } else {
                     action.removeFavorite(id)
-                    requireContext().showSuccessToastyIcon(getString(R.string.action_removed_from_favorite))
+                    context?.showSuccessToastyIcon(getString(R.string.action_removed_from_favorite))
                 }
             }
         }
     }
 
     private fun shareAwesomeMovieOrTvShow(link: String) {
+        if (!isAdded) return
         binding.toolbarDetailMovie.imgShare.setOnClickListener {
-            requireContext().share(
+            context?.share(
                 getString(
                     when (from) {
                         FROM.MOVIE -> R.string.tvVisitMovie
@@ -444,8 +514,9 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
     }
 
     private fun setCastAdapter() {
-        binding.rvMovieCast.apply {
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.rvCast.apply {
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             clipToPadding = false
             clipChildren = false
             setHasFixedSize(false)
@@ -465,26 +536,27 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                         detailMoviesCastResponse.observeNetworkResult(
                             lifecycleOwner = viewLifecycleOwner,
                             onLoading = {
+                                showShimmer(isLoading = true, type = DetailTypeEnum.CAST)
                                 updateCastSectionState(isLoading = true)
                             },
                             onSuccess = { response ->
+
                                 val results = response.cast
                                 val isResultsEmpty = results.isEmpty()
-                                updateCastSectionState(isLoading = false, isShowEmpty = isResultsEmpty)
 
-                                if (isResultsEmpty) return@observeNetworkResult
+                                showShimmer(isLoading = false, type = DetailTypeEnum.CAST)
+                                updateCastSectionState(
+                                    isLoading = false,
+                                    isShowEmpty = isResultsEmpty
+                                )
 
-                                val castList = response.cast.map {
-                                    BaseCastItemImpl(
-                                        id = it.id,
-                                        name = it.name,
-                                        character = it.character,
-                                        profilePath = it.profilePath.orEmpty()
-                                    )
-                                }
-                                castAdapter.submitList(castList)
+                                val mappedList = if (isResultsEmpty) emptyList() else response.cast.map { it.toCastItem() }
+                                castAdapter.submitList(mappedList)
+
+                                showTrailerVideoObserver(id)
                             },
                             onError = {
+                                showShimmer(isLoading = false, type = DetailTypeEnum.CAST)
                                 updateCastSectionState(isLoading = false, isShowEmpty = false)
 
                                 // TODO: create a layout to display error information and binding information on it
@@ -497,26 +569,26 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                         detailTvShowCastResponse.observeNetworkResult(
                             lifecycleOwner = viewLifecycleOwner,
                             onLoading = {
+                                showShimmer(isLoading = true, type = DetailTypeEnum.CAST)
                                 updateCastSectionState(isLoading = true)
                             },
                             onSuccess = { response ->
                                 val results = response.cast
                                 val isResultsEmpty = results.isEmpty()
-                                updateCastSectionState(isLoading = false, isShowEmpty = isResultsEmpty)
 
-                                if (isResultsEmpty) return@observeNetworkResult
+                                showShimmer(isLoading = false, type = DetailTypeEnum.CAST)
+                                updateCastSectionState(
+                                    isLoading = false,
+                                    isShowEmpty = isResultsEmpty
+                                )
 
-                                val castList = response.cast.map {
-                                    BaseCastItemImpl(
-                                        id = it.id,
-                                        name = it.name,
-                                        character = it.character,
-                                        profilePath = it.profilePath.orEmpty()
-                                    )
-                                }
-                                castAdapter.submitList(castList)
+                                val mappedList = if (isResultsEmpty) emptyList() else response.cast.map { it.toCastItem() }
+                                castAdapter.submitList(mappedList)
+
+                                showTrailerVideoObserver(id)
                             },
                             onError = {
+                                showShimmer(isLoading = false, type = DetailTypeEnum.CAST)
                                 updateCastSectionState(isLoading = false, isShowEmpty = false)
 
                                 // TODO: create a layout to display error information and binding information on it
@@ -529,12 +601,9 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
     }
 
     private fun setTrailerVideoAdapter() {
-        trailerVideoAdapter = MovieTvShowTrailerVideoAdapter {
-            requireContext().showTrailerVideo(it.key)
-        }
-
         binding.rvTrailerVideo.apply {
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             clipToPadding = false
             clipChildren = false
             setHasFixedSize(true)
@@ -554,17 +623,23 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                         detailMoviesVideoResponse.observeNetworkResult(
                             lifecycleOwner = viewLifecycleOwner,
                             onLoading = {
+                                showShimmer(isLoading = true, type = DetailTypeEnum.TRAILER_VIDEO)
                                 updateTrailerVideoSectionState(isLoading = true)
                             },
                             onSuccess = { response ->
                                 val results = response.results
                                 val isEmptyResult = results.isEmpty()
-                                updateTrailerVideoSectionState(isLoading = false, isShowEmpty = isEmptyResult)
 
-                                if (isEmptyResult) return@observeNetworkResult
+                                showShimmer(isLoading = false, type = DetailTypeEnum.TRAILER_VIDEO)
+                                updateTrailerVideoSectionState(
+                                    isLoading = false,
+                                    isShowEmpty = isEmptyResult
+                                )
 
-                                val mappedList = results.toMovieBaseVideoItemList()
-                                trailerVideoAdapter?.submitList(mappedList)
+                                val mappedList = if (isEmptyResult) emptyList() else results.toMovieBaseVideoItemList()
+                                trailerVideoAdapter.submitList(mappedList)
+
+                                showReviewsObserver(id)
                             },
                             onError = {
                                 updateTrailerVideoSectionState(isLoading = false, isShowEmpty = false)
@@ -579,17 +654,23 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                         detailTvShowVideoResponse.observeNetworkResult(
                             lifecycleOwner = viewLifecycleOwner,
                             onLoading = {
+                                showShimmer(isLoading = true, type = DetailTypeEnum.TRAILER_VIDEO)
                                 updateTrailerVideoSectionState(isLoading = true)
                             },
                             onSuccess = { response ->
                                 val results = response.results
                                 val isEmptyResult = results.isEmpty()
-                                updateTrailerVideoSectionState(isLoading = false, isShowEmpty = isEmptyResult)
 
-                                if (isEmptyResult) return@observeNetworkResult
+                                showShimmer(isLoading = false, type = DetailTypeEnum.TRAILER_VIDEO)
+                                updateTrailerVideoSectionState(
+                                    isLoading = false,
+                                    isShowEmpty = isEmptyResult
+                                )
 
-                                val mappedList = response.results.toTvShowBaseVideoItemList()
-                                trailerVideoAdapter?.submitList(mappedList)
+                                val mappedList = if (isEmptyResult) emptyList() else response.results.toTvShowBaseVideoItemList()
+                                trailerVideoAdapter.submitList(mappedList)
+
+                                showReviewsObserver(id)
                             },
                             onError = {
                                 updateTrailerVideoSectionState(isLoading = false, isShowEmpty = false)
@@ -604,8 +685,9 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
     }
 
     private fun setReviewsAdapter() {
-        binding.rvMovieReviews.apply {
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.rvReviews.apply {
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             setHasFixedSize(true)
             adapter = reviewsAdapter
 
@@ -623,18 +705,27 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                         detailMovieReviewsResponse.observeNetworkResult(
                             lifecycleOwner = viewLifecycleOwner,
                             onLoading = {
+                                showShimmer(isLoading = true, type = DetailTypeEnum.REVIEWS)
                                 updateReviewsSectionState(isLoading = true)
                             },
                             onSuccess = { response ->
                                 val results = response.results
                                 val isResultsEmpty = results.isEmpty()
-                                updateReviewsSectionState(isLoading = false, isShowEmpty = isResultsEmpty)
 
-                                if (isResultsEmpty) return@observeNetworkResult
+                                showShimmer(isLoading = false, type = DetailTypeEnum.REVIEWS)
+                                updateReviewsSectionState(
+                                    isLoading = false,
+                                    isShowEmpty = isResultsEmpty
+                                )
 
-                                reviewsAdapter.submitList(results)
+                                val mappedList =
+                                    if (isResultsEmpty) emptyList() else results.map { it.toBaseReviewItem() }
+                                reviewsAdapter.submitList(mappedList)
+
+                                showSimilarMovieOrTvShowObserver(id)
                             },
                             onError = {
+                                showShimmer(isLoading = false, type = DetailTypeEnum.REVIEWS)
                                 updateReviewsSectionState(isLoading = false, isShowEmpty = false)
 
                                 // TODO: create a layout to display error information and binding information on it
@@ -647,18 +738,27 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                         detailTvShowReviewsResponse.observeNetworkResult(
                             lifecycleOwner = viewLifecycleOwner,
                             onLoading = {
+                                showShimmer(isLoading = true, type = DetailTypeEnum.REVIEWS)
                                 updateReviewsSectionState(isLoading = true)
                             },
                             onSuccess = { response ->
                                 val results = response.results
                                 val isResultsEmpty = results.isEmpty()
-                                updateReviewsSectionState(isLoading = false, isShowEmpty = isResultsEmpty)
 
-                                if (isResultsEmpty) return@observeNetworkResult
+                                showShimmer(isLoading = false, type = DetailTypeEnum.REVIEWS)
+                                updateReviewsSectionState(
+                                    isLoading = false,
+                                    isShowEmpty = isResultsEmpty
+                                )
 
-                                reviewsAdapter.submitList(results)
+                                val mappedList =
+                                    if (isResultsEmpty) emptyList() else results.map { it.toBaseReviewItem() }
+                                reviewsAdapter.submitList(mappedList)
+
+                                showSimilarMovieOrTvShowObserver(id)
                             },
                             onError = {
+                                showShimmer(isLoading = false, type = DetailTypeEnum.REVIEWS)
                                 updateReviewsSectionState(isLoading = false, isShowEmpty = false)
 
                                 // TODO: create a layout to display error information and binding information on it
@@ -671,16 +771,9 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
     }
 
     private fun setSimilarMovieAdapter() {
-        similarAdapter = MovieTvShowSimilarAdapter {
-            navigateToDetailMovieTvShow(
-                id = it.id,
-                title = it.titleText,
-                from = from
-            )
-        }
-
         binding.rvMovieSimilar.apply {
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             clipToPadding = false
             clipChildren = false
             setHasFixedSize(false)
@@ -700,26 +793,24 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                         detailMovieSimilarResponse.observeNetworkResult(
                             lifecycleOwner = viewLifecycleOwner,
                             onLoading = {
+                                showShimmer(isLoading = true, type = DetailTypeEnum.SIMILAR)
                                 updateSimilarSectionState(isLoading = true)
                             },
                             onSuccess = { response ->
                                 val results = response.results
                                 val isResultsEmpty = results.isEmpty()
-                                updateSimilarSectionState(isLoading = false, isShowEmpty = isResultsEmpty)
 
-                                if (isResultsEmpty) return@observeNetworkResult
+                                showShimmer(isLoading = false, type = DetailTypeEnum.SIMILAR)
+                                updateSimilarSectionState(
+                                    isLoading = false,
+                                    isShowEmpty = isResultsEmpty
+                                )
 
-                                val mappedList = results.map {
-                                    BaseSimilarItemImpl(
-                                        id = it.id,
-                                        posterPath = it.posterPath.orEmpty(),
-                                        titleText = it.originalTitle,
-                                        releaseDateText = it.releaseDate
-                                    )
-                                }
-                                similarAdapter?.submitList(mappedList)
+                                val mappedList = if (isResultsEmpty) emptyList() else results.map { it.toMovieBaseSimilarItem() }
+                                similarAdapter.submitList(mappedList)
                             },
                             onError = {
+                                showShimmer(isLoading = false, type = DetailTypeEnum.SIMILAR)
                                 updateSimilarSectionState(isLoading = false, isShowEmpty = false)
 
                                 // TODO: create a layout to display error information and binding information on it
@@ -732,26 +823,24 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                         detailTvShowSimilarResponse.observeNetworkResult(
                             lifecycleOwner = viewLifecycleOwner,
                             onLoading = {
+                                showShimmer(isLoading = true, type = DetailTypeEnum.SIMILAR)
                                 updateSimilarSectionState(isLoading = true)
                             },
                             onSuccess = { response ->
                                 val results = response.results
                                 val isResultsEmpty = results.isEmpty()
-                                updateSimilarSectionState(isLoading = false, isShowEmpty = isResultsEmpty)
 
-                                if (isResultsEmpty) return@observeNetworkResult
+                                showShimmer(isLoading = false, type = DetailTypeEnum.SIMILAR)
+                                updateSimilarSectionState(
+                                    isLoading = false,
+                                    isShowEmpty = isResultsEmpty
+                                )
 
-                                val mappedList = results.map {
-                                    BaseSimilarItemImpl(
-                                        id = it.id,
-                                        posterPath = it.posterPath.orEmpty(),
-                                        titleText = it.originalName,
-                                        releaseDateText = it.firstAirDate
-                                    )
-                                }
-                                similarAdapter?.submitList(mappedList)
+                                val mappedList = if (isResultsEmpty) emptyList() else results.map { it.toTvShowSimilarItem() }
+                                similarAdapter.submitList(mappedList)
                             },
                             onError = {
+                                showShimmer(isLoading = false, type = DetailTypeEnum.SIMILAR)
                                 updateSimilarSectionState(isLoading = false, isShowEmpty = false)
 
                                 // TODO: create a layout to display error information and binding information on it
@@ -769,6 +858,32 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
         return getString(R.string.tvRuntimeInTime, hours, minutes)
     }
 
+    private fun showShimmer(
+        isLoading: Boolean,
+        type: DetailTypeEnum,
+        useInvisible: Boolean = true
+    ) {
+        binding.apply {
+            val shimmerView = when (type) {
+                DetailTypeEnum.OVERVIEW -> shimmerDetail
+                DetailTypeEnum.CAST -> shimmerCast
+                DetailTypeEnum.TRAILER_VIDEO -> shimmerTrailerVideo
+                DetailTypeEnum.REVIEWS -> shimmerReviews
+                DetailTypeEnum.SIMILAR -> shimmerSimilar
+            }
+
+            if (isLoading) {
+                shimmerView.startShimmer()
+                shimmerView.showView()
+            } else {
+                shimmerView.stopShimmer()
+                shimmerView.hideView()
+            }
+
+            shimmerView.toggleVisibilityIf(isLoading, useInvisible)
+        }
+    }
+
     private fun updateDetailInformationState(
         isLoading: Boolean = false,
         isShowEmpty: Boolean = false
@@ -780,7 +895,6 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
             }
 
             groupDetailInformation.showView()
-
             tvOverviewTitle.toggleVisibilityIf(!isShowEmpty)
             tvOverview.toggleVisibilityIf(!isShowEmpty)
             tvReadMore.toggleVisibilityIf(!isShowEmpty)
@@ -795,16 +909,13 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
         binding.apply {
             if (isLoading) {
                 groupCast.hideView()
-                rvMovieCast.hideView()
-                tvNoCast.hideView()
                 return
             }
 
             groupCast.showView()
-            tvCast.showView()
-
+            tvCastTitle.showView()
             tvNoCast.toggleVisibilityIf(isShowEmpty)
-            rvMovieCast.toggleVisibilityIf(!isShowEmpty)
+            rvCast.toggleVisibilityIf(!isShowEmpty)
         }
     }
 
@@ -815,14 +926,11 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
         binding.apply {
             if (isLoading) {
                 groupTrailerVideo.hideView()
-                rvTrailerVideo.hideView()
-                tvNoVideo.hideView()
                 return
             }
 
             groupTrailerVideo.showView()
-            tvTrailer.showView()
-
+            tvTrailerTitle.showView()
             tvNoVideo.toggleVisibilityIf(isShowEmpty)
             rvTrailerVideo.toggleVisibilityIf(!isShowEmpty)
         }
@@ -835,16 +943,13 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
         binding.apply {
             if (isLoading) {
                 groupReviews.hideView()
-                rvMovieReviews.hideView()
-                tvNoReviews.hideView()
                 return
             }
 
             groupReviews.showView()
             tvReviewsTitle.showView()
-
             tvNoReviews.toggleVisibilityIf(isShowEmpty)
-            rvMovieReviews.toggleVisibilityIf(!isShowEmpty)
+            rvReviews.toggleVisibilityIf(!isShowEmpty)
         }
     }
 
@@ -855,23 +960,17 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
         binding.apply {
             if (isLoading) {
                 groupSimilar.hideView()
-                rvMovieSimilar.hideView()
-                tvNoSimilar.hideView()
                 return
             }
 
             groupSimilar.showView()
-            tvMovieSimilar.toggleVisibilityIf(from == FROM.MOVIE)
-            tvTvShowSimilar.toggleVisibilityIf(from == FROM.TV_SHOW)
+
+            tvMovieSimilarTitle.toggleVisibilityIf(from == FROM.MOVIE)
+            tvTvShowSimilarTitle.toggleVisibilityIf(from == FROM.TV_SHOW)
 
             tvNoSimilar.toggleVisibilityIf(isShowEmpty)
             rvMovieSimilar.toggleVisibilityIf(!isShowEmpty)
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        similarAdapter = null
     }
 
     companion object {
