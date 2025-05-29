@@ -558,8 +558,12 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                             onError = {
                                 showShimmer(isLoading = false, type = DetailTypeEnum.CAST)
                                 updateCastSectionState(isLoading = false, isShowEmpty = false)
-
-                                // TODO: create a layout to display error information and binding information on it
+                                showSnackBar(
+                                    message = it,
+                                    actionText = getString(R.string.action_retry)
+                                ) {
+                                    setCastObserver(id)
+                                }
                             }
                         )
                     }
@@ -590,8 +594,12 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                             onError = {
                                 showShimmer(isLoading = false, type = DetailTypeEnum.CAST)
                                 updateCastSectionState(isLoading = false, isShowEmpty = false)
-
-                                // TODO: create a layout to display error information and binding information on it
+                                showSnackBar(
+                                    message = it,
+                                    actionText = getString(R.string.action_retry)
+                                ) {
+                                    setCastObserver(id)
+                                }
                             }
                         )
                     }
@@ -642,9 +650,17 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                                 showReviewsObserver(id)
                             },
                             onError = {
-                                updateTrailerVideoSectionState(isLoading = false, isShowEmpty = false)
-
-                                // TODO: create a layout to display error information and binding information on it
+                                showShimmer(isLoading = false, type = DetailTypeEnum.TRAILER_VIDEO)
+                                updateTrailerVideoSectionState(
+                                    isLoading = false,
+                                    isShowEmpty = false
+                                )
+                                showSnackBar(
+                                    message = it,
+                                    actionText = getString(R.string.action_retry)
+                                ) {
+                                    showTrailerVideoObserver(id)
+                                }
                             }
                         )
                     }
@@ -673,9 +689,17 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                                 showReviewsObserver(id)
                             },
                             onError = {
-                                updateTrailerVideoSectionState(isLoading = false, isShowEmpty = false)
-
-                                // TODO: create a layout to display error information and binding information on it
+                                showShimmer(isLoading = false, type = DetailTypeEnum.TRAILER_VIDEO)
+                                updateTrailerVideoSectionState(
+                                    isLoading = false,
+                                    isShowEmpty = false
+                                )
+                                showSnackBar(
+                                    message = it,
+                                    actionText = getString(R.string.action_retry)
+                                ) {
+                                    showTrailerVideoObserver(id)
+                                }
                             }
                         )
                     }
@@ -727,8 +751,10 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                             onError = {
                                 showShimmer(isLoading = false, type = DetailTypeEnum.REVIEWS)
                                 updateReviewsSectionState(isLoading = false, isShowEmpty = false)
-
-                                // TODO: create a layout to display error information and binding information on it
+                                showSnackBar(
+                                    message = it,
+                                    actionText = getString(R.string.action_retry)
+                                ) { showReviewsObserver(id) }
                             }
                         )
                     }
@@ -760,8 +786,10 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                             onError = {
                                 showShimmer(isLoading = false, type = DetailTypeEnum.REVIEWS)
                                 updateReviewsSectionState(isLoading = false, isShowEmpty = false)
-
-                                // TODO: create a layout to display error information and binding information on it
+                                showSnackBar(
+                                    message = it,
+                                    actionText = getString(R.string.action_retry)
+                                ) { showReviewsObserver(id) }
                             }
                         )
                     }
@@ -784,7 +812,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
         }
     }
 
-    private fun showSimilarMovieOrTvShow(id: Int) {
+    private fun showSimilarMovieOrTvShowObserver(id: Int) {
         binding.apply {
             detailMovieTvShowViewModel.apply {
                 when (from) {
@@ -812,8 +840,10 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                             onError = {
                                 showShimmer(isLoading = false, type = DetailTypeEnum.SIMILAR)
                                 updateSimilarSectionState(isLoading = false, isShowEmpty = false)
-
-                                // TODO: create a layout to display error information and binding information on it
+                                showSnackBar(
+                                    message = it,
+                                    actionText = getString(R.string.action_retry)
+                                ) { showSimilarMovieOrTvShowObserver(id) }
                             }
                         )
                     }
@@ -842,8 +872,10 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                             onError = {
                                 showShimmer(isLoading = false, type = DetailTypeEnum.SIMILAR)
                                 updateSimilarSectionState(isLoading = false, isShowEmpty = false)
-
-                                // TODO: create a layout to display error information and binding information on it
+                                showSnackBar(
+                                    message = it,
+                                    actionText = getString(R.string.action_retry)
+                                ) { showSimilarMovieOrTvShowObserver(id) }
                             }
                         )
                     }
