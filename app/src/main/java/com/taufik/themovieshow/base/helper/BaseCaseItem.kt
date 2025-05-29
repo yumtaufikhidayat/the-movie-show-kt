@@ -1,15 +1,26 @@
 package com.taufik.themovieshow.base.helper
 
+import com.taufik.themovieshow.model.response.movie.cast.MovieCast
+import com.taufik.themovieshow.model.response.tvshow.cast.TvShowsCast
+import kotlin.Int
+
 interface BaseCastItem {
     val id: Int
     val name: String
     val character: String
-    val profilePath: String
+    val profilePath: String?
 }
 
-data class BaseCastItemImpl(
-    override val id: Int,
-    override val name: String,
-    override val character: String,
-    override val profilePath: String
-) : BaseCastItem
+fun MovieCast.toCastItem(): BaseCastItem = object : BaseCastItem {
+    override val id = this@toCastItem.id
+    override val name = this@toCastItem.name
+    override val character = this@toCastItem.character
+    override val profilePath = this@toCastItem.profilePath
+}
+
+fun TvShowsCast.toCastItem(): BaseCastItem = object : BaseCastItem {
+    override val id = this@toCastItem.id
+    override val name = this@toCastItem.name
+    override val character = this@toCastItem.character
+    override val profilePath = this@toCastItem.profilePath
+}

@@ -75,6 +75,7 @@
     <string name="tvInstallBrowserYouTube">Please install a browser or the YouTube app first.\nError: %s</string>
     <string name="tvPressBackExit">Press back again to exit the app</string>
     <string name="tvOpenWith">Open with</string>
+    <string name="tvNoHandleApp">No app can handle this link.</string>
     <string name="tvInstallBrowser">Please install a browser first.\nError: %s</string>
     <string name="tvSendTo">Send to</string>
     <string name="tvInstallEmailApp">Please install an email app first</string>

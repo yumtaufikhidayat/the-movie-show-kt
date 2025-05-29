@@ -75,6 +75,7 @@
     <string name="tvInstallBrowserYouTube">Silakan install browser atau aplikasi YouTube terlebih dahulu.\nError: %s</string>
     <string name="tvPressBackExit">Tekan tombol sekali lagi untuk keluar</string>
     <string name="tvOpenWith">Buka dengan</string>
+    <string name="tvNoHandleApp">Tidak ada aplikasi untuk membuka link.</string>
     <string name="tvInstallBrowser">Silakan install browser terlebih dahulu.\nError: %s</string>
     <string name="tvSendTo">Kirim ke</string>
     <string name="tvInstallEmailApp">Silakan install aplikasi email terlebih dahulu.</string>

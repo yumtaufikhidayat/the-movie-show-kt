@@ -199,6 +199,9 @@ dependencies {
     // Chucker
     debugImplementation(libs.chucker)
     releaseImplementation(libs.chucker.no.op)
+
+    // Shimmer
+    implementation(libs.shimmerLayout)
 }
 
 kapt {

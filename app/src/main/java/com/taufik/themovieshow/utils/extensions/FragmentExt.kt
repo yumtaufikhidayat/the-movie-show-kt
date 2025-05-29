@@ -10,6 +10,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -26,7 +27,15 @@ fun Fragment.navigateToDetailMovieTvShow(id: Int, title: String, from: FROM) {
         DetailMovieTvShowBindingFragment.EXTRA_TITLE to title,
         DetailMovieTvShowBindingFragment.EXTRA_FROM to from.name
     )
-    this.findNavController().navigate(R.id.detailMovieTvShowFragment, bundle)
+    this.findNavController().navigate(
+        R.id.detailMovieTvShowFragment,
+        bundle,
+        navOptions {
+            popUpTo(R.id.detailMovieTvShowFragment) {
+                inclusive = true
+            }
+        }
+    )
 }
 
 fun Fragment.navigateToDetailMovie(id: Int, title: String) {
