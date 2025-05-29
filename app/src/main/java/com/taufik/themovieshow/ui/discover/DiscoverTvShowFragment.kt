@@ -5,49 +5,40 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.taufik.themovieshow.R
+import com.taufik.themovieshow.base.fragment.BaseFragment
 import com.taufik.themovieshow.data.NetworkResult
 import com.taufik.themovieshow.databinding.FragmentDiscoverTvShowBinding
 import com.taufik.themovieshow.model.response.tvshow.discover.DiscoverTvShowsResult
+import com.taufik.themovieshow.ui.detail.movie_tvshow.viewmodel.DetailMovieTvShowViewModel
 import com.taufik.themovieshow.ui.tvshow.adapter.DiscoverTvShowsAdapter
-import com.taufik.themovieshow.ui.tvshow.viewmodel.DetailTvShowViewModel
 import com.taufik.themovieshow.ui.tvshow.viewmodel.TvShowsViewModel
-import com.taufik.themovieshow.utils.extensions.navigateToDetailTvShow
+import com.taufik.themovieshow.utils.enums.FROM
+import com.taufik.themovieshow.utils.extensions.navigateToDetailMovieTvShow
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class DiscoverTvShowFragment : Fragment() {
-
-    private var _binding: FragmentDiscoverTvShowBinding? = null
-    private val binding get() = _binding!!
+class DiscoverTvShowFragment : BaseFragment<FragmentDiscoverTvShowBinding>() {
 
     private val viewModel by viewModels<TvShowsViewModel>()
-    private val detailTvShowViewModel by viewModels<DetailTvShowViewModel>()
+    private val detailMovieTvShowViewModel by viewModels<DetailMovieTvShowViewModel>()
     private var discoverTvShowsAdapter: DiscoverTvShowsAdapter? = null
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        // Inflate the layout for this fragment
-        _binding = FragmentDiscoverTvShowBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+    override fun inflateBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentDiscoverTvShowBinding = FragmentDiscoverTvShowBinding.inflate(inflater, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun onFragmentReady(savedInstanceState: Bundle?) {
         initToolbar()
         initAdapter()
         initSearch()
@@ -61,11 +52,15 @@ class DiscoverTvShowFragment : Fragment() {
 
     private fun initAdapter() {
         discoverTvShowsAdapter = DiscoverTvShowsAdapter {
-            detailTvShowViewModel.apply {
-                idTvShow = it.id
-                titleTvShow = it.name
+            detailMovieTvShowViewModel.apply {
+                idMovieTvShow = it.id
+                titleMovieTvShow = it.name
             }
-            navigateToDetailTvShow(detailTvShowViewModel.idTvShow, detailTvShowViewModel.titleTvShow)
+            navigateToDetailMovieTvShow(
+                detailMovieTvShowViewModel.idMovieTvShow,
+                detailMovieTvShowViewModel.titleMovieTvShow,
+                FROM.TV_SHOW
+            )
         }
 
         binding.rvDiscoverTvShow.apply {
@@ -200,10 +195,5 @@ class DiscoverTvShowFragment : Fragment() {
                 setTextColor(ContextCompat.getColor(requireContext(), R.color.colorOrange))
             }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

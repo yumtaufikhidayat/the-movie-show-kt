@@ -8,8 +8,8 @@ import com.taufik.themovieshow.data.local.entity.tvshow.FavoriteTvShowEntity
 import com.taufik.themovieshow.data.local.preferences.language.LanguagePreference
 import com.taufik.themovieshow.model.about.AboutSection
 import com.taufik.themovieshow.model.favorite.SortFiltering
-import com.taufik.themovieshow.utils.UtilsData
-import com.taufik.themovieshow.utils.UtilsData.getGeneratedAboutData
+import com.taufik.themovieshow.utils.objects.UtilsData
+import com.taufik.themovieshow.utils.objects.UtilsData.getGeneratedAboutData
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton

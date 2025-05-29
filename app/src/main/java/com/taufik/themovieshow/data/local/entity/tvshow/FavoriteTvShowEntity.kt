@@ -3,7 +3,7 @@ package com.taufik.themovieshow.data.local.entity.tvshow
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.taufik.themovieshow.utils.CommonConstants
+import com.taufik.themovieshow.utils.objects.CommonConstants
 import java.io.Serializable
 
 @Entity(tableName = CommonConstants.TABLE_NAME_FAVORITE_TV_SHOW_ENTITY)

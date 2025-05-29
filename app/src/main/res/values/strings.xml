@@ -20,7 +20,7 @@
     <string name="tvBullet">\u2022</string>
     <string name="tvAgeRating">Age Rating</string>
     <string name="tvAdults">18+</string>
-    <string name="tvAllAges">G – Suitable for all ages</string>
+    <string name="tvAllAges">G – All ages admitted</string>
     <string name="tvRuntime">Runtime</string>
     <string name="tvProducedBy">Produced Companies</string>
     <string name="tvGenre">Genre(s)</string>
@@ -57,9 +57,10 @@
     <string name="tvNoSimilarTvShows">No similar TV shows available</string>
     <string name="tvNoVideo">No trailer video available</string>
     <string name="tvNA">N/A</string>
-    <string name="tvNoFavoriteData">Oops! No favorite data found…</string>
-    <string name="tvSaveFavoriteMovie">You haven\'t added any favorite movies. Save one to see it here.</string>
-    <string name="tvSaveFavoriteTvShows">You haven\'t added any favorite TV shows. Save one to see it here.</string>
+    <string name="tvNoFavoriteMovie">Oops! No favorite movies found…</string>
+    <string name="tvNoFavoriteTvShow">Oops! No favorite TV shows found…</string>
+    <string name="tvSaveFavoriteMovie">Your favorite movies will appear here</string>
+    <string name="tvSaveFavoriteTvShows">You favorite TV shows will appear here</string>
     <string name="tvOopsNoResults">Oops! No results found…</string>
     <string name="tvNoSearchData">No results found for this query. Please use another query.</string>
     <string name="tvShareWith">Share with:</string>
@@ -68,12 +69,10 @@
     <string name="tvVisitMovie">Check out this awesome movie\n</string>
     <string name="tvVisitTvShow">Check out this awesome TV show\n</string>
     <string name="tvNameCharacter">%s \n (%s)</string>
-    <string name="tvRetry">Retry</string>
-    <string name="action_added_to_favorite">Added to favorites</string>
-    <string name="action_removed_from_favorite">Removed from favorites</string>
     <string name="tvInstallBrowserYouTube">Please install a browser or the YouTube app first.\nError: %s</string>
     <string name="tvPressBackExit">Press back again to exit the app</string>
     <string name="tvOpenWith">Open with</string>
+    <string name="tvNoHandleApp">No app can handle this link.</string>
     <string name="tvInstallBrowser">Please install a browser first.\nError: %s</string>
     <string name="tvSendTo">Send to</string>
     <string name="tvInstallEmailApp">Please install an email app first</string>
@@ -118,4 +117,9 @@
     <string name="tvLanguageIndonesia">Indonesia (ID)</string>"
     <string name="tvLanguageEnglish">English (EN)</string>"
     <string name="tvSuccesfullyChangedLanguage">Successfully Changed Language</string>
+
+    <!--Action-->
+    <string name="action_added_to_favorite">Added to favorites</string>
+    <string name="action_removed_from_favorite">Removed from favorites</string>
+    <string name="action_retry">Retry</string>
 </resources>

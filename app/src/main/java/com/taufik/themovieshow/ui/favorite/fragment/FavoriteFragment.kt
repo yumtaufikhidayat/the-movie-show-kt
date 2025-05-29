@@ -2,36 +2,27 @@ package com.taufik.themovieshow.ui.favorite.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.taufik.themovieshow.R
+import com.taufik.themovieshow.base.fragment.BaseFragment
 import com.taufik.themovieshow.databinding.FragmentFavoriteBinding
 import com.taufik.themovieshow.ui.tablayout.FavoriteTabViewModel
 import com.taufik.themovieshow.utils.extensions.setupTabLayoutBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class FavoriteFragment : Fragment() {
+class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>() {
 
-    private var _binding: FragmentFavoriteBinding? = null
-    private val binding get() = _binding!!
     private val favoriteTabViewModel: FavoriteTabViewModel by viewModels()
 
-    override fun onCreateView(
+    override fun inflateBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentFavoriteBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+        container: ViewGroup?
+    ): FragmentFavoriteBinding = FragmentFavoriteBinding.inflate(inflater, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun onFragmentReady(savedInstanceState: Bundle?) {
         setToolbar()
         setTabLayout()
     }
@@ -56,11 +47,6 @@ class FavoriteFragment : Fragment() {
                 }
             )
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     companion object {

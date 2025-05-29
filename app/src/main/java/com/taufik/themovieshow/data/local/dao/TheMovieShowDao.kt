@@ -9,7 +9,7 @@ import androidx.room.RawQuery
 import androidx.sqlite.db.SupportSQLiteQuery
 import com.taufik.themovieshow.data.local.entity.movie.FavoriteMovieEntity
 import com.taufik.themovieshow.data.local.entity.tvshow.FavoriteTvShowEntity
-import com.taufik.themovieshow.utils.CommonConstants
+import com.taufik.themovieshow.utils.objects.CommonConstants
 
 @Dao
 interface TheMovieShowDao {

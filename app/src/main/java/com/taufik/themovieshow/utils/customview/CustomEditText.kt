@@ -1,4 +1,4 @@
-package com.taufik.themovieshow.utils
+package com.taufik.themovieshow.utils.customview
 
 import android.content.Context
 import android.graphics.drawable.Drawable
@@ -89,7 +89,7 @@ class CustomEditText : AppCompatEditText, View.OnTouchListener {
                     val clearButtonStart: Float
                     val clearButtonEnd: Float
                     var isClearButtonClicked = false
-                    if (layoutDirection == View.LAYOUT_DIRECTION_RTL) {
+                    if (layoutDirection == LAYOUT_DIRECTION_RTL) {
                         clearButtonEnd = (clearIcon.intrinsicWidth + paddingStart).toFloat()
                         when {
                             event.x < clearButtonEnd -> isClearButtonClicked = true

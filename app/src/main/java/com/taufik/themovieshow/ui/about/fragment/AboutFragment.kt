@@ -5,16 +5,15 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.net.toUri
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.taufik.themovieshow.R
+import com.taufik.themovieshow.base.fragment.BaseFragment
 import com.taufik.themovieshow.databinding.FragmentAboutBinding
 import com.taufik.themovieshow.model.language.LanguageOption
 import com.taufik.themovieshow.model.response.about.AboutAction
@@ -22,7 +21,7 @@ import com.taufik.themovieshow.ui.MainActivity
 import com.taufik.themovieshow.ui.about.adapter.AboutParentAdapter
 import com.taufik.themovieshow.ui.about.viewmodel.AboutViewModel
 import com.taufik.themovieshow.ui.language.bottomsheet.LanguageBottomSheetDialog
-import com.taufik.themovieshow.utils.CommonConstants
+import com.taufik.themovieshow.utils.objects.CommonConstants
 import com.taufik.themovieshow.utils.extensions.restartAppWithLanguageChange
 import com.taufik.themovieshow.utils.extensions.showSuccessToastyIcon
 import com.taufik.themovieshow.utils.language.LANGUAGE
@@ -30,25 +29,17 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class AboutFragment : Fragment() {
-
-    private var _binding: FragmentAboutBinding? = null
-    private val binding get() = _binding!!
+class AboutFragment : BaseFragment<FragmentAboutBinding>() {
 
     private val viewModel: AboutViewModel by viewModels()
     private var aboutParentAdapter: AboutParentAdapter? = null
 
-    override fun onCreateView(
+    override fun inflateBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentAboutBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+        container: ViewGroup?
+    ): FragmentAboutBinding = FragmentAboutBinding.inflate(inflater, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onFragmentReady(savedInstanceState: Bundle?) {
         setToolbar()
         setupRecyclerView()
         observeLanguageChange()
@@ -57,11 +48,10 @@ class AboutFragment : Fragment() {
             viewModel.languageFlow
                 .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED)
                 .collect {
-                    setToolbar() // update title toolbar
-                    refreshAboutData() // refresh list About
+                    setToolbar()
+                    refreshAboutData()
                 }
         }
-
     }
 
     private fun setToolbar() {
@@ -151,7 +141,6 @@ class AboutFragment : Fragment() {
     }
 
     override fun onDestroyView() {
-        _binding = null
         aboutParentAdapter = null
         super.onDestroyView()
     }

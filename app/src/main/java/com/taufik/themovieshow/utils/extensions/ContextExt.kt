@@ -29,6 +29,19 @@ fun Context.showTrailerVideo(key: String) {
     }
 }
 
+fun Context.tryOpenBrowser(link: String) {
+    runCatching {
+        val intentBrowser = Intent(Intent.ACTION_VIEW, link.toUri())
+        if (intentBrowser.resolveActivity(packageManager) != null) {
+            startActivity(Intent.createChooser(intentBrowser, getString(R.string.tvOpenWith)))
+        } else {
+            showErrorToastyIcon(getString(R.string.tvNoHandleApp))
+        }
+    }.onFailure { e ->
+        showErrorToastyIcon(e.message.orEmpty())
+    }
+}
+
 fun Context.share(shareText: String, link: String) {
     try {
         val body = StringBuilder(shareText).append(link).toString()

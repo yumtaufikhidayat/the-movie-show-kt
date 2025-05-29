@@ -2,60 +2,55 @@ package com.taufik.themovieshow.ui.movie.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.taufik.themovieshow.base.fragment.BaseFragment
 import com.taufik.themovieshow.data.NetworkResult
 import com.taufik.themovieshow.databinding.FragmentMovieTvShowsListBinding
+import com.taufik.themovieshow.ui.detail.movie_tvshow.viewmodel.DetailMovieTvShowViewModel
 import com.taufik.themovieshow.ui.movie.adapter.MovieAdapter
-import com.taufik.themovieshow.ui.movie.viewmodel.DetailMovieViewModel
 import com.taufik.themovieshow.ui.movie.viewmodel.MovieViewModel
-import com.taufik.themovieshow.utils.CommonDateFormatConstants
+import com.taufik.themovieshow.utils.enums.FROM
+import com.taufik.themovieshow.utils.objects.CommonDateFormatConstants
 import com.taufik.themovieshow.utils.extensions.filterAndSortByDate
 import com.taufik.themovieshow.utils.extensions.hideView
-import com.taufik.themovieshow.utils.extensions.navigateToDetailMovie
+import com.taufik.themovieshow.utils.extensions.navigateToDetailMovieTvShow
 import com.taufik.themovieshow.utils.extensions.showError
 import com.taufik.themovieshow.utils.extensions.showView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MovieNowPlayingFragment : Fragment() {
-
-    private var _binding: FragmentMovieTvShowsListBinding? = null
-    private val binding get() = _binding
+class MovieNowPlayingFragment : BaseFragment<FragmentMovieTvShowsListBinding>() {
 
     private val viewModel by viewModels<MovieViewModel>()
-    private val detailMovieViewModel by viewModels<DetailMovieViewModel>()
+    private val detailMovieTvShowViewModel by viewModels<DetailMovieTvShowViewModel>()
     private var movieAdapter: MovieAdapter? = null
 
-    override fun onCreateView(
+    override fun inflateBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentMovieTvShowsListBinding.inflate(inflater, container, false)
-        return binding?.root
-    }
+        container: ViewGroup?
+    ): FragmentMovieTvShowsListBinding = FragmentMovieTvShowsListBinding.inflate(inflater, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun onFragmentReady(savedInstanceState: Bundle?) {
         setAdapter()
         setData()
     }
 
     private fun setAdapter() {
         movieAdapter = MovieAdapter {
-            detailMovieViewModel.apply {
-                idMovie = it.id
-                titleMovie = it.title
+            detailMovieTvShowViewModel.apply {
+                idMovieTvShow = it.id
+                titleMovieTvShow = it.title
             }
-            navigateToDetailMovie(detailMovieViewModel.idMovie, detailMovieViewModel.titleMovie)
+            navigateToDetailMovieTvShow(
+                detailMovieTvShowViewModel.idMovieTvShow,
+                detailMovieTvShowViewModel.titleMovieTvShow,
+                FROM.MOVIE
+            )
         }
 
-        binding?.rvCommon?.apply {
+        binding.rvCommon.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
             adapter = movieAdapter
@@ -63,7 +58,7 @@ class MovieNowPlayingFragment : Fragment() {
     }
 
     private fun setData() {
-        binding?.apply {
+        binding.apply {
             viewModel.getMovieNowPlaying.observe(viewLifecycleOwner) {
                 when (it) {
                     is NetworkResult.Loading -> pbLoading.showView()
@@ -88,7 +83,6 @@ class MovieNowPlayingFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
         movieAdapter = null
     }
 }

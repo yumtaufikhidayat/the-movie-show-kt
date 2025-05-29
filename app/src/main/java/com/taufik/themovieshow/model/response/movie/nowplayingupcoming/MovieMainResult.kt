@@ -10,7 +10,7 @@ data class MovieMainResult(
     @SerializedName("id")
     val id: Int,
     @SerializedName("poster_path")
-    val posterPath: String,
+    val posterPath: String? = null,
     @SerializedName("release_date")
     val releaseDate: String?,
     @SerializedName("title")

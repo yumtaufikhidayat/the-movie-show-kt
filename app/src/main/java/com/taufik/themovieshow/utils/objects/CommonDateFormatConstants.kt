@@ -1,4 +1,4 @@
-package com.taufik.themovieshow.utils
+package com.taufik.themovieshow.utils.objects
 
 object CommonDateFormatConstants {
     const val YYYY_MM_DD_FORMAT = "yyyy-MM-dd"

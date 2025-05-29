@@ -15,7 +15,7 @@ data class TvShowsPopularDetailSeason(
     @SerializedName("overview")
     val overview: String,
     @SerializedName("poster_path")
-    val posterPath: String,
+    val posterPath: String? = null,
     @SerializedName("season_number")
     val seasonNumber: Int
 )

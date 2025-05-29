@@ -1,6 +1,7 @@
 package com.taufik.themovieshow.utils.extensions
 
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
@@ -49,4 +50,15 @@ fun View.applySystemBarInsets(
 
         insets
     }
+}
+
+fun ViewGroup.MarginLayoutParams.applyMiddleMargins(
+    position: Int,
+    itemCount: Int,
+    middle: Int,
+    convertDpToPx: (Int) -> Int
+) {
+    val middlePx = convertDpToPx(middle)
+    marginStart = if (position == 0) 0 else middlePx
+    marginEnd = if (position == itemCount - 1) 0 else middlePx
 }

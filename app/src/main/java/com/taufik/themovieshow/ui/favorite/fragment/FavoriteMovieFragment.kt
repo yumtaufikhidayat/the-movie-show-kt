@@ -2,14 +2,12 @@ package com.taufik.themovieshow.ui.favorite.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,48 +15,45 @@ import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import com.taufik.themovieshow.R
+import com.taufik.themovieshow.base.fragment.BaseFragment
 import com.taufik.themovieshow.data.local.entity.movie.FavoriteMovieEntity
 import com.taufik.themovieshow.databinding.FragmentFavoriteMovieBinding
 import com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult
+import com.taufik.themovieshow.ui.detail.movie_tvshow.viewmodel.DetailMovieTvShowViewModel
 import com.taufik.themovieshow.ui.favorite.adapter.FavoriteMovieAdapter
 import com.taufik.themovieshow.ui.favorite.adapter.SortFilteringAdapter
 import com.taufik.themovieshow.ui.favorite.viewmodel.FavoriteMovieViewModel
-import com.taufik.themovieshow.ui.movie.viewmodel.DetailMovieViewModel
+import com.taufik.themovieshow.utils.enums.FROM
 import com.taufik.themovieshow.utils.extensions.hideKeyboard
-import com.taufik.themovieshow.utils.extensions.navigateToDetailMovie
+import com.taufik.themovieshow.utils.extensions.navigateToDetailMovieTvShow
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class FavoriteMovieFragment : Fragment() {
-
-    private var _binding: FragmentFavoriteMovieBinding? = null
-    private val binding get() = _binding
+class FavoriteMovieFragment : BaseFragment<FragmentFavoriteMovieBinding>() {
 
     private val viewModel: FavoriteMovieViewModel by viewModels(ownerProducer = { requireParentFragment() })
-    private val detailMovieViewModel by viewModels<DetailMovieViewModel>()
+    private val detailMovieTvShowViewModel by viewModels<DetailMovieTvShowViewModel>()
     private val sortFilteringAdapter by lazy { SortFilteringAdapter { showFilteringData(it) }}
     private val favoriteMovieAdapter by lazy { FavoriteMovieAdapter {
-        detailMovieViewModel.apply {
-            idMovie = it.id
-            titleMovie = it.title
+        detailMovieTvShowViewModel.apply {
+            idMovieTvShow = it.id
+            titleMovieTvShow = it.title
         }
-        navigateToDetailMovie(detailMovieViewModel.idMovie, detailMovieViewModel.titleMovie)
+        navigateToDetailMovieTvShow(
+            detailMovieTvShowViewModel.idMovieTvShow,
+            detailMovieTvShowViewModel.titleMovieTvShow,
+            FROM.MOVIE
+        )
     }}
 
-    override fun onCreateView(
+    override fun inflateBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentFavoriteMovieBinding.inflate(inflater, container, false)
-        return binding?.root
-    }
+        container: ViewGroup?
+    ): FragmentFavoriteMovieBinding = FragmentFavoriteMovieBinding.inflate(inflater, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun onFragmentReady(savedInstanceState: Bundle?) {
         setAdapter()
         searchData()
         setFilteringAdapter()
@@ -68,7 +63,7 @@ class FavoriteMovieFragment : Fragment() {
     }
 
     private fun setAdapter() {
-        binding?.rvDiscoverFavoriteMovies?.apply {
+        binding.rvDiscoverFavoriteMovies.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
             adapter = favoriteMovieAdapter
@@ -82,7 +77,7 @@ class FavoriteMovieFragment : Fragment() {
             justifyContent = JustifyContent.FLEX_START
         }
 
-        binding?.rvSortFiltering?.apply {
+        binding.rvSortFiltering.apply {
             layoutManager = flexLayoutManager
             setHasFixedSize(true)
             isNestedScrollingEnabled = true
@@ -104,8 +99,8 @@ class FavoriteMovieFragment : Fragment() {
 
     private fun scrollToTopPositionItem() {
         lifecycleScope.launch {
-            delay(100)
-            binding?.rvDiscoverFavoriteMovies?.smoothScrollToPosition(0)
+            delay(DetailMovieTvShowViewModel.DELAY_SCROLL_TO_TOP_POSITION)
+            binding.rvDiscoverFavoriteMovies.smoothScrollToPosition(0)
         }
     }
 
@@ -118,7 +113,7 @@ class FavoriteMovieFragment : Fragment() {
     }
 
     private fun searchData() {
-        binding?.etSearch?.apply {
+        binding.etSearch.apply {
             setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     hideKeyboard(requireContext())
@@ -134,13 +129,13 @@ class FavoriteMovieFragment : Fragment() {
     }
 
     private fun showNoFavorite(isShow: Boolean) {
-        binding?.apply {
+        binding.apply {
             if (isShow) {
                 layoutNoFavorite.apply {
                     root.isVisible = true
                     tvErrorTitle.apply {
                         isVisible = true
-                        text = getString(R.string.tvNoFavoriteData)
+                        text = getString(R.string.tvNoFavoriteMovie)
                         setTextColor(ContextCompat.getColor(requireContext(), R.color.colorOrange))
                     }
                     tvErrorDesc.apply {
@@ -170,10 +165,5 @@ class FavoriteMovieFragment : Fragment() {
         }
 
         return listMovies
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

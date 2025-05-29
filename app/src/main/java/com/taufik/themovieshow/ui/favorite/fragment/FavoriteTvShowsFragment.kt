@@ -2,14 +2,12 @@ package com.taufik.themovieshow.ui.favorite.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,53 +15,47 @@ import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import com.taufik.themovieshow.R
+import com.taufik.themovieshow.base.fragment.BaseFragment
 import com.taufik.themovieshow.data.local.entity.tvshow.FavoriteTvShowEntity
 import com.taufik.themovieshow.databinding.FragmentFavoriteTvShowsBinding
 import com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResult
+import com.taufik.themovieshow.ui.detail.movie_tvshow.viewmodel.DetailMovieTvShowViewModel
 import com.taufik.themovieshow.ui.favorite.adapter.FavoriteTvShowsAdapter
 import com.taufik.themovieshow.ui.favorite.adapter.SortFilteringAdapter
 import com.taufik.themovieshow.ui.favorite.viewmodel.FavoriteTvShowViewModel
-import com.taufik.themovieshow.ui.tvshow.viewmodel.DetailTvShowViewModel
+import com.taufik.themovieshow.utils.enums.FROM
 import com.taufik.themovieshow.utils.extensions.hideKeyboard
-import com.taufik.themovieshow.utils.extensions.navigateToDetailTvShow
+import com.taufik.themovieshow.utils.extensions.navigateToDetailMovieTvShow
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class FavoriteTvShowsFragment : Fragment() {
-
-    private var _binding: FragmentFavoriteTvShowsBinding? = null
-    private val binding get() = _binding
+class FavoriteTvShowsFragment : BaseFragment<FragmentFavoriteTvShowsBinding>() {
 
     private val viewModel: FavoriteTvShowViewModel by viewModels(ownerProducer = { requireParentFragment() })
-    private val detailTvShowViewModel by viewModels<DetailTvShowViewModel>()
+    private val detailMovieTvShowViewModel by viewModels<DetailMovieTvShowViewModel>()
     private val sortFilteringAdapter by lazy { SortFilteringAdapter { showFilteringData(it) } }
     private val favoriteTvShowsAdapter by lazy {
         FavoriteTvShowsAdapter {
-            detailTvShowViewModel.apply {
-                idTvShow = it.id
-                titleTvShow = it.name
+            detailMovieTvShowViewModel.apply {
+                idMovieTvShow = it.id
+                titleMovieTvShow = it.name
             }
-            navigateToDetailTvShow(
-                detailTvShowViewModel.idTvShow,
-                detailTvShowViewModel.titleTvShow
+            navigateToDetailMovieTvShow(
+                detailMovieTvShowViewModel.idMovieTvShow,
+                detailMovieTvShowViewModel.titleMovieTvShow,
+                FROM.TV_SHOW
             )
         }
     }
 
-    override fun onCreateView(
+    override fun inflateBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentFavoriteTvShowsBinding.inflate(inflater, container, false)
-        return binding?.root
-    }
+        container: ViewGroup?
+    ): FragmentFavoriteTvShowsBinding = FragmentFavoriteTvShowsBinding.inflate(inflater, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun onFragmentReady(savedInstanceState: Bundle?) {
         setAdapter()
         searchData()
         setFilteringAdapter()
@@ -73,7 +65,7 @@ class FavoriteTvShowsFragment : Fragment() {
     }
 
     private fun setAdapter() {
-        binding?.rvDiscoverFavoriteTvShow?.apply {
+        binding.rvDiscoverFavoriteTvShow.apply {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
             adapter = favoriteTvShowsAdapter
@@ -88,7 +80,7 @@ class FavoriteTvShowsFragment : Fragment() {
             justifyContent = JustifyContent.FLEX_START
         }
 
-        binding?.rvSortFiltering?.apply {
+        binding.rvSortFiltering.apply {
             layoutManager = flexLayoutManager
             setHasFixedSize(true)
             isNestedScrollingEnabled = true
@@ -110,8 +102,8 @@ class FavoriteTvShowsFragment : Fragment() {
 
     private fun scrollToTopPositionItem() {
         lifecycleScope.launch {
-            delay(100)
-            binding?.rvDiscoverFavoriteTvShow?.smoothScrollToPosition(0)
+            delay(DetailMovieTvShowViewModel.DELAY_SCROLL_TO_TOP_POSITION)
+            binding.rvDiscoverFavoriteTvShow.smoothScrollToPosition(0)
         }
     }
 
@@ -124,7 +116,7 @@ class FavoriteTvShowsFragment : Fragment() {
     }
 
     private fun searchData() {
-        binding?.etSearch?.apply {
+        binding.etSearch.apply {
             setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     hideKeyboard(requireContext())
@@ -140,13 +132,13 @@ class FavoriteTvShowsFragment : Fragment() {
     }
 
     private fun showNoFavorite(isShow: Boolean) {
-        binding?.apply {
+        binding.apply {
             if (isShow) {
                 layoutNoFavorite.apply {
                     root.isVisible = true
                     tvErrorTitle.apply {
                         isVisible = true
-                        text = getString(R.string.tvNoFavoriteData)
+                        text = getString(R.string.tvNoFavoriteTvShow)
                         setTextColor(ContextCompat.getColor(requireContext(), R.color.colorOrange))
                     }
                     tvErrorDesc.apply {
@@ -175,10 +167,5 @@ class FavoriteTvShowsFragment : Fragment() {
         }
 
         return listTvShow
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

@@ -56,6 +56,7 @@ lottie = "6.6.4"
 justified-text = "1.1.0"
 toasty = "1.5.2"
 chucker = "4.1.0"
+shimmerLayout = "0.5.0"
 
 [libraries]
 # Android Core & Compatibility
@@ -119,6 +120,7 @@ justifiedtextview = { module = "com.codesgood:justifiedtextview", version.ref = 
 toasty = { group = "com.github.GrenderG", name = "Toasty", version.ref = "toasty" }
 chucker = { module = "com.github.chuckerteam.chucker:library", version.ref = "chucker" }
 chucker-no-op = { module = "com.github.chuckerteam.chucker:library-no-op", version.ref = "chucker" }
+shimmerLayout = { module = "com.facebook.shimmer:shimmer", version.ref = "shimmerLayout" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }

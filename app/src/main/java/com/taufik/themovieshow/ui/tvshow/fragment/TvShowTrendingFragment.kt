@@ -2,63 +2,55 @@ package com.taufik.themovieshow.ui.tvshow.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.taufik.themovieshow.base.fragment.BaseFragment
 import com.taufik.themovieshow.data.NetworkResult
 import com.taufik.themovieshow.databinding.FragmentMovieTvShowsListBinding
+import com.taufik.themovieshow.ui.detail.movie_tvshow.viewmodel.DetailMovieTvShowViewModel
 import com.taufik.themovieshow.ui.tvshow.adapter.TvShowsTrendingAdapter
-import com.taufik.themovieshow.ui.tvshow.viewmodel.DetailTvShowViewModel
 import com.taufik.themovieshow.ui.tvshow.viewmodel.TvShowsViewModel
-import com.taufik.themovieshow.utils.CommonDateFormatConstants
+import com.taufik.themovieshow.utils.enums.FROM
+import com.taufik.themovieshow.utils.objects.CommonDateFormatConstants
 import com.taufik.themovieshow.utils.extensions.filterAndSortByDate
 import com.taufik.themovieshow.utils.extensions.hideView
-import com.taufik.themovieshow.utils.extensions.navigateToDetailTvShow
+import com.taufik.themovieshow.utils.extensions.navigateToDetailMovieTvShow
 import com.taufik.themovieshow.utils.extensions.showError
 import com.taufik.themovieshow.utils.extensions.showView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class TvShowTrendingFragment : Fragment() {
-
-    private var _binding: FragmentMovieTvShowsListBinding? = null
-    private val binding get() = _binding
+class TvShowTrendingFragment : BaseFragment<FragmentMovieTvShowsListBinding>() {
 
     private val viewModel by viewModels<TvShowsViewModel>()
-    private val detailTvShowViewModel by viewModels<DetailTvShowViewModel>()
+    private val detailMovieTvShowViewModel by viewModels<DetailMovieTvShowViewModel>()
     private var tvShowsTrendingAdapter: TvShowsTrendingAdapter? = null
 
-    override fun onCreateView(
+    override fun inflateBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentMovieTvShowsListBinding.inflate(inflater, container, false)
-        return binding?.root
-    }
+        container: ViewGroup?
+    ): FragmentMovieTvShowsListBinding = FragmentMovieTvShowsListBinding.inflate(inflater, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun onFragmentReady(savedInstanceState: Bundle?) {
         setAdapter()
         setData()
     }
 
     private fun setAdapter() {
         tvShowsTrendingAdapter = TvShowsTrendingAdapter {
-            detailTvShowViewModel.apply {
-                idTvShow = it.id
-                titleTvShow = it.name
+            detailMovieTvShowViewModel.apply {
+                idMovieTvShow = it.id
+                titleMovieTvShow = it.name
             }
-            navigateToDetailTvShow(
-                detailTvShowViewModel.idTvShow,
-                detailTvShowViewModel.titleTvShow
+            navigateToDetailMovieTvShow(
+                detailMovieTvShowViewModel.idMovieTvShow,
+                detailMovieTvShowViewModel.titleMovieTvShow,
+                FROM.TV_SHOW
             )
         }
 
-        binding?.rvCommon?.apply {
+        binding.rvCommon.apply {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
             adapter = tvShowsTrendingAdapter
@@ -66,7 +58,7 @@ class TvShowTrendingFragment : Fragment() {
     }
 
     private fun setData() {
-        binding?.apply {
+        binding.apply {
             viewModel.getTvShowsTrending().observe(viewLifecycleOwner) {
                 when (it) {
                     is NetworkResult.Loading -> pbLoading.showView()
@@ -91,7 +83,6 @@ class TvShowTrendingFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
         tvShowsTrendingAdapter = null
     }
 }

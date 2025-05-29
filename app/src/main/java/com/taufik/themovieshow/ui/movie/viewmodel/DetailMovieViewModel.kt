@@ -91,4 +91,8 @@ class DetailMovieViewModel @Inject constructor(private val repository: TheMovieS
             repository.removeMovieFromFavorite(movieId)
         }
     }
+
+    companion object {
+        const val DELAY_SCROLL_TO_TOP_POSITION = 100L
+    }
 }

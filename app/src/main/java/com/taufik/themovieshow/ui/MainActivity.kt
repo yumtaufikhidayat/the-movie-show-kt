@@ -4,18 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.activity.enableEdgeToEdge
 import androidx.core.view.isVisible
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.taufik.themovieshow.R
-import com.taufik.themovieshow.base.BaseActivity
+import com.taufik.themovieshow.base.activity.BaseActivity
 import com.taufik.themovieshow.databinding.ActivityMainBinding
-import com.taufik.themovieshow.ui.language.bottomsheet.LanguageBottomSheetDialog.Companion.LANGUAGE_CHANGED
 import com.taufik.themovieshow.ui.language.bottomsheet.LanguageBottomSheetDialog.Companion.SUCCESS_CHANGE_LANGUAGE
 import com.taufik.themovieshow.utils.extensions.applySystemBarInsets
+import com.taufik.themovieshow.utils.extensions.navigateReplacingSplash
 import com.taufik.themovieshow.utils.extensions.showSuccessToasty
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
@@ -31,23 +33,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             R.id.detailMovieFragment,
             R.id.detailTvShowFragment,
             R.id.discoverMovieFragment,
-            R.id.discoverTvShowFragment -> showBottomNavigation(false)
+            R.id.discoverTvShowFragment,
+            R.id.detailMovieTvShowFragment -> showBottomNavigation(false)
             else -> showBottomNavigation(true)
         }
     }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        if (intent.getBooleanExtra(SUCCESS_CHANGE_LANGUAGE, false)) {
-            showSuccessToasty(getString(R.string.tvSuccesfullyChangedLanguage))
-            intent.removeExtra(SUCCESS_CHANGE_LANGUAGE)
-            lifecycleScope.launch {
-                delay(100)
-                navController?.navigate(R.id.movieFragment)
-            }
-        }
-    }
+    private var hasHandledLanguageChange = false
 
     override fun inflateBinding(layoutInflater: LayoutInflater): ActivityMainBinding {
         return ActivityMainBinding.inflate(layoutInflater)
@@ -64,10 +55,19 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         setNavHost()
         setUpNavigationDestination()
 
-        if (intent.getBooleanExtra(LANGUAGE_CHANGED, false)) {
+        if (!hasHandledLanguageChange && intent.getBooleanExtra(SUCCESS_CHANGE_LANGUAGE, false)) {
+            hasHandledLanguageChange = true
+            showSuccessToasty(getString(R.string.tvSuccesfullyChangedLanguage))
+            intent.removeExtra(SUCCESS_CHANGE_LANGUAGE)
+
             lifecycleScope.launch {
-                delay(100)
-                navController?.navigate(R.id.movieFragment)
+                repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    while (navController?.currentDestination == null) {
+                        delay(NAVIGATION_DELAY)
+                    }
+                    delay(NAVIGATION_DELAY)
+                    navController?.navigateReplacingSplash(R.id.movieFragment)
+                }
             }
         }
     }
@@ -99,9 +99,30 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         binding.navBottom.isVisible = isShow
     }
 
+    override fun onStart() {
+        super.onStart()
+        if (!hasHandledLanguageChange && intent.getBooleanExtra(SUCCESS_CHANGE_LANGUAGE, false)) {
+            hasHandledLanguageChange = true
+
+            showSuccessToasty(getString(R.string.tvSuccesfullyChangedLanguage))
+            intent.removeExtra(SUCCESS_CHANGE_LANGUAGE)
+
+            lifecycleScope.launch {
+                while (navController?.currentDestination == null) { delay(NAVIGATION_DELAY) }
+                delay(NAVIGATION_DELAY)
+                navController?.navigateReplacingSplash(R.id.movieFragment)
+            }
+        }
+    }
+
+
     override fun onDestroy() {
         navController?.removeOnDestinationChangedListener(navControllerDestination)
         navController = null
         super.onDestroy()
+    }
+
+    companion object {
+        const val NAVIGATION_DELAY = 100L
     }
 }

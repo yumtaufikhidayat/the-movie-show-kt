@@ -1,4 +1,4 @@
-package com.taufik.themovieshow.base
+package com.taufik.themovieshow.base.activity
 
 import android.content.Context
 import android.os.Bundle
@@ -18,7 +18,7 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
 
     override fun attachBaseContext(newBase: Context) {
         val locale = LanguageUtil.getCurrentLocaleBlocking(newBase)
-        val updatedContext = ContextUtils.updateLocale(newBase, locale)
+        val updatedContext = ContextUtils.Companion.updateLocale(newBase, locale)
         super.attachBaseContext(updatedContext)
     }
 

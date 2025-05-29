@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.switchMap
 import com.taufik.themovieshow.data.repository.TheMovieShowRepository
 import com.taufik.themovieshow.data.source.RawQuery
-import com.taufik.themovieshow.utils.CommonConstants
+import com.taufik.themovieshow.utils.objects.CommonConstants
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -36,5 +36,6 @@ class FavoriteTvShowViewModel @Inject constructor(
 
     companion object {
         var position = 0
+        const val DELAY_SCROLL_TO_TOP_POSITION = 100L
     }
 }

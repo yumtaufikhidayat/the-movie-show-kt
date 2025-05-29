@@ -19,7 +19,7 @@
     <string name="tvLanguage">Bahasa</string>
     <string name="tvBullet">\u2022</string>
     <string name="tvAgeRating">Rating Usia</string>
-    <string name="tvAdults">18+</string>
+    <string name="tvAdults">21+</string>
     <string name="tvAllAges">SU</string>
     <string name="tvRuntime">Durasi</string>
     <string name="tvProducedBy">Perusahaan Produksi</string>
@@ -57,9 +57,10 @@
     <string name="tvNoSimilarTvShows">Tidak ada acara TV lain tersedia</string>
     <string name="tvNoVideo">Tidak ada cuplikan video tersedia</string>
     <string name="tvNA">N/A</string>
-    <string name="tvNoFavoriteData">Oops! Belum ada data favorit…</string>
-    <string name="tvSaveFavoriteMovie">Belum ada film favorit. Tambahkan film favoritmu di sini.</string>
-    <string name="tvSaveFavoriteTvShows">Belum ada acara TV favorit. Tambahkan acara TV favoritmu di sini.</string>
+    <string name="tvNoFavoriteMovie">Oops! Belum ada film favorit…</string>
+    <string name="tvNoFavoriteTvShow">Oops! Belum ada acara TV favorit…</string>
+    <string name="tvSaveFavoriteMovie">Film favorit yang disimpan akan muncul disini</string>
+    <string name="tvSaveFavoriteTvShows">Acara TV favorit yang disimpan akan muncul disini</string>
     <string name="tvOopsNoResults">Oops! Tidak ada hasil ditemukan…</string>
     <string name="tvNoSearchData">Tidak ditemukan hasil pencarian. Coba kata kunci lain.</string>
     <string name="tvShareWith">Bagikan dengan:</string>
@@ -68,12 +69,11 @@
     <string name="tvVisitMovie">Kunjungi Film ini\n</string>
     <string name="tvVisitTvShow">Kunjungi Acara TV ini\n</string>
     <string name="tvNameCharacter">%s \n (%s)</string>
-    <string name="tvRetry">Coba Lagi</string>
-    <string name="action_added_to_favorite">Ditambahkan ke favorit</string>
-    <string name="action_removed_from_favorite">Hapus dari favorit</string>
+
     <string name="tvInstallBrowserYouTube">Silakan install browser atau aplikasi YouTube terlebih dahulu.\nError: %s</string>
     <string name="tvPressBackExit">Tekan tombol sekali lagi untuk keluar</string>
     <string name="tvOpenWith">Buka dengan</string>
+    <string name="tvNoHandleApp">Tidak ada aplikasi untuk membuka link.</string>
     <string name="tvInstallBrowser">Silakan install browser terlebih dahulu.\nError: %s</string>
     <string name="tvSendTo">Kirim ke</string>
     <string name="tvInstallEmailApp">Silakan install aplikasi email terlebih dahulu.</string>
@@ -118,4 +118,9 @@
     <string name="tvLanguageIndonesia">Bahasa Indonesia (ID)</string>"
     <string name="tvLanguageEnglish">Bahasa Inggris (EN)</string>"
     <string name="tvSuccesfullyChangedLanguage">Berhasil Mengubah Bahasa</string>
+
+    <!--Action-->
+    <string name="action_added_to_favorite">Ditambahkan ke favorit</string>
+    <string name="action_removed_from_favorite">Hapus dari favorit</string>
+    <string name="action_retry">Coba Lagi</string>
 </resources>

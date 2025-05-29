@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import com.taufik.themovieshow.data.local.dao.TheMovieShowDao
 import com.taufik.themovieshow.data.local.entity.movie.FavoriteMovieEntity
 import com.taufik.themovieshow.data.local.entity.tvshow.FavoriteTvShowEntity
-import com.taufik.themovieshow.utils.CommonConstants
+import com.taufik.themovieshow.utils.objects.CommonConstants
 
 @Database(
     entities = [FavoriteMovieEntity::class, FavoriteTvShowEntity::class],
