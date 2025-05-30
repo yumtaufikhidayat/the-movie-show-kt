@@ -192,13 +192,13 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
 
                                 setCastObserver(id)
                             },
-                            onError = {
+                            onError = { errorMessage ->
                                 showShimmer(isLoading = false, type = DetailTypeEnum.OVERVIEW)
                                 updateDetailInformationState(isLoading = false, isShowEmpty = false)
 
                                 layoutError.showError(
                                     context = requireContext(),
-                                    message = it,
+                                    message = errorMessage,
                                     retryAction = {
                                         // TODO: skip this until using flow instead of livedata
                                         // Reload data
@@ -515,8 +515,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
 
     private fun setCastAdapter() {
         binding.rvCast.apply {
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             clipToPadding = false
             clipChildren = false
             setHasFixedSize(false)
@@ -610,8 +609,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
 
     private fun setTrailerVideoAdapter() {
         binding.rvTrailerVideo.apply {
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             clipToPadding = false
             clipChildren = false
             setHasFixedSize(true)
@@ -712,8 +710,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
 
     private fun setReviewsAdapter() {
         binding.rvReviews.apply {
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             setHasFixedSize(true)
             adapter = reviewsAdapter
 
@@ -808,8 +805,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
 
     private fun setSimilarMovieAdapter() {
         binding.rvMovieSimilar.apply {
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             clipToPadding = false
             clipChildren = false
             setHasFixedSize(false)
