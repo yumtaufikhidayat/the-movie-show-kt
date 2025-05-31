@@ -30,7 +30,7 @@ okhttp = "4.12.0"
 
 # Database & Encryption
 sql-cipher = "4.5.4"
-sqlite = "2.5.0"
+sqlite = "2.5.1"
 
 # Asynchronous & Coroutines
 coroutines-core = "1.9.0"
