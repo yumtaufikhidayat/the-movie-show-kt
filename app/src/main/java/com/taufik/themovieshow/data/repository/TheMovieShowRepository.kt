@@ -1,14 +1,11 @@
 package com.taufik.themovieshow.data.repository
 
 import android.content.Context
-import androidx.lifecycle.LiveData
 import com.taufik.themovieshow.data.local.entity.movie.FavoriteMovieEntity
 import com.taufik.themovieshow.data.local.entity.tvshow.FavoriteTvShowEntity
 import com.taufik.themovieshow.data.source.LocalDataSource
 import com.taufik.themovieshow.data.source.RawQuery
 import com.taufik.themovieshow.data.source.RemoteDataSource
-import com.taufik.themovieshow.model.about.AboutSection
-import com.taufik.themovieshow.model.favorite.SortFiltering
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -17,66 +14,66 @@ import javax.inject.Singleton
 class TheMovieShowRepository @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource
-) {
+): ITheMovieShowRepository {
     val languageFlow: Flow<String> = localDataSource.languageFlow
 
-    fun getMovieTrendingDay() = remoteDataSource.getMovieTrendingDay()
+    override fun getMovieTrendingDay() = remoteDataSource.getMovieTrendingDay()
 
-    fun getMovieNowPlaying() = remoteDataSource.getMovieNowPlaying()
+    override fun getMovieNowPlaying() = remoteDataSource.getMovieNowPlaying()
 
-    fun getMovieUpcoming() = remoteDataSource.getMovieUpcoming()
+    override fun getMovieUpcoming() = remoteDataSource.getMovieUpcoming()
 
-    fun getDiscoverMovie(query: String) = remoteDataSource.getDiscoverMovie(query)
+    override fun getDiscoverMovie(query: String) = remoteDataSource.getDiscoverMovie(query)
 
-    fun getMovieVideo(movieId: Int) = remoteDataSource.getMovieVideo(movieId)
+    override fun getMovieVideo(movieId: Int) = remoteDataSource.getMovieVideo(movieId)
 
-    fun getMovieCast(movieId: Int) = remoteDataSource.getMovieCast(movieId)
+    override fun getMovieCast(movieId: Int) = remoteDataSource.getMovieCast(movieId)
 
-    fun getDetailMovie(movieId: Int) = remoteDataSource.getDetailMovie(movieId)
+    override fun getDetailMovie(movieId: Int) = remoteDataSource.getDetailMovie(movieId)
 
-    fun getMovieReviews(movieId: Int) = remoteDataSource.getMovieReviews(movieId)
+    override fun getMovieReviews(movieId: Int) = remoteDataSource.getMovieReviews(movieId)
 
-    fun getSimilarMovie(movieId: Int) = remoteDataSource.getSimilarMovie(movieId)
+    override fun getSimilarMovie(movieId: Int) = remoteDataSource.getSimilarMovie(movieId)
 
-    fun getTvShowsAiringToday() = remoteDataSource.getTvShowsAiringToday()
+    override fun getTvShowsAiringToday() = remoteDataSource.getTvShowsAiringToday()
 
-    fun getTvShowsPopular() = remoteDataSource.getTvShowsPopular()
+    override fun getTvShowsPopular() = remoteDataSource.getTvShowsPopular()
 
-    fun getTvShowsTrending() = remoteDataSource.getTvShowsTrending()
+    override fun getTvShowsTrending() = remoteDataSource.getTvShowsTrending()
 
-    fun getDiscoverTvShows(query: String) = remoteDataSource.getDiscoverTvShows(query)
+    override fun getDiscoverTvShows(query: String) = remoteDataSource.getDiscoverTvShows(query)
 
-    fun getTvShowsVideo(tvId: Int) = remoteDataSource.getTvShowsVideo(tvId)
+    override fun getTvShowsVideo(tvId: Int) = remoteDataSource.getTvShowsVideo(tvId)
 
-    fun getTvShowsCast(tvId: Int) = remoteDataSource.getTvShowsCast(tvId)
+    override fun getTvShowsCast(tvId: Int) = remoteDataSource.getTvShowsCast(tvId)
 
-    fun getDetailTvShows(tvId: Int) = remoteDataSource.getDetailTvShows(tvId)
+    override fun getDetailTvShows(tvId: Int) = remoteDataSource.getDetailTvShows(tvId)
 
-    fun getTvShowsReviews(tvId: Int) = remoteDataSource.getTvShowsReviews(tvId)
+    override fun getTvShowsReviews(tvId: Int) = remoteDataSource.getTvShowsReviews(tvId)
 
-    fun getSimilarTvShows(tvId: Int) = remoteDataSource.getSimilarTvShows(tvId)
+    override fun getSimilarTvShows(tvId: Int) = remoteDataSource.getSimilarTvShows(tvId)
 
-    suspend fun addMovieToFavorite(favoriteMovieEntity: FavoriteMovieEntity) = localDataSource.addMovieToFavorite(favoriteMovieEntity)
+    override suspend fun addMovieToFavorite(favoriteMovieEntity: FavoriteMovieEntity) = localDataSource.addMovieToFavorite(favoriteMovieEntity)
 
-    fun getFavoriteMovieList(rawQuery: RawQuery) = localDataSource.getFavoriteMovies(rawQuery)
+    override fun getFavoriteMovieList(rawQuery: RawQuery) = localDataSource.getFavoriteMovies(rawQuery)
 
-    suspend fun checkFavoriteMovie(movieId: Int) = localDataSource.checkFavoriteMovie(movieId)
+    override suspend fun checkFavoriteMovie(movieId: Int) = localDataSource.checkFavoriteMovie(movieId)
 
-    suspend fun removeMovieFromFavorite(movieId: Int) = localDataSource.removeMovieFromFavorite(movieId)
+    override suspend fun removeMovieFromFavorite(movieId: Int) = localDataSource.removeMovieFromFavorite(movieId)
 
-    suspend fun addTvShowToFavorite(favoriteTvShowEntity: FavoriteTvShowEntity) = localDataSource.addTvShowToFavorite(favoriteTvShowEntity)
+    override suspend fun addTvShowToFavorite(favoriteTvShowEntity: FavoriteTvShowEntity) = localDataSource.addTvShowToFavorite(favoriteTvShowEntity)
 
-    fun getFavoriteTvShows(rawQuery: RawQuery): LiveData<List<FavoriteTvShowEntity>> = localDataSource.getFavoriteTvShows(rawQuery)
+    override fun getFavoriteTvShows(rawQuery: RawQuery) = localDataSource.getFavoriteTvShows(rawQuery)
 
-    suspend fun checkFavoriteTvShow(tvShowId: Int) = localDataSource.checkFavoriteTvShow(tvShowId)
+    override suspend fun checkFavoriteTvShow(tvShowId: Int) = localDataSource.checkFavoriteTvShow(tvShowId)
 
-    suspend fun removeTvShowFromFavorite(tvShowId: Int) = localDataSource.removeTvShowFromFavorite(tvShowId)
+    override suspend fun removeTvShowFromFavorite(tvShowId: Int) = localDataSource.removeTvShowFromFavorite(tvShowId)
 
-    fun getAboutData(context: Context): List<AboutSection> = localDataSource.getAboutData(context)
+    override fun getAboutData(context: Context) = localDataSource.getAboutData(context)
 
-    fun getSortFiltering(): List<SortFiltering> = localDataSource.getSortFiltering()
+    override fun getSortFiltering() = localDataSource.getSortFiltering()
 
-    suspend fun setLanguage(code: String) = localDataSource.setLanguage(code)
+    override suspend fun setLanguage(code: String) = localDataSource.setLanguage(code)
 
-    suspend fun getLanguage(): String = localDataSource.getLanguage()
+    override suspend fun getLanguage()= localDataSource.getLanguage()
 }
