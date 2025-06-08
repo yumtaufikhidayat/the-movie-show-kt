@@ -1,12 +1,16 @@
 package com.taufik.themovieshow.ui.favorite.viewmodel
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.switchMap
+import com.taufik.themovieshow.data.local.entity.tvshow.FavoriteTvShowEntity
 import com.taufik.themovieshow.data.repository.TheMovieShowRepository
 import com.taufik.themovieshow.data.source.RawQuery
 import com.taufik.themovieshow.utils.objects.CommonConstants
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.flatMapLatest
 import javax.inject.Inject
 
 @HiltViewModel
@@ -14,8 +18,14 @@ class FavoriteTvShowViewModel @Inject constructor(
     private val favoriteTvShowRepository: TheMovieShowRepository
 ) : ViewModel() {
 
-    private val _getFavoriteTvShows = MutableLiveData<RawQuery>()
-    val getFavoriteTvShows = _getFavoriteTvShows.switchMap { favoriteTvShowRepository.getFavoriteTvShows(it) }
+    private val _favoriteTvShowsQuery = MutableStateFlow<RawQuery?>(null)
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    val favoriteTvShowsFlow: Flow<List<FavoriteTvShowEntity>> = _favoriteTvShowsQuery
+        .filterNotNull()
+        .flatMapLatest { query ->
+            favoriteTvShowRepository.getFavoriteTvShows(query)
+        }
 
     fun setFavoriteOrder(position: Int) {
         val builder = RawQuery.Companion.Builder()
@@ -28,14 +38,12 @@ class FavoriteTvShowViewModel @Inject constructor(
             3 -> builder.orderBy(CommonConstants.COLUMN_NAME_RATING, false).build()
             else -> builder.build()
         }
-        _getFavoriteTvShows.value = rawQuery
-
+        _favoriteTvShowsQuery.value = rawQuery
     }
 
     fun getSortFiltering() = favoriteTvShowRepository.getSortFiltering()
 
     companion object {
         var position = 0
-        const val DELAY_SCROLL_TO_TOP_POSITION = 100L
     }
 }

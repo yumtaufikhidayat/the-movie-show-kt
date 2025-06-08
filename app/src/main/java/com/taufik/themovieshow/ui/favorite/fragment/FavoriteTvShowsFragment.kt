@@ -9,7 +9,9 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
@@ -28,6 +30,7 @@ import com.taufik.themovieshow.utils.extensions.hideKeyboard
 import com.taufik.themovieshow.utils.extensions.navigateToDetailMovieTvShow
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -109,9 +112,13 @@ class FavoriteTvShowsFragment : BaseFragment<FragmentFavoriteTvShowsBinding>() {
 
     private fun showFavoriteTvShowData(position: Int) {
         viewModel.setFavoriteOrder(position)
-        viewModel.getFavoriteTvShows.observe(viewLifecycleOwner) {
-            showNoFavorite(it.isEmpty())
-            favoriteTvShowsAdapter.setData(mapList(it))
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.favoriteTvShowsFlow.collectLatest {
+                    showNoFavorite(it.isEmpty())
+                    favoriteTvShowsAdapter.setData(mapList(it))
+                }
+            }
         }
     }
 

@@ -1,7 +1,6 @@
 package com.taufik.themovieshow.data.source
 
 import android.content.Context
-import androidx.lifecycle.LiveData
 import com.taufik.themovieshow.data.local.dao.TheMovieShowDao
 import com.taufik.themovieshow.data.local.entity.movie.FavoriteMovieEntity
 import com.taufik.themovieshow.data.local.entity.tvshow.FavoriteTvShowEntity
@@ -22,23 +21,17 @@ class LocalDataSource @Inject constructor(
 
     val languageFlow: Flow<String> = languagePreference.languageFlow
 
-    suspend fun addMovieToFavorite(favoriteMovieEntity: FavoriteMovieEntity) =
-        favoriteDao.addMovieToFavorite(favoriteMovieEntity)
+    suspend fun addMovieToFavorite(favoriteMovieEntity: FavoriteMovieEntity) = favoriteDao.addMovieToFavorite(favoriteMovieEntity)
 
-    fun getFavoriteMovies(rawQuery: RawQuery): LiveData<List<FavoriteMovieEntity>> {
-        return favoriteDao.getFavoriteMovie(rawQuery.value)
-    }
+    fun getFavoriteMovies(rawQuery: RawQuery): Flow<List<FavoriteMovieEntity>> = favoriteDao.getFavoriteMovie(rawQuery.value)
 
     suspend fun checkFavoriteMovie(movieId: Int) = favoriteDao.checkMovieFavorite(movieId)
 
     suspend fun removeMovieFromFavorite(movieId: Int) = favoriteDao.removeMovieFromFavorite(movieId)
 
-    suspend fun addTvShowToFavorite(favoriteTvShowEntity: FavoriteTvShowEntity) =
-        favoriteDao.addTvShowToFavorite(favoriteTvShowEntity)
+    suspend fun addTvShowToFavorite(favoriteTvShowEntity: FavoriteTvShowEntity) = favoriteDao.addTvShowToFavorite(favoriteTvShowEntity)
 
-    fun getFavoriteTvShows(rawQuery: RawQuery): LiveData<List<FavoriteTvShowEntity>> {
-        return favoriteDao.getFavoriteTvShows(rawQuery.value)
-    }
+    fun getFavoriteTvShows(rawQuery: RawQuery): Flow<List<FavoriteTvShowEntity>> = favoriteDao.getFavoriteTvShows(rawQuery.value)
 
     suspend fun checkFavoriteTvShow(tvShowId: Int) = favoriteDao.checkTvShowFavorite(tvShowId)
 

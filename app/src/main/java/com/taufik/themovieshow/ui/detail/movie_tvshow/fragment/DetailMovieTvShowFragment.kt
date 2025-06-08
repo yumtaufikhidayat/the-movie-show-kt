@@ -170,9 +170,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
             detailMovieTvShowViewModel.apply {
                 when (from) {
                     FROM.MOVIE -> {
-                        setDetailMovies(id)
-
-                        detailMoviesResponse.observeNetworkResult(
+                        detailMoviesResponse(id).observeNetworkResult(
                             lifecycleOwner = viewLifecycleOwner,
                             onLoading = {
                                 showShimmer(isLoading = true, type = DetailTypeEnum.OVERVIEW)
@@ -210,8 +208,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                     }
 
                     FROM.TV_SHOW -> {
-                        setDetailTvShow(id)
-                        detailTvShowResponse.observeNetworkResult(
+                        detailTvShowResponse(id).observeNetworkResult(
                             lifecycleOwner = viewLifecycleOwner,
                             onLoading = {
                                 showShimmer(isLoading = true, type = DetailTypeEnum.OVERVIEW)
@@ -531,8 +528,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
             detailMovieTvShowViewModel.apply {
                 when (from) {
                     FROM.MOVIE -> {
-                        setDetailMovieCast(id)
-                        detailMoviesCastResponse.observeNetworkResult(
+                        detailMoviesCastResponse(id).observeNetworkResult(
                             lifecycleOwner = viewLifecycleOwner,
                             onLoading = {
                                 showShimmer(isLoading = true, type = DetailTypeEnum.CAST)
@@ -568,8 +564,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                     }
 
                     FROM.TV_SHOW -> {
-                        setDetailTvShowsCast(id)
-                        detailTvShowCastResponse.observeNetworkResult(
+                        detailTvShowCastResponse(id).observeNetworkResult(
                             lifecycleOwner = viewLifecycleOwner,
                             onLoading = {
                                 showShimmer(isLoading = true, type = DetailTypeEnum.CAST)
@@ -625,8 +620,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
             detailMovieTvShowViewModel.apply {
                 when (from) {
                     FROM.MOVIE -> {
-                        setDetailMovieVideo(id)
-                        detailMoviesVideoResponse.observeNetworkResult(
+                        detailMoviesVideoResponse(id).observeNetworkResult(
                             lifecycleOwner = viewLifecycleOwner,
                             onLoading = {
                                 showShimmer(isLoading = true, type = DetailTypeEnum.TRAILER_VIDEO)
@@ -665,8 +659,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                     }
 
                     FROM.TV_SHOW -> {
-                        setDetailTvShowVideo(id)
-                        detailTvShowVideoResponse.observeNetworkResult(
+                        detailTvShowVideoResponse(id).observeNetworkResult(
                             lifecycleOwner = viewLifecycleOwner,
                             onLoading = {
                                 showShimmer(isLoading = true, type = DetailTypeEnum.TRAILER_VIDEO)
@@ -724,8 +717,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
             detailMovieTvShowViewModel.apply {
                 when (from) {
                     FROM.MOVIE -> {
-                        setDetailMovieReviews(id)
-                        detailMovieReviewsResponse.observeNetworkResult(
+                        detailMovieReviewsResponse(id).observeNetworkResult(
                             lifecycleOwner = viewLifecycleOwner,
                             onLoading = {
                                 showShimmer(isLoading = true, type = DetailTypeEnum.REVIEWS)
@@ -762,8 +754,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                     }
 
                     FROM.TV_SHOW -> {
-                        setDetailTvShowsReviews(id)
-                        detailTvShowReviewsResponse.observeNetworkResult(
+                        detailTvShowReviewsResponse(id).observeNetworkResult(
                             lifecycleOwner = viewLifecycleOwner,
                             onLoading = {
                                 showShimmer(isLoading = true, type = DetailTypeEnum.REVIEWS)
@@ -821,8 +812,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
             detailMovieTvShowViewModel.apply {
                 when (from) {
                     FROM.MOVIE -> {
-                        setDetailMovieSimilar(id)
-                        detailMovieSimilarResponse.observeNetworkResult(
+                        detailMovieSimilarResponse(id).observeNetworkResult(
                             lifecycleOwner = viewLifecycleOwner,
                             onLoading = {
                                 showShimmer(isLoading = true, type = DetailTypeEnum.SIMILAR)
@@ -856,8 +846,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                     }
 
                     FROM.TV_SHOW -> {
-                        setDetailTvShowsSimilar(id)
-                        detailTvShowSimilarResponse.observeNetworkResult(
+                        detailTvShowSimilarResponse(id).observeNetworkResult(
                             lifecycleOwner = viewLifecycleOwner,
                             onLoading = {
                                 showShimmer(isLoading = true, type = DetailTypeEnum.SIMILAR)
