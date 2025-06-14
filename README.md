@@ -5,7 +5,7 @@
 [![MinSdk](https://img.shields.io/badge/minsdk-28-red)](https://github.com/yumtaufikhidayat/the-movie-show-kt/blob/main/build.gradle)
 
 ### Overview
-The Movie Show is an Android catalogue app with plenty of movies and tv shows collection. This application is implementing [The Movie Database (TMDB) API](https://www.themoviedb.org/) and have various features. That are:
+The Movie Show is an Android catalogue app with plenty of movies and tv shows collection. This application is implementing [The Movie Database (TMDB)](https://www.themoviedb.org/) API and have various features. That are:
 - Trending movies, now playing movies, and upcoming movies
 - Trending tv shows, on airing today tv shows, and popular tv shows
 - Search movies and tv shows
@@ -30,14 +30,14 @@ The Movie Show is an Android catalogue app with plenty of movies and tv shows co
 - About author, settings (bilingual), and about application
 
 
-| <img height="400" src="homepage.png" width="600"/></a> |
+|                       *Homepage*                       |
 |:------------------------------------------------------:|
-|                       *homepage*                       |
+| <img height="400" src="homepage.png" width="600"/></a> |
 
-| <img src=trending.png align="center" height="400" width="200" ></a> | <img src=movies.png  align="center" height="400" width="200" ></a> | <img src=tvshows.png  align="center" height="400" width="200" ></a> | <img src=detail.png  align="center" height="400" width="200" ></a> |
+|                             *Trending*                              |                              *Movies*                              |                             *TV Shows*                              |                              *Detail*                              |
 |:-------------------------------------------------------------------:|:------------------------------------------------------------------:|:-------------------------------------------------------------------:|:------------------------------------------------------------------:|
-|                             *trending*                              |                              *movies*                              |                             *tv shows*                              |                              *detail*                              |
+| <img src=trending.png align="center" height="400" width="200" ></a> | <img src=movies.png  align="center" height="400" width="200" ></a> | <img src=tvshows.png  align="center" height="400" width="200" ></a> | <img src=detail.png  align="center" height="400" width="200" ></a> |
 
-| <img src=search.png align="center" height="400" width="200" ></a> | <img src=favorite.png  align="center" height="400" width="200" ></a> | <img src=share.png  align="center" height="400" width="200" ></a> | <img src=profile.png  align="center" height="400" width="200" ></a> |
+|                             *Search*                              |                              *Favorite*                              |                              *Share*                              |                               *About*                               |
 |:-----------------------------------------------------------------:|:--------------------------------------------------------------------:|:-----------------------------------------------------------------:|:-------------------------------------------------------------------:|
-|                             *search*                              |                              *favorite*                              |                              *share*                              |                              *profile*                              |
+| <img src=search.png align="center" height="400" width="200" ></a> | <img src=favorite.png  align="center" height="400" width="200" ></a> | <img src=share.png  align="center" height="400" width="200" ></a> | <img src=profile.png  align="center" height="400" width="200" ></a> |
