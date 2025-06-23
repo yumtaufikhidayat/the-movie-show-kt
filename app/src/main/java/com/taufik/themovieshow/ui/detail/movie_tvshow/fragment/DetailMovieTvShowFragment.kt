@@ -385,12 +385,15 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
             val ageCertCode = data.getUserCountryCertification()
             val category = RatingCategory.fromCode(ageCertCode)
             val labelResId = category.labelResId
+            val labelIcon = when (labelResId) {
+                R.string.tvAllAges -> R.drawable.ic_outline_no_adult
+                R.string.tvTeens -> R.drawable.ic_face_teen
+                R.string.tvAdults -> R.drawable.ic_outline_adult
+                else -> R.drawable.ic_outline_no_adult_content
+            }
 
             icTxtAgeRating.apply {
-                setIcon(
-                    if (data.isAdult) R.drawable.ic_outline_adult
-                    else R.drawable.ic_outline_no_adult
-                )
+                setIcon(labelIcon)
                 context?.setIconColor(R.color.colorTextOther)
                 setText(getString(labelResId))
                 setTextSize(TEXT_SIZE)
