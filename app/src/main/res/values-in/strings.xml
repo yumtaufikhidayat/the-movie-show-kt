@@ -20,8 +20,8 @@
     <string name="tvBullet">\u2022</string>
     <string name="tvAgeRating">Rating Usia</string>
     <string name="tvAllAges">Semua Umur</string>
-    <string name="tvTeens">Untuk Remaja</string>
-    <string name="tvAdults">Untuk Dewasa</string>
+    <string name="tvTeens">Remaja - 13+</string>
+    <string name="tvAdults">Dewasa - 21+</string>
     <string name="tvRuntime">Durasi</string>
     <string name="tvProducedBy">Perusahaan Produksi</string>
     <string name="tvGenre">Genre</string>
