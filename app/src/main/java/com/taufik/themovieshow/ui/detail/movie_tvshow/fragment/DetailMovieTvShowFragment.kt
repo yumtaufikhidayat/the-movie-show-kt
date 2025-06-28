@@ -290,8 +290,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
             }
 
             // Release Status
-            val releaseStatus =
-                if (data.statusText.isEmpty()) getString(R.string.tvNA) else data.statusText
+            val releaseStatus = data.statusText.ifEmpty { getString(R.string.tvNA) }
 
             tvReleaseStatus.apply {
                 stringReleaseFormat(getString(R.string.tvStatus), releaseStatus)
@@ -380,6 +379,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
             }
 
             // Age Rating
+            // If age is adult, show adult confirmation dialog
             icTxtAgeRating.apply {
                 setIcon(if (data.isAdult) R.drawable.ic_outline_adult else R.drawable.ic_outline_no_adult)
                 context?.setIconColor(R.color.colorTextOther)
@@ -441,8 +441,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
         binding.apply {
             viewLifecycleOwner.lifecycleScope.launch {
                 viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    var count = 0
-                    count = when (from) {
+                    val count = when (from) {
                         FROM.MOVIE -> detailMovieTvShowViewModel.checkFavoriteMovie(id)
                         FROM.TV_SHOW -> detailMovieTvShowViewModel.checkFavoriteTvShow(id)
                     }
