@@ -30,6 +30,7 @@ import com.taufik.themovieshow.ui.detail.movie_tvshow.viewmodel.DetailMovieTvSho
 import com.taufik.themovieshow.ui.favorite.helper.FavoriteAction
 import com.taufik.themovieshow.utils.enums.DetailTypeEnum
 import com.taufik.themovieshow.utils.enums.FROM
+import com.taufik.themovieshow.utils.enums.RatingCategory
 import com.taufik.themovieshow.utils.extensions.applySystemBarBottomPadding
 import com.taufik.themovieshow.utils.extensions.convertDate
 import com.taufik.themovieshow.utils.extensions.hideView
@@ -52,6 +53,7 @@ import com.taufik.themovieshow.utils.extensions.toggleVisibilityIf
 import com.taufik.themovieshow.utils.extensions.tryOpenBrowser
 import com.taufik.themovieshow.utils.helper.DynamicSnapHelper
 import com.taufik.themovieshow.utils.objects.CommonDateFormatConstants
+import com.taufik.themovieshow.utils.objects.getUserCountryCertification
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -380,10 +382,17 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
 
             // Age Rating
             // If age is adult, show adult confirmation dialog
+            val ageCertCode = data.getUserCountryCertification()
+            val category = RatingCategory.fromCode(ageCertCode)
+            val labelResId = category.labelResId
+
             icTxtAgeRating.apply {
-                setIcon(if (data.isAdult) R.drawable.ic_outline_adult else R.drawable.ic_outline_no_adult)
+                setIcon(
+                    if (data.isAdult) R.drawable.ic_outline_adult
+                    else R.drawable.ic_outline_no_adult
+                )
                 context?.setIconColor(R.color.colorTextOther)
-                setText(if (data.isAdult) getString(R.string.tvAdults) else getString(R.string.tvAllAges))
+                setText(getString(labelResId))
                 setTextSize(TEXT_SIZE)
                 context?.setTextColor(R.color.colorTextOther)
             }

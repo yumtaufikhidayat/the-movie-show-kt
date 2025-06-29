@@ -19,6 +19,7 @@ object CommonConstants {
     const val QUERY_Q = "query"
     const val QUERY_MOVIE_ID = "movie_id"
     const val QUERY_TV_SHOW_ID = "tv_id"
+    const val QUERY_APPEND_TO_RESPONSE = "append_to_response"
     const val API_KEY = BuildConfig.API_KEY
     const val ENCRYPTED_DB_PASSPHRASE = ""
     const val LINKEDIN = "linkedIn"

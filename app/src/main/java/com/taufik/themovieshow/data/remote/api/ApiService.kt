@@ -59,7 +59,8 @@ interface ApiService {
     @GET(UrlEndpoint.MOVIE_DETAIL)
     suspend fun getDetailMovie(
         @Path(CommonConstants.QUERY_MOVIE_ID) movieId: Int,
-        @Query(CommonConstants.QUERY_API_KEY) apiKey: String
+        @Query(CommonConstants.QUERY_API_KEY) apiKey: String,
+        @Query(CommonConstants.QUERY_APPEND_TO_RESPONSE) appendToResponse: String = "release_dates"
     ): Response<MovieDetailResponse>
 
     @GET(UrlEndpoint.MOVIE_REVIEWS)
