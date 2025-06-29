@@ -1,6 +1,7 @@
 package com.taufik.themovieshow.base.helper
 
 import com.taufik.themovieshow.model.response.movie.detail.MovieDetailResponse
+import com.taufik.themovieshow.model.response.movie.detail.ReleaseDatesResponse
 import com.taufik.themovieshow.model.response.tvshow.detail.TvShowsPopularDetailResponse
 
 interface BaseDetailData {
@@ -17,6 +18,7 @@ interface BaseDetailData {
     val genres: List<String>
     val overview: String
     val homepage: String?
+    val releaseDates: ReleaseDatesResponse?
 }
 
 data class MovieDetailWrapper(val movie: MovieDetailResponse) : BaseDetailData {
@@ -33,6 +35,7 @@ data class MovieDetailWrapper(val movie: MovieDetailResponse) : BaseDetailData {
     override val genres = movie.genres.map { it.name }
     override val overview = movie.overview
     override val homepage = movie.homepage
+    override val releaseDates = movie.releaseDates
 }
 
 data class TvShowDetailWrapper(val tvShow: TvShowsPopularDetailResponse) : BaseDetailData {
@@ -49,4 +52,5 @@ data class TvShowDetailWrapper(val tvShow: TvShowsPopularDetailResponse) : BaseD
     override val genres = tvShow.genres.map { it.name }
     override val overview = tvShow.overview
     override val homepage = tvShow.homepage
+    override val releaseDates: ReleaseDatesResponse? = null
 }

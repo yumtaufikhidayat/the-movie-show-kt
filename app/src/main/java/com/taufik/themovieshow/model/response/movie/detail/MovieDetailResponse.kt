@@ -36,6 +36,8 @@ data class MovieDetailResponse(
     val productionCountries: List<MovieDetailProductionCountry>,
     @SerializedName("release_date")
     val releaseDate: String,
+    @SerializedName("release_dates")
+    val releaseDates: ReleaseDatesResponse?,
     @SerializedName("revenue")
     val revenue: Int,
     @SerializedName("runtime")
