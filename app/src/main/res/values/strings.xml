@@ -19,9 +19,9 @@
     <string name="tvLanguage">Language</string>
     <string name="tvBullet">\u2022</string>
     <string name="tvAgeRating">Age Rating</string>
-    <string name="tvAllAges">All Ages</string>
-    <string name="tvTeens">Teens</string>
-    <string name="tvAdults">Adults</string>
+    <string name="tvAllAges">All Ages - G</string>
+    <string name="tvTeens">Teens - 13+</string>
+    <string name="tvAdults">Adults - 21+</string>
     <string name="tvRuntime">Runtime</string>
     <string name="tvProducedBy">Produced Companies</string>
     <string name="tvGenre">Genre(s)</string>
