@@ -7,11 +7,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.taufik.themovieshow.base.helper.BaseSimilarItem
 import com.taufik.themovieshow.databinding.ItemSimilarMovieAndCastBinding
-import com.taufik.themovieshow.utils.objects.CommonDateFormatConstants
 import com.taufik.themovieshow.utils.extensions.applyMiddleMargins
 import com.taufik.themovieshow.utils.extensions.convertDate
 import com.taufik.themovieshow.utils.extensions.convertDpToPx
 import com.taufik.themovieshow.utils.extensions.loadImage
+import com.taufik.themovieshow.utils.objects.CommonDateFormatConstants
 
 class MovieTvShowSimilarAdapter(
     private val onItemClickListener: (BaseSimilarItem) -> Unit

@@ -1,9 +1,7 @@
 package com.taufik.themovieshow.utils.objects
 
 import com.taufik.themovieshow.base.helper.BaseDetailData
-import com.taufik.themovieshow.model.response.movie.detail.MovieDetailResponse
 import com.taufik.themovieshow.model.response.movie.detail.ReleaseDatesResponse
-import java.util.Locale
 
 fun getCertificationForUserOrDefault(releaseDates: ReleaseDatesResponse?): String {
     val results = releaseDates?.results ?: return "-"

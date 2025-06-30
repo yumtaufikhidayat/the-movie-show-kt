@@ -2,7 +2,6 @@ package com.taufik.themovieshow.base.helper
 
 import com.taufik.themovieshow.model.response.movie.cast.MovieCast
 import com.taufik.themovieshow.model.response.tvshow.cast.TvShowsCast
-import kotlin.Int
 
 interface BaseCastItem {
     val id: Int

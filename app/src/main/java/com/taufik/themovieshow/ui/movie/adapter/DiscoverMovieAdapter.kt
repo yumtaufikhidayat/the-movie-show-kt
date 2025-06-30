@@ -8,10 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.databinding.ItemsMoviesTvShowBinding
 import com.taufik.themovieshow.model.response.movie.discover.DiscoverMovieResult
-import com.taufik.themovieshow.utils.objects.CommonDateFormatConstants
 import com.taufik.themovieshow.utils.extensions.convertDate
 import com.taufik.themovieshow.utils.extensions.loadImage
 import com.taufik.themovieshow.utils.extensions.toRating
+import com.taufik.themovieshow.utils.objects.CommonDateFormatConstants
 
 class DiscoverMovieAdapter(
     private val onItemClickListener: (DiscoverMovieResult) -> Unit

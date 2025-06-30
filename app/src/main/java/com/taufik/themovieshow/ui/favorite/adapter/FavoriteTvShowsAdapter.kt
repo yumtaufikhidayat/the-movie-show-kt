@@ -10,10 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.databinding.ItemsMoviesTvShowBinding
 import com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResult
-import com.taufik.themovieshow.utils.objects.CommonDateFormatConstants
 import com.taufik.themovieshow.utils.extensions.convertDate
 import com.taufik.themovieshow.utils.extensions.loadImage
 import com.taufik.themovieshow.utils.extensions.toRating
+import com.taufik.themovieshow.utils.objects.CommonDateFormatConstants
 import java.util.Locale
 
 class FavoriteTvShowsAdapter(

@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.taufik.themovieshow.databinding.ItemReviewsBinding
 import com.taufik.themovieshow.model.response.common.reviews.ReviewsResult
-import com.taufik.themovieshow.utils.objects.CommonDateFormatConstants
 import com.taufik.themovieshow.utils.extensions.convertDate
 import com.taufik.themovieshow.utils.extensions.loadImage
+import com.taufik.themovieshow.utils.objects.CommonDateFormatConstants
 
 class ReviewsAdapter : ListAdapter<ReviewsResult, ReviewsAdapter.ReviewsViewHolder>(
     REVIEWS_DIFF_CALLBACK) {

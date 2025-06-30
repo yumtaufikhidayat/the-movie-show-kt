@@ -387,7 +387,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
             val labelResId = category.labelResId
             val labelIcon = when (labelResId) {
                 R.string.tvAllAges -> R.drawable.ic_outline_no_adult
-                R.string.tvTeens -> R.drawable.ic_face_teen
+                R.string.tvTeens -> R.drawable.ic_outline_face_teen
                 R.string.tvAdults -> R.drawable.ic_outline_adult
                 else -> R.drawable.ic_outline_no_adult_content
             }
