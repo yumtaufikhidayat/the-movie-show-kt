@@ -49,6 +49,7 @@ fun <T> Flow<NetworkResult<T>>.observeNetworkResult(
                             setCustomKey("error_message", errorMessage)
                             recordException(RuntimeException("NetworkResult.Error: $errorMessage"))
                         }
+                        onError?.invoke(errorMessage)
                     }
                 }
             }
