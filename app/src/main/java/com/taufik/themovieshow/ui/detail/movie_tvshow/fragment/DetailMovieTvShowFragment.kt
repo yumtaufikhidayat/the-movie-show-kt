@@ -37,6 +37,7 @@ import com.taufik.themovieshow.utils.extensions.hideView
 import com.taufik.themovieshow.utils.extensions.loadImage
 import com.taufik.themovieshow.utils.extensions.navigateToDetailMovieTvShow
 import com.taufik.themovieshow.utils.extensions.observeNetworkResult
+import com.taufik.themovieshow.utils.extensions.orNA
 import com.taufik.themovieshow.utils.extensions.popBackStack
 import com.taufik.themovieshow.utils.extensions.share
 import com.taufik.themovieshow.utils.extensions.showError
@@ -257,17 +258,15 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
             imgBackdrop.loadImage(data.backdropPath)
 
             // Title
-            tvTitle.text = data.titleText.ifEmpty { getString(R.string.tvNA) }
+            tvTitle.text = data.titleText.orNA(requireContext())
 
             // Release/Start Date
-            val formattedDate = if (data.releaseDateText.isEmpty()) {
-                getString(R.string.tvNA)
-            } else {
-                data.releaseDateText.convertDate(
-                    CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
-                    CommonDateFormatConstants.EEE_D_MMM_YYYY_FORMAT
-                )
-            }
+            val formattedDate = data.releaseDateText
+                .takeIf { it.isNotEmpty() }
+                ?.convertDate(
+                    inputFormat = CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
+                    outputFormat = CommonDateFormatConstants.EEE_D_MMM_YYYY_FORMAT)
+                ?: getString(R.string.tvNA)
 
             when (from) {
                 FROM.MOVIE -> {
@@ -288,7 +287,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
             }
 
             // Release Status
-            val releaseStatus = data.statusText.ifEmpty { getString(R.string.tvNA) }
+            val releaseStatus = data.statusText.orNA(requireContext())
 
             tvReleaseStatus.apply {
                 stringReleaseFormat(getString(R.string.tvStatus), releaseStatus)
@@ -330,8 +329,8 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                         setIcon(R.drawable.ic_outline_runtime)
                         context?.setIconColor(R.color.colorTextOther)
                         setText(
-                            if (movie.runtime == 0) convertRuntime(0)
-                            else convertRuntime(movie.runtime)
+                            if (movie.runtime <= 0) 0.convertRuntime()
+                            else movie.runtime.convertRuntime()
                         )
                         setTextSize(TEXT_SIZE)
                         context?.setTextColor(R.color.colorTextOther)
@@ -400,10 +399,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
             icTxtLanguage.apply {
                 setIcon(R.drawable.ic_outline_spoken_language)
                 context?.setIconColor(R.color.colorTextOther)
-                setText(
-                    if (data.spokenLanguages.isEmpty()) getString(R.string.tvNA)
-                    else data.spokenLanguages.joinToString(", ")
-                )
+                setText(data.spokenLanguages.orNA(requireContext()))
                 setTextSize(TEXT_SIZE)
                 context?.setTextColor(R.color.colorTextOther)
             }
@@ -412,10 +408,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
             icTxtGenre.apply {
                 setIcon(R.drawable.ic_outline_genre)
                 context?.setIconColor(R.color.colorTextOther)
-                setText(
-                    if (data.genres.isEmpty()) getString(R.string.tvNA)
-                    else data.genres.joinToString()
-                )
+                setText(data.genres.orNA(requireContext()))
                 setTextSize(TEXT_SIZE)
                 context?.setTextColor(R.color.colorTextOther)
             }
@@ -519,7 +512,11 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
 
     private fun setCastAdapter() {
         binding.rvCast.apply {
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = LinearLayoutManager(
+                requireContext(),
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
             clipToPadding = false
             clipChildren = false
             setHasFixedSize(false)
@@ -552,7 +549,9 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                                     isShowEmpty = isResultsEmpty
                                 )
 
-                                val mappedList = if (isResultsEmpty) emptyList() else response.cast.map { it.toCastItem() }
+                                val mappedList =
+                                    if (isResultsEmpty) emptyList()
+                                    else response.cast.map { it.toCastItem() }
                                 castAdapter.submitList(mappedList)
 
                                 showTrailerVideoObserver(id)
@@ -587,7 +586,9 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                                     isShowEmpty = isResultsEmpty
                                 )
 
-                                val mappedList = if (isResultsEmpty) emptyList() else response.cast.map { it.toCastItem() }
+                                val mappedList =
+                                    if (isResultsEmpty) emptyList()
+                                    else response.cast.map { it.toCastItem() }
                                 castAdapter.submitList(mappedList)
 
                                 showTrailerVideoObserver(id)
@@ -611,7 +612,11 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
 
     private fun setTrailerVideoAdapter() {
         binding.rvTrailerVideo.apply {
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = LinearLayoutManager(
+                requireContext(),
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
             clipToPadding = false
             clipChildren = false
             setHasFixedSize(true)
@@ -643,7 +648,9 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                                     isShowEmpty = isEmptyResult
                                 )
 
-                                val mappedList = if (isEmptyResult) emptyList() else results.toMovieBaseVideoItemList()
+                                val mappedList =
+                                    if (isEmptyResult) emptyList()
+                                    else results.toMovieBaseVideoItemList()
                                 trailerVideoAdapter.submitList(mappedList)
 
                                 showReviewsObserver(id)
@@ -682,7 +689,9 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                                     isShowEmpty = isEmptyResult
                                 )
 
-                                val mappedList = if (isEmptyResult) emptyList() else response.results.toTvShowBaseVideoItemList()
+                                val mappedList =
+                                    if (isEmptyResult) emptyList()
+                                    else response.results.toTvShowBaseVideoItemList()
                                 trailerVideoAdapter.submitList(mappedList)
 
                                 showReviewsObserver(id)
@@ -710,7 +719,11 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
 
     private fun setReviewsAdapter() {
         binding.rvReviews.apply {
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = LinearLayoutManager(
+                requireContext(),
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
             setHasFixedSize(true)
             adapter = reviewsAdapter
 
@@ -803,7 +816,11 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
 
     private fun setSimilarMovieAdapter() {
         binding.rvMovieSimilar.apply {
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = LinearLayoutManager(
+                requireContext(),
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
             clipToPadding = false
             clipChildren = false
             setHasFixedSize(false)
@@ -835,7 +852,9 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                                     isShowEmpty = isResultsEmpty
                                 )
 
-                                val mappedList = if (isResultsEmpty) emptyList() else results.map { it.toMovieBaseSimilarItem() }
+                                val mappedList =
+                                    if (isResultsEmpty) emptyList()
+                                    else results.map { it.toMovieBaseSimilarItem() }
                                 similarAdapter.submitList(mappedList)
                             },
                             onError = {
@@ -869,7 +888,9 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                                     isShowEmpty = isResultsEmpty
                                 )
 
-                                val mappedList = if (isResultsEmpty) emptyList() else results.map { it.toTvShowSimilarItem() }
+                                val mappedList =
+                                    if (isResultsEmpty) emptyList()
+                                    else results.map { it.toTvShowSimilarItem() }
                                 similarAdapter.submitList(mappedList)
                             },
                             onError = {
@@ -890,9 +911,9 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
         }
     }
 
-    private fun convertRuntime(data: Int): String {
-        val hours = data / TIME_60
-        val minutes = data % TIME_60
+    private fun Int.convertRuntime(): String {
+        val hours = this / TIME_60
+        val minutes = this % TIME_60
         return getString(R.string.tvRuntimeInTime, hours, minutes)
     }
 
