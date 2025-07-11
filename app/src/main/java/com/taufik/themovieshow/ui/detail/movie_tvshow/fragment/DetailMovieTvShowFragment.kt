@@ -265,8 +265,8 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                 .takeIf { it.isNotEmpty() }
                 ?.convertDate(
                     inputFormat = CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
-                    outputFormat = CommonDateFormatConstants.EEE_D_MMM_YYYY_FORMAT)
-                ?: getString(R.string.tvNA)
+                    outputFormat = CommonDateFormatConstants.EEE_D_MMM_YYYY_FORMAT
+                ) ?: getString(R.string.tvNA)
 
             when (from) {
                 FROM.MOVIE -> {
