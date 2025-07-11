@@ -146,16 +146,12 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
             backPressedCallback
         )
 
-        getBundleData()
         showToolbarData()
         setDetailObserver(idMovieTvShow)
         setCastAdapter()
         setTrailerVideoAdapter()
         setReviewsAdapter()
         setSimilarMovieAdapter()
-    }
-
-    private fun getBundleData() {
     }
 
     private fun showToolbarData() {
