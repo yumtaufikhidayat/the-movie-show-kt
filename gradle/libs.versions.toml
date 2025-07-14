@@ -12,10 +12,10 @@ preference = "1.2.1"
 flexbox = "3.0.0"
 
 # Jetpack Components
-lifecycle-ktx = "2.9.1"
+lifecycle-ktx = "2.9.2"
 lifecycle-ext = "2.2.0"
-navigation = "2.9.0"
-nav-ktx = "2.9.0"
+navigation = "2.9.2"
+nav-ktx = "2.9.2"
 datastore = "1.1.7"
 datastorePreferences = "1.1.4"
 room = "2.7.1"
