@@ -49,6 +49,7 @@ import com.taufik.themovieshow.utils.extensions.stringFormat
 import com.taufik.themovieshow.utils.extensions.stringReleaseFormat
 import com.taufik.themovieshow.utils.extensions.toMovieBaseVideoItemList
 import com.taufik.themovieshow.utils.extensions.toRating
+import com.taufik.themovieshow.utils.extensions.toThousandFormat
 import com.taufik.themovieshow.utils.extensions.toTvShowBaseVideoItemList
 import com.taufik.themovieshow.utils.extensions.toggleVisibilityIf
 import com.taufik.themovieshow.utils.extensions.tryOpenBrowser
@@ -296,6 +297,8 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
 
             // Rating
             val hasRating = data.voteAverage != 0.0
+            val voteCount = data.voteCount.toThousandFormat()
+
             icTxtRating.apply {
                 setIcon(R.drawable.ic_outline_rate)
                 context?.setIconColor(R.color.colorTextOther)
@@ -304,7 +307,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                         getString(
                             R.string.tvRatingDesc,
                             data.voteAverage.toRating(),
-                            data.voteCount.toString()
+                            voteCount
                         )
                     } else {
                         getString(
