@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context=".ui.detail.movie.fragment.DetailMovieFragment">
+    tools:context=".ui.detail.movie_tvshow.fragment.DetailMovieTvShowFragment">
 
     <include
         android:id="@+id/toolbarDetailMovie"
@@ -26,8 +26,11 @@
             <com.facebook.shimmer.ShimmerFrameLayout
                 android:id="@+id/shimmerDetail"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:shimmer_repeat_delay="5000"
+                android:layout_height="450dp"
+                app:shimmer_base_alpha="1"
+                app:shimmer_highlight_alpha="0"
+                android:visibility="gone"
+                tools:visibility="visible"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <include
