@@ -157,11 +157,8 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
     }
 
     private fun showToolbarData() {
-        binding.toolbarDetailMovie.apply {
-            tvToolbar.text = title
-            imgBack.setOnClickListener {
-                this@DetailMovieTvShowBindingFragment.popBackStack()
-            }
+        binding.imgBack.setOnClickListener {
+            this@DetailMovieTvShowBindingFragment.popBackStack()
         }
     }
 
@@ -249,7 +246,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
 
         binding.apply {
             // Poster
-            imgPoster.loadImage(data.posterPath.orEmpty())
+//            imgPoster.loadImage(data.posterPath.orEmpty())
 
             // Backdrop
             imgBackdrop.loadImage(data.backdropPath)
@@ -445,7 +442,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                         FROM.MOVIE -> detailMovieTvShowViewModel.checkFavoriteMovie(id)
                         FROM.TV_SHOW -> detailMovieTvShowViewModel.checkFavoriteTvShow(id)
                     }
-                    toolbarDetailMovie.toggleFavorite.isChecked = count > 0
+                    toggleFavorite.isChecked = count > 0
                     isChecked = count > 0
                 }
             }
@@ -461,7 +458,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
     ) {
         if (!isAdded) return
         binding.apply {
-            toolbarDetailMovie.toggleFavorite.setOnClickListener {
+            toggleFavorite.setOnClickListener {
                 isChecked = !isChecked
 
                 val action = favoriteActions[from] ?: return@setOnClickListener
@@ -479,7 +476,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
 
     private fun shareAwesomeMovieOrTvShow(link: String) {
         if (!isAdded) return
-        binding.toolbarDetailMovie.imgShare.setOnClickListener {
+        binding.imgShare.setOnClickListener {
             context?.share(
                 getString(
                     when (from) {
