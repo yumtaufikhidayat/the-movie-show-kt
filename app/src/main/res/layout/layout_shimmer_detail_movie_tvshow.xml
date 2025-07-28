@@ -13,19 +13,9 @@
         <View
             android:id="@+id/shimmer_backdrop"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="250dp"
             android:background="@drawable/bg_shimmer"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <View
-            android:id="@+id/shimmer_poster"
-            android:layout_width="120dp"
-            android:layout_height="150dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="150dp"
-            android:background="@drawable/bg_shimmer_rounded"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -36,17 +26,16 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/bg_shimmer_rounded"
-            app:layout_constraintStart_toEndOf="@id/shimmer_poster"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/shimmer_backdrop" />
 
         <View
             android:id="@+id/shimmer_release_year"
             android:layout_width="60dp"
             android:layout_height="14dp"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/bg_shimmer_rounded"
-            app:layout_constraintStart_toEndOf="@id/shimmer_poster"
+            app:layout_constraintStart_toStartOf="@id/shimmer_title"
             app:layout_constraintTop_toBottomOf="@id/shimmer_title" />
 
         <View
@@ -63,10 +52,9 @@
             android:id="@+id/shimmer_rating"
             android:layout_width="120dp"
             android:layout_height="16dp"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="12dp"
             android:background="@drawable/bg_shimmer_rounded"
-            app:layout_constraintStart_toEndOf="@id/shimmer_poster"
+            app:layout_constraintStart_toStartOf="@id/shimmer_title"
             app:layout_constraintTop_toBottomOf="@id/shimmer_release_year" />
 
         <LinearLayout
@@ -79,7 +67,7 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/shimmer_poster">
+            app:layout_constraintTop_toBottomOf="@id/shimmer_rating">
 
             <View
                 android:layout_width="80dp"
