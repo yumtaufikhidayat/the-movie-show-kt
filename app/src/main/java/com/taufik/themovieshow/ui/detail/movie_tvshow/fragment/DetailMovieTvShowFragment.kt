@@ -246,7 +246,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
 
         binding.apply {
             // Poster
-//            imgPoster.loadImage(data.posterPath.orEmpty())
+            imgPoster.loadImage(data.posterPath.orEmpty())
 
             // Backdrop
             imgBackdrop.loadImage(data.backdropPath)
