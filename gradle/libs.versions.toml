@@ -14,7 +14,7 @@ flexbox = "3.0.0"
 # Jetpack Components
 lifecycle-ktx = "2.9.2"
 lifecycle-ext = "2.2.0"
-navigation = "2.9.2"
+navigation = "2.9.3"
 nav-ktx = "2.9.2"
 datastore = "1.1.7"
 datastorePreferences = "1.1.4"
