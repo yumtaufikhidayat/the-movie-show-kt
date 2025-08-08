@@ -21,7 +21,7 @@ fun getStringProp(key: String, fallback: String? = null, message: String = ""): 
 
 android {
     namespace = "com.taufik.themovieshow"
-    compileSdk = 35
+    compileSdk = 36
 
     // APK Name
     applicationVariants.all {
@@ -32,7 +32,7 @@ android {
     defaultConfig {
         applicationId = "com.taufik.themovieshow"
         minSdk = 30
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 130
         versionName = "1.30"
 
