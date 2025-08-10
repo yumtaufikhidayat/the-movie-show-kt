@@ -35,18 +35,18 @@ import com.taufik.themovieshow.utils.extensions.applySystemBarBottomPadding
 import com.taufik.themovieshow.utils.extensions.convertDate
 import com.taufik.themovieshow.utils.extensions.hideView
 import com.taufik.themovieshow.utils.extensions.loadImage
+import com.taufik.themovieshow.utils.extensions.loadPosterImage
 import com.taufik.themovieshow.utils.extensions.navigateToDetailMovieTvShow
 import com.taufik.themovieshow.utils.extensions.observeNetworkResult
 import com.taufik.themovieshow.utils.extensions.orNA
 import com.taufik.themovieshow.utils.extensions.popBackStack
+import com.taufik.themovieshow.utils.extensions.releaseInfo
 import com.taufik.themovieshow.utils.extensions.share
 import com.taufik.themovieshow.utils.extensions.showError
 import com.taufik.themovieshow.utils.extensions.showSnackBar
 import com.taufik.themovieshow.utils.extensions.showSuccessToastyIcon
 import com.taufik.themovieshow.utils.extensions.showTrailerVideo
 import com.taufik.themovieshow.utils.extensions.showView
-import com.taufik.themovieshow.utils.extensions.stringFormat
-import com.taufik.themovieshow.utils.extensions.stringReleaseFormat
 import com.taufik.themovieshow.utils.extensions.toMovieBaseVideoItemList
 import com.taufik.themovieshow.utils.extensions.toRating
 import com.taufik.themovieshow.utils.extensions.toThousandFormat
@@ -246,7 +246,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
 
         binding.apply {
             // Poster
-            imgPoster.loadImage(data.posterPath.orEmpty())
+            imgPoster.loadPosterImage(data.posterPath.orEmpty())
 
             // Backdrop
             imgBackdrop.loadImage(data.backdropPath)
@@ -262,30 +262,11 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                     outputFormat = CommonDateFormatConstants.EEE_D_MMM_YYYY_FORMAT
                 ) ?: getString(R.string.tvNA)
 
-            when (from) {
-                FROM.MOVIE -> {
-                    tvStartedOn.toggleVisibilityIf(from == FROM.TV_SHOW)
-                    tvReleasedOn.apply {
-                        toggleVisibilityIf(from == FROM.MOVIE)
-                        stringFormat(getString(R.string.tvReleasedOn), formattedDate)
-                    }
-                }
-
-                FROM.TV_SHOW -> {
-                    tvReleasedOn.toggleVisibilityIf(from == FROM.MOVIE)
-                    tvStartedOn.apply {
-                        toggleVisibilityIf(from == FROM.TV_SHOW)
-                        stringFormat(getString(R.string.tvStartedOn), formattedDate)
-                    }
-                }
-            }
-
             // Release Status
             val releaseStatus = data.statusText.orNA(requireContext())
-
-            tvReleaseStatus.apply {
-                stringReleaseFormat(getString(R.string.tvStatus), releaseStatus)
-                toggleVisibilityIf(true)
+            tvReleaseInfo.apply {
+                toggleVisibilityIf(from == FROM.MOVIE || from == FROM.TV_SHOW)
+                releaseInfo(formattedDate, releaseStatus)
             }
 
             // Rating
@@ -331,6 +312,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                         setTextSize(TEXT_SIZE)
                         context?.setTextColor(R.color.colorTextOther)
                     }
+                    tvNetwork.toggleVisibilityIf(from == FROM.TV_SHOW)
                 }
 
                 FROM.TV_SHOW -> {
