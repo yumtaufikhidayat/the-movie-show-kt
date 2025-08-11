@@ -55,8 +55,8 @@
                 android:layout_height="wrap_content"
                 android:visibility="gone"
                 tools:visibility="visible"
-                app:constraint_referenced_ids="imgBackdrop, viewGradientBackground, imgShare, toggleFavorite,
-                    tvTitle, tvNetwork, tvReleasedOn, tvStartedOn, tvReleaseStatus, horizontalScrolling,
+                app:constraint_referenced_ids="imgBackdrop, imgPoster, viewGradientBackground, imgShare, toggleFavorite,
+                    tvTitle, tvNetwork, tvReleasedOn, tvReleaseInfo, horizontalScrolling,
                     tvOverviewTitle, tvOverview, tvNoOverview, tvReadMore"/>
 
             <ImageView
@@ -72,25 +72,25 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/imgPoster"
-                android:layout_width="100dp"
-                android:layout_height="120dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginBottom="10dp"
-                android:contentDescription="@string/tvPoster"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_loading"
-                app:layout_constraintBottom_toBottomOf="@id/viewGradientBackground"
-                app:layout_constraintStart_toStartOf="@id/imgBackdrop"
-                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize5Percent" />
-
             <View
                 android:id="@+id/viewGradientBackground"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:background="@drawable/bg_gradient_black"
                 app:layout_constraintBottom_toBottomOf="@id/imgBackdrop" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/imgPoster"
+                android:layout_width="100dp"
+                android:layout_height="150dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="-20dp"
+                android:contentDescription="@string/tvPoster"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_loading"
+                app:layout_constraintBottom_toBottomOf="@id/viewGradientBackground"
+                app:layout_constraintStart_toStartOf="@id/imgBackdrop"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize5Percent" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/imgShare"
@@ -126,15 +126,14 @@
                 android:id="@+id/tvTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginHorizontal="16dp"
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/imgBackdrop"
+                app:layout_constraintTop_toBottomOf="@id/imgPoster"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 tools:text="@string/tvTitle" />
@@ -151,47 +150,32 @@
                 app:layout_constraintTop_toBottomOf="@id/tvTitle"
                 tools:text="@string/tvNetwork" />
 
-            <TextView
-                android:id="@+id/tvReleasedOn"
-                android:layout_width="0dp"
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrierTitleNetwork"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorGrey"
-                app:layout_constraintEnd_toEndOf="@id/tvTitle"
-                app:layout_constraintStart_toStartOf="@id/tvTitle"
-                app:layout_constraintTop_toBottomOf="@id/tvTitle"
-                tools:text="@string/tvReleasedOn"
-                tools:visibility="gone" />
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="tvTitle, tvNetwork"/>
 
             <TextView
-                android:id="@+id/tvStartedOn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorGrey"
-                app:layout_constraintEnd_toEndOf="@id/tvTitle"
-                app:layout_constraintStart_toStartOf="@id/tvTitle"
-                app:layout_constraintTop_toBottomOf="@id/tvNetwork"
-                tools:text="@string/tvStartedOn"
-                tools:visibility="gone" />
-
-            <TextView
-                android:id="@+id/tvReleaseStatus"
+                android:id="@+id/tvReleaseInfo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/holo_green_light"
-                app:layout_constraintEnd_toEndOf="@id/tvTitle"
+                app:layout_constraintTop_toBottomOf="@+id/barrierTitleNetwork"
                 app:layout_constraintStart_toStartOf="@id/tvTitle"
-                app:layout_constraintTop_toBottomOf="@id/tvStartedOn"
-                tools:text="@string/tvStatus" />
+                tools:text="@string/tvReleasedOn" />
 
             <HorizontalScrollView
                 android:id="@+id/horizontalScrolling"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
+                android:layout_marginHorizontal="16dp"
                 android:scrollbars="none"
-                app:layout_constraintTop_toBottomOf="@id/tvReleaseStatus"
-                app:layout_constraintStart_toStartOf="@id/tvTitle"
-                app:layout_constraintEnd_toEndOf="@id/tvReleaseStatus">
+                app:layout_constraintTop_toBottomOf="@id/tvReleaseInfo"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="wrap_content"
