@@ -1,8 +1,14 @@
 package com.taufik.themovieshow.utils.extensions
 
+import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.Target
+import com.google.android.material.imageview.ShapeableImageView
 import com.taufik.themovieshow.BuildConfig
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.data.remote.api.UrlEndpoint
@@ -12,6 +18,17 @@ fun ImageView.loadImage(url: String?) {
         .load(BuildConfig.IMAGE_URL + url)
         .centerCrop()
         .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error))
+        .into(this)
+}
+
+fun ShapeableImageView.loadPosterImage(url: String?) {
+    Glide.with(this.context)
+        .load(BuildConfig.IMAGE_URL + url)
+        .apply(
+            RequestOptions
+            .placeholderOf(R.drawable.ic_loading)
+            .error(R.drawable.ic_error)
+        )
         .into(this)
 }
 
