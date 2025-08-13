@@ -21,8 +21,8 @@
 
         <View
             android:id="@+id/shimmer_poster"
-            android:layout_width="80dp"
-            android:layout_height="100dp"
+            android:layout_width="100dp"
+            android:layout_height="150dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="130dp"
             android:background="@drawable/bg_shimmer_rounded"
@@ -37,26 +37,7 @@
             android:layout_marginTop="8dp"
             android:background="@drawable/bg_shimmer_rounded"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/shimmer_backdrop" />
-
-        <View
-            android:id="@+id/shimmer_release_year"
-            android:layout_width="60dp"
-            android:layout_height="14dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/bg_shimmer_rounded"
-            app:layout_constraintStart_toStartOf="@id/shimmer_title"
-            app:layout_constraintTop_toBottomOf="@id/shimmer_title" />
-
-        <View
-            android:id="@+id/shimmer_runtime"
-            android:layout_width="80dp"
-            android:layout_height="14dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/bg_shimmer_rounded"
-            app:layout_constraintStart_toEndOf="@id/shimmer_release_year"
-            app:layout_constraintTop_toBottomOf="@id/shimmer_title" />
+            app:layout_constraintTop_toBottomOf="@id/shimmer_poster" />
 
         <View
             android:id="@+id/shimmer_rating"
@@ -65,7 +46,7 @@
             android:layout_marginTop="12dp"
             android:background="@drawable/bg_shimmer_rounded"
             app:layout_constraintStart_toStartOf="@id/shimmer_title"
-            app:layout_constraintTop_toBottomOf="@id/shimmer_release_year" />
+            app:layout_constraintTop_toBottomOf="@id/shimmer_title" />
 
         <LinearLayout
             android:id="@+id/shimmer_genres_container"
