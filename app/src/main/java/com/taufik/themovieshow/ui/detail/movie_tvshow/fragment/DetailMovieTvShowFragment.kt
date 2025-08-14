@@ -197,7 +197,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                                 layoutError.showError(
                                     context = requireContext(),
                                     message = errorMessage,
-                                    retryAction = {
+                                    onRetry = {
                                         // TODO: skip this until using flow instead of livedata
                                         // Reload data
 //                                        setDetailObserver(id)
@@ -234,7 +234,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                                 layoutError.showError(
                                     context = requireContext(),
                                     message = it,
-                                    retryAction = {
+                                    onRetry = {
                                         // TODO: skip this until using flow instead of livedata
                                         // Reload data
 //                                        setDetailObserver(id)

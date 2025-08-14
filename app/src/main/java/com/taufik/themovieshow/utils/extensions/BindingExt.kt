@@ -11,7 +11,7 @@ fun LayoutErrorBinding.showError(message: String?) {
     tvErrorDesc.text = message
 }
 
-fun LayoutErrorBinding.showError(context: Context, message: String?, retryAction: (() -> Unit)? = null) {
+fun LayoutErrorBinding.showError(context: Context, message: String?, onRetry: (() -> Unit)? = null) {
     root.isVisible = true
     root.setBackgroundColor(
         ContextCompat.getColor(
@@ -21,7 +21,7 @@ fun LayoutErrorBinding.showError(context: Context, message: String?, retryAction
     )
     tvErrorDesc.text = message
     btnRetry.apply {
-        isVisible = retryAction != null
-        setOnClickListener { retryAction?.invoke() }
+        isVisible = onRetry != null
+        setOnClickListener { onRetry?.invoke() }
     }
 }
