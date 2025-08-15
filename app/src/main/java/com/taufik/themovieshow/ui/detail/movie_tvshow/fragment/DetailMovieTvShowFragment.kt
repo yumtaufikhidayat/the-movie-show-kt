@@ -198,9 +198,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                                     context = requireContext(),
                                     message = errorMessage,
                                     onRetry = {
-                                        // TODO: skip this until using flow instead of livedata
-                                        // Reload data
-//                                        setDetailObserver(id)
+                                        // TODO: Reload data
                                     }
                                 )
                             }
@@ -235,9 +233,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                                     context = requireContext(),
                                     message = it,
                                     onRetry = {
-                                        // TODO: skip this until using flow instead of livedata
-                                        // Reload data
-//                                        setDetailObserver(id)
+                                        // TODO: Reload data
                                     }
                                 )
                             }
@@ -668,8 +664,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                                     message = it,
                                     actionText = getString(R.string.action_retry)
                                 ) {
-                                    // TODO: skip this until using flow instead of livedata
-//                                    showTrailerVideoObserver(id)
+                                    // TODO: Reload data
                                 }
                             }
                         )
@@ -709,8 +704,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                                     message = it,
                                     actionText = getString(R.string.action_retry)
                                 ) {
-                                    // TODO: skip this until using flow instead of livedata
-//                                    showTrailerVideoObserver(id)
+                                    // TODO: Reload data
                                 }
                             }
                         )
@@ -769,8 +763,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                                     message = it,
                                     actionText = getString(R.string.action_retry)
                                 ) {
-                                    // TODO: skip this until using flow instead of livedata
-//                                    showReviewsObserver(id)
+                                    // TODO: Reload data
                                 }
                             }
                         )
@@ -806,8 +799,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                                     message = it,
                                     actionText = getString(R.string.action_retry)
                                 ) {
-                                    // TODO: skip this until using flow instead of livedata
-//                                    showReviewsObserver(id)
+                                    // TODO: Reload data
                                 }
                             }
                         )
@@ -867,8 +859,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                                     message = it,
                                     actionText = getString(R.string.action_retry)
                                 ) {
-                                    // TODO: skip this until using flow instead of livedata
-//                                    showSimilarMovieOrTvShowObserver(id)
+                                    // TODO: Reload data
                                 }
                             }
                         )
@@ -903,8 +894,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                                     message = it,
                                     actionText = getString(R.string.action_retry)
                                 ) {
-                                    // TODO: skip this until using flow instead of livedata
-//                                    showSimilarMovieOrTvShowObserver(id)
+                                    // TODO: Reload data
                                 }
                             }
                         )
