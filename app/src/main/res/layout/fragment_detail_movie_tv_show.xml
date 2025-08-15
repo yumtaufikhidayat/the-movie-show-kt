@@ -7,21 +7,30 @@
     android:background="@color/colorPrimary"
     tools:context=".ui.detail.movie_tvshow.fragment.DetailMovieTvShowFragment">
 
-    <include
-        android:id="@+id/toolbarDetailMovie"
-        layout="@layout/toolbar_detail_general" />
-
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:overScrollMode="never"
         android:fillViewport="true"
-        app:layout_constraintTop_toBottomOf="@id/toolbarDetailMovie"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/imgBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_arrow_back"
+                android:layout_margin="16dp"
+                android:backgroundTint="@color/colorOrange"
+                app:fabSize="mini"
+                app:tint="@color/white"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
 
             <com.facebook.shimmer.ShimmerFrameLayout
                 android:id="@+id/shimmerDetail"
@@ -46,14 +55,14 @@
                 android:layout_height="wrap_content"
                 android:visibility="gone"
                 tools:visibility="visible"
-                app:constraint_referenced_ids="imgBackdrop, viewGradientBackground, imgPoster,
+                app:constraint_referenced_ids="imgBackdrop, viewGradientBackground, imgShare, toggleFavorite,
                     tvTitle, tvNetwork, tvReleasedOn, tvStartedOn, tvReleaseStatus, horizontalScrolling,
                     tvOverviewTitle, tvOverview, tvNoOverview, tvReadMore"/>
 
             <ImageView
                 android:id="@+id/imgBackdrop"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="250dp"
                 android:contentDescription="@string/tvBanner"
                 android:scaleType="centerCrop"
                 android:src="@color/colorPrimaryDark"
@@ -69,24 +78,41 @@
                 android:background="@drawable/bg_gradient_black"
                 app:layout_constraintBottom_toBottomOf="@id/imgBackdrop" />
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/imgPoster"
-                android:layout_width="100dp"
-                android:layout_height="150dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="140dp"
-                android:contentDescription="@string/tvPoster"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_loading"
-                app:layout_constraintStart_toStartOf="@id/imgBackdrop"
-                app:layout_constraintTop_toTopOf="@id/imgBackdrop"
-                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize5Percent" />
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/imgShare"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_share"
+                android:background="@drawable/bg_tab"
+                android:layout_marginEnd="12dp"
+                android:contentDescription="@string/icFavorite"
+                android:backgroundTint="@color/colorPrimaryAccent"
+                app:fabSize="mini"
+                app:tint="@color/white"
+                app:layout_constraintTop_toTopOf="@id/viewGradientBackground"
+                app:layout_constraintBottom_toBottomOf="@id/viewGradientBackground"
+                app:layout_constraintEnd_toStartOf="@id/toggleFavorite" />
+
+            <ToggleButton
+                android:id="@+id/toggleFavorite"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="16dp"
+                android:padding="8dp"
+                android:textOn=""
+                android:textOff=""
+                android:background="@drawable/favorite_toggle"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                app:layout_constraintTop_toTopOf="@id/imgShare"
+                app:layout_constraintBottom_toBottomOf="@id/imgShare"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
             <TextView
                 android:id="@+id/tvTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="16dp"
                 android:ellipsize="end"
@@ -94,9 +120,9 @@
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/imgPoster"
                 app:layout_constraintTop_toBottomOf="@id/imgBackdrop"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 tools:text="@string/tvTitle" />
 
             <TextView
@@ -149,9 +175,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:scrollbars="none"
-                app:layout_constraintEnd_toEndOf="@id/tvReleaseStatus"
-                app:layout_constraintStart_toStartOf="@id/imgPoster"
-                app:layout_constraintTop_toBottomOf="@id/tvReleaseStatus">
+                app:layout_constraintTop_toBottomOf="@id/tvReleaseStatus"
+                app:layout_constraintStart_toStartOf="@id/tvTitle"
+                app:layout_constraintEnd_toEndOf="@id/tvReleaseStatus">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="wrap_content"
@@ -242,7 +268,7 @@
                 android:textColor="@color/colorOrange"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@id/imgPoster"
+                app:layout_constraintStart_toStartOf="@id/tvTitle"
                 app:layout_constraintTop_toBottomOf="@id/horizontalScrolling" />
 
             <TextView
@@ -262,7 +288,7 @@
                 android:maxLines="4"
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="@id/tvTitle"
-                app:layout_constraintStart_toStartOf="@id/imgPoster"
+                app:layout_constraintStart_toStartOf="@id/tvTitle"
                 app:layout_constraintTop_toBottomOf="@id/tvNoOverview"
                 tools:text="@tools:sample/lorem/random" />
 
@@ -275,7 +301,7 @@
                 android:text="@string/tvReadMore"
                 android:textColor="@color/colorPrimaryAccent"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@id/imgPoster"
+                app:layout_constraintStart_toStartOf="@id/tvTitle"
                 app:layout_constraintTop_toBottomOf="@id/tvOverview" />
 
             <com.facebook.shimmer.ShimmerFrameLayout
