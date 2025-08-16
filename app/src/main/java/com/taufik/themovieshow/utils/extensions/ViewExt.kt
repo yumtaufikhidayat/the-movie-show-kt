@@ -14,14 +14,16 @@ fun View.hideView() {
     this.isVisible = false
 }
 
-fun View.toggleVisibilityIf(condition: Boolean, useInvisible: Boolean = false) {
-    visibility = when {
-        condition -> View.VISIBLE
-        useInvisible -> View.INVISIBLE
-        else -> View.GONE
+fun View.toggleVisibilityIf(
+    condition: Boolean,
+    goneWhenFalse: Boolean = true
+) {
+    visibility = if (condition) {
+        View.VISIBLE
+    } else {
+        if (goneWhenFalse) View.GONE else View.INVISIBLE
     }
 }
-
 
 fun View.applySystemBarInsets(
     applyLeft: Boolean = false,
