@@ -93,7 +93,7 @@ class AboutFragment : BaseFragment<FragmentAboutBinding>() {
                 dialog.setListener {
                     requireActivity().let {
                         if (it is MainActivity) {
-                            it.restartAppWithLanguageChange(requireContext(), MainActivity::class.java)
+                            it.restartAppWithLanguageChange(MainActivity::class.java)
                         }
                     }
                 }
