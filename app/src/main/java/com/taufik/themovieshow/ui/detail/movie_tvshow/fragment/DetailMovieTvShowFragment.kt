@@ -888,7 +888,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
     private fun showShimmer(
         isLoading: Boolean,
         type: DetailTypeEnum,
-        useInvisible: Boolean = true
+        useInvisible: Boolean = false
     ) {
         binding.apply {
             val shimmerView = when (type) {
