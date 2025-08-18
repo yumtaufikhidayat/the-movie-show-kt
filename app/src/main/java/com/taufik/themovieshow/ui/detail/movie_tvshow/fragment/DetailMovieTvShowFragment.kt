@@ -33,6 +33,7 @@ import com.taufik.themovieshow.utils.enums.FROM
 import com.taufik.themovieshow.utils.enums.RatingCategory
 import com.taufik.themovieshow.utils.extensions.applySystemBarBottomPadding
 import com.taufik.themovieshow.utils.extensions.convertDate
+import com.taufik.themovieshow.utils.extensions.convertRuntime
 import com.taufik.themovieshow.utils.extensions.hideView
 import com.taufik.themovieshow.utils.extensions.loadImage
 import com.taufik.themovieshow.utils.extensions.loadPosterImage
@@ -89,7 +90,6 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
     }
 
     private val idMovieTvShow by lazy { arguments?.getInt(EXTRA_ID, 0) ?: 0 }
-    private val title by lazy { arguments?.getString(EXTRA_TITLE).orEmpty() }
 
     private val from: FROM by lazy {
         val fromString = arguments?.getString(EXTRA_FROM)
@@ -306,8 +306,8 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                         setIcon(R.drawable.ic_outline_runtime)
                         context?.setIconColor(R.color.colorTextOther)
                         setText(
-                            if (movie.runtime <= 0) 0.convertRuntime()
-                            else movie.runtime.convertRuntime()
+                            if (movie.runtime <= 0) requireContext().convertRuntime(0)
+                            else requireContext().convertRuntime(movie.runtime)
                         )
                         setTextSize(TEXT_SIZE)
                         context?.setTextColor(R.color.colorTextOther)
@@ -883,11 +883,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
         }
     }
 
-    private fun Int.convertRuntime(): String {
-        val hours = this / TIME_60
-        val minutes = this % TIME_60
-        return getString(R.string.tvRuntimeInTime, hours, minutes)
-    }
+
 
     private fun showShimmer(
         isLoading: Boolean,
@@ -1009,6 +1005,5 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
         const val EXTRA_ID = "EXTRA_ID"
         const val EXTRA_TITLE = "EXTRA_TITLE"
         const val EXTRA_FROM = "EXTRA_FROM"
-        const val TIME_60 = 60
     }
 }
