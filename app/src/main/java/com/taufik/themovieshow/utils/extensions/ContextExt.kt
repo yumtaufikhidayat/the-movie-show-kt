@@ -20,6 +20,7 @@ import com.taufik.themovieshow.ui.language.bottomsheet.LanguageBottomSheetDialog
 import es.dmoral.toasty.Toasty
 
 val Context.languageDataStore: DataStore<Preferences> by preferencesDataStore(name = "settings.preferences_pb")
+private const val TIME_60 = 60
 
 fun Context.showTrailerVideo(key: String) {
     try {
@@ -91,15 +92,21 @@ fun Context.createCustomTabView(@StringRes titleRes: Int, isSelected: Boolean): 
     return view
 }
 
-fun Context.restartAppWithLanguageChange(context: Context, activity: Class<out Activity>) {
-    val intent = Intent(context, activity).apply {
+fun Context.restartAppWithLanguageChange(activity: Class<out Activity>) {
+    val intent = Intent(this, activity).apply {
         putExtra(SUCCESS_CHANGE_LANGUAGE, true)
         flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
     }
 
-    context.startActivity(intent)
+    this.startActivity(intent)
 
-    if (context is Activity) {
-        context.finish()
+    if (this is Activity) {
+        this.finish()
     }
+}
+
+fun Context.convertRuntime(value: Int): String {
+    val hours = value / TIME_60
+    val minutes = value % TIME_60
+    return this.getString(R.string.tvRuntimeInTime, hours, minutes)
 }
