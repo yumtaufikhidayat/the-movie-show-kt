@@ -17,11 +17,10 @@ import com.taufik.themovieshow.base.fragment.BaseFragment
 import com.taufik.themovieshow.databinding.FragmentAboutBinding
 import com.taufik.themovieshow.model.language.LanguageOption
 import com.taufik.themovieshow.model.response.about.AboutAction
-import com.taufik.themovieshow.ui.MainActivity
 import com.taufik.themovieshow.ui.about.adapter.AboutParentAdapter
 import com.taufik.themovieshow.ui.about.viewmodel.AboutViewModel
 import com.taufik.themovieshow.ui.language.bottomsheet.LanguageBottomSheetDialog
-import com.taufik.themovieshow.utils.extensions.restartAppWithLanguageChange
+import com.taufik.themovieshow.utils.extensions.refreshActivity
 import com.taufik.themovieshow.utils.extensions.showSuccessToastyIcon
 import com.taufik.themovieshow.utils.language.LANGUAGE
 import com.taufik.themovieshow.utils.objects.CommonConstants
@@ -92,9 +91,7 @@ class AboutFragment : BaseFragment<FragmentAboutBinding>() {
                 val dialog = LanguageBottomSheetDialog.newInstance(languageList, currentLang)
                 dialog.setListener {
                     requireActivity().let {
-                        if (it is MainActivity) {
-                            it.restartAppWithLanguageChange(MainActivity::class.java)
-                        }
+                        activity?.refreshActivity()
                     }
                 }
                 dialog.show(parentFragmentManager, "LanguageBottomSheetDialog")
