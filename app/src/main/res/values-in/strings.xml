@@ -79,6 +79,10 @@
     <string name="tvSendTo">Kirim ke</string>
     <string name="tvInstallEmailApp">Silakan install aplikasi email terlebih dahulu.</string>
     <string name="tvZero">0</string>
+    <string name="tvWarning">Perhatian</string>
+    <string name="tvWarning21">Film ini hanya diperuntukkan bagi penonton berusia 21 tahun ke atas. Mengandung konten dewasa, kekerasan, atau tema sensitif yang tidak sesuai untuk penonton di bawah umur.</string>
+    <string name="tvWarning18">Film ini ditujukan untuk penonton berusia 18 tahun ke atas. Mengandung adegan kekerasan, bahasa kasar, atau tema dewasa yang tidak cocok untuk anak-anak dan remaja.</string>
+    <string name="tvUnderstand">Saya Paham</string>
 
     <!--Tab menu title-->
     <string name="tvMovieNowPlaying">Sedang Tayang</string>
