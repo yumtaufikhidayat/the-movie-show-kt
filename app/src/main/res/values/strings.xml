@@ -78,6 +78,10 @@
     <string name="tvSendTo">Send to</string>
     <string name="tvInstallEmailApp">Please install an email app first</string>
     <string name="tvZero">0</string>
+    <string name="tvWarning">Warning</string>
+    <string name="tvWarning21">This film is intended for audiences aged 21 and over. It contains adult content, violence, or sensitive themes that are not suitable for minors.</string>
+    <string name="tvWarning18">This film is intended for audiences aged 18 and over. It contains scenes of violence, strong language, or adult themes that are not suitable for children and teenagers.</string>
+    <string name="tvUnderstand">I Understand</string>
 
     <!--Tab menu title-->
     <string name="tvMovieNowPlaying">Now Playing</string>
