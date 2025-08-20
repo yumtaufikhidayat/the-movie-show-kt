@@ -384,15 +384,19 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                 context?.setTextColor(R.color.colorTextOther)
             }
 
-            // TODO: show dialog based on label icon
             binding.composeDialogHost.setContent {
                 val textMessage = when (labelResId) {
-                    R.string.tvTeens -> getString(R.string.tvWarning21)
-                    R.string.tvAdults -> getString(R.string.tvWarning18)
-                    else -> ""
+                    R.string.tvTeens -> getString(R.string.tvWarning18)
+                    R.string.tvAdults -> getString(R.string.tvWarning21)
+                    else -> null
                 }
-                ShowComposeDialog(textMessage)
-                dialogController?.invoke(true)
+
+                if (textMessage != null) {
+                    ShowComposeDialog(
+                        textMessage = textMessage,
+                        showInitially = true
+                    )
+                }
             }
 
             // Language
@@ -907,9 +911,10 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
 
     @Composable
     fun ShowComposeDialog(
-        textMessage: String
+        textMessage: String,
+        showInitially: Boolean = false
     ) {
-        var showDialog by remember { mutableStateOf(false) }
+        var showDialog by remember { mutableStateOf(showInitially) }
         if (showDialog) {
             AlertDialog(
                 onDismissRequest = { showDialog = false },
