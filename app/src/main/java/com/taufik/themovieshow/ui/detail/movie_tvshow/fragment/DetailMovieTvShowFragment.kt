@@ -5,6 +5,16 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.res.stringResource
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -134,6 +144,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
     }
 
     private var isChecked = false
+    private var dialogController: ((Boolean) -> Unit)? = null
 
     override fun inflateBinding(
         inflater: LayoutInflater, container: ViewGroup?
@@ -371,6 +382,17 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                 setText(getString(labelResId))
                 setTextSize(TEXT_SIZE)
                 context?.setTextColor(R.color.colorTextOther)
+            }
+
+            // TODO: show dialog based on label icon
+            binding.composeDialogHost.setContent {
+                val textMessage = when (labelResId) {
+                    R.string.tvTeens -> getString(R.string.tvWarning21)
+                    R.string.tvAdults -> getString(R.string.tvWarning18)
+                    else -> ""
+                }
+                ShowComposeDialog(textMessage)
+                dialogController?.invoke(true)
             }
 
             // Language
@@ -883,7 +905,36 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
         }
     }
 
+    @Composable
+    fun ShowComposeDialog(
+        textMessage: String
+    ) {
+        var showDialog by remember { mutableStateOf(false) }
+        if (showDialog) {
+            AlertDialog(
+                onDismissRequest = { showDialog = false },
+                title = { Text(text = stringResource(R.string.tvWarning)) },
+                text = { Text(text = textMessage) },
+                confirmButton = {
+                    TextButton(
+                        onClick = {
+                            showDialog = false
+                        }
+                    ) {
+                        Text(
+                            text = stringResource(R.string.tvUnderstand)
+                        )
+                    }
+                }
+            )
+        }
 
+        LaunchedEffect(Unit) {
+            dialogController = { show ->
+                showDialog = show
+            }
+        }
+    }
 
     private fun showShimmer(
         isLoading: Boolean,
