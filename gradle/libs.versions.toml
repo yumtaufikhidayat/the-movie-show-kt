@@ -58,6 +58,12 @@ toasty = "1.5.2"
 chucker = "4.1.0"
 shimmerLayout = "0.5.0"
 
+# Compose
+compose-bom = "2024.09.02"
+compose-compiler = "1.5.15"
+compose-compiler-plugin = "2.0.0"
+activity-compose = "1.10.1"
+
 [libraries]
 # Android Core & Compatibility
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -122,6 +128,15 @@ chucker = { module = "com.github.chuckerteam.chucker:library", version.ref = "ch
 chucker-no-op = { module = "com.github.chuckerteam.chucker:library-no-op", version.ref = "chucker" }
 shimmerLayout = { module = "com.facebook.shimmer:shimmer", version.ref = "shimmerLayout" }
 
+# Compose
+compose-bom = { module = "androidx.compose:compose-bom", version.ref = "compose-bom" }
+compose-ui = { module = "androidx.compose.ui:ui" }
+compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
+compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
+compose-material3 = { module = "androidx.compose.material3:material3" }
+compose-foundation = { module = "androidx.compose.foundation:foundation" }
+compose-activity = { module = "androidx.activity:activity-compose", version.ref = "activity-compose" }
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
@@ -131,3 +146,4 @@ firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 navigation-safe-args = { id = "androidx.navigation.safeargs", version.ref = "navigation" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "compose-compiler-plugin" }
