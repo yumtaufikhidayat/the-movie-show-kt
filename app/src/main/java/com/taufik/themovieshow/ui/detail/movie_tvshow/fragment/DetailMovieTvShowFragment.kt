@@ -17,6 +17,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -391,7 +392,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
 
             binding.composeDialogHost.setContent {
                 val textMessage = when (labelResId) {
-                    R.string.tvTeens -> getString(R.string.tvWarning18)
+                    R.string.tvTeens -> getString(R.string.tvWarning13)
                     R.string.tvAdults -> getString(R.string.tvWarning21)
                     else -> null
                 }
@@ -920,13 +921,15 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
         showInitially: Boolean = false
     ) {
         var showDialog by remember { mutableStateOf(showInitially) }
+
         if (showDialog) {
             AlertDialog(
-                onDismissRequest = { showDialog = false },
+                containerColor = colorResource(R.color.colorPrimary),
                 title = {
                     Text(
                         modifier = Modifier.fillMaxWidth(),
                         textAlign = TextAlign.Center,
+                        color = colorResource(R.color.colorOrange),
                         style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.Bold,
                         text = stringResource(R.string.tvWarning),
@@ -936,6 +939,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                     Text(
                         modifier = Modifier.fillMaxWidth(),
                         textAlign = TextAlign.Center,
+                        color = colorResource(R.color.white),
                         text = textMessage,
                     )
                 },
@@ -948,10 +952,12 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                         Text(
                             modifier = Modifier.fillMaxWidth(),
                             textAlign = TextAlign.Center,
+                            color = colorResource(R.color.colorPrimaryAccent),
                             text = stringResource(R.string.tvUnderstand),
                         )
                     }
-                }
+                },
+                onDismissRequest = { showDialog = false },
             )
         }
 
