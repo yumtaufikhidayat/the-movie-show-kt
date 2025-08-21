@@ -4,9 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.activity.enableEdgeToEdge
 import androidx.core.view.isVisible
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
@@ -57,16 +55,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             hasHandledLanguageChange = true
             showSuccessToasty(getString(R.string.tvSuccesfullyChangedLanguage))
             intent.removeExtra(SUCCESS_CHANGE_LANGUAGE)
-
-            lifecycleScope.launch {
-                repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    while (navController?.currentDestination == null) {
-                        delay(NAVIGATION_DELAY)
-                    }
-                    delay(NAVIGATION_DELAY)
-                    navController?.navigateReplacingSplash(R.id.movieFragment)
-                }
-            }
         }
     }
 
