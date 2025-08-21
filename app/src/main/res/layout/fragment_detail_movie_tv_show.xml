@@ -56,8 +56,7 @@
                 android:visibility="gone"
                 tools:visibility="visible"
                 app:constraint_referenced_ids="imgBackdrop, imgPoster, viewGradientBackground, imgShare, toggleFavorite,
-                    tvTitle, tvNetwork, tvReleasedOn, tvReleaseInfo, horizontalScrolling,
-                    tvOverviewTitle, tvOverview, tvNoOverview, tvReadMore"/>
+                    tvTitle, tvNetwork, tvReleaseInfo, horizontalScrolling, tvOverviewTitle, tvOverview, tvNoOverview, tvReadMore"/>
 
             <ImageView
                 android:id="@+id/imgBackdrop"
