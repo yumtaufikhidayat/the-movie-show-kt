@@ -81,7 +81,7 @@
     <string name="tvZero">0</string>
     <string name="tvWarning">Perhatian</string>
     <string name="tvWarning21">Film ini hanya diperuntukkan bagi penonton berusia 21 tahun ke atas. Mengandung konten dewasa, kekerasan, atau tema sensitif yang tidak sesuai untuk penonton di bawah umur.</string>
-    <string name="tvWarning18">Film ini ditujukan untuk penonton berusia 18 tahun ke atas. Mengandung adegan kekerasan, bahasa kasar, atau tema dewasa yang tidak cocok untuk anak-anak dan remaja.</string>
+    <string name="tvWarning13">Film ini mengandung materi yang tidak cocok untuk anak di bawah 13 tahun. Bimbingan orang tua sangat disarankan karena mengandung kekerasan ringan, tema yang bersifat sugestif, atau konten lain yang memerlukan kebijaksanaan.</string>
     <string name="tvUnderstand">Saya Paham</string>
 
     <!--Tab menu title-->
