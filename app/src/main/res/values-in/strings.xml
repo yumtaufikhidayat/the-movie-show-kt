@@ -21,6 +21,7 @@
     <string name="tvAgeRating">Rating Usia</string>
     <string name="tvAllAges">Semua Umur - SU</string>
     <string name="tvTeens">Remaja - 13+</string>
+    <string name="tvMatureTeens">Remaja - 17+</string>
     <string name="tvAdults">Dewasa - 21+</string>
     <string name="tvRuntime">Durasi</string>
     <string name="tvProducedBy">Perusahaan Produksi</string>
@@ -80,8 +81,9 @@
     <string name="tvInstallEmailApp">Silakan install aplikasi email terlebih dahulu.</string>
     <string name="tvZero">0</string>
     <string name="tvWarning">Perhatian</string>
-    <string name="tvWarning21">Film ini hanya diperuntukkan bagi penonton berusia 21 tahun ke atas. Mengandung konten dewasa, kekerasan, atau tema sensitif yang tidak sesuai untuk penonton di bawah umur.</string>
-    <string name="tvWarning13">Film ini mengandung materi yang tidak cocok untuk anak di bawah 13 tahun. Bimbingan orang tua sangat disarankan karena mengandung kekerasan ringan, tema yang bersifat sugestif, atau konten lain yang memerlukan kebijaksanaan.</string>
+    <string name="tvWarningTeens">Film ini mungkin tidak cocok untuk anak di bawah 13 tahun. Bimbingan orang tua sangat disarankan karena mungkin berisi kekerasan ringan, tema yang bersifat sugestif, atau konten lain yang memerlukan kebijaksanaan.</string>
+    <string name="tvWarningMatureTeens">Film ini ditujukan untuk penonton berusia 17 tahun ke atas. Film ini mungkin mengandung kekerasan intens, konten seksual, atau bahasa kasar, dan tidak cocok untuk penonton di bawah umur.</string>
+    <string name="tvWarningAdults">Film ini ditujukan untuk penonton berusia 21 tahun ke atas. Film ini mengandung konten dewasa, kekerasan, atau tema sensitif yang tidak pantas untuk anak di bawah umur.</string>
     <string name="tvUnderstand">Saya Paham</string>
 
     <!--Tab menu title-->

@@ -21,6 +21,7 @@
     <string name="tvAgeRating">Age Rating</string>
     <string name="tvAllAges">All Ages - G</string>
     <string name="tvTeens">Teens - 13+</string>
+    <string name="tvMatureTeens">Teens - 17+</string>
     <string name="tvAdults">Adults - 21+</string>
     <string name="tvRuntime">Runtime</string>
     <string name="tvProducedBy">Produced Companies</string>
@@ -79,8 +80,9 @@
     <string name="tvInstallEmailApp">Please install an email app first</string>
     <string name="tvZero">0</string>
     <string name="tvWarning">Warning</string>
-    <string name="tvWarning21">This film is intended for audiences aged 21 and over. It contains adult content, violence, or sensitive themes that are not suitable for minors.</string>
-    <string name="tvWarning13">This film may contain material that is not suitable for children under 13. Parental guidance is strongly advised as it may include mild violence,suggestive themes, or other content that requires discretion.</string>
+    <string name="tvWarningTeens">This film may not be suitable for children under 13. Parental guidance is strongly advised as it may include mild violence, suggestive themes, or other content that requires discretion.</string>
+    <string name="tvWarningMatureTeens">This film is intended for viewers aged 17 and above. It may contain intense violence, sexual content, or strong language, and is not suitable for younger audiences.</string>
+    <string name="tvWarningAdults">This film is intended for audiences aged 21 and over. It contains adult content, violence, or sensitive themes that are not suitable for minors.</string>
     <string name="tvUnderstand">I Understand</string>
 
     <!--Tab menu title-->
