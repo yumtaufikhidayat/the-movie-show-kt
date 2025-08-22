@@ -47,6 +47,7 @@ import com.taufik.themovieshow.ui.favorite.helper.FavoriteAction
 import com.taufik.themovieshow.utils.enums.DetailTypeEnum
 import com.taufik.themovieshow.utils.enums.FROM
 import com.taufik.themovieshow.utils.enums.RatingCategory
+import com.taufik.themovieshow.utils.enums.getUserCountryCertification
 import com.taufik.themovieshow.utils.extensions.applySystemBarBottomPadding
 import com.taufik.themovieshow.utils.extensions.convertDate
 import com.taufik.themovieshow.utils.extensions.convertRuntime
@@ -72,7 +73,6 @@ import com.taufik.themovieshow.utils.extensions.toggleVisibilityIf
 import com.taufik.themovieshow.utils.extensions.tryOpenBrowser
 import com.taufik.themovieshow.utils.helper.DynamicSnapHelper
 import com.taufik.themovieshow.utils.objects.CommonDateFormatConstants
-import com.taufik.themovieshow.utils.objects.getUserCountryCertification
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -371,13 +371,13 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
             }
 
             // Age Rating
-            // If age is adult, show adult confirmation dialog
             val ageCertCode = data.getUserCountryCertification()
-            val category = RatingCategory.fromCode(ageCertCode)
+            val category = RatingCategory.fromCertification(ageCertCode)
             val labelResId = category.labelResId
             val labelIcon = when (labelResId) {
                 R.string.tvAllAges -> R.drawable.ic_outline_no_adult
                 R.string.tvTeens -> R.drawable.ic_outline_face_teen
+                R.string.tvMatureTeens -> R.drawable.ic_outline_face_teen
                 R.string.tvAdults -> R.drawable.ic_outline_adult
                 else -> R.drawable.ic_outline_no_adult_content
             }
@@ -390,10 +390,12 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                 context?.setTextColor(R.color.colorTextOther)
             }
 
+            // If age is adult, show adult confirmation dialog
             binding.composeDialogHost.setContent {
                 val textMessage = when (labelResId) {
-                    R.string.tvTeens -> getString(R.string.tvWarning13)
-                    R.string.tvAdults -> getString(R.string.tvWarning21)
+                    R.string.tvTeens -> getString(R.string.tvWarningTeens)
+                    R.string.tvMatureTeens -> getString(R.string.tvWarningMatureTeens)
+                    R.string.tvAdults -> getString(R.string.tvWarningAdults)
                     else -> null
                 }
 
