@@ -55,6 +55,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             hasHandledLanguageChange = true
             showSuccessToasty(getString(R.string.tvSuccesfullyChangedLanguage))
             intent.removeExtra(SUCCESS_CHANGE_LANGUAGE)
+            intent.replaceExtras(Bundle())
         }
     }
 
