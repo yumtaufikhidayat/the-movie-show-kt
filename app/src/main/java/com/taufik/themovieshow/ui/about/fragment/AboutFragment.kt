@@ -91,7 +91,7 @@ class AboutFragment : BaseFragment<FragmentAboutBinding>() {
                 val dialog = LanguageBottomSheetDialog.newInstance(languageList, currentLang)
                 dialog.setListener {
                     requireActivity().let {
-                        activity?.refreshActivity(withSuccess = true)
+                        activity?.refreshActivity()
                     }
                 }
                 dialog.show(parentFragmentManager, "LanguageBottomSheetDialog")
