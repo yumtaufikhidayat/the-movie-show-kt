@@ -15,9 +15,9 @@ class AboutViewModel @Inject constructor(private val repository: TheMovieShowRep
 
     fun getAboutData(context: Context) = repository.getAboutData(context)
 
-    fun setLanguage(code: String) {
+    fun setLanguage(code: String, isChanged: Boolean) {
         viewModelScope.launch {
-            repository.setLanguage(code)
+            repository.setLanguage(code, isChanged)
         }
     }
 
