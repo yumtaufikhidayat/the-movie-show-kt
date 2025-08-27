@@ -6,6 +6,7 @@ import androidx.core.content.edit
 object LanguageCache {
     internal const val LANGUAGE_PREF_CACHE = "language_pref_cache"
     internal const val KEY_LANGUAGE = "app_language"
+    internal const val KEY_MESSAGE_LANGUAGE_CHANGED = "key_message_language_changed"
 
     fun save(context: Context, lang: String) {
         context.getSharedPreferences(LANGUAGE_PREF_CACHE, Context.MODE_PRIVATE)
