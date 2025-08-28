@@ -56,6 +56,8 @@ interface ITheMovieShowRepository {
     suspend fun removeTvShowFromFavorite(tvShowId: Int): Int
     fun getAboutData(context: Context): List<AboutSection>
     fun getSortFiltering(): List<SortFiltering>
-    suspend fun setLanguage(code: String)
+    suspend fun setLanguage(code: String, isChanged: Boolean)
     suspend fun getLanguage(): String
+    suspend fun setLanguageChangedMessage(isChanged: Boolean)
+    fun getLanguageChangedMessage(): Flow<Boolean>
 }
