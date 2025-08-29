@@ -61,7 +61,7 @@ class LanguageBottomSheetDialog : BottomSheetDialogFragment() {
         val languageAdapter = LanguageListAdapter { selected ->
             if (selected.code != selectedLangCode) {
                 lifecycleScope.launch {
-                    viewModel.setLanguage(selected.code)
+                    viewModel.setLanguage(code = selected.code, isChanged = true)
                     LanguageCache.save(requireContext(), selected.code)
                     onLanguageSelected?.invoke(selected)
                     dismiss()
