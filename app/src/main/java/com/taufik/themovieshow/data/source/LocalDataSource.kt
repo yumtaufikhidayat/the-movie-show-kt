@@ -41,7 +41,11 @@ class LocalDataSource @Inject constructor(
 
     fun getSortFiltering(): List<SortFiltering> = UtilsData.generateSortFilteringData()
 
-    suspend fun setLanguage(code: String) = languagePreference.setLanguage(code)
+    suspend fun setLanguage(code: String, isChanged: Boolean) = languagePreference.setLanguage(code, isChanged)
 
     suspend fun getLanguage(): String = languagePreference.getLanguage()
+
+    suspend fun setLanguageChangedMessage(isChanged: Boolean) = languagePreference.setLanguageChangedMessage(isChanged)
+
+    fun getLanguageChangedMessage(): Flow<Boolean> = languagePreference.getLanguageChangedMessage()
 }
