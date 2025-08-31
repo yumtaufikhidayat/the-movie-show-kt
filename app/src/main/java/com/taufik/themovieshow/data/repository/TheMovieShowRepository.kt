@@ -73,7 +73,11 @@ class TheMovieShowRepository @Inject constructor(
 
     override fun getSortFiltering() = localDataSource.getSortFiltering()
 
-    override suspend fun setLanguage(code: String) = localDataSource.setLanguage(code)
+    override suspend fun setLanguage(code: String, isChanged: Boolean) = localDataSource.setLanguage(code, isChanged)
 
     override suspend fun getLanguage()= localDataSource.getLanguage()
+
+    override suspend fun setLanguageChangedMessage(isChanged: Boolean) = localDataSource.setLanguageChangedMessage(isChanged)
+
+    override fun getLanguageChangedMessage() =  localDataSource.getLanguageChangedMessage()
 }
