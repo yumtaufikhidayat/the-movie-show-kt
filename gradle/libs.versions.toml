@@ -1,7 +1,7 @@
 [versions]
 # Android Core & Compatibility
 android-gradle-plugin = "8.12.2"
-kotlin = "2.0.0"
+kotlin = "2.2.10"
 core-ktx = "1.17.0"
 appcompat = "1.7.1"
 constraintlayout = "2.2.1"
@@ -21,12 +21,12 @@ datastorePreferences = "1.1.4"
 room = "2.7.2"
 
 # Dependency Injection
-hilt = "2.51.1"
-ksp = "2.0.0-1.0.22"
+hilt = "2.57.1"
+ksp = "2.2.10-2.0.2"
 
 # Network & API
 retrofit = "3.0.0"
-okhttp = "4.12.0"
+okhttp = "5.1.0"
 
 # Database & Encryption
 sql-cipher = "4.5.4"
