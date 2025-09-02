@@ -48,15 +48,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
         setNavHost()
         setUpNavigationDestination()
-
-        lifecycleScope.launch {
-            viewModel.languageChangedMessage.collect { isLanguageChanged  ->
-                if (isLanguageChanged) {
-                    showSuccessToasty(getString(R.string.tvSuccesfullyChangedLanguage))
-                    viewModel.clearLanguageChangedFlag()
-                }
-            }
-        }
+        setSuccessChangeLanguageMessage()
     }
 
     private fun setNavHost() {
@@ -80,6 +72,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     private fun setUpNavigationDestination() {
         navController?.addOnDestinationChangedListener(navControllerDestination)
+    }
+
+    private fun setSuccessChangeLanguageMessage() {
+        lifecycleScope.launch {
+            viewModel.languageChangedMessage.collect { isLanguageChanged ->
+                if (isLanguageChanged) {
+                    showSuccessToasty(getString(R.string.tvSuccesfullyChangedLanguage))
+                    viewModel.clearLanguageChangedFlag()
+                }
+            }
+        }
     }
 
     private fun showBottomNavigation(isShow: Boolean) {
