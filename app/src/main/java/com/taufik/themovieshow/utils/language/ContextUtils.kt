@@ -9,9 +9,9 @@ import java.util.Locale
 
 class ContextUtils(base: Context) : ContextWrapper(base) {
     companion object {
-        fun updateLocale(c: Context, newLocale: Locale): ContextWrapper {
+        fun updateLocale(mContext: Context, newLocale: Locale): ContextWrapper {
             Locale.setDefault(newLocale)
-            val config = Configuration(c.resources.configuration)
+            val config = Configuration(mContext.resources.configuration)
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 config.setLocale(newLocale)
@@ -20,11 +20,10 @@ class ContextUtils(base: Context) : ContextWrapper(base) {
                 config.setLocale(newLocale)
             }
 
-            // 👇 Tambahan krusial: update default resource configuration
             @Suppress("DEPRECATION")
-            c.resources.updateConfiguration(config, c.resources.displayMetrics)
+            mContext.resources.updateConfiguration(config, mContext.resources.displayMetrics)
 
-            val localizedContext = c.createConfigurationContext(config)
+            val localizedContext = mContext.createConfigurationContext(config)
             return ContextUtils(localizedContext)
         }
     }
