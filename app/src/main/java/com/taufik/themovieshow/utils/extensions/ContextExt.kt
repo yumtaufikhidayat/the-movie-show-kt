@@ -2,6 +2,7 @@ package com.taufik.themovieshow.utils.extensions
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.graphics.Typeface
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,7 +16,9 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import com.taufik.themovieshow.R
+import com.taufik.themovieshow.utils.language.LanguageCache
 import es.dmoral.toasty.Toasty
+import java.util.Locale
 
 val Context.languageDataStore: DataStore<Preferences> by preferencesDataStore(name = "settings.preferences_pb")
 private const val TIME_60 = 60
@@ -94,4 +97,11 @@ fun Context.convertRuntime(value: Int): String {
     val hours = value / TIME_60
     val minutes = value % TIME_60
     return this.getString(R.string.tvRuntimeInTime, hours, minutes)
+}
+
+fun Context.getLocalizedString(@StringRes resId: Int): String {
+    val locale = Locale(LanguageCache.get(this))
+    val config = Configuration(resources.configuration)
+    config.setLocale(locale)
+    return createConfigurationContext(config).getText(resId).toString()
 }

@@ -48,11 +48,6 @@ class LanguagePreference @Inject constructor(
                 prefs[LANGUAGE_CHANGED_MESSAGE_KEY] ?: false
             }
             .distinctUntilChanged()
-            .onEach { isLanguageChanged ->
-                if (isLanguageChanged) {
-                    dataStore.edit { it[LANGUAGE_CHANGED_MESSAGE_KEY] = false }
-                }
-            }
     }
 
     override val languageFlow: Flow<String>
