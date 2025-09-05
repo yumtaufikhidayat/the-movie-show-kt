@@ -15,9 +15,12 @@ import com.taufik.themovieshow.R
 import com.taufik.themovieshow.base.activity.BaseActivity
 import com.taufik.themovieshow.databinding.ActivityMainBinding
 import com.taufik.themovieshow.utils.extensions.applySystemBarInsets
+import com.taufik.themovieshow.utils.extensions.getLocalizedString
 import com.taufik.themovieshow.utils.extensions.showSuccessToasty
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>() {
@@ -34,9 +37,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
     private val viewModel: MainViewModel by viewModels()
 
-    override fun inflateBinding(layoutInflater: LayoutInflater): ActivityMainBinding {
-        return ActivityMainBinding.inflate(layoutInflater)
-    }
+    override fun inflateBinding(layoutInflater: LayoutInflater): ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
 
     override fun onActivityReady(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -75,14 +76,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     private fun setSuccessChangeLanguageMessage() {
-        lifecycleScope.launch {
-            viewModel.languageChangedMessage.collect { isLanguageChanged ->
+        viewModel.languageChangedMessage
+            .filter { it }
+            .onEach { isLanguageChanged ->
                 if (isLanguageChanged) {
-                    showSuccessToasty(getString(R.string.tvSuccesfullyChangedLanguage))
+                    val message = applicationContext.getLocalizedString(R.string.tvSuccesfullyChangedLanguage)
+                    showSuccessToasty(message)
                     viewModel.clearLanguageChangedFlag()
                 }
             }
-        }
+            .launchIn(lifecycleScope)
     }
 
     private fun showBottomNavigation(isShow: Boolean) {

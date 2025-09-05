@@ -16,6 +16,7 @@ import com.taufik.themovieshow.ui.about.viewmodel.AboutViewModel
 import com.taufik.themovieshow.ui.language.adapter.LanguageListAdapter
 import com.taufik.themovieshow.utils.language.LanguageCache
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -63,6 +64,7 @@ class LanguageBottomSheetDialog : BottomSheetDialogFragment() {
                 lifecycleScope.launch {
                     viewModel.setLanguage(code = selected.code, isChanged = true)
                     LanguageCache.save(requireContext(), selected.code)
+                    delay(200)
                     onLanguageSelected?.invoke(selected)
                     dismiss()
                 }
