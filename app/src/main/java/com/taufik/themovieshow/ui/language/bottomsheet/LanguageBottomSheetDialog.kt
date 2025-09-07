@@ -86,7 +86,6 @@ class LanguageBottomSheetDialog : BottomSheetDialogFragment() {
     }
 
     companion object {
-        const val SUCCESS_CHANGE_LANGUAGE = "success_change_language"
         private const val ARG_LANGUAGE_LIST = "arg_language_list"
         private const val ARG_SELECTED_LANG_CODE = "arg_selected_lang"
 
