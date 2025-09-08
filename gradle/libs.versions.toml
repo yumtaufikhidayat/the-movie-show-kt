@@ -1,6 +1,6 @@
 [versions]
 # Android Core & Compatibility
-android-gradle-plugin = "8.12.2"
+android-gradle-plugin = "8.13.0"
 kotlin = "2.2.10"
 core-ktx = "1.17.0"
 appcompat = "1.7.1"
@@ -29,7 +29,7 @@ retrofit = "3.0.0"
 okhttp = "5.1.0"
 
 # Database & Encryption
-sql-cipher = "4.5.4"
+sql-cipher = "4.10.0"
 sqlite = "2.5.2"
 
 # Asynchronous & Coroutines
@@ -100,7 +100,7 @@ okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhtt
 logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp" }
 
 # Database & Encryption
-android-database-sqlcipher = { module = "net.zetetic:android-database-sqlcipher", version.ref = "sql-cipher" }
+android-database-sqlcipher = { group = "net.zetetic", name="sqlcipher-android", version.ref = "sql-cipher" }
 androidx-sqlite-ktx = { module = "androidx.sqlite:sqlite-ktx", version.ref = "sqlite" }
 
 # Asynchronous & Coroutines
