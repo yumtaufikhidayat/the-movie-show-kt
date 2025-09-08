@@ -34,8 +34,8 @@ android {
         applicationId = "com.taufik.themovieshow"
         minSdk = 30
         targetSdk = 36
-        versionCode = 1302
-        versionName = "1.30.2"
+        versionCode = 1310
+        versionName = "1.31.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
@@ -82,6 +82,7 @@ android {
             buildConfigField("String", "API_KEY", "\"${getStringProp("API_KEY", "YOUR_API_KEY", "ERROR: API_KEY is missing")}\"")
             buildConfigField("String", "IMAGE_URL", "\"${getStringProp("IMAGE_URL", "https://image.tmdb.org/t/p/w780/", "ERROR: IMAGE_URL is missing")}\"")
             buildConfigField("String", "THUMBNAIL_IMAGE_URL", "\"${getStringProp("THUMBNAIL_IMAGE_URL", "https://img.youtube.com/vi/", "ERROR: THUMBNAIL_IMAGE_URL is missing")}\"")
+            buildConfigField("String", "ENCRYPTED_DB_PASSPHRASE", "\"${getStringProp("ENCRYPTED_DB_PASSPHRASE", "YOUR_ENCRYPTED_DB_PASSPHRASE", "ERROR: ENCRYPTED_DB_PASSPHRASE is missing")}\"")
             buildConfigField("boolean", "ENABLE_CHUCKER", "true")
 
             if (!enableChuckerDev) {
@@ -96,6 +97,7 @@ android {
             buildConfigField("String", "API_KEY", "\"${getStringProp("API_KEY", "YOUR_API_KEY", "ERROR: API_KEY is missing")}\"")
             buildConfigField("String", "IMAGE_URL", "\"${getStringProp("IMAGE_URL", "https://image.tmdb.org/t/p/w780/", "ERROR: IMAGE_URL is missing")}\"")
             buildConfigField("String", "THUMBNAIL_IMAGE_URL", "\"${getStringProp("THUMBNAIL_IMAGE_URL", "https://img.youtube.com/vi/", "ERROR: THUMBNAIL_IMAGE_URL is missing")}\"")
+            buildConfigField("String", "ENCRYPTED_DB_PASSPHRASE", "\"${getStringProp("ENCRYPTED_DB_PASSPHRASE", "YOUR_ENCRYPTED_DB_PASSPHRASE", "ERROR: ENCRYPTED_DB_PASSPHRASE is missing")}\"")
             buildConfigField("boolean", "ENABLE_CHUCKER", "false")
 
             if (enableChuckerProd) {
