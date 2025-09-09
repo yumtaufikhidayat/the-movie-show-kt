@@ -18,4 +18,9 @@ class App : Application() {
         val newBase = ContextUtils.updateLocale(base, locale)
         super.attachBaseContext(newBase)
     }
+
+    override fun onCreate() {
+        super.onCreate()
+        System.loadLibrary("sqlcipher")
+    }
 }
