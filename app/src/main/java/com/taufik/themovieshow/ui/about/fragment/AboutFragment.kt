@@ -62,7 +62,7 @@ class AboutFragment : BaseFragment<FragmentAboutBinding>() {
             when (about.id) {
                 AboutAction.LinkedIn -> openUrl(CommonConstants.LINKEDIN_URL_LINK)
                 AboutAction.GitHub -> openUrl(CommonConstants.GITHUB_URL_LINK)
-                AboutAction.Email -> sendEmail(CommonConstants.EMAIL_ADDRESS)
+                AboutAction.Email -> sendEmail()
                 AboutAction.GooglePlay -> openUrl(CommonConstants.GOOGLE_PLAY_URL_LINK)
                 AboutAction.LanguageSetting -> showLanguageOptions()
                 AboutAction.NoOp -> Unit
@@ -86,7 +86,7 @@ class AboutFragment : BaseFragment<FragmentAboutBinding>() {
                 LanguageOption(LANGUAGE.ENGLISH.code, getString(R.string.tvLanguageEnglish), R.drawable.ic_usa_flag_round_circle, false)
             )
 
-            val existingDialog = parentFragmentManager.findFragmentByTag("LanguageBottomSheetDialog")
+            val existingDialog = parentFragmentManager.findFragmentByTag(BOTTOM_SHEET_LANGUAGE_TAG)
             if (existingDialog == null) {
                 val dialog = LanguageBottomSheetDialog.newInstance(languageList, currentLang)
                 dialog.setListener {
@@ -94,7 +94,7 @@ class AboutFragment : BaseFragment<FragmentAboutBinding>() {
                         activity?.refreshActivity()
                     }
                 }
-                dialog.show(parentFragmentManager, "LanguageBottomSheetDialog")
+                dialog.show(parentFragmentManager, BOTTOM_SHEET_LANGUAGE_TAG)
             }
         }
     }
@@ -108,7 +108,8 @@ class AboutFragment : BaseFragment<FragmentAboutBinding>() {
         }
     }
 
-    private fun sendEmail(email: String) {
+    private fun sendEmail() {
+        val email = CommonConstants.EMAIL_ADDRESS
         try {
             val intentEmail = Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", email, null)).apply {
                 putExtra(Intent.EXTRA_EMAIL, email)
@@ -150,5 +151,6 @@ class AboutFragment : BaseFragment<FragmentAboutBinding>() {
 
     companion object {
         private const val TAG = "AboutFragment"
+        private const val BOTTOM_SHEET_LANGUAGE_TAG = "LanguageBottomSheetDialog"
     }
 }
