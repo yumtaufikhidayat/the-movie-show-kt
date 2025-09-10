@@ -1,6 +1,7 @@
 package com.taufik.themovieshow.di
 
 import android.content.Context
+import android.util.Log
 import androidx.room.Room
 import com.taufik.themovieshow.data.local.dao.TheMovieShowDao
 import com.taufik.themovieshow.data.local.room.TheMovieShowDatabase
@@ -10,8 +11,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import net.sqlcipher.database.SQLiteDatabase
-import net.sqlcipher.database.SupportFactory
+import net.zetetic.database.sqlcipher.SupportOpenHelperFactory
 import javax.inject.Singleton
 
 @Module
@@ -22,14 +22,22 @@ object DatabaseModule {
     @Provides
     fun provideFavoriteDatabase(
         @ApplicationContext context: Context
-    ) : TheMovieShowDatabase {
-        val passphrase = SQLiteDatabase.getBytes(CommonConstants.ENCRYPTED_DB_PASSPHRASE.toCharArray())
-        val factory = SupportFactory(passphrase)
+    ): TheMovieShowDatabase {
+        val passphrase = CommonConstants.ENCRYPTED_DB_PASSPHRASE.toByteArray(Charsets.UTF_8)
+        val factory = SupportOpenHelperFactory(passphrase)
+
+        val dbFile = context.getDatabasePath(CommonConstants.DB_NAME)
+        if (dbFile.exists()) {
+            Log.w("DB", "Old DB exists, deleting for fresh start")
+            dbFile.delete()
+        }
+
         return Room.databaseBuilder(
-            context = context,
-            klass = TheMovieShowDatabase::class.java,
-            name = CommonConstants.DB_NAME
-        ).fallbackToDestructiveMigration()
+            context,
+            TheMovieShowDatabase::class.java,
+            CommonConstants.DB_NAME
+        )
+            .fallbackToDestructiveMigration()
             .openHelperFactory(factory)
             .build()
     }
