@@ -14,14 +14,14 @@ object CommonConstants {
     const val COLUMN_NAME_RATING = "rating"
     const val TABLE_NAME_FAVORITE_TV_SHOW_ENTITY = "favorite_tv_show"
     const val DB_NAME = "TheMovieShowDB"
-    const val DB_VERSION = 3
+    const val DB_VERSION = 4
     const val QUERY_API_KEY = "api_key"
     const val QUERY_Q = "query"
     const val QUERY_MOVIE_ID = "movie_id"
     const val QUERY_TV_SHOW_ID = "tv_id"
     const val QUERY_APPEND_TO_RESPONSE = "append_to_response"
     const val API_KEY = BuildConfig.API_KEY
-    const val ENCRYPTED_DB_PASSPHRASE = ""
+    const val ENCRYPTED_DB_PASSPHRASE = BuildConfig.ENCRYPTED_DB_PASSPHRASE
     const val LINKEDIN = "linkedIn"
     const val GOOGLE_PLAY = "google_play"
     const val GITHUB = "github"
