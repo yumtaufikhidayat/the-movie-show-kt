@@ -17,10 +17,13 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.utils.language.LanguageCache
+import com.taufik.themovieshow.utils.objects.CommonConstants.KEY_SECURE_PREFS
 import es.dmoral.toasty.Toasty
 import java.util.Locale
 
 val Context.languageDataStore: DataStore<Preferences> by preferencesDataStore(name = "settings.preferences_pb")
+val Context.secureDataStore by preferencesDataStore(name = KEY_SECURE_PREFS)
+
 private const val TIME_60 = 60
 
 fun Context.showTrailerVideo(key: String) {
