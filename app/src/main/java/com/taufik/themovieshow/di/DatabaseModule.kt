@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.room.Room
 import com.taufik.themovieshow.data.local.dao.TheMovieShowDao
 import com.taufik.themovieshow.data.local.room.TheMovieShowDatabase
+import com.taufik.themovieshow.utils.helper.SecureEncryptedKey.getDecryptedPassphrase
 import com.taufik.themovieshow.utils.objects.CommonConstants
 import dagger.Module
 import dagger.Provides
@@ -23,7 +24,7 @@ object DatabaseModule {
     fun provideFavoriteDatabase(
         @ApplicationContext context: Context
     ): TheMovieShowDatabase {
-        val passphrase = CommonConstants.ENCRYPTED_DB_PASSPHRASE.toByteArray(Charsets.UTF_8)
+        val passphrase = context.getDecryptedPassphrase()
         val factory = SupportOpenHelperFactory(passphrase)
 
         val dbFile = context.getDatabasePath(CommonConstants.DB_NAME)
