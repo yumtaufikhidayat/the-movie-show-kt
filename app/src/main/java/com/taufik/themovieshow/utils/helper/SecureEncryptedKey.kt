@@ -20,8 +20,8 @@ import javax.crypto.spec.GCMParameterSpec
 object SecureEncryptedKey {
 
     private const val KEY_ALIAS = ENCRYPTED_DB_PASSPHRASE
-    private val IV = stringPreferencesKey("db_iv")
-    val PASSPHRASE = stringPreferencesKey("db_passphrase")
+    private val IV = stringPreferencesKey(KEY_IV)
+    val PASSPHRASE = stringPreferencesKey(KEY_PASSPHRASE)
 
     fun generateOrGetSecretKey(): SecretKey {
         val keyStore = KeyStore.getInstance("AndroidKeyStore").apply { load(null) }
