@@ -14,14 +14,14 @@ object SecureEncryptedKey {
     private const val KEY_STORE = KEY_STORE_ANDROID
 
     fun generateOrGetSecretKey(): SecretKey {
-        val keyStore = KeyStore.getInstance("AndroidKeyStore").apply { load(null) }
+        val keyStore = KeyStore.getInstance(KEY_STORE).apply { load(null) }
 
         if (keyStore.containsAlias(KEY_ALIAS)) {
             val entry = keyStore.getEntry(KEY_ALIAS, null) as KeyStore.SecretKeyEntry
             return entry.secretKey
         }
 
-        val keyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, "AndroidKeyStore")
+        val keyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, KEY_STORE)
         val spec = KeyGenParameterSpec.Builder(
             KEY_ALIAS,
             KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT
