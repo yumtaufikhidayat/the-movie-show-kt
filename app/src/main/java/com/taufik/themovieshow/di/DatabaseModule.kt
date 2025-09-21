@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.room.Room
 import com.taufik.themovieshow.data.local.dao.TheMovieShowDao
 import com.taufik.themovieshow.data.local.room.TheMovieShowDatabase
-import com.taufik.themovieshow.utils.helper.SecureEncryptedKey.getDecryptedPassphrase
+import com.taufik.themovieshow.utils.extensions.getDecryptedPassphrase
 import com.taufik.themovieshow.utils.objects.CommonConstants
 import dagger.Module
 import dagger.Provides
