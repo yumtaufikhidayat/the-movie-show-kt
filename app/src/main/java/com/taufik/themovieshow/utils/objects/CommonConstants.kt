@@ -30,6 +30,8 @@ object CommonConstants {
     const val GOOGLE_PLAY_URL_LINK = "https://play.google.com/store/apps/details?id=com.taufik.themovieshow"
     const val GITHUB_URL_LINK = "https://github.com/yumtaufikhidayat/the-movie-show-kt"
     const val EMAIL_ADDRESS = "yumtaufikhidayat@gmail.com"
+
+    /* Key for Secure Preferences */
     const val KEY_SECURE_PREFS = "secure_prefs"
     const val KEY_PASSPHRASE = "db_passphrase"
     const val KEY_IV = "db_iv"
