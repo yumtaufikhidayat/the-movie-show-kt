@@ -7,7 +7,7 @@ import com.taufik.themovieshow.utils.extensions.secureDataStore
 import com.taufik.themovieshow.utils.language.ContextUtils
 import com.taufik.themovieshow.utils.language.LANGUAGE
 import com.taufik.themovieshow.utils.language.LanguageCache
-import com.taufik.themovieshow.utils.objects.PreferencesKey.PASSPHRASE
+import com.taufik.themovieshow.utils.objects.PreferencesKey.PASSPHRASE_KEY
 import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
@@ -30,7 +30,7 @@ class App : Application() {
         System.loadLibrary("sqlcipher")
 
         runBlocking {
-            val passphraseExists = secureDataStore.data.first()[PASSPHRASE] != null
+            val passphraseExists = secureDataStore.data.first()[PASSPHRASE_KEY] != null
             if (!passphraseExists) {
                 val rawPassphrase = UUID.randomUUID().toString()
                 encryptAndStorePassphrase(rawPassphrase)
