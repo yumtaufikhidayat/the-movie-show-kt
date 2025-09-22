@@ -1,12 +1,11 @@
 package com.taufik.themovieshow.data.local.preferences.language
 
 import android.content.Context
-import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.stringPreferencesKey
 import com.taufik.themovieshow.utils.extensions.languageDataStore
 import com.taufik.themovieshow.utils.language.LANGUAGE
-import com.taufik.themovieshow.utils.language.LanguageCache
+import com.taufik.themovieshow.utils.objects.PreferencesKey.LANGUAGE_CHANGED_MESSAGE_KEY
+import com.taufik.themovieshow.utils.objects.PreferencesKey.LANGUAGE_KEY
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -52,9 +51,4 @@ class LanguagePreference @Inject constructor(
         get() = dataStore.data.map { preferences ->
             preferences[LANGUAGE_KEY] ?: LANGUAGE.ENGLISH.code
         }
-
-    companion object {
-        private val LANGUAGE_KEY = stringPreferencesKey(LanguageCache.KEY_LANGUAGE)
-        private val LANGUAGE_CHANGED_MESSAGE_KEY = booleanPreferencesKey(LanguageCache.KEY_MESSAGE_LANGUAGE_CHANGED)
-    }
 }
