@@ -23,8 +23,8 @@ import com.taufik.themovieshow.utils.language.LanguageCache
 import com.taufik.themovieshow.utils.objects.CommonConstants.KEY_IV
 import com.taufik.themovieshow.utils.objects.CommonConstants.KEY_PASSPHRASE
 import com.taufik.themovieshow.utils.objects.CommonConstants.KEY_SECURE_PREFS
-import com.taufik.themovieshow.utils.objects.PreferencesKey.IV
-import com.taufik.themovieshow.utils.objects.PreferencesKey.PASSPHRASE
+import com.taufik.themovieshow.utils.objects.PreferencesKey.IV_KEY
+import com.taufik.themovieshow.utils.objects.PreferencesKey.PASSPHRASE_KEY
 import es.dmoral.toasty.Toasty
 import java.util.Locale
 import javax.crypto.Cipher
@@ -129,8 +129,8 @@ suspend fun Context.encryptAndStorePassphrase(rawPassphrase: String) {
     val encrypted = cipher.doFinal(rawPassphrase.toByteArray(Charsets.UTF_8))
 
     secureDataStore.edit { prefs ->
-        prefs[IV] = Base64.encodeToString(iv, Base64.DEFAULT)
-        prefs[PASSPHRASE] = Base64.encodeToString(encrypted, Base64.DEFAULT)
+        prefs[IV_KEY] = Base64.encodeToString(iv, Base64.DEFAULT)
+        prefs[PASSPHRASE_KEY] = Base64.encodeToString(encrypted, Base64.DEFAULT)
     }
 }
 
