@@ -2,8 +2,8 @@ package com
 
 import android.app.Application
 import android.content.Context
+import com.taufik.themovieshow.utils.extensions.encryptAndStorePassphrase
 import com.taufik.themovieshow.utils.extensions.secureDataStore
-import com.taufik.themovieshow.utils.helper.SecureEncryptedKey.encryptAndStorePassphrase
 import com.taufik.themovieshow.utils.language.ContextUtils
 import com.taufik.themovieshow.utils.language.LANGUAGE
 import com.taufik.themovieshow.utils.language.LanguageCache
