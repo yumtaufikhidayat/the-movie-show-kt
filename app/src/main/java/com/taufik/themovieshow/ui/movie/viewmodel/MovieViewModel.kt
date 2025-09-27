@@ -1,35 +1,50 @@
 package com.taufik.themovieshow.ui.movie.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.taufik.themovieshow.data.NetworkResult
 import com.taufik.themovieshow.data.repository.TheMovieShowRepository
 import com.taufik.themovieshow.model.response.movie.discover.DiscoverMovieResponse
+import com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResponse
+import com.taufik.themovieshow.model.response.movie.trending.MovieTrendingResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
 class MovieViewModel @Inject constructor(private val repository: TheMovieShowRepository) : ViewModel() {
 
-    private val _discoverMovieResponse: MutableLiveData<NetworkResult<DiscoverMovieResponse>> = MutableLiveData()
-    val discoverMovieResponse: LiveData<NetworkResult<DiscoverMovieResponse>> get() = _discoverMovieResponse
+    fun setDiscoverMovie(query: String) : StateFlow<NetworkResult<DiscoverMovieResponse>> =
+        repository.getDiscoverMovie(query).stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(DELAY_EMIT),
+            initialValue = NetworkResult.Loading()
+        )
 
-    private val _getMovieTrendingDay = repository.getMovieTrendingDay()
-    val getMovieTrendingDay = _getMovieTrendingDay.asLiveData()
+    fun getMovieTrendingToday(): StateFlow<NetworkResult<MovieTrendingResponse>> =
+        repository.getMovieTrendingDay().stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(DELAY_EMIT),
+            initialValue = NetworkResult.Loading()
+        )
 
-    private val _getMovieNowPlaying = repository.getMovieNowPlaying()
-    val getMovieNowPlaying = _getMovieNowPlaying.asLiveData()
+    fun getMovieNowPlaying(): StateFlow<NetworkResult<MovieMainResponse>> =
+        repository.getMovieNowPlaying().stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(DELAY_EMIT),
+            initialValue = NetworkResult.Loading()
+        )
 
-    private val _getMovieUpcoming = repository.getMovieUpcoming()
-    val getMovieUpcoming = _getMovieUpcoming.asLiveData()
+    fun getMovieUpcoming(): StateFlow<NetworkResult<MovieMainResponse>> =
+        repository.getMovieUpcoming().stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(DELAY_EMIT),
+            initialValue = NetworkResult.Loading()
+        )
 
-    fun setDiscoverMovie(query: String) = viewModelScope.launch {
-        repository.getDiscoverMovie(query).collect {
-            _discoverMovieResponse.value = it
-        }
+    companion object {
+        const val DELAY_EMIT = 5000L
     }
 }
