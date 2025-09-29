@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.taufik.themovieshow.base.fragment.BaseFragment
-import com.taufik.themovieshow.data.NetworkResult
 import com.taufik.themovieshow.databinding.FragmentMovieTvShowsListBinding
 import com.taufik.themovieshow.ui.detail.movie_tvshow.viewmodel.DetailMovieTvShowViewModel
 import com.taufik.themovieshow.ui.movie.adapter.MovieAdapter
@@ -15,6 +14,7 @@ import com.taufik.themovieshow.utils.enums.FROM
 import com.taufik.themovieshow.utils.extensions.filterAndSortByDate
 import com.taufik.themovieshow.utils.extensions.hideView
 import com.taufik.themovieshow.utils.extensions.navigateToDetailMovieTvShow
+import com.taufik.themovieshow.utils.extensions.observeNetworkResult
 import com.taufik.themovieshow.utils.extensions.showError
 import com.taufik.themovieshow.utils.extensions.showView
 import com.taufik.themovieshow.utils.objects.CommonDateFormatConstants
@@ -59,25 +59,25 @@ class MovieNowPlayingFragment : BaseFragment<FragmentMovieTvShowsListBinding>() 
 
     private fun setData() {
         binding.apply {
-            viewModel.getMovieNowPlaying.observe(viewLifecycleOwner) {
-                when (it) {
-                    is NetworkResult.Loading -> pbLoading.showView()
-                    is NetworkResult.Success -> {
-                        pbLoading.hideView()
-                        val filteredAndSortedMovies = it.data?.results?.filterAndSortByDate(
-                            getDate = { movie -> movie.releaseDate },
-                            inputFormat = CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
-                            thresholdFormat = CommonDateFormatConstants.DD_MM_YYYY_FORMAT
-                        )
-                        movieAdapter?.submitList(filteredAndSortedMovies)
-                    }
-
-                    is NetworkResult.Error -> {
-                        pbLoading.hideView()
-                        layoutError.showError(it.message)
-                    }
+            viewModel.getMovieNowPlaying().observeNetworkResult(
+                lifecycleOwner = viewLifecycleOwner,
+                onLoading = {
+                    pbLoading.showView()
+                },
+                onSuccess = { response ->
+                    pbLoading.hideView()
+                    val filteredAndSortedMovies = response.results.filterAndSortByDate(
+                        getDate = { movie -> movie.releaseDate },
+                        inputFormat = CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
+                        thresholdFormat = CommonDateFormatConstants.DD_MM_YYYY_FORMAT
+                    )
+                    movieAdapter?.submitList(filteredAndSortedMovies)
+                },
+                onError = {
+                    pbLoading.hideView()
+                    layoutError.showError(it)
                 }
-            }
+            )
         }
     }
 
