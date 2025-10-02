@@ -39,8 +39,11 @@ object CommonConstants {
     const val EMAIL_ADDRESS = "yumtaufikhidayat@gmail.com"
 
     /* Secure Preferences */
+    const val KEY_SETTINGS_PREFS = "settings.preferences_pb"
     const val KEY_SECURE_PREFS = "secure_prefs"
+    const val KET_DB_INTEGRITY_PREFS = "db_integrity_prefs"
     const val KEY_PASSPHRASE = "db_passphrase"
     const val KEY_IV = "db_iv"
     const val KEY_STORE_ANDROID = "AndroidKeyStore"
+    const val KEY_LAST_PASSPHRASE_HASH = "last_passphrase_hash"
 }
