@@ -17,21 +17,28 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.preferencesDataStore
+import com.taufik.themovieshow.BuildConfig
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.utils.helper.SecureEncryptedKey.generateOrGetSecretKey
 import com.taufik.themovieshow.utils.language.LanguageCache
-import com.taufik.themovieshow.utils.objects.CommonConstants.KEY_IV
-import com.taufik.themovieshow.utils.objects.CommonConstants.KEY_PASSPHRASE
+import com.taufik.themovieshow.utils.objects.CommonConstants.KET_DB_INTEGRITY_PREFS
 import com.taufik.themovieshow.utils.objects.CommonConstants.KEY_SECURE_PREFS
+import com.taufik.themovieshow.utils.objects.CommonConstants.KEY_SETTINGS_PREFS
 import com.taufik.themovieshow.utils.objects.PreferencesKey.IV_KEY
 import com.taufik.themovieshow.utils.objects.PreferencesKey.PASSPHRASE_KEY
+import com.taufik.themovieshow.utils.objects.PreferencesKey.PASS_HASH_KEY
 import es.dmoral.toasty.Toasty
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.runBlocking
+import java.security.MessageDigest
+import java.security.SecureRandom
 import java.util.Locale
 import javax.crypto.Cipher
-import javax.crypto.spec.GCMParameterSpec
 
-val Context.languageDataStore: DataStore<Preferences> by preferencesDataStore(name = "settings.preferences_pb")
+val Context.languageDataStore: DataStore<Preferences> by preferencesDataStore(name = KEY_SETTINGS_PREFS)
 val Context.secureDataStore by preferencesDataStore(name = KEY_SECURE_PREFS)
+val Context.integrityDataStore: DataStore<Preferences> by preferencesDataStore(name = KET_DB_INTEGRITY_PREFS)
 
 private const val TIME_60 = 60
 
@@ -134,14 +141,47 @@ suspend fun Context.encryptAndStorePassphrase(rawPassphrase: String) {
     }
 }
 
-fun Context.getDecryptedPassphrase(): ByteArray {
-    val prefs = this.getSharedPreferences(KEY_SECURE_PREFS, Context.MODE_PRIVATE)
-    val iv = Base64.decode(prefs.getString(KEY_IV, null), Base64.DEFAULT)
-    val encrypted = Base64.decode(prefs.getString(KEY_PASSPHRASE, null), Base64.DEFAULT)
+suspend fun Context.getDecryptedPassphrase(): ByteArray {
+    val prefs = secureDataStore.data.first()
+    val base64Pass = prefs[PASSPHRASE_KEY]
 
-    val secretKey = generateOrGetSecretKey()
-    val cipher = Cipher.getInstance("AES/GCM/NoPadding")
-    cipher.init(Cipher.DECRYPT_MODE, secretKey, GCMParameterSpec(128, iv))
+    return if (base64Pass != null) {
+        Base64.decode(base64Pass, Base64.DEFAULT)
+    } else {
+        generateAndStoreNewPassphrase()
+    }
+}
 
-    return cipher.doFinal(encrypted)
+fun Context.generateAndStoreNewPassphrase(): ByteArray {
+    val newPassphrase = ByteArray(32).also { SecureRandom().nextBytes(it) }
+    val base64Pass = Base64.encodeToString(newPassphrase, Base64.DEFAULT)
+
+    runBlocking {
+        secureDataStore.edit { it[PASSPHRASE_KEY] = base64Pass }
+    }
+
+    if (BuildConfig.DEBUG) Log.w("DB", "New passphrase generated & stored")
+    return newPassphrase
+}
+
+suspend fun Context.ensurePassphraseIntegrity(currentPassphrase: ByteArray): Boolean {
+    val currentHash = Base64.encodeToString(
+        MessageDigest.getInstance("SHA-256").digest(currentPassphrase),
+        Base64.NO_WRAP
+    )
+
+    val storedHash = integrityDataStore.data
+        .map { prefs -> prefs[PASS_HASH_KEY] }
+        .first()
+
+    return if (storedHash == null || storedHash != currentHash) {
+        integrityDataStore.edit { prefs ->
+            prefs[PASS_HASH_KEY] = currentHash
+        }
+        // new passphrase the database must be changed, return false
+        false
+    } else {
+        // same passphrase then database is safe
+        true
+    }
 }
