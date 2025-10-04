@@ -3,8 +3,10 @@ package com.taufik.themovieshow.di
 import android.content.Context
 import android.util.Log
 import androidx.room.Room
+import com.taufik.themovieshow.BuildConfig
 import com.taufik.themovieshow.data.local.dao.TheMovieShowDao
 import com.taufik.themovieshow.data.local.room.TheMovieShowDatabase
+import com.taufik.themovieshow.utils.extensions.ensurePassphraseIntegrity
 import com.taufik.themovieshow.utils.extensions.getDecryptedPassphrase
 import com.taufik.themovieshow.utils.objects.CommonConstants
 import dagger.Module
@@ -12,6 +14,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 import net.zetetic.database.sqlcipher.SupportOpenHelperFactory
 import javax.inject.Singleton
 
@@ -24,13 +28,17 @@ object DatabaseModule {
     fun provideFavoriteDatabase(
         @ApplicationContext context: Context
     ): TheMovieShowDatabase {
-        val passphrase = context.getDecryptedPassphrase()
+        val passphrase = runBlocking { context.getDecryptedPassphrase() }
         val factory = SupportOpenHelperFactory(passphrase)
-
         val dbFile = context.getDatabasePath(CommonConstants.DB_NAME)
-        if (dbFile.exists()) {
-            Log.w("DB", "Old DB exists, deleting for fresh start")
-            dbFile.delete()
+
+        runBlocking {
+            delay(100)
+            val isSamePassphrase = context.ensurePassphraseIntegrity(passphrase)
+            if (!isSamePassphrase && dbFile.exists()) {
+                if (BuildConfig.DEBUG) Log.w("DB", "Passphrase changed, resetting encrypted database...")
+                dbFile.delete()
+            }
         }
 
         return Room.databaseBuilder(
