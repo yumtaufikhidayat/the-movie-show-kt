@@ -2,11 +2,12 @@ package com.taufik.themovieshow.utils.language
 
 import android.content.Context
 import android.util.Log
+import com.taufik.themovieshow.utils.objects.CommonConstants.KEY_SETTINGS_PREFS
 import java.io.File
 
 object LanguagePreferenceFixer {
     private const val INVALID_FILE_NAME = "settings"
-    private const val VALID_FILE_NAME = "settings.preferences_pb"
+    private const val VALID_FILE_NAME = KEY_SETTINGS_PREFS
 
     /**
      * Safely remove old DataStore file if it doesn't match required extension.
