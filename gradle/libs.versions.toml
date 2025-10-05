@@ -1,7 +1,7 @@
 [versions]
 # Android Core & Compatibility
 android-gradle-plugin = "8.13.0"
-kotlin = "2.2.10"
+kotlin = "2.2.20"
 core-ktx = "1.17.0"
 appcompat = "1.7.1"
 constraintlayout = "2.2.1"
@@ -14,15 +14,15 @@ flexbox = "3.0.0"
 # Jetpack Components
 lifecycle-ktx = "2.9.4"
 lifecycle-ext = "2.2.0"
-navigation = "2.9.4"
-nav-ktx = "2.9.4"
+navigation = "2.9.5"
+nav-ktx = "2.9.5"
 datastore = "1.1.7"
 datastorePreferences = "1.1.4"
-room = "2.8.0"
+room = "2.8.1"
 
 # Dependency Injection
-hilt = "2.57.1"
-ksp = "2.2.10-2.0.2"
+hilt = "2.57.2"
+ksp = "2.2.20-2.0.3"
 
 # Network & API
 retrofit = "3.0.0"
@@ -30,39 +30,39 @@ okhttp = "5.1.0"
 
 # Database & Encryption
 sql-cipher = "4.10.0"
-sqlite = "2.6.0"
+sqlite = "2.6.1"
 
 # Asynchronous & Coroutines
 coroutines-core = "1.10.2"
 coroutine-android = "1.10.2"
 
 # Firebase Service
-firebase-analytics-ktx = "22.4.0"
-firebase-crashlytics-ktx= "19.4.3"
+firebase-analytics-ktx = "22.5.0"
+firebase-crashlytics-ktx= "19.4.4"
 crashlytics = "3.0.6"
-google-services = "4.4.2"
+google-services = "4.4.3"
 
 # Testing
 junit = "4.13.2"
 mockito-inline = "5.2.0"
 core-testing = "2.2.0"
-test-ext = "1.2.1"
-test-rule = "1.6.1"
+test-ext = "1.3.0"
+test-rule = "1.7.0"
 test-runner = "1.6.2"
 
 # UI Enhancement & Utilities
-glide = "4.16.0"
-lottie = "6.6.4"
-justified-text = "1.1.0"
+glide = "5.0.5"
+lottie = "6.6.10"
+justified-text = "2.0.1"
 toasty = "1.5.2"
-chucker = "4.1.0"
+chucker = "4.2.0"
 shimmerLayout = "0.5.0"
 
 # Compose
-compose-bom = "2024.09.02"
+compose-bom = "2025.09.01"
 compose-compiler = "1.5.15"
-compose-compiler-plugin = "2.0.0"
-activity-compose = "1.10.1"
+compose-compiler-plugin = "2.2.20"
+activity-compose = "1.11.0"
 
 [libraries]
 # Android Core & Compatibility
