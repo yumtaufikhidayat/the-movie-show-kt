@@ -16,7 +16,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.base.fragment.BaseFragment
-import com.taufik.themovieshow.data.NetworkResult
 import com.taufik.themovieshow.databinding.FragmentDiscoverTvShowBinding
 import com.taufik.themovieshow.model.response.tvshow.discover.DiscoverTvShowsResult
 import com.taufik.themovieshow.ui.detail.movie_tvshow.viewmodel.DetailMovieTvShowViewModel
@@ -24,6 +23,7 @@ import com.taufik.themovieshow.ui.tvshow.adapter.DiscoverTvShowsAdapter
 import com.taufik.themovieshow.ui.tvshow.viewmodel.TvShowsViewModel
 import com.taufik.themovieshow.utils.enums.FROM
 import com.taufik.themovieshow.utils.extensions.navigateToDetailMovieTvShow
+import com.taufik.themovieshow.utils.extensions.observeNetworkResult
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -107,29 +107,26 @@ class DiscoverTvShowFragment : BaseFragment<FragmentDiscoverTvShowBinding>() {
     private fun showSearchData(p0: Editable?) {
         viewModel.apply {
             val query = p0.toString()
-            setDiscoverTvShows(query)
-            discoverTvShowsResponse.observe(viewLifecycleOwner) { response ->
-                when (response) {
-                    is NetworkResult.Loading -> showNoResults(false, emptyList(), query)
-                    is NetworkResult.Success -> {
-                        val data = response.data
-                        val results = data?.results
-                        if (results != null) {
-                            when {
-                                results.isEmpty() -> showNoResults(true, results, query)
-                                query.isNotEmpty() -> {
-                                    discoverTvShowsAdapter?.submitList(results)
-                                    showNoResults(false, results, query)
-                                }
-                                else -> showNoResults(true, emptyList(), query)
-                            }
-                        } else {
-                            showNoResults(true, emptyList(), query)
+            viewModel.getDiscoverTvShows(query).observeNetworkResult(
+                lifecycleOwner = viewLifecycleOwner,
+                onLoading = {
+                    showNoResults(false, emptyList(), query)
+                },
+                onSuccess = { response ->
+                    val results = response.results
+                    when {
+                        results.isEmpty() -> showNoResults(true, results, query)
+                        query.isNotEmpty() -> {
+                            discoverTvShowsAdapter?.submitList(results)
+                            showNoResults(false, results, query)
                         }
+                        else -> showNoResults(true, emptyList(), query)
                     }
-                    is NetworkResult.Error -> showNoResults(false, emptyList(), query)
+                },
+                onError = {
+                    showNoResults(false, emptyList(), query)
                 }
-            }
+            )
         }
     }
 

@@ -73,9 +73,9 @@ class MovieNowPlayingFragment : BaseFragment<FragmentMovieTvShowsListBinding>() 
                     )
                     movieAdapter?.submitList(filteredAndSortedMovies)
                 },
-                onError = {
+                onError = { message ->
                     pbLoading.hideView()
-                    layoutError.showError(it)
+                    layoutError.showError(message)
                 }
             )
         }
