@@ -73,9 +73,9 @@ class MovieTrendingFragment : BaseFragment<FragmentMovieTvShowsListBinding>() {
                     )
                     movieTrendingAdapter?.submitList(filteredAndSortedMovies)
                 },
-                onError = {
+                onError = { message ->
                     pbLoading.hideView()
-                    layoutError.showError(it)
+                    layoutError.showError(message)
                 }
             )
         }
