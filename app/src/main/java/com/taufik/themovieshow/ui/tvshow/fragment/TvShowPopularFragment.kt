@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.taufik.themovieshow.base.fragment.BaseFragment
-import com.taufik.themovieshow.data.NetworkResult
 import com.taufik.themovieshow.databinding.FragmentMovieTvShowsListBinding
 import com.taufik.themovieshow.ui.detail.movie_tvshow.viewmodel.DetailMovieTvShowViewModel
 import com.taufik.themovieshow.ui.tvshow.adapter.TvShowsAdapter
@@ -15,6 +14,7 @@ import com.taufik.themovieshow.utils.enums.FROM
 import com.taufik.themovieshow.utils.extensions.filterAndSortByDate
 import com.taufik.themovieshow.utils.extensions.hideView
 import com.taufik.themovieshow.utils.extensions.navigateToDetailMovieTvShow
+import com.taufik.themovieshow.utils.extensions.observeNetworkResult
 import com.taufik.themovieshow.utils.extensions.showError
 import com.taufik.themovieshow.utils.extensions.showView
 import com.taufik.themovieshow.utils.objects.CommonDateFormatConstants
@@ -59,25 +59,25 @@ class TvShowPopularFragment : BaseFragment<FragmentMovieTvShowsListBinding>() {
 
     private fun setData() {
         binding.apply {
-            viewModel.getTvShowsPopular().observe(viewLifecycleOwner) {
-                when (it) {
-                    is NetworkResult.Loading -> pbLoading.showView()
-                    is NetworkResult.Success -> {
-                        pbLoading.hideView()
-                        val filteredAndSortedTvShows = it.data?.results?.filterAndSortByDate(
-                            getDate = { tvShow -> tvShow.firstAirDate },
-                            inputFormat = CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
-                            thresholdFormat = CommonDateFormatConstants.DD_MM_YYYY_FORMAT
-                        )
-                        tvShowsAdapter?.submitList(filteredAndSortedTvShows)
-                    }
-
-                    is NetworkResult.Error -> {
-                        pbLoading.hideView()
-                        layoutError.showError(it.message)
-                    }
+            viewModel.getTvShowsPopular().observeNetworkResult(
+                lifecycleOwner = viewLifecycleOwner,
+                onLoading = {
+                    pbLoading.showView()
+                },
+                onSuccess = { response ->
+                    pbLoading.hideView()
+                    val filteredAndSortedTvShows = response.results.filterAndSortByDate(
+                        getDate = { tvShow -> tvShow.firstAirDate },
+                        inputFormat = CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
+                        thresholdFormat = CommonDateFormatConstants.DD_MM_YYYY_FORMAT
+                    )
+                    tvShowsAdapter?.submitList(filteredAndSortedTvShows)
+                },
+                onError = { message ->
+                    pbLoading.hideView()
+                    layoutError.showError(message)
                 }
-            }
+            )
         }
     }
 
