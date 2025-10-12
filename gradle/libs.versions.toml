@@ -17,7 +17,7 @@ lifecycle-ext = "2.2.0"
 navigation = "2.9.5"
 nav-ktx = "2.9.5"
 datastore = "1.1.7"
-datastorePreferences = "1.1.4"
+datastorePreferences = "1.1.7"
 room = "2.8.2"
 
 # Dependency Injection
