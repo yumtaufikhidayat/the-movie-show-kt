@@ -18,7 +18,7 @@ navigation = "2.9.5"
 nav-ktx = "2.9.5"
 datastore = "1.1.7"
 datastorePreferences = "1.1.4"
-room = "2.8.1"
+room = "2.8.2"
 
 # Dependency Injection
 hilt = "2.57.2"
@@ -26,10 +26,10 @@ ksp = "2.2.20-2.0.3"
 
 # Network & API
 retrofit = "3.0.0"
-okhttp = "5.1.0"
+okhttp = "5.2.1"
 
 # Database & Encryption
-sql-cipher = "4.10.0"
+sql-cipher = "4.11.0"
 sqlite = "2.6.1"
 
 # Asynchronous & Coroutines
@@ -40,7 +40,7 @@ coroutine-android = "1.10.2"
 firebase-analytics-ktx = "22.5.0"
 firebase-crashlytics-ktx= "19.4.4"
 crashlytics = "3.0.6"
-google-services = "4.4.3"
+google-services = "4.4.4"
 
 # Testing
 junit = "4.13.2"
@@ -48,7 +48,7 @@ mockito-inline = "5.2.0"
 core-testing = "2.2.0"
 test-ext = "1.3.0"
 test-rule = "1.7.0"
-test-runner = "1.6.2"
+test-runner = "1.7.0"
 
 # UI Enhancement & Utilities
 glide = "5.0.5"
@@ -59,7 +59,7 @@ chucker = "4.2.0"
 shimmerLayout = "0.5.0"
 
 # Compose
-compose-bom = "2025.09.01"
+compose-bom = "2025.10.00"
 compose-compiler = "1.5.15"
 compose-compiler-plugin = "2.2.20"
 activity-compose = "1.11.0"
