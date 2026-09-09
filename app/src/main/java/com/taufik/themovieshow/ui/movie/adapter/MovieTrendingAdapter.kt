@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.taufik.themovieshow.R
 import com.taufik.themovieshow.databinding.ItemsMoviesTvShowBinding
 import com.taufik.themovieshow.model.response.movie.trending.MovieTrendingResult
 import com.taufik.themovieshow.utils.extensions.convertDate
@@ -40,7 +41,7 @@ class MovieTrendingAdapter(
                 tvReleaseDate.text = data.releaseDate.convertDate(
                     CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
                     CommonDateFormatConstants.EEE_D_MMM_YYYY_FORMAT
-                )
+                ) ?: root.context.getString(R.string.tvNA)
                 tvRating.text = data.voteAverage.toRating()
 
                 itemView.setOnClickListener {
