@@ -273,8 +273,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
 
             // Release/Start Date
             val formattedDate = data.releaseDateText
-                .takeIf { it.isNotEmpty() }
-                ?.convertDate(
+                .convertDate(
                     inputFormat = CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
                     outputFormat = CommonDateFormatConstants.EEE_D_MMM_YYYY_FORMAT
                 ) ?: getString(R.string.tvNA)
