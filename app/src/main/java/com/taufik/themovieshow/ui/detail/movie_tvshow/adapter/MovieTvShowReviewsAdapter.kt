@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.taufik.themovieshow.R
 import com.taufik.themovieshow.base.helper.BaseReviewItem
 import com.taufik.themovieshow.databinding.ItemReviewsBinding
 import com.taufik.themovieshow.utils.extensions.convertDate
@@ -36,9 +37,9 @@ class MovieTvShowReviewsAdapter(
                 tvReviewerName.text = data.author
                 tvReviewerRating.text = String.format("%s%s", data.authorRating.toString(), "/10")
                 tvReviewerDate.text = data.updatedAt.convertDate(
-                    CommonDateFormatConstants.FULL_FORMAT,
+                    CommonDateFormatConstants.FULL_FORMATS,
                     CommonDateFormatConstants.EEE_D_MMM_YYYY_FORMAT
-                )
+                ) ?: root.context.getString(R.string.tvNA)
                 tvReviewerReview.text = data.content
                 cardReview.setOnClickListener {
                     onClickListener.invoke(data.url)
