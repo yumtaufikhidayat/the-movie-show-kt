@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.taufik.themovieshow.R
 import com.taufik.themovieshow.base.helper.BaseSimilarItem
 import com.taufik.themovieshow.databinding.ItemSimilarMovieAndCastBinding
 import com.taufik.themovieshow.utils.extensions.applyMiddleMargins
@@ -39,7 +40,7 @@ class MovieTvShowSimilarAdapter(
                 val releaseYear = data.releaseDateText.convertDate(
                     CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
                     CommonDateFormatConstants.YYYY_FORMAT
-                )
+                ) ?: root.context.getString(R.string.tvNA)
                 tvMovieOrCastName.text = StringBuilder(data.titleText).append("\n").append("($releaseYear)")
 
                 layoutSimilarMovieOrCast.apply {
