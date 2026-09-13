@@ -143,6 +143,8 @@ dependencies {
     androidTestImplementation(libs.androidx.runner)
     androidTestImplementation(libs.androidx.rules)
     testImplementation(libs.androidx.core.testing)
+    testImplementation(libs.androidx.junit)
+    testImplementation(libs.robolectric)
 
     // Justified text view
     implementation(libs.justifiedtextview)
