@@ -15,7 +15,7 @@ class TheMovieShowRepository @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource
 ): ITheMovieShowRepository {
-    val languageFlow: Flow<String> = localDataSource.languageFlow
+    override val languageFlow: Flow<String> = localDataSource.languageFlow
 
     override fun getMovieTrendingDay() = remoteDataSource.getMovieTrendingDay()
 

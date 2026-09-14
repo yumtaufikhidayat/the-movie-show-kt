@@ -3,7 +3,7 @@ package com.taufik.themovieshow.ui.movie.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.taufik.themovieshow.data.NetworkResult
-import com.taufik.themovieshow.data.repository.TheMovieShowRepository
+import com.taufik.themovieshow.data.repository.ITheMovieShowRepository
 import com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResponse
 import com.taufik.themovieshow.model.response.movie.trending.MovieTrendingResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
-class MovieViewModel @Inject constructor(private val repository: TheMovieShowRepository) : ViewModel() {
+class MovieViewModel @Inject constructor(private val repository: ITheMovieShowRepository) : ViewModel() {
 
     fun getMovieTrendingToday(): StateFlow<NetworkResult<MovieTrendingResponse>> =
         repository.getMovieTrendingDay().stateIn(

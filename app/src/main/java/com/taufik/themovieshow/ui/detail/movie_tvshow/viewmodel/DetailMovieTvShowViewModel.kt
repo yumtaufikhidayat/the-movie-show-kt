@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.taufik.themovieshow.data.NetworkResult
 import com.taufik.themovieshow.data.local.entity.movie.FavoriteMovieEntity
 import com.taufik.themovieshow.data.local.entity.tvshow.FavoriteTvShowEntity
-import com.taufik.themovieshow.data.repository.TheMovieShowRepository
+import com.taufik.themovieshow.data.repository.ITheMovieShowRepository
 import com.taufik.themovieshow.model.response.common.reviews.ReviewsResponse
 import com.taufik.themovieshow.model.response.movie.cast.MovieCastResponse
 import com.taufik.themovieshow.model.response.movie.detail.MovieDetailResponse
@@ -23,7 +23,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class DetailMovieTvShowViewModel @Inject constructor(private val repository: TheMovieShowRepository) : ViewModel() {
+class DetailMovieTvShowViewModel @Inject constructor(private val repository: ITheMovieShowRepository) : ViewModel() {
 
     var idMovieTvShow = 0
     var titleMovieTvShow = ""

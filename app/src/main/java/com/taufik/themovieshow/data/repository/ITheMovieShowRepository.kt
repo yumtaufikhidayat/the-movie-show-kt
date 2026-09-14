@@ -46,6 +46,7 @@ interface ITheMovieShowRepository {
     fun getSimilarTvShows(tvId: Int): Flow<NetworkResult<TvShowsSimilarResponse>>
 
     // Local Data Source
+    val languageFlow: Flow<String>
     suspend fun addMovieToFavorite(favoriteMovieEntity: FavoriteMovieEntity)
     fun getFavoriteMovieList(rawQuery: RawQuery): Flow<List<FavoriteMovieEntity>>
     suspend fun checkFavoriteMovie(movieId: Int): Int

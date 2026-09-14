@@ -2,7 +2,7 @@ package com.taufik.themovieshow.ui.favorite.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.taufik.themovieshow.data.local.entity.tvshow.FavoriteTvShowEntity
-import com.taufik.themovieshow.data.repository.TheMovieShowRepository
+import com.taufik.themovieshow.data.repository.ITheMovieShowRepository
 import com.taufik.themovieshow.data.source.RawQuery
 import com.taufik.themovieshow.utils.objects.CommonConstants
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FavoriteTvShowViewModel @Inject constructor(
-    private val favoriteTvShowRepository: TheMovieShowRepository
+    private val favoriteTvShowRepository: ITheMovieShowRepository
 ) : ViewModel() {
 
     private val _favoriteTvShowsQuery = MutableStateFlow<RawQuery?>(null)
