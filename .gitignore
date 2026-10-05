@@ -369,3 +369,6 @@ $RECYCLE.BIN/
 *.keystore
 
 # End of https://www.gitignore.io/api/java,linux,macos,windows,android,intellij,androidstudiogradle.properties
+
+# AI agent docs (local only)
+.agents/
