@@ -26,8 +26,8 @@ android {
         applicationId = "com.taufik.themovieshow"
         minSdk = 30
         targetSdk = 37
-        versionCode = 1320
-        versionName = "1.32.0"
+        versionCode = 1330
+        versionName = "1.33.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
