@@ -24,10 +24,10 @@ ksp = "2.3.12"
 
 # Network & API
 retrofit = "3.0.0"
-okhttp = "5.2.1"
+okhttp = "5.5.0"
 
 # Database & Encryption
-sql-cipher = "4.11.0"
+sql-cipher = "4.19.1"
 sqlite = "2.7.1"
 
 # Asynchronous & Coroutines
@@ -35,8 +35,7 @@ coroutines-core = "1.11.0"
 coroutine-android = "1.11.0"
 
 # Firebase Service
-firebase-analytics-ktx = "22.5.0"
-firebase-crashlytics-ktx= "19.4.4"
+firebase-bom = "35.0.0"
 crashlytics = "3.0.8"
 google-services = "4.5.0"
 
@@ -48,11 +47,11 @@ test-rule = "1.7.0"
 test-runner = "1.7.0"
 
 # UI Enhancement & Utilities
-glide = "5.0.5"
-lottie = "6.6.10"
+glide = "5.0.9"
+lottie = "6.7.1"
 justified-text = "2.0.1"
 toasty = "1.5.2"
-chucker = "4.2.0"
+chucker = "4.3.1"
 shimmerLayout = "0.5.0"
 
 # Compose
@@ -103,8 +102,9 @@ coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutine-android" }
 
 # Firebase Service
-firebase-analytics-ktx = { module = "com.google.firebase:firebase-analytics-ktx", version.ref = "firebase-analytics-ktx" }
-firebase-crashlytics-ktx = { module = "com.google.firebase:firebase-crashlytics-ktx", version.ref = "firebase-crashlytics-ktx" }
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase-bom" }
+firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
+firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
 
 # Testing
 junit = { group = "junit", name = "junit", version.ref = "junit" }
