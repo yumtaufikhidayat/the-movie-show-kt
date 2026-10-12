@@ -54,7 +54,7 @@ class DiscoverTvShowFragment : BaseFragment<FragmentDiscoverTvShowBinding>() {
         discoverTvShowsAdapter = DiscoverTvShowsAdapter {
             detailMovieTvShowViewModel.apply {
                 idMovieTvShow = it.id
-                titleMovieTvShow = it.name
+                titleMovieTvShow = it.name.orEmpty()
             }
             navigateToDetailMovieTvShow(
                 detailMovieTvShowViewModel.idMovieTvShow,
@@ -113,7 +113,7 @@ class DiscoverTvShowFragment : BaseFragment<FragmentDiscoverTvShowBinding>() {
                     showNoResults(false, emptyList(), query)
                 },
                 onSuccess = { response ->
-                    val results = response.results
+                    val results = response.results.orEmpty()
                     when {
                         results.isEmpty() -> showNoResults(true, results, query)
                         query.isNotEmpty() -> {

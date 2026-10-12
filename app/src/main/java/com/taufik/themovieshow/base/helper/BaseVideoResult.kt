@@ -10,13 +10,13 @@ interface BaseVideoItem {
 }
 
 fun MovieVideoResult.toMovieVideoResultItem(): BaseVideoItem = object : BaseVideoItem {
-    override val id: String get() = this@toMovieVideoResultItem.id
-    override val name: String get() = this@toMovieVideoResultItem.name
-    override val key: String get() = this@toMovieVideoResultItem.key
+    override val id: String get() = this@toMovieVideoResultItem.id.orEmpty()
+    override val name: String get() = this@toMovieVideoResultItem.name.orEmpty()
+    override val key: String get() = this@toMovieVideoResultItem.key.orEmpty()
 }
 
 fun TvShowsVideoResult.toTvShowsVideoResultItem(): BaseVideoItem = object : BaseVideoItem {
-    override val id: String get() = this@toTvShowsVideoResultItem.id
-    override val name: String get() = this@toTvShowsVideoResultItem.name
-    override val key: String get() = this@toTvShowsVideoResultItem.key
+    override val id: String get() = this@toTvShowsVideoResultItem.id.orEmpty()
+    override val name: String get() = this@toTvShowsVideoResultItem.name.orEmpty()
+    override val key: String get() = this@toTvShowsVideoResultItem.key.orEmpty()
 }

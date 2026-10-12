@@ -11,7 +11,7 @@ data class TvShowsSimilarResponse(
     val totalPages: Int,
 
     @field:SerializedName("results")
-    val results: List<TvShowsSimilarResultsItem>,
+    val results: List<TvShowsSimilarResultsItem>?,
 
     @field:SerializedName("total_results")
     val totalResults: Int

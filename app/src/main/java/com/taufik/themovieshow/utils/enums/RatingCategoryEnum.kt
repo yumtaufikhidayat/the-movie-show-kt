@@ -42,7 +42,7 @@ fun getCertificationForUserOrDefault(releaseDates: ReleaseDatesResponse?): Strin
     val userCert = results
         .firstOrNull { it.iso3166_1 == userCountry }
         ?.releaseDates
-        ?.mapNotNull { it.certification.takeIf { cert -> cert.isNotBlank() } }
+        ?.mapNotNull { it.certification?.takeIf { cert -> cert.isNotBlank() } }
         ?.maxByOrNull { RatingCategory.normalizeCertification(it) }
 
     if (!userCert.isNullOrBlank()) return userCert
@@ -50,8 +50,8 @@ fun getCertificationForUserOrDefault(releaseDates: ReleaseDatesResponse?): Strin
     // Then, if user country is empty, then get from first user country that has valid certificate
     val firstAvailableCert = results
         .asSequence()
-        .flatMap { it.releaseDates.asSequence() }
-        .mapNotNull { it.certification.takeIf { cert -> cert.isNotBlank() } }
+        .flatMap { it.releaseDates.orEmpty().asSequence() }
+        .mapNotNull { it.certification?.takeIf { cert -> cert.isNotBlank() } }
         .maxByOrNull { RatingCategory.normalizeCertification(it) }
 
     if (!firstAvailableCert.isNullOrBlank()) return firstAvailableCert
@@ -60,7 +60,7 @@ fun getCertificationForUserOrDefault(releaseDates: ReleaseDatesResponse?): Strin
     val usCert = results
         .firstOrNull { it.iso3166_1 == "US" }
         ?.releaseDates
-        ?.mapNotNull { it.certification.takeIf { cert -> cert.isNotBlank() } }
+        ?.mapNotNull { it.certification?.takeIf { cert -> cert.isNotBlank() } }
         ?.maxByOrNull { RatingCategory.normalizeCertification(it) }
 
     if (!usCert.isNullOrBlank()) return usCert

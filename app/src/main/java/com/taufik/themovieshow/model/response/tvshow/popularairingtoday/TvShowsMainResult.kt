@@ -12,7 +12,7 @@ data class TvShowsMainResult(
     @SerializedName("id")
     val id: Int,
     @SerializedName("name")
-    val name: String,
+    val name: String?,
     @SerializedName("poster_path")
     val posterPath: String? = null,
     @SerializedName("vote_average")
