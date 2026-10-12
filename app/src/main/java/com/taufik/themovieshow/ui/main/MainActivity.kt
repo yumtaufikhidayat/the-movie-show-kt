@@ -1,7 +1,9 @@
 package com.taufik.themovieshow.ui.main
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
+import androidx.activity.SystemBarStyle
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
@@ -40,7 +42,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override fun inflateBinding(layoutInflater: LayoutInflater): ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
 
     override fun onActivityReady(savedInstanceState: Bundle?) {
-        enableEdgeToEdge()
+        // The app is always dark, so keep light system bar icons even when the device uses light mode.
+        enableEdgeToEdge(
+            statusBarStyle = SystemBarStyle.dark(Color.TRANSPARENT),
+            navigationBarStyle = SystemBarStyle.dark(NAVIGATION_BAR_SCRIM)
+        )
         binding.root.applySystemBarInsets(
             applyTop = true,
             applyBottom = false,
@@ -96,5 +102,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         navController?.removeOnDestinationChangedListener(navControllerDestination)
         navController = null
         super.onDestroy()
+    }
+
+    companion object {
+        // Same scrim enableEdgeToEdge() uses for the navigation bar in dark mode.
+        private val NAVIGATION_BAR_SCRIM = Color.argb(0x80, 0x1b, 0x1b, 0x1b)
     }
 }
