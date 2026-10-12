@@ -12,6 +12,7 @@ import com.taufik.themovieshow.databinding.ItemsMoviesTvShowBinding
 import com.taufik.themovieshow.model.response.movie.nowplayingupcoming.MovieMainResult
 import com.taufik.themovieshow.utils.extensions.convertDate
 import com.taufik.themovieshow.utils.extensions.loadImage
+import com.taufik.themovieshow.utils.extensions.orNA
 import com.taufik.themovieshow.utils.extensions.toRating
 import com.taufik.themovieshow.utils.objects.CommonDateFormatConstants
 import java.util.Locale
@@ -48,7 +49,7 @@ class FavoriteMovieAdapter(
         fun bind(data: MovieMainResult) {
             binding.apply {
                 imgPoster.loadImage(data.posterPath)
-                tvTitle.text = data.title
+                tvTitle.text = data.title.orNA(root.context)
                 tvReleaseDate.text = data.releaseDate?.convertDate(
                     CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
                     CommonDateFormatConstants.EEE_D_MMM_YYYY_FORMAT
@@ -73,7 +74,7 @@ class FavoriteMovieAdapter(
             } else {
                 val filterPattern = p0.toString().lowercase(Locale.ROOT).trim()
                 listMovies.forEach { item ->
-                    if (item.title.lowercase().contains(filterPattern)) filteredList.add(item)
+                    if (item.title.orEmpty().lowercase().contains(filterPattern)) filteredList.add(item)
                 }
             }
 

@@ -10,6 +10,7 @@ import com.taufik.themovieshow.base.helper.BaseReviewItem
 import com.taufik.themovieshow.databinding.ItemReviewsBinding
 import com.taufik.themovieshow.utils.extensions.convertDate
 import com.taufik.themovieshow.utils.extensions.loadImage
+import com.taufik.themovieshow.utils.extensions.orNA
 import com.taufik.themovieshow.utils.objects.CommonDateFormatConstants
 
 class MovieTvShowReviewsAdapter(
@@ -34,13 +35,17 @@ class MovieTvShowReviewsAdapter(
         fun bind(data: BaseReviewItem) {
             binding.apply {
                 imgReviewer.loadImage(data.authorAvatar)
-                tvReviewerName.text = data.author
-                tvReviewerRating.text = String.format("%s%s", data.authorRating.toString(), "/10")
+                tvReviewerName.text = data.author.orNA(root.context)
+                tvReviewerRating.text = if (data.authorRating.isBlank()) {
+                    root.context.getString(R.string.tvNA)
+                } else {
+                    String.format("%s%s", data.authorRating, "/10")
+                }
                 tvReviewerDate.text = data.updatedAt.convertDate(
                     CommonDateFormatConstants.FULL_FORMATS,
                     CommonDateFormatConstants.EEE_D_MMM_YYYY_FORMAT
                 ) ?: root.context.getString(R.string.tvNA)
-                tvReviewerReview.text = data.content
+                tvReviewerReview.text = data.content.orNA(root.context)
                 cardReview.setOnClickListener {
                     onClickListener.invoke(data.url)
                 }

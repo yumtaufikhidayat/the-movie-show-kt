@@ -41,7 +41,7 @@ class TvShowAiringTodayFragment : BaseFragment<FragmentMovieTvShowsListBinding>(
         tvShowsAdapter = TvShowsAdapter {
             detailMovieTvShowViewModel.apply {
                 idMovieTvShow = it.id
-                titleMovieTvShow = it.name
+                titleMovieTvShow = it.name.orEmpty()
             }
             navigateToDetailMovieTvShow(
                 detailMovieTvShowViewModel.idMovieTvShow,
@@ -66,7 +66,7 @@ class TvShowAiringTodayFragment : BaseFragment<FragmentMovieTvShowsListBinding>(
                 },
                 onSuccess = { response ->
                     pbLoading.hideView()
-                    val filteredAndSortedTvShows = response.results.filterAndSortByDate(
+                    val filteredAndSortedTvShows = response.results.orEmpty().filterAndSortByDate(
                         getDate = { tvShow -> tvShow.firstAirDate },
                         inputFormat = CommonDateFormatConstants.YYYY_MM_DD_FORMAT,
                         thresholdFormat = CommonDateFormatConstants.DD_MM_YYYY_FORMAT

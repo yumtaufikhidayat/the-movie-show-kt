@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.taufik.themovieshow.base.helper.BaseVideoItem
 import com.taufik.themovieshow.databinding.ItemTrailerVideoBinding
 import com.taufik.themovieshow.utils.extensions.loadVideoThumbnail
+import com.taufik.themovieshow.utils.extensions.orNA
 
 class MovieTvShowTrailerVideoAdapter(
     private val onItemClickListener: (BaseVideoItem) -> Unit
@@ -32,7 +33,7 @@ class MovieTvShowTrailerVideoAdapter(
         fun bind(data: BaseVideoItem) {
             binding.apply {
                 imgPoster.loadVideoThumbnail(data.key)
-                tvTitle.text = data.name
+                tvTitle.text = data.name.orNA(root.context)
                 cardTrailerVideo.setOnClickListener {
                     onItemClickListener.invoke(data)
                 }

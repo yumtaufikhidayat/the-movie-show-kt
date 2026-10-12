@@ -13,13 +13,13 @@ interface BaseSimilarItem {
 fun MovieSimilarResult.toMovieBaseSimilarItem(): BaseSimilarItem = object : BaseSimilarItem {
     override val id: Int get() = this@toMovieBaseSimilarItem.id
     override val posterPath: String get() = this@toMovieBaseSimilarItem.posterPath.orEmpty()
-    override val titleText: String get() = this@toMovieBaseSimilarItem.title
-    override val releaseDateText: String get() = this@toMovieBaseSimilarItem.releaseDate
+    override val titleText: String get() = this@toMovieBaseSimilarItem.title.orEmpty()
+    override val releaseDateText: String get() = this@toMovieBaseSimilarItem.releaseDate.orEmpty()
 }
 
 fun TvShowsSimilarResultsItem.toTvShowSimilarItem(): BaseSimilarItem = object : BaseSimilarItem {
     override val id: Int get() = this@toTvShowSimilarItem.id
     override val posterPath: String? get() = this@toTvShowSimilarItem.posterPath
-    override val titleText: String get() = this@toTvShowSimilarItem.originalName
-    override val releaseDateText: String get() = this@toTvShowSimilarItem.firstAirDate
+    override val titleText: String get() = this@toTvShowSimilarItem.originalName.orEmpty()
+    override val releaseDateText: String get() = this@toTvShowSimilarItem.firstAirDate.orEmpty()
 }

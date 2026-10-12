@@ -11,6 +11,7 @@ import com.taufik.themovieshow.databinding.ItemSimilarMovieAndCastBinding
 import com.taufik.themovieshow.utils.extensions.applyMiddleMargins
 import com.taufik.themovieshow.utils.extensions.convertDpToPx
 import com.taufik.themovieshow.utils.extensions.loadImage
+import com.taufik.themovieshow.utils.extensions.orNA
 
 class MovieTvShowCastAdapter : ListAdapter<BaseCastItem, MovieTvShowCastAdapter.CastViewHolder>(DIFF_CALLBACK) {
 
@@ -34,11 +35,11 @@ class MovieTvShowCastAdapter : ListAdapter<BaseCastItem, MovieTvShowCastAdapter.
             binding.apply {
                 imgPoster.loadImage(data.profilePath)
                 tvMovieOrCastName.text = if (data.character.isNotEmpty()) {
-                    root.context.getString(R.string.tvNameCharacter, data.name, data.character)
+                    root.context.getString(R.string.tvNameCharacter, data.name.orNA(root.context), data.character)
                 } else {
                     root.context.getString(
                         R.string.tvNameCharacter,
-                        data.name,
+                        data.name.orNA(root.context),
                         root.context.getString(R.string.tvNA)
                     )
                 }
