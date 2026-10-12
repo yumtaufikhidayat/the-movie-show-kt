@@ -129,7 +129,6 @@ dependencies {
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.constraintlayout)
-    implementation(libs.legacy.support)
 
     // Glide
     implementation(libs.glide)
@@ -149,7 +148,6 @@ dependencies {
     androidTestImplementation(libs.androidx.runner)
     androidTestImplementation(libs.androidx.rules)
     testImplementation(libs.androidx.core.testing)
-    testImplementation(libs.mockito.inline)
 
     // Justified text view
     implementation(libs.justifiedtextview)
