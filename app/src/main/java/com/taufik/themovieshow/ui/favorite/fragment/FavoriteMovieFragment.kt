@@ -130,7 +130,7 @@ class FavoriteMovieFragment : BaseFragment<FragmentFavoriteMovieBinding>() {
             })
 
             addTextChangedListener(afterTextChanged = { p0 ->
-                favoriteMovieAdapter.filter.filter(p0.toString())
+                favoriteMovieAdapter.search(p0.toString())
             })
         }
     }

@@ -24,10 +24,17 @@ class FavoriteTvShowsAdapter(
 ), Filterable {
 
     private var listTvShows = listOf<TvShowsMainResult>()
+    private var query: CharSequence = ""
 
+    // Re-apply the current query, otherwise new data from Room replaces the filtered list.
     fun setData(list: List<TvShowsMainResult>) {
         this.listTvShows = list
-        submitList(list)
+        filter.filter(query)
+    }
+
+    fun search(query: CharSequence) {
+        this.query = query
+        filter.filter(query)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TvShowsViewHolder {

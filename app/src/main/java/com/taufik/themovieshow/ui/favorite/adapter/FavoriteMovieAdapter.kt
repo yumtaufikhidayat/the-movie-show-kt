@@ -24,10 +24,17 @@ class FavoriteMovieAdapter(
 ), Filterable {
 
     private var listMovies = listOf<MovieMainResult>()
+    private var query: CharSequence = ""
 
+    // Re-apply the current query, otherwise new data from Room replaces the filtered list.
     fun setData(list: List<MovieMainResult>) {
         this.listMovies = list
-        submitList(list)
+        filter.filter(query)
+    }
+
+    fun search(query: CharSequence) {
+        this.query = query
+        filter.filter(query)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
