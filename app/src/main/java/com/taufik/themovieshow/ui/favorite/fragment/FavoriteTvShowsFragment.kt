@@ -133,7 +133,7 @@ class FavoriteTvShowsFragment : BaseFragment<FragmentFavoriteTvShowsBinding>() {
             })
 
             addTextChangedListener(afterTextChanged = { p0 ->
-                favoriteTvShowsAdapter.filter.filter(p0.toString())
+                favoriteTvShowsAdapter.search(p0.toString())
             })
         }
     }
