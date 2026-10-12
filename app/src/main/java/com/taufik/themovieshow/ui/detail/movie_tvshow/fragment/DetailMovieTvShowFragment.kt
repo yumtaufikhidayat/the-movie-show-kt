@@ -193,7 +193,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                             onSuccess = { response ->
                                 showShimmer(isLoading = false, type = DetailTypeEnum.OVERVIEW)
 
-                                val hasOverview = response.overview.isNotEmpty()
+                                val hasOverview = !response.overview.isNullOrEmpty()
                                 updateDetailInformationState(
                                     isLoading = false,
                                     isShowEmpty = !hasOverview
@@ -229,7 +229,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                             onSuccess = { response ->
                                 showShimmer(isLoading = false, type = DetailTypeEnum.OVERVIEW)
 
-                                val hasOverview = response.overview.isNotEmpty()
+                                val hasOverview = !response.overview.isNullOrEmpty()
                                 updateDetailInformationState(
                                     isLoading = false,
                                     isShowEmpty = !hasOverview
@@ -351,18 +351,13 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                         context?.setTextColor(R.color.colorTextOther)
                     }
 
+                    val network = tvShow.networks?.firstOrNull()
                     val networkText = when {
-                        tvShow.networks.isEmpty() -> getString(R.string.tvNA)
-                        tvShow.networks.first().originCountry.isEmpty() -> getString(
-                            R.string.tvNetworkDesc,
-                            tvShow.networks.first().name,
-                            getString(R.string.tvNA)
-                        )
-
+                        network == null -> getString(R.string.tvNA)
                         else -> getString(
                             R.string.tvNetworkDesc,
-                            tvShow.networks.first().name,
-                            tvShow.networks.first().originCountry
+                            network.name.orNA(requireContext()),
+                            network.originCountry.orNA(requireContext())
                         )
                     }
                     tvNetwork.text = networkText
@@ -551,7 +546,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                             },
                             onSuccess = { response ->
 
-                                val results = response.cast
+                                val results = response.cast.orEmpty()
                                 val isResultsEmpty = results.isEmpty()
 
                                 showShimmer(isLoading = false, type = DetailTypeEnum.CAST)
@@ -562,7 +557,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
 
                                 val mappedList =
                                     if (isResultsEmpty) emptyList()
-                                    else response.cast.map { it.toCastItem() }
+                                    else results.map { it.toCastItem() }
                                 castAdapter.submitList(mappedList)
 
                                 showTrailerVideoObserver(id)
@@ -588,7 +583,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                                 updateCastSectionState(isLoading = true)
                             },
                             onSuccess = { response ->
-                                val results = response.cast
+                                val results = response.cast.orEmpty()
                                 val isResultsEmpty = results.isEmpty()
 
                                 showShimmer(isLoading = false, type = DetailTypeEnum.CAST)
@@ -599,7 +594,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
 
                                 val mappedList =
                                     if (isResultsEmpty) emptyList()
-                                    else response.cast.map { it.toCastItem() }
+                                    else results.map { it.toCastItem() }
                                 castAdapter.submitList(mappedList)
 
                                 showTrailerVideoObserver(id)
@@ -650,7 +645,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                                 updateTrailerVideoSectionState(isLoading = true)
                             },
                             onSuccess = { response ->
-                                val results = response.results
+                                val results = response.results.orEmpty().filterNot { it.key.isNullOrBlank() }
                                 val isEmptyResult = results.isEmpty()
 
                                 showShimmer(isLoading = false, type = DetailTypeEnum.TRAILER_VIDEO)
@@ -690,7 +685,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                                 updateTrailerVideoSectionState(isLoading = true)
                             },
                             onSuccess = { response ->
-                                val results = response.results
+                                val results = response.results.orEmpty().filterNot { it.key.isNullOrBlank() }
                                 val isEmptyResult = results.isEmpty()
 
                                 showShimmer(isLoading = false, type = DetailTypeEnum.TRAILER_VIDEO)
@@ -753,7 +748,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                                 updateReviewsSectionState(isLoading = true)
                             },
                             onSuccess = { response ->
-                                val results = response.results
+                                val results = response.results.orEmpty()
                                 val isResultsEmpty = results.isEmpty()
 
                                 showShimmer(isLoading = false, type = DetailTypeEnum.REVIEWS)
@@ -789,7 +784,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                                 updateReviewsSectionState(isLoading = true)
                             },
                             onSuccess = { response ->
-                                val results = response.results
+                                val results = response.results.orEmpty()
                                 val isResultsEmpty = results.isEmpty()
 
                                 showShimmer(isLoading = false, type = DetailTypeEnum.REVIEWS)
@@ -850,7 +845,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                                 updateSimilarSectionState(isLoading = true)
                             },
                             onSuccess = { response ->
-                                val results = response.results
+                                val results = response.results.orEmpty()
                                 val isResultsEmpty = results.isEmpty()
 
                                 showShimmer(isLoading = false, type = DetailTypeEnum.SIMILAR)
@@ -885,7 +880,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                                 updateSimilarSectionState(isLoading = true)
                             },
                             onSuccess = { response ->
-                                val results = response.results
+                                val results = response.results.orEmpty()
                                 val isResultsEmpty = results.isEmpty()
 
                                 showShimmer(isLoading = false, type = DetailTypeEnum.SIMILAR)

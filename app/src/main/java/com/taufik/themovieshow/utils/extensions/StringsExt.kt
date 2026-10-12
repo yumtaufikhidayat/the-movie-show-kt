@@ -24,4 +24,4 @@ fun String.convertDate(inputFormats: List<String>, outputFormat: String): String
     return SimpleDateFormat(outputFormat, Locale.US).format(date)
 }
 
-fun String.orNA(context: Context): String = this.ifBlank { context.getString(R.string.tvNA) }
+fun String?.orNA(context: Context): String = if (this.isNullOrBlank()) context.getString(R.string.tvNA) else this

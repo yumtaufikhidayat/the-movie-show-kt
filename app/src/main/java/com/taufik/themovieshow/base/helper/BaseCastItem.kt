@@ -12,14 +12,14 @@ interface BaseCastItem {
 
 fun MovieCast.toCastItem(): BaseCastItem = object : BaseCastItem {
     override val id = this@toCastItem.id
-    override val name = this@toCastItem.name
-    override val character = this@toCastItem.character
+    override val name = this@toCastItem.name.orEmpty()
+    override val character = this@toCastItem.character.orEmpty()
     override val profilePath = this@toCastItem.profilePath
 }
 
 fun TvShowsCast.toCastItem(): BaseCastItem = object : BaseCastItem {
     override val id = this@toCastItem.id
-    override val name = this@toCastItem.name
-    override val character = this@toCastItem.character
+    override val name = this@toCastItem.name.orEmpty()
+    override val character = this@toCastItem.character.orEmpty()
     override val profilePath = this@toCastItem.profilePath
 }
