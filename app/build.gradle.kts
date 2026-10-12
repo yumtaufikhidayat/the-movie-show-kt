@@ -178,8 +178,9 @@ dependencies {
     ksp(libs.hilt.compiler)
 
     // Firebase
-    implementation(libs.firebase.crashlytics.ktx)
-    implementation(libs.firebase.analytics.ktx)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.crashlytics)
+    implementation(libs.firebase.analytics)
 
     // Lottie
     implementation(libs.lottie)
