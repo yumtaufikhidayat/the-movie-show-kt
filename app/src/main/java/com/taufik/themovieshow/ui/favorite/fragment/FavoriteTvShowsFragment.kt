@@ -43,7 +43,7 @@ class FavoriteTvShowsFragment : BaseFragment<FragmentFavoriteTvShowsBinding>() {
         FavoriteTvShowsAdapter {
             detailMovieTvShowViewModel.apply {
                 idMovieTvShow = it.id
-                titleMovieTvShow = it.name
+                titleMovieTvShow = it.name.orEmpty()
             }
             navigateToDetailMovieTvShow(
                 detailMovieTvShowViewModel.idMovieTvShow,

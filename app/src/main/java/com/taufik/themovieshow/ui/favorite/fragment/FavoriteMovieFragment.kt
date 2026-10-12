@@ -42,7 +42,7 @@ class FavoriteMovieFragment : BaseFragment<FragmentFavoriteMovieBinding>() {
     private val favoriteMovieAdapter by lazy { FavoriteMovieAdapter {
         detailMovieTvShowViewModel.apply {
             idMovieTvShow = it.id
-            titleMovieTvShow = it.title
+            titleMovieTvShow = it.title.orEmpty()
         }
         navigateToDetailMovieTvShow(
             detailMovieTvShowViewModel.idMovieTvShow,

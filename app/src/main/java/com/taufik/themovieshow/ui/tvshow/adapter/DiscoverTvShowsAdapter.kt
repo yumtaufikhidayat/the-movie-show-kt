@@ -10,6 +10,7 @@ import com.taufik.themovieshow.databinding.ItemsMoviesTvShowBinding
 import com.taufik.themovieshow.model.response.tvshow.discover.DiscoverTvShowsResult
 import com.taufik.themovieshow.utils.extensions.convertDate
 import com.taufik.themovieshow.utils.extensions.loadImage
+import com.taufik.themovieshow.utils.extensions.orNA
 import com.taufik.themovieshow.utils.extensions.toRating
 import com.taufik.themovieshow.utils.objects.CommonDateFormatConstants.EEE_D_MMM_YYYY_FORMAT
 import com.taufik.themovieshow.utils.objects.CommonDateFormatConstants.YYYY_MM_DD_FORMAT
@@ -34,7 +35,7 @@ class DiscoverTvShowsAdapter(
         fun bind(data: DiscoverTvShowsResult) {
             binding.apply {
                 imgPoster.loadImage(data.posterPath)
-                tvTitle.text = data.name
+                tvTitle.text = data.name.orNA(root.context)
                 tvReleaseDate.text =
                     data.firstAirDate?.convertDate(YYYY_MM_DD_FORMAT, EEE_D_MMM_YYYY_FORMAT)
                         ?: root.context.getString(R.string.tvNA)
