@@ -2,21 +2,21 @@
 # Android Core & Compatibility
 android-gradle-plugin = "9.4.1"
 kotlin = "2.4.21"
-core-ktx = "1.17.0"
-appcompat = "1.7.1"
-constraintlayout = "2.2.1"
-fragment-ktx = "1.8.9"
-material = "1.13.0"
+core-ktx = "1.19.1"
+appcompat = "1.8.0"
+constraintlayout = "2.2.2"
+fragment-ktx = "1.9.1"
+material = "1.14.0"
 preference = "1.2.1"
 flexbox = "3.0.0"
 
 # Jetpack Components
-lifecycle-ktx = "2.9.4"
+lifecycle-ktx = "2.11.0"
 navigation = "2.10.2"
-nav-ktx = "2.9.5"
-datastore = "1.1.7"
-datastorePreferences = "1.1.7"
-room = "2.8.2"
+nav-ktx = "2.10.2"
+datastore = "1.2.1"
+datastorePreferences = "1.2.1"
+room = "2.8.5"
 
 # Dependency Injection
 hilt = "2.60.1"
@@ -28,7 +28,7 @@ okhttp = "5.2.1"
 
 # Database & Encryption
 sql-cipher = "4.11.0"
-sqlite = "2.6.1"
+sqlite = "2.7.1"
 
 # Asynchronous & Coroutines
 coroutines-core = "1.11.0"
@@ -56,8 +56,8 @@ chucker = "4.2.0"
 shimmerLayout = "0.5.0"
 
 # Compose
-compose-bom = "2025.10.00"
-activity-compose = "1.11.0"
+compose-bom = "2026.09.00"
+activity-compose = "1.13.0"
 
 [libraries]
 # Android Core & Compatibility
