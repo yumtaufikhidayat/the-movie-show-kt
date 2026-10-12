@@ -155,9 +155,7 @@ dependencies {
     implementation(libs.justifiedtextview)
 
     // View Model
-    implementation(libs.lifecycle.extensions)
     implementation(libs.lifecycle.viewmodel.ktx)
-    implementation(libs.androidx.lifecycle.livedata.ktx)
 
     // Network
     implementation(libs.retrofit)

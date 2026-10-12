@@ -13,7 +13,6 @@ flexbox = "3.0.0"
 
 # Jetpack Components
 lifecycle-ktx = "2.9.4"
-lifecycle-ext = "2.2.0"
 navigation = "2.9.5"
 nav-ktx = "2.9.5"
 datastore = "1.1.7"
@@ -76,8 +75,6 @@ flexbox = { module = "com.google.android.flexbox:flexbox", version.ref = "flexbo
 
 # Jetpack Components
 lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle-ktx" }
-lifecycle-extensions = { group = "androidx.lifecycle", name = "lifecycle-extensions", version.ref = "lifecycle-ext" }
-androidx-lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycle-ktx" }
 nav-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "nav-ktx" }
 nav-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "nav-ktx" }
 navigation-safe-args = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navigation" }
