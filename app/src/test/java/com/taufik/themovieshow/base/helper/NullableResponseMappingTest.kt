@@ -116,6 +116,16 @@ class NullableResponseMappingTest {
 
         assertEquals("Dean", review.author)
         assertNull(review.authorAvatar)
+        assertEquals("", review.authorRating)
+    }
+
+    @Test
+    fun `review rating keeps the value sent by TMDB`() {
+        val rated = parse<ReviewsResult>("""{"author_details": {"rating": 8.0}}""").toBaseReviewItem()
+        assertEquals("8.0", rated.authorRating)
+
+        val zero = parse<ReviewsResult>("""{"author_details": {"rating": 0.0}}""").toBaseReviewItem()
+        assertEquals("0.0", zero.authorRating)
     }
 
     @Test
