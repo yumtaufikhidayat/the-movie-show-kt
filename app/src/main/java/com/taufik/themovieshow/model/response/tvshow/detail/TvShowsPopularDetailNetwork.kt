@@ -7,9 +7,9 @@ data class TvShowsPopularDetailNetwork(
     @SerializedName("id")
     val id: Int,
     @SerializedName("logo_path")
-    val logoPath: String,
+    val logoPath: String?,
     @SerializedName("name")
-    val name: String,
+    val name: String?,
     @SerializedName("origin_country")
-    val originCountry: String
+    val originCountry: String?
 )
