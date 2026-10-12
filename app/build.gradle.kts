@@ -3,15 +3,13 @@ import java.util.Date
 
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.navigation.safe.args)
     alias(libs.plugins.hilt)
     alias(libs.plugins.google.services)
     alias(libs.plugins.firebase.crashlytics)
     alias(libs.plugins.ksp)
-    id("kotlin-parcelize")
-    id("org.jetbrains.kotlin.plugin.compose")
+    alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.kotlin.compose)
 }
 
 val enableChuckerDev = project.findProperty("enableChuckerDev") == "true"
@@ -22,18 +20,12 @@ fun getStringProp(key: String, fallback: String? = null, message: String = ""): 
 
 android {
     namespace = "com.taufik.themovieshow"
-    compileSdk = 36
-
-    // APK Name
-    applicationVariants.all {
-        val timestamp = SimpleDateFormat("yyyyMMddHHmm").format(Date())
-        setProperty("archivesBaseName", "TheMovieShow-v${versionName}(${versionCode})-${timestamp}")
-    }
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "com.taufik.themovieshow"
         minSdk = 30
-        targetSdk = 36
+        targetSdk = 37
         versionCode = 1320
         versionName = "1.32.0"
 
@@ -110,14 +102,17 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = "17"
-    }
     buildFeatures {
         viewBinding = true
         buildConfig = true
         compose = true
     }
+}
+
+// APK Name
+base {
+    val timestamp = SimpleDateFormat("yyyyMMddHHmm").format(Date())
+    archivesName = "TheMovieShow-v${android.defaultConfig.versionName}(${android.defaultConfig.versionCode})-${timestamp}"
 }
 
 dependencies {
@@ -129,7 +124,6 @@ dependencies {
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.constraintlayout)
-    implementation(libs.legacy.support)
 
     // Glide
     implementation(libs.glide)
@@ -149,7 +143,6 @@ dependencies {
     androidTestImplementation(libs.androidx.runner)
     androidTestImplementation(libs.androidx.rules)
     testImplementation(libs.androidx.core.testing)
-    testImplementation(libs.mockito.inline)
 
     // Justified text view
     implementation(libs.justifiedtextview)
@@ -182,11 +175,12 @@ dependencies {
 
     // Hilt
     implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
+    ksp(libs.hilt.compiler)
 
     // Firebase
-    implementation(libs.firebase.crashlytics.ktx)
-    implementation(libs.firebase.analytics.ktx)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.crashlytics)
+    implementation(libs.firebase.analytics)
 
     // Lottie
     implementation(libs.lottie)
@@ -213,8 +207,4 @@ dependencies {
     implementation(libs.compose.material3)
     implementation(libs.compose.activity)
     debugImplementation(libs.compose.ui.tooling)
-}
-
-kapt {
-    correctErrorTypes = true
 }
