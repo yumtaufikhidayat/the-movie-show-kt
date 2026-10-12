@@ -4,21 +4,21 @@ import com.google.gson.annotations.SerializedName
 
 data class ReleaseDatesResponse(
     @SerializedName("results")
-    val results: List<CountryReleaseDates>
+    val results: List<CountryReleaseDates>?
 )
 
 data class CountryReleaseDates(
     @SerializedName("iso_3166_1")
-    val iso3166_1: String,
+    val iso3166_1: String?,
     @SerializedName("release_dates")
-    val releaseDates: List<CertificationInfo>
+    val releaseDates: List<CertificationInfo>?
 )
 
 data class CertificationInfo(
     @SerializedName("certification")
-    val certification: String,
+    val certification: String?,
     @SerializedName("release_date")
-    val releaseDate: String,
+    val releaseDate: String?,
     @SerializedName("type")
     val type: Int,
     @SerializedName("note")
