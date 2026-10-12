@@ -1,11 +1,11 @@
 package com.taufik.themovieshow.utils.extensions
 
 import android.graphics.Typeface
+import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
-import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
@@ -21,11 +21,11 @@ import com.taufik.themovieshow.ui.detail.movie_tvshow.fragment.DetailMovieTvShow
 import com.taufik.themovieshow.utils.enums.FROM
 
 fun Fragment.navigateToDetailMovieTvShow(id: Int, title: String, from: FROM) {
-    val bundle = bundleOf(
-        DetailMovieTvShowBindingFragment.EXTRA_ID to id,
-        DetailMovieTvShowBindingFragment.EXTRA_TITLE to title,
-        DetailMovieTvShowBindingFragment.EXTRA_FROM to from.name
-    )
+    val bundle = Bundle().apply {
+        putInt(DetailMovieTvShowBindingFragment.EXTRA_ID, id)
+        putString(DetailMovieTvShowBindingFragment.EXTRA_TITLE, title)
+        putString(DetailMovieTvShowBindingFragment.EXTRA_FROM, from.name)
+    }
     this.findNavController().navigate(
         R.id.detailMovieTvShowFragment,
         bundle,
