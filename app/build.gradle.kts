@@ -20,7 +20,7 @@ fun getStringProp(key: String, fallback: String? = null, message: String = ""): 
 
 android {
     namespace = "com.taufik.themovieshow"
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "com.taufik.themovieshow"
