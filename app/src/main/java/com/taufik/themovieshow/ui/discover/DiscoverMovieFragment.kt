@@ -1,15 +1,15 @@
 package com.taufik.themovieshow.ui.discover
 
-import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -133,8 +133,8 @@ class DiscoverMovieFragment : BaseFragment<FragmentDiscoverMovieBinding>() {
     private fun showKeyboard() {
         binding.toolbarSearchMovie.apply {
             etSearch.requestFocus()
-            val imm = requireActivity().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.showSoftInput(etSearch, InputMethodManager.SHOW_IMPLICIT)
+            WindowCompat.getInsetsController(requireActivity().window, etSearch)
+                .show(WindowInsetsCompat.Type.ime())
         }
     }
 
@@ -142,8 +142,8 @@ class DiscoverMovieFragment : BaseFragment<FragmentDiscoverMovieBinding>() {
         binding.apply {
             toolbarSearchMovie.apply {
                 etSearch.clearFocus()
-                val imm = requireActivity().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(etSearch.windowToken, 0)
+                WindowCompat.getInsetsController(requireActivity().window, etSearch)
+                    .hide(WindowInsetsCompat.Type.ime())
             }
         }
     }

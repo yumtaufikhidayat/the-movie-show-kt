@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -94,10 +93,10 @@ class LanguageBottomSheetDialog : BottomSheetDialogFragment() {
             selectedLangCode: String
         ): LanguageBottomSheetDialog {
             return LanguageBottomSheetDialog().apply {
-                arguments = bundleOf(
-                    ARG_LANGUAGE_LIST to ArrayList(languageList),
-                    ARG_SELECTED_LANG_CODE to selectedLangCode
-                )
+                arguments = Bundle().apply {
+                    putParcelableArrayList(ARG_LANGUAGE_LIST, ArrayList(languageList))
+                    putString(ARG_SELECTED_LANG_CODE, selectedLangCode)
+                }
             }
         }
     }
