@@ -3,7 +3,7 @@ package com.taufik.themovieshow.ui.tvshow.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.taufik.themovieshow.data.NetworkResult
-import com.taufik.themovieshow.data.repository.TheMovieShowRepository
+import com.taufik.themovieshow.data.repository.ITheMovieShowRepository
 import com.taufik.themovieshow.model.response.tvshow.popularairingtoday.TvShowsMainResponse
 import com.taufik.themovieshow.model.response.tvshow.trending.TvShowsTrendingResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
-class TvShowsViewModel @Inject constructor(private val repository: TheMovieShowRepository) : ViewModel() {
+class TvShowsViewModel @Inject constructor(private val repository: ITheMovieShowRepository) : ViewModel() {
 
     fun getTvShowsAiringToday() : StateFlow<NetworkResult<TvShowsMainResponse>> =
         repository.getTvShowsAiringToday().stateIn(
