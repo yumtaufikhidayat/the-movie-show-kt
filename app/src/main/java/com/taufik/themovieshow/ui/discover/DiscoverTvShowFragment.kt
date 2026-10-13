@@ -1,8 +1,6 @@
 package com.taufik.themovieshow.ui.discover
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
@@ -11,7 +9,11 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.taufik.themovieshow.R
@@ -20,16 +22,16 @@ import com.taufik.themovieshow.databinding.FragmentDiscoverTvShowBinding
 import com.taufik.themovieshow.model.response.tvshow.discover.DiscoverTvShowsResult
 import com.taufik.themovieshow.ui.detail.movie_tvshow.viewmodel.DetailMovieTvShowViewModel
 import com.taufik.themovieshow.ui.tvshow.adapter.DiscoverTvShowsAdapter
-import com.taufik.themovieshow.ui.tvshow.viewmodel.TvShowsViewModel
 import com.taufik.themovieshow.utils.enums.FROM
 import com.taufik.themovieshow.utils.extensions.navigateToDetailMovieTvShow
-import com.taufik.themovieshow.utils.extensions.observeNetworkResult
+import com.taufik.themovieshow.utils.extensions.showError
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class DiscoverTvShowFragment : BaseFragment<FragmentDiscoverTvShowBinding>() {
 
-    private val viewModel by viewModels<TvShowsViewModel>()
+    private val viewModel by viewModels<DiscoverTvShowViewModel>()
     private val detailMovieTvShowViewModel by viewModels<DetailMovieTvShowViewModel>()
     private var discoverTvShowsAdapter: DiscoverTvShowsAdapter? = null
 
@@ -42,6 +44,7 @@ class DiscoverTvShowFragment : BaseFragment<FragmentDiscoverTvShowBinding>() {
         initToolbar()
         initAdapter()
         initSearch()
+        observeSearch()
     }
 
     private fun initToolbar() {
@@ -71,62 +74,57 @@ class DiscoverTvShowFragment : BaseFragment<FragmentDiscoverTvShowBinding>() {
     }
 
     private fun initSearch() {
-        binding.apply {
-            showNoSearch(
-                title = getString(R.string.tvNoSearchTvShow),
-                description = getString(R.string.tvSearchTvShow)
-            )
+        binding.toolbarSearchTvShow.etSearch.apply {
+            showKeyboard()
+            setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, _ ->
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    viewModel.searchNow()
+                    hideKeyboard()
+                    return@OnEditorActionListener true
+                }
+                false
+            })
 
-            toolbarSearchTvShow.etSearch.apply {
-                showKeyboard()
-                setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, _ ->
-                    if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                        hideKeyboard()
-                        return@OnEditorActionListener true
-                    }
-                    false
-                })
+            doAfterTextChanged { viewModel.onQueryChanged(it.toString()) }
+        }
+    }
 
-                addTextChangedListener(object : TextWatcher {
-                    override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                        // no action before text changed
-                    }
-
-                    override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                        showNoResults(true, emptyList(), p0.toString())
-                    }
-
-                    override fun afterTextChanged(p0: Editable?) {
-                        showSearchData(p0)
-                    }
-                })
+    private fun observeSearch() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.searchState.collect(::render)
             }
         }
     }
 
-    private fun showSearchData(p0: Editable?) {
-        viewModel.apply {
-            val query = p0.toString()
-            viewModel.getDiscoverTvShows(query).observeNetworkResult(
-                lifecycleOwner = viewLifecycleOwner,
-                onLoading = {
-                    showNoResults(false, emptyList(), query)
-                },
-                onSuccess = { response ->
-                    val results = response.results.orEmpty()
-                    when {
-                        results.isEmpty() -> showNoResults(true, results, query)
-                        query.isNotEmpty() -> {
-                            discoverTvShowsAdapter?.submitList(results)
-                            showNoResults(false, results, query)
-                        }
-                        else -> showNoResults(true, emptyList(), query)
-                    }
-                },
-                onError = {
-                    showNoResults(false, emptyList(), query)
+    private fun render(state: SearchUiState<DiscoverTvShowsResult>) {
+        binding.apply {
+            pbLoading.isVisible = state is SearchUiState.Loading
+            rvDiscoverTvShow.isVisible = state !is SearchUiState.Error
+            layoutError.root.isVisible = state is SearchUiState.Error
+            layoutNoSearch.root.isVisible = state is SearchUiState.Idle || state is SearchUiState.Empty
+
+            when (state) {
+                SearchUiState.Idle -> {
+                    discoverTvShowsAdapter?.submitList(emptyList())
+                    showNoSearch(
+                        title = getString(R.string.tvNoSearchTvShow),
+                        description = getString(R.string.tvSearchTvShow)
+                    )
                 }
-            )
+                SearchUiState.Loading -> Unit
+                is SearchUiState.Success -> discoverTvShowsAdapter?.submitList(state.items)
+                SearchUiState.Empty -> {
+                    discoverTvShowsAdapter?.submitList(emptyList())
+                    showNoSearch(
+                        title = getString(R.string.tvOopsNoResults),
+                        description = getString(R.string.tvNoSearchData)
+                    )
+                }
+                is SearchUiState.Error -> layoutError.showError(requireContext(), state.message) {
+                    viewModel.searchNow()
+                }
+            }
         }
     }
 
@@ -144,32 +142,6 @@ class DiscoverTvShowFragment : BaseFragment<FragmentDiscoverTvShowBinding>() {
                 etSearch.clearFocus()
                 WindowCompat.getInsetsController(requireActivity().window, etSearch)
                     .hide(WindowInsetsCompat.Type.ime())
-            }
-        }
-    }
-
-    private fun showNoResults(isShow: Boolean, list: List<DiscoverTvShowsResult>?, query: String) {
-        binding.apply {
-            var textSearchTitle = ""
-            var textSearch = ""
-            if (isShow) {
-                when {
-                    query.isEmpty() || query.isBlank() -> {
-                        textSearchTitle = getString(R.string.tvNoSearchTvShow)
-                        textSearch = getString(R.string.tvSearchTvShow)
-                    }
-                    list?.isEmpty() == true -> {
-                        textSearchTitle = getString(R.string.tvOopsNoResults)
-                        textSearch = getString(R.string.tvNoSearchData)
-                    }
-                }
-                discoverTvShowsAdapter?.submitList(list)
-                showNoSearch(
-                    title = textSearchTitle,
-                    description = textSearch
-                )
-            } else {
-                layoutNoSearch.root.isVisible = false
             }
         }
     }

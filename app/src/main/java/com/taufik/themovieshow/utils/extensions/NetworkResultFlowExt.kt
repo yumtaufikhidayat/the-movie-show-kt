@@ -44,15 +44,19 @@ fun <T> Flow<NetworkResult<T>>.observeNetworkResult(
                     }
                     is NetworkResult.Error -> {
                         val errorMessage = response.message.orEmpty()
-                        FirebaseCrashlytics.getInstance().apply {
-                            log(errorMessage)
-                            setCustomKey("error_message", errorMessage)
-                            recordException(RuntimeException("NetworkResult.Error: $errorMessage"))
-                        }
+                        recordNetworkError(errorMessage)
                         onError?.invoke(errorMessage)
                     }
                 }
             }
         }
+    }
+}
+
+fun recordNetworkError(errorMessage: String) {
+    FirebaseCrashlytics.getInstance().apply {
+        log(errorMessage)
+        setCustomKey("error_message", errorMessage)
+        recordException(RuntimeException("NetworkResult.Error: $errorMessage"))
     }
 }
