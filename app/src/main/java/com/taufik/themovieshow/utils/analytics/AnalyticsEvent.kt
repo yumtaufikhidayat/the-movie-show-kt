@@ -50,10 +50,13 @@ sealed class AnalyticsEvent(val name: String, val params: Map<String, String> = 
         contentType(from) + (FirebaseAnalytics.Param.SEARCH_TERM to term.limit())
     )
 
-    class RetryClick(screenName: String) : AnalyticsEvent(
-        "retry_click",
-        mapOf(FirebaseAnalytics.Param.SCREEN_NAME to screenName)
-    )
+    class RetryClick private constructor(params: Map<String, String>) : AnalyticsEvent("retry_click", params) {
+
+        constructor(screenName: String, section: String) : this(retry(screenName, section))
+
+        constructor(screenName: String, section: String, id: Int, from: FROM) :
+            this(retry(screenName, section) + content(id, from))
+    }
 
     class TabSelect(tab: String) : AnalyticsEvent("tab_select", mapOf(PARAM_TAB to tab))
 
@@ -85,6 +88,7 @@ sealed class AnalyticsEvent(val name: String, val params: Map<String, String> = 
         const val PARAM_SORT_TYPE = "sort_type"
         const val PARAM_LANGUAGE = "language"
         const val PARAM_ITEM = "item"
+        const val PARAM_SECTION = "section"
 
         // Firebase limits event parameter values to 100 characters.
         private const val MAX_PARAM_VALUE_LENGTH = 100
@@ -94,6 +98,11 @@ sealed class AnalyticsEvent(val name: String, val params: Map<String, String> = 
         private fun contentType(from: FROM) = mapOf(FirebaseAnalytics.Param.CONTENT_TYPE to from.name.lowercase())
 
         private fun content(id: Int, from: FROM) = contentType(from) + (FirebaseAnalytics.Param.ITEM_ID to id.toString())
+
+        private fun retry(screenName: String, section: String) = mapOf(
+            FirebaseAnalytics.Param.SCREEN_NAME to screenName,
+            PARAM_SECTION to section
+        )
 
         private fun sortType(sortId: Int) = when (sortId) {
             0 -> "all"

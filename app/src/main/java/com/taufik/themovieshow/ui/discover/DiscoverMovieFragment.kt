@@ -130,7 +130,7 @@ class DiscoverMovieFragment : BaseFragment<FragmentDiscoverMovieBinding>() {
                     )
                 }
                 is SearchUiState.Error -> layoutError.showError(requireContext(), state.message) {
-                    analyticsTracker.log(AnalyticsEvent.RetryClick(resources.getResourceEntryName(R.id.discoverMovieFragment)))
+                    analyticsTracker.log(AnalyticsEvent.RetryClick(resources.getResourceEntryName(R.id.discoverMovieFragment), section = "search"))
                     viewModel.searchNow()
                 }
             }

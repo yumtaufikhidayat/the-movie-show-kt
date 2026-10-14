@@ -130,7 +130,7 @@ class DiscoverTvShowFragment : BaseFragment<FragmentDiscoverTvShowBinding>() {
                     )
                 }
                 is SearchUiState.Error -> layoutError.showError(requireContext(), state.message) {
-                    analyticsTracker.log(AnalyticsEvent.RetryClick(resources.getResourceEntryName(R.id.discoverTvShowFragment)))
+                    analyticsTracker.log(AnalyticsEvent.RetryClick(resources.getResourceEntryName(R.id.discoverTvShowFragment), section = "search"))
                     viewModel.searchNow()
                 }
             }
