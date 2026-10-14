@@ -20,15 +20,21 @@ import com.taufik.themovieshow.model.response.about.AboutAction
 import com.taufik.themovieshow.ui.about.adapter.AboutParentAdapter
 import com.taufik.themovieshow.ui.about.viewmodel.AboutViewModel
 import com.taufik.themovieshow.ui.language.bottomsheet.LanguageBottomSheetDialog
+import com.taufik.themovieshow.utils.analytics.AnalyticsEvent
+import com.taufik.themovieshow.utils.analytics.AnalyticsTracker
 import com.taufik.themovieshow.utils.extensions.refreshActivity
 import com.taufik.themovieshow.utils.extensions.showSuccessToastyIcon
 import com.taufik.themovieshow.utils.language.LANGUAGE
 import com.taufik.themovieshow.utils.objects.CommonConstants
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class AboutFragment : BaseFragment<FragmentAboutBinding>() {
+
+    @Inject
+    lateinit var analyticsTracker: AnalyticsTracker
 
     private val viewModel: AboutViewModel by viewModels()
     private var aboutParentAdapter: AboutParentAdapter? = null
@@ -59,6 +65,7 @@ class AboutFragment : BaseFragment<FragmentAboutBinding>() {
 
     private fun setupRecyclerView() {
         aboutParentAdapter = AboutParentAdapter { about ->
+            about.id.analyticsName?.let { analyticsTracker.log(AnalyticsEvent.AboutItemClick(it)) }
             when (about.id) {
                 AboutAction.LinkedIn -> openUrl(CommonConstants.LINKEDIN_URL_LINK)
                 AboutAction.GitHub -> openUrl(CommonConstants.GITHUB_URL_LINK)
@@ -77,6 +84,17 @@ class AboutFragment : BaseFragment<FragmentAboutBinding>() {
 
         aboutParentAdapter?.submitList(viewModel.getAboutData(requireContext()))
     }
+
+    // Explicit names, because R8 renames the AboutAction classes.
+    private val AboutAction.analyticsName: String?
+        get() = when (this) {
+            AboutAction.LinkedIn -> "linkedin"
+            AboutAction.GitHub -> "github"
+            AboutAction.Email -> "email"
+            AboutAction.GooglePlay -> "google_play"
+            AboutAction.LanguageSetting -> "language_setting"
+            AboutAction.NoOp -> null
+        }
 
     private fun showLanguageOptions() {
         viewLifecycleOwner.lifecycleScope.launch {
