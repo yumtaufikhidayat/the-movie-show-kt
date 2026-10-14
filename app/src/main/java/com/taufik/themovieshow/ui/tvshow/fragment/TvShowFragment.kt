@@ -10,11 +10,18 @@ import com.taufik.themovieshow.R
 import com.taufik.themovieshow.base.fragment.BaseFragment
 import com.taufik.themovieshow.databinding.FragmentTvShowBinding
 import com.taufik.themovieshow.ui.tablayout.MovieTvShowTabViewModel
+import com.taufik.themovieshow.utils.analytics.AnalyticsEvent
+import com.taufik.themovieshow.utils.analytics.AnalyticsTracker
+import com.taufik.themovieshow.utils.enums.FROM
 import com.taufik.themovieshow.utils.extensions.setupTabLayoutBinding
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class TvShowFragment : BaseFragment<FragmentTvShowBinding>() {
+
+    @Inject
+    lateinit var analyticsTracker: AnalyticsTracker
 
     private val movieTvShowTabViewModel: MovieTvShowTabViewModel by viewModels()
 
@@ -54,6 +61,7 @@ class TvShowFragment : BaseFragment<FragmentTvShowBinding>() {
 
     private fun setActionClick() {
         binding.fabTvShow.setOnClickListener {
+            analyticsTracker.log(AnalyticsEvent.OpenSearch(FROM.TV_SHOW))
             findNavController().navigate(R.id.discoverTvShowFragment)
         }
     }

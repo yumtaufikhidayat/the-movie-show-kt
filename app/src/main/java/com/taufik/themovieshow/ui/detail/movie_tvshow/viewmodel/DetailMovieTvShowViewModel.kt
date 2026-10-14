@@ -15,6 +15,10 @@ import com.taufik.themovieshow.model.response.tvshow.cast.TvShowsCastResponse
 import com.taufik.themovieshow.model.response.tvshow.detail.TvShowsPopularDetailResponse
 import com.taufik.themovieshow.model.response.tvshow.similar.TvShowsSimilarResponse
 import com.taufik.themovieshow.model.response.tvshow.video.TvShowsVideoResponse
+import com.taufik.themovieshow.utils.analytics.AnalyticsEvent
+import com.taufik.themovieshow.utils.analytics.AnalyticsTracker
+import com.taufik.themovieshow.utils.enums.DetailSource
+import com.taufik.themovieshow.utils.enums.FROM
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -23,10 +27,22 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class DetailMovieTvShowViewModel @Inject constructor(private val repository: ITheMovieShowRepository) : ViewModel() {
+class DetailMovieTvShowViewModel @Inject constructor(
+    private val repository: ITheMovieShowRepository,
+    private val analyticsTracker: AnalyticsTracker
+) : ViewModel() {
 
     var idMovieTvShow = 0
     var titleMovieTvShow = ""
+
+    private var isDetailOpenedLogged = false
+
+    /** Logs select_content once per detail screen, not again when its view is recreated. */
+    fun onDetailOpened(id: Int, title: String, from: FROM, source: DetailSource) {
+        if (isDetailOpenedLogged) return
+        isDetailOpenedLogged = true
+        analyticsTracker.log(AnalyticsEvent.SelectContent(id, title, from, source))
+    }
 
     // Movies
     fun detailMoviesResponse(movieId: Int): StateFlow<NetworkResult<MovieDetailResponse>> =
@@ -73,6 +89,7 @@ class DetailMovieTvShowViewModel @Inject constructor(private val repository: ITh
         releaseDate: String,
         rating: Double
     ) {
+        analyticsTracker.log(AnalyticsEvent.FavoriteAdd(movieId, title, FROM.MOVIE))
         viewModelScope.launch {
             repository.addMovieToFavorite(FavoriteMovieEntity(movieId, posterPath, title, releaseDate, rating))
         }
@@ -80,7 +97,8 @@ class DetailMovieTvShowViewModel @Inject constructor(private val repository: ITh
 
     suspend fun checkFavoriteMovie(movieId: Int) = repository.checkFavoriteMovie(movieId)
 
-    fun removeMovieFromFavorite(movieId: Int) {
+    fun removeMovieFromFavorite(movieId: Int, title: String) {
+        analyticsTracker.log(AnalyticsEvent.FavoriteRemove(movieId, title, FROM.MOVIE))
         viewModelScope.launch {
             repository.removeMovieFromFavorite(movieId)
         }
@@ -130,6 +148,7 @@ class DetailMovieTvShowViewModel @Inject constructor(private val repository: ITh
         firstAirDate: String,
         rating: Double
     ) {
+        analyticsTracker.log(AnalyticsEvent.FavoriteAdd(tvShowId, title, FROM.TV_SHOW))
         viewModelScope.launch {
             repository.addTvShowToFavorite(
                 FavoriteTvShowEntity(
@@ -141,7 +160,8 @@ class DetailMovieTvShowViewModel @Inject constructor(private val repository: ITh
 
     suspend fun checkFavoriteTvShow(tvShowId: Int) = repository.checkFavoriteTvShow(tvShowId)
 
-    fun removeTvShowFromFavorite(tvShowId: Int) {
+    fun removeTvShowFromFavorite(tvShowId: Int, title: String) {
+        analyticsTracker.log(AnalyticsEvent.FavoriteRemove(tvShowId, title, FROM.TV_SHOW))
         viewModelScope.launch {
             repository.removeTvShowFromFavorite(tvShowId)
         }

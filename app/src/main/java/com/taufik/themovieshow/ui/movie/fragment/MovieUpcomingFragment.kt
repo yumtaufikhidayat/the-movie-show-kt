@@ -10,6 +10,7 @@ import com.taufik.themovieshow.databinding.FragmentMovieTvShowsListBinding
 import com.taufik.themovieshow.ui.detail.movie_tvshow.viewmodel.DetailMovieTvShowViewModel
 import com.taufik.themovieshow.ui.movie.adapter.MovieAdapter
 import com.taufik.themovieshow.ui.movie.viewmodel.MovieViewModel
+import com.taufik.themovieshow.utils.enums.DetailSource
 import com.taufik.themovieshow.utils.enums.FROM
 import com.taufik.themovieshow.utils.extensions.filterAndSortByDate
 import com.taufik.themovieshow.utils.extensions.hideView
@@ -46,7 +47,8 @@ class MovieUpcomingFragment : BaseFragment<FragmentMovieTvShowsListBinding>() {
             navigateToDetailMovieTvShow(
                 detailMovieTvShowViewModel.idMovieTvShow,
                 detailMovieTvShowViewModel.titleMovieTvShow,
-                FROM.MOVIE
+                FROM.MOVIE,
+                DetailSource.UPCOMING
             )
         }
         binding.rvCommon.apply {

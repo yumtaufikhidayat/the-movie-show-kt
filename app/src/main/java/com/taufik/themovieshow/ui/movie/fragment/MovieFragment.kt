@@ -12,15 +12,22 @@ import com.taufik.themovieshow.R
 import com.taufik.themovieshow.base.fragment.BaseFragment
 import com.taufik.themovieshow.databinding.FragmentMovieBinding
 import com.taufik.themovieshow.ui.tablayout.MovieTvShowTabViewModel
+import com.taufik.themovieshow.utils.analytics.AnalyticsEvent
+import com.taufik.themovieshow.utils.analytics.AnalyticsTracker
+import com.taufik.themovieshow.utils.enums.FROM
 import com.taufik.themovieshow.utils.extensions.setupTabLayoutBinding
 import com.taufik.themovieshow.utils.extensions.showSuccessToasty
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.time.Duration.Companion.seconds
 
 @AndroidEntryPoint
 class MovieFragment : BaseFragment<FragmentMovieBinding>() {
+
+    @Inject
+    lateinit var analyticsTracker: AnalyticsTracker
 
     private var doubleBackToExitPressedOnce = false
     private val movieTvShowTabViewModel: MovieTvShowTabViewModel by viewModels()
@@ -83,6 +90,7 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
 
     private fun setActionClick() {
         binding.fabMovie.setOnClickListener {
+            analyticsTracker.log(AnalyticsEvent.OpenSearch(FROM.MOVIE))
             findNavController().navigate(R.id.discoverMovieFragment)
         }
     }

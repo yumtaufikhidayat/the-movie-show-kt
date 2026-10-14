@@ -25,16 +25,23 @@ import com.taufik.themovieshow.ui.detail.movie_tvshow.viewmodel.DetailMovieTvSho
 import com.taufik.themovieshow.ui.favorite.adapter.FavoriteMovieAdapter
 import com.taufik.themovieshow.ui.favorite.adapter.SortFilteringAdapter
 import com.taufik.themovieshow.ui.favorite.viewmodel.FavoriteMovieViewModel
+import com.taufik.themovieshow.utils.analytics.AnalyticsEvent
+import com.taufik.themovieshow.utils.analytics.AnalyticsTracker
+import com.taufik.themovieshow.utils.enums.DetailSource
 import com.taufik.themovieshow.utils.enums.FROM
 import com.taufik.themovieshow.utils.extensions.hideKeyboard
 import com.taufik.themovieshow.utils.extensions.navigateToDetailMovieTvShow
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class FavoriteMovieFragment : BaseFragment<FragmentFavoriteMovieBinding>() {
+
+    @Inject
+    lateinit var analyticsTracker: AnalyticsTracker
 
     private val viewModel: FavoriteMovieViewModel by viewModels(ownerProducer = { requireParentFragment() })
     private val detailMovieTvShowViewModel by viewModels<DetailMovieTvShowViewModel>()
@@ -47,7 +54,8 @@ class FavoriteMovieFragment : BaseFragment<FragmentFavoriteMovieBinding>() {
         navigateToDetailMovieTvShow(
             detailMovieTvShowViewModel.idMovieTvShow,
             detailMovieTvShowViewModel.titleMovieTvShow,
-            FROM.MOVIE
+            FROM.MOVIE,
+            DetailSource.FAVORITE
         )
     }}
 
@@ -94,6 +102,7 @@ class FavoriteMovieFragment : BaseFragment<FragmentFavoriteMovieBinding>() {
     }
 
     private fun showFilteringData(position: Int) {
+        analyticsTracker.log(AnalyticsEvent.FavoriteSort(FROM.MOVIE, position))
         FavoriteMovieViewModel.position = position
         viewModel.setFavoriteOrder(position)
         scrollToTopPositionItem()

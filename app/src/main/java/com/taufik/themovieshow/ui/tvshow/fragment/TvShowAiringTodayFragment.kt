@@ -10,6 +10,7 @@ import com.taufik.themovieshow.databinding.FragmentMovieTvShowsListBinding
 import com.taufik.themovieshow.ui.detail.movie_tvshow.viewmodel.DetailMovieTvShowViewModel
 import com.taufik.themovieshow.ui.tvshow.adapter.TvShowsAdapter
 import com.taufik.themovieshow.ui.tvshow.viewmodel.TvShowsViewModel
+import com.taufik.themovieshow.utils.enums.DetailSource
 import com.taufik.themovieshow.utils.enums.FROM
 import com.taufik.themovieshow.utils.extensions.filterAndSortByDate
 import com.taufik.themovieshow.utils.extensions.hideView
@@ -46,7 +47,8 @@ class TvShowAiringTodayFragment : BaseFragment<FragmentMovieTvShowsListBinding>(
             navigateToDetailMovieTvShow(
                 detailMovieTvShowViewModel.idMovieTvShow,
                 detailMovieTvShowViewModel.titleMovieTvShow,
-                FROM.TV_SHOW
+                FROM.TV_SHOW,
+                DetailSource.AIRING_TODAY
             )
         }
 

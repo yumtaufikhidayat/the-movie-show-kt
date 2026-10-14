@@ -44,6 +44,9 @@ import com.taufik.themovieshow.ui.detail.movie_tvshow.adapter.MovieTvShowSimilar
 import com.taufik.themovieshow.ui.detail.movie_tvshow.adapter.MovieTvShowTrailerVideoAdapter
 import com.taufik.themovieshow.ui.detail.movie_tvshow.viewmodel.DetailMovieTvShowViewModel
 import com.taufik.themovieshow.ui.favorite.helper.FavoriteAction
+import com.taufik.themovieshow.utils.analytics.AnalyticsEvent
+import com.taufik.themovieshow.utils.analytics.AnalyticsTracker
+import com.taufik.themovieshow.utils.enums.DetailSource
 import com.taufik.themovieshow.utils.enums.DetailTypeEnum
 import com.taufik.themovieshow.utils.enums.FROM
 import com.taufik.themovieshow.utils.enums.RatingCategory
@@ -75,9 +78,13 @@ import com.taufik.themovieshow.utils.helper.DynamicSnapHelper
 import com.taufik.themovieshow.utils.objects.CommonDateFormatConstants
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowBinding>() {
+
+    @Inject
+    lateinit var analyticsTracker: AnalyticsTracker
 
     private val detailMovieTvShowViewModel: DetailMovieTvShowViewModel by viewModels()
 
@@ -85,12 +92,14 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
     private val trailerVideoAdapter by lazy {
         MovieTvShowTrailerVideoAdapter {
             if (!isAdded) return@MovieTvShowTrailerVideoAdapter
+            analyticsTracker.log(AnalyticsEvent.PlayTrailer(idMovieTvShow, from))
             context?.showTrailerVideo(it.key)
         }
     }
 
     private val reviewsAdapter by lazy {
         MovieTvShowReviewsAdapter {
+            analyticsTracker.log(AnalyticsEvent.ReviewClick(idMovieTvShow, from))
             context?.tryOpenBrowser(it)
         }
     }
@@ -100,12 +109,20 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
             navigateToDetailMovieTvShow(
                 id = it.id,
                 title = it.titleText,
-                from = from
+                from = from,
+                source = DetailSource.SIMILAR
             )
         }
     }
 
     private val idMovieTvShow by lazy { arguments?.getInt(EXTRA_ID, 0) ?: 0 }
+
+    private val titleMovieTvShow by lazy { arguments?.getString(EXTRA_TITLE).orEmpty() }
+
+    private val source: DetailSource by lazy {
+        val sourceString = arguments?.getString(EXTRA_SOURCE)
+        DetailSource.entries.find { it.name == sourceString } ?: DetailSource.TRENDING
+    }
 
     private val from: FROM by lazy {
         val fromString = arguments?.getString(EXTRA_FROM)
@@ -123,8 +140,8 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                     voteAverage
                 )
             },
-            removeFavorite = { id ->
-                detailMovieTvShowViewModel.removeMovieFromFavorite(id)
+            removeFavorite = { id, title ->
+                detailMovieTvShowViewModel.removeMovieFromFavorite(id, title)
             }
         ),
         FROM.TV_SHOW to FavoriteAction(
@@ -137,8 +154,8 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                     voteAverage
                 )
             },
-            removeFavorite = { id ->
-                detailMovieTvShowViewModel.removeTvShowFromFavorite(id)
+            removeFavorite = { id, title ->
+                detailMovieTvShowViewModel.removeTvShowFromFavorite(id, title)
             }
         )
     )
@@ -165,6 +182,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
             backPressedCallback
         )
 
+        detailMovieTvShowViewModel.onDetailOpened(idMovieTvShow, titleMovieTvShow, from, source)
         showToolbarData()
         setDetailObserver(idMovieTvShow)
         setCastAdapter()
@@ -477,7 +495,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                     action.addFavorite(id, posterPath, title, releaseDate, voteAverage)
                     context?.showSuccessToastyIcon(getString(R.string.action_added_to_favorite))
                 } else {
-                    action.removeFavorite(id)
+                    action.removeFavorite(id, title)
                     context?.showSuccessToastyIcon(getString(R.string.action_removed_from_favorite))
                 }
             }
@@ -487,6 +505,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
     private fun shareAwesomeMovieOrTvShow(link: String) {
         if (!isAdded) return
         binding.imgShare.setOnClickListener {
+            analyticsTracker.log(AnalyticsEvent.Share(idMovieTvShow, from))
             context?.share(
                 getString(
                     when (from) {
@@ -503,7 +522,9 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
         binding.apply {
             tvReadMore.toggleVisibilityIf(true)
             tvReadMore.setOnClickListener {
-                if (tvReadMore.text.toString() == getString(R.string.tvReadMore)) {
+                val isExpanding = tvReadMore.text.toString() == getString(R.string.tvReadMore)
+                analyticsTracker.log(AnalyticsEvent.ReadMoreClick(idMovieTvShow, from, isExpanded = isExpanding))
+                if (isExpanding) {
                     tvOverview.maxLines = Integer.MAX_VALUE
                     tvOverview.ellipsize = null
                     tvReadMore.text = getString(R.string.tvReadLess)
@@ -1084,5 +1105,6 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
         const val EXTRA_ID = "EXTRA_ID"
         const val EXTRA_TITLE = "EXTRA_TITLE"
         const val EXTRA_FROM = "EXTRA_FROM"
+        const val EXTRA_SOURCE = "EXTRA_SOURCE"
     }
 }
