@@ -100,10 +100,24 @@ class AnalyticsEventTest {
         assertEvent(AnalyticsEvent.TabSelect("favoriteFragment"), "tab_select", mapOf("tab" to "favoriteFragment"))
         assertEvent(AnalyticsEvent.LanguageChange("in"), "language_change", mapOf("language" to "in"))
         assertEvent(AnalyticsEvent.AboutItemClick("github"), "about_item_click", mapOf("item" to "github"))
+    }
+
+    @Test
+    fun `retry click carries the screen and section, plus the item on detail`() {
         assertEvent(
-            AnalyticsEvent.RetryClick("discoverMovieFragment"),
+            AnalyticsEvent.RetryClick("discoverMovieFragment", section = "search"),
             "retry_click",
-            mapOf("screen_name" to "discoverMovieFragment")
+            mapOf("screen_name" to "discoverMovieFragment", "section" to "search")
+        )
+        assertEvent(
+            AnalyticsEvent.RetryClick("detailMovieTvShowFragment", section = "reviews", id = 7, from = FROM.TV_SHOW),
+            "retry_click",
+            mapOf(
+                "screen_name" to "detailMovieTvShowFragment",
+                "section" to "reviews",
+                "content_type" to "tv_show",
+                "item_id" to "7"
+            )
         )
     }
 
