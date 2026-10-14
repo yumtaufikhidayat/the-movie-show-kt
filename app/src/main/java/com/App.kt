@@ -2,6 +2,9 @@ package com
 
 import android.app.Application
 import android.content.Context
+import com.taufik.themovieshow.BuildConfig
+import com.taufik.themovieshow.utils.analytics.AnalyticsEvent
+import com.taufik.themovieshow.utils.analytics.AnalyticsTracker
 import com.taufik.themovieshow.utils.extensions.encryptAndStorePassphrase
 import com.taufik.themovieshow.utils.extensions.secureDataStore
 import com.taufik.themovieshow.utils.language.ContextUtils
@@ -13,9 +16,14 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import java.util.Locale
 import java.util.UUID
+import javax.inject.Inject
 
 @HiltAndroidApp
 class App : Application() {
+
+    @Inject
+    lateinit var analyticsTracker: AnalyticsTracker
+
     override fun attachBaseContext(base: Context) {
         val langCode = base.getSharedPreferences(LanguageCache.LANGUAGE_PREF_CACHE, MODE_PRIVATE)
             .getString(LanguageCache.KEY_LANGUAGE, LANGUAGE.ENGLISH.code) ?: LANGUAGE.ENGLISH.code
@@ -36,5 +44,7 @@ class App : Application() {
                 encryptAndStorePassphrase(rawPassphrase)
             }
         }
+
+        analyticsTracker.setUserProperty(AnalyticsEvent.USER_PROPERTY_BUILD_FLAVOR, BuildConfig.FLAVOR)
     }
 }
