@@ -5,6 +5,9 @@ import com.taufik.themovieshow.data.repository.FakeTheMovieShowRepository
 import com.taufik.themovieshow.model.response.tvshow.discover.DiscoverTvShowsResponse
 import com.taufik.themovieshow.model.response.tvshow.discover.DiscoverTvShowsResult
 import com.taufik.themovieshow.utils.MainDispatcherRule
+import com.taufik.themovieshow.utils.analytics.AnalyticsEvent
+import com.taufik.themovieshow.utils.analytics.FakeAnalyticsTracker
+import com.taufik.themovieshow.utils.enums.FROM
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
@@ -27,6 +30,7 @@ class DiscoverTvShowViewModelTest {
 
     private lateinit var repository: FakeTheMovieShowRepository
     private lateinit var viewModel: DiscoverTvShowViewModel
+    private val analyticsTracker = FakeAnalyticsTracker()
     private val requests = mutableListOf<String>()
 
     private val shogun = DiscoverTvShowsResult(
@@ -46,7 +50,7 @@ class DiscoverTvShowViewModelTest {
                 emit(NetworkResult.Success(DiscoverTvShowsResponse(1, results, 1, results.size)))
             }
         }
-        viewModel = DiscoverTvShowViewModel(repository)
+        viewModel = DiscoverTvShowViewModel(repository, analyticsTracker)
     }
 
     private fun TestScope.subscribe() {
@@ -76,6 +80,7 @@ class DiscoverTvShowViewModelTest {
 
         assertEquals(listOf("shogun"), requests)
         assertEquals(SearchUiState.Success(listOf(shogun)), viewModel.searchState.value)
+        assertEquals(listOf(AnalyticsEvent.Search("shogun", FROM.TV_SHOW)), analyticsTracker.events)
     }
 
     @Test

@@ -18,6 +18,7 @@ class DebouncedSearchTest {
 
     private val requests = mutableListOf<String>()
     private val errors = mutableListOf<String>()
+    private val reportedSearches = mutableListOf<String>()
     private val states = mutableListOf<SearchUiState<String>>()
     private val failingQueries = mutableSetOf<String>()
     private var collector: Job? = null
@@ -38,7 +39,8 @@ class DebouncedSearchTest {
                 }
             },
             items = { it },
-            onError = { errors += it }
+            onError = { errors += it },
+            onSearch = { reportedSearches += it }
         ).also { subscribe(it) }
 
     private fun TestScope.subscribe(search: DebouncedSearch<List<String>, String>) {
@@ -172,6 +174,7 @@ class DebouncedSearchTest {
         assertEquals(listOf("avatar", "avatar"), requests)
         assertEquals(SearchUiState.Success(listOf("avatar result")), search.state.value)
         assertEquals(listOf(ERROR_MESSAGE), errors)
+        assertEquals(listOf("avatar"), reportedSearches)
     }
 
     @Test
@@ -203,6 +206,35 @@ class DebouncedSearchTest {
 
         assertEquals(listOf(SLOW_QUERY, SLOW_QUERY), requests)
         assertEquals(SearchUiState.Success(listOf("$SLOW_QUERY result")), search.state.value)
+        assertEquals(listOf(SLOW_QUERY), reportedSearches)
+    }
+
+    @Test
+    fun `each sent query is reported once with its trimmed text`() = runTest {
+        val search = createSearch()
+
+        search.type(" avatar ")
+        settle()
+        search.searchNow()
+        settle()
+        search.type("avatars")
+        settle()
+
+        assertEquals(listOf("avatar", "avatars"), reportedSearches)
+    }
+
+    @Test
+    fun `blank query is not reported and the same query is reported again after clearing`() = runTest {
+        val search = createSearch()
+
+        search.type("avatar")
+        settle()
+        search.onQueryChanged("")
+        settle()
+        search.type("avatar")
+        settle()
+
+        assertEquals(listOf("avatar", "avatar"), reportedSearches)
     }
 
     private companion object {
