@@ -15,6 +15,10 @@ import com.taufik.themovieshow.model.response.tvshow.detail.TvShowsPopularDetail
 import com.taufik.themovieshow.model.response.tvshow.similar.TvShowsSimilarResponse
 import com.taufik.themovieshow.model.response.tvshow.video.TvShowsVideoResponse
 import com.taufik.themovieshow.utils.MainDispatcherRule
+import com.taufik.themovieshow.utils.analytics.AnalyticsEvent
+import com.taufik.themovieshow.utils.analytics.FakeAnalyticsTracker
+import com.taufik.themovieshow.utils.enums.DetailSource
+import com.taufik.themovieshow.utils.enums.FROM
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flowOf
@@ -34,12 +38,14 @@ class DetailMovieTvShowViewModelTest {
     val mainDispatcherRule = MainDispatcherRule()
 
     private lateinit var repository: FakeTheMovieShowRepository
+    private lateinit var analyticsTracker: FakeAnalyticsTracker
     private lateinit var viewModel: DetailMovieTvShowViewModel
 
     @Before
     fun setUp() {
         repository = FakeTheMovieShowRepository()
-        viewModel = DetailMovieTvShowViewModel(repository)
+        analyticsTracker = FakeAnalyticsTracker()
+        viewModel = DetailMovieTvShowViewModel(repository, analyticsTracker)
     }
 
     private fun <T> success(data: T): Flow<NetworkResult<T>> = flowOf(NetworkResult.Success(data))
@@ -105,15 +111,17 @@ class DetailMovieTvShowViewModelTest {
             repository.favoriteMovies
         )
         assertEquals(1, viewModel.checkFavoriteMovie(42))
+        assertEquals(listOf(AnalyticsEvent.FavoriteAdd(42, "Inception", FROM.MOVIE)), analyticsTracker.events)
     }
 
     @Test
     fun `removing a movie clears its favorite status`() = runTest {
         viewModel.addMovieToFavorite(42, "/poster.jpg", "Inception", "2010-07-16", 8.4)
 
-        viewModel.removeMovieFromFavorite(42)
+        viewModel.removeMovieFromFavorite(42, "Inception")
 
         assertEquals(0, viewModel.checkFavoriteMovie(42))
+        assertEquals(AnalyticsEvent.FavoriteRemove(42, "Inception", FROM.MOVIE), analyticsTracker.events.last())
     }
 
     @Test
@@ -125,14 +133,27 @@ class DetailMovieTvShowViewModelTest {
             repository.favoriteTvShows
         )
         assertEquals(1, viewModel.checkFavoriteTvShow(7))
+        assertEquals(listOf(AnalyticsEvent.FavoriteAdd(7, "Dark", FROM.TV_SHOW)), analyticsTracker.events)
     }
 
     @Test
     fun `removing a tv show clears its favorite status`() = runTest {
         viewModel.addTvShowFavorite(7, "/poster.jpg", "Dark", "2017-12-01", 8.4)
 
-        viewModel.removeTvShowFromFavorite(7)
+        viewModel.removeTvShowFromFavorite(7, "Dark")
 
         assertEquals(0, viewModel.checkFavoriteTvShow(7))
+        assertEquals(AnalyticsEvent.FavoriteRemove(7, "Dark", FROM.TV_SHOW), analyticsTracker.events.last())
+    }
+
+    @Test
+    fun `opening the detail logs select content once`() {
+        viewModel.onDetailOpened(42, "Inception", FROM.MOVIE, DetailSource.SIMILAR)
+        viewModel.onDetailOpened(42, "Inception", FROM.MOVIE, DetailSource.SIMILAR)
+
+        assertEquals(
+            listOf(AnalyticsEvent.SelectContent(42, "Inception", FROM.MOVIE, DetailSource.SIMILAR)),
+            analyticsTracker.events
+        )
     }
 }

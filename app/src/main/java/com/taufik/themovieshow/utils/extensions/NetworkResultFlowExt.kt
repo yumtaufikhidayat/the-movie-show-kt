@@ -7,6 +7,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.taufik.themovieshow.BuildConfig
 import com.taufik.themovieshow.data.NetworkResult
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -17,8 +18,8 @@ fun <T> Flow<NetworkResult<T>>.observeNetworkResult(
     onLoading: (() -> Unit)? = null,
     onSuccess: (T) -> Unit,
     onError: ((String) -> Unit)? = null
-) {
-    lifecycleOwner.lifecycleScope.launch {
+): Job {
+    return lifecycleOwner.lifecycleScope.launch {
         lifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
             collectLatest { response ->
                 when (response) {

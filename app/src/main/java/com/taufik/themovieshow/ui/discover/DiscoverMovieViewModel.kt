@@ -4,19 +4,26 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.taufik.themovieshow.data.repository.ITheMovieShowRepository
 import com.taufik.themovieshow.model.response.movie.discover.DiscoverMovieResult
+import com.taufik.themovieshow.utils.analytics.AnalyticsEvent
+import com.taufik.themovieshow.utils.analytics.AnalyticsTracker
+import com.taufik.themovieshow.utils.enums.FROM
 import com.taufik.themovieshow.utils.extensions.recordNetworkError
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class DiscoverMovieViewModel @Inject constructor(repository: ITheMovieShowRepository) : ViewModel() {
+class DiscoverMovieViewModel @Inject constructor(
+    repository: ITheMovieShowRepository,
+    analyticsTracker: AnalyticsTracker
+) : ViewModel() {
 
     private val search = DebouncedSearch(
         scope = viewModelScope,
         search = repository::getDiscoverMovie,
         items = { it.results.orEmpty() },
-        onError = ::recordNetworkError
+        onError = ::recordNetworkError,
+        onSearch = { analyticsTracker.log(AnalyticsEvent.Search(it, FROM.MOVIE)) }
     )
 
     val searchState: StateFlow<SearchUiState<DiscoverMovieResult>> = search.state

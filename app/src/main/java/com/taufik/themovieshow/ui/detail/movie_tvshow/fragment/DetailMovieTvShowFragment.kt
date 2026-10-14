@@ -21,6 +21,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -44,6 +45,9 @@ import com.taufik.themovieshow.ui.detail.movie_tvshow.adapter.MovieTvShowSimilar
 import com.taufik.themovieshow.ui.detail.movie_tvshow.adapter.MovieTvShowTrailerVideoAdapter
 import com.taufik.themovieshow.ui.detail.movie_tvshow.viewmodel.DetailMovieTvShowViewModel
 import com.taufik.themovieshow.ui.favorite.helper.FavoriteAction
+import com.taufik.themovieshow.utils.analytics.AnalyticsEvent
+import com.taufik.themovieshow.utils.analytics.AnalyticsTracker
+import com.taufik.themovieshow.utils.enums.DetailSource
 import com.taufik.themovieshow.utils.enums.DetailTypeEnum
 import com.taufik.themovieshow.utils.enums.FROM
 import com.taufik.themovieshow.utils.enums.RatingCategory
@@ -74,10 +78,15 @@ import com.taufik.themovieshow.utils.extensions.tryOpenBrowser
 import com.taufik.themovieshow.utils.helper.DynamicSnapHelper
 import com.taufik.themovieshow.utils.objects.CommonDateFormatConstants
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowBinding>() {
+
+    @Inject
+    lateinit var analyticsTracker: AnalyticsTracker
 
     private val detailMovieTvShowViewModel: DetailMovieTvShowViewModel by viewModels()
 
@@ -85,12 +94,14 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
     private val trailerVideoAdapter by lazy {
         MovieTvShowTrailerVideoAdapter {
             if (!isAdded) return@MovieTvShowTrailerVideoAdapter
+            analyticsTracker.log(AnalyticsEvent.PlayTrailer(idMovieTvShow, from))
             context?.showTrailerVideo(it.key)
         }
     }
 
     private val reviewsAdapter by lazy {
         MovieTvShowReviewsAdapter {
+            analyticsTracker.log(AnalyticsEvent.ReviewClick(idMovieTvShow, from))
             context?.tryOpenBrowser(it)
         }
     }
@@ -100,12 +111,20 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
             navigateToDetailMovieTvShow(
                 id = it.id,
                 title = it.titleText,
-                from = from
+                from = from,
+                source = DetailSource.SIMILAR
             )
         }
     }
 
     private val idMovieTvShow by lazy { arguments?.getInt(EXTRA_ID, 0) ?: 0 }
+
+    private val titleMovieTvShow by lazy { arguments?.getString(EXTRA_TITLE).orEmpty() }
+
+    private val source: DetailSource by lazy {
+        val sourceString = arguments?.getString(EXTRA_SOURCE)
+        DetailSource.entries.find { it.name == sourceString } ?: DetailSource.TRENDING
+    }
 
     private val from: FROM by lazy {
         val fromString = arguments?.getString(EXTRA_FROM)
@@ -123,8 +142,8 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                     voteAverage
                 )
             },
-            removeFavorite = { id ->
-                detailMovieTvShowViewModel.removeMovieFromFavorite(id)
+            removeFavorite = { id, title ->
+                detailMovieTvShowViewModel.removeMovieFromFavorite(id, title)
             }
         ),
         FROM.TV_SHOW to FavoriteAction(
@@ -137,8 +156,8 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                     voteAverage
                 )
             },
-            removeFavorite = { id ->
-                detailMovieTvShowViewModel.removeTvShowFromFavorite(id)
+            removeFavorite = { id, title ->
+                detailMovieTvShowViewModel.removeTvShowFromFavorite(id, title)
             }
         )
     )
@@ -150,6 +169,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
     }
 
     private var isChecked = false
+    private val sectionJobs = mutableMapOf<DetailTypeEnum, Job>()
     private var dialogController: ((Boolean) -> Unit)? = null
 
     override fun inflateBinding(
@@ -165,6 +185,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
             backPressedCallback
         )
 
+        detailMovieTvShowViewModel.onDetailOpened(idMovieTvShow, titleMovieTvShow, from, source)
         showToolbarData()
         setDetailObserver(idMovieTvShow)
         setCastAdapter()
@@ -182,11 +203,13 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
     private fun setDetailObserver(id: Int) {
         binding.apply {
             detailMovieTvShowViewModel.apply {
-                when (from) {
+                sectionJobs.remove(DetailTypeEnum.OVERVIEW)?.cancel()
+                sectionJobs[DetailTypeEnum.OVERVIEW] = when (from) {
                     FROM.MOVIE -> {
                         detailMoviesResponse(id).observeNetworkResult(
                             lifecycleOwner = viewLifecycleOwner,
                             onLoading = {
+                                layoutError.root.isVisible = false
                                 showShimmer(isLoading = true, type = DetailTypeEnum.OVERVIEW)
                                 updateDetailInformationState(isLoading = true)
                             },
@@ -211,9 +234,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                                 layoutError.showError(
                                     context = requireContext(),
                                     message = errorMessage,
-                                    onRetry = {
-                                        // TODO: Reload data
-                                    }
+                                    onRetry = { retrySection(DetailTypeEnum.OVERVIEW) }
                                 )
                             }
                         )
@@ -223,6 +244,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                         detailTvShowResponse(id).observeNetworkResult(
                             lifecycleOwner = viewLifecycleOwner,
                             onLoading = {
+                                layoutError.root.isVisible = false
                                 showShimmer(isLoading = true, type = DetailTypeEnum.OVERVIEW)
                                 updateDetailInformationState(isLoading = true)
                             },
@@ -246,9 +268,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                                 layoutError.showError(
                                     context = requireContext(),
                                     message = it,
-                                    onRetry = {
-                                        // TODO: Reload data
-                                    }
+                                    onRetry = { retrySection(DetailTypeEnum.OVERVIEW) }
                                 )
                             }
                         )
@@ -477,7 +497,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                     action.addFavorite(id, posterPath, title, releaseDate, voteAverage)
                     context?.showSuccessToastyIcon(getString(R.string.action_added_to_favorite))
                 } else {
-                    action.removeFavorite(id)
+                    action.removeFavorite(id, title)
                     context?.showSuccessToastyIcon(getString(R.string.action_removed_from_favorite))
                 }
             }
@@ -487,6 +507,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
     private fun shareAwesomeMovieOrTvShow(link: String) {
         if (!isAdded) return
         binding.imgShare.setOnClickListener {
+            analyticsTracker.log(AnalyticsEvent.Share(idMovieTvShow, from))
             context?.share(
                 getString(
                     when (from) {
@@ -503,7 +524,9 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
         binding.apply {
             tvReadMore.toggleVisibilityIf(true)
             tvReadMore.setOnClickListener {
-                if (tvReadMore.text.toString() == getString(R.string.tvReadMore)) {
+                val isExpanding = tvReadMore.text.toString() == getString(R.string.tvReadMore)
+                analyticsTracker.log(AnalyticsEvent.ReadMoreClick(idMovieTvShow, from, isExpanded = isExpanding))
+                if (isExpanding) {
                     tvOverview.maxLines = Integer.MAX_VALUE
                     tvOverview.ellipsize = null
                     tvReadMore.text = getString(R.string.tvReadLess)
@@ -536,7 +559,8 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
     private fun setCastObserver(id: Int) {
         binding.apply {
             detailMovieTvShowViewModel.apply {
-                when (from) {
+                sectionJobs.remove(DetailTypeEnum.CAST)?.cancel()
+                sectionJobs[DetailTypeEnum.CAST] = when (from) {
                     FROM.MOVIE -> {
                         detailMoviesCastResponse(id).observeNetworkResult(
                             lifecycleOwner = viewLifecycleOwner,
@@ -569,7 +593,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                                     message = it,
                                     actionText = getString(R.string.action_retry)
                                 ) {
-                                    setCastObserver(id)
+                                    retrySection(DetailTypeEnum.CAST)
                                 }
                             }
                         )
@@ -606,7 +630,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                                     message = it,
                                     actionText = getString(R.string.action_retry)
                                 ) {
-                                    setCastObserver(id)
+                                    retrySection(DetailTypeEnum.CAST)
                                 }
                             }
                         )
@@ -636,7 +660,8 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
     private fun showTrailerVideoObserver(id: Int) {
         binding.apply {
             detailMovieTvShowViewModel.apply {
-                when (from) {
+                sectionJobs.remove(DetailTypeEnum.TRAILER_VIDEO)?.cancel()
+                sectionJobs[DetailTypeEnum.TRAILER_VIDEO] = when (from) {
                     FROM.MOVIE -> {
                         detailMoviesVideoResponse(id).observeNetworkResult(
                             lifecycleOwner = viewLifecycleOwner,
@@ -671,7 +696,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                                     message = it,
                                     actionText = getString(R.string.action_retry)
                                 ) {
-                                    // TODO: Reload data
+                                    retrySection(DetailTypeEnum.TRAILER_VIDEO)
                                 }
                             }
                         )
@@ -711,7 +736,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                                     message = it,
                                     actionText = getString(R.string.action_retry)
                                 ) {
-                                    // TODO: Reload data
+                                    retrySection(DetailTypeEnum.TRAILER_VIDEO)
                                 }
                             }
                         )
@@ -739,7 +764,8 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
     private fun showReviewsObserver(id: Int) {
         binding.apply {
             detailMovieTvShowViewModel.apply {
-                when (from) {
+                sectionJobs.remove(DetailTypeEnum.REVIEWS)?.cancel()
+                sectionJobs[DetailTypeEnum.REVIEWS] = when (from) {
                     FROM.MOVIE -> {
                         detailMovieReviewsResponse(id).observeNetworkResult(
                             lifecycleOwner = viewLifecycleOwner,
@@ -770,7 +796,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                                     message = it,
                                     actionText = getString(R.string.action_retry)
                                 ) {
-                                    // TODO: Reload data
+                                    retrySection(DetailTypeEnum.REVIEWS)
                                 }
                             }
                         )
@@ -806,7 +832,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                                     message = it,
                                     actionText = getString(R.string.action_retry)
                                 ) {
-                                    // TODO: Reload data
+                                    retrySection(DetailTypeEnum.REVIEWS)
                                 }
                             }
                         )
@@ -836,7 +862,8 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
     private fun showSimilarMovieOrTvShowObserver(id: Int) {
         binding.apply {
             detailMovieTvShowViewModel.apply {
-                when (from) {
+                sectionJobs.remove(DetailTypeEnum.SIMILAR)?.cancel()
+                sectionJobs[DetailTypeEnum.SIMILAR] = when (from) {
                     FROM.MOVIE -> {
                         detailMovieSimilarResponse(id).observeNetworkResult(
                             lifecycleOwner = viewLifecycleOwner,
@@ -866,7 +893,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                                     message = it,
                                     actionText = getString(R.string.action_retry)
                                 ) {
-                                    // TODO: Reload data
+                                    retrySection(DetailTypeEnum.SIMILAR)
                                 }
                             }
                         )
@@ -901,7 +928,7 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
                                     message = it,
                                     actionText = getString(R.string.action_retry)
                                 ) {
-                                    // TODO: Reload data
+                                    retrySection(DetailTypeEnum.SIMILAR)
                                 }
                             }
                         )
@@ -963,6 +990,33 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
             }
         }
     }
+
+    private fun retrySection(type: DetailTypeEnum) {
+        analyticsTracker.log(
+            AnalyticsEvent.RetryClick(
+                screenName = resources.getResourceEntryName(R.id.detailMovieTvShowFragment),
+                section = type.analyticsSection,
+                id = idMovieTvShow,
+                from = from
+            )
+        )
+        when (type) {
+            DetailTypeEnum.OVERVIEW -> setDetailObserver(idMovieTvShow)
+            DetailTypeEnum.CAST -> setCastObserver(idMovieTvShow)
+            DetailTypeEnum.TRAILER_VIDEO -> showTrailerVideoObserver(idMovieTvShow)
+            DetailTypeEnum.REVIEWS -> showReviewsObserver(idMovieTvShow)
+            DetailTypeEnum.SIMILAR -> showSimilarMovieOrTvShowObserver(idMovieTvShow)
+        }
+    }
+
+    private val DetailTypeEnum.analyticsSection: String
+        get() = when (this) {
+            DetailTypeEnum.OVERVIEW -> "detail"
+            DetailTypeEnum.CAST -> "cast"
+            DetailTypeEnum.TRAILER_VIDEO -> "trailer"
+            DetailTypeEnum.REVIEWS -> "reviews"
+            DetailTypeEnum.SIMILAR -> "similar"
+        }
 
     private fun showShimmer(
         isLoading: Boolean,
@@ -1084,5 +1138,6 @@ class DetailMovieTvShowBindingFragment : BaseFragment<FragmentDetailMovieTvShowB
         const val EXTRA_ID = "EXTRA_ID"
         const val EXTRA_TITLE = "EXTRA_TITLE"
         const val EXTRA_FROM = "EXTRA_FROM"
+        const val EXTRA_SOURCE = "EXTRA_SOURCE"
     }
 }

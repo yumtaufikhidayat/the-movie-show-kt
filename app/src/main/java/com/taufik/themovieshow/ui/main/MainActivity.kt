@@ -8,7 +8,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.withResumed
 import androidx.navigation.NavController
+import androidx.navigation.NavDestination
+import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
@@ -16,6 +19,8 @@ import androidx.navigation.ui.setupWithNavController
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.base.activity.BaseActivity
 import com.taufik.themovieshow.databinding.ActivityMainBinding
+import com.taufik.themovieshow.utils.analytics.AnalyticsEvent
+import com.taufik.themovieshow.utils.analytics.AnalyticsTracker
 import com.taufik.themovieshow.utils.extensions.applySystemBarInsets
 import com.taufik.themovieshow.utils.extensions.getLocalizedString
 import com.taufik.themovieshow.utils.extensions.showSuccessToasty
@@ -23,9 +28,14 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>() {
+
+    @Inject
+    lateinit var analyticsTracker: AnalyticsTracker
 
     private var navController: NavController? = null
     private val navControllerDestination = NavController.OnDestinationChangedListener { _, destination, _ ->
@@ -36,6 +46,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             R.id.detailMovieTvShowFragment -> showBottomNavigation(false)
             else -> showBottomNavigation(true)
         }
+        logScreenView(destination)
     }
     private val viewModel: MainViewModel by viewModels()
 
@@ -64,6 +75,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         navController?.let {
             binding.navBottom.setupWithNavController(it)
             binding.navBottom.setOnItemSelectedListener { item ->
+                analyticsTracker.log(AnalyticsEvent.TabSelect(resources.getResourceEntryName(item.itemId)))
                 val currentDestination = it.currentDestination?.id
                 if (item.itemId == currentDestination) {
                     it.popBackStack(item.itemId, inclusive = true)
@@ -92,6 +104,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 }
             }
             .launchIn(lifecycleScope)
+    }
+
+    // Firebase drops screen_view while the activity is not resumed, e.g. for the start destination set in onCreate.
+    private fun logScreenView(destination: NavDestination) {
+        val screenName = resources.getResourceEntryName(destination.id)
+        val screenClass = (destination as? FragmentNavigator.Destination)?.className
+            ?.substringAfterLast('.')
+            ?: screenName
+        lifecycleScope.launch {
+            withResumed { analyticsTracker.log(AnalyticsEvent.ScreenView(screenName, screenClass)) }
+        }
     }
 
     private fun showBottomNavigation(isShow: Boolean) {

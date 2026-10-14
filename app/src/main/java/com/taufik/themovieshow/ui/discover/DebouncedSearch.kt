@@ -25,6 +25,7 @@ class DebouncedSearch<R, T>(
     private val search: (String) -> Flow<NetworkResult<R>>,
     private val items: (R) -> List<T>,
     private val onError: (String) -> Unit,
+    private val onSearch: (String) -> Unit = {},
     debounceMillis: Long = DEBOUNCE_MILLIS
 ) {
 
@@ -33,6 +34,9 @@ class DebouncedSearch<R, T>(
 
     // Query that is in flight or already loaded. Cleared on error or cancellation, so it can be sent again.
     private var activeQuery: String? = null
+
+    // Last query reported to onSearch, so a retry or a resend after resume is not reported again.
+    private var reportedQuery: String? = null
 
     val state: StateFlow<SearchUiState<T>> = merge(
         typedQuery.debounce { if (it.isBlank()) 0L else debounceMillis },
@@ -43,8 +47,13 @@ class DebouncedSearch<R, T>(
         .flatMapLatest { query ->
             activeQuery = query
             if (query.isEmpty()) {
+                reportedQuery = null
                 flowOf(SearchUiState.Idle)
             } else {
+                if (query != reportedQuery) {
+                    reportedQuery = query
+                    onSearch(query)
+                }
                 search(query)
                     .map { it.toUiState() }
                     .onEach {

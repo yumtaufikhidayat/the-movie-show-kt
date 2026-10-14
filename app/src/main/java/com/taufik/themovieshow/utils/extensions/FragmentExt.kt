@@ -18,13 +18,15 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.ui.common.adapter.TabPagerAdapter
 import com.taufik.themovieshow.ui.detail.movie_tvshow.fragment.DetailMovieTvShowBindingFragment
+import com.taufik.themovieshow.utils.enums.DetailSource
 import com.taufik.themovieshow.utils.enums.FROM
 
-fun Fragment.navigateToDetailMovieTvShow(id: Int, title: String, from: FROM) {
+fun Fragment.navigateToDetailMovieTvShow(id: Int, title: String, from: FROM, source: DetailSource) {
     val bundle = Bundle().apply {
         putInt(DetailMovieTvShowBindingFragment.EXTRA_ID, id)
         putString(DetailMovieTvShowBindingFragment.EXTRA_TITLE, title)
         putString(DetailMovieTvShowBindingFragment.EXTRA_FROM, from.name)
+        putString(DetailMovieTvShowBindingFragment.EXTRA_SOURCE, source.name)
     }
     this.findNavController().navigate(
         R.id.detailMovieTvShowFragment,

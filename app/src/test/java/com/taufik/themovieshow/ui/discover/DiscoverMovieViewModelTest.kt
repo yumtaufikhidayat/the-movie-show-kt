@@ -5,6 +5,9 @@ import com.taufik.themovieshow.data.repository.FakeTheMovieShowRepository
 import com.taufik.themovieshow.model.response.movie.discover.DiscoverMovieResponse
 import com.taufik.themovieshow.model.response.movie.discover.DiscoverMovieResult
 import com.taufik.themovieshow.utils.MainDispatcherRule
+import com.taufik.themovieshow.utils.analytics.AnalyticsEvent
+import com.taufik.themovieshow.utils.analytics.FakeAnalyticsTracker
+import com.taufik.themovieshow.utils.enums.FROM
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
@@ -27,6 +30,7 @@ class DiscoverMovieViewModelTest {
 
     private lateinit var repository: FakeTheMovieShowRepository
     private lateinit var viewModel: DiscoverMovieViewModel
+    private val analyticsTracker = FakeAnalyticsTracker()
     private val requests = mutableListOf<String>()
 
     private val avatar = DiscoverMovieResult(
@@ -47,7 +51,7 @@ class DiscoverMovieViewModelTest {
                 emit(NetworkResult.Success(DiscoverMovieResponse(1, results, 1, results.size)))
             }
         }
-        viewModel = DiscoverMovieViewModel(repository)
+        viewModel = DiscoverMovieViewModel(repository, analyticsTracker)
     }
 
     private fun TestScope.subscribe() {
@@ -77,6 +81,7 @@ class DiscoverMovieViewModelTest {
 
         assertEquals(listOf("avatar"), requests)
         assertEquals(SearchUiState.Success(listOf(avatar)), viewModel.searchState.value)
+        assertEquals(listOf(AnalyticsEvent.Search("avatar", FROM.MOVIE)), analyticsTracker.events)
     }
 
     @Test

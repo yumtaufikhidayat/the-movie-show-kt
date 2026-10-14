@@ -22,14 +22,21 @@ import com.taufik.themovieshow.databinding.FragmentDiscoverTvShowBinding
 import com.taufik.themovieshow.model.response.tvshow.discover.DiscoverTvShowsResult
 import com.taufik.themovieshow.ui.detail.movie_tvshow.viewmodel.DetailMovieTvShowViewModel
 import com.taufik.themovieshow.ui.tvshow.adapter.DiscoverTvShowsAdapter
+import com.taufik.themovieshow.utils.analytics.AnalyticsEvent
+import com.taufik.themovieshow.utils.analytics.AnalyticsTracker
+import com.taufik.themovieshow.utils.enums.DetailSource
 import com.taufik.themovieshow.utils.enums.FROM
 import com.taufik.themovieshow.utils.extensions.navigateToDetailMovieTvShow
 import com.taufik.themovieshow.utils.extensions.showError
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class DiscoverTvShowFragment : BaseFragment<FragmentDiscoverTvShowBinding>() {
+
+    @Inject
+    lateinit var analyticsTracker: AnalyticsTracker
 
     private val viewModel by viewModels<DiscoverTvShowViewModel>()
     private val detailMovieTvShowViewModel by viewModels<DetailMovieTvShowViewModel>()
@@ -62,7 +69,8 @@ class DiscoverTvShowFragment : BaseFragment<FragmentDiscoverTvShowBinding>() {
             navigateToDetailMovieTvShow(
                 detailMovieTvShowViewModel.idMovieTvShow,
                 detailMovieTvShowViewModel.titleMovieTvShow,
-                FROM.TV_SHOW
+                FROM.TV_SHOW,
+                DetailSource.SEARCH
             )
         }
 
@@ -122,6 +130,7 @@ class DiscoverTvShowFragment : BaseFragment<FragmentDiscoverTvShowBinding>() {
                     )
                 }
                 is SearchUiState.Error -> layoutError.showError(requireContext(), state.message) {
+                    analyticsTracker.log(AnalyticsEvent.RetryClick(resources.getResourceEntryName(R.id.discoverTvShowFragment), section = "search"))
                     viewModel.searchNow()
                 }
             }

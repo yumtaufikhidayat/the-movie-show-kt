@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.withStarted
 import androidx.navigation.fragment.findNavController
 import com.taufik.themovieshow.R
 import com.taufik.themovieshow.base.fragment.BaseFragment
@@ -30,11 +31,14 @@ class SplashScreenFragment : BaseFragment<FragmentSplashScreenBinding>() {
     }
 
     private fun navigateToMovie() {
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             delay(2.seconds)
-            findNavController().apply {
-                popBackStack()
-                navigate(R.id.movieFragment)
+            // Navigation is ignored once the state is saved (screen locked or app in background), so wait until started.
+            viewLifecycleOwner.withStarted {
+                findNavController().apply {
+                    popBackStack()
+                    navigate(R.id.movieFragment)
+                }
             }
         }
     }
